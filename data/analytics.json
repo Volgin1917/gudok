@@ -1,5 +1,5 @@
 {
- "generated_local": "11.09.2026 17:35",
+ "generated_local": "11.09.2026 17:37",
  "calendar": [
   {
    "etype": "kids",
@@ -517,10 +517,10 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.057,
-  "today_items": 239,
+  "today_score": 0.052,
+  "today_items": 240,
   "today_pos": 208,
-  "today_neg": 125,
+  "today_neg": 126,
   "today_neu": 256,
   "series": [
    {
@@ -577,7 +577,7 @@
    },
    {
     "date": "2026-09-11",
-    "score": 0.057
+    "score": 0.052
    }
   ],
   "by_category": {
@@ -588,7 +588,7 @@
    "health": 0.0,
    "politics": 0.115,
    "security": -0.481,
-   "society": 0.176,
+   "society": 0.163,
    "sport": 0.167
   }
  },
@@ -681,10 +681,10 @@
    "source": "ulkompr",
    "tier": 3,
    "type": "tg",
-   "total": 23,
+   "total": 24,
    "primary": 20,
-   "dup": 3,
-   "repost_rate": 0.13,
+   "dup": 4,
+   "repost_rate": 0.17,
    "views_median": 842,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -698,6 +698,18 @@
    "dup": 6,
    "repost_rate": 0.26,
    "views_median": 7200,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "volkodav73",
+   "tier": 3,
+   "type": "tg",
+   "total": 22,
+   "primary": 16,
+   "dup": 6,
+   "repost_rate": 0.27,
+   "views_median": 3730,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -759,18 +771,6 @@
    "repost_rate": 0.14,
    "views_median": 2670,
    "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "volkodav73",
-   "tier": 3,
-   "type": "tg",
-   "total": 21,
-   "primary": 15,
-   "dup": 6,
-   "repost_rate": 0.29,
-   "views_median": 3730,
-   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
