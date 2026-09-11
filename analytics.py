@@ -286,18 +286,26 @@ def cluster_stories(items, now=None, window_h=72, min_size=3, threshold=0.30, to
 
 
 # ---------------------------------------------------------------- 3. sentiment
+
+
+def sentiment_of(text):
+    """Лексиконная тональность текста: (score -1..+1, pos, neg)."""
+    low = (text or "").lower()
+    neg = sum(1 for m in NEG if m in low)
+    pos = sum(1 for m in POS if m in low)
+    if not neg and not pos:
+        return 0.0, pos, neg
+    return (pos - neg) / (pos + neg), pos, neg
+
+
+
+
 def sentiment_score(items, days=14, now=None):
     """Лексиконная тональность: оценка дня, ряд 14 дней, разрез рубрик."""
     now = now or datetime.now(UTC4)
     today = now.date()
 
-    def score_text(text):
-        low = text.lower()
-        neg = sum(1 for m in NEG if m in low)
-        pos = sum(1 for m in POS if m in low)
-        if not neg and not pos:
-            return 0.0, pos, neg
-        return (pos - neg) / (pos + neg), pos, neg
+    score_text = sentiment_of
 
     day_scores = defaultdict(list)
     cat_scores = defaultdict(list)
@@ -421,9 +429,128 @@ def forecast_topics(trends):
     return out
 
 
+
+
+# ---------------------------------------------------------------- 6. инфопространство
+REGION_MARK = re.compile(r"ульяновск|димитровград|симбирск|\b73\b|област|русских|болдакин|\bуаз|волг|баратаевк|свияг", re.I)
+
+
+def build_infospace(items, trends, cfg):
+    """Сквозное исследование регионального информационного пространства."""
+    now = datetime.now(UTC4)
+    today = now.date()
+    week_ago = now - timedelta(days=7)
+    live = [it for it in items if _local_dt(it.get("published"))]
+    week = [it for it in live if _local_dt(it["published"]) >= week_ago]
+    primaries = [it for it in week if not it.get("dup_of")]
+    dups = [it for it in week if it.get("dup_of")]
+
+    # --- структура потока
+    by_type = Counter(it.get("source_type", "?") for it in week)
+    by_tier = Counter(f"T{it['tier']}" if it.get("tier") else "СМИ/подборка" for it in week)
+
+    # --- сеттеры повестки: кто первичен в кластерах перепечаток
+    setters = Counter()
+    cascades = []
+    for it in primaries:
+        if it.get("cluster") and it["cluster"] >= 2:
+            setters[it.get("channel") or it.get("source") or "?"] += 1
+            cascades.append({"size": it["cluster"], "title": it["title"][:100],
+                             "source": it.get("channel") or it.get("source"),
+                             "also": it.get("also_in", [])[:4], "url": it.get("url") or ""})
+    cascades.sort(key=lambda c: -c["size"])
+
+    # --- оригинальность по уровням
+    orig_by_tier = {}
+    for tier_key in ["T1", "T2", "T3", "СМИ/подборка"]:
+        tot = sum(1 for it in week if (f"T{it['tier']}" if it.get("tier") else "СМИ/подборка") == tier_key)
+        dup = sum(1 for it in week if it.get("dup_of") and (f"T{it['tier']}" if it.get("tier") else "СМИ/подборка") == tier_key)
+        if tot:
+            orig_by_tier[tier_key] = {"total": tot, "original": round((tot - dup) / tot, 2)}
+
+    # --- тональность по уровням и рубрикам
+    tone_by_tier = {}
+    for tier_key in ["T1", "T2", "T3", "СМИ/подборка"]:
+        sc = [sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:300]}")[0]
+              for it in primaries
+              if (f"T{it['tier']}" if it.get("tier") else "СМИ/подборка") == tier_key]
+        if sc:
+            tone_by_tier[tier_key] = round(sum(sc) / len(sc), 3)
+
+    # --- федеральное эхо vs своя повестка
+    fed = sum(1 for it in primaries if not REGION_MARK.search(f"{it.get('title','')} {(it.get('text') or '')[:300]}"))
+    fed_share = round(fed / len(primaries), 2) if primaries else 0
+
+    # --- покрытие муниципалитетов
+    muni = {}
+    for name, pat in (cfg.get("municipalities") or {}).items():
+        rx = re.compile(pat, re.I)
+        n = sum(1 for it in week if rx.search(f"{it.get('title','')} {(it.get('text') or '')[:400]}"))
+        muni[name] = n
+    silent = [m for m, n in muni.items() if n == 0]
+    low = [m for m, n in muni.items() if 0 < n <= 2]
+
+    # --- дневной объём повестки (все темы)
+    days = (trends or {}).get("days", [])
+    daily = [0] * len(days)
+    if days:
+        idx = {d: i for i, d in enumerate(days)}
+        for it in week:
+            d = _local_dt(it["published"]).astimezone(UTC4).date().isoformat() if _local_dt(it["published"]) else None
+            if d in idx:
+                daily[idx[d]] += 1
+
+    # --- выводы
+    concl = []
+    if primaries:
+        orig_share = round(len(primaries) / len(week), 2) if week else 0
+        concl.append(f"За 7 дней поток составил {len(week)} сообщений, из них оригинальных (не перепечаток) — {int(orig_share*100)}%.")
+    if setters:
+        top_set = setters.most_common(3)
+        concl.append("Повестку задают: " + ", ".join(f"{esc_(s_)} (первичен в {n} каскадах)" for s_, n in top_set) + ".")
+    if cascades:
+        c0 = cascades[0]
+        concl.append(f"Крупнейший каскад недели — «{c0['title'][:70]}» (×{c0['size']} источников).")
+    if tone_by_tier:
+        t1 = tone_by_tier.get("T1"); t3 = tone_by_tier.get("T3")
+        if t1 is not None and t3 is not None and abs(t1 - t3) > 0.1:
+            concl.append(f"Тон различается по уровням: официальные каналы {t1:+.2f}, авторские/анонимные {t3:+.2f} — "
+                         + ("официальная картина позитивнее." if t1 > t3 else "официальная картина тревожнее."))
+    concl.append(f"Федеральное эхо: {int(fed_share*100)}% оригинальных сообщений не про регион напрямую.")
+    if silent:
+        concl.append(f"Зоны информационного молчания (0 упоминаний за 7 дней): {', '.join(silent[:8])}.")
+    if low:
+        concl.append(f"На грани видимости (1–2 упоминания): {', '.join(low[:8])}.")
+
+    return {
+        "generated_local": now.strftime("%d.%m.%Y %H:%M"),
+        "week_items": len(week), "week_primaries": len(primaries), "week_dups": len(dups),
+        "by_type": dict(by_type), "by_tier": dict(by_tier),
+        "orig_by_tier": orig_by_tier,
+        "setters": setters.most_common(8),
+        "cascades": cascades[:6],
+        "tone_by_tier": tone_by_tier,
+        "federal_share": fed_share,
+        "municipal": dict(sorted(muni.items(), key=lambda x: -x[1])),
+        "silent": silent, "low": low,
+        "daily": daily, "days": days,
+        "conclusions": concl,
+    }
+
+
+def esc_(v):
+    return str(v)
+
+
+
 # ---------------------------------------------------------------- build all
 def build_all(items, trends, cfg=None):
     now = datetime.now(UTC4)
+    infospace = build_infospace(items, trends, cfg)
+    os.makedirs(DATA, exist_ok=True)
+    with open(os.path.join(DATA, "infospace.json"), "w", encoding="utf-8") as f:
+        json.dump(infospace, f, ensure_ascii=False, indent=1)
+
     result = {
         "generated_local": now.strftime("%d.%m.%Y %H:%M"),
         "calendar": extract_calendar(items, now),

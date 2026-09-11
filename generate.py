@@ -283,7 +283,7 @@ INDEX_CSS = """
 .lead-card h3 a{color:var(--navy);} .lead-card h3 a:hover{color:var(--blue);}
 .lead-card p{font-size:12.6px;color:var(--muted);line-height:1.5;}
 .lead-meta{margin-top:8px;font-size:11px;color:#8a99aa;font-weight:600;}
-.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;max-width:1200px;margin:20px auto 0;padding:0 18px;}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;max-width:1200px;margin:20px auto 0;padding:0 18px;}
 .tile{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px 16px;border-left:4px solid var(--blue);transition:transform .12s;}
 .tile:hover{transform:translateY(-2px);text-decoration:none;}
 .tile .ic{font-size:21px;}
@@ -486,6 +486,7 @@ def render_nav(cfg, current, prefix="", subnav=""):
         ("exec", "📋 Руководителю", f"{prefix}digests/{ex}" if ex_exists else ""),
         ("afisha", "🎭 Афиша", f"{prefix}afisha.html"),
         ("elections", "🗳 Выборы-2026", f"{prefix}special/elections_2026.html"),
+        ("infospace", "🔬 Инфопространство", f"{prefix}infospace.html"),
         ("archive", "🗄 Архив", f"{prefix}index.html#archive"),
     ]
     utils = [
@@ -565,7 +566,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 <header class="topbar"><div class="topbar-inner">
 <div class="brand">{EMBLEM}<div>
 <div class="brand-title">ИЗДАНИЕ <span>«ГУДОК»</span></div>
-<div class="brand-sub">Ежедневный дайджест · Ульяновская область · выпуск № {digest_no}{' · 🧪 ТЕСТОВЫЙ' if digest_no == 0 else ''}</div>
+<div class="brand-sub">Листок марксистской группы «Победа» · выпуск № {digest_no}{' · 🧪 ТЕСТОВЫЙ' if digest_no == 0 else ''}</div>
 </div></div>
 <div class="top-meta">
 <div class="chip">{'🧪 тестовый номер · ' if digest_no == 0 else ''}<span class="dot"></span> Выпуск от <b>{day:%d.%m.%Y}</b></div>
@@ -878,7 +879,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
     meta = (status or {}).get("_meta", {})
     parts.append(f"""</div>
 <footer class="footer"><div class="footer-inner">
-<div><b>{cfg['brand']}</b><p>Выпуск №{digest_no} от {day:%d.%m.%Y}. Собрано автоматически: {esc(meta.get('last_run_local','—'))} (UTC+4), новых записей: {meta.get('new','—')}.</p></div>
+<div><b>{cfg['brand']}</b><p>{esc(cfg['tagline_full'])}</p><p style="margin-top:6px;">Выпуск №{digest_no} от {day:%d.%m.%Y}. Собрано автоматически: {esc(meta.get('last_run_local','—'))} (UTC+4).</p></div>
 <div><b>Методика</b><p>Мониторинг RSS ({', '.join(s['name'] for s in cfg['rss_sources'] if s.get('enabled', True))}) и публичных превью Telegram-каналов (t.me/s/…). Классификация — по словарю config.json; тренды — сравнение 3-дневного окна с недельной базой.</p></div>
 <div><b>Навигация</b><p><a href="../index.html" style="color:#ffd47e;">← Первая полоса</a> · <a href="../special/analytics_2026-09-11.html" style="color:#ffd47e;">Аналитический спецвыпуск 11.09</a></p></div>
 </div></footer></body></html>""")
@@ -986,7 +987,7 @@ def render_exec(cfg, trends, store, status, date_str):
 {nav_html}<div class="exec-wrap">
 <div class="exec-head">
 <h1>📋 Дайджест руководителя</h1>
-<div class="d"><b>{cfg['brand']}</b> · Ульяновская область<br>{day:%d.%m.%Y} · сформирован {now:%H:%M} (UTC+4) · 1 страница</div>
+<div class="d"><b>«Гудок»</b> · листок марксистской группы «Победа»<br>{day:%d.%m.%Y} · сформирован {now:%H:%M} (UTC+4) · 1 страница</div>
 </div>
 
 <div class="exec-sec"><h2>5 событий дня</h2><ol>{li(events, 'события')}</ol></div>
@@ -1122,7 +1123,7 @@ def render_elections(cfg, trends, store, status):
 <header class="topbar"><div class="topbar-inner">
 <div class="brand">{EMBLEM}<div>
 <div class="brand-title">ИЗДАНИЕ <span>«ГУДОК»</span> · ВЫБОРЫ-2026</div>
-<div class="brand-sub">Спецвыпуск · губернатор, Госдума IX созыва, довыборы в ЗСО</div>
+<div class="brand-sub">Листок группы «Победа» · спецвыпуск: губернатор, Госдума IX созыва, довыборы в ЗСО</div>
 </div></div>
 <div class="top-meta">
 <div class="chip">🗳 Голосование <b>18–20 сентября</b></div>
@@ -1356,7 +1357,7 @@ def render_afisha(cfg, trends, store, status, an):
 <header class="topbar"><div class="topbar-inner">
 <div class="brand">{EMBLEM}<div>
 <div class="brand-title">🎭 АФИША <span>«ГУДОК»</span></div>
-<div class="brand-sub">Культурные события Ульяновской области · автоматически из {len(cfg.get('telegram_channels', []))}+ источников</div>
+<div class="brand-sub">Листок группы «Победа» · культурные события Ульяновской области</div>
 </div></div>
 <div class="top-meta">
 <div class="chip">📅 событий: <b>{total_n}</b></div>
@@ -1432,6 +1433,154 @@ def ru_date(dt):
     return f"{DAYS_RU[dt.weekday()]}, {dt.day} {MONTHS_RU[dt.month - 1]} {dt.year}"
 
 
+# ------------------------------------------------------------------ infospace
+def render_infospace(cfg, trends, store, status, info):
+    """«Инфопространство» — сквозное исследование информационного поля региона."""
+    now = datetime.now(UTC4)
+    if not info:
+        info = {}
+    week = info.get("week_items", 0)
+    prim = info.get("week_primaries", 0)
+    dups = info.get("week_dups", 0)
+    orig_pct = int(round(prim / week * 100)) if week else 0
+    fed_pct = int(round(info.get("federal_share", 0) * 100))
+
+    def bar_rows(pairs, mx=None, color="#2f80ed", fmt=str):
+        mx = mx or max((v for _, v in pairs), default=1) or 1
+        out = []
+        for label, v in pairs:
+            w = max(3, int(v / mx * 100))
+            out.append(f"""<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">{esc(str(label))}</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:{w}%;height:100%;background:{color};border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">{fmt(v)}</div></div>""")
+        return "".join(out)
+
+    setters = info.get("setters", [])
+    cascades = info.get("cascades", [])
+    tone_tier = info.get("tone_by_tier", {})
+    muni = info.get("municipal", {})
+    silent = info.get("silent", [])
+    low = info.get("low", [])
+    concl = info.get("conclusions", [])
+    orig_tier = info.get("orig_by_tier", {})
+
+    # каскады
+    casc_html = "".join(
+        f"""<div class="cal-ev" style="align-items:center;"><div class="cal-badge" style="background:var(--red);"><b>×{c['size']}</b><span>источн.</span></div>
+<div class="cal-txt"><a href="{esc(c.get('url') or '#')}" target="_blank" rel="noopener"><b>{esc(c['title'])}</b></a>
+<div class="t2">первоисточник: {esc(str(c.get('source','')))} · разошлось: {esc(', '.join(str(x) for x in c.get('also', [])))}</div></div></div>"""
+        for c in cascades) or '<div class="t2">Каскадов за неделю не зафиксировано.</div>'
+
+    # тон по уровням
+    def tone_chip(k, v):
+        color = "#b02a2f" if v < -0.1 else ("#1d7a4d" if v > 0.1 else "var(--muted)")
+        pos = max(2, min(98, int((v + 1) * 50)))
+        return f"""<div style="margin-bottom:9px;"><div style="display:flex;justify-content:space-between;font-size:12.4px;font-weight:700;color:var(--navy);">
+<span>{esc(k)}</span><span style="color:{color};">{v:+.2f}</span></div>
+<div class="tone-bar" style="height:12px;margin-top:3px;"><div class="tone-pin" style="left:{pos}%;height:18px;top:-3px;"></div></div></div>"""
+    tone_html = "".join(tone_chip(k, v) for k, v in sorted(tone_tier.items()))
+
+    # муниципалитеты
+    muni_pairs = list(muni.items())
+    muni_html = bar_rows(muni_pairs, color="#1d4066")
+    silence_html = ""
+    if silent or low:
+        chips = "".join(f'<span class="stchip" style="background:#fde7e8;color:#b02a2f;margin:2px;">{esc(m)} · 0</span>' for m in silent)
+        chips += "".join(f'<span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">{esc(m)} · 1–2</span>' for m in low)
+        silence_html = f'<div style="margin-top:10px;">{chips}</div>'
+
+    # оригинальность по уровням
+    orig_rows = "".join(
+        f"""<tr><td><b>{esc(k)}</b></td><td>{v['total']}</td><td>{int(v['original']*100)}%</td></tr>"""
+        for k, v in orig_tier.items())
+
+    daily = info.get("daily", [])
+    spark = sparkline(daily, w=280, h=48, color="#1d4066") if daily else ""
+
+    concl_html = "".join(f"<li>{esc(c)}</li>" for c in concl)
+
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Инфопространство — сквозное исследование · {cfg['brand']}</title>
+<style>{CSS}</style></head><body>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand">{EMBLEM}<div>
+<div class="brand-title">ИЗДАНИЕ <span>«ГУДОК»</span> · 🔬 ИНФОПРОСТРАНСТВО</div>
+<div class="brand-sub">Листок группы «Победа» · сквозное исследование информационного поля Ульяновской области</div>
+</div></div>
+<div class="top-meta">
+<div class="chip">период: <b>7 дней</b></div>
+<div class="chip">обновлено <b>{esc(info.get('generated_local', now.strftime('%d.%m %H:%M')))}</b></div>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+</div></div></header>
+{render_nav(cfg, "infospace", "")}
+
+<div class="page">
+
+<div class="kpi-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:6px;">
+<div class="kpi"><div class="num">{week}</div><div class="lbl">сообщений за 7 дней</div></div>
+<div class="kpi green"><div class="num">{orig_pct}%</div><div class="lbl">оригинальных (не перепечаток)</div></div>
+<div class="kpi violet"><div class="num">{len(cascades) and cascades[0]['size'] or 0}<small> макс.</small></div><div class="lbl">крупнейший каскад недели</div></div>
+<div class="kpi gold"><div class="num">{fed_pct}%</div><div class="lbl">федеральное эхо (не про регион)</div></div>
+<div class="kpi red"><div class="num">{len(silent)}<small> + {len(low)}</small></div><div class="lbl">молчащих и полунемых муниципалитетов</div></div>
+</div>
+<div class="note" style="margin-bottom:18px;">Раздел обновляется каждым прогоном конвейера — это не разовый отчёт, а непрерывное наблюдение за устройством регионального инфополя: кто производит новости, кто их тиражирует, какие сюжеты побеждают, кого не слышно. Данные — {esc(str(info.get('generated_local','')))}, база: {len(store)} записей.</div>
+
+<div class="sec-head"><h2>🎯 Кто задаёт повестку</h2><div class="line"></div>
+<div class="badge">первичность в каскадах перепечаток</div></div>
+<div class="grid2">
+<div class="card"><div class="card-pad">
+{bar_rows(setters, color="#2f80ed")}
+<div class="note">Считаются материалы, ставшие первичными в кластерах из 2+ источников (дедупликация). «ulpressa» — Telegram-канал, «Улпресса» — RSS той же редакции.</div></div></div>
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Объём повестки по дням</div>
+{spark}
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin:12px 0 8px;">Оригинальность по уровням</div>
+<table class="tbl"><tr><th>Уровень</th><th>Сообщений</th><th>Оригинальных</th></tr>{orig_rows}</table>
+<div class="note">T1 — официальные каналы и зарегистрированные СМИ, T2 — агрегаторы, T3 — авторские/анонимные.</div></div></div>
+</div>
+
+<div class="sec-head"><h2>🌊 Каскады недели</h2><div class="line"></div>
+<div class="badge">как сюжеты расходятся по каналам</div></div>
+<div class="card"><div class="card-pad">{casc_html}
+<div class="note">Каскад — одно событие, разошедшееся перепечатками по нескольким источникам. Ширина каскада = резонанс сюжета в инфополе.</div></div></div>
+
+<div class="sec-head"><h2>🎭 Тон информационного пространства</h2><div class="line"></div>
+<div class="badge">лексиконная оценка −1…+1</div></div>
+<div class="grid2">
+<div class="card"><div class="card-pad">{tone_html or '<i>Нет данных</i>'}
+<div class="note">Средняя тональность оригинальных сообщений за 7 дней по уровням источников. Оценка лексиконная, приблизительная.</div></div></div>
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Федеральное эхо vs своя повестка</div>
+<div class="bar-wrap" style="height:26px;display:flex;border-radius:8px;overflow:hidden;">
+<div style="width:{100-fed_pct}%;background:linear-gradient(90deg,#218a58,#3ec27f);color:#fff;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;">регион {100-fed_pct}%</div>
+<div style="width:{fed_pct}%;background:linear-gradient(90deg,#8a99aa,#b7c4d1);color:#fff;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;">федералы {fed_pct}%</div>
+</div>
+<div class="note">{fed_pct}% оригинальных сообщений недели — федеральные сюжеты (5G, ключевая ставка, Госдума, СВО-сводки и т.п.) без прямой региональной привязки. Для областной повестки это заметная доля «эха» — местное инфополе почти наполовину формируется извне.</div></div></div>
+</div>
+
+<div class="sec-head"><h2>🗺 Карта муниципалитетов: кого слышно</h2><div class="line"></div>
+<div class="badge">по упоминаниям за 7 дней</div></div>
+<div class="card"><div class="card-pad">{muni_html}{silence_html}
+<div class="note">Ульяновск не участвует в подсчёте (он заведомо доминирует). Красным — муниципалитеты, полностью выпавшие из инфополя за неделю; жёлтым — 1–2 упоминания. Это измеримый признак информационного неравенства территорий: жизнь районов существует для областного читателя только через происшествия или визиты чиновников.</div></div></div>
+
+<div class="sec-head"><h2>📌 Выводы наблюдения</h2><div class="line"></div>
+<div class="badge">автоматические</div></div>
+<div class="card"><div class="card-pad"><div class="verdict"><b>Сводка недели</b>
+<ul style="padding-left:20px;margin-top:4px;line-height:1.7;font-size:13px;">{concl_html}</ul></div>
+<div class="note">Выводы формируются правилами analytics.py; по мере накопления истории добавятся сравнения неделя-к-неделе и сезонность.</div></div></div>
+
+</div>
+<footer class="footer"><div class="footer-inner">
+<div><b>«Гудок»</b><p>{esc(cfg['tagline_full'])}</p></div>
+<div><b>Методика</b><p>Дедупликация (Жаккар + вложенность заголовков), TF-IDF-кластеризация, лексикон тональности (±110 маркеров), географические маркеры муниципалитетов. Всё — на открытых данных мониторинга; воспроизводится из data/store.jsonl.</p></div>
+<div><b>Навигация</b><p><a href="index.html" style="color:#ffd47e;">Первая полоса</a> · <a href="special/analytics_2026-09-11.html" style="color:#ffd47e;">Аналитика недели</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a></p></div>
+</div></footer>
+</body></html>"""
+
+
 # ------------------------------------------------------------------ index
 def render_index(cfg, trends, store, status, digest_files, special_files):
     """Первая полоса издания: главное за день, разделы, повестка, афиша, архив, источники."""
@@ -1505,6 +1654,8 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
          f"digests/{exec_name}" if exec_exists else "", "#1d7a4d"),
         ("🎭", "Афиша области", f"{cal} событий на 45 дней · фильтры по дням", "afisha.html", "#9a4d8f"),
         ("🗳", "Выборы-2026", vote_txt, "special/elections_2026.html", "#b02a2f"),
+        ("🔬", "Инфопространство", "сквозное исследование: сеттеры, каскады, тон, карта районов",
+         "infospace.html", "#0f9b8e"),
         ("📈", "Тренды повестки", f"{len((trends or {}).get('topics', {}))} тем под наблюдением, прогноз на завтра",
          "#pulse", "var(--gold)"),
     ]
@@ -1597,7 +1748,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <header class="masthead"><div class="mast-inner">
 <div class="mast-brand">
 <div class="mast-title">«Г<em>У</em>ДОК»</div>
-<div class="mast-slogan">Информационно-аналитическое издание · Ульяновская область · выходит с 11.09.2026</div>
+<div class="mast-slogan">{esc(cfg["tagline_short"])} · выходит с 11.09.2026</div>
 </div>
 <div class="mast-right">
 <div class="date">{ru_date(now)}</div>
@@ -1645,7 +1796,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 </div>
 
 <footer class="footer"><div class="footer-inner">
-<div><b>«Гудок»</b><p>Информационно-аналитическое издание о Ульяновской области. Выходит ежедневно в 07:30 (UTC+4). Материалы принадлежат их изданиям; дайджест носит информационно-аналитический характер, все факты — со ссылками на первоисточники.</p></div>
+<div><b>«Гудок»</b><p>{esc(cfg['tagline_full'])} Выходит ежедневно в 07:30 (UTC+4).</p></div>
 <div><b>Разделы</b><p><a href="digests/{latest_name}" style="color:#ffd47e;">Свежий выпуск</a> · <a href="afisha.html" style="color:#ffd47e;">Афиша</a> · <a href="special/elections_2026.html" style="color:#ffd47e;">Выборы-2026</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a> · <a href="status.html" style="color:#ffd47e;">Статус системы</a></p></div>
 <div><b>Редакция</b><p>Автоматический мониторинг {len(tg_channels)} Telegram-каналов и {len(rss_sources)} RSS-лент. Колонку редактора и аналитику готовит ассистент. Служебная информация о сборах — на <a href="status.html" style="color:#ffd47e;">status-странице</a>.</p></div>
 </div></footer>
@@ -1719,6 +1870,11 @@ def main():
 
     afisha_html = themed(render_afisha(cfg, trends, store, status,
                                         load_json(os.path.join(DATA, "analytics.json")) or {}))
+    infospace_html = themed(render_infospace(cfg, trends, store, status,
+                                             load_json(os.path.join(DATA, "infospace.json")) or {}))
+    with open(os.path.join(BASE, "infospace.html"), "w", encoding="utf-8") as f:
+        f.write(infospace_html)
+    print("[generate] инфопространство: infospace.html")
     with open(os.path.join(BASE, "afisha.html"), "w", encoding="utf-8") as f:
         f.write(afisha_html)
     print("[generate] афиша: afisha.html")

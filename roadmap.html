@@ -82,6 +82,15 @@ a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
 .footer-inner{max-width:1180px;margin:0 auto;display:flex;gap:30px;flex-wrap:wrap;}
 .footer b{color:#fff;display:block;font-size:13px;margin-bottom:6px;}
 .footer p{line-height:1.6;max-width:480px;}
+
+.nav a.active{color:#fff;border-bottom-color:#f2b134;}
+.nav a.nav-util{color:#8fa9c4;font-weight:600;}
+.nav-util-first{margin-left:auto;}
+.subnav{background:var(--card);border-bottom:1px solid var(--line);}
+.subnav-inner{max-width:1180px;margin:0 auto;padding:7px 18px;display:flex;gap:15px;flex-wrap:wrap;font-size:12.2px;align-items:center;}
+.subnav-inner a{color:var(--muted);font-weight:700;}
+.subnav-inner a:hover{color:var(--blue);}
+.subnav .lbl{color:var(--navy);font-weight:800;text-transform:uppercase;font-size:10px;letter-spacing:.9px;}
 @media (max-width:900px){.principles{grid-template-columns:repeat(2,1fr);}.ptasks{columns:1;}.grid2,.kpi-grid{grid-template-columns:1fr;}}
 @media print{.nav,.top-meta{display:none!important;}body{background:#fff;}.pcard,.kpi{box-shadow:none;break-inside:avoid;}}
 /* ===== ТЁМНАЯ ТЕМА ===== */
@@ -166,7 +175,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <svg width="44" height="50" viewBox="0 0 46 52" fill="none"><path d="M23 1 L44 9 V25 C44 38 35 47 23 51 C11 47 2 38 2 25 V9 Z" fill="#1d4066" stroke="#f2b134" stroke-width="2"/><rect x="19" y="13" width="8" height="4.5" rx="1" fill="#e8eef5"/><rect x="20.2" y="18.5" width="5.6" height="17" fill="#e8eef5"/><rect x="17" y="35.5" width="12" height="3.4" rx="1" fill="#e8eef5"/><rect x="15.4" y="39.2" width="15.2" height="3" rx="1" fill="#c9d8e8"/><circle cx="23" cy="10.4" r="2.6" fill="#f2b134"/></svg>
 <div>
 <div class="brand-title">ИЗДАНИЕ <span>«ГУДОК»</span> · РОАДМАП</div>
-<div class="brand-sub">Куда движется информационно-аналитическое издание</div>
+<div class="brand-sub">Листок марксистской группы «Победа» · куда движется издание</div>
 </div></div>
 <div class="top-meta">
 <div class="chip">📄 версия <b>2.3</b></div>
@@ -176,9 +185,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
 </div></div></header>
 
-<nav class="nav"><div class="nav-inner">
-<a href="index.html">🏠 Первая полоса</a><a href="digests/digest_2026-09-11.html">📰 Выпуск № 0</a><a href="afisha.html">🎭 Афиша</a><a href="special/elections_2026.html">🗳 Выборы</a><a href="#v1">✅ v1.0 готово</a><a href="#p1">Фаза 1 · Контент</a><a href="#p2">Фаза 2 · Аналитика</a><a href="#p3">Фаза 3 · Доставка</a><a href="#p4">Фаза 4 · Масштаб</a><a href="#infra">Инфраструктура</a><a href="#risks">Риски и KPI</a><a href="#sprint">Спринт</a>
-</div></nav>
+<nav class="nav"><div class="nav-inner"><a href="index.html">🏠 Первая полоса</a><a href="digests/digest_2026-09-11.html">📰 Выпуск № 0 🧪</a><a href="digests/exec_2026-09-11.html">📋 Руководителю</a><a href="afisha.html">🎭 Афиша</a><a href="special/elections_2026.html">🗳 Выборы-2026</a><a href="infospace.html">🔬 Инфопространство</a><a href="index.html#archive">🗄 Архив</a><a class="nav-util nav-util-first" href="special/analytics_2026-09-11.html">Аналитика недели</a><a class="nav-util active" href="roadmap.html">🧭 Роадмап</a><a class="nav-util" href="status.html">🩺 Статус</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">В роадмапе:</span><a href="#v1">v1.0 готово</a><a href="#p1">Фаза 1 · Контент</a><a href="#p2">Фаза 2 · Аналитика</a><a href="#p3">Фаза 3 · Доставка</a><a href="#p4">Фаза 4 · Масштаб</a><a href="#infra">Инфраструктура</a><a href="#risks">Риски и KPI</a><a href="#sprint">Спринт</a></div></div>
 
 <div class="page">
 

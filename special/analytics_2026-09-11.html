@@ -319,6 +319,18 @@
 }
 .theme-btn{border:1px solid rgba(255,255,255,.22);font-size:13px;padding:6px 12px;border-radius:8px;cursor:pointer;background:rgba(255,255,255,.12);color:#ffe9b8;font-weight:800;}
 .theme-btn:hover{background:rgba(255,255,255,.22);}
+
+  .nav a.active{color:#fff;border-bottom-color:var(--gold);}
+  .nav a.nav-util{color:#8fa9c4;font-weight:600;}
+  .nav a.nav-util:hover{color:#fff;}
+  .nav-util-first{margin-left:auto;}
+  .subnav{background:#fff;border-bottom:1px solid var(--line);}
+  :root[data-theme="dark"] .subnav{background:#12202f;border-color:#24384e;}
+  .subnav-inner{max-width:1360px;margin:0 auto;padding:7px 18px;display:flex;gap:15px;flex-wrap:wrap;font-size:12.2px;align-items:center;}
+  .subnav-inner a{color:var(--muted);font-weight:700;text-decoration:none;}
+  .subnav-inner a:hover{color:var(--blue);}
+  .subnav .lbl{color:var(--navy);font-weight:800;text-transform:uppercase;font-size:10px;letter-spacing:.9px;}
+  :root[data-theme="dark"] .subnav .lbl{color:#dce9f8;}
 </style>
 <script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
@@ -341,7 +353,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
       </svg>
       <div>
         <div class="brand-title">ИЗДАНИЕ <span>«ГУДОК»</span></div>
-        <div class="brand-sub">Информационно-аналитическое издание · Ульяновская область</div>
+        <div class="brand-sub">Листок марксистской группы «Победа» · спецвыпуск «Аналитика недели»</div>
       </div>
     </div>
     <div class="top-meta">
@@ -355,17 +367,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </header>
 
 <!-- ================= NAV ================= -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="../index.html">🏠 Первая полоса</a><a href="#top">Главное</a>
-    <a href="#kpi">Показатели</a>
-    <a href="#feed" class="hot">📰 Лента новостей</a>
-    <a href="#elections" class="hot">🗳 Выборы 2026</a>
-    <a href="#analytics">📊 Аналитика</a>
-    <a href="#calendar">📅 Календарь</a>
-    <a href="#sources">Источники</a>
-  </div>
-</nav>
+<nav class="nav"><div class="nav-inner"><a href="../index.html">🏠 Первая полоса</a><a href="../digests/digest_2026-09-11.html">📰 Выпуск № 0 🧪</a><a href="../digests/exec_2026-09-11.html">📋 Руководителю</a><a href="../afisha.html">🎭 Афиша</a><a href="elections_2026.html">🗳 Выборы-2026</a><a href="../infospace.html">🔬 Инфопространство</a><a href="../index.html#archive">🗄 Архив</a><a class="nav-util nav-util-first active" href="analytics_2026-09-11.html">Аналитика недели</a><a class="nav-util" href="../roadmap.html">🧭 Роадмап</a><a class="nav-util" href="../status.html">🩺 Статус</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">В спецвыпуске:</span><a href="#top">Главное</a><a href="#kpi">Показатели</a><a href="#feed">Лента новостей</a><a href="#elections">Выборы</a><a href="#analytics">Аналитика</a><a href="#calendar">Календарь</a><a href="#sources">Источники</a></div></div>
 
 <!-- ================= TICKER ================= -->
 <div class="ticker-wrap">
@@ -1246,8 +1248,8 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <footer class="footer">
   <div class="footer-inner">
     <div>
-      <b>издание «Гудок»</b>
-      <p>Информационно-аналитическое издание по Ульяновской области. Выпуск от 11 сентября 2026 г. Формат: ежедневный обзорный дайджест с аналитическим блоком.</p>
+      <b>«Гудок»</b>
+      <p>Информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года.</p>
     </div>
     <div class="disc">
       <b>Дисклеймер</b>

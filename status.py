@@ -168,7 +168,7 @@ document.documentElement.setAttribute("data-theme",c);try{{localStorage.setItem(
 var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600\\ufe0f":"\\U0001F319";}}
 </script></head><body>
 <div class="topbar">
-<div><h1>🩺 Status — конвейер издания «Гудок»</h1><div class="sub">автообновление каждые 60 с · {now:%d.%m.%Y %H:%M} UTC+4</div></div>
+<div><h1>🩺 Status — конвейер издания «Гудок»</h1><div class="sub">листок марксистской группы «Победа» · автообновление каждые 60 с · {now:%d.%m.%Y %H:%M} UTC+4</div></div>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 
 </div>
@@ -178,6 +178,7 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 <a href="{latest_exec_href}">📋 Руководителю</a>
 <a href="afisha.html">🎭 Афиша</a>
 <a href="special/elections_2026.html">🗳 Выборы-2026</a>
+<a href="infospace.html">🔬 Инфопространство</a>
 <a href="index.html#archive">🗄 Архив</a>
 <a class="nav-util nav-util-first" href="special/analytics_2026-09-11.html">Аналитика недели</a>
 <a class="nav-util" href="roadmap.html">🧭 Роадмап</a>

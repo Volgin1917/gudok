@@ -1,0 +1,441 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Инфопространство — сквозное исследование · листок «Гудок»</title>
+<style>
+:root{--navy:#0d2137;--navy2:#14314f;--navy3:#1d4066;--blue:#2f80ed;--sky:#dce9f8;
+--gold:#f2b134;--red:#e5484d;--green:#2ea36b;--bg:#eef2f7;--card:#fff;--line:#dbe4ee;
+--txt:#1c2733;--muted:#5b6b7c;--radius:14px;--shadow:0 2px 10px rgba(13,33,55,.08);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt);font-size:15px;line-height:1.5;}
+a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+.topbar{background:linear-gradient(135deg,var(--navy),var(--navy2) 60%,var(--navy3));color:#fff;padding:14px 22px;box-shadow:0 2px 14px rgba(0,0,0,.25);}
+.topbar-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-title{font-size:19px;font-weight:800;letter-spacing:.6px;}
+.brand-title span{color:var(--gold);}
+.brand-sub{font-size:11.5px;color:#a9c1d9;text-transform:uppercase;letter-spacing:.4px;}
+.top-meta{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap;align-items:center;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 13px;font-size:12.5px;color:#e7eef6;display:flex;gap:7px;align-items:center;white-space:nowrap;}
+.chip b{color:var(--gold);}
+.dot{width:8px;height:8px;border-radius:50%;background:#41d17a;display:inline-block;animation:p 1.6s infinite;}
+.dot.err{background:#e5484d;}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
+.nav{background:var(--navy);border-top:1px solid rgba(255,255,255,.12);}
+.nav-inner{max-width:1280px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 14px;}
+.nav a{color:#c9d8e8;font-size:13px;font-weight:600;padding:10px 13px;white-space:nowrap;border-bottom:3px solid transparent;}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.06);text-decoration:none;}
+.page{max-width:1280px;margin:0 auto;padding:22px 18px 40px;}
+.sec-head{display:flex;align-items:center;gap:12px;margin:30px 0 14px;}
+.sec-head h2{font-size:20px;font-weight:800;color:var(--navy);}
+.sec-head .line{flex:1;height:2px;background:linear-gradient(90deg,var(--line),transparent);}
+.sec-head .badge{font-size:11px;font-weight:700;background:var(--sky);color:var(--navy3);padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.main-grid{display:grid;grid-template-columns:1fr 370px;gap:20px;align-items:start;}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden;}
+.card-pad{padding:16px 18px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.kpi{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:13px 15px;border-left:4px solid var(--blue);}
+.kpi .num{font-size:22px;font-weight:800;color:var(--navy);line-height:1.1;}
+.kpi .num small{font-size:12px;color:var(--muted);}
+.kpi .lbl{font-size:11.8px;color:var(--muted);margin-top:4px;}
+.kpi.gold{border-left-color:var(--gold);} .kpi.red{border-left-color:var(--red);}
+.kpi.green{border-left-color:var(--green);} .kpi.violet{border-left-color:#7b5aa6;}
+.topic-row{display:grid;grid-template-columns:210px 1fr 130px 90px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px;}
+.topic-row:last-child{border-bottom:none;}
+.topic-name{font-weight:700;color:var(--navy);}
+.topic-name small{display:block;font-weight:600;color:var(--muted);font-size:11px;}
+.stchip{font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 9px;white-space:nowrap;display:inline-block;}
+.bar-wrap{background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--blue),#5aa0f5);}
+.bar-fill.hot{background:linear-gradient(90deg,#d5494e,#f08a8d);}
+.bar-fill.warm{background:linear-gradient(90deg,#d99a1b,#f2c14e);}
+.bar-fill.cool{background:linear-gradient(90deg,#218a58,#3ec27f);}
+.tgpost{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);}
+.tgpost:last-child{border-bottom:none;}
+.tgpost .views{flex-shrink:0;background:#e8f4ff;color:#1d4f9c;border-radius:8px;font-size:11px;font-weight:800;padding:3px 8px;height:fit-content;white-space:nowrap;}
+.tgpost .t{font-size:12.8px;color:var(--txt);line-height:1.4;}
+.tgpost .m{font-size:11px;color:var(--muted);margin-top:2px;}
+.cat-block{margin-bottom:16px;}
+.cat-head{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#f8fbfe,#fff);}
+.cat-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex-shrink:0;}
+.cat-head h3{font-size:15px;font-weight:800;color:var(--navy);}
+.cat-head .count{margin-left:auto;font-size:11px;color:var(--muted);background:var(--bg);border-radius:999px;padding:3px 9px;font-weight:700;}
+.news-item{padding:11px 16px;border-bottom:1px dashed var(--line);}
+.news-item:last-child{border-bottom:none;}
+.news-item h4{font-size:13.8px;font-weight:700;line-height:1.35;margin-bottom:3px;}
+.news-item h4 a{color:var(--txt);} .news-item h4 a:hover{color:var(--blue);}
+.news-item p{font-size:12.5px;color:var(--muted);line-height:1.45;}
+.news-item .meta{font-size:10.8px;color:#8a99aa;margin-top:4px;font-weight:600;}
+.news-item .meta .tg{color:#1d4f9c;}
+.side-head{padding:12px 15px;background:var(--navy);color:#fff;font-size:13.5px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.side-head .sub{margin-left:auto;font-size:10.5px;font-weight:600;color:#9db6cf;}
+.side-body{padding:13px 15px;}
+.note{font-size:11.5px;color:var(--muted);background:#f7fafd;border:1px dashed var(--line);border-radius:9px;padding:8px 11px;margin-top:10px;line-height:1.45;}
+.verdict{background:#f7fafd;border-left:3px solid var(--gold);border-radius:0 9px 9px 0;padding:9px 13px;font-size:12.6px;color:var(--navy3);margin-top:10px;}
+.verdict b{color:#96690a;text-transform:uppercase;font-size:11px;letter-spacing:.8px;display:block;margin-bottom:3px;}
+.tbl{width:100%;border-collapse:collapse;font-size:12.8px;}
+.tbl th{background:var(--navy);color:#fff;text-align:left;padding:8px 11px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;}
+.tbl td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top;}
+.tbl tr:nth-child(even) td{background:#f8fbfe;}
+.ok{color:var(--green);font-weight:800;} .fail{color:var(--red);font-weight:800;}
+.arch-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);}
+.arch-item:last-child{border-bottom:none;}
+.arch-date{width:52px;height:46px;border-radius:10px;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;flex-shrink:0;}
+.arch-date b{font-size:16px;} .arch-date span{font-size:9px;color:#9db6cf;margin-top:2px;text-transform:uppercase;}
+.btn{display:inline-block;background:var(--navy);color:#fff;border-radius:9px;padding:8px 15px;font-size:12.5px;font-weight:700;}
+.btn:hover{background:var(--navy3);text-decoration:none;}
+.btn.gold{background:var(--gold);color:#3d2e04;}
+.alert-banner{background:linear-gradient(90deg,#b02a2f,#e5484d);color:#fff;padding:12px 20px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.alert-banner a{color:#ffe3a8;}
+.alert-banner .blink{animation:p 1s infinite;font-size:17px;}
+.print-btn{background:var(--gold);border:none;color:#3d2e04;font-weight:800;font-size:12px;padding:7px 14px;border-radius:8px;cursor:pointer;}
+.footer{background:var(--navy);color:#9db6cf;margin-top:36px;padding:24px 22px;font-size:12px;}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;gap:30px;flex-wrap:wrap;}
+.footer b{color:#fff;display:block;font-size:13px;margin-bottom:6px;}
+.footer p{line-height:1.6;max-width:480px;}
+code,pre{font-family:Consolas,Menlo,monospace;}
+.codebox{background:#0d2137;color:#c9d8e8;border-radius:10px;padding:12px 14px;font-size:12px;overflow-x:auto;line-height:1.55;}
+.codebox .c{color:#7fa3c7;}
+.cal-ev{display:flex;gap:11px;padding:8px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
+.cal-ev:last-child{border-bottom:none;}
+.cal-badge{flex-shrink:0;width:44px;height:42px;border-radius:9px;background:var(--navy3);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
+.cal-badge b{font-size:15px;} .cal-badge span{font-size:8.5px;text-transform:uppercase;color:#a9c1d9;margin-top:2px;}
+.cal-badge.gold{background:var(--gold);color:#4d3a06;} .cal-badge.gold span{color:#7a5f10;}
+.cal-txt{font-size:12.8px;line-height:1.4;}
+.cal-txt .t2{color:var(--muted);font-size:11.3px;}
+.cl-card{border:1px solid var(--line);border-radius:11px;padding:11px 14px;margin-bottom:10px;background:#fbfdff;}
+.cl-card.gap{border-left:4px solid var(--gold);}
+.cl-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:6px;}
+.cl-name{font-size:13.5px;font-weight:800;color:var(--navy);}
+.cl-badge{font-size:10px;font-weight:800;border-radius:999px;padding:2px 9px;}
+.cl-samples{font-size:12px;color:var(--muted);line-height:1.55;}
+.cl-samples a{color:var(--txt);}
+.tone-wrap{display:flex;gap:22px;align-items:center;flex-wrap:wrap;}
+.tone-gauge{flex:1;min-width:250px;}
+.tone-bar{height:20px;border-radius:10px;background:linear-gradient(90deg,#d5494e,#efe6cd 50%,#3ec27f);position:relative;}
+.tone-pin{position:absolute;top:-4px;width:4px;height:28px;background:var(--navy);border-radius:2px;box-shadow:0 0 0 2px #fff;}
+.tone-cats{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;}
+.tone-cat{font-size:11px;border-radius:8px;padding:3px 9px;border:1px solid var(--line);background:#fff;font-weight:700;}
+.fc-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px;}
+.fc-tbl th{text-align:left;padding:6px 10px;background:var(--bg);color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;}
+.fc-tbl td{padding:6px 10px;border-bottom:1px dashed var(--line);}
+.fc-up{color:#b02a2f;font-weight:800;} .fc-down{color:#1d7a4d;font-weight:800;} .fc-flat{color:var(--muted);font-weight:800;}
+.tchip{display:inline-block;font-size:10px;font-weight:700;background:#eef4fc;color:#3d5a7a;border:1px solid #d8e4f2;border-radius:999px;padding:1px 8px;margin:5px 4px 0 0;}
+.hero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.hero-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border-top:4px solid var(--blue);padding:14px 16px;display:flex;flex-direction:column;}
+.hero-card .hk{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--blue);margin-bottom:7px;display:flex;justify-content:space-between;}
+.hero-card .hk .w{color:var(--muted);letter-spacing:.2px;text-transform:none;font-weight:600;}
+.hero-card h3{font-size:15.5px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:7px;}
+.hero-card h3 a{color:var(--navy);} .hero-card h3 a:hover{color:var(--blue);}
+.hero-card p{font-size:12.8px;color:var(--muted);line-height:1.5;}
+.hero-meta{margin-top:auto;padding-top:8px;font-size:11px;color:#8a99aa;font-weight:600;border-top:1px dashed var(--line);}
+.chrono{border-left:3px solid var(--red);padding-left:15px;margin-top:6px;}
+.chrono-item{position:relative;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12.8px;line-height:1.4;}
+.chrono-item:last-child{border-bottom:none;}
+.chrono-item::before{content:"";position:absolute;left:-22px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--red);border:2px solid #fff;}
+.chrono-time{font-weight:800;color:var(--red);font-size:11.5px;margin-right:6px;white-space:nowrap;}
+@media (max-width:1080px){.main-grid,.grid2,.hero-grid{grid-template-columns:1fr;}.kpi-grid{grid-template-columns:repeat(2,1fr);}.grid3{grid-template-columns:1fr;}.topic-row{grid-template-columns:150px 1fr 110px;}.topic-row .sparkcell{display:none;}}
+@media print{.nav,.print-btn,.top-meta .chip{display:none!important;}body{background:#fff;}.card,.kpi{box-shadow:none;break-inside:avoid;}}
+
+.nav a.active{color:#fff;border-bottom-color:var(--gold);}
+.nav a.nav-util{color:#8fa9c4;font-weight:600;}
+.nav a.nav-util:hover{color:#fff;}
+.nav-util-first{margin-left:auto;}
+.subnav{background:var(--card);border-bottom:1px solid var(--line);}
+.subnav-inner{max-width:1280px;margin:0 auto;padding:7px 18px;display:flex;gap:15px;flex-wrap:wrap;font-size:12.2px;align-items:center;}
+.subnav-inner a{color:var(--muted);font-weight:700;}
+.subnav-inner a:hover{color:var(--blue);}
+.subnav .lbl{color:var(--navy);font-weight:800;text-transform:uppercase;font-size:10px;letter-spacing:.9px;}
+/* ===== ТЁМНАЯ ТЕМА ===== */
+:root[data-theme="dark"]{
+  --bg:#0b1622; --card:#12202f; --line:#24384e; --txt:#dfe9f4; --muted:#93a7bc;
+  --sky:#1c3350; --navy:#dce9f8; --navy3:#a9c9e8; --shadow:0 2px 12px rgba(0,0,0,.45);
+}
+:root[data-theme="dark"] .topbar{background:linear-gradient(135deg,#0a1826,#0f2033 60%,#14314f);}
+:root[data-theme="dark"] .nav{background:#0a1826;}
+:root[data-theme="dark"] .ticker-wrap{background:#060d16;border-color:#1d3550;}
+:root[data-theme="dark"] .side-head,
+:root[data-theme="dark"] .tbl th,
+:root[data-theme="dark"] .cal-badge,
+:root[data-theme="dark"] .arch-date,
+:root[data-theme="dark"] .dist-head,
+:root[data-theme="dark"] .exec-sec h2{background:#16283c;}
+:root[data-theme="dark"] .cal-badge.gold{background:var(--gold);color:#4d3a06;}
+:root[data-theme="dark"] .cal-badge.gold span{color:#7a5f10;}
+:root[data-theme="dark"] .cat-head{background:linear-gradient(90deg,#15263a,#12202f);border-color:var(--line);}
+:root[data-theme="dark"] .note{background:#101e2d;border-color:#24384e;}
+:root[data-theme="dark"] .verdict,:root[data-theme="dark"] .an-verdict{background:#101e2d;color:#c9d8e8;}
+:root[data-theme="dark"] .verdict b,:root[data-theme="dark"] .an-verdict b{color:#e8b64c;}
+:root[data-theme="dark"] .tbl tr:nth-child(even) td{background:#14243a;}
+:root[data-theme="dark"] .tbl td{border-color:var(--line);}
+:root[data-theme="dark"] .bar-wrap,:root[data-theme="dark"] .bar-row .bt{background:#1c3049;}
+:root[data-theme="dark"] .btn{background:#1d4066;color:#fff;}
+:root[data-theme="dark"] .btn:hover{background:#2a5580;}
+:root[data-theme="dark"] .footer{background:#0a1826;}
+:root[data-theme="dark"] .fbtn{background:#12202f;border-color:#24384e;color:var(--muted);}
+:root[data-theme="dark"] .fbtn.active{background:#2f80ed;border-color:#2f80ed;color:#fff;}
+:root[data-theme="dark"] .wx{background:linear-gradient(160deg,#15263a,#101e2d);border-color:#24384e;}
+:root[data-theme="dark"] .wx.alert{background:linear-gradient(160deg,#2a1c1c,#201414);border-color:#4e3030;}
+:root[data-theme="dark"] .wx .t{color:var(--txt);}
+:root[data-theme="dark"] .hero-src{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .drone{background:#251616;border-color:#4e3030;}
+:root[data-theme="dark"] .codebox{background:#060d16;}
+:root[data-theme="dark"] .cl-card{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .person{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .reserved{background:repeating-linear-gradient(45deg,#101e2d,#101e2d 12px,#0d1926 12px,#0d1926 24px);border-color:#2c4258;}
+:root[data-theme="dark"] .tone-cat{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .tgpost .views{background:#16283c;color:#8ab4e8;}
+:root[data-theme="dark"] .exec-wrap{background:var(--bg);}
+:root[data-theme="dark"] .news-item .meta .tg{color:#7fa8d9;}
+:root[data-theme="dark"] .fc-up{color:#ff8a8e;}
+:root[data-theme="dark"] .fc-down{color:#6fd39b;}
+:root[data-theme="dark"] .hl{color:#3d2e04;}
+:root[data-theme="dark"] .okrug-title .no{background:#1c3350;color:#cfe2f7;}
+:root[data-theme="dark"] .chipC{background:#101e2d;border-color:#24384e;color:var(--txt);}
+:root[data-theme="dark"] .timeline::before{background:linear-gradient(180deg,#2ea36b,#2f80ed 30%,#9a7cc9 60%,#d99a1b);}
+:root[data-theme="dark"] .phase::before{background:#0b1622;}
+:root[data-theme="dark"] .sprint{background:linear-gradient(135deg,#0f2033,#16283c);}
+:root[data-theme="dark"] .mission{background:var(--card);}
+:root[data-theme="dark"] .src-card{background:var(--card);border-color:var(--line);}
+.theme-btn{border:1px solid rgba(255,255,255,.22);font-size:13px;padding:6px 12px;border-radius:8px;cursor:pointer;background:rgba(255,255,255,.12);color:#ffe9b8;font-weight:800;}
+.theme-btn:hover{background:rgba(255,255,255,.22);}
+@media print{
+  :root[data-theme="dark"]{--bg:#fff;--card:#fff;--line:#dbe4ee;--txt:#1c2733;--muted:#5b6b7c;--navy:#0d2137;--navy3:#1d4066;--sky:#dce9f8;}
+  :root[data-theme="dark"] .exec-wrap{background:#fff;}
+  .theme-btn{display:none!important;}
+}
+</style><script>
+(function(){try{var t=localStorage.getItem("gudok-theme");
+if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
+document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
+</script></head><body>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><svg width="44" height="50" viewBox="0 0 46 52" fill="none">
+<path d="M23 1 L44 9 V25 C44 38 35 47 23 51 C11 47 2 38 2 25 V9 Z" fill="#1d4066" stroke="#f2b134" stroke-width="2"/>
+<rect x="19" y="13" width="8" height="4.5" rx="1" fill="#e8eef5"/>
+<rect x="20.2" y="18.5" width="5.6" height="17" fill="#e8eef5"/>
+<rect x="17" y="35.5" width="12" height="3.4" rx="1" fill="#e8eef5"/>
+<rect x="15.4" y="39.2" width="15.2" height="3" rx="1" fill="#c9d8e8"/>
+<circle cx="23" cy="10.4" r="2.6" fill="#f2b134"/></svg><div>
+<div class="brand-title">ИЗДАНИЕ <span>«ГУДОК»</span> · 🔬 ИНФОПРОСТРАНСТВО</div>
+<div class="brand-sub">Листок группы «Победа» · сквозное исследование информационного поля Ульяновской области</div>
+</div></div>
+<div class="top-meta">
+<div class="chip">период: <b>7 дней</b></div>
+<div class="chip">обновлено <b>11.09.2026 16:52</b></div>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+</div></div></header>
+<nav class="nav"><div class="nav-inner"><a class="" href="index.html">🏠 Первая полоса</a><a class="" href="digests/digest_2026-09-11.html">📰 Выпуск № 0 🧪</a><a class="" href="digests/exec_2026-09-11.html">📋 Руководителю</a><a class="" href="afisha.html">🎭 Афиша</a><a class="" href="special/elections_2026.html">🗳 Выборы-2026</a><a class="active" href="infospace.html">🔬 Инфопространство</a><a class="" href="index.html#archive">🗄 Архив</a><a class="nav-util nav-util-first" href="special/analytics_2026-09-11.html">Аналитика недели</a><a class="nav-util" href="roadmap.html">🧭 Роадмап</a><a class="nav-util" href="status.html">🩺 Статус</a></div></nav>
+
+<div class="page">
+
+<div class="kpi-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:6px;">
+<div class="kpi"><div class="num">627</div><div class="lbl">сообщений за 7 дней</div></div>
+<div class="kpi green"><div class="num">83%</div><div class="lbl">оригинальных (не перепечаток)</div></div>
+<div class="kpi violet"><div class="num">16<small> макс.</small></div><div class="lbl">крупнейший каскад недели</div></div>
+<div class="kpi gold"><div class="num">45%</div><div class="lbl">федеральное эхо (не про регион)</div></div>
+<div class="kpi red"><div class="num">2<small> + 13</small></div><div class="lbl">молчащих и полунемых муниципалитетов</div></div>
+</div>
+<div class="note" style="margin-bottom:18px;">Раздел обновляется каждым прогоном конвейера — это не разовый отчёт, а непрерывное наблюдение за устройством регионального инфополя: кто производит новости, кто их тиражирует, какие сюжеты побеждают, кого не слышно. Данные — 11.09.2026 16:52, база: 665 записей.</div>
+
+<div class="sec-head"><h2>🎯 Кто задаёт повестку</h2><div class="line"></div>
+<div class="badge">первичность в каскадах перепечаток</div></div>
+<div class="grid2">
+<div class="card"><div class="card-pad">
+<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">ulpressa</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:100%;height:100%;background:#2f80ed;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">12</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Улпресса</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:58%;height:100%;background:#2f80ed;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">7</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Russkih_Aleksey</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:41%;height:100%;background:#2f80ed;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">5</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">ulkompr</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:41%;height:100%;background:#2f80ed;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">5</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">tresh_ulyan</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:41%;height:100%;background:#2f80ed;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">5</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">ulpravda</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:33%;height:100%;background:#2f80ed;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">4</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Media73</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:25%;height:100%;background:#2f80ed;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">3</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">insaid173</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:25%;height:100%;background:#2f80ed;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">3</div></div>
+<div class="note">Считаются материалы, ставшие первичными в кластерах из 2+ источников (дедупликация). «ulpressa» — Telegram-канал, «Улпресса» — RSS той же редакции.</div></div></div>
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Объём повестки по дням</div>
+<svg width="280" height="48" viewBox="0 0 280 48"><path d="M2.0,45.0 L23.2,45.0 L44.5,45.0 L65.7,45.0 L86.9,45.0 L108.2,45.0 L129.4,44.6 L150.6,43.8 L171.8,43.8 L193.1,42.0 L214.3,39.8 L235.5,35.2 L256.8,12.6 L278.0,5.0 L278,46 L2,46 Z" fill="#1d4066" opacity="0.12"/><path d="M2.0,45.0 L23.2,45.0 L44.5,45.0 L65.7,45.0 L86.9,45.0 L108.2,45.0 L129.4,44.6 L150.6,43.8 L171.8,43.8 L193.1,42.0 L214.3,39.8 L235.5,35.2 L256.8,12.6 L278.0,5.0" fill="none" stroke="#1d4066" stroke-width="1.8" stroke-linejoin="round"/><circle cx="278.0" cy="5.0" r="2.6" fill="#1d4066"/></svg>
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin:12px 0 8px;">Оригинальность по уровням</div>
+<table class="tbl"><tr><th>Уровень</th><th>Сообщений</th><th>Оригинальных</th></tr><tr><td><b>T1</b></td><td>181</td><td>86%</td></tr><tr><td><b>T2</b></td><td>246</td><td>78%</td></tr><tr><td><b>T3</b></td><td>108</td><td>81%</td></tr><tr><td><b>СМИ/подборка</b></td><td>92</td><td>96%</td></tr></table>
+<div class="note">T1 — официальные каналы и зарегистрированные СМИ, T2 — агрегаторы, T3 — авторские/анонимные.</div></div></div>
+</div>
+
+<div class="sec-head"><h2>🌊 Каскады недели</h2><div class="line"></div>
+<div class="badge">как сюжеты расходятся по каналам</div></div>
+<div class="card"><div class="card-pad"><div class="cal-ev" style="align-items:center;"><div class="cal-badge" style="background:var(--red);"><b>×16</b><span>источн.</span></div>
+<div class="cal-txt"><a href="https://t.me/ulpressa/74456" target="_blank" rel="noopener"><b>В Ульяновской области снят режим "Беспилотная опасность" Мы в Telegram | Мы в MAX</b></a>
+<div class="t2">первоисточник: ulpressa · разошлось: t.me/Russkih_Aleksey, t.me/dimitrovgradd, t.me/dimitrovgradonline, t.me/reporter73</div></div></div><div class="cal-ev" style="align-items:center;"><div class="cal-badge" style="background:var(--red);"><b>×7</b><span>источн.</span></div>
+<div class="cal-txt"><a href="https://t.me/ulpressa/74421" target="_blank" rel="noopener"><b>Geely Monjaro загорелся на Юго-западной</b></a>
+<div class="t2">первоисточник: ulpressa · разошлось: t.me/chpulsk, t.me/shugozhor73, t.me/ulpressa, t.me/ulsk_driver73</div></div></div><div class="cal-ev" style="align-items:center;"><div class="cal-badge" style="background:var(--red);"><b>×6</b><span>источн.</span></div>
+<div class="cal-txt"><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener"><b>🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновск</b></a>
+<div class="t2">первоисточник: Russkih_Aleksey · разошлось: t.me/chpulsk, t.me/insaid173, t.me/ulgovru, t.me/ulpatriot</div></div></div><div class="cal-ev" style="align-items:center;"><div class="cal-badge" style="background:var(--red);"><b>×5</b><span>источн.</span></div>
+<div class="cal-txt"><a href="https://t.me/ProNovosty73/5904" target="_blank" rel="noopener"><b>Открытие осеннего сезона в «Квартале» 🍁 В программе: в 16:00 — живое джазовое выступление, в 18:00 —</b></a>
+<div class="t2">первоисточник: ProNovosty73 · разошлось: t.me/ProNovosty73, t.me/culturnik</div></div></div><div class="cal-ev" style="align-items:center;"><div class="cal-badge" style="background:var(--red);"><b>×4</b><span>источн.</span></div>
+<div class="cal-txt"><a href="https://t.me/Russkih_Aleksey/12309" target="_blank" rel="noopener"><b>Внимание! Ракетная опасность на территории Ульяновской области. Нельзя оставаться на открытой местно</b></a>
+<div class="t2">первоисточник: Russkih_Aleksey · разошлось: t.me/reporter73, t.me/ulgovru, t.me/ulsk_73online</div></div></div><div class="cal-ev" style="align-items:center;"><div class="cal-badge" style="background:var(--red);"><b>×4</b><span>источн.</span></div>
+<div class="cal-txt"><a href="https://t.me/insaid173/46860" target="_blank" rel="noopener"><b>Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября . Об этом сообщил мэр Ульяно</b></a>
+<div class="t2">первоисточник: insaid173 · разошлось: t.me/chpul, t.me/tresh_ulyan, t.me/ulkoroche</div></div></div>
+<div class="note">Каскад — одно событие, разошедшееся перепечатками по нескольким источникам. Ширина каскада = резонанс сюжета в инфополе.</div></div></div>
+
+<div class="sec-head"><h2>🎭 Тон информационного пространства</h2><div class="line"></div>
+<div class="badge">лексиконная оценка −1…+1</div></div>
+<div class="grid2">
+<div class="card"><div class="card-pad"><div style="margin-bottom:9px;"><div style="display:flex;justify-content:space-between;font-size:12.4px;font-weight:700;color:var(--navy);">
+<span>T1</span><span style="color:#1d7a4d;">+0.18</span></div>
+<div class="tone-bar" style="height:12px;margin-top:3px;"><div class="tone-pin" style="left:58%;height:18px;top:-3px;"></div></div></div><div style="margin-bottom:9px;"><div style="display:flex;justify-content:space-between;font-size:12.4px;font-weight:700;color:var(--navy);">
+<span>T2</span><span style="color:var(--muted);">+0.07</span></div>
+<div class="tone-bar" style="height:12px;margin-top:3px;"><div class="tone-pin" style="left:53%;height:18px;top:-3px;"></div></div></div><div style="margin-bottom:9px;"><div style="display:flex;justify-content:space-between;font-size:12.4px;font-weight:700;color:var(--navy);">
+<span>T3</span><span style="color:#1d7a4d;">+0.19</span></div>
+<div class="tone-bar" style="height:12px;margin-top:3px;"><div class="tone-pin" style="left:59%;height:18px;top:-3px;"></div></div></div><div style="margin-bottom:9px;"><div style="display:flex;justify-content:space-between;font-size:12.4px;font-weight:700;color:var(--navy);">
+<span>СМИ/подборка</span><span style="color:var(--muted);">+0.04</span></div>
+<div class="tone-bar" style="height:12px;margin-top:3px;"><div class="tone-pin" style="left:51%;height:18px;top:-3px;"></div></div></div>
+<div class="note">Средняя тональность оригинальных сообщений за 7 дней по уровням источников. Оценка лексиконная, приблизительная.</div></div></div>
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Федеральное эхо vs своя повестка</div>
+<div class="bar-wrap" style="height:26px;display:flex;border-radius:8px;overflow:hidden;">
+<div style="width:55%;background:linear-gradient(90deg,#218a58,#3ec27f);color:#fff;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;">регион 55%</div>
+<div style="width:45%;background:linear-gradient(90deg,#8a99aa,#b7c4d1);color:#fff;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;">федералы 45%</div>
+</div>
+<div class="note">45% оригинальных сообщений недели — федеральные сюжеты (5G, ключевая ставка, Госдума, СВО-сводки и т.п.) без прямой региональной привязки. Для областной повестки это заметная доля «эха» — местное инфополе почти наполовину формируется извне.</div></div></div>
+</div>
+
+<div class="sec-head"><h2>🗺 Карта муниципалитетов: кого слышно</h2><div class="line"></div>
+<div class="badge">по упоминаниям за 7 дней</div></div>
+<div class="card"><div class="card-pad"><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Димитровград</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:100%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">20</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Радищевский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:35%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">7</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Павловский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:25%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">5</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Новомалыклинский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:20%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">4</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Цильнинский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:20%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">4</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Чердаклинский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:20%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">4</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Сенгилеевский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:15%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">3</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Новоульяновск</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:10%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Вешкаймский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:10%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Майнский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:10%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Мелекесский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:10%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Старокулаткинский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:10%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Сурский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:10%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Барышский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:5%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Инзенский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:5%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Карсунский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:5%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Новоспасский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:5%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Старомайнский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:5%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Тереньгульский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:5%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Ульяновский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:5%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Кузоватовский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:3%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">0</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Николаевский р-н</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">
+<div style="width:3%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:44px;font-weight:800;color:var(--navy);">0</div></div><div style="margin-top:10px;"><span class="stchip" style="background:#fde7e8;color:#b02a2f;margin:2px;">Кузоватовский р-н · 0</span><span class="stchip" style="background:#fde7e8;color:#b02a2f;margin:2px;">Николаевский р-н · 0</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Новоульяновск · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Барышский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Вешкаймский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Инзенский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Карсунский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Майнский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Мелекесский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Новоспасский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Старокулаткинский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Старомайнский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Сурский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Тереньгульский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Ульяновский р-н · 1–2</span></div>
+<div class="note">Ульяновск не участвует в подсчёте (он заведомо доминирует). Красным — муниципалитеты, полностью выпавшие из инфополя за неделю; жёлтым — 1–2 упоминания. Это измеримый признак информационного неравенства территорий: жизнь районов существует для областного читателя только через происшествия или визиты чиновников.</div></div></div>
+
+<div class="sec-head"><h2>📌 Выводы наблюдения</h2><div class="line"></div>
+<div class="badge">автоматические</div></div>
+<div class="card"><div class="card-pad"><div class="verdict"><b>Сводка недели</b>
+<ul style="padding-left:20px;margin-top:4px;line-height:1.7;font-size:13px;"><li>За 7 дней поток составил 627 сообщений, из них оригинальных (не перепечаток) — 83%.</li><li>Повестку задают: ulpressa (первичен в 12 каскадах), Улпресса (первичен в 7 каскадах), Russkih_Aleksey (первичен в 5 каскадах).</li><li>Крупнейший каскад недели — «В Ульяновской области снят режим "Беспилотная опасность" Мы в Telegram» (×16 источников).</li><li>Федеральное эхо: 45% оригинальных сообщений не про регион напрямую.</li><li>Зоны информационного молчания (0 упоминаний за 7 дней): Кузоватовский р-н, Николаевский р-н.</li><li>На грани видимости (1–2 упоминания): Новоульяновск, Барышский р-н, Вешкаймский р-н, Инзенский р-н, Карсунский р-н, Майнский р-н, Мелекесский р-н, Новоспасский р-н.</li></ul></div>
+<div class="note">Выводы формируются правилами analytics.py; по мере накопления истории добавятся сравнения неделя-к-неделе и сезонность.</div></div></div>
+
+</div>
+<footer class="footer"><div class="footer-inner">
+<div><b>«Гудок»</b><p>«Гудок» — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года.</p></div>
+<div><b>Методика</b><p>Дедупликация (Жаккар + вложенность заголовков), TF-IDF-кластеризация, лексикон тональности (±110 маркеров), географические маркеры муниципалитетов. Всё — на открытых данных мониторинга; воспроизводится из data/store.jsonl.</p></div>
+<div><b>Навигация</b><p><a href="index.html" style="color:#ffd47e;">Первая полоса</a> · <a href="special/analytics_2026-09-11.html" style="color:#ffd47e;">Аналитика недели</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a></p></div>
+</div></footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+document.documentElement.setAttribute("data-theme",c);
+try{localStorage.setItem("gudok-theme",c);}catch(e){}
+syncThemeBtn();}
+function syncThemeBtn(){var b=document.getElementById("themeBtn");
+if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
+syncThemeBtn();
+</script></body></html>
