@@ -248,6 +248,45 @@ syncThemeBtn();
 
 THEME_BTN = '<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">\U0001F319</button>'
 
+
+INDEX_CSS = """
+.masthead{background:linear-gradient(135deg,var(--navy) 0%,#10263d 55%,var(--navy3) 100%);color:#fff;padding:20px 22px 0;border-bottom:4px double var(--gold);}
+:root[data-theme="dark"] .masthead{background:linear-gradient(135deg,#08121e,#0d1f33 55%,#122b45);}
+.mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;}
+.mast-brand{flex:1;min-width:280px;}
+.mast-title{font-size:44px;font-weight:900;letter-spacing:5px;line-height:1;font-family:Georgia,'Times New Roman',serif;}
+.mast-title em{font-style:normal;color:var(--gold);}
+.mast-slogan{font-size:12px;color:#a9c1d9;letter-spacing:1.6px;text-transform:uppercase;margin-top:7px;}
+.mast-right{text-align:right;font-size:12.5px;color:#c9d8e8;padding-bottom:4px;}
+.mast-right .date{font-size:15px;font-weight:800;color:#fff;}
+.mast-right .wx{margin-top:4px;color:#a9c1d9;}
+.mast-tools{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
+.lead-sec{max-width:1200px;margin:0 auto;padding:22px 18px 0;}
+.lead-kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:6px;}
+.lead-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;}
+.lead-main{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 24px;border-top:5px solid var(--gold);}
+.lead-main h2{font-size:24px;font-weight:900;color:var(--navy);line-height:1.25;margin-bottom:10px;}
+.lead-main h2 a{color:var(--navy);} .lead-main h2 a:hover{color:var(--blue);}
+.lead-main p{font-size:14px;color:var(--muted);line-height:1.6;}
+.lead-side{display:flex;flex-direction:column;gap:14px;}
+.lead-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 18px;flex:1;border-top:4px solid var(--blue);}
+.lead-card h3{font-size:16px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:6px;}
+.lead-card h3 a{color:var(--navy);} .lead-card h3 a:hover{color:var(--blue);}
+.lead-card p{font-size:12.6px;color:var(--muted);line-height:1.5;}
+.lead-meta{margin-top:8px;font-size:11px;color:#8a99aa;font-weight:600;}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;max-width:1200px;margin:20px auto 0;padding:0 18px;}
+.tile{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px 16px;border-left:4px solid var(--blue);transition:transform .12s;}
+.tile:hover{transform:translateY(-2px);text-decoration:none;}
+.tile .ic{font-size:21px;}
+.tile b{display:block;font-size:13.5px;color:var(--navy);margin-top:5px;}
+.tile span{display:block;font-size:11.3px;color:var(--muted);margin-top:2px;line-height:1.35;}
+.tile .n{font-size:19px;font-weight:800;color:var(--blue);}
+.wrap1200{max-width:1200px;margin:0 auto;padding:0 18px;}
+.af-mini{display:flex;gap:11px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
+.af-mini:last-child{border-bottom:none;}
+@media (max-width:900px){.lead-grid{grid-template-columns:1fr;}.tiles{grid-template-columns:repeat(2,1fr);}.mast-title{font-size:34px;}}
+"""
+
 EMBLEM = """<svg width="44" height="50" viewBox="0 0 46 52" fill="none">
 <path d="M23 1 L44 9 V25 C44 38 35 47 23 51 C11 47 2 38 2 25 V9 Z" fill="#1d4066" stroke="#f2b134" stroke-width="2"/>
 <rect x="19" y="13" width="8" height="4.5" rx="1" fill="#e8eef5"/>
@@ -488,7 +527,8 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 
     # ---- Главные события дня (hero) + оперативная хроника
     topic_names = {t["id"]: t["name"] for t in cfg["topics"]}
-    heroes = hero_pick(window, trends, now, 3)
+    hero_pool = [it for it in window if is_regional(it) and it.get("category") != "security"] or window
+    heroes = hero_pick(hero_pool, trends, now, 3)
     if heroes:
         hero_html = []
         for rank, it in enumerate(heroes, 1):
@@ -779,6 +819,19 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
     return "".join(parts)
 
 
+REGIONAL_RE = None
+
+
+def is_regional(it):
+    """Региональная релевантность: tier-1/RSS/seed — всегда; агрегаторы — по маркерам."""
+    global REGIONAL_RE
+    if REGIONAL_RE is None:
+        REGIONAL_RE = re.compile(r"ульяновск|димитровград|симбирск|\b73\b|област|русских|болдакин|\bуаз|волг|баратаевк|свияг", re.I)
+    if it.get("tier") == 1 or it.get("source_type") in ("seed", "rss"):
+        return True
+    return bool(REGIONAL_RE.search(it.get("title", "") + " " + (it.get("text") or "")[:300]))
+
+
 # ------------------------------------------------------------------ exec-digest
 DECISION_RE = None  # инициализируется в render_exec
 
@@ -803,15 +856,8 @@ def render_exec(cfg, trends, store, status, date_str):
         window = [it for it in store if not it.get("dup_of")
                   and local_dt(it.get("published")) and win_start <= local_dt(it["published"]) < win_end]
 
-    region_re = re.compile(r"ульяновск|димитровград|симбирск|\b73\b|област|русских|болдакин|\bуаз|волг|баратаевк|свияг", re.I)
-
-    def regional(it):
-        if it.get("tier") == 1 or it.get("source_type") in ("seed", "rss"):
-            return True
-        return bool(region_re.search(it.get("title", "") + " " + (it.get("text") or "")[:300]))
-
     # события — без безопасности (её место в рисках) и без федерального шума
-    ev_pool = [it for it in window if it.get("category") != "security" and regional(it)]
+    ev_pool = [it for it in window if it.get("category") != "security" and is_regional(it)]
     events = hero_pick(ev_pool, trends, now, 5)
     ev_ids = {it["id"] for it in events}
     # риски — разнообразие по темам (не три поста об одной сирене)
@@ -1283,193 +1329,263 @@ def render_afisha(cfg, trends, store, status, an):
 </body></html>"""
 
 
+def fetch_weather():
+    """Погода Ульяновска: wttr.in (j1), кэш 3 ч в data/weather.json, при отказе — кэш/None."""
+    cache_path = os.path.join(DATA, "weather.json")
+    cache = load_json(cache_path, {})
+    ts = cache.get("ts")
+    now_ts = datetime.now(timezone.utc).timestamp()
+    if ts and now_ts - ts < 3 * 3600 and cache.get("text"):
+        return cache.get("text")
+    try:
+        import urllib.request
+        req = urllib.request.Request("https://wttr.in/Ulyanovsk?format=j1",
+                                     headers={"User-Agent": "curl/8.0 gudok-weather"})
+        with urllib.request.urlopen(req, timeout=7) as r:
+            d = json.load(r)
+        cur = d["current_condition"][0]
+        today = d["weather"][0]
+        text = f"сейчас {cur['temp_C']}° (ощущается {cur['FeelsLikeC']}°), днём до {today['maxtempC']}°"
+        cache = {"ts": now_ts, "text": text}
+        with open(cache_path, "w", encoding="utf-8") as f:
+            json.dump(cache, f, ensure_ascii=False)
+        return text
+    except Exception:  # noqa: BLE001
+        return cache.get("text")
+
+
+MONTHS_RU = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля",
+             "августа", "сентября", "октября", "ноября", "декабря"]
+DAYS_RU = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"]
+
+
+def ru_date(dt):
+    return f"{DAYS_RU[dt.weekday()]}, {dt.day} {MONTHS_RU[dt.month - 1]} {dt.year}"
+
+
 # ------------------------------------------------------------------ index
 def render_index(cfg, trends, store, status, digest_files, special_files):
+    """Первая полоса издания: главное за день, разделы, повестка, афиша, архив, источники."""
     now = datetime.now(UTC4)
     an = load_json(os.path.join(DATA, "analytics.json")) or {}
-    meta = (status or {}).get("_meta", {})
+    cats = {c["id"]: c for c in cfg["categories"]}
+    special_labels = {
+        "analytics_2026-09-11.html": ("Аналитика недели 4–11.09", "глубокий ручной разбор: политика, экономика, бюджет, безопасность"),
+        "elections_2026.html": ("Выборы-2026", "кандидаты, округа, предвыборные тренды · обновляется ежедневно"),
+    }
+
+    # ---- окно материалов и главные сюжеты (как в дайджесте)
+    day = now.date()
+    win_start = datetime.combine(day, datetime.min.time(), tzinfo=UTC4) - timedelta(hours=30)
+    window = [it for it in store if not it.get("dup_of")
+              and local_dt(it.get("published")) and local_dt(it["published"]) >= win_start]
+    if len(window) < 6:
+        win_start -= timedelta(days=2)
+        window = [it for it in store if not it.get("dup_of")
+                  and local_dt(it.get("published")) and local_dt(it["published"]) >= win_start]
+    lead_pool = [it for it in window if is_regional(it) and it.get("category") != "security"] or window
+    leads = hero_pick(lead_pool, trends, now, 3)
+
+    def lead_meta(it):
+        dt = local_dt(it.get("published"))
+        src = esc(it.get("source", ""))
+        views = f" · 👁 {fmt_views(it['views'])}" if it.get("views") else ""
+        url = esc(it.get("url") or "#")
+        return url, f"{dt.strftime('%d.%m %H:%M') if dt else ''} · {src}{views}"
+
+    lead_html = ""
+    if leads:
+        m = leads[0]
+        cat = cats.get(m.get("category"), {})
+        url, meta = lead_meta(m)
+        lead_html += f"""<div class="lead-main" style="border-top-color:{cat.get('color','var(--gold)')};">
+<div class="lead-kicker" style="color:{cat.get('color','var(--gold)')};">{cat.get('icon','📌')} {esc(cat.get('name','Главное'))} · сюжет дня</div>
+<h2><a href="{url}" target="_blank" rel="noopener">{esc(m['title'])}</a></h2>
+<p>{esc((m.get('text') or '')[:340])}</p>
+<div class="lead-meta">{meta} · <a href="{url}" target="_blank" rel="noopener">читать полностью →</a></div></div>"""
+        side = ""
+        for m in leads[1:3]:
+            cat = cats.get(m.get("category"), {})
+            url, meta = lead_meta(m)
+            side += f"""<div class="lead-card" style="border-top-color:{cat.get('color','var(--blue)')};">
+<div class="lead-kicker" style="color:{cat.get('color','var(--blue)')};">{cat.get('icon','📌')} {esc(cat.get('name',''))}</div>
+<h3><a href="{url}" target="_blank" rel="noopener">{esc(m['title'][:120])}</a></h3>
+<p>{esc((m.get('text') or '')[:150])}</p>
+<div class="lead-meta">{meta}</div></div>"""
+        lead_html += f'<div class="lead-side">{side}</div>'
+
+    # ---- плитки разделов
     latest = digest_files[-1] if digest_files else None
-    tg_channels = [c for c in cfg["telegram_channels"] if c.get("enabled", True)]
-    rss_sources = [s for s in cfg["rss_sources"] if s.get("enabled", True)]
-    n_tg_ok = sum(1 for c in tg_channels if (status or {}).get(f"tg:{c['username']}", {}).get("ok"))
-    n_rss_ok = sum(1 for s in rss_sources if (status or {}).get(f"rss:{s['name']}", {}).get("ok"))
-    sys_ok = (n_tg_ok + n_rss_ok) > 0
-
-    exec_files = sorted(glob.glob(os.path.join(DIGESTS, "exec_*.html")))
-    exec_btn = (f'<a class="btn" href="digests/{os.path.basename(exec_files[-1])}" '
-                f'style="margin-left:8px;background:#1d7a4d;">📋 Дайджест руководителя</a>') if exec_files else ""
-
-    parts = []
-    parts.append(f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{cfg['brand']} — информационно-аналитическое издание Ульяновской области</title>
-<style>{CSS}</style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand">{EMBLEM}<div>
-<div class="brand-title">ИЗДАНИЕ <span>«ГУДОК»</span></div>
-<div class="brand-sub">Информационно-аналитическое издание · Ульяновская область</div>
-</div></div>
-<div class="top-meta">
-<div class="chip"><span class="dot {' ' if sys_ok else 'err'}"></span> Система: <b>{'в работе' if sys_ok else 'нет данных'}</b></div>
-<div class="chip">⏱ Последний сбор: <b>{esc(meta.get('last_run_local', '—'))}</b></div>
-<div class="chip">🗄 В базе: <b>{meta.get('total_store', len(store))}</b></div>
-<div class="chip">🕐 <b id="clock">--:--</b> UTC+4</div>
-{THEME_BTN}
-</div></div></header>
-<nav class="nav"><div class="nav-inner">
-<a href="#today">Свежий выпуск</a><a href="#pulse">Пульс повестки</a><a href="#sources">Источники</a><a href="#archive">Архив</a><a href="afisha.html">🎭 Афиша</a><a href="#auto">Автоматизация</a><a href="status.html">🩺 Статус</a><a href="roadmap.html">🧭 Роадмап</a>
-</div></nav>
-<div class="page">""")
-
-    # ---- Свежий выпуск
-    latest_day = None
-    if latest:
-        latest_day = os.path.basename(latest).replace("digest_", "").replace(".html", "")
-    parts.append(f"""<div class="sec-head" id="today" style="margin-top:6px;"><h2>🗞 Свежий выпуск</h2><div class="line"></div>
-<div class="badge">обновлено {now:%d.%m.%Y %H:%M}</div></div>
-<div class="card"><div class="card-pad" style="display:flex;gap:22px;align-items:center;flex-wrap:wrap;">
-<div style="flex:1;min-width:260px;">
-<h3 style="font-size:19px;color:var(--navy);margin-bottom:7px;">Ежедневный дайджест{' от ' + datetime.strptime(latest_day, '%Y-%m-%d').strftime('%d.%m.%Y') if latest_day else ' ещё не сформирован'}</h3>
-<p style="font-size:13.3px;color:var(--muted);margin-bottom:12px;">Лента дня по 9 рубрикам, тренды информационной повестки, Telegram-монитор с просмотрами, автоматический прогноз тем. Материалов за 24 ч: <b>{trends['counts']['last24h'] if trends else 0}</b>, за 7 дней: <b>{trends['counts']['last7d'] if trends else 0}</b>.</p>
-{'<a class="btn gold" href="digests/' + os.path.basename(latest) + '">Открыть выпуск →</a>' if latest else ''}
-<a class="btn" href="special/analytics_2026-09-11.html" style="margin-left:8px;">📕 Спецвыпуск «Аналитика недели»</a>
-<a class="btn" href="afisha.html" style="margin-left:8px;background:#9a4d8f;">🎭 Афиша области</a>
-<a class="btn" href="roadmap.html" style="margin-left:8px;background:#1d4066;">🧭 Роадмап</a>
-{exec_btn}
-</div>
-<div style="flex-shrink:0;">{big_spark(trends)}</div>
-</div></div>""")
-
-    # ---- Пульс повестки (компактный)
+    latest_name = os.path.basename(latest) if latest else ""
+    latest_day = latest_name.replace("digest_", "").replace(".html", "")
+    exec_name = f"exec_{latest_day}.html" if latest_day else ""
+    exec_exists = os.path.exists(os.path.join(DIGESTS, exec_name))
+    cal = an.get("cal_count") or len(an.get("calendar", []))
+    vote_day = datetime(2026, 9, 18, tzinfo=UTC4).date()
+    d_vote = (vote_day - day).days
+    vote_txt = (f"до голосования {d_vote} дн." if d_vote > 0 else
+                ("голосование сегодня!" if d_vote == 0 else "спецвыпуск обновляется"))
+    digest_n = 0
     if trends:
-        rows = []
+        digest_n = trends.get("counts", {}).get("last24h", 0)
+    tiles = [
+        ("📰", f"Выпуск за {day:%d.%m}", f"{digest_n} материалов за 24 ч · лента, тренды, хроника",
+         f"digests/{latest_name}" if latest else "", "var(--blue)"),
+        ("📋", "Дайджест руководителя", "1 страница: 5 событий, 3 риска, 2 решения",
+         f"digests/{exec_name}" if exec_exists else "", "#1d7a4d"),
+        ("🎭", "Афиша области", f"{cal} событий на 45 дней · фильтры по дням", "afisha.html", "#9a4d8f"),
+        ("🗳", "Выборы-2026", vote_txt, "special/elections_2026.html", "#b02a2f"),
+        ("📈", "Тренды повестки", f"{len((trends or {}).get('topics', {}))} тем под наблюдением, прогноз на завтра",
+         "#pulse", "var(--gold)"),
+    ]
+    tiles_html = "".join(
+        f'<a class="tile" style="border-left-color:{c};" href="{u}"><div class="ic">{ic}</div><b>{esc(t)}</b><span>{esc(dsc)}</span></a>'
+        if u else f'<div class="tile" style="border-left-color:{c};opacity:.55;"><div class="ic">{ic}</div><b>{esc(t)}</b><span>{esc(dsc)}</span></div>'
+        for ic, t, dsc, u, c in tiles)
+
+    # ---- пульс повестки (компактный)
+    pulse_rows = ""
+    if trends:
         topics = trends["topics"]
         order = sorted(topics.items(), key=lambda kv: (kv[1]["week"], kv[1]["today"]), reverse=True)
         mx = max((t["week"] for t in topics.values()), default=1) or 1
-        for tid, t in order[:8]:
-            if t["week"] == 0 and t["today"] == 0:
+        for tid, t in order[:6]:
+            if not t["week"] and not t["today"]:
                 continue
             label, bgc, fgc = STATUS_META.get(t["status"], STATUS_META["stable"])
             width = max(4, int(t["week"] / mx * 100))
-            fill_cls = "hot" if t["status"] == "rising" else ("cool" if t["status"] == "new" else "")
-            rows.append(f"""<div class="topic-row">
-<div class="topic-name">{esc(t['name'])}<small>7д: {t['week']} · 24ч: {t['today']}</small></div>
-<div class="bar-wrap"><div class="bar-fill {fill_cls}" style="width:{width}%"></div></div>
-<div class="sparkcell">{sparkline(t['series'], color='#2f80ed' if t['status']!='rising' else '#d5494e')}</div>
-<div><span class="stchip" style="background:{bgc};color:{fgc};">{label}</span></div></div>""")
-        parts.append(f"""<div class="sec-head" id="pulse"><h2>📈 Тенденции повестки</h2><div class="line"></div>
-<div class="badge">трекер трендов</div></div>
-<div class="card"><div class="card-pad">{''.join(rows)}
-<div class="note">Статусы: 🔥 растёт (×1.6 к недельной базе) · 🆕 новая (не встречалась ранее) · 📉 спадает (−50%) · ⚖️ стабильно. Данные обновляются каждым запуском <code>run.sh</code>.</div></div></div>""")
+            fill = "hot" if t["status"] == "rising" else ("cool" if t["status"] == "new" else "")
+            color = "#d5494e" if t["status"] == "rising" else "#2f80ed"
+            pulse_rows += f"""<div class="topic-row">
+<div class="topic-name">{esc(t['name'])}<small>7 дней: {t['week']} · сутки: {t['today']}</small></div>
+<div class="bar-wrap"><div class="bar-fill {fill}" style="width:{width}%"></div></div>
+<div class="sparkcell">{sparkline(t['series'], color=color)}</div>
+<div><span class="stchip" style="background:{bgc};color:{fgc};">{label}</span></div></div>"""
 
-    # ---- Источники
-    parts.append(f"""<div class="sec-head" id="sources"><h2>📡 Реестр источников</h2><div class="line"></div>
-<div class="badge">статус последнего сбора</div></div>
-<div class="grid2">
-<div class="card"><div class="side-head">✈️ Telegram-каналы <span class="sub">https://t.me/s/&lt;канал&gt;</span></div><div class="side-body">
-<table class="tbl"><tr><th>Канал</th><th>Уровень</th><th>Название</th><th>Статус</th><th>Собрано</th></tr>""")
-    tier_name = {1: "официальный", 2: "агрегатор", 3: "мнения"}
-    for c in sorted(tg_channels, key=lambda x: (x.get("tier", 2), -(x.get("subs") or 0))):
-        st = (status or {}).get(f"tg:{c['username']}", {})
-        ok = st.get("ok")
-        mark = '<span class="ok">в сети</span>' if ok else ('<span class="fail">ошибка</span>' if st else '<span style="color:#8a99aa;">—</span>')
-        subs = f"{c['subs']//1000}K" if c.get("subs") else "—"
-        parts.append(f"""<tr><td><a href="https://t.me/{esc(c['username'])}" target="_blank" rel="noopener">@{esc(c['username'])}</a></td>
-<td style="font-size:11.5px;">{tier_name.get(c.get('tier',2),'?')} · {subs}</td>
-<td style="color:var(--muted);font-size:11.5px;">{esc(c.get('title',''))}</td>
-<td>{mark}</td><td>{st.get('items','—')}</td></tr>""")
-    parts.append("""</table><div class="note">Превью читается простым HTTPS-запросом без ключей. Пагинация: <code>?before=&lt;id&gt;</code>. Домен <code>te.me/s/</code> превью не отдаёт (404) — используется <code>t.me/s/</code>.</div></div></div>
-<div class="card"><div class="side-head">📰 RSS-ленты <span class="sub">региональные СМИ</span></div><div class="side-body">
-<table class="tbl"><tr><th>Издание</th><th>Статус</th><th>Собрано</th></tr>""")
-    for s in rss_sources:
-        st = (status or {}).get(f"rss:{s['name']}", {})
-        ok = st.get("ok")
-        mark = '<span class="ok">в сети</span>' if ok else ('<span class="fail">ошибка</span>' if st else '<span style="color:#8a99aa;">—</span>')
-        parts.append(f"""<tr><td><a href="{esc(s['url'])}" target="_blank" rel="noopener">{esc(s['name'])}</a><br>
-<span style="color:var(--muted);font-size:11px;">{esc(s['url'])}</span></td><td>{mark}</td><td>{st.get('items','—')}</td></tr>""")
-    parts.append("</table><div class=\"note\">Добавить источник — одна строка в <code>config.json</code>.</div></div></div></div>")
-
-    # ---- Индекс источников (Фаза 2)
-    cred = an.get("credibility", [])
-    if cred:
-        cr = []
-        for c in cred[:14]:
-            tier = f"T{c['tier']}" if c.get("tier") else "—"
-            lab_color = {"первоисточник": "#1d7a4d", "смешанный": "#96690a", "перепечатчик": "#b02a2f"}.get(c["label"], "var(--muted)")
-            vm = fmt_views(c["views_median"]) or "—"
-            cb = c.get("clickbait_rate")
-            cb_txt = f'<span style="color:{"#b02a2f" if cb and cb > 0.25 else ("#96690a" if cb and cb > 0.1 else "var(--muted)")};font-weight:700;">{int(cb*100)}%</span>' if cb is not None else "—"
-            cr.append(f"""<tr><td><b>{esc(c['source'])}</b></td><td>{tier}</td><td>{c['total']}</td>
-<td>{c['primary']}</td><td>{int(c['repost_rate']*100)}%</td><td>{vm}</td><td>{cb_txt}</td>
-<td style="color:{lab_color};font-weight:800;">{esc(c['label'])}</td></tr>""")
-        parts.append(f"""<div class="sec-head"><h2>⚖️ Индекс источников: первичность и охват</h2><div class="line"></div>
-<div class="badge">по данным дедупликации</div></div>
-<div class="card"><div class="card-pad" style="padding:10px 14px;">
-<table class="tbl"><tr><th>Источник</th><th>Tier</th><th>Публикаций</th><th>Первичных</th><th>Перепечатки</th><th>Медиана 👁</th><th>Кликбейт</th><th>Профиль</th></tr>
-{''.join(cr)}</table>
-<div class="note">«Первоисточник» — доля перепечаток &lt;25%: материал рождается здесь. «Перепечатчик» — &gt;60%: канал транслирует чужое. Кликбейт-индекс — доля заголовков с 2+ признаками (маркеры «шок/жесть», 3+ «!», КАПС, 4+ эмодзи). Здоровье конвейера — на <a href="status.html">status-странице</a>.</div></div></div>""")
-
-    # ---- Архив
-    parts.append(f"""<div class="sec-head" id="archive"><h2>🗄 Архив выпусков</h2><div class="line"></div>
-<div class="badge">{len(digest_files)} ежедневных · {len(special_files)} спецвыпусков</div></div>
-<div class="grid2"><div class="card"><div class="card-pad">""")
-    for path in reversed(digest_files):
-        d = os.path.basename(path).replace("digest_", "").replace(".html", "")
+    # ---- афиша: ближайшие 4 события
+    wd = {0: "пн", 1: "вт", 2: "ср", 3: "чт", 4: "пт", 5: "сб", 6: "вс"}
+    af_rows = ""
+    cal_items = [e for e in an.get("calendar", [])
+                 if e.get("date", "") >= day.isoformat() and e.get("is_culture", True)]
+    for e in cal_items[:4]:
         try:
-            dd = datetime.strptime(d, "%Y-%m-%d")
+            d = datetime.strptime(e["date"], "%Y-%m-%d")
         except ValueError:
             continue
-        parts.append(f"""<div class="arch-item"><div class="arch-date"><b>{dd:%d}</b><span>{dd:%b}</span></div>
-<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">Дайджест {dd:%d.%m.%Y}</b><br>
-<span style="font-size:11.8px;color:var(--muted);">выпуск №{digest_files.index(path)+1}</span></div>
-<a class="btn" href="digests/{os.path.basename(path)}">Открыть</a></div>""")
-    if not digest_files:
-        parts.append('<div style="color:var(--muted);font-size:13px;">Пока пусто — запустите <code>bash run.sh</code>.</div>')
-    parts.append('</div></div><div class="card"><div class="card-pad">')
-    special_labels = {
-        "analytics_2026-09-11.html": ("📕 Аналитический спецвыпуск «Повестка недели»", "глубокая аналитика за 4–11 сентября, ручная сборка"),
-        "elections_2026.html": ("🗳 Спецвыпуск «Выборы-2026»", "кандидаты, округа, предвыборные тренды · обновляется ежедневно"),
-    }
+        gold = ' gold' if d.weekday() >= 5 else ''
+        af_rows += f"""<div class="af-mini"><div class="cal-badge{gold}"><b>{d:%d}</b><span>{wd[d.weekday()]}</span></div>
+<div style="flex:1;"><a href="{esc(e.get('url') or '#')}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(e['title'][:90])}</a>
+<div style="font-size:11.3px;color:var(--muted);">{esc(e.get('time','') or 'время уточняйте')}{(' · 📍 ' + esc(e['venue'])) if e.get('venue') else ''}</div></div></div>"""
+    if not af_rows:
+        af_rows = '<div style="color:var(--muted);font-size:12.5px;">Событий не найдено.</div>'
+
+    # ---- архив и спецвыпуски
+    arch_rows = ""
+    for path in reversed(digest_files[-8:]):
+        nm = os.path.basename(path)
+        dstr = nm.replace("digest_", "").replace(".html", "")
+        try:
+            dd = datetime.strptime(dstr, "%Y-%m-%d")
+        except ValueError:
+            continue
+        arch_rows += f"""<div class="arch-item"><div class="arch-date"><b>{dd:%d}</b><span>{dd:%b}</span></div>
+<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">Выпуск за {dd:%d.%m.%Y}</b><br>
+<span style="font-size:11.8px;color:var(--muted);">ежедневный дайджест №{digest_files.index(path)+1}</span></div>
+<a class="btn" href="digests/{nm}">Открыть</a></div>"""
+    spec_rows = ""
     for path in reversed(special_files):
-        name = os.path.basename(path)
-        label, sub = special_labels.get(name, (esc(name.replace(".html", "").replace("_", " ")), "специальный выпуск"))
-        parts.append(f"""<div class="arch-item"><div class="arch-date" style="background:var(--gold);color:#4d3a06;"><b>📕</b><span>спец</span></div>
-<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">{label}</b><br>
-<span style="font-size:11.8px;color:var(--muted);">{sub}</span></div>
-<a class="btn gold" href="special/{name}">Открыть</a></div>""")
-    parts.append("</div></div></div>")
+        nm = os.path.basename(path)
+        label, sub = special_labels.get(nm, (nm.replace(".html", "").replace("_", " "), "специальный выпуск"))
+        spec_rows += f"""<div class="arch-item"><div class="arch-date" style="background:var(--gold);color:#4d3a06;"><b>📕</b><span>спец</span></div>
+<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">{esc(label)}</b><br>
+<span style="font-size:11.8px;color:var(--muted);">{esc(sub)}</span></div>
+<a class="btn gold" href="special/{nm}">Открыть</a></div>"""
 
-    # ---- Автоматизация
-    parts.append(f"""<div class="sec-head" id="auto"><h2>⚙️ Автоматизация выпуска</h2><div class="line"></div>
-<div class="badge">3 способа</div></div>
-<div class="grid3">
-<div class="card"><div class="side-head">1️⃣ Сервер / свой компьютер</div><div class="side-body">
-<div class="codebox"><span class="c"># crontab -e (ежедневно 07:30 Ульяновск)</span><br>
-CRON_TZ=Europe/Ulyanovsk<br>
-30 7 * * * cd ~/gudok && bash run.sh >> data/cron.log 2>&1</div>
-<div class="note">Требуется только Python 3.8+ (стандартная библиотека).</div></div></div>
-<div class="card"><div class="side-head">2️⃣ GitHub Actions (облако, бесплатно)</div><div class="side-body">
-<div class="codebox"><span class="c"># .github/workflows/digest.yml уже в проекте</span><br>
-schedule: cron "30 3 * * *" <span class="c"># 07:30 UTC+4</span><br>
-publish: GitHub Pages</div>
-<div class="note">Загрузите содержимое проекта в репозиторий — выпуск будет собираться и публиковаться сам. Есть и ручной запуск (workflow_dispatch).</div></div></div>
-<div class="card"><div class="side-head">3️⃣ Через чат с ассистентом</div><div class="side-body">
-<div class="codebox">«обнови дайджест»<br>«собери выпуск за вчера»<br>«добавь канал @example в мониторинг»</div>
-<div class="note">Ассистент запустит run.sh, проверит тренды и при необходимости даст ручную аналитику к выпуску.</div></div></div>
-</div>""")
+    # ---- источники (прозрачность редакции)
+    tg_channels = [c for c in cfg["telegram_channels"] if c.get("enabled", True)]
+    rss_sources = [sx for sx in cfg["rss_sources"] if sx.get("enabled", True)]
+    tier_name = {1: "официальный", 2: "агрегатор", 3: "мнения"}
+    src_rows = ""
+    for c in sorted(tg_channels, key=lambda x: (x.get("tier", 2), -(x.get("subs") or 0)))[:12]:
+        st = (status or {}).get(f"tg:{c['username']}", {})
+        mark = '<span class="ok">●</span>' if st.get("ok") else ('<span class="fail">●</span>' if st else "○")
+        subs = f"{c['subs']//1000}K" if c.get("subs") else "—"
+        src_rows += (f"<tr><td>{mark} <a href='https://t.me/{esc(c['username'])}' target='_blank' rel='noopener'>@{esc(c['username'])}</a></td>"
+                     f"<td style='font-size:11.5px;'>{tier_name.get(c.get('tier',2),'?')} · {subs}</td>"
+                     f"<td style='color:var(--muted);font-size:11.5px;'>{esc(c.get('title',''))}</td></tr>")
+    src_rows += f"<tr><td colspan='3' style='color:var(--muted);font-size:11.5px;'>…и ещё {len(tg_channels)-12} Telegram-каналов + {len(rss_sources)} RSS-ленты — полный реестр и статусы на <a href='status.html'>status-странице</a></td></tr>" if len(tg_channels) > 12 else ""
 
-    parts.append(f"""</div>
+    weather = fetch_weather()
+    wx_chip = f'<div class="wx">🌡 {esc(weather)}</div>' if weather else ""
+    meta = (status or {}).get("_meta", {})
+
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>«Гудок» — информационно-аналитическое издание о Ульяновской области</title>
+<style>{CSS}{INDEX_CSS}</style></head><body>
+
+<header class="masthead"><div class="mast-inner">
+<div class="mast-brand">
+<div class="mast-title">«Г<em>У</em>ДОК»</div>
+<div class="mast-slogan">Информационно-аналитическое издание · Ульяновская область · выходит с 11.09.2026</div>
+</div>
+<div class="mast-right">
+<div class="date">{ru_date(now)}</div>
+<div style="font-size:11.5px;color:#9db6cf;margin-top:2px;">🕐 <b id="clock">--:--</b> (UTC+4) · последний выпуск: {esc(meta.get("last_run_local", "—"))}</div>
+<div class="wx-line">{wx_chip}</div>
+<div class="mast-tools">
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+<a class="chip" href="digests/{latest_name}" style="color:#ffe9b8;">Свежий выпуск →</a>
+</div>
+</div>
+</div></header>
+
+<nav class="nav"><div class="nav-inner" style="max-width:1200px;">
+<a href="#leads">Главное</a><a href="#pulse">Повестка</a><a href="afisha.html">🎭 Афиша</a><a href="special/elections_2026.html">🗳 Выборы</a><a href="#sources">Источники</a><a href="#archive">Архив</a><a href="roadmap.html">🧭 Роадмап</a><a href="status.html" title="Служебная информация">🩺</a>
+</div></nav>
+
+<div class="lead-sec" id="leads">
+<div class="sec-head" style="margin-top:0;"><h2>Главное сегодня</h2><div class="line"></div>
+<div class="badge">{now:%d.%m.%Y} · обновлено {now:%H:%M}</div></div>
+<div class="lead-grid">{lead_html}</div>
+</div>
+
+<div class="tiles">{tiles_html}</div>
+
+<div class="wrap1200">
+<div class="sec-head" id="pulse"><h2>📈 Тенденции повестки</h2><div class="line"></div>
+<div class="badge">трекер трендов · прогноз в выпуске</div></div>
+<div class="grid2">
+<div class="card"><div class="card-pad">{pulse_rows or '<i>Данные появятся после первого сбора.</i>'}
+<div style="margin-top:8px;"><a class="btn" href="digests/{latest_name}" style="font-size:12px;padding:6px 12px;">Полный разбор и прогноз →</a></div></div></div>
+<div class="card"><div class="side-head">🎭 Ближайшие события</div><div class="side-body">{af_rows}
+<div style="margin-top:10px;"><a class="btn" href="afisha.html" style="font-size:12px;padding:6px 12px;background:#9a4d8f;">Вся афиша →</a></div></div></div>
+</div>
+
+<div class="sec-head" id="sources"><h2>📡 Источники издания</h2><div class="line"></div>
+<div class="badge">открытая редакция</div></div>
+<div class="card"><div class="card-pad" style="padding:10px 14px;">
+<table class="tbl"><tr><th>Канал</th><th>Уровень</th><th>Название</th></tr>{src_rows}</table>
+<div class="note">Мониторим публичные веб-превью Telegram-каналов (t.me/s) и RSS СМИ. Иерархия доверия: tier 1 — официальные и зарегистрированные СМИ (приоритет в алертах и ранжировании), tier 2 — агрегаторы, tier 3 — авторские каналы (только как сигнал, требует верификации). Полные данные с рейтингом первичности и кликбейт-индексом — в ежедневном выпуске.</div></div></div>
+
+<div class="sec-head" id="archive"><h2>🗄 Архив и спецвыпуски</h2><div class="line"></div>
+<div class="badge">{len(digest_files)} выпусков · {len(special_files)} спецматериалов</div></div>
+<div class="grid2">
+<div class="card"><div class="card-pad">{arch_rows or '<span style="color:var(--muted);">Пока пусто.</span>'}</div></div>
+<div class="card"><div class="card-pad">{spec_rows}</div></div>
+</div>
+</div>
+
 <footer class="footer"><div class="footer-inner">
-<div><b>{cfg['brand']}</b><p>Автоматизированный мониторинг информационной повестки {esc(cfg['region'])}. Источники: RSS региональных СМИ и публичные веб-превью Telegram-каналов.</p></div>
-<div><b>Дисклеймер</b><p>Материалы принадлежат их изданиям; дайджест носит информационно-аналитический характер. Автоматическая классификация и статусы трендов могут содержать ошибки — проверяйте первоисточники по ссылкам.</p></div>
-<div><b>Технология</b><p>Python 3 (stdlib) · HTML/CSS/inline SVG · без внешних зависимостей и CDN. База: data/store.jsonl · тренды: data/trends.json</p></div>
+<div><b>«Гудок»</b><p>Информационно-аналитическое издание о Ульяновской области. Выходит ежедневно в 07:30 (UTC+4). Материалы принадлежат их изданиям; дайджест носит информационно-аналитический характер, все факты — со ссылками на первоисточники.</p></div>
+<div><b>Разделы</b><p><a href="digests/{latest_name}" style="color:#ffd47e;">Свежий выпуск</a> · <a href="afisha.html" style="color:#ffd47e;">Афиша</a> · <a href="special/elections_2026.html" style="color:#ffd47e;">Выборы-2026</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a> · <a href="status.html" style="color:#ffd47e;">Статус системы</a></p></div>
+<div><b>Редакция</b><p>Автоматический мониторинг {len(tg_channels)} Telegram-каналов и {len(rss_sources)} RSS-лент. Колонку редактора и аналитику готовит ассистент. Служебная информация о сборах — на <a href="status.html" style="color:#ffd47e;">status-странице</a>.</p></div>
 </div></footer>
 <script>
-function tick(){{try{{var f=new Intl.DateTimeFormat('ru-RU',{{timeZone:'Europe/Ulyanovsk',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}});document.getElementById('clock').textContent=f.format(new Date());}}catch(e){{document.getElementById('clock').textContent=new Date().toTimeString().slice(0,8);}}}}
+function tick(){{try{{var f=new Intl.DateTimeFormat('ru-RU',{{timeZone:'Europe/Ulyanovsk',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}});var el=document.getElementById('clock');if(el)el.textContent=f.format(new Date());}}catch(e){{}}}}
 tick();setInterval(tick,1000);
 </script>
-</body></html>""")
-    return "".join(parts)
+</body></html>"""
 
 
 def big_spark(trends):
