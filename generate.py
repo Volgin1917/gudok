@@ -993,7 +993,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 <footer class="footer"><div class="footer-inner">
 <div><b>{cfg['brand']}</b><p>{esc(cfg['tagline_full'])}</p><p style="margin-top:6px;">Выпуск №{digest_no} от {day:%d.%m.%Y}. Собрано автоматически: {esc(meta.get('last_run_local','—'))} (UTC+4).</p></div>
 <div><b>Методика</b><p>Мониторинг RSS ({', '.join(s['name'] for s in cfg['rss_sources'] if s.get('enabled', True))}) и публичных превью Telegram-каналов (t.me/s/…). Классификация — по словарю config.json; тренды — сравнение 3-дневного окна с недельной базой.</p></div>
-<div><b>Навигация</b><p><a href="../index.html" style="color:#ffd47e;">← Первая полоса</a> · <a href="../special/analytics_2026-09-11.html" style="color:#ffd47e;">Аналитический спецвыпуск 11.09</a></p></div>
+<div><b>Навигация</b><p><a href="../index.html" style="color:#ffd47e;">← Первая полоса</a> · <a href="../weekly.html" style="color:#ffd47e;">Аналитика недели</a></p></div>
 </div></footer></body></html>""")
     return "".join(parts)
 
