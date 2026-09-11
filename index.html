@@ -248,6 +248,43 @@ code,pre{font-family:Consolas,Menlo,monospace;}
 .af-mini{display:flex;gap:11px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
 .af-mini:last-child{border-bottom:none;}
 @media (max-width:900px){.lead-grid{grid-template-columns:1fr;}.tiles{grid-template-columns:repeat(2,1fr);}.mast-title{font-size:34px;}}
+
+.now-wrap{max-width:1200px;margin:0 auto;padding:20px 18px 0;}
+.now-panel{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border-left:5px solid var(--gold);overflow:hidden;}
+.now-alert{padding:9px 18px;font-size:12.8px;font-weight:700;display:flex;align-items:center;gap:10px;}
+.now-alert.calm{background:#e6f4ec;color:#1d7a4d;}
+.now-alert.danger{background:#fde7e8;color:#b02a2f;}
+:root[data-theme="dark"] .now-alert.calm{background:#12291d;color:#6fd39b;}
+:root[data-theme="dark"] .now-alert.danger{background:#2a1416;color:#ff8a8e;}
+.now-grid{display:grid;grid-template-columns:1.25fr 1fr 0.9fr;gap:0;}
+.now-col{padding:14px 18px;border-right:1px dashed var(--line);}
+.now-col:last-child{border-right:none;}
+.now-h{font-size:10.5px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
+.tl-row{display:flex;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line);align-items:baseline;}
+.tl-row:last-child{border-bottom:none;}
+.tl-time{flex-shrink:0;font-size:11px;font-weight:800;color:var(--blue);width:42px;}
+.tl-txt{font-size:12.6px;line-height:1.4;color:var(--txt);}
+.tl-txt a{color:var(--txt);font-weight:600;}
+.tl-txt a:hover{color:var(--blue);}
+.tl-src{color:var(--muted);font-size:10.8px;}
+.now-num{font-size:24px;font-weight:900;color:var(--navy);line-height:1.1;}
+.now-num small{font-size:11px;font-weight:700;color:var(--muted);}
+.now-line{font-size:12.3px;color:var(--muted);margin-top:2px;line-height:1.4;}
+.now-line b{color:var(--navy);}
+.more-heads{columns:2;column-gap:26px;margin-top:4px;}
+.more-heads a{display:block;font-size:13px;font-weight:700;color:var(--navy);padding:5px 0;border-bottom:1px dashed var(--line);break-inside:avoid;}
+.more-heads a:hover{color:var(--blue);}
+.more-heads a span{color:var(--muted);font-weight:600;font-size:11px;}
+.sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1200px;margin:0 auto;padding:0 18px;}
+.sec-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;border-top:4px solid var(--blue);display:flex;flex-direction:column;text-decoration:none;}
+.sec-card:hover{transform:translateY(-2px);text-decoration:none;}
+.sec-card .ic{font-size:22px;}
+.sec-card b{display:block;font-size:14.5px;color:var(--navy);margin-top:6px;}
+.sec-card .fig{font-size:17px;font-weight:900;color:var(--blue);margin-top:2px;}
+.sec-card .fig small{font-size:10.5px;font-weight:700;color:var(--muted);}
+.sec-card p{font-size:12px;color:var(--muted);line-height:1.45;margin-top:5px;flex:1;}
+.sec-card .go{font-size:11.5px;font-weight:800;color:var(--blue);margin-top:8px;}
+@media (max-width:980px){.now-grid{grid-template-columns:1fr;}.now-col{border-right:none;border-bottom:1px dashed var(--line);}.sec-grid{grid-template-columns:repeat(2,1fr);}.more-heads{columns:1;}}
 </style><script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
@@ -310,7 +347,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 
 <div class="wrap1200" id="news" style="padding-top:6px;">
 <div class="sec-head"><h2>Новости дня</h2><div class="line"></div>
-<div class="badge">11.09.2026 · обновлено 17:35</div></div>
+<div class="badge">11.09.2026 · обновлено 17:40</div></div>
 <div class="lead-grid"><div class="lead-main" style="border-top-color:#0f9b8e;">
 <div class="lead-kicker" style="color:#0f9b8e;">🎓 Образование и наука · сюжет дня</div>
 <h2><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновской области…</a></h2>

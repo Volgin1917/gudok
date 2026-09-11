@@ -1782,7 +1782,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Гудок — информационно-аналитическое издание · Ульяновская область</title>
-<style>{CSS}{INDEX_CSS}</style></head><body>
+<style>{CSS}{INDEX_CSS}{FRONT2_CSS}</style></head><body>
 
 <header class="masthead"><div class="mast-inner">
 <div class="mast-brand">
