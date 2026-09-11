@@ -329,6 +329,10 @@ FRONT2_CSS = """
 .more-heads a{display:block;font-size:13px;font-weight:700;color:var(--navy);padding:5px 0;border-bottom:1px dashed var(--line);break-inside:avoid;}
 .more-heads a:hover{color:var(--blue);}
 .more-heads a span{color:var(--muted);font-weight:600;font-size:11px;}
+.util-bar{display:flex;gap:22px;align-items:center;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:12px;}
+.util-bar a{color:var(--muted);font-size:12.3px;font-weight:700;text-decoration:none;}
+.util-bar a:hover{color:var(--gold);}
+.util-lbl{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}
 .sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1200px;margin:0 auto;padding:0 18px;}
 .sec-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;border-top:4px solid var(--blue);display:flex;flex-direction:column;text-decoration:none;}
 .sec-card:hover{transform:translateY(-2px);text-decoration:none;}
@@ -1958,12 +1962,6 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
         ("🗄", "Архив", f"{len(digest_files)} <small>выпусков · {len(special_files)} спец.</small>",
          "Все ежедневные выпуски и специальные материалы издания с первого дня.",
          "#archive", "var(--muted)"),
-        ("🧭", "Роадмап", "v2.4",
-         "Куда движется издание: фазы развития, инфраструктура, риски и метрики проекта.",
-         "roadmap.html", "#1d4066"),
-        ("🩺", "Статус системы", "служебная",
-         "Здоровье конвейера, доступность источников, алерт-монитор, бэкапы. Реестр источников — там же.",
-         "status.html", "#5b6b7c"),
     ]
     sec_cards = ""
     for ic, t, fig, dsc, href, color in cards:
@@ -2051,10 +2049,20 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <div class="card"><div class="card-pad">{arch_rows or '<span style="color:var(--muted);">Пока пусто.</span>'}</div></div>
 </div>
 
+<div class="wrap1200" style="margin-top:26px;padding-bottom:6px;">
+<div class="util-bar">
+<span class="util-lbl">Служебное</span>
+<a href="roadmap.html">🧭 Роадмап издания</a>
+<a href="status.html">🩺 Статус системы</a>
+<a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
+</div>
+</div>
+
 <footer class="footer"><div class="footer-inner">
 <div><b>Гудок</b><p>{esc(cfg['tagline_full'])} Выходит ежедневно в 07:30 (UTC+4).</p></div>
 <div><b>Разделы</b><p><a href="digests/{latest_digest}" style="color:#ffd47e;">Свежий выпуск</a> · <a href="afisha.html" style="color:#ffd47e;">Афиша</a> · <a href="special/elections_2026.html" style="color:#ffd47e;">Выборы-2026</a> · <a href="infospace.html" style="color:#ffd47e;">Инфопространство</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a> · <a href="status.html" style="color:#ffd47e;">Статус</a></p></div>
-<div><b>Редакция</b><p>Мониторинг {sum(1 for c in cfg.get('telegram_channels',[]) if c.get('enabled'))} Telegram-каналов и {sum(1 for c in cfg.get('rss_sources',[]) if c.get('enabled',True))} RSS-лент. Колонку редактора и аналитику готовит ассистент. Реестр источников и здоровье конвейера — на <a href="status.html" style="color:#ffd47e;">status-странице</a>.</p></div>
+<div><b>Редакция</b><p>Мониторинг {sum(1 for c in cfg.get('telegram_channels',[]) if c.get('enabled'))} Telegram-каналов и {sum(1 for c in cfg.get('rss_sources',[]) if c.get('enabled',True))} RSS-лент. Колонку редактора и аналитику готовит ассистент. Реестр источников и здоровье конвейера — на <a href="status.html" style="color:#ffd47e;">status-странице</a>.</p>
+<p style="margin-top:6px;">Исходный код, архив выпусков и конвейер публикации — в репозитории: <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener" style="color:#ffd47e;">github.com/Volgin1917/gudok</a></p></div>
 </div></footer>
 <script>
 function tick(){{try{{var f=new Intl.DateTimeFormat('ru-RU',{{timeZone:'Europe/Ulyanovsk',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}});var el=document.getElementById('clock');if(el)el.textContent=f.format(new Date());}}catch(e){{}}}}

@@ -275,6 +275,10 @@ code,pre{font-family:Consolas,Menlo,monospace;}
 .more-heads a{display:block;font-size:13px;font-weight:700;color:var(--navy);padding:5px 0;border-bottom:1px dashed var(--line);break-inside:avoid;}
 .more-heads a:hover{color:var(--blue);}
 .more-heads a span{color:var(--muted);font-weight:600;font-size:11px;}
+.util-bar{display:flex;gap:22px;align-items:center;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:12px;}
+.util-bar a{color:var(--muted);font-size:12.3px;font-weight:700;text-decoration:none;}
+.util-bar a:hover{color:var(--gold);}
+.util-lbl{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}
 .sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1200px;margin:0 auto;padding:0 18px;}
 .sec-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;border-top:4px solid var(--blue);display:flex;flex-direction:column;text-decoration:none;}
 .sec-card:hover{transform:translateY(-2px);text-decoration:none;}
@@ -347,7 +351,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 
 <div class="wrap1200" id="news" style="padding-top:6px;">
 <div class="sec-head"><h2>Новости дня</h2><div class="line"></div>
-<div class="badge">12.09.2026 · обновлено 02:24</div></div>
+<div class="badge">12.09.2026 · обновлено 02:30</div></div>
 <div class="lead-grid"><div class="lead-main" style="border-top-color:#0f9b8e;">
 <div class="lead-kicker" style="color:#0f9b8e;">🎓 Образование и наука · сюжет дня</div>
 <h2><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновской области…</a></h2>
@@ -374,9 +378,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <p>Спецвыпуск: кандидаты в губернаторы, округа Госдумы № 185/186, довыборы в ЗСО, предвыборные тренды.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:#0f9b8e;" href="infospace.html"><div class="ic">🔬</div><b>Инфопространство</b><div class="fig">749 <small>сообщений за неделю</small></div>
 <p>Сквозное исследование: кто задаёт повестку, каскады перепечаток, тон по уровням, федеральное эхо, карта районов.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:#96690a;" href="special/analytics_2026-09-11.html"><div class="ic">📕</div><b>Аналитика недели</b><div class="fig">спецвыпуск</div>
 <p>Глубокий ручной разбор повестки: политика, экономика, бюджет, безопасность — с верификацией фактов.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:var(--muted);" href="#archive"><div class="ic">🗄</div><b>Архив</b><div class="fig">2 <small>выпусков · 2 спец.</small></div>
-<p>Все ежедневные выпуски и специальные материалы издания с первого дня.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:#1d4066;" href="roadmap.html"><div class="ic">🧭</div><b>Роадмап</b><div class="fig">v2.4</div>
-<p>Куда движется издание: фазы развития, инфраструктура, риски и метрики проекта.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:#5b6b7c;" href="status.html"><div class="ic">🩺</div><b>Статус системы</b><div class="fig">служебная</div>
-<p>Здоровье конвейера, доступность источников, алерт-монитор, бэкапы. Реестр источников — там же.</p><div class="go">открыть →</div></a></div>
+<p>Все ежедневные выпуски и специальные материалы издания с первого дня.</p><div class="go">открыть →</div></a></div>
 
 <div class="wrap1200" id="archive" style="margin-top:26px;">
 <div class="sec-head"><h2>Последние выпуски</h2><div class="line"></div>
@@ -388,10 +390,20 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <a class="btn" href="digests/digest_2026-09-11.html">Открыть</a></div></div></div>
 </div>
 
+<div class="wrap1200" style="margin-top:26px;padding-bottom:6px;">
+<div class="util-bar">
+<span class="util-lbl">Служебное</span>
+<a href="roadmap.html">🧭 Роадмап издания</a>
+<a href="status.html">🩺 Статус системы</a>
+<a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
+</div>
+</div>
+
 <footer class="footer"><div class="footer-inner">
 <div><b>Гудок</b><p>Гудок — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года. Выходит ежедневно в 07:30 (UTC+4).</p></div>
 <div><b>Разделы</b><p><a href="digests/digest_2026-09-12.html" style="color:#ffd47e;">Свежий выпуск</a> · <a href="afisha.html" style="color:#ffd47e;">Афиша</a> · <a href="special/elections_2026.html" style="color:#ffd47e;">Выборы-2026</a> · <a href="infospace.html" style="color:#ffd47e;">Инфопространство</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a> · <a href="status.html" style="color:#ffd47e;">Статус</a></p></div>
-<div><b>Редакция</b><p>Мониторинг 30 Telegram-каналов и 2 RSS-лент. Колонку редактора и аналитику готовит ассистент. Реестр источников и здоровье конвейера — на <a href="status.html" style="color:#ffd47e;">status-странице</a>.</p></div>
+<div><b>Редакция</b><p>Мониторинг 30 Telegram-каналов и 2 RSS-лент. Колонку редактора и аналитику готовит ассистент. Реестр источников и здоровье конвейера — на <a href="status.html" style="color:#ffd47e;">status-странице</a>.</p>
+<p style="margin-top:6px;">Исходный код, архив выпусков и конвейер публикации — в репозитории: <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener" style="color:#ffd47e;">github.com/Volgin1917/gudok</a></p></div>
 </div></footer>
 <script>
 function tick(){try{var f=new Intl.DateTimeFormat('ru-RU',{timeZone:'Europe/Ulyanovsk',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});var el=document.getElementById('clock');if(el)el.textContent=f.format(new Date());}catch(e){}}
