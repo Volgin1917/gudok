@@ -119,7 +119,7 @@
  },
  "tg:chpul": {
   "ok": true,
-  "items": 16,
+  "items": 15,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
@@ -190,11 +190,11 @@
   "title": "Что-то на ульяновском"
  },
  "_meta": {
-  "last_run_utc": "2026-09-11T21:24:07.069067+00:00",
-  "last_run_local": "12.09.2026 01:24",
-  "fetched": 405,
-  "new": 87,
-  "total_store": 790
+  "last_run_utc": "2026-09-11T22:40:57.182910+00:00",
+  "last_run_local": "12.09.2026 02:40",
+  "fetched": 404,
+  "new": 1,
+  "total_store": 791
  },
  "rss:Улград": {
   "ok": true,

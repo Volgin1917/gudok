@@ -1,5 +1,5 @@
 {
- "generated_local": "12.09.2026 01:26",
+ "generated_local": "12.09.2026 02:42",
  "calendar": [
   {
    "etype": "sport",
@@ -465,11 +465,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.5,
-  "today_items": 4,
+  "today_score": 0.4,
+  "today_items": 5,
   "today_pos": 224,
   "today_neg": 146,
-  "today_neu": 285,
+  "today_neu": 286,
   "series": [
    {
     "date": "2026-08-30",
@@ -525,11 +525,11 @@
    },
    {
     "date": "2026-09-12",
-    "score": 0.5
+    "score": 0.4
    }
   ],
   "by_category": {
-   "society": 0.333
+   "society": 0.25
   }
  },
  "credibility": [
@@ -561,10 +561,10 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 38,
-   "primary": 27,
+   "total": 39,
+   "primary": 28,
    "dup": 11,
-   "repost_rate": 0.29,
+   "repost_rate": 0.28,
    "views_median": 7810,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -634,9 +634,9 @@
    "tier": 3,
    "type": "tg",
    "total": 28,
-   "primary": 23,
-   "dup": 5,
-   "repost_rate": 0.18,
+   "primary": 24,
+   "dup": 4,
+   "repost_rate": 0.14,
    "views_median": 542,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -730,11 +730,11 @@
    "tier": 2,
    "type": "tg",
    "total": 22,
-   "primary": 16,
-   "dup": 6,
-   "repost_rate": 0.27,
-   "views_median": 1470,
-   "label": "смешанный",
+   "primary": 17,
+   "dup": 5,
+   "repost_rate": 0.23,
+   "views_median": 1410,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -766,9 +766,9 @@
    "tier": 3,
    "type": "tg",
    "total": 20,
-   "primary": 14,
-   "dup": 6,
-   "repost_rate": 0.3,
+   "primary": 13,
+   "dup": 7,
+   "repost_rate": 0.35,
    "views_median": 3300,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -790,10 +790,10 @@
    "tier": 2,
    "type": "tg",
    "total": 19,
-   "primary": 16,
-   "dup": 3,
-   "repost_rate": 0.16,
-   "views_median": 441,
+   "primary": 15,
+   "dup": 4,
+   "repost_rate": 0.21,
+   "views_median": 392,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -802,10 +802,10 @@
    "tier": 1,
    "type": "tg",
    "total": 18,
-   "primary": 13,
-   "dup": 5,
-   "repost_rate": 0.28,
-   "views_median": 54,
+   "primary": 12,
+   "dup": 6,
+   "repost_rate": 0.33,
+   "views_median": 82,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -826,11 +826,11 @@
    "tier": 1,
    "type": "tg",
    "total": 16,
-   "primary": 12,
-   "dup": 4,
-   "repost_rate": 0.25,
-   "views_median": 3650,
-   "label": "смешанный",
+   "primary": 13,
+   "dup": 3,
+   "repost_rate": 0.19,
+   "views_median": 2490,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
