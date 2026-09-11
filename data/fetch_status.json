@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Улпресса": {
   "ok": true,
@@ -47,7 +47,7 @@
  },
  "tg:sergeymorozov73": {
   "ok": true,
-  "items": 12,
+  "items": 9,
   "error": null,
   "title": "Сергей Морозов (депутат Госдумы)"
  },
@@ -137,7 +137,7 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -190,11 +190,11 @@
   "title": "Что-то на ульяновском"
  },
  "_meta": {
-  "last_run_utc": "2026-09-11T11:18:29.642850+00:00",
-  "last_run_local": "11.09.2026 15:18",
-  "fetched": 441,
-  "new": 6,
-  "total_store": 649
+  "last_run_utc": "2026-09-11T11:40:09.826808+00:00",
+  "last_run_local": "11.09.2026 15:40",
+  "fetched": 430,
+  "new": 9,
+  "total_store": 658
  },
  "rss:Улград": {
   "ok": true,
