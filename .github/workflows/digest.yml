@@ -1,0 +1,55 @@
+name: Ежедневный дайджест «Гудка»
+
+on:
+  schedule:
+    # 03:30 UTC = 07:30 по Ульяновску (UTC+4) — утренний выпуск
+    - cron: "30 3 * * *"
+  workflow_dispatch: {}   # ручной запуск кнопкой в GitHub
+
+permissions:
+  contents: write         # чтобы коммитить свежие выпуски
+  pages: write
+  id-token: write
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Сбор и генерация выпуска
+        run: bash run.sh
+
+      - name: Коммит выпуска
+        run: |
+          git config user.name "gudok-bot"
+          git config user.email "gudok-bot@users.noreply.github.com"
+          git add data digests index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Дайджест $(date -u +%F)"
+            git push
+          else
+            echo "Изменений нет"
+          fi
+
+  # Публикация на GitHub Pages — отдельная джоба, чтобы падение Pages не ломало выпуск.
+  # Включите один раз: Settings -> Pages -> Source: GitHub Actions
+  publish:
+    needs: digest
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4

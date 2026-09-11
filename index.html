@@ -1,0 +1,450 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>издание «Гудок» — информационно-аналитическое издание Ульяновской области</title>
+<style>
+:root{--navy:#0d2137;--navy2:#14314f;--navy3:#1d4066;--blue:#2f80ed;--sky:#dce9f8;
+--gold:#f2b134;--red:#e5484d;--green:#2ea36b;--bg:#eef2f7;--card:#fff;--line:#dbe4ee;
+--txt:#1c2733;--muted:#5b6b7c;--radius:14px;--shadow:0 2px 10px rgba(13,33,55,.08);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt);font-size:15px;line-height:1.5;}
+a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+.topbar{background:linear-gradient(135deg,var(--navy),var(--navy2) 60%,var(--navy3));color:#fff;padding:14px 22px;box-shadow:0 2px 14px rgba(0,0,0,.25);}
+.topbar-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-title{font-size:19px;font-weight:800;letter-spacing:.6px;}
+.brand-title span{color:var(--gold);}
+.brand-sub{font-size:11.5px;color:#a9c1d9;text-transform:uppercase;letter-spacing:.4px;}
+.top-meta{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap;align-items:center;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 13px;font-size:12.5px;color:#e7eef6;display:flex;gap:7px;align-items:center;white-space:nowrap;}
+.chip b{color:var(--gold);}
+.dot{width:8px;height:8px;border-radius:50%;background:#41d17a;display:inline-block;animation:p 1.6s infinite;}
+.dot.err{background:#e5484d;}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
+.nav{background:var(--navy);border-top:1px solid rgba(255,255,255,.12);}
+.nav-inner{max-width:1280px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 14px;}
+.nav a{color:#c9d8e8;font-size:13px;font-weight:600;padding:10px 13px;white-space:nowrap;border-bottom:3px solid transparent;}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.06);text-decoration:none;}
+.page{max-width:1280px;margin:0 auto;padding:22px 18px 40px;}
+.sec-head{display:flex;align-items:center;gap:12px;margin:30px 0 14px;}
+.sec-head h2{font-size:20px;font-weight:800;color:var(--navy);}
+.sec-head .line{flex:1;height:2px;background:linear-gradient(90deg,var(--line),transparent);}
+.sec-head .badge{font-size:11px;font-weight:700;background:var(--sky);color:var(--navy3);padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.main-grid{display:grid;grid-template-columns:1fr 370px;gap:20px;align-items:start;}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden;}
+.card-pad{padding:16px 18px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.kpi{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:13px 15px;border-left:4px solid var(--blue);}
+.kpi .num{font-size:22px;font-weight:800;color:var(--navy);line-height:1.1;}
+.kpi .num small{font-size:12px;color:var(--muted);}
+.kpi .lbl{font-size:11.8px;color:var(--muted);margin-top:4px;}
+.kpi.gold{border-left-color:var(--gold);} .kpi.red{border-left-color:var(--red);}
+.kpi.green{border-left-color:var(--green);} .kpi.violet{border-left-color:#7b5aa6;}
+.topic-row{display:grid;grid-template-columns:210px 1fr 130px 90px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px;}
+.topic-row:last-child{border-bottom:none;}
+.topic-name{font-weight:700;color:var(--navy);}
+.topic-name small{display:block;font-weight:600;color:var(--muted);font-size:11px;}
+.stchip{font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 9px;white-space:nowrap;display:inline-block;}
+.bar-wrap{background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--blue),#5aa0f5);}
+.bar-fill.hot{background:linear-gradient(90deg,#d5494e,#f08a8d);}
+.bar-fill.warm{background:linear-gradient(90deg,#d99a1b,#f2c14e);}
+.bar-fill.cool{background:linear-gradient(90deg,#218a58,#3ec27f);}
+.tgpost{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);}
+.tgpost:last-child{border-bottom:none;}
+.tgpost .views{flex-shrink:0;background:#e8f4ff;color:#1d4f9c;border-radius:8px;font-size:11px;font-weight:800;padding:3px 8px;height:fit-content;white-space:nowrap;}
+.tgpost .t{font-size:12.8px;color:var(--txt);line-height:1.4;}
+.tgpost .m{font-size:11px;color:var(--muted);margin-top:2px;}
+.cat-block{margin-bottom:16px;}
+.cat-head{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#f8fbfe,#fff);}
+.cat-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex-shrink:0;}
+.cat-head h3{font-size:15px;font-weight:800;color:var(--navy);}
+.cat-head .count{margin-left:auto;font-size:11px;color:var(--muted);background:var(--bg);border-radius:999px;padding:3px 9px;font-weight:700;}
+.news-item{padding:11px 16px;border-bottom:1px dashed var(--line);}
+.news-item:last-child{border-bottom:none;}
+.news-item h4{font-size:13.8px;font-weight:700;line-height:1.35;margin-bottom:3px;}
+.news-item h4 a{color:var(--txt);} .news-item h4 a:hover{color:var(--blue);}
+.news-item p{font-size:12.5px;color:var(--muted);line-height:1.45;}
+.news-item .meta{font-size:10.8px;color:#8a99aa;margin-top:4px;font-weight:600;}
+.news-item .meta .tg{color:#1d4f9c;}
+.side-head{padding:12px 15px;background:var(--navy);color:#fff;font-size:13.5px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.side-head .sub{margin-left:auto;font-size:10.5px;font-weight:600;color:#9db6cf;}
+.side-body{padding:13px 15px;}
+.note{font-size:11.5px;color:var(--muted);background:#f7fafd;border:1px dashed var(--line);border-radius:9px;padding:8px 11px;margin-top:10px;line-height:1.45;}
+.verdict{background:#f7fafd;border-left:3px solid var(--gold);border-radius:0 9px 9px 0;padding:9px 13px;font-size:12.6px;color:var(--navy3);margin-top:10px;}
+.verdict b{color:#96690a;text-transform:uppercase;font-size:11px;letter-spacing:.8px;display:block;margin-bottom:3px;}
+.tbl{width:100%;border-collapse:collapse;font-size:12.8px;}
+.tbl th{background:var(--navy);color:#fff;text-align:left;padding:8px 11px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;}
+.tbl td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top;}
+.tbl tr:nth-child(even) td{background:#f8fbfe;}
+.ok{color:var(--green);font-weight:800;} .fail{color:var(--red);font-weight:800;}
+.arch-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);}
+.arch-item:last-child{border-bottom:none;}
+.arch-date{width:52px;height:46px;border-radius:10px;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;flex-shrink:0;}
+.arch-date b{font-size:16px;} .arch-date span{font-size:9px;color:#9db6cf;margin-top:2px;text-transform:uppercase;}
+.btn{display:inline-block;background:var(--navy);color:#fff;border-radius:9px;padding:8px 15px;font-size:12.5px;font-weight:700;}
+.btn:hover{background:var(--navy3);text-decoration:none;}
+.btn.gold{background:var(--gold);color:#3d2e04;}
+.alert-banner{background:linear-gradient(90deg,#b02a2f,#e5484d);color:#fff;padding:12px 20px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.alert-banner a{color:#ffe3a8;}
+.alert-banner .blink{animation:p 1s infinite;font-size:17px;}
+.print-btn{background:var(--gold);border:none;color:#3d2e04;font-weight:800;font-size:12px;padding:7px 14px;border-radius:8px;cursor:pointer;}
+.footer{background:var(--navy);color:#9db6cf;margin-top:36px;padding:24px 22px;font-size:12px;}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;gap:30px;flex-wrap:wrap;}
+.footer b{color:#fff;display:block;font-size:13px;margin-bottom:6px;}
+.footer p{line-height:1.6;max-width:480px;}
+code,pre{font-family:Consolas,Menlo,monospace;}
+.codebox{background:#0d2137;color:#c9d8e8;border-radius:10px;padding:12px 14px;font-size:12px;overflow-x:auto;line-height:1.55;}
+.codebox .c{color:#7fa3c7;}
+.cal-ev{display:flex;gap:11px;padding:8px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
+.cal-ev:last-child{border-bottom:none;}
+.cal-badge{flex-shrink:0;width:44px;height:42px;border-radius:9px;background:var(--navy3);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
+.cal-badge b{font-size:15px;} .cal-badge span{font-size:8.5px;text-transform:uppercase;color:#a9c1d9;margin-top:2px;}
+.cal-badge.gold{background:var(--gold);color:#4d3a06;} .cal-badge.gold span{color:#7a5f10;}
+.cal-txt{font-size:12.8px;line-height:1.4;}
+.cal-txt .t2{color:var(--muted);font-size:11.3px;}
+.cl-card{border:1px solid var(--line);border-radius:11px;padding:11px 14px;margin-bottom:10px;background:#fbfdff;}
+.cl-card.gap{border-left:4px solid var(--gold);}
+.cl-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:6px;}
+.cl-name{font-size:13.5px;font-weight:800;color:var(--navy);}
+.cl-badge{font-size:10px;font-weight:800;border-radius:999px;padding:2px 9px;}
+.cl-samples{font-size:12px;color:var(--muted);line-height:1.55;}
+.cl-samples a{color:var(--txt);}
+.tone-wrap{display:flex;gap:22px;align-items:center;flex-wrap:wrap;}
+.tone-gauge{flex:1;min-width:250px;}
+.tone-bar{height:20px;border-radius:10px;background:linear-gradient(90deg,#d5494e,#efe6cd 50%,#3ec27f);position:relative;}
+.tone-pin{position:absolute;top:-4px;width:4px;height:28px;background:var(--navy);border-radius:2px;box-shadow:0 0 0 2px #fff;}
+.tone-cats{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;}
+.tone-cat{font-size:11px;border-radius:8px;padding:3px 9px;border:1px solid var(--line);background:#fff;font-weight:700;}
+.fc-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px;}
+.fc-tbl th{text-align:left;padding:6px 10px;background:var(--bg);color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;}
+.fc-tbl td{padding:6px 10px;border-bottom:1px dashed var(--line);}
+.fc-up{color:#b02a2f;font-weight:800;} .fc-down{color:#1d7a4d;font-weight:800;} .fc-flat{color:var(--muted);font-weight:800;}
+.tchip{display:inline-block;font-size:10px;font-weight:700;background:#eef4fc;color:#3d5a7a;border:1px solid #d8e4f2;border-radius:999px;padding:1px 8px;margin:5px 4px 0 0;}
+.hero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.hero-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border-top:4px solid var(--blue);padding:14px 16px;display:flex;flex-direction:column;}
+.hero-card .hk{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--blue);margin-bottom:7px;display:flex;justify-content:space-between;}
+.hero-card .hk .w{color:var(--muted);letter-spacing:.2px;text-transform:none;font-weight:600;}
+.hero-card h3{font-size:15.5px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:7px;}
+.hero-card h3 a{color:var(--navy);} .hero-card h3 a:hover{color:var(--blue);}
+.hero-card p{font-size:12.8px;color:var(--muted);line-height:1.5;}
+.hero-meta{margin-top:auto;padding-top:8px;font-size:11px;color:#8a99aa;font-weight:600;border-top:1px dashed var(--line);}
+.chrono{border-left:3px solid var(--red);padding-left:15px;margin-top:6px;}
+.chrono-item{position:relative;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12.8px;line-height:1.4;}
+.chrono-item:last-child{border-bottom:none;}
+.chrono-item::before{content:"";position:absolute;left:-22px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--red);border:2px solid #fff;}
+.chrono-time{font-weight:800;color:var(--red);font-size:11.5px;margin-right:6px;white-space:nowrap;}
+@media (max-width:1080px){.main-grid,.grid2,.hero-grid{grid-template-columns:1fr;}.kpi-grid{grid-template-columns:repeat(2,1fr);}.grid3{grid-template-columns:1fr;}.topic-row{grid-template-columns:150px 1fr 110px;}.topic-row .sparkcell{display:none;}}
+@media print{.nav,.print-btn,.top-meta .chip{display:none!important;}body{background:#fff;}.card,.kpi{box-shadow:none;break-inside:avoid;}}
+
+/* ===== ТЁМНАЯ ТЕМА ===== */
+:root[data-theme="dark"]{
+  --bg:#0b1622; --card:#12202f; --line:#24384e; --txt:#dfe9f4; --muted:#93a7bc;
+  --sky:#1c3350; --navy:#dce9f8; --navy3:#a9c9e8; --shadow:0 2px 12px rgba(0,0,0,.45);
+}
+:root[data-theme="dark"] .topbar{background:linear-gradient(135deg,#0a1826,#0f2033 60%,#14314f);}
+:root[data-theme="dark"] .nav{background:#0a1826;}
+:root[data-theme="dark"] .ticker-wrap{background:#060d16;border-color:#1d3550;}
+:root[data-theme="dark"] .side-head,
+:root[data-theme="dark"] .tbl th,
+:root[data-theme="dark"] .cal-badge,
+:root[data-theme="dark"] .arch-date,
+:root[data-theme="dark"] .dist-head,
+:root[data-theme="dark"] .exec-sec h2{background:#16283c;}
+:root[data-theme="dark"] .cal-badge.gold{background:var(--gold);color:#4d3a06;}
+:root[data-theme="dark"] .cal-badge.gold span{color:#7a5f10;}
+:root[data-theme="dark"] .cat-head{background:linear-gradient(90deg,#15263a,#12202f);border-color:var(--line);}
+:root[data-theme="dark"] .note{background:#101e2d;border-color:#24384e;}
+:root[data-theme="dark"] .verdict,:root[data-theme="dark"] .an-verdict{background:#101e2d;color:#c9d8e8;}
+:root[data-theme="dark"] .verdict b,:root[data-theme="dark"] .an-verdict b{color:#e8b64c;}
+:root[data-theme="dark"] .tbl tr:nth-child(even) td{background:#14243a;}
+:root[data-theme="dark"] .tbl td{border-color:var(--line);}
+:root[data-theme="dark"] .bar-wrap,:root[data-theme="dark"] .bar-row .bt{background:#1c3049;}
+:root[data-theme="dark"] .btn{background:#1d4066;color:#fff;}
+:root[data-theme="dark"] .btn:hover{background:#2a5580;}
+:root[data-theme="dark"] .footer{background:#0a1826;}
+:root[data-theme="dark"] .fbtn{background:#12202f;border-color:#24384e;color:var(--muted);}
+:root[data-theme="dark"] .fbtn.active{background:#2f80ed;border-color:#2f80ed;color:#fff;}
+:root[data-theme="dark"] .wx{background:linear-gradient(160deg,#15263a,#101e2d);border-color:#24384e;}
+:root[data-theme="dark"] .wx.alert{background:linear-gradient(160deg,#2a1c1c,#201414);border-color:#4e3030;}
+:root[data-theme="dark"] .wx .t{color:var(--txt);}
+:root[data-theme="dark"] .hero-src{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .drone{background:#251616;border-color:#4e3030;}
+:root[data-theme="dark"] .codebox{background:#060d16;}
+:root[data-theme="dark"] .cl-card{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .person{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .reserved{background:repeating-linear-gradient(45deg,#101e2d,#101e2d 12px,#0d1926 12px,#0d1926 24px);border-color:#2c4258;}
+:root[data-theme="dark"] .tone-cat{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .tgpost .views{background:#16283c;color:#8ab4e8;}
+:root[data-theme="dark"] .exec-wrap{background:var(--bg);}
+:root[data-theme="dark"] .news-item .meta .tg{color:#7fa8d9;}
+:root[data-theme="dark"] .fc-up{color:#ff8a8e;}
+:root[data-theme="dark"] .fc-down{color:#6fd39b;}
+:root[data-theme="dark"] .hl{color:#3d2e04;}
+:root[data-theme="dark"] .okrug-title .no{background:#1c3350;color:#cfe2f7;}
+:root[data-theme="dark"] .chipC{background:#101e2d;border-color:#24384e;color:var(--txt);}
+:root[data-theme="dark"] .timeline::before{background:linear-gradient(180deg,#2ea36b,#2f80ed 30%,#9a7cc9 60%,#d99a1b);}
+:root[data-theme="dark"] .phase::before{background:#0b1622;}
+:root[data-theme="dark"] .sprint{background:linear-gradient(135deg,#0f2033,#16283c);}
+:root[data-theme="dark"] .mission{background:var(--card);}
+:root[data-theme="dark"] .src-card{background:var(--card);border-color:var(--line);}
+.theme-btn{border:1px solid rgba(255,255,255,.22);font-size:13px;padding:6px 12px;border-radius:8px;cursor:pointer;background:rgba(255,255,255,.12);color:#ffe9b8;font-weight:800;}
+.theme-btn:hover{background:rgba(255,255,255,.22);}
+@media print{
+  :root[data-theme="dark"]{--bg:#fff;--card:#fff;--line:#dbe4ee;--txt:#1c2733;--muted:#5b6b7c;--navy:#0d2137;--navy3:#1d4066;--sky:#dce9f8;}
+  :root[data-theme="dark"] .exec-wrap{background:#fff;}
+  .theme-btn{display:none!important;}
+}
+</style><script>
+(function(){try{var t=localStorage.getItem("gudok-theme");
+if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
+document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
+</script></head><body>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><svg width="44" height="50" viewBox="0 0 46 52" fill="none">
+<path d="M23 1 L44 9 V25 C44 38 35 47 23 51 C11 47 2 38 2 25 V9 Z" fill="#1d4066" stroke="#f2b134" stroke-width="2"/>
+<rect x="19" y="13" width="8" height="4.5" rx="1" fill="#e8eef5"/>
+<rect x="20.2" y="18.5" width="5.6" height="17" fill="#e8eef5"/>
+<rect x="17" y="35.5" width="12" height="3.4" rx="1" fill="#e8eef5"/>
+<rect x="15.4" y="39.2" width="15.2" height="3" rx="1" fill="#c9d8e8"/>
+<circle cx="23" cy="10.4" r="2.6" fill="#f2b134"/></svg><div>
+<div class="brand-title">ИЗДАНИЕ <span>«ГУДОК»</span></div>
+<div class="brand-sub">Информационно-аналитическое издание · Ульяновская область</div>
+</div></div>
+<div class="top-meta">
+<div class="chip"><span class="dot  "></span> Система: <b>в работе</b></div>
+<div class="chip">⏱ Последний сбор: <b>11.09.2026 15:18</b></div>
+<div class="chip">🗄 В базе: <b>649</b></div>
+<div class="chip">🕐 <b id="clock">--:--</b> UTC+4</div>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+</div></div></header>
+<nav class="nav"><div class="nav-inner">
+<a href="#today">Свежий выпуск</a><a href="#pulse">Пульс повестки</a><a href="#sources">Источники</a><a href="#archive">Архив</a><a href="afisha.html">🎭 Афиша</a><a href="#auto">Автоматизация</a><a href="status.html">🩺 Статус</a><a href="roadmap.html">🧭 Роадмап</a>
+</div></nav>
+<div class="page"><div class="sec-head" id="today" style="margin-top:6px;"><h2>🗞 Свежий выпуск</h2><div class="line"></div>
+<div class="badge">обновлено 11.09.2026 15:19</div></div>
+<div class="card"><div class="card-pad" style="display:flex;gap:22px;align-items:center;flex-wrap:wrap;">
+<div style="flex:1;min-width:260px;">
+<h3 style="font-size:19px;color:var(--navy);margin-bottom:7px;">Ежедневный дайджест от 11.09.2026</h3>
+<p style="font-size:13.3px;color:var(--muted);margin-bottom:12px;">Лента дня по 9 рубрикам, тренды информационной повестки, Telegram-монитор с просмотрами, автоматический прогноз тем. Материалов за 24 ч: <b>397</b>, за 7 дней: <b>611</b>.</p>
+<a class="btn gold" href="digests/digest_2026-09-11.html">Открыть выпуск →</a>
+<a class="btn" href="special/analytics_2026-09-11.html" style="margin-left:8px;">📕 Спецвыпуск «Аналитика недели»</a>
+<a class="btn" href="afisha.html" style="margin-left:8px;background:#9a4d8f;">🎭 Афиша области</a>
+<a class="btn" href="roadmap.html" style="margin-left:8px;background:#1d4066;">🧭 Роадмап</a>
+<a class="btn" href="digests/exec_2026-09-11.html" style="margin-left:8px;background:#1d7a4d;">📋 Дайджест руководителя</a>
+</div>
+<div style="flex-shrink:0;"><div style="text-align:center;"><div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Интенсивность повестки, 14 дней</div><svg width="240" height="54" viewBox="0 0 240 54"><path d="M2.0,50.8 L20.2,51.0 L38.3,49.9 L56.5,49.7 L74.6,51.0 L92.8,49.0 L110.9,48.8 L129.1,49.1 L147.2,49.8 L165.4,45.2 L183.5,44.1 L201.7,40.8 L219.8,5.6 L238.0,5.0 L238,52 L2,52 Z" fill="#4a7fb5" opacity="0.12"/><path d="M2.0,50.8 L20.2,51.0 L38.3,49.9 L56.5,49.7 L74.6,51.0 L92.8,49.0 L110.9,48.8 L129.1,49.1 L147.2,49.8 L165.4,45.2 L183.5,44.1 L201.7,40.8 L219.8,5.6 L238.0,5.0" fill="none" stroke="#4a7fb5" stroke-width="1.8" stroke-linejoin="round"/><circle cx="238.0" cy="5.0" r="2.6" fill="#4a7fb5"/></svg><div style="font-size:11px;color:var(--muted);">всего упоминаний тем: 1032</div></div></div>
+</div></div><div class="sec-head" id="pulse"><h2>📈 Тенденции повестки</h2><div class="line"></div>
+<div class="badge">трекер трендов</div></div>
+<div class="card"><div class="card-pad"><div class="topic-row">
+<div class="topic-name">Суды и криминал<small>7д: 110 · 24ч: 43</small></div>
+<div class="bar-wrap"><div class="bar-fill hot" style="width:100%"></div></div>
+<div class="sparkcell"><svg width="120" height="26" viewBox="0 0 120 26"><path d="M2.0,23.0 L10.9,23.0 L19.8,23.0 L28.8,22.6 L37.7,23.0 L46.6,23.0 L55.5,23.0 L64.5,21.7 L73.4,23.0 L82.3,21.7 L91.2,18.4 L100.2,18.8 L109.1,6.3 L118.0,5.0 L118,24 L2,24 Z" fill="#d5494e" opacity="0.12"/><path d="M2.0,23.0 L10.9,23.0 L19.8,23.0 L28.8,22.6 L37.7,23.0 L46.6,23.0 L55.5,23.0 L64.5,21.7 L73.4,23.0 L82.3,21.7 L91.2,18.4 L100.2,18.8 L109.1,6.3 L118.0,5.0" fill="none" stroke="#d5494e" stroke-width="1.8" stroke-linejoin="round"/><circle cx="118.0" cy="5.0" r="2.6" fill="#d5494e"/></svg></div>
+<div><span class="stchip" style="background:#fde7e8;color:#b02a2f;">🔥 растёт</span></div></div><div class="topic-row">
+<div class="topic-name">Губернатор / власть<small>7д: 105 · 24ч: 38</small></div>
+<div class="bar-wrap"><div class="bar-fill hot" style="width:95%"></div></div>
+<div class="sparkcell"><svg width="120" height="26" viewBox="0 0 120 26"><path d="M2.0,23.0 L10.9,23.0 L19.8,23.0 L28.8,22.2 L37.7,23.0 L46.6,22.6 L55.5,22.2 L64.5,22.6 L73.4,23.0 L82.3,21.0 L91.2,19.5 L100.2,20.7 L109.1,5.0 L118.0,8.1 L118,24 L2,24 Z" fill="#d5494e" opacity="0.12"/><path d="M2.0,23.0 L10.9,23.0 L19.8,23.0 L28.8,22.2 L37.7,23.0 L46.6,22.6 L55.5,22.2 L64.5,22.6 L73.4,23.0 L82.3,21.0 L91.2,19.5 L100.2,20.7 L109.1,5.0 L118.0,8.1" fill="none" stroke="#d5494e" stroke-width="1.8" stroke-linejoin="round"/><circle cx="118.0" cy="8.1" r="2.6" fill="#d5494e"/></svg></div>
+<div><span class="stchip" style="background:#fde7e8;color:#b02a2f;">🔥 растёт</span></div></div><div class="topic-row">
+<div class="topic-name">Транспорт и дороги<small>7д: 100 · 24ч: 55</small></div>
+<div class="bar-wrap"><div class="bar-fill hot" style="width:90%"></div></div>
+<div class="sparkcell"><svg width="120" height="26" viewBox="0 0 120 26"><path d="M2.0,23.0 L10.9,23.0 L19.8,22.7 L28.8,22.7 L37.7,23.0 L46.6,22.7 L55.5,22.0 L64.5,22.7 L73.4,23.0 L82.3,21.7 L91.2,21.0 L100.2,22.0 L109.1,12.9 L118.0,5.0 L118,24 L2,24 Z" fill="#d5494e" opacity="0.12"/><path d="M2.0,23.0 L10.9,23.0 L19.8,22.7 L28.8,22.7 L37.7,23.0 L46.6,22.7 L55.5,22.0 L64.5,22.7 L73.4,23.0 L82.3,21.7 L91.2,21.0 L100.2,22.0 L109.1,12.9 L118.0,5.0" fill="none" stroke="#d5494e" stroke-width="1.8" stroke-linejoin="round"/><circle cx="118.0" cy="5.0" r="2.6" fill="#d5494e"/></svg></div>
+<div><span class="stchip" style="background:#fde7e8;color:#b02a2f;">🔥 растёт</span></div></div><div class="topic-row">
+<div class="topic-name">Школы и вузы<small>7д: 100 · 24ч: 37</small></div>
+<div class="bar-wrap"><div class="bar-fill hot" style="width:90%"></div></div>
+<div class="sparkcell"><svg width="120" height="26" viewBox="0 0 120 26"><path d="M2.0,22.6 L10.9,23.0 L19.8,22.1 L28.8,21.3 L37.7,23.0 L46.6,22.6 L55.5,22.6 L64.5,23.0 L73.4,22.1 L82.3,21.7 L91.2,20.4 L100.2,18.7 L109.1,5.0 L118.0,7.1 L118,24 L2,24 Z" fill="#d5494e" opacity="0.12"/><path d="M2.0,22.6 L10.9,23.0 L19.8,22.1 L28.8,21.3 L37.7,23.0 L46.6,22.6 L55.5,22.6 L64.5,23.0 L73.4,22.1 L82.3,21.7 L91.2,20.4 L100.2,18.7 L109.1,5.0 L118.0,7.1" fill="none" stroke="#d5494e" stroke-width="1.8" stroke-linejoin="round"/><circle cx="118.0" cy="7.1" r="2.6" fill="#d5494e"/></svg></div>
+<div><span class="stchip" style="background:#fde7e8;color:#b02a2f;">🔥 растёт</span></div></div><div class="topic-row">
+<div class="topic-name">Культура и туризм<small>7д: 80 · 24ч: 17</small></div>
+<div class="bar-wrap"><div class="bar-fill hot" style="width:72%"></div></div>
+<div class="sparkcell"><svg width="120" height="26" viewBox="0 0 120 26"><path d="M2.0,23.0 L10.9,23.0 L19.8,22.4 L28.8,23.0 L37.7,23.0 L46.6,21.7 L55.5,21.7 L64.5,21.7 L73.4,21.1 L82.3,18.5 L91.2,18.5 L100.2,12.7 L109.1,5.0 L118.0,12.1 L118,24 L2,24 Z" fill="#d5494e" opacity="0.12"/><path d="M2.0,23.0 L10.9,23.0 L19.8,22.4 L28.8,23.0 L37.7,23.0 L46.6,21.7 L55.5,21.7 L64.5,21.7 L73.4,21.1 L82.3,18.5 L91.2,18.5 L100.2,12.7 L109.1,5.0 L118.0,12.1" fill="none" stroke="#d5494e" stroke-width="1.8" stroke-linejoin="round"/><circle cx="118.0" cy="12.1" r="2.6" fill="#d5494e"/></svg></div>
+<div><span class="stchip" style="background:#fde7e8;color:#b02a2f;">🔥 растёт</span></div></div><div class="topic-row">
+<div class="topic-name">БПЛА и воздушные угрозы<small>7д: 69 · 24ч: 41</small></div>
+<div class="bar-wrap"><div class="bar-fill hot" style="width:62%"></div></div>
+<div class="sparkcell"><svg width="120" height="26" viewBox="0 0 120 26"><path d="M2.0,23.0 L10.9,23.0 L19.8,23.0 L28.8,23.0 L37.7,23.0 L46.6,22.1 L55.5,23.0 L64.5,22.6 L73.4,23.0 L82.3,22.6 L91.2,22.6 L100.2,22.6 L109.1,12.5 L118.0,5.0 L118,24 L2,24 Z" fill="#d5494e" opacity="0.12"/><path d="M2.0,23.0 L10.9,23.0 L19.8,23.0 L28.8,23.0 L37.7,23.0 L46.6,22.1 L55.5,23.0 L64.5,22.6 L73.4,23.0 L82.3,22.6 L91.2,22.6 L100.2,22.6 L109.1,12.5 L118.0,5.0" fill="none" stroke="#d5494e" stroke-width="1.8" stroke-linejoin="round"/><circle cx="118.0" cy="5.0" r="2.6" fill="#d5494e"/></svg></div>
+<div><span class="stchip" style="background:#fde7e8;color:#b02a2f;">🔥 растёт</span></div></div><div class="topic-row">
+<div class="topic-name">Спорт<small>7д: 69 · 24ч: 20</small></div>
+<div class="bar-wrap"><div class="bar-fill hot" style="width:62%"></div></div>
+<div class="sparkcell"><svg width="120" height="26" viewBox="0 0 120 26"><path d="M2.0,23.0 L10.9,23.0 L19.8,22.4 L28.8,23.0 L37.7,23.0 L46.6,22.4 L55.5,21.8 L64.5,21.8 L73.4,23.0 L82.3,21.3 L91.2,21.3 L100.2,17.2 L109.1,5.0 L118.0,11.4 L118,24 L2,24 Z" fill="#d5494e" opacity="0.12"/><path d="M2.0,23.0 L10.9,23.0 L19.8,22.4 L28.8,23.0 L37.7,23.0 L46.6,22.4 L55.5,21.8 L64.5,21.8 L73.4,23.0 L82.3,21.3 L91.2,21.3 L100.2,17.2 L109.1,5.0 L118.0,11.4" fill="none" stroke="#d5494e" stroke-width="1.8" stroke-linejoin="round"/><circle cx="118.0" cy="11.4" r="2.6" fill="#d5494e"/></svg></div>
+<div><span class="stchip" style="background:#fde7e8;color:#b02a2f;">🔥 растёт</span></div></div><div class="topic-row">
+<div class="topic-name">Городская среда<small>7д: 49 · 24ч: 24</small></div>
+<div class="bar-wrap"><div class="bar-fill hot" style="width:44%"></div></div>
+<div class="sparkcell"><svg width="120" height="26" viewBox="0 0 120 26"><path d="M2.0,23.0 L10.9,23.0 L19.8,23.0 L28.8,23.0 L37.7,23.0 L46.6,21.5 L55.5,21.5 L64.5,23.0 L73.4,21.5 L82.3,19.2 L91.2,21.5 L100.2,19.2 L109.1,14.8 L118.0,5.0 L118,24 L2,24 Z" fill="#d5494e" opacity="0.12"/><path d="M2.0,23.0 L10.9,23.0 L19.8,23.0 L28.8,23.0 L37.7,23.0 L46.6,21.5 L55.5,21.5 L64.5,23.0 L73.4,21.5 L82.3,19.2 L91.2,21.5 L100.2,19.2 L109.1,14.8 L118.0,5.0" fill="none" stroke="#d5494e" stroke-width="1.8" stroke-linejoin="round"/><circle cx="118.0" cy="5.0" r="2.6" fill="#d5494e"/></svg></div>
+<div><span class="stchip" style="background:#fde7e8;color:#b02a2f;">🔥 растёт</span></div></div>
+<div class="note">Статусы: 🔥 растёт (×1.6 к недельной базе) · 🆕 новая (не встречалась ранее) · 📉 спадает (−50%) · ⚖️ стабильно. Данные обновляются каждым запуском <code>run.sh</code>.</div></div></div><div class="sec-head" id="sources"><h2>📡 Реестр источников</h2><div class="line"></div>
+<div class="badge">статус последнего сбора</div></div>
+<div class="grid2">
+<div class="card"><div class="side-head">✈️ Telegram-каналы <span class="sub">https://t.me/s/&lt;канал&gt;</span></div><div class="side-body">
+<table class="tbl"><tr><th>Канал</th><th>Уровень</th><th>Название</th><th>Статус</th><th>Собрано</th></tr><tr><td><a href="https://t.me/ulpressa" target="_blank" rel="noopener">@ulpressa</a></td>
+<td style="font-size:11.5px;">официальный · 32K</td>
+<td style="color:var(--muted);font-size:11.5px;">УЛПРЕССА</td>
+<td><span class="ok">в сети</span></td><td>30</td></tr><tr><td><a href="https://t.me/Russkih_Aleksey" target="_blank" rel="noopener">@Russkih_Aleksey</a></td>
+<td style="font-size:11.5px;">официальный · 18K</td>
+<td style="color:var(--muted);font-size:11.5px;">Алексей Русских (губернатор)</td>
+<td><span class="ok">в сети</span></td><td>9</td></tr><tr><td><a href="https://t.me/sergeymorozov73" target="_blank" rel="noopener">@sergeymorozov73</a></td>
+<td style="font-size:11.5px;">официальный · 10K</td>
+<td style="color:var(--muted);font-size:11.5px;">Сергей Морозов (депутат Госдумы)</td>
+<td><span class="ok">в сети</span></td><td>12</td></tr><tr><td><a href="https://t.me/UAZ_Today" target="_blank" rel="noopener">@UAZ_Today</a></td>
+<td style="font-size:11.5px;">официальный · 10K</td>
+<td style="color:var(--muted);font-size:11.5px;">УАЗ Сегодня</td>
+<td><span class="ok">в сети</span></td><td>13</td></tr><tr><td><a href="https://t.me/fcvolga" target="_blank" rel="noopener">@fcvolga</a></td>
+<td style="font-size:11.5px;">официальный · 7K</td>
+<td style="color:var(--muted);font-size:11.5px;">ФК «Волга»</td>
+<td><span class="ok">в сети</span></td><td>20</td></tr><tr><td><a href="https://t.me/ulpravda" target="_blank" rel="noopener">@ulpravda</a></td>
+<td style="font-size:11.5px;">официальный · 6K</td>
+<td style="color:var(--muted);font-size:11.5px;">Ulpravda.ru (Ульяновская правда)</td>
+<td><span class="ok">в сети</span></td><td>16</td></tr><tr><td><a href="https://t.me/ulgovru" target="_blank" rel="noopener">@ulgovru</a></td>
+<td style="font-size:11.5px;">официальный · 4K</td>
+<td style="color:var(--muted);font-size:11.5px;">Правительство Ульяновской области</td>
+<td><span class="ok">в сети</span></td><td>7</td></tr><tr><td><a href="https://t.me/vmkononov" target="_blank" rel="noopener">@vmkononov</a></td>
+<td style="font-size:11.5px;">официальный · 3K</td>
+<td style="color:var(--muted);font-size:11.5px;">Владимир Кононов (депутат Госдумы)</td>
+<td><span class="ok">в сети</span></td><td>5</td></tr><tr><td><a href="https://t.me/A_Boldakin" target="_blank" rel="noopener">@A_Boldakin</a></td>
+<td style="font-size:11.5px;">официальный · 3K</td>
+<td style="color:var(--muted);font-size:11.5px;">Александр Болдакин (глава Ульяновска)</td>
+<td><span class="ok">в сети</span></td><td>7</td></tr><tr><td><a href="https://t.me/reporter73" target="_blank" rel="noopener">@reporter73</a></td>
+<td style="font-size:11.5px;">официальный · —</td>
+<td style="color:var(--muted);font-size:11.5px;">Репортёр73</td>
+<td><span class="ok">в сети</span></td><td>8</td></tr><tr><td><a href="https://t.me/tresh_ulyan" target="_blank" rel="noopener">@tresh_ulyan</a></td>
+<td style="font-size:11.5px;">агрегатор · 145K</td>
+<td style="color:var(--muted);font-size:11.5px;">Треш Ульяновск</td>
+<td><span class="ok">в сети</span></td><td>20</td></tr><tr><td><a href="https://t.me/insaid173" target="_blank" rel="noopener">@insaid173</a></td>
+<td style="font-size:11.5px;">агрегатор · 138K</td>
+<td style="color:var(--muted);font-size:11.5px;">Инсайд Ульяновск</td>
+<td><span class="ok">в сети</span></td><td>16</td></tr><tr><td><a href="https://t.me/chpulsk" target="_blank" rel="noopener">@chpulsk</a></td>
+<td style="font-size:11.5px;">агрегатор · 83K</td>
+<td style="color:var(--muted);font-size:11.5px;">ЧП Ульяновск</td>
+<td><span class="ok">в сети</span></td><td>14</td></tr><tr><td><a href="https://t.me/dimitrovgradonline" target="_blank" rel="noopener">@dimitrovgradonline</a></td>
+<td style="font-size:11.5px;">агрегатор · 55K</td>
+<td style="color:var(--muted);font-size:11.5px;">Информационный Димитровград</td>
+<td><span class="ok">в сети</span></td><td>10</td></tr><tr><td><a href="https://t.me/topor_ul" target="_blank" rel="noopener">@topor_ul</a></td>
+<td style="font-size:11.5px;">агрегатор · 46K</td>
+<td style="color:var(--muted);font-size:11.5px;">Топор Ульяновск</td>
+<td><span class="ok">в сети</span></td><td>17</td></tr><tr><td><a href="https://t.me/ulkoroche" target="_blank" rel="noopener">@ulkoroche</a></td>
+<td style="font-size:11.5px;">агрегатор · 32K</td>
+<td style="color:var(--muted);font-size:11.5px;">Короче, Ульяновск</td>
+<td><span class="ok">в сети</span></td><td>10</td></tr><tr><td><a href="https://t.me/dimitrovgradd" target="_blank" rel="noopener">@dimitrovgradd</a></td>
+<td style="font-size:11.5px;">агрегатор · 29K</td>
+<td style="color:var(--muted);font-size:11.5px;">Типичный Димитровград</td>
+<td><span class="ok">в сети</span></td><td>14</td></tr><tr><td><a href="https://t.me/ulyanovsk_smi" target="_blank" rel="noopener">@ulyanovsk_smi</a></td>
+<td style="font-size:11.5px;">агрегатор · 26K</td>
+<td style="color:var(--muted);font-size:11.5px;">Новости Ульяновска и Области</td>
+<td><span class="ok">в сети</span></td><td>17</td></tr><tr><td><a href="https://t.me/chpul" target="_blank" rel="noopener">@chpul</a></td>
+<td style="font-size:11.5px;">агрегатор · 17K</td>
+<td style="color:var(--muted);font-size:11.5px;">Инцидент Ульяновск</td>
+<td><span class="ok">в сети</span></td><td>15</td></tr><tr><td><a href="https://t.me/ulsk_on" target="_blank" rel="noopener">@ulsk_on</a></td>
+<td style="font-size:11.5px;">агрегатор · 13K</td>
+<td style="color:var(--muted);font-size:11.5px;">Ульяновск Новости (онлайн)</td>
+<td><span class="ok">в сети</span></td><td>18</td></tr><tr><td><a href="https://t.me/ulsk_73online" target="_blank" rel="noopener">@ulsk_73online</a></td>
+<td style="font-size:11.5px;">агрегатор · 13K</td>
+<td style="color:var(--muted);font-size:11.5px;">73online</td>
+<td><span class="ok">в сети</span></td><td>9</td></tr><tr><td><a href="https://t.me/ulsk_driver73" target="_blank" rel="noopener">@ulsk_driver73</a></td>
+<td style="font-size:11.5px;">агрегатор · 12K</td>
+<td style="color:var(--muted);font-size:11.5px;">Ульяновский водитель</td>
+<td><span class="ok">в сети</span></td><td>10</td></tr><tr><td><a href="https://t.me/ProNovosty73" target="_blank" rel="noopener">@ProNovosty73</a></td>
+<td style="font-size:11.5px;">агрегатор · 4K</td>
+<td style="color:var(--muted);font-size:11.5px;">Что-то на ульяновском</td>
+<td><span class="ok">в сети</span></td><td>20</td></tr><tr><td><a href="https://t.me/ulpatriot" target="_blank" rel="noopener">@ulpatriot</a></td>
+<td style="font-size:11.5px;">мнения · 23K</td>
+<td style="color:var(--muted);font-size:11.5px;">Ульяновский патриот</td>
+<td><span class="ok">в сети</span></td><td>15</td></tr><tr><td><a href="https://t.me/shugozhor73" target="_blank" rel="noopener">@shugozhor73</a></td>
+<td style="font-size:11.5px;">мнения · 19K</td>
+<td style="color:var(--muted);font-size:11.5px;">Симбирский шугожор</td>
+<td><span class="ok">в сети</span></td><td>10</td></tr><tr><td><a href="https://t.me/ulpromo" target="_blank" rel="noopener">@ulpromo</a></td>
+<td style="font-size:11.5px;">мнения · 13K</td>
+<td style="color:var(--muted);font-size:11.5px;">Движ в любимом У</td>
+<td><span class="ok">в сети</span></td><td>15</td></tr><tr><td><a href="https://t.me/ulkompr" target="_blank" rel="noopener">@ulkompr</a></td>
+<td style="font-size:11.5px;">мнения · 13K</td>
+<td style="color:var(--muted);font-size:11.5px;">Компромат Ульяновск</td>
+<td><span class="ok">в сети</span></td><td>17</td></tr><tr><td><a href="https://t.me/terr73" target="_blank" rel="noopener">@terr73</a></td>
+<td style="font-size:11.5px;">мнения · 9K</td>
+<td style="color:var(--muted);font-size:11.5px;">Территория Русских</td>
+<td><span class="ok">в сети</span></td><td>15</td></tr><tr><td><a href="https://t.me/volkodav73" target="_blank" rel="noopener">@volkodav73</a></td>
+<td style="font-size:11.5px;">мнения · 8K</td>
+<td style="color:var(--muted);font-size:11.5px;">Волкодав73</td>
+<td><span class="ok">в сети</span></td><td>18</td></tr><tr><td><a href="https://t.me/culturnik" target="_blank" rel="noopener">@culturnik</a></td>
+<td style="font-size:11.5px;">мнения · 5K</td>
+<td style="color:var(--muted);font-size:11.5px;">Культура Ульяновск</td>
+<td><span class="ok">в сети</span></td><td>11</td></tr></table><div class="note">Превью читается простым HTTPS-запросом без ключей. Пагинация: <code>?before=&lt;id&gt;</code>. Домен <code>te.me/s/</code> превью не отдаёт (404) — используется <code>t.me/s/</code>.</div></div></div>
+<div class="card"><div class="side-head">📰 RSS-ленты <span class="sub">региональные СМИ</span></div><div class="side-body">
+<table class="tbl"><tr><th>Издание</th><th>Статус</th><th>Собрано</th></tr><tr><td><a href="https://ulnovosti.ru/feed/" target="_blank" rel="noopener">Ulnovosti.ru</a><br>
+<span style="color:var(--muted);font-size:11px;">https://ulnovosti.ru/feed/</span></td><td><span class="ok">в сети</span></td><td>10</td></tr><tr><td><a href="https://ulpressa.ru/feed/" target="_blank" rel="noopener">Улпресса</a><br>
+<span style="color:var(--muted);font-size:11px;">https://ulpressa.ru/feed/</span></td><td><span class="ok">в сети</span></td><td>20</td></tr></table><div class="note">Добавить источник — одна строка в <code>config.json</code>.</div></div></div></div><div class="sec-head"><h2>⚖️ Индекс источников: первичность и охват</h2><div class="line"></div>
+<div class="badge">по данным дедупликации</div></div>
+<div class="card"><div class="card-pad" style="padding:10px 14px;">
+<table class="tbl"><tr><th>Источник</th><th>Tier</th><th>Публикаций</th><th>Первичных</th><th>Перепечатки</th><th>Медиана 👁</th><th>Кликбейт</th><th>Профиль</th></tr>
+<tr><td><b>ulpressa</b></td><td>T1</td><td>43</td>
+<td>35</td><td>19%</td><td>1.1K</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#1d7a4d;font-weight:800;">первоисточник</td></tr><tr><td><b>Улпресса</b></td><td>—</td><td>38</td>
+<td>35</td><td>8%</td><td>—</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#1d7a4d;font-weight:800;">первоисточник</td></tr><tr><td><b>Media73</b></td><td>—</td><td>35</td>
+<td>35</td><td>0%</td><td>—</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#1d7a4d;font-weight:800;">первоисточник</td></tr><tr><td><b>ulpravda</b></td><td>T1</td><td>34</td>
+<td>28</td><td>18%</td><td>291</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#1d7a4d;font-weight:800;">первоисточник</td></tr><tr><td><b>chpulsk</b></td><td>T2</td><td>28</td>
+<td>18</td><td>36%</td><td>6K</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#96690a;font-weight:800;">смешанный</td></tr><tr><td><b>reporter73</b></td><td>T1</td><td>26</td>
+<td>21</td><td>19%</td><td>60</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#1d7a4d;font-weight:800;">первоисточник</td></tr><tr><td><b>tresh_ulyan</b></td><td>T2</td><td>26</td>
+<td>17</td><td>35%</td><td>9K</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#96690a;font-weight:800;">смешанный</td></tr><tr><td><b>ulsk_on</b></td><td>T2</td><td>21</td>
+<td>15</td><td>28%</td><td>694</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#96690a;font-weight:800;">смешанный</td></tr><tr><td><b>volkodav73</b></td><td>T3</td><td>21</td>
+<td>15</td><td>28%</td><td>3.7K</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#96690a;font-weight:800;">смешанный</td></tr><tr><td><b>ulkompr</b></td><td>T3</td><td>21</td>
+<td>19</td><td>10%</td><td>842</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#1d7a4d;font-weight:800;">первоисточник</td></tr><tr><td><b>fcvolga</b></td><td>T1</td><td>20</td>
+<td>20</td><td>0%</td><td>1.7K</td><td><span style="color:var(--muted);font-weight:700;">10%</span></td>
+<td style="color:#1d7a4d;font-weight:800;">первоисточник</td></tr><tr><td><b>insaid173</b></td><td>T2</td><td>20</td>
+<td>14</td><td>30%</td><td>10.6K</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#96690a;font-weight:800;">смешанный</td></tr><tr><td><b>topor_ul</b></td><td>T2</td><td>20</td>
+<td>18</td><td>10%</td><td>2.7K</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#1d7a4d;font-weight:800;">первоисточник</td></tr><tr><td><b>ulpatriot</b></td><td>T3</td><td>20</td>
+<td>17</td><td>15%</td><td>7.5K</td><td><span style="color:var(--muted);font-weight:700;">0%</span></td>
+<td style="color:#1d7a4d;font-weight:800;">первоисточник</td></tr></table>
+<div class="note">«Первоисточник» — доля перепечаток &lt;25%: материал рождается здесь. «Перепечатчик» — &gt;60%: канал транслирует чужое. Кликбейт-индекс — доля заголовков с 2+ признаками (маркеры «шок/жесть», 3+ «!», КАПС, 4+ эмодзи). Здоровье конвейера — на <a href="status.html">status-странице</a>.</div></div></div><div class="sec-head" id="archive"><h2>🗄 Архив выпусков</h2><div class="line"></div>
+<div class="badge">1 ежедневных · 2 спецвыпусков</div></div>
+<div class="grid2"><div class="card"><div class="card-pad"><div class="arch-item"><div class="arch-date"><b>11</b><span>Sep</span></div>
+<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">Дайджест 11.09.2026</b><br>
+<span style="font-size:11.8px;color:var(--muted);">выпуск №1</span></div>
+<a class="btn" href="digests/digest_2026-09-11.html">Открыть</a></div></div></div><div class="card"><div class="card-pad"><div class="arch-item"><div class="arch-date" style="background:var(--gold);color:#4d3a06;"><b>📕</b><span>спец</span></div>
+<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">🗳 Спецвыпуск «Выборы-2026»</b><br>
+<span style="font-size:11.8px;color:var(--muted);">кандидаты, округа, предвыборные тренды · обновляется ежедневно</span></div>
+<a class="btn gold" href="special/elections_2026.html">Открыть</a></div><div class="arch-item"><div class="arch-date" style="background:var(--gold);color:#4d3a06;"><b>📕</b><span>спец</span></div>
+<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">📕 Аналитический спецвыпуск «Повестка недели»</b><br>
+<span style="font-size:11.8px;color:var(--muted);">глубокая аналитика за 4–11 сентября, ручная сборка</span></div>
+<a class="btn gold" href="special/analytics_2026-09-11.html">Открыть</a></div></div></div></div><div class="sec-head" id="auto"><h2>⚙️ Автоматизация выпуска</h2><div class="line"></div>
+<div class="badge">3 способа</div></div>
+<div class="grid3">
+<div class="card"><div class="side-head">1️⃣ Сервер / свой компьютер</div><div class="side-body">
+<div class="codebox"><span class="c"># crontab -e (ежедневно 07:30 Ульяновск)</span><br>
+CRON_TZ=Europe/Ulyanovsk<br>
+30 7 * * * cd ~/gudok && bash run.sh >> data/cron.log 2>&1</div>
+<div class="note">Требуется только Python 3.8+ (стандартная библиотека).</div></div></div>
+<div class="card"><div class="side-head">2️⃣ GitHub Actions (облако, бесплатно)</div><div class="side-body">
+<div class="codebox"><span class="c"># .github/workflows/digest.yml уже в проекте</span><br>
+schedule: cron "30 3 * * *" <span class="c"># 07:30 UTC+4</span><br>
+publish: GitHub Pages</div>
+<div class="note">Загрузите содержимое проекта в репозиторий — выпуск будет собираться и публиковаться сам. Есть и ручной запуск (workflow_dispatch).</div></div></div>
+<div class="card"><div class="side-head">3️⃣ Через чат с ассистентом</div><div class="side-body">
+<div class="codebox">«обнови дайджест»<br>«собери выпуск за вчера»<br>«добавь канал @example в мониторинг»</div>
+<div class="note">Ассистент запустит run.sh, проверит тренды и при необходимости даст ручную аналитику к выпуску.</div></div></div>
+</div></div>
+<footer class="footer"><div class="footer-inner">
+<div><b>издание «Гудок»</b><p>Автоматизированный мониторинг информационной повестки Ульяновская область. Источники: RSS региональных СМИ и публичные веб-превью Telegram-каналов.</p></div>
+<div><b>Дисклеймер</b><p>Материалы принадлежат их изданиям; дайджест носит информационно-аналитический характер. Автоматическая классификация и статусы трендов могут содержать ошибки — проверяйте первоисточники по ссылкам.</p></div>
+<div><b>Технология</b><p>Python 3 (stdlib) · HTML/CSS/inline SVG · без внешних зависимостей и CDN. База: data/store.jsonl · тренды: data/trends.json</p></div>
+</div></footer>
+<script>
+function tick(){try{var f=new Intl.DateTimeFormat('ru-RU',{timeZone:'Europe/Ulyanovsk',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});document.getElementById('clock').textContent=f.format(new Date());}catch(e){document.getElementById('clock').textContent=new Date().toTimeString().slice(0,8);}}
+tick();setInterval(tick,1000);
+</script>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+document.documentElement.setAttribute("data-theme",c);
+try{localStorage.setItem("gudok-theme",c);}catch(e){}
+syncThemeBtn();}
+function syncThemeBtn(){var b=document.getElementById("themeBtn");
+if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
+syncThemeBtn();
+</script></body></html>

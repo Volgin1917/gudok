@@ -1,0 +1,367 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Спецвыпуск «Выборы-2026» · Ульяновская область — издание «Гудок»</title>
+<style>
+:root{--navy:#0d2137;--navy2:#14314f;--navy3:#1d4066;--blue:#2f80ed;--sky:#dce9f8;
+--gold:#f2b134;--red:#e5484d;--green:#2ea36b;--bg:#eef2f7;--card:#fff;--line:#dbe4ee;
+--txt:#1c2733;--muted:#5b6b7c;--radius:14px;--shadow:0 2px 10px rgba(13,33,55,.08);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt);font-size:15px;line-height:1.5;}
+a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+.topbar{background:linear-gradient(135deg,var(--navy),var(--navy2) 60%,var(--navy3));color:#fff;padding:14px 22px;box-shadow:0 2px 14px rgba(0,0,0,.25);}
+.topbar-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-title{font-size:19px;font-weight:800;letter-spacing:.6px;}
+.brand-title span{color:var(--gold);}
+.brand-sub{font-size:11.5px;color:#a9c1d9;text-transform:uppercase;letter-spacing:.4px;}
+.top-meta{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap;align-items:center;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 13px;font-size:12.5px;color:#e7eef6;display:flex;gap:7px;align-items:center;white-space:nowrap;}
+.chip b{color:var(--gold);}
+.dot{width:8px;height:8px;border-radius:50%;background:#41d17a;display:inline-block;animation:p 1.6s infinite;}
+.dot.err{background:#e5484d;}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
+.nav{background:var(--navy);border-top:1px solid rgba(255,255,255,.12);}
+.nav-inner{max-width:1280px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 14px;}
+.nav a{color:#c9d8e8;font-size:13px;font-weight:600;padding:10px 13px;white-space:nowrap;border-bottom:3px solid transparent;}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.06);text-decoration:none;}
+.page{max-width:1280px;margin:0 auto;padding:22px 18px 40px;}
+.sec-head{display:flex;align-items:center;gap:12px;margin:30px 0 14px;}
+.sec-head h2{font-size:20px;font-weight:800;color:var(--navy);}
+.sec-head .line{flex:1;height:2px;background:linear-gradient(90deg,var(--line),transparent);}
+.sec-head .badge{font-size:11px;font-weight:700;background:var(--sky);color:var(--navy3);padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.main-grid{display:grid;grid-template-columns:1fr 370px;gap:20px;align-items:start;}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden;}
+.card-pad{padding:16px 18px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.kpi{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:13px 15px;border-left:4px solid var(--blue);}
+.kpi .num{font-size:22px;font-weight:800;color:var(--navy);line-height:1.1;}
+.kpi .num small{font-size:12px;color:var(--muted);}
+.kpi .lbl{font-size:11.8px;color:var(--muted);margin-top:4px;}
+.kpi.gold{border-left-color:var(--gold);} .kpi.red{border-left-color:var(--red);}
+.kpi.green{border-left-color:var(--green);} .kpi.violet{border-left-color:#7b5aa6;}
+.topic-row{display:grid;grid-template-columns:210px 1fr 130px 90px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px;}
+.topic-row:last-child{border-bottom:none;}
+.topic-name{font-weight:700;color:var(--navy);}
+.topic-name small{display:block;font-weight:600;color:var(--muted);font-size:11px;}
+.stchip{font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 9px;white-space:nowrap;display:inline-block;}
+.bar-wrap{background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--blue),#5aa0f5);}
+.bar-fill.hot{background:linear-gradient(90deg,#d5494e,#f08a8d);}
+.bar-fill.warm{background:linear-gradient(90deg,#d99a1b,#f2c14e);}
+.bar-fill.cool{background:linear-gradient(90deg,#218a58,#3ec27f);}
+.tgpost{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);}
+.tgpost:last-child{border-bottom:none;}
+.tgpost .views{flex-shrink:0;background:#e8f4ff;color:#1d4f9c;border-radius:8px;font-size:11px;font-weight:800;padding:3px 8px;height:fit-content;white-space:nowrap;}
+.tgpost .t{font-size:12.8px;color:var(--txt);line-height:1.4;}
+.tgpost .m{font-size:11px;color:var(--muted);margin-top:2px;}
+.cat-block{margin-bottom:16px;}
+.cat-head{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#f8fbfe,#fff);}
+.cat-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex-shrink:0;}
+.cat-head h3{font-size:15px;font-weight:800;color:var(--navy);}
+.cat-head .count{margin-left:auto;font-size:11px;color:var(--muted);background:var(--bg);border-radius:999px;padding:3px 9px;font-weight:700;}
+.news-item{padding:11px 16px;border-bottom:1px dashed var(--line);}
+.news-item:last-child{border-bottom:none;}
+.news-item h4{font-size:13.8px;font-weight:700;line-height:1.35;margin-bottom:3px;}
+.news-item h4 a{color:var(--txt);} .news-item h4 a:hover{color:var(--blue);}
+.news-item p{font-size:12.5px;color:var(--muted);line-height:1.45;}
+.news-item .meta{font-size:10.8px;color:#8a99aa;margin-top:4px;font-weight:600;}
+.news-item .meta .tg{color:#1d4f9c;}
+.side-head{padding:12px 15px;background:var(--navy);color:#fff;font-size:13.5px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.side-head .sub{margin-left:auto;font-size:10.5px;font-weight:600;color:#9db6cf;}
+.side-body{padding:13px 15px;}
+.note{font-size:11.5px;color:var(--muted);background:#f7fafd;border:1px dashed var(--line);border-radius:9px;padding:8px 11px;margin-top:10px;line-height:1.45;}
+.verdict{background:#f7fafd;border-left:3px solid var(--gold);border-radius:0 9px 9px 0;padding:9px 13px;font-size:12.6px;color:var(--navy3);margin-top:10px;}
+.verdict b{color:#96690a;text-transform:uppercase;font-size:11px;letter-spacing:.8px;display:block;margin-bottom:3px;}
+.tbl{width:100%;border-collapse:collapse;font-size:12.8px;}
+.tbl th{background:var(--navy);color:#fff;text-align:left;padding:8px 11px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;}
+.tbl td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top;}
+.tbl tr:nth-child(even) td{background:#f8fbfe;}
+.ok{color:var(--green);font-weight:800;} .fail{color:var(--red);font-weight:800;}
+.arch-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);}
+.arch-item:last-child{border-bottom:none;}
+.arch-date{width:52px;height:46px;border-radius:10px;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;flex-shrink:0;}
+.arch-date b{font-size:16px;} .arch-date span{font-size:9px;color:#9db6cf;margin-top:2px;text-transform:uppercase;}
+.btn{display:inline-block;background:var(--navy);color:#fff;border-radius:9px;padding:8px 15px;font-size:12.5px;font-weight:700;}
+.btn:hover{background:var(--navy3);text-decoration:none;}
+.btn.gold{background:var(--gold);color:#3d2e04;}
+.alert-banner{background:linear-gradient(90deg,#b02a2f,#e5484d);color:#fff;padding:12px 20px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.alert-banner a{color:#ffe3a8;}
+.alert-banner .blink{animation:p 1s infinite;font-size:17px;}
+.print-btn{background:var(--gold);border:none;color:#3d2e04;font-weight:800;font-size:12px;padding:7px 14px;border-radius:8px;cursor:pointer;}
+.footer{background:var(--navy);color:#9db6cf;margin-top:36px;padding:24px 22px;font-size:12px;}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;gap:30px;flex-wrap:wrap;}
+.footer b{color:#fff;display:block;font-size:13px;margin-bottom:6px;}
+.footer p{line-height:1.6;max-width:480px;}
+code,pre{font-family:Consolas,Menlo,monospace;}
+.codebox{background:#0d2137;color:#c9d8e8;border-radius:10px;padding:12px 14px;font-size:12px;overflow-x:auto;line-height:1.55;}
+.codebox .c{color:#7fa3c7;}
+.cal-ev{display:flex;gap:11px;padding:8px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
+.cal-ev:last-child{border-bottom:none;}
+.cal-badge{flex-shrink:0;width:44px;height:42px;border-radius:9px;background:var(--navy3);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
+.cal-badge b{font-size:15px;} .cal-badge span{font-size:8.5px;text-transform:uppercase;color:#a9c1d9;margin-top:2px;}
+.cal-badge.gold{background:var(--gold);color:#4d3a06;} .cal-badge.gold span{color:#7a5f10;}
+.cal-txt{font-size:12.8px;line-height:1.4;}
+.cal-txt .t2{color:var(--muted);font-size:11.3px;}
+.cl-card{border:1px solid var(--line);border-radius:11px;padding:11px 14px;margin-bottom:10px;background:#fbfdff;}
+.cl-card.gap{border-left:4px solid var(--gold);}
+.cl-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:6px;}
+.cl-name{font-size:13.5px;font-weight:800;color:var(--navy);}
+.cl-badge{font-size:10px;font-weight:800;border-radius:999px;padding:2px 9px;}
+.cl-samples{font-size:12px;color:var(--muted);line-height:1.55;}
+.cl-samples a{color:var(--txt);}
+.tone-wrap{display:flex;gap:22px;align-items:center;flex-wrap:wrap;}
+.tone-gauge{flex:1;min-width:250px;}
+.tone-bar{height:20px;border-radius:10px;background:linear-gradient(90deg,#d5494e,#efe6cd 50%,#3ec27f);position:relative;}
+.tone-pin{position:absolute;top:-4px;width:4px;height:28px;background:var(--navy);border-radius:2px;box-shadow:0 0 0 2px #fff;}
+.tone-cats{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;}
+.tone-cat{font-size:11px;border-radius:8px;padding:3px 9px;border:1px solid var(--line);background:#fff;font-weight:700;}
+.fc-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px;}
+.fc-tbl th{text-align:left;padding:6px 10px;background:var(--bg);color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;}
+.fc-tbl td{padding:6px 10px;border-bottom:1px dashed var(--line);}
+.fc-up{color:#b02a2f;font-weight:800;} .fc-down{color:#1d7a4d;font-weight:800;} .fc-flat{color:var(--muted);font-weight:800;}
+.tchip{display:inline-block;font-size:10px;font-weight:700;background:#eef4fc;color:#3d5a7a;border:1px solid #d8e4f2;border-radius:999px;padding:1px 8px;margin:5px 4px 0 0;}
+.hero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.hero-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border-top:4px solid var(--blue);padding:14px 16px;display:flex;flex-direction:column;}
+.hero-card .hk{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--blue);margin-bottom:7px;display:flex;justify-content:space-between;}
+.hero-card .hk .w{color:var(--muted);letter-spacing:.2px;text-transform:none;font-weight:600;}
+.hero-card h3{font-size:15.5px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:7px;}
+.hero-card h3 a{color:var(--navy);} .hero-card h3 a:hover{color:var(--blue);}
+.hero-card p{font-size:12.8px;color:var(--muted);line-height:1.5;}
+.hero-meta{margin-top:auto;padding-top:8px;font-size:11px;color:#8a99aa;font-weight:600;border-top:1px dashed var(--line);}
+.chrono{border-left:3px solid var(--red);padding-left:15px;margin-top:6px;}
+.chrono-item{position:relative;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12.8px;line-height:1.4;}
+.chrono-item:last-child{border-bottom:none;}
+.chrono-item::before{content:"";position:absolute;left:-22px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--red);border:2px solid #fff;}
+.chrono-time{font-weight:800;color:var(--red);font-size:11.5px;margin-right:6px;white-space:nowrap;}
+@media (max-width:1080px){.main-grid,.grid2,.hero-grid{grid-template-columns:1fr;}.kpi-grid{grid-template-columns:repeat(2,1fr);}.grid3{grid-template-columns:1fr;}.topic-row{grid-template-columns:150px 1fr 110px;}.topic-row .sparkcell{display:none;}}
+@media print{.nav,.print-btn,.top-meta .chip{display:none!important;}body{background:#fff;}.card,.kpi{box-shadow:none;break-inside:avoid;}}
+
+/* ===== ТЁМНАЯ ТЕМА ===== */
+:root[data-theme="dark"]{
+  --bg:#0b1622; --card:#12202f; --line:#24384e; --txt:#dfe9f4; --muted:#93a7bc;
+  --sky:#1c3350; --navy:#dce9f8; --navy3:#a9c9e8; --shadow:0 2px 12px rgba(0,0,0,.45);
+}
+:root[data-theme="dark"] .topbar{background:linear-gradient(135deg,#0a1826,#0f2033 60%,#14314f);}
+:root[data-theme="dark"] .nav{background:#0a1826;}
+:root[data-theme="dark"] .ticker-wrap{background:#060d16;border-color:#1d3550;}
+:root[data-theme="dark"] .side-head,
+:root[data-theme="dark"] .tbl th,
+:root[data-theme="dark"] .cal-badge,
+:root[data-theme="dark"] .arch-date,
+:root[data-theme="dark"] .dist-head,
+:root[data-theme="dark"] .exec-sec h2{background:#16283c;}
+:root[data-theme="dark"] .cal-badge.gold{background:var(--gold);color:#4d3a06;}
+:root[data-theme="dark"] .cal-badge.gold span{color:#7a5f10;}
+:root[data-theme="dark"] .cat-head{background:linear-gradient(90deg,#15263a,#12202f);border-color:var(--line);}
+:root[data-theme="dark"] .note{background:#101e2d;border-color:#24384e;}
+:root[data-theme="dark"] .verdict,:root[data-theme="dark"] .an-verdict{background:#101e2d;color:#c9d8e8;}
+:root[data-theme="dark"] .verdict b,:root[data-theme="dark"] .an-verdict b{color:#e8b64c;}
+:root[data-theme="dark"] .tbl tr:nth-child(even) td{background:#14243a;}
+:root[data-theme="dark"] .tbl td{border-color:var(--line);}
+:root[data-theme="dark"] .bar-wrap,:root[data-theme="dark"] .bar-row .bt{background:#1c3049;}
+:root[data-theme="dark"] .btn{background:#1d4066;color:#fff;}
+:root[data-theme="dark"] .btn:hover{background:#2a5580;}
+:root[data-theme="dark"] .footer{background:#0a1826;}
+:root[data-theme="dark"] .fbtn{background:#12202f;border-color:#24384e;color:var(--muted);}
+:root[data-theme="dark"] .fbtn.active{background:#2f80ed;border-color:#2f80ed;color:#fff;}
+:root[data-theme="dark"] .wx{background:linear-gradient(160deg,#15263a,#101e2d);border-color:#24384e;}
+:root[data-theme="dark"] .wx.alert{background:linear-gradient(160deg,#2a1c1c,#201414);border-color:#4e3030;}
+:root[data-theme="dark"] .wx .t{color:var(--txt);}
+:root[data-theme="dark"] .hero-src{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .drone{background:#251616;border-color:#4e3030;}
+:root[data-theme="dark"] .codebox{background:#060d16;}
+:root[data-theme="dark"] .cl-card{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .person{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .reserved{background:repeating-linear-gradient(45deg,#101e2d,#101e2d 12px,#0d1926 12px,#0d1926 24px);border-color:#2c4258;}
+:root[data-theme="dark"] .tone-cat{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .tgpost .views{background:#16283c;color:#8ab4e8;}
+:root[data-theme="dark"] .exec-wrap{background:var(--bg);}
+:root[data-theme="dark"] .news-item .meta .tg{color:#7fa8d9;}
+:root[data-theme="dark"] .fc-up{color:#ff8a8e;}
+:root[data-theme="dark"] .fc-down{color:#6fd39b;}
+:root[data-theme="dark"] .hl{color:#3d2e04;}
+:root[data-theme="dark"] .okrug-title .no{background:#1c3350;color:#cfe2f7;}
+:root[data-theme="dark"] .chipC{background:#101e2d;border-color:#24384e;color:var(--txt);}
+:root[data-theme="dark"] .timeline::before{background:linear-gradient(180deg,#2ea36b,#2f80ed 30%,#9a7cc9 60%,#d99a1b);}
+:root[data-theme="dark"] .phase::before{background:#0b1622;}
+:root[data-theme="dark"] .sprint{background:linear-gradient(135deg,#0f2033,#16283c);}
+:root[data-theme="dark"] .mission{background:var(--card);}
+:root[data-theme="dark"] .src-card{background:var(--card);border-color:var(--line);}
+.theme-btn{border:1px solid rgba(255,255,255,.22);font-size:13px;padding:6px 12px;border-radius:8px;cursor:pointer;background:rgba(255,255,255,.12);color:#ffe9b8;font-weight:800;}
+.theme-btn:hover{background:rgba(255,255,255,.22);}
+@media print{
+  :root[data-theme="dark"]{--bg:#fff;--card:#fff;--line:#dbe4ee;--txt:#1c2733;--muted:#5b6b7c;--navy:#0d2137;--navy3:#1d4066;--sky:#dce9f8;}
+  :root[data-theme="dark"] .exec-wrap{background:#fff;}
+  .theme-btn{display:none!important;}
+}
+
+.pill{font-size:10.5px;font-weight:800;color:#fff;border-radius:999px;padding:3px 10px;white-space:nowrap;display:inline-block;}
+.p-kprf{background:#d52b1e;} .p-er{background:#2d6fd6;} .p-sr{background:#e2622a;}
+.p-ldpr{background:#1f3a93;} .p-nl{background:#00b3a4;} .p-kpk{background:#8e1b1b;}
+.p-zel{background:#3aa655;} .p-rod{background:#b03050;} .p-pens{background:#7b5aa6;}
+.cand-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);padding:15px 17px;border-top:4px solid var(--blue);}
+.cand-card h3{font-size:16px;color:var(--navy);margin-bottom:4px;}
+.cand-card .bio{font-size:12.6px;color:var(--muted);line-height:1.5;margin:7px 0;}
+.cand-card .fact{font-size:12.3px;background:#f7fafd;border-left:3px solid var(--gold);padding:7px 11px;border-radius:0 8px 8px 0;color:var(--navy3);}
+.countdown{background:linear-gradient(135deg,#b02a2f,#e5484d);border-radius:var(--radius);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;box-shadow:var(--shadow);}
+.countdown .big{font-size:40px;font-weight:800;line-height:1;}
+.countdown .txt b{font-size:16px;display:block;}
+.countdown .txt span{font-size:12.5px;opacity:.9;}
+.dist-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden;}
+.dist-head{background:var(--navy);color:#fff;padding:11px 16px;font-size:14px;font-weight:800;display:flex;gap:10px;align-items:center;}
+.dist-head .n{background:var(--gold);color:#3d2e04;border-radius:7px;padding:2px 10px;font-size:12.5px;}
+.dist-body{padding:12px 16px;display:flex;flex-wrap:wrap;gap:7px;}
+.person{border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-size:12.3px;display:flex;align-items:center;gap:7px;background:#fbfdff;}
+.reserved{background:repeating-linear-gradient(45deg,#f7fafd,#f7fafd 12px,#eef2f7 12px,#eef2f7 24px);border:2px dashed #b9c9da;border-radius:var(--radius);padding:20px 22px;text-align:center;color:var(--muted);}
+.reserved b{color:var(--navy);display:block;font-size:15px;margin-bottom:6px;}
+.watch li{font-size:13px;margin-bottom:8px;line-height:1.5;}
+
+@media print{.nav,.print-btn{display:none!important;}body{background:#fff;}}
+</style><script>
+(function(){try{var t=localStorage.getItem("gudok-theme");
+if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
+document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
+</script></head><body>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><svg width="44" height="50" viewBox="0 0 46 52" fill="none">
+<path d="M23 1 L44 9 V25 C44 38 35 47 23 51 C11 47 2 38 2 25 V9 Z" fill="#1d4066" stroke="#f2b134" stroke-width="2"/>
+<rect x="19" y="13" width="8" height="4.5" rx="1" fill="#e8eef5"/>
+<rect x="20.2" y="18.5" width="5.6" height="17" fill="#e8eef5"/>
+<rect x="17" y="35.5" width="12" height="3.4" rx="1" fill="#e8eef5"/>
+<rect x="15.4" y="39.2" width="15.2" height="3" rx="1" fill="#c9d8e8"/>
+<circle cx="23" cy="10.4" r="2.6" fill="#f2b134"/></svg><div>
+<div class="brand-title">ИЗДАНИЕ <span>«ГУДОК»</span> · ВЫБОРЫ-2026</div>
+<div class="brand-sub">Спецвыпуск · губернатор, Госдума IX созыва, довыборы в ЗСО</div>
+</div></div>
+<div class="top-meta">
+<div class="chip">🗳 Голосование <b>18–20 сентября</b></div>
+<div class="chip">🤖 обновлён <b>11.09 15:19</b></div>
+<a class="chip" href="../index.html">← Витрина центра</a>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+<button class="print-btn" onclick="window.print()">🖨 PDF</button>
+</div></div></header>
+
+<div class="page">
+
+<div class="countdown" style="margin-bottom:18px;">
+<div class="big">7</div>
+<div class="txt"><b>До единого дня голосования осталось <b>7</b> дней</b>
+<span>18, 19 и 20 сентября 2026 · трёхдневное голосование · участки 8:00–20:00 · ДЭГ в области не проводится</span></div>
+</div>
+
+<div class="kpi-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:22px;">
+<div class="kpi"><div class="num">925 350</div><div class="lbl">избирателей в регионе</div></div>
+<div class="kpi gold"><div class="num">52,6%</div><div class="lbl">избирателей — в Ульяновске</div></div>
+<div class="kpi violet"><div class="num">4</div><div class="lbl">кандидата на пост губернатора</div></div>
+<div class="kpi green"><div class="num">17</div><div class="lbl">кандидатов в Госдуму по двум округам</div></div>
+<div class="kpi red"><div class="num">3</div><div class="lbl">кампании одновременно (губернатор, ГД, ЗСО)</div></div>
+</div>
+
+<div class="sec-head" style="margin-top:8px;"><h2>🏛 Кандидаты на пост губернатора</h2><div class="line"></div>
+<div class="badge">избран на 5 лет · назначает сенатора</div></div>
+<div class="grid2" style="margin-bottom:8px;"><div class="cand-card" style="border-top-color:#d52b1e;">
+<h3>Алексей Русских <span class="pill p-kprf">КПРФ</span></h3>
+<div class="bio">Действующий губернатор (с 2021). Сенатор РФ в 2018–2021, до этого — депутат Госдумы и Мособлдумы, инженер-предприниматель (транспорт, ЖКХ).</div>
+<div class="fact">Идёт при поддержке «Единой России» — редкая конфигурация: один из трёх губернаторов-коммунистов в стране (по данным «Ведомостей»). Фаворит кампании.</div></div><div class="cand-card" style="border-top-color:#e2622a;">
+<h3>Марина Ким <span class="pill p-sr">Справедливая Россия</span></h3>
+<div class="bio">Актриса, телеведущая («Утро России»), депутат Госдумы VIII созыва.</div>
+<div class="fact">Самый медийный кандидат кампании — федеральная узнаваемость работает на явку и результат СР.</div></div><div class="cand-card" style="border-top-color:#1f3a93;">
+<h3>Сергей Маринин <span class="pill p-ldpr">ЛДПР</span></h3>
+<div class="bio">Депутат Госдумы VII созыва (2016–2021), координатор ЛДПР в регионе, инженер-экономист.</div>
+<div class="fact">Единственный кандидат, идущий «паровозом» сразу в двух кампаниях: губернатор + Госдума по округу № 186.</div></div><div class="cand-card" style="border-top-color:#00b3a4;">
+<h3>Юлия Ясайтис <span class="pill p-nl">Новые люди</span></h3>
+<div class="bio">Предприниматель, представительница «Новых людей».</div>
+<div class="fact">Партия впервые участвует в ульяновской губернаторской кампании — тест региональной инфраструктуры.</div></div></div>
+<div class="note" style="margin-bottom:22px;">Порога явки нет — выборы состоятся при любой активности. Профили составлены по данным Википедии, «Ведомостей» и региональных СМИ (проверено 11.09.2026).</div>
+
+<div class="sec-head"><h2>🗳 Государственная Дума: одномандатные округа</h2><div class="line"></div>
+<div class="badge">по данным gogov.ru, 23.08.2026</div></div>
+<div class="grid2" style="margin-bottom:6px;"><div class="dist-card"><div class="dist-head"><span class="n">Округ № 185</span> Госдума IX созыва · 8 кандидатов</div>
+<div class="dist-body"><span class="person">Владимир Камеко <span class="pill p-er" style="font-size:9.5px;padding:2px 8px;">ЕР</span></span><span class="person">Антон Шилов <span class="pill p-kprf" style="font-size:9.5px;padding:2px 8px;">КПРФ</span></span><span class="person">Дмитрий Грачёв <span class="pill p-ldpr" style="font-size:9.5px;padding:2px 8px;">ЛДПР</span></span><span class="person">Андрей Седов <span class="pill p-sr" style="font-size:9.5px;padding:2px 8px;">СР</span></span><span class="person">Юрий Белоусов <span class="pill p-nl" style="font-size:9.5px;padding:2px 8px;">Новые люди</span></span><span class="person">Леонид Костиков <span class="pill p-kpk" style="font-size:9.5px;padding:2px 8px;">Коммунисты России</span></span><span class="person">Игорь Южалин <span class="pill p-zel" style="font-size:9.5px;padding:2px 8px;">Зелёные</span></span><span class="person">Алексей Якушев <span class="pill p-rod" style="font-size:9.5px;padding:2px 8px;">Родина</span></span></div></div><div class="dist-card"><div class="dist-head"><span class="n">Округ № 186</span> Госдума IX созыва · 9 кандидатов</div>
+<div class="dist-body"><span class="person">Владимир Кононов <span class="pill p-er" style="font-size:9.5px;padding:2px 8px;">ЕР</span></span><span class="person">Роман Султашов <span class="pill p-kprf" style="font-size:9.5px;padding:2px 8px;">КПРФ</span></span><span class="person">Сергей Маринин <span class="pill p-ldpr" style="font-size:9.5px;padding:2px 8px;">ЛДПР</span></span><span class="person">Григорий Матвеев <span class="pill p-sr" style="font-size:9.5px;padding:2px 8px;">СР</span></span><span class="person">Марат Аряпов <span class="pill p-nl" style="font-size:9.5px;padding:2px 8px;">Новые люди</span></span><span class="person">Камиль Сафиуллин <span class="pill p-kpk" style="font-size:9.5px;padding:2px 8px;">Коммунисты России</span></span><span class="person">Владимир Малинин <span class="pill p-pens" style="font-size:9.5px;padding:2px 8px;">Партия пенсионеров</span></span><span class="person">Анжелика Берестовская <span class="pill p-zel" style="font-size:9.5px;padding:2px 8px;">Зелёные</span></span><span class="person">Игорь Сафонов <span class="pill p-rod" style="font-size:9.5px;padding:2px 8px;">Родина</span></span></div></div></div>
+<div class="note" style="margin-bottom:22px;">Всего по округам выдвигались 20 человек: 1 снялся, 2 выбыли после регистрации (Д. Гондаренко, «Яблоко», № 185; Е. Скрипкин, «Яблоко», № 186). Также 20 сентября — довыборы депутата Законодательного Собрания VII созыва по Вешкаймскому одномандатному округу № 2.</div>
+
+<div class="sec-head"><h2>📈 Выборная повестка в мониторинге</h2><div class="line"></div>
+<div class="badge">трекер трендов</div></div>
+<div class="grid2" style="margin-bottom:8px;">
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:6px;">Тема «Выборы-2026»: 31 упоминаний за 7 дней, 10 за сегодня</div>
+<svg width="260" height="44" viewBox="0 0 260 44"><path d="M2.0,41.0 L21.7,41.0 L41.4,41.0 L61.1,41.0 L80.8,41.0 L100.5,41.0 L120.2,41.0 L139.8,41.0 L159.5,41.0 L179.2,36.2 L198.9,41.0 L218.6,31.4 L238.3,5.0 L258.0,17.0 L258,42 L2,42 Z" fill="#b02a2f" opacity="0.12"/><path d="M2.0,41.0 L21.7,41.0 L41.4,41.0 L61.1,41.0 L80.8,41.0 L100.5,41.0 L120.2,41.0 L139.8,41.0 L159.5,41.0 L179.2,36.2 L198.9,41.0 L218.6,31.4 L238.3,5.0 L258.0,17.0" fill="none" stroke="#b02a2f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="258.0" cy="17.0" r="2.6" fill="#b02a2f"/></svg>
+<div class="verdict"><b>Статус трекера</b>🔥 тема на подъёме — ожидаем пик 18–20 сентября. До голосования публикационная активность каналов будет расти — классическая предвыборная динамика.</div>
+</div></div>
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Кто активнее пишет о выборах (7 дней)</div>
+<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">ulkompr</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:100%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">6</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">volkodav73</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:50%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">3</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">ulgovru</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:50%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">3</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">dimitrovgradonline</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:33%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">ulsk_on</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:33%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">reporter73</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:33%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">Ulnovosti.ru</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:33%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">tresh_ulyan</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:16%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">1</div></div>
+<div class="note">Считаются только первичные материалы (перепечатки исключены дедупликацией).</div>
+</div></div></div>
+
+<div class="sec-head"><h2>📰 Выборная лента из базы центра</h2><div class="line"></div>
+<div class="badge">топ-10 по просмотрам и свежести</div></div>
+<div class="card" style="margin-bottom:22px;"><div class="news-item">
+<h4><a href="https://t.me/tresh_ulyan/56094" target="_blank" rel="noopener">⚡️ В Госдуме посоветовали россиянам переходить с айфонов на другие устройства Компания недавно перестала прини…</a></h4>
+<p>⚡️ В Госдуме посоветовали россиянам переходить с айфонов на другие устройства Компания недавно перестала принимать платежи из России для того, чтобы можно было использовать облачное хранилище. Apple специально осложняет жизнь россиянам , считают в комитете Госдумы по информполитике. В течение следую</p>
+<div class="meta">10.09 19:58 · t.me/tresh_ulyan · 👁 12K</div></div><div class="news-item">
+<h4><a href="https://t.me/volkodav73/30680" target="_blank" rel="noopener">За исключением Русских, кандидаты в губернаторы от КПРФ в остальных семи регионах, где пройдут прямые выборы, …</a></h4>
+<p>За исключением Русских, кандидаты в губернаторы от КПРФ в остальных семи регионах, где пройдут прямые выборы, в дебатах участвуют, сказал «Ведомостям» секретарь ЦК КПРФ по выборам Сергей Обухов. Пресс-секретарь компартии депутат Госдумы Александр Ющенко оставил без комментариев вопрос, почему губерн</p>
+<div class="meta">10.09 09:07 · t.me/volkodav73 · 👁 4.6K</div></div><div class="news-item">
+<h4><a href="https://t.me/volkodav73/30679" target="_blank" rel="noopener">В случае победы Якушева на выборах в ГД ульяновских чиновников ждет страшное Депутата клонируют, а тех, кто не…</a></h4>
+<p>В случае победы Якушева на выборах в ГД ульяновских чиновников ждет страшное Депутата клонируют, а тех, кто не имеет совести, будет иметь народ! 👄 Подписывайтесь | Косаринова в МАХ</p>
+<div class="meta">09.09 22:41 · t.me/volkodav73 · 👁 4.4K</div></div><div class="news-item">
+<h4><a href="https://t.me/chpulsk/50674" target="_blank" rel="noopener">❗️ Беспилотник попал в здание территориального избиркома в Самарской области, пострадавших нет, сообщила глава…</a></h4>
+<p>❗️ Беспилотник попал в здание территориального избиркома в Самарской области, пострадавших нет, сообщила глава ЦИК Памфилова. Она допустила, что Киев пойдет на новые провокации, и отметила: на Украине боятся проводить выборы, но хотят сорвать российские.</p>
+<div class="meta">11.09 12:19 · t.me/chpulsk · 👁 3.4K</div></div><div class="news-item">
+<h4><a href="https://t.me/volkodav73/30684" target="_blank" rel="noopener">На дебаты кандидат принёс рыбу для совместного участия</a></h4>
+<p>На дебаты кандидат принёс рыбу для совместного участия</p>
+<div class="meta">10.09 13:44 · t.me/volkodav73 · 👁 3.2K</div></div><div class="news-item">
+<h4><a href="https://t.me/topor_ul/11569" target="_blank" rel="noopener">Депутат Свинцов порекомендовал россиянам отказаться от техники Apple Зампред комитета Госдумы по информационно…</a></h4>
+<p>Депутат Свинцов порекомендовал россиянам отказаться от техники Apple Зампред комитета Госдумы по информационной политике Андрей Свинцов заявил, что покупать новые модели iPhone, которые заинтересовали пользователей сети, россиянам стоит с осторожностью, поскольку компания якобы «может в любой момент</p>
+<div class="meta">10.09 22:40 · t.me/topor_ul · 👁 2K</div></div><div class="news-item">
+<h4><a href="https://t.me/ulpressa/74463" target="_blank" rel="noopener">🚨 Памфилова сообщила о попадании БПЛА в здание территориального избиркома в Самарской области, где находилась …</a></h4>
+<p>🚨 Памфилова сообщила о попадании БПЛА в здание территориального избиркома в Самарской области, где находилась избирательная документация, жертв нет. Мы в Telegram | Мы в MAX</p>
+<div class="meta">11.09 12:12 · t.me/ulpressa · 👁 1.4K</div></div><div class="news-item">
+<h4><a href="https://t.me/ulkompr/36251" target="_blank" rel="noopener">⚡ Источник: Морозова ждёт новое назначение после выборов в Госдуму В федеральных политических кругах обсуждает…</a></h4>
+<p>⚡ Источник: Морозова ждёт новое назначение после выборов в Госдуму В федеральных политических кругах обсуждается возможная новая должность Сергея Морозова. По информации источников, после выборов в Государственную Думу Морозов может перейти на работу в Кремль — на должность советника Президента Росс</p>
+<div class="meta">10.09 21:44 · t.me/ulkompr · 👁 1K</div></div><div class="news-item">
+<h4><a href="https://t.me/dimitrovgradd/31654" target="_blank" rel="noopener">В Димитровграде готовятся к трёхдневному голосованию В администрации прошло заседание оперативного штаба по по…</a></h4>
+<p>В Димитровграде готовятся к трёхдневному голосованию В администрации прошло заседание оперативного штаба по подготовке к предстоящим выборам. В этом году жители будут выбирать губернатора Ульяновской области и депутатов Государственной Думы. Голосование продлится три дня — 18, 19 и 20 сентября. В Ди</p>
+<div class="meta">11.09 08:05 · t.me/dimitrovgradd · 👁 968</div></div><div class="news-item">
+<h4><a href="https://t.me/dimitrovgradonline/33444" target="_blank" rel="noopener">Сергей Сандрюков: Провёл заседание городского оперативного штаба по содействию избирательным комиссиям в орган…</a></h4>
+<p>Сергей Сандрюков: Провёл заседание городского оперативного штаба по содействию избирательным комиссиям в организации подготовки и проведения выборов на территории Димитровграда. 🇷🇺 Напомню, в этом году мы выбираем губернатора Ульяновской области и депутатов Государственной Думы. Единый день голосова</p>
+<div class="meta">10.09 21:46 · t.me/dimitrovgradonline · 👁 942</div></div></div>
+
+<div class="sec-head"><h2>👀 Что будем отслеживать 18–20 сентября</h2><div class="line"></div></div>
+<div class="card"><div class="card-pad"><ul class="watch" style="padding-left:20px;">
+<li><b>Явка по дням</b> — трёхдневное голосование без ДЭГ делает мобилизацию в Ульяновске (52,6% избирателей) ключевым фактором; сравним с 2021 годом (губернаторские: ~48% на трёх днях).</li>
+<li><b>Результаты губернаторской кампании</b> — интрига не в победе фаворита, а в распределении мест 2–4 (Ким vs Маринин vs Ясайтис) и проценте ЕР/КПРФ по партспискам.</li>
+<li><b>Округа № 185 и № 186</b> — Камеко (ЕР) и Кононов (ЕР) против сильных коммунистов (Шилов, Султашов); Маринин тянет ЛДПР сразу в двух кампаниях.</li>
+<li><b>Сообщения о нарушениях</b> — мониторинг Ulnovosti.ru, «Компромат Ульяновск», tier-3 каналов с обязательной верификацией по tier-1.</li>
+<li><b>Первые шаги избранного губернатора</b> — назначение сенатора из трёх заявленных протеже, кадровые решения в правительстве области.</li>
+</ul></div></div>
+
+<div class="sec-head"><h2>📊 Итоги голосования</h2><div class="line"></div>
+<div class="badge">после 20.09.2026</div></div>
+<div class="reserved" style="margin-bottom:22px;">
+<b>Раздел будет наполнен после закрытия участков</b>
+Данные облизбиркома, явка, результаты по всем трём кампаниям, карта округов и первая реакция победителей.
+Финализация: запустить <code>python3 generate.py --elections</code> после 20 сентября (лента и тренды подтянутся автоматически),
+либо написать в чат: <b>«собери итоги выборов»</b> — выпуск будет дополнен верифицированными результатами.
+</div>
+
+</div>
+<footer class="footer"><div class="footer-inner">
+<div><b>издание «Гудок»</b><p>Спецвыпуск «Выборы-2026». Предвыборная редакция от 11.09.2026. Обновляется ежедневно конвейером run.sh до дня голосования.</p></div>
+<div><b>Источники профилей</b><p>Википедия («Выборы губернатора Ульяновской области (2026)»), gogov.ru (сводка кандидатов от 23.08.2026), Избирательная комиссия Ульяновской области, «Ведомости», региональные СМИ.</p></div>
+<div><b>Дисклеймер</b><p>Выпуск информационно-аналитический, не является агитацией. Оценки помечены как редакционные. Фактические данные сверены с первоисточниками на дату обновления.</p></div>
+</div></footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+document.documentElement.setAttribute("data-theme",c);
+try{localStorage.setItem("gudok-theme",c);}catch(e){}
+syncThemeBtn();}
+function syncThemeBtn(){var b=document.getElementById("themeBtn");
+if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
+syncThemeBtn();
+</script></body></html>

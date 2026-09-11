@@ -1,0 +1,1147 @@
+{
+ "generated_local": "11.09.2026 15:19",
+ "calendar": [
+  {
+   "etype": "kids",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-11",
+   "date_end": null,
+   "time": "16:00",
+   "title": "Открытие осеннего сезона в «Квартале» 🍁 В программе: в 16:00 — живое джазовое выступление, в 18:00 — мастер-кл…",
+   "url": "https://t.me/ProNovosty73/5904",
+   "source": "t.me/ProNovosty73",
+   "tier": 2,
+   "venue": "Где: креативное пространство «Квартал» 🎟 Билеты: afisha.ru/w"
+  },
+  {
+   "etype": "theatre",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-11",
+   "date_end": null,
+   "time": "18:00",
+   "title": "Спектакль «Чужой ребёнок» — гастроли Казанского БДТ им. В. И. Качалова Самая известная пьеса Василия Шкваркина…",
+   "url": "https://t.me/ProNovosty73/5901",
+   "source": "t.me/ProNovosty73",
+   "tier": 2,
+   "venue": "Где: Драматический театр (ул. Спасская"
+  },
+  {
+   "etype": "concert",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-11",
+   "date_end": null,
+   "time": "11:09",
+   "title": "11.09 | 19:00 | STAND UP 🔥 «Кто это сделал?» Задача зрителей анонимно написать странные или забавные факты о с…",
+   "url": "https://t.me/ulpromo/17998",
+   "source": "t.me/ulpromo",
+   "tier": 3,
+   "venue": ""
+  },
+  {
+   "etype": "concert",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-11",
+   "date_end": null,
+   "time": "22:00",
+   "title": "LAST DANCE на Дворцовой 🥂 Мы переезжаем! Но прежде чем открыть новую главу Культуры, хотим красиво закончить э…",
+   "url": "https://t.me/ulpromo/17988",
+   "source": "t.me/ulpromo",
+   "tier": 3,
+   "venue": ""
+  },
+  {
+   "etype": "sport",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-12",
+   "date_end": null,
+   "time": "08:30",
+   "title": "Еженедельный забег «5 вёрст» Маршрут проходит в три круга по дорожкам парка, петляя по аллеям. Старт и финиш —…",
+   "url": "https://t.me/ProNovosty73/5905",
+   "source": "t.me/ProNovosty73",
+   "tier": 2,
+   "venue": "Где: парк «Молодёжный»"
+  },
+  {
+   "etype": "festival",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-12",
+   "date_end": null,
+   "time": "04:00",
+   "title": "❗️ В Ульяновске ограничат движение из-за празднования Дня города. В эти выходные будем отмечать 378-летие Симб…",
+   "url": "https://t.me/ulkoroche/33701",
+   "source": "t.me/ulkoroche",
+   "tier": 2,
+   "venue": ""
+  },
+  {
+   "etype": "festival",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-12",
+   "date_end": null,
+   "time": "",
+   "title": "📊 Центр перекроют из-за Дня города в Ульяновске 12 сентября будет перекрыта нечетная сторона ул. Гончарова вдо…",
+   "url": "https://t.me/ulyanovsk_smi/29403",
+   "source": "t.me/ulyanovsk_smi",
+   "tier": 2,
+   "venue": ""
+  },
+  {
+   "etype": "theatre",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-12",
+   "date_end": null,
+   "time": "15:00",
+   "title": "Пропустил вот этот анонс во вчерашней афише, а зря, звучит интересно. 12 сентября в 15:00 на бульваре Новый Ве…",
+   "url": "https://t.me/shugozhor73/45257",
+   "source": "t.me/shugozhor73",
+   "tier": 3,
+   "venue": ""
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-13",
+   "date_end": null,
+   "time": "",
+   "title": "❗️ С 11 по 13 сентября на дорогах Ульяновской области проходит профилактическая операция «Нетрезвый водитель».…",
+   "url": "https://t.me/reporter73/52130",
+   "source": "t.me/reporter73",
+   "tier": 1,
+   "venue": ""
+  },
+  {
+   "etype": "festival",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-13",
+   "date_end": null,
+   "time": "13:00",
+   "title": "🇷🇺 В Ульяновске выступит ансамбль Росгвардии В День города, 13 сентября, на Соборной площади состоится концерт…",
+   "url": "https://t.me/ulgovru/23612",
+   "source": "t.me/ulgovru",
+   "tier": 1,
+   "venue": ""
+  },
+  {
+   "etype": "festival",
+   "is_culture": true,
+   "district": true,
+   "date": "2026-09-13",
+   "date_end": null,
+   "time": "",
+   "title": "День города движение по Спасской останется открытым Соответствующее постановление, отменяющее опубликованное р…",
+   "url": "https://t.me/ulpravda/41026",
+   "source": "t.me/ulpravda",
+   "tier": 1,
+   "venue": ""
+  },
+  {
+   "etype": "festival",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-13",
+   "date_end": null,
+   "time": "",
+   "title": "Общественный транспорт развезёт ульяновцев по домам после празднования Дня города Глава Ульяновска Александр Б…",
+   "url": "https://t.me/ulpravda/41002",
+   "source": "t.me/ulpravda",
+   "tier": 1,
+   "venue": ""
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-15",
+   "date_end": "2026-09-17",
+   "time": "",
+   "title": "Новый мост через Свиягу планируется открыть 15-17 сентября, сообщил глава Ульяновска Мы в Telegram | Мы в MAX",
+   "url": "https://t.me/ulpressa/74430",
+   "source": "t.me/ulpressa",
+   "tier": 1,
+   "venue": ""
+  },
+  {
+   "etype": "sport",
+   "is_culture": false,
+   "district": true,
+   "date": "2026-09-15",
+   "date_end": null,
+   "time": "09:00",
+   "title": "В больнице Андрея Первозванного пройдёт День донора",
+   "url": "https://media73.ru/2026/v-bolnitse-andreya-pervozvannogo-proydyet-den-donora",
+   "source": "Media73",
+   "tier": null,
+   "venue": ""
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-15",
+   "date_end": "2026-09-17",
+   "time": "",
+   "title": "⚡️ Новый мост в створе улиц Шевченко и Смычки планируют открыть в техническом режиме на следующей неделе , ори…",
+   "url": "https://t.me/chpulsk/50671",
+   "source": "t.me/chpulsk",
+   "tier": 2,
+   "venue": ""
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-15",
+   "date_end": "2026-09-17",
+   "time": "",
+   "title": "Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября . Об этом сообщил мэр Ульяновска Алекс…",
+   "url": "https://t.me/insaid173/46860",
+   "source": "t.me/insaid173",
+   "tier": 2,
+   "venue": ""
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-17",
+   "date_end": null,
+   "time": "",
+   "title": "УлГУ приглашает на профориентационные экскурсии",
+   "url": "https://media73.ru/2026/ulgu-priglashaet-na-proforientatsionnye-ekskursii",
+   "source": "Media73",
+   "tier": null,
+   "venue": ""
+  },
+  {
+   "etype": "concert",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-17",
+   "date_end": null,
+   "time": "23:00",
+   "title": "Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли мама. 10 участников, 3 раунда, …",
+   "url": "https://t.me/ProNovosty73/5896",
+   "source": "t.me/ProNovosty73",
+   "tier": 2,
+   "venue": "Где: «Matrëshki»"
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": true,
+   "date": "2026-09-20",
+   "date_end": null,
+   "time": "",
+   "title": "В Димитровграде готовятся к трёхдневному голосованию В администрации прошло заседание оперативного штаба по по…",
+   "url": "https://t.me/dimitrovgradd/31654",
+   "source": "t.me/dimitrovgradd",
+   "tier": 2,
+   "venue": ""
+  },
+  {
+   "etype": "theatre",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-20",
+   "date_end": null,
+   "time": "16:30",
+   "title": "ВЕЧЕР ПРОЗЫ 20 СЕНТЯБРЯ Ульяновские авторы читают свои произведения на публику. Короткие и не очень рассказы р…",
+   "url": "https://t.me/ulpromo/17992",
+   "source": "t.me/ulpromo",
+   "tier": 3,
+   "venue": ""
+  },
+  {
+   "etype": "sport",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-21",
+   "date_end": "2026-09-24",
+   "time": "14:00",
+   "title": "УлГУ запустил сдачу нормативов ТехноГТО",
+   "url": "https://media73.ru/2026/ulgu-zapustil-sdachu-normativov-tekhnogto",
+   "source": "Media73",
+   "tier": null,
+   "venue": ""
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-28",
+   "date_end": null,
+   "time": "",
+   "title": "🌡 Отопительный сезон в Ульяновске начнется 28 сентября . Первыми тепло получат детские сады, школы и больницы.…",
+   "url": "https://t.me/chpulsk/50653",
+   "source": "t.me/chpulsk",
+   "tier": 2,
+   "venue": ""
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-30",
+   "date_end": null,
+   "time": "",
+   "title": "«Ульяновск — это по любви»: жители региона поборются за 100 тысяч рублей",
+   "url": "https://media73.ru/2026/ulyanovsk-eto-po-lyubvi-zhiteli-regiona-poboryutsya-za-100-tysyach-rubley",
+   "source": "Media73",
+   "tier": null,
+   "venue": ""
+  },
+  {
+   "etype": "sport",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-10-14",
+   "date_end": "2026-10-16",
+   "time": "",
+   "title": "🔚 🔚 🔚 🔚 Выигрываем в серии пенальти! В пятом раунде встретимся с \"Муромом\". Матч пройдет в Ульяновске в период…",
+   "url": "https://t.me/fcvolga/12497",
+   "source": "t.me/fcvolga",
+   "tier": 1,
+   "venue": ""
+  },
+  {
+   "etype": "concert",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-10-22",
+   "date_end": null,
+   "time": "19:00",
+   "title": "Концерт группы «Мураками» 🎵 Презентация альбома «Невеста хочет домой» — первой полноформатной работы за послед…",
+   "url": "https://t.me/ProNovosty73/5899",
+   "source": "t.me/ProNovosty73",
+   "tier": 2,
+   "venue": "Где: «Шипр» (ул. Карла Маркса"
+  }
+ ],
+ "clusters": [
+  {
+   "name": "резус · врачи · спасли",
+   "terms": [
+    "резус",
+    "врачи",
+    "спасли"
+   ],
+   "size": 7,
+   "coverage": 1.0,
+   "gap": false,
+   "samples": [
+    {
+     "title": "🩺 Ульяновские врачи 11 раз переливали кровь ребёнку прямо в утробе и спасли его жизнь. Из-за тяжёлого резус-ко",
+     "url": "https://t.me/ulkoroche/33675",
+     "source": "t.me/ulkoroche",
+     "views": 1500
+    },
+    {
+     "title": "В Ульяновске врачи спасли ребёнка с тяжёлой гемолитической болезнью из‑за резус‑конфликта: из‑за антител матер",
+     "url": "https://t.me/chpul/34351",
+     "source": "t.me/chpul",
+     "views": 964
+    },
+    {
+     "title": "Врачи перинатального центра детской больницы в Ульяновске спасли ребенка при тяжелейшем резус-конфликте. За 10",
+     "url": "https://t.me/ulsk_on/22754",
+     "source": "t.me/ulsk_on",
+     "views": 722
+    }
+   ]
+  },
+  {
+   "name": "мосту · императорском · столкнулись",
+   "terms": [
+    "мосту",
+    "императорском",
+    "столкнулись"
+   ],
+   "size": 6,
+   "coverage": 1.0,
+   "gap": false,
+   "samples": [
+    {
+     "title": "🚨 Легковушки столкнулись на Императорском мосту . Движение затруднено. 😱 Подписаться | Прислать новость",
+     "url": "https://t.me/tresh_ulyan/56108",
+     "source": "t.me/tresh_ulyan",
+     "views": 5900
+    },
+    {
+     "title": "На Императорском мосту столкнулись кроссовер и легковой авто, движение затруднено Мы в Telegram | Мы в MAX",
+     "url": "https://t.me/ulpressa/74439",
+     "source": "t.me/ulpressa",
+     "views": 632
+    },
+    {
+     "title": "На Императорском мосту столкнулись две иномарки Из-за аварии движение затруднено. На левом берегу пробка растя",
+     "url": "https://t.me/ulsk_73online/35829",
+     "source": "t.me/ulsk_73online",
+     "views": 462
+    }
+   ]
+  },
+  {
+   "name": "мост · смычки · створе",
+   "terms": [
+    "мост",
+    "смычки",
+    "створе"
+   ],
+   "size": 6,
+   "coverage": 1.0,
+   "gap": false,
+   "samples": [
+    {
+     "title": "Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября . Об этом сообщил мэр Ульяновска Алекс",
+     "url": "https://t.me/insaid173/46860",
+     "source": "t.me/insaid173",
+     "views": 10600
+    },
+    {
+     "title": "Новый мост через Свиягу планируется открыть 15-17 сентября, сообщил глава Ульяновска Мы в Telegram | Мы в MAX",
+     "url": "https://t.me/ulpressa/74430",
+     "source": "t.me/ulpressa",
+     "views": 2940
+    },
+    {
+     "title": "⚡️ Новый мост в створе улиц Шевченко и Смычки планируют открыть в техническом режиме на следующей неделе , ори",
+     "url": "https://t.me/chpulsk/50671",
+     "source": "t.me/chpulsk",
+     "views": 1270
+    }
+   ]
+  },
+  {
+   "name": "роспотребнадзор · канистры · отказывать",
+   "terms": [
+    "роспотребнадзор",
+    "канистры",
+    "отказывать"
+   ],
+   "size": 5,
+   "coverage": 0.8,
+   "gap": false,
+   "samples": [
+    {
+     "title": "АЗС запретили отказывать в продаже бензина в канистры Роспотребнадзор предостерег заправки, в том числе в Улья",
+     "url": "https://t.me/insaid173/46867",
+     "source": "t.me/insaid173",
+     "views": 5490
+    },
+    {
+     "title": "❗️ Роспотребнадзор запретил АЗС отказывать автомобилистам в отпуске топлива в канистры По сообщению «Фонтанки»",
+     "url": "https://t.me/ulpressa/74437",
+     "source": "t.me/ulpressa",
+     "views": 962
+    },
+    {
+     "title": "❗ Российским АЗС запретили отказывать водителям в продаже бензина в канистры Роспотребнадзор пояснил, что при ",
+     "url": "https://t.me/topor_ul/11574",
+     "source": "t.me/topor_ul",
+     "views": 537
+    }
+   ]
+  },
+  {
+   "name": "ракетная · опасность · внимание",
+   "terms": [
+    "ракетная",
+    "опасность",
+    "внимание"
+   ],
+   "size": 5,
+   "coverage": 1.0,
+   "gap": false,
+   "samples": [
+    {
+     "title": "⚡️ Ракетная опасность объявлена в Ульяновской области ⚠️ Внимание! Оперативные каналы Ульяновской области для ",
+     "url": "https://t.me/tresh_ulyan/56102",
+     "source": "t.me/tresh_ulyan",
+     "views": 16200
+    },
+    {
+     "title": "❗️ Сейчас в Ульяновске слышны сирены Ракетная опасность на территории Ульяновской области.",
+     "url": "https://t.me/insaid173/46859",
+     "source": "t.me/insaid173",
+     "views": 14300
+    },
+    {
+     "title": "Внимание! Ракетная опасность на территории Ульяновской области. Нельзя оставаться на открытой местности. В кач",
+     "url": "https://t.me/Russkih_Aleksey/12309",
+     "source": "t.me/Russkih_Aleksey",
+     "views": 3650
+    }
+   ]
+  },
+  {
+   "name": "ключевую · ставку · уровне",
+   "terms": [
+    "ключевую",
+    "ставку",
+    "уровне"
+   ],
+   "size": 5,
+   "coverage": 1.0,
+   "gap": false,
+   "samples": [
+    {
+     "title": "⚡️ ЦБ сохранил ключевую ставку на уровне 14% Последнее изменение было в июле этого года — ставка понизилась до",
+     "url": "https://t.me/tresh_ulyan/56117",
+     "source": "t.me/tresh_ulyan",
+     "views": 1930
+    },
+    {
+     "title": "⚡️ ЦБ оставил ключевую ставку без изменений — 14 % Банк России сохранил ключевую ставку на уровне 14% годовых ",
+     "url": "https://t.me/insaid173/46871",
+     "source": "t.me/insaid173",
+     "views": 1690
+    },
+    {
+     "title": "❗️ ЦБ оставил ключевую ставку на уровне 14%. Мы в Telegram | Мы в MAX",
+     "url": "https://t.me/ulpressa/74472",
+     "source": "t.me/ulpressa",
+     "views": 242
+    }
+   ]
+  }
+ ],
+ "sentiment": {
+  "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
+  "today_score": 0.038,
+  "today_items": 197,
+  "today_pos": 196,
+  "today_neg": 118,
+  "today_neu": 233,
+  "series": [
+   {
+    "date": "2026-08-29",
+    "score": 1.0
+   },
+   {
+    "date": "2026-08-30",
+    "score": null
+   },
+   {
+    "date": "2026-08-31",
+    "score": 0.75
+   },
+   {
+    "date": "2026-09-01",
+    "score": 0.25
+   },
+   {
+    "date": "2026-09-02",
+    "score": null
+   },
+   {
+    "date": "2026-09-03",
+    "score": 0.571
+   },
+   {
+    "date": "2026-09-04",
+    "score": 0.714
+   },
+   {
+    "date": "2026-09-05",
+    "score": 0.75
+   },
+   {
+    "date": "2026-09-06",
+    "score": 0.875
+   },
+   {
+    "date": "2026-09-07",
+    "score": 0.333
+   },
+   {
+    "date": "2026-09-08",
+    "score": 0.1
+   },
+   {
+    "date": "2026-09-09",
+    "score": 0.148
+   },
+   {
+    "date": "2026-09-10",
+    "score": 0.124
+   },
+   {
+    "date": "2026-09-11",
+    "score": 0.038
+   }
+  ],
+  "by_category": {
+   "agro": -0.333,
+   "culture": 0.818,
+   "economy": 0.576,
+   "education": 0.312,
+   "health": 0.0,
+   "politics": 0.095,
+   "security": -0.535,
+   "society": 0.176,
+   "sport": 0.2
+  }
+ },
+ "credibility": [
+  {
+   "source": "ulpressa",
+   "tier": 1,
+   "type": "tg",
+   "total": 43,
+   "primary": 35,
+   "dup": 8,
+   "repost_rate": 0.19,
+   "views_median": 1130,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "Улпресса",
+   "tier": null,
+   "type": "rss",
+   "total": 38,
+   "primary": 35,
+   "dup": 3,
+   "repost_rate": 0.08,
+   "views_median": null,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "Media73",
+   "tier": null,
+   "type": "seed",
+   "total": 35,
+   "primary": 35,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": null,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulpravda",
+   "tier": 1,
+   "type": "tg",
+   "total": 34,
+   "primary": 28,
+   "dup": 6,
+   "repost_rate": 0.18,
+   "views_median": 291,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "chpulsk",
+   "tier": 2,
+   "type": "tg",
+   "total": 28,
+   "primary": 18,
+   "dup": 10,
+   "repost_rate": 0.36,
+   "views_median": 5970,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "reporter73",
+   "tier": 1,
+   "type": "tg",
+   "total": 26,
+   "primary": 21,
+   "dup": 5,
+   "repost_rate": 0.19,
+   "views_median": 60,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "tresh_ulyan",
+   "tier": 2,
+   "type": "tg",
+   "total": 26,
+   "primary": 17,
+   "dup": 9,
+   "repost_rate": 0.35,
+   "views_median": 9000,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulsk_on",
+   "tier": 2,
+   "type": "tg",
+   "total": 21,
+   "primary": 15,
+   "dup": 6,
+   "repost_rate": 0.29,
+   "views_median": 694,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "volkodav73",
+   "tier": 3,
+   "type": "tg",
+   "total": 21,
+   "primary": 15,
+   "dup": 6,
+   "repost_rate": 0.29,
+   "views_median": 3730,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulkompr",
+   "tier": 3,
+   "type": "tg",
+   "total": 21,
+   "primary": 19,
+   "dup": 2,
+   "repost_rate": 0.1,
+   "views_median": 842,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "fcvolga",
+   "tier": 1,
+   "type": "tg",
+   "total": 20,
+   "primary": 20,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": 1690,
+   "label": "первоисточник",
+   "clickbait_rate": 0.1
+  },
+  {
+   "source": "insaid173",
+   "tier": 2,
+   "type": "tg",
+   "total": 20,
+   "primary": 14,
+   "dup": 6,
+   "repost_rate": 0.3,
+   "views_median": 10600,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "topor_ul",
+   "tier": 2,
+   "type": "tg",
+   "total": 20,
+   "primary": 18,
+   "dup": 2,
+   "repost_rate": 0.1,
+   "views_median": 2670,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulpatriot",
+   "tier": 3,
+   "type": "tg",
+   "total": 20,
+   "primary": 17,
+   "dup": 3,
+   "repost_rate": 0.15,
+   "views_median": 7490,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ProNovosty73",
+   "tier": 2,
+   "type": "tg",
+   "total": 20,
+   "primary": 19,
+   "dup": 1,
+   "repost_rate": 0.05,
+   "views_median": 238,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "chpul",
+   "tier": 2,
+   "type": "tg",
+   "total": 19,
+   "primary": 13,
+   "dup": 6,
+   "repost_rate": 0.32,
+   "views_median": 364,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "dimitrovgradd",
+   "tier": 2,
+   "type": "tg",
+   "total": 17,
+   "primary": 13,
+   "dup": 4,
+   "repost_rate": 0.24,
+   "views_median": 2090,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulsk_73online",
+   "tier": 2,
+   "type": "tg",
+   "total": 17,
+   "primary": 15,
+   "dup": 2,
+   "repost_rate": 0.12,
+   "views_median": 462,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulpromo",
+   "tier": 3,
+   "type": "tg",
+   "total": 17,
+   "primary": 16,
+   "dup": 1,
+   "repost_rate": 0.06,
+   "views_median": 1220,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "shugozhor73",
+   "tier": 3,
+   "type": "tg",
+   "total": 16,
+   "primary": 10,
+   "dup": 6,
+   "repost_rate": 0.38,
+   "views_median": 3310,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulyanovsk_smi",
+   "tier": 2,
+   "type": "tg",
+   "total": 15,
+   "primary": 13,
+   "dup": 2,
+   "repost_rate": 0.13,
+   "views_median": 440,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "terr73",
+   "tier": 3,
+   "type": "tg",
+   "total": 15,
+   "primary": 15,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": 2660,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulgovru",
+   "tier": 1,
+   "type": "tg",
+   "total": 14,
+   "primary": 10,
+   "dup": 4,
+   "repost_rate": 0.29,
+   "views_median": 85,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "UAZ_Today",
+   "tier": 1,
+   "type": "tg",
+   "total": 14,
+   "primary": 14,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": 2130,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "Ulnovosti.ru",
+   "tier": null,
+   "type": "rss",
+   "total": 13,
+   "primary": 13,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": null,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "Russkih_Aleksey",
+   "tier": 1,
+   "type": "tg",
+   "total": 13,
+   "primary": 11,
+   "dup": 2,
+   "repost_rate": 0.15,
+   "views_median": 3650,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulkoroche",
+   "tier": 2,
+   "type": "tg",
+   "total": 13,
+   "primary": 12,
+   "dup": 1,
+   "repost_rate": 0.08,
+   "views_median": 1470,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "dimitrovgradonline",
+   "tier": 2,
+   "type": "tg",
+   "total": 12,
+   "primary": 11,
+   "dup": 1,
+   "repost_rate": 0.08,
+   "views_median": 366,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "culturnik",
+   "tier": 3,
+   "type": "tg",
+   "total": 12,
+   "primary": 11,
+   "dup": 1,
+   "repost_rate": 0.08,
+   "views_median": 641,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "sergeymorozov73",
+   "tier": 1,
+   "type": "tg",
+   "total": 11,
+   "primary": 11,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": 179,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulsk_driver73",
+   "tier": 2,
+   "type": "tg",
+   "total": 11,
+   "primary": 7,
+   "dup": 4,
+   "repost_rate": 0.36,
+   "views_median": 430,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "A_Boldakin",
+   "tier": 1,
+   "type": "tg",
+   "total": 7,
+   "primary": 7,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": 436,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "vmkononov",
+   "tier": 1,
+   "type": "tg",
+   "total": 6,
+   "primary": 6,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": 42,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  }
+ ],
+ "forecast": [
+  {
+   "topic": "transport",
+   "name": "Транспорт и дороги",
+   "expected": 50.5,
+   "slope": 7.96,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "crime",
+   "name": "Суды и криминал",
+   "expected": 45.5,
+   "slope": 7.39,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 43.3,
+   "slope": 7.29,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "schools",
+   "name": "Школы и вузы",
+   "expected": 41.9,
+   "slope": 7.07,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "uav",
+   "name": "БПЛА и воздушные угрозы",
+   "expected": 37.8,
+   "slope": 6.0,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "sport",
+   "name": "Спорт",
+   "expected": 25.9,
+   "slope": 4.39,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "culture",
+   "name": "Культура и туризм",
+   "expected": 23.3,
+   "slope": 3.71,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 17.9,
+   "slope": 3.25,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "cityspace",
+   "name": "Городская среда",
+   "expected": 21.6,
+   "slope": 3.21,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "weather",
+   "name": "Погода",
+   "expected": 17.9,
+   "slope": 2.79,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "cityday",
+   "name": "День города (378 лет)",
+   "expected": 13.7,
+   "slope": 2.29,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "elections",
+   "name": "Выборы-2026",
+   "expected": 12.7,
+   "slope": 2.21,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "avia",
+   "name": "Авиапром / УКБП / Ил-114",
+   "expected": 9.6,
+   "slope": 1.68,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "export",
+   "name": "Экспорт и кооперация",
+   "expected": 11.2,
+   "slope": 1.68,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "budget",
+   "name": "Бюджет-2027",
+   "expected": 10.6,
+   "slope": 1.64,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "uaz",
+   "name": "УАЗ / Соллерс",
+   "expected": 8.8,
+   "slope": 1.5,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "zhkh",
+   "name": "ЖКХ, газ, тепло",
+   "expected": 9.8,
+   "slope": 1.43,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "macro",
+   "name": "Макроэкономика / ЦБ",
+   "expected": 6.5,
+   "slope": 1.0,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "harvest",
+   "name": "Урожай и АПК",
+   "expected": 2.0,
+   "slope": 0.25,
+   "direction": "плато",
+   "confidence": "низкая"
+  }
+ ]
+}

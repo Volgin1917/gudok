@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧭 Роадмап — издание «Гудок» · информационно-аналитическое издание Ульяновской области</title>
+<style>
+:root{--navy:#0d2137;--navy2:#14314f;--navy3:#1d4066;--blue:#2f80ed;--sky:#dce9f8;
+--gold:#f2b134;--red:#e5484d;--green:#2ea36b;--violet:#7b5aa6;--teal:#0f9b8e;
+--bg:#eef2f7;--card:#fff;--line:#dbe4ee;--txt:#1c2733;--muted:#5b6b7c;--radius:14px;
+--shadow:0 2px 10px rgba(13,33,55,.08);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt);font-size:15px;line-height:1.55;}
+a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+.topbar{background:linear-gradient(135deg,var(--navy),var(--navy2) 60%,var(--navy3));color:#fff;padding:14px 22px;box-shadow:0 2px 14px rgba(0,0,0,.25);}
+.topbar-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-title{font-size:19px;font-weight:800;letter-spacing:.6px;}
+.brand-title span{color:var(--gold);}
+.brand-sub{font-size:11.5px;color:#a9c1d9;text-transform:uppercase;letter-spacing:.4px;}
+.top-meta{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 13px;font-size:12.5px;color:#e7eef6;display:flex;gap:7px;align-items:center;white-space:nowrap;}
+.chip b{color:var(--gold);}
+.chip.link{cursor:pointer;} .chip.link:hover{background:rgba(255,255,255,.2);}
+.nav{background:var(--navy);border-top:1px solid rgba(255,255,255,.12);}
+.nav-inner{max-width:1180px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 14px;}
+.nav a{color:#c9d8e8;font-size:13px;font-weight:600;padding:10px 13px;white-space:nowrap;border-bottom:3px solid transparent;}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.06);text-decoration:none;}
+.page{max-width:1180px;margin:0 auto;padding:24px 18px 40px;}
+.sec-head{display:flex;align-items:center;gap:12px;margin:32px 0 16px;}
+.sec-head h2{font-size:21px;font-weight:800;color:var(--navy);}
+.sec-head .line{flex:1;height:2px;background:linear-gradient(90deg,var(--line),transparent);}
+.sec-head .badge{font-size:11px;font-weight:700;background:var(--sky);color:var(--navy3);padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px;}
+.mission{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border-left:5px solid var(--gold);padding:18px 22px;font-size:15px;}
+.mission b{color:var(--navy);}
+.principles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:14px;}
+.principle{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:13px 14px;border-top:3px solid var(--blue);}
+.principle .ic{font-size:20px;}
+.principle b{display:block;font-size:12.8px;color:var(--navy);margin:6px 0 3px;}
+.principle span{font-size:11.5px;color:var(--muted);line-height:1.4;display:block;}
+/* timeline */
+.timeline{position:relative;padding-left:34px;}
+.timeline::before{content:"";position:absolute;left:12px;top:6px;bottom:6px;width:3px;background:linear-gradient(180deg,var(--green),var(--blue) 30%,var(--violet) 60%,var(--gold));border-radius:3px;}
+.phase{position:relative;margin-bottom:22px;}
+.phase::before{content:"";position:absolute;left:-28px;top:20px;width:14px;height:14px;border-radius:50%;background:#fff;border:4px solid var(--blue);}
+.phase.done::before{border-color:var(--green);}
+.phase.now::before{border-color:var(--gold);box-shadow:0 0 0 5px rgba(242,177,52,.25);}
+.phase.future::before{border-color:#9db6cf;}
+.pcard{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden;}
+.phead{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.phead h3{font-size:16.5px;font-weight:800;color:var(--navy);}
+.pstatus{font-size:10.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;border-radius:999px;padding:4px 11px;color:#fff;}
+.st-done{background:var(--green);} .st-now{background:var(--gold);color:#3d2e04;} .st-next{background:var(--blue);} .st-plan{background:#8a99aa;}
+.pdates{margin-left:auto;font-size:12px;color:var(--muted);font-weight:700;background:var(--bg);border-radius:999px;padding:4px 12px;}
+.pgoal{padding:11px 18px 0;font-size:13px;color:var(--navy3);font-style:italic;}
+.ptasks{list-style:none;padding:12px 18px 16px;columns:2;column-gap:34px;}
+.ptasks li{font-size:13px;padding:4px 0 4px 26px;position:relative;break-inside:avoid;line-height:1.45;}
+.ptasks li::before{content:"☐";position:absolute;left:2px;top:3px;font-size:15px;color:#8a99aa;}
+.ptasks li.ok::before{content:"☑";color:var(--green);}
+.ptasks li b{color:var(--navy);}
+.ptasks li small{color:var(--muted);}
+/* risks & kpi */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.tbl{width:100%;border-collapse:collapse;font-size:12.6px;background:var(--card);}
+.tbl th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+.tbl tr:nth-child(even) td{background:#f8fbfe;}
+.prob{font-weight:800;border-radius:6px;padding:2px 8px;font-size:11px;white-space:nowrap;}
+.pb-h{background:#fde7e8;color:#b02a2f;} .pb-m{background:#fdf3dd;color:#96690a;} .pb-l{background:#e0f4ea;color:#1d7a4d;}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.kpi{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:14px 16px;border-left:4px solid var(--blue);}
+.kpi .num{font-size:19px;font-weight:800;color:var(--navy);}
+.kpi .lbl{font-size:11.8px;color:var(--muted);margin-top:3px;line-height:1.4;}
+.kpi.gold{border-left-color:var(--gold);} .kpi.green{border-left-color:var(--green);}
+.kpi.red{border-left-color:var(--red);} .kpi.violet{border-left-color:var(--violet);}
+.sprint{background:linear-gradient(135deg,#14314f,#1d4066);border-radius:var(--radius);color:#e7eef6;padding:20px 24px;box-shadow:var(--shadow);}
+.sprint h3{color:#ffd47e;font-size:17px;margin-bottom:10px;}
+.sprint ol{padding-left:20px;font-size:13.5px;line-height:1.7;}
+.sprint b{color:#fff;}
+.footer{background:var(--navy);color:#9db6cf;margin-top:38px;padding:24px 22px;font-size:12px;}
+.footer-inner{max-width:1180px;margin:0 auto;display:flex;gap:30px;flex-wrap:wrap;}
+.footer b{color:#fff;display:block;font-size:13px;margin-bottom:6px;}
+.footer p{line-height:1.6;max-width:480px;}
+@media (max-width:900px){.principles{grid-template-columns:repeat(2,1fr);}.ptasks{columns:1;}.grid2,.kpi-grid{grid-template-columns:1fr;}}
+@media print{.nav,.top-meta{display:none!important;}body{background:#fff;}.pcard,.kpi{box-shadow:none;break-inside:avoid;}}
+/* ===== ТЁМНАЯ ТЕМА ===== */
+:root[data-theme="dark"]{
+  --bg:#0b1622; --card:#12202f; --line:#24384e; --txt:#dfe9f4; --muted:#93a7bc;
+  --sky:#1c3350; --navy:#dce9f8; --navy3:#a9c9e8; --shadow:0 2px 12px rgba(0,0,0,.45);
+}
+:root[data-theme="dark"] .topbar{background:linear-gradient(135deg,#0a1826,#0f2033 60%,#14314f);}
+:root[data-theme="dark"] .nav{background:#0a1826;}
+:root[data-theme="dark"] .ticker-wrap{background:#060d16;border-color:#1d3550;}
+:root[data-theme="dark"] .side-head,
+:root[data-theme="dark"] .tbl th,
+:root[data-theme="dark"] .cal-badge,
+:root[data-theme="dark"] .arch-date,
+:root[data-theme="dark"] .dist-head,
+:root[data-theme="dark"] .exec-sec h2{background:#16283c;}
+:root[data-theme="dark"] .cal-badge.gold{background:var(--gold);color:#4d3a06;}
+:root[data-theme="dark"] .cal-badge.gold span{color:#7a5f10;}
+:root[data-theme="dark"] .cat-head{background:linear-gradient(90deg,#15263a,#12202f);border-color:var(--line);}
+:root[data-theme="dark"] .note{background:#101e2d;border-color:#24384e;}
+:root[data-theme="dark"] .verdict,:root[data-theme="dark"] .an-verdict{background:#101e2d;color:#c9d8e8;}
+:root[data-theme="dark"] .verdict b,:root[data-theme="dark"] .an-verdict b{color:#e8b64c;}
+:root[data-theme="dark"] .tbl tr:nth-child(even) td{background:#14243a;}
+:root[data-theme="dark"] .tbl td{border-color:var(--line);}
+:root[data-theme="dark"] .bar-wrap,:root[data-theme="dark"] .bar-row .bt{background:#1c3049;}
+:root[data-theme="dark"] .btn{background:#1d4066;color:#fff;}
+:root[data-theme="dark"] .btn:hover{background:#2a5580;}
+:root[data-theme="dark"] .footer{background:#0a1826;}
+:root[data-theme="dark"] .fbtn{background:#12202f;border-color:#24384e;color:var(--muted);}
+:root[data-theme="dark"] .fbtn.active{background:#2f80ed;border-color:#2f80ed;color:#fff;}
+:root[data-theme="dark"] .wx{background:linear-gradient(160deg,#15263a,#101e2d);border-color:#24384e;}
+:root[data-theme="dark"] .wx.alert{background:linear-gradient(160deg,#2a1c1c,#201414);border-color:#4e3030;}
+:root[data-theme="dark"] .wx .t{color:var(--txt);}
+:root[data-theme="dark"] .hero-src{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .drone{background:#251616;border-color:#4e3030;}
+:root[data-theme="dark"] .codebox{background:#060d16;}
+:root[data-theme="dark"] .cl-card{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .person{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .reserved{background:repeating-linear-gradient(45deg,#101e2d,#101e2d 12px,#0d1926 12px,#0d1926 24px);border-color:#2c4258;}
+:root[data-theme="dark"] .tone-cat{background:#101e2d;border-color:var(--line);}
+:root[data-theme="dark"] .tgpost .views{background:#16283c;color:#8ab4e8;}
+:root[data-theme="dark"] .exec-wrap{background:var(--bg);}
+:root[data-theme="dark"] .news-item .meta .tg{color:#7fa8d9;}
+:root[data-theme="dark"] .fc-up{color:#ff8a8e;}
+:root[data-theme="dark"] .fc-down{color:#6fd39b;}
+:root[data-theme="dark"] .hl{color:#3d2e04;}
+:root[data-theme="dark"] .okrug-title .no{background:#1c3350;color:#cfe2f7;}
+:root[data-theme="dark"] .chipC{background:#101e2d;border-color:#24384e;color:var(--txt);}
+:root[data-theme="dark"] .timeline::before{background:linear-gradient(180deg,#2ea36b,#2f80ed 30%,#9a7cc9 60%,#d99a1b);}
+:root[data-theme="dark"] .phase::before{background:#0b1622;}
+:root[data-theme="dark"] .sprint{background:linear-gradient(135deg,#0f2033,#16283c);}
+:root[data-theme="dark"] .mission{background:var(--card);}
+:root[data-theme="dark"] .src-card{background:var(--card);border-color:var(--line);}
+.theme-btn{border:1px solid rgba(255,255,255,.22);font-size:13px;padding:6px 12px;border-radius:8px;cursor:pointer;background:rgba(255,255,255,.12);color:#ffe9b8;font-weight:800;}
+.theme-btn:hover{background:rgba(255,255,255,.22);}
+
+:root[data-theme="dark"] .cal-date{background:#16283c;}
+:root[data-theme="dark"] .cal-date.elec{background:#8e2a2e;}
+:root[data-theme="dark"] .cal-date.city{background:var(--gold);color:#4d3a06;}
+:root[data-theme="dark"] .an-card{background:var(--card);border-color:var(--line);}
+:root[data-theme="dark"] .src-card{background:var(--card);border-color:var(--line);}
+:root[data-theme="dark"] .hero-card{background:var(--card);}
+:root[data-theme="dark"] .cat-block{background:var(--card);border-color:var(--line);}
+:root[data-theme="dark"] .side-card{background:var(--card);border-color:var(--line);}
+:root[data-theme="dark"] .cand .role{color:var(--muted);}
+@media print{
+  :root[data-theme="dark"]{--bg:#fff;--card:#fff;--line:#dbe4ee;--txt:#1c2733;--muted:#5b6b7c;--navy:#0d2137;--navy3:#1d4066;--sky:#dce9f8;}
+  .theme-btn{display:none!important;}
+}
+.theme-btn{border:1px solid rgba(255,255,255,.22);font-size:13px;padding:6px 12px;border-radius:8px;cursor:pointer;background:rgba(255,255,255,.12);color:#ffe9b8;font-weight:800;}
+.theme-btn:hover{background:rgba(255,255,255,.22);}
+</style>
+<script>
+(function(){try{var t=localStorage.getItem("gudok-theme");
+if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
+document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
+</script></head>
+<body>
+
+<header class="topbar"><div class="topbar-inner">
+<div class="brand">
+<svg width="44" height="50" viewBox="0 0 46 52" fill="none"><path d="M23 1 L44 9 V25 C44 38 35 47 23 51 C11 47 2 38 2 25 V9 Z" fill="#1d4066" stroke="#f2b134" stroke-width="2"/><rect x="19" y="13" width="8" height="4.5" rx="1" fill="#e8eef5"/><rect x="20.2" y="18.5" width="5.6" height="17" fill="#e8eef5"/><rect x="17" y="35.5" width="12" height="3.4" rx="1" fill="#e8eef5"/><rect x="15.4" y="39.2" width="15.2" height="3" rx="1" fill="#c9d8e8"/><circle cx="23" cy="10.4" r="2.6" fill="#f2b134"/></svg>
+<div>
+<div class="brand-title">ИЗДАНИЕ <span>«ГУДОК»</span> · РОАДМАП</div>
+<div class="brand-sub">Куда движется информационно-аналитическое издание</div>
+</div></div>
+<div class="top-meta">
+<div class="chip">📄 версия <b>2.3</b></div>
+<div class="chip">🗓 принят <b>11.09.2026</b></div>
+<div class="chip">♻️ пересмотр <b>ежемесячно</b></div>
+<a class="chip link" href="index.html">← Витрина центра</a>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+</div></div></header>
+
+<nav class="nav"><div class="nav-inner">
+<a href="#v1">✅ v1.0 готово</a><a href="#p1">Фаза 1 · Контент</a><a href="#p2">Фаза 2 · Аналитика</a><a href="#p3">Фаза 3 · Доставка</a><a href="#p4">Фаза 4 · Масштаб</a><a href="#infra">Инфраструктура</a><a href="#risks">Риски и KPI</a><a href="#sprint">Спринт</a>
+</div></nav>
+
+<div class="page">
+
+<div class="mission">
+🎯 <b>Миссия проекта:</b> единая точка мониторинга, анализа и доставки информационной повестки Ульяновской области —
+от <b>мгновенных алертов об угрозах</b> до <b>недельной аналитики для руководителей</b> и тиражируемой
+<b>мультирегиональной платформы</b>. Горизонт планирования: 2026–2027.
+</div>
+
+<div class="principles">
+<div class="principle"><div class="ic">🔌</div><b>Автономность</b><span>HTML без CDN, Python без зависимостей — работает везде, даже офлайн</span></div>
+<div class="principle"><div class="ic">🔁</div><b>Воспроизводимость</b><span>Любой выпуск пересобирается из базы store.jsonl</span></div>
+<div class="principle"><div class="ic">🔍</div><b>Прозрачность</b><span>Факты — со ссылками на первоисточники; аналитика маркирована</span></div>
+<div class="principle"><div class="ic">🤝</div><b>Вежливость</b><span>Rate-limit, честный User-Agent, кэш — не ломаем источники</span></div>
+<div class="principle"><div class="ic">🧊</div><b>Холодная голова</b><span>Алерты об угрозах — только из официальных каналов</span></div>
+</div>
+
+<div class="timeline">
+
+<!-- v1.0 -->
+<div class="phase done" id="v1">
+<div class="pcard">
+<div class="phead"><h3>✅ v1.0 — Фундамент</h3><span class="pstatus st-done">готово</span><span class="pdates">11.09.2026</span></div>
+<div class="pgoal">Автоматический конвейер «сбор → тренды → выпуск» работает и публикуется.</div>
+<ul class="ptasks">
+<li class="ok"><b>Конвейер</b> collector → trends → generate, одна команда <b>run.sh</b></li>
+<li class="ok"><b>Сбор из Telegram простым HTTPS</b>: t.me/s/&lt;канал&gt; + пагинация ?before= <small>(te.me/s не работает — 404)</small></li>
+<li class="ok"><b>RSS-мониторинг</b> региональных СМИ, дедупликация по хэшу</li>
+<li class="ok"><b>Трекер повестки</b>: 17 тем / 9 рубрик, спарклайны 14 дней, статусы 🔥🆕📉⚖️</li>
+<li class="ok"><b>Выпуск</b>: главные события дня, оперативная хроника безопасности, полная лента, топ TG по просмотрам, авто-прогноз</li>
+<li class="ok"><b>Витрина центра</b>: статус, реестр источников, архив, спецвыпуски</li>
+<li class="ok"><b>Автоматизация</b>: cron / GitHub Actions / запуск в чате</li>
+<li class="ok"><b>Фильтр мусора</b> junk_patterns <small>(кейс: ulgrad.ru отключён — превратился в краеведческий проект)</small></li>
+</ul>
+</div></div>
+
+<!-- Фаза 1 -->
+<div class="phase now" id="p1">
+<div class="pcard">
+<div class="phead"><h3>📰 Фаза 1 — Контент и качество</h3><span class="pstatus st-now">в работе</span><span class="pdates">сентябрь–октябрь 2026</span></div>
+<div class="pgoal">Цель: дайджест читают как полноценную газету, а не как список ссылок.</div>
+<ul class="ptasks">
+<li class="ok"><b>Полные тексты</b> новостей в ленте выпусков</li>
+<li class="ok"><b>«Главные события дня»</b> — авторанжирование (просмотры × темы × свежесть)</li>
+<li class="ok"><b>Оперативная хроника</b> безопасности (таймлайн угроз)</li>
+<li class="ok"><b>Экстракция полных статей</b> со страниц СМИ <small>(enrich.py: JSON-LD + скоринг параграфов, og:image; 61 статья, тексты ×5)</small></li>
+<li class="ok"><b>Дедупликация перепечаток</b>: одно событие → карточка + бейдж «🔁 также сообщили» <small>(dedup.py: 14 кластеров)</small></li>
+<li class="ok"><b>Иллюстрации</b> в выпусках <small>(og:image: hero + миниатюры ленты, ленивая загрузка)</small></li>
+<li class="ok"><b>Каталог Telegram TGStat</b>: +24 канала, итого 29 активных <small>(иерархия tier 1–3; tgstat.ru/tag/ulyanovsk-region, 33/33 доступны через t.me/s)</small></li>
+<li><b>Новые источники</b>: VK-сообщества, муниципалитеты, max.ru/Russkih_Aleksey</li>
+<li class="ok"><b>«Дайджест руководителя»</b>: generate.py --exec — 1 страница A4 (5 событий / 3 риска / 2 решения), PDF-печать</li>
+<li class="ok"><b>Метрика точности классификации</b>: ~65% → ~90% (скоринг + правка словарей, reclassify.py)</li>
+<li><b>SQLite</b> при достижении 5 000 записей в базе</li>
+</ul>
+</div></div>
+
+<!-- Афиша -->
+<div class="phase done" id="afisha">
+<div class="pcard">
+<div class="phead"><h3>🎭 Афиша культурных событий области</h3><span class="pstatus st-done">готово</span><span class="pdates">11.09.2026 · по запросу заказчика</span></div>
+<div class="pgoal">Отдельная страница afisha.html: события извлекаются из всех источников автоматически.</div>
+<ul class="ptasks">
+<li class="ok"><b>8 типов событий</b>: фестивали, театр, концерты, выставки, детям, кино, спорт, прочее</li>
+<li class="ok"><b>Фильтры</b>: сегодня / завтра / выходные / 7 дней (клиентский JS, без перезагрузки)</li>
+<li class="ok"><b>Фильтры качества</b>: деловые поездки, политика, инфраструктура и чужие города отсекаются</li>
+<li class="ok"><b>Анонсы культурных каналов</b>: @culturnik, @ulpromo, @ProNovosty73 (подключён, 30 активных)</li>
+<li class="ok"><b>Районные бейджи</b> и площадки 📍, тёмная тема, обновляется каждым run.sh</li>
+</ul>
+</div></div>
+
+<!-- Фаза 2 -->
+<div class="phase future" id="p2">
+<div class="pcard">
+<div class="phead"><h3>🧠 Фаза 2 — Интеллектуальная аналитика</h3><span class="pstatus st-now">в работе · 5/8</span><span class="pdates">октябрь–декабрь 2026</span></div>
+<div class="pgoal">Цель: центр не только фиксирует повестку, но и объясняет её.</div>
+<ul class="ptasks">
+<li class="ok"><b>LLM-слой без внешних API</b>: колонку редактора пишет ассистент в чате (data/editorial_*.md)</li>
+<li class="ok"><b>Кластеризация сюжетов без словаря</b>: TF-IDF + метод лидера, метка «вне словаря»</li>
+<li class="ok"><b>Тональный анализ</b>: тон дня −1…+1, ряд 14 дней, разрез рубрик (лексикон ±110 маркеров)</li>
+<li class="ok"><b>Автоафиша</b>: NLP-извлечение дат/времени/площадок из новостей</li>
+<li><b>Сезонность и год-к-году</b>: «что волновало регион год назад»</li>
+<li class="ok"><b>Индекс источников</b>: первичность vs перепечатки, медиана просмотров</li>
+<li class="ok"><b>Прогноз тем на завтра</b>: наклон + EMA, уровень уверенности</li>
+<li><b>Human-in-the-loop</b>: руководящий дайджест — только после подтверждения редактора</li>
+</ul>
+</div></div>
+
+<!-- Фаза 3 -->
+<div class="phase future" id="p3">
+<div class="pcard">
+<div class="phead"><h3>📣 Фаза 3 — Доставка и алерты</h3><span class="pstatus st-plan">отложена заказчиком</span><span class="pdates">I квартал 2027</span></div>
+<div class="pgoal">Цель: повестка сама приходит к читателю; угрозы — мгновенно.</div>
+<ul class="ptasks">
+<li><b style="text-decoration:line-through;opacity:.6;">Telegram-бот @iac73_bot: рассылка</b> ⏸ отложено; локальный алерт-монитор уже работает</li>
+<li><b>Мгновенные алерты</b>: «Ракетная опасность»/«БПЛА» — пуш за 1–2 минуты <small>(отдельный монитор, опрос 60 с, белые списки каналов)</small></li>
+<li><b>Email-подписка</b> на недельный дайджест</li>
+<li><b>Мета-RSS</b>: сам дайджест как лента</li>
+<li><b>PDF-недельник</b>: авто-лонгрид с версткой A4</li>
+<li><b>PWA</b>: установка на телефон, офлайн-режим</li>
+<li><b>Аудиоверсия</b> дайджеста (TTS) — «слушай по дороге»</li>
+</ul>
+</div></div>
+
+<!-- Фаза 4 -->
+<div class="phase future" id="p4">
+<div class="pcard">
+<div class="phead"><h3>🌍 Фаза 4 — Масштабирование</h3><span class="pstatus st-plan">план</span><span class="pdates">2027</span></div>
+<div class="pgoal">Цель: из ульяновского центра — в тиражируемую платформу.</div>
+<ul class="ptasks">
+<li><b>Мультирегиональность</b>: config-driven подключение любого субъекта РФ</li>
+<li><b>Публичный дашборд</b> «Медиаиндекс региона»</li>
+<li><b>Публичный API</b> для журналистов и исследователей</li>
+<li><b>«Регион vs федеральная повестка»</b>: доля местных тем, «эхо» федеральных</li>
+<li><b>Конструктор отчётов</b> за произвольный период из архива</li>
+</ul>
+</div></div>
+
+<!-- Инфраструктура -->
+<div class="phase now" id="infra">
+<div class="pcard">
+<div class="phead"><h3>🔧 Инфраструктура — постоянный трек</h3><span class="pstatus st-now">параллельно</span><span class="pdates">всегда</span></div>
+<ul class="ptasks">
+<li class="ok"><b>CI/CD GitHub Actions</b>: ежедневный выпуск + публикация на Pages</li>
+<li class="ok"><b>Unit-тесты парсеров</b>: 38 тестов на фикстурах реальных страниц (tests/)</li>
+<li class="ok"><b>Status-page</b>: status.html — здоровье конвейера, 31 источник, алерт-монитор</li>
+<li class="ok"><b>Ежедневный бэкап</b>: backup.py → data/backups/, ротация 14 дней</li>
+<li><b>Кэш запросов</b>: устойчивость к блокировкам + экономия трафика</li>
+<li><b>Документация</b> и онбординг нового мейнтейнера</li>
+</ul>
+</div></div>
+
+</div><!-- /timeline -->
+
+<!-- Риски и KPI -->
+<div class="sec-head" id="risks"><h2>⚠️ Риски и целевые метрики</h2><div class="line"></div></div>
+<div class="grid2">
+<div>
+<table class="tbl">
+<tr><th>Риск</th><th>Вероятность</th><th>Митигция</th></tr>
+<tr><td>Rate-limit / бан IP у Telegram</td><td><span class="prob pb-m">средняя</span></td><td>задержки 1.2 c, кэш, резерв через RSSHub, фолбэк на сайты СМИ</td></tr>
+<tr><td>Источник закрылся/изменился (кейс ulgrad)</td><td><span class="prob pb-h">высокая</span></td><td>автодетекция «лента молчит/мусорит», ежеквартальный аудит</td></tr>
+<tr><td>Ошибки словарной классификации</td><td><span class="prob pb-h">высокая</span></td><td>метрика точности, ML-кластеризация в Фазе 2</td></tr>
+<tr><td>Галлюцинации LLM</td><td><span class="prob pb-m">средняя</span></td><td>только поверх фактов со ссылками; редактор подтверждает</td></tr>
+<tr><td>Ложные алерты об угрозах</td><td><span class="prob pb-l">низкая</span></td><td>белые списки официальных каналов</td></tr>
+<tr><td>Претензии к цитированию</td><td><span class="prob pb-l">низкая</span></td><td>публичные данные, атрибуция, соблюдение ToS</td></tr>
+</table>
+</div>
+<div class="kpi-grid">
+<div class="kpi green"><div class="num">≥95%</div><div class="lbl">покрытие регионального инфопотока</div></div>
+<div class="kpi"><div class="num">≥90%</div><div class="lbl">успешных сборов с источников в день</div></div>
+<div class="kpi gold"><div class="num">≥85%</div><div class="lbl">точность автоклассификации</div></div>
+<div class="kpi violet"><div class="num">&lt;5 мин</div><div class="lbl">time-to-digest от запуска до HTML</div></div>
+<div class="kpi red"><div class="num">&lt;2 мин</div><div class="lbl">задержка алерта об угрозе</div></div>
+<div class="kpi"><div class="num">300+</div><div class="lbl">подписчиков бота через 6 месяцев</div></div>
+</div>
+</div>
+
+<!-- Спринт -->
+<div class="sec-head" id="sprint"><h2>🎯 Ближайший спринт</h2><div class="line"></div><div class="badge">11–25 сентября 2026</div></div>
+<div class="sprint">
+<h3>Что делаем в ближайшие две недели</h3>
+<ol>
+<li><b style="text-decoration:line-through;opacity:.65;">Экстракция полных текстов + дедупликация перепечаток</b> ✅ готово 11.09</li>
+<li><b style="text-decoration:line-through;opacity:.65;">Подключение новых источников</b> ✅ TG-каталог TGStat: +24 канала; осталось VK и max.ru</li>
+<li><b style="text-decoration:line-through;opacity:.65;">Тест точности классификации (100 записей)</b> ✅ ~90%</li>
+<li><b style="text-decoration:line-through;opacity:.65;">MVP алерт-монитора</b> ✅ alert_monitor.py: 6 tier-1 каналов, отбой, баннер в дайджесте, 0 ложных на истории</li>
+<li><b>Спецвыпуск «Выборы-2026»</b> ✅ предвыборный выпуск запущен 11.09 (обновляется ежедневно); финализация итогами — 21.09</li>
+<li><b style="text-decoration:line-through;opacity:.65;">Первый «Дайджест руководителя»</b> ✅ готов (exec_2026-09-11.html)</li>
+</ol>
+</div>
+
+</div>
+
+<footer class="footer"><div class="footer-inner">
+<div><b>издание «Гудок»</b><p>Роадмап v1.0 от 11.09.2026. Каноническая текстовая версия — ROADMAP.md в репозитории; эта страница — визуальное представление.</p></div>
+<div><b>Управление роадмапом</b><p>Правки — через issues репозитория или в чате с ассистентом: «предложи правку роадмапа: …». Пересмотр приоритетов — ежемесячно, по итогам спринтов.</p></div>
+<div><b>Навигация</b><p><a href="index.html" style="color:#ffd47e;">Витрина центра</a> · <a href="digests/digest_2026-09-11.html" style="color:#ffd47e;">Свежий дайджест</a> · <a href="special/analytics_2026-09-11.html" style="color:#ffd47e;">Спецвыпуск «Аналитика недели»</a></p></div>
+</div></footer>
+
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+document.documentElement.setAttribute("data-theme",c);
+try{localStorage.setItem("gudok-theme",c);}catch(e){}
+syncThemeBtn();}
+function syncThemeBtn(){var b=document.getElementById("themeBtn");
+if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
+syncThemeBtn();
+</script></body>
+</html>
