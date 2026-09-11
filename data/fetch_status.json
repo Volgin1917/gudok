@@ -89,7 +89,7 @@
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -137,7 +137,7 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -190,11 +190,11 @@
   "title": "Что-то на ульяновском"
  },
  "_meta": {
-  "last_run_utc": "2026-09-11T13:41:42.162524+00:00",
-  "last_run_local": "11.09.2026 17:41",
-  "fetched": 429,
-  "new": 3,
-  "total_store": 703
+  "last_run_utc": "2026-09-11T14:01:19.332739+00:00",
+  "last_run_local": "11.09.2026 18:01",
+  "fetched": 431,
+  "new": 8,
+  "total_store": 711
  },
  "rss:Улград": {
   "ok": true,

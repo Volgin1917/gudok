@@ -1,5 +1,5 @@
 {
- "generated_local": "11.09.2026 17:45",
+ "generated_local": "11.09.2026 18:03",
  "calendar": [
   {
    "etype": "kids",
@@ -329,13 +329,13 @@
  ],
  "clusters": [
   {
-   "name": "мрот · рублей · ульяновцы",
+   "name": "мрот · рублей · справедливым",
    "terms": [
     "мрот",
     "рублей",
-    "ульяновцы"
+    "справедливым"
    ],
-   "size": 3,
+   "size": 4,
    "coverage": 0.0,
    "gap": true,
    "samples": [
@@ -352,10 +352,10 @@
      "views": 320
     },
     {
-     "title": "Ульяновцы считают справедливым МРОТ в 52 300 рублей",
-     "url": "https://ulpressa.ru/2026/09/11/ulyanovczy-schitayut-spravedlivym-mrot-v-52-300-rublej/",
-     "source": "Улпресса",
-     "views": null
+     "title": "💸 Ульяновцы хотят получать минимум 52,3 тысячи рублей Именно такую сумму жители города считают справедливым ми",
+     "url": "https://t.me/ulyanovsk_smi/29407",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 52
     }
    ]
   },
@@ -385,6 +385,37 @@
     {
      "title": "МегаФон запустил в России сеть 5G",
      "url": "https://ulpressa.ru/2026/09/11/megafon-zapustil-v-rossii-set-5g/",
+     "source": "Улпресса",
+     "views": null
+    }
+   ]
+  },
+  {
+   "name": "росгвардейцы · гостинице · московском",
+   "terms": [
+    "росгвардейцы",
+    "гостинице",
+    "московском"
+   ],
+   "size": 3,
+   "coverage": 0.33,
+   "gap": true,
+   "samples": [
+    {
+     "title": "Росгвардейцы задержали дебошира в гостинице на Московском шоссе",
+     "url": "https://t.me/ulpressa/74470",
+     "source": "t.me/ulpressa",
+     "views": 400
+    },
+    {
+     "title": "👮🏻‍♂️ В гостинице на Московском шоссе росгвардейцы задержали 33-летнего жителя Ханты-Мансийского автономного о",
+     "url": "https://t.me/chpulsk/50686",
+     "source": "t.me/chpulsk",
+     "views": 356
+    },
+    {
+     "title": "Росгвардейцы задержали дебошира в гостинице на Московском шоссе",
+     "url": "https://ulpressa.ru/2026/09/11/rosgvardejczy-zaderzhali-deboshira-v-gostinicze-na-moskovskom-shosse/",
      "source": "Улпресса",
      "views": null
     }
@@ -482,46 +513,15 @@
      "views": 789
     }
    ]
-  },
-  {
-   "name": "врачи · резус · спасли",
-   "terms": [
-    "врачи",
-    "резус",
-    "спасли"
-   ],
-   "size": 5,
-   "coverage": 1.0,
-   "gap": false,
-   "samples": [
-    {
-     "title": "В Ульяновске врачи спасли ребёнка с тяжёлой гемолитической болезнью из‑за резус‑конфликта: из‑за антител матер",
-     "url": "https://t.me/chpul/34351",
-     "source": "t.me/chpul",
-     "views": 964
-    },
-    {
-     "title": "Врачи перинатального центра детской больницы в Ульяновске спасли ребенка при тяжелейшем резус-конфликте. За 10",
-     "url": "https://t.me/ulsk_on/22754",
-     "source": "t.me/ulsk_on",
-     "views": 722
-    },
-    {
-     "title": "🏥 Врачи спасли малыша с тяжелейшим резус-конфликтом в Ульяновске У мамы с отрицательным резусом и ребёнка с по",
-     "url": "https://t.me/ulyanovsk_smi/29400",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 440
-    }
-   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.05,
-  "today_items": 242,
-  "today_pos": 208,
-  "today_neg": 127,
-  "today_neu": 257,
+  "today_score": 0.053,
+  "today_items": 249,
+  "today_pos": 210,
+  "today_neg": 128,
+  "today_neu": 261,
   "series": [
    {
     "date": "2026-08-29",
@@ -577,18 +577,18 @@
    },
    {
     "date": "2026-09-11",
-    "score": 0.05
+    "score": 0.053
    }
   ],
   "by_category": {
    "agro": -0.333,
    "culture": 0.769,
-   "economy": 0.519,
+   "economy": 0.467,
    "education": 0.35,
    "health": 0.0,
-   "politics": 0.115,
-   "security": -0.481,
-   "society": 0.157,
+   "politics": 0.111,
+   "security": -0.489,
+   "society": 0.174,
    "sport": 0.143
   }
  },
@@ -645,11 +645,11 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 31,
-   "primary": 20,
+   "total": 32,
+   "primary": 21,
    "dup": 11,
-   "repost_rate": 0.35,
-   "views_median": 5960,
+   "repost_rate": 0.34,
+   "views_median": 5870,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -657,10 +657,10 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 30,
-   "primary": 21,
+   "total": 31,
+   "primary": 22,
    "dup": 9,
-   "repost_rate": 0.3,
+   "repost_rate": 0.29,
    "views_median": 5900,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -690,6 +690,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "volkodav73",
+   "tier": 3,
+   "type": "tg",
+   "total": 23,
+   "primary": 17,
+   "dup": 6,
+   "repost_rate": 0.26,
+   "views_median": 3220,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
@@ -702,15 +714,15 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "volkodav73",
-   "tier": 3,
+   "source": "ulsk_73online",
+   "tier": 2,
    "type": "tg",
-   "total": 22,
-   "primary": 16,
-   "dup": 6,
-   "repost_rate": 0.27,
-   "views_median": 3730,
-   "label": "смешанный",
+   "total": 23,
+   "primary": 21,
+   "dup": 2,
+   "repost_rate": 0.09,
+   "views_median": 301,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -723,18 +735,6 @@
    "repost_rate": 0.27,
    "views_median": 694,
    "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulsk_73online",
-   "tier": 2,
-   "type": "tg",
-   "total": 22,
-   "primary": 20,
-   "dup": 2,
-   "repost_rate": 0.09,
-   "views_median": 372,
-   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -801,10 +801,10 @@
    "source": "dimitrovgradd",
    "tier": 2,
    "type": "tg",
-   "total": 18,
+   "total": 19,
    "primary": 15,
-   "dup": 3,
-   "repost_rate": 0.17,
+   "dup": 4,
+   "repost_rate": 0.21,
    "views_median": 1140,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -834,6 +834,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "ulyanovsk_smi",
+   "tier": 2,
+   "type": "tg",
+   "total": 17,
+   "primary": 15,
+   "dup": 2,
+   "repost_rate": 0.12,
+   "views_median": 337,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "ulgovru",
    "tier": 1,
    "type": "tg",
@@ -843,18 +855,6 @@
    "repost_rate": 0.38,
    "views_median": 85,
    "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulyanovsk_smi",
-   "tier": 2,
-   "type": "tg",
-   "total": 16,
-   "primary": 14,
-   "dup": 2,
-   "repost_rate": 0.12,
-   "views_median": 440,
-   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -894,6 +894,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "ulsk_driver73",
+   "tier": 2,
+   "type": "tg",
+   "total": 14,
+   "primary": 10,
+   "dup": 4,
+   "repost_rate": 0.29,
+   "views_median": 320,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "ulkoroche",
    "tier": 2,
    "type": "tg",
@@ -902,6 +914,18 @@
    "dup": 1,
    "repost_rate": 0.07,
    "views_median": 1460,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "dimitrovgradonline",
+   "tier": 2,
+   "type": "tg",
+   "total": 14,
+   "primary": 12,
+   "dup": 2,
+   "repost_rate": 0.14,
+   "views_median": 262,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -926,30 +950,6 @@
    "dup": 2,
    "repost_rate": 0.15,
    "views_median": 641,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulsk_driver73",
-   "tier": 2,
-   "type": "tg",
-   "total": 13,
-   "primary": 9,
-   "dup": 4,
-   "repost_rate": 0.31,
-   "views_median": 320,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "dimitrovgradonline",
-   "tier": 2,
-   "type": "tg",
-   "total": 13,
-   "primary": 11,
-   "dup": 2,
-   "repost_rate": 0.15,
-   "views_median": 262,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -994,8 +994,8 @@
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 58.0,
-   "slope": 9.21,
+   "expected": 58.7,
+   "slope": 9.32,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1008,18 +1008,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "schools",
-   "name": "Школы и вузы",
-   "expected": 47.8,
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 47.7,
    "slope": 7.93,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
-   "topic": "governor",
-   "name": "Губернатор / власть",
-   "expected": 46.9,
-   "slope": 7.82,
+   "topic": "schools",
+   "name": "Школы и вузы",
+   "expected": 47.8,
+   "slope": 7.93,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1034,8 +1034,8 @@
   {
    "topic": "sport",
    "name": "Спорт",
-   "expected": 28.1,
-   "slope": 4.71,
+   "expected": 28.8,
+   "slope": 4.82,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1050,8 +1050,8 @@
   {
    "topic": "cityspace",
    "name": "Городская среда",
-   "expected": 23.1,
-   "slope": 3.43,
+   "expected": 23.8,
+   "slope": 3.54,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1066,8 +1066,8 @@
   {
    "topic": "weather",
    "name": "Погода",
-   "expected": 17.9,
-   "slope": 2.79,
+   "expected": 18.6,
+   "slope": 2.89,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1130,8 +1130,8 @@
   {
    "topic": "macro",
    "name": "Макроэкономика / ЦБ",
-   "expected": 8.0,
-   "slope": 1.21,
+   "expected": 8.7,
+   "slope": 1.32,
    "direction": "рост",
    "confidence": "средняя"
   },
