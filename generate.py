@@ -569,7 +569,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 <header class="topbar"><div class="topbar-inner">
 <div class="brand">{logo_html}<div>
 <div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span></div>
-<div class="brand-sub">Листок марксистской группы «Победа» · выпуск № {digest_no}{' · 🧪 ТЕСТОВЫЙ' if digest_no == 0 else ''}</div>
+<div class="brand-sub">Информационно-аналитическое издание · выпуск № {digest_no}{' · 🧪 ТЕСТОВЫЙ' if digest_no == 0 else ''}</div>
 </div></div>
 <div class="top-meta">
 <div class="chip">{'🧪 тестовый номер · ' if digest_no == 0 else ''}<span class="dot"></span> Выпуск от <b>{day:%d.%m.%Y}</b></div>
@@ -991,7 +991,7 @@ def render_exec(cfg, trends, store, status, date_str):
 <div class="exec-head">
 <img src="../assets/logo_gudok.png" style="width:46px;height:46px;object-fit:contain;border-radius:11px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.25);" alt="">
 <h1>📋 Дайджест руководителя</h1>
-<div class="d"><b>Гудок</b> · листок марксистской группы «Победа»<br>{day:%d.%m.%Y} · сформирован {now:%H:%M} (UTC+4) · 1 страница</div>
+<div class="d"><b>Гудок</b> · информационно-аналитическое издание<br>{day:%d.%m.%Y} · сформирован {now:%H:%M} (UTC+4) · 1 страница</div>
 </div>
 
 <div class="exec-sec"><h2>5 событий дня</h2><ol>{li(events, 'события')}</ol></div>
@@ -1128,7 +1128,7 @@ def render_elections(cfg, trends, store, status):
 <header class="topbar"><div class="topbar-inner">
 <div class="brand">{logo_html}<div>
 <div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · ВЫБОРЫ-2026</div>
-<div class="brand-sub">Листок группы «Победа» · спецвыпуск: губернатор, Госдума IX созыва, довыборы в ЗСО</div>
+<div class="brand-sub">Информационно-аналитическое издание · спецвыпуск: губернатор, Госдума IX созыва, довыборы в ЗСО</div>
 </div></div>
 <div class="top-meta">
 <div class="chip">🗳 Голосование <b>18–20 сентября</b></div>
@@ -1363,7 +1363,7 @@ def render_afisha(cfg, trends, store, status, an):
 <header class="topbar"><div class="topbar-inner">
 <div class="brand">{logo_html}<div>
 <div class="brand-title">🎭 АФИША <span>ГУДОК</span></div>
-<div class="brand-sub">Листок группы «Победа» · культурные события Ульяновской области</div>
+<div class="brand-sub">Информационно-аналитическое издание · культурные события Ульяновской области</div>
 </div></div>
 <div class="top-meta">
 <div class="chip">📅 событий: <b>{total_n}</b></div>
@@ -1515,7 +1515,7 @@ def render_infospace(cfg, trends, store, status, info):
 <header class="topbar"><div class="topbar-inner">
 <div class="brand">{logo_html}<div>
 <div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · 🔬 ИНФОПРОСТРАНСТВО</div>
-<div class="brand-sub">Листок группы «Победа» · сквозное исследование информационного поля Ульяновской области</div>
+<div class="brand-sub">Информационно-аналитическое издание · сквозное исследование информационного поля Ульяновской области</div>
 </div></div>
 <div class="top-meta">
 <div class="chip">период: <b>7 дней</b></div>
@@ -1757,7 +1757,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <img src="assets/logo_gudok.png" class="mast-logo" alt="">
 <div>
 <div class="mast-title">Г<em>У</em>ДОК</div>
-<div class="mast-slogan">{esc(cfg["tagline_short"])} · выходит с 11.09.2026</div>
+<div class="mast-slogan">{esc(cfg["tagline_short"])}</div>
 </div>
 </div>
 <div class="mast-right">
