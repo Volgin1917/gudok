@@ -528,6 +528,48 @@ def build_infospace(items, trends, cfg):
                                   "delta": round((tw - pw) / pw * 100) if pw else None})
     topic_wow.sort(key=lambda x: -(x["this"]))
 
+    # --- муниципальная повестка: свой и областной голос (метрика из очереди, 12.09)
+    muni_src = set(cfg.get("municipal_sources") or [])
+    muni_agenda = []
+    own_total = 0
+    ment_total = 0
+    for name, pat in (cfg.get("municipalities") or {}).items():
+        rx = re.compile(pat, re.I)
+        t_n = own_n = 0
+        tones = []
+        srcs = set()
+        for it in week:
+            title = it.get("title", "") or ""
+            body = (it.get("text") or "")[:400]
+            in_title = bool(rx.search(title))
+            in_body = (not in_title) and bool(rx.search(body))
+            if not (in_title or in_body):
+                continue
+            t_n += 1
+            if in_title:
+                ment_total += 1
+            src = it.get("channel") or it.get("source") or "?"
+            srcs.add(src)
+            if src in muni_src:
+                own_n += 1
+                own_total += 1
+            sc = sentiment_of(f"{title} {body[:250]}")[0]
+            tones.append(sc)
+        if t_n:
+            muni_agenda.append({
+                "name": name, "mentions": t_n,
+                "subject": sum(1 for it in week if rx.search(it.get("title", "") or "")),
+                "tone": round(sum(tones) / len(tones), 2) if tones else None,
+                "sources": len(srcs), "own": own_n,
+            })
+    muni_agenda.sort(key=lambda x: -x["mentions"])
+    muni_summary = {
+        "own_share": round(own_total / ment_total * 100) if ment_total else 0,
+        "voiced_own": [m["name"] for m in muni_agenda if m["own"] > 0],
+        "silent_own": [m["name"] for m in muni_agenda if m["own"] == 0][:10],
+        "muni_sources": sorted(muni_src),
+    }
+
     # --- выводы
     concl = []
     if wow.get("delta") is not None and wow.get("prev", 0) >= 100:
@@ -616,6 +658,7 @@ def build_infospace(items, trends, cfg):
         "generated_local": now.strftime("%d.%m.%Y %H:%M"),
         "week_items": len(week), "week_primaries": len(primaries), "week_dups": len(dups),
         "metrics": metrics, "natproj": natproj,
+        "muni_agenda": muni_agenda[:12], "muni_summary": muni_summary,
         "by_type": dict(by_type), "by_tier": dict(by_tier),
         "orig_by_tier": orig_by_tier,
         "setters": setters.most_common(8),

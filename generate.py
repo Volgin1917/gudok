@@ -1750,6 +1750,20 @@ def render_infospace(cfg, trends, store, status, info):
     planned_metrics = "; ".join(esc(x) for x in cfg.get("infospace_planned_metrics", [])) or "—"
     np = info.get("natproj") or {}
     np_max = max((n for _, n in np.get("by_project", [])), default=1) or 1
+    ma = info.get("muni_agenda") or []
+    ms = info.get("muni_summary") or {}
+    own_share = ms.get("own_share", 0)
+    muni_src_list = ", ".join("@" + x for x in ms.get("muni_sources", [])) or "—"
+    muni_src_n = len(ms.get("muni_sources", []))
+    muni_src_names = "Димитровград (2 канала), Барышский район" if muni_src_n else "—"
+    def _own_cell(r):
+        return "✅ " + str(r["own"]) if r["own"] else '<span style="color:#b02a2f;font-weight:700;">нет</span>'
+
+    ma_rows = "".join(
+        f'<tr><td><b>{esc(r["name"])}</b></td><td>{r["mentions"]}</td><td>{r["subject"]}</td>'
+        f'<td>{r["tone"] if r["tone"] is not None else "—"}</td><td>{r["sources"]}</td>'
+        f'<td>{_own_cell(r)}</td></tr>'
+        for r in ma) or '<tr><td colspan="6">За неделю упоминаний муниципалитетов нет.</td></tr>'
     np_rows = "".join(
         f'<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">'
         f'<div style="width:210px;text-align:right;font-weight:600;flex-shrink:0;">{esc(name)}</div>'
@@ -1880,6 +1894,18 @@ def render_infospace(cfg, trends, store, status, info):
 <div class="note"><b>Методика.</b> Считаются сообщения, где явно назван нацпроект или «национальный проект»; принадлежность
 к конкретному проекту — по ключевым словам в окружении упоминания. Одно сообщение может относиться к нескольким проектам.
 Метрика показывает, какие госпрограммы реально присутствуют в публичной повестке региона, а какие идут без публичного следа.</div>
+</div></div>
+
+<div class="sec-head"><h2>🗺 Муниципальная повестка: свой и областной голос</h2><div class="line"></div>
+<div class="badge">метрика подключена 12.09</div></div>
+<div class="card"><div class="card-pad" style="padding:10px 14px;">
+<table class="tbl"><tr><th>Территория</th><th>Упоминаний</th><th>Из них сюжетом</th><th>Тон</th><th>Источников</th><th>Свой голос</th></tr>
+{ma_rows}</table>
+<div class="note"><b>Методика.</b> «Сюжетом» — упоминание в заголовке (территория является предметом новости), иначе — фоном в тексте.
+«Свой голос» — упоминания из муниципальных источников мониторинга ({muni_src_list}); сейчас их {muni_src_n}:
+{muni_src_names}. Доля своего голоса в предметных упоминаниях — <b>{own_share}%</b>.
+Территории без своего голоса говорят об области только устами областных редакций — это структурный перекос повестки,
+а не случайность недели. Кандидаты на подключение: районные газеты и паблики (ищем вручную, tgstat закрыт для ботов).</div>
 </div></div>
 
 <div class="sec-head"><h2>📆 Динамика: неделя к неделе</h2><div class="line"></div>

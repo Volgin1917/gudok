@@ -189,12 +189,18 @@
   "error": null,
   "title": "Что-то на ульяновском"
  },
+ "tg:brsh73": {
+  "ok": true,
+  "items": 19,
+  "error": null,
+  "title": "Барыш live"
+ },
  "_meta": {
-  "last_run_utc": "2026-09-11T22:40:57.182910+00:00",
-  "last_run_local": "12.09.2026 02:40",
-  "fetched": 404,
-  "new": 1,
-  "total_store": 791
+  "last_run_utc": "2026-09-11T23:15:56.383589+00:00",
+  "last_run_local": "12.09.2026 03:15",
+  "fetched": 423,
+  "new": 19,
+  "total_store": 810
  },
  "rss:Улград": {
   "ok": true,
