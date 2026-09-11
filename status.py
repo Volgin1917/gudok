@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-status.py — status-page конвейера издание «Гудок» (status.html).
+status.py — status-page конвейера издание Гудок (status.html).
 
 Показывает: здоровье пайплайна (когда последний сбор/тренды/бэкап),
 доступность каждого источника, состояние алерт-монитора, статистику базы.
@@ -119,7 +119,8 @@ def main():
     html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="refresh" content="60">
-<title>Status — {cfg.get('brand','издание «Гудок»')}</title>
+<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<title>Status — {cfg.get('brand','издание Гудок')}</title>
 <style>
 :root{{--navy:#0d2137;--navy3:#1d4066;--blue:#2f80ed;--gold:#f2b134;--red:#e5484d;--green:#2ea36b;
 --bg:#eef2f7;--card:#fff;--line:#dbe4ee;--txt:#1c2733;--muted:#5b6b7c;}}
@@ -168,7 +169,7 @@ document.documentElement.setAttribute("data-theme",c);try{{localStorage.setItem(
 var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600\\ufe0f":"\\U0001F319";}}
 </script></head><body>
 <div class="topbar">
-<div><h1>🩺 Status — конвейер издания «Гудок»</h1><div class="sub">листок марксистской группы «Победа» · автообновление каждые 60 с · {now:%d.%m.%Y %H:%M} UTC+4</div></div>
+<div><h1>🩺 Status — конвейер издания Гудок</h1><div class="sub">листок марксистской группы «Победа» · автообновление каждые 60 с · {now:%d.%m.%Y %H:%M} UTC+4</div></div>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>«Гудок» — информационно-аналитическое издание о Ульяновской области</title>
-<style>
+<title>Гудок — информационно-аналитическое издание о Ульяновской области</title>
+<link rel="icon" type="image/png" href="assets/logo_gudok.png"><style>
 :root{--navy:#0d2137;--navy2:#14314f;--navy3:#1d4066;--blue:#2f80ed;--sky:#dce9f8;
 --gold:#f2b134;--red:#e5484d;--green:#2ea36b;--bg:#eef2f7;--card:#fff;--line:#dbe4ee;
 --txt:#1c2733;--muted:#5b6b7c;--radius:14px;--shadow:0 2px 10px rgba(13,33,55,.08);}
@@ -199,6 +199,8 @@ code,pre{font-family:Consolas,Menlo,monospace;}
 :root[data-theme="dark"] .sprint{background:linear-gradient(135deg,#0f2033,#16283c);}
 :root[data-theme="dark"] .mission{background:var(--card);}
 :root[data-theme="dark"] .src-card{background:var(--card);border-color:var(--line);}
+.logo{width:42px;height:42px;object-fit:contain;border-radius:10px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.3);flex-shrink:0;}
+.mast-logo{width:68px;height:68px;object-fit:contain;border-radius:16px;background:#fff;box-shadow:0 3px 14px rgba(0,0,0,.45);flex-shrink:0;}
 .theme-btn{border:1px solid rgba(255,255,255,.22);font-size:13px;padding:6px 12px;border-radius:8px;cursor:pointer;background:rgba(255,255,255,.12);color:#ffe9b8;font-weight:800;}
 .theme-btn:hover{background:rgba(255,255,255,.22);}
 @media print{
@@ -210,7 +212,7 @@ code,pre{font-family:Consolas,Menlo,monospace;}
 .masthead{background:linear-gradient(135deg,var(--navy) 0%,#10263d 55%,var(--navy3) 100%);color:#fff;padding:20px 22px 0;border-bottom:4px double var(--gold);}
 :root[data-theme="dark"] .masthead{background:linear-gradient(135deg,#08121e,#0d1f33 55%,#122b45);}
 .mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;}
-.mast-brand{flex:1;min-width:280px;}
+.mast-brand{flex:1;min-width:280px;display:flex;align-items:center;gap:18px;}
 .mast-title{font-size:44px;font-weight:900;letter-spacing:5px;line-height:1;font-family:Georgia,'Times New Roman',serif;}
 .mast-title em{font-style:normal;color:var(--gold);}
 .mast-slogan{font-size:12px;color:#a9c1d9;letter-spacing:1.6px;text-transform:uppercase;margin-top:7px;}
@@ -250,8 +252,11 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 
 <header class="masthead"><div class="mast-inner">
 <div class="mast-brand">
-<div class="mast-title">«Г<em>У</em>ДОК»</div>
+<img src="assets/logo_gudok.png" class="mast-logo" alt="">
+<div>
+<div class="mast-title">Г<em>У</em>ДОК</div>
 <div class="mast-slogan">Информационно-аналитический листок марксистской группы «Победа» · Ульяновская область · выходит с 11.09.2026</div>
+</div>
 </div>
 <div class="mast-right">
 <div class="date">пятница, 11 сентября 2026</div>
@@ -268,7 +273,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 
 <div class="lead-sec" id="leads">
 <div class="sec-head" style="margin-top:0;"><h2>Главное сегодня</h2><div class="line"></div>
-<div class="badge">11.09.2026 · обновлено 16:59</div></div>
+<div class="badge">11.09.2026 · обновлено 17:06</div></div>
 <div class="lead-grid"><div class="lead-main" style="border-top-color:#0f9b8e;">
 <div class="lead-kicker" style="color:#0f9b8e;">🎓 Образование и наука · сюжет дня</div>
 <h2><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновской области…</a></h2>
@@ -352,7 +357,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </div>
 
 <footer class="footer"><div class="footer-inner">
-<div><b>«Гудок»</b><p>«Гудок» — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года. Выходит ежедневно в 07:30 (UTC+4).</p></div>
+<div><b>Гудок</b><p>Гудок — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года. Выходит ежедневно в 07:30 (UTC+4).</p></div>
 <div><b>Разделы</b><p><a href="digests/digest_2026-09-11.html" style="color:#ffd47e;">Свежий выпуск</a> · <a href="afisha.html" style="color:#ffd47e;">Афиша</a> · <a href="special/elections_2026.html" style="color:#ffd47e;">Выборы-2026</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a> · <a href="status.html" style="color:#ffd47e;">Статус системы</a></p></div>
 <div><b>Редакция</b><p>Автоматический мониторинг 30 Telegram-каналов и 2 RSS-лент. Колонку редактора и аналитику готовит ассистент. Служебная информация о сборах — на <a href="status.html" style="color:#ffd47e;">status-странице</a>.</p></div>
 </div></footer>
