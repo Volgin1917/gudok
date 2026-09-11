@@ -1,7 +1,8 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Дайджест руководителя · 12.09.2026 — листок Гудок</title>
-<link rel="icon" type="image/png" href="../assets/logo_gudok.png"><style>
+<title>Проект «Госзакупки» — листок Гудок</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
+<style>
 :root{--navy:#0d2137;--navy2:#14314f;--navy3:#1d4066;--blue:#2f80ed;--sky:#dce9f8;
 --gold:#f2b134;--red:#e5484d;--green:#2ea36b;--bg:#eef2f7;--card:#fff;--line:#dbe4ee;
 --txt:#1c2733;--muted:#5b6b7c;--radius:14px;--shadow:0 2px 10px rgba(13,33,55,.08);}
@@ -216,66 +217,102 @@ code,pre{font-family:Consolas,Menlo,monospace;}
   .theme-btn{display:none!important;}
 }
 
-@page { size: A4; margin: 14mm; }
-.exec-wrap{max-width:860px;margin:0 auto;padding:26px 30px 40px;background:#fff;}
-.exec-head{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--navy);padding-bottom:12px;margin-bottom:18px;flex-wrap:wrap;gap:8px;}
-.exec-head h1{font-size:22px;color:var(--navy);}
-.exec-head .d{font-size:13px;color:var(--muted);text-align:right;}
-.exec-sec{margin-bottom:20px;break-inside:avoid;}
-.exec-sec h2{font-size:14px;text-transform:uppercase;letter-spacing:1.2px;color:#fff;background:var(--navy);display:inline-block;padding:5px 14px;border-radius:7px;margin-bottom:10px;}
-.exec-sec.risk h2{background:#b02a2f;}
-.exec-sec.dec h2{background:#1d7a4d;}
-.exec-sec ol,.exec-sec ul{padding-left:22px;}
-.exec-sec li{margin-bottom:12px;font-size:13.5px;line-height:1.5;}
-.exec-sec li b a{color:var(--navy);}
-.exec-sec .sub{color:var(--muted);font-size:12.3px;margin-top:2px;}
-.exec-sec .src{color:#8a99aa;font-size:10.8px;font-weight:700;margin-top:3px;}
-.exec-trend{background:#f7fafd;border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-size:13px;color:var(--navy3);}
-.exec-foot{border-top:1px solid var(--line);margin-top:24px;padding-top:10px;font-size:10.5px;color:#8a99aa;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}
-@media print{ .topbar,.nav,.print-btn{display:none!important;} .exec-wrap{padding:0;} }
+.masthead{background:linear-gradient(135deg,var(--navy) 0%,#10263d 55%,var(--navy3) 100%);color:#fff;padding:20px 22px 0;border-bottom:4px double var(--gold);}
+:root[data-theme="dark"] .masthead{background:linear-gradient(135deg,#08121e,#0d1f33 55%,#122b45);}
+.mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.mast-brand{flex:1;min-width:280px;display:flex;align-items:center;gap:18px;}
+.mast-brand>div{display:flex;flex-direction:column;justify-content:center;}
+.brand>div{display:flex;flex-direction:column;justify-content:center;}
+.mast-title{font-size:44px;font-weight:900;letter-spacing:5px;line-height:1;font-family:Georgia,'Times New Roman',serif;}
+
+.mast-slogan{font-size:12px;color:#a9c1d9;letter-spacing:1.6px;text-transform:uppercase;margin-top:7px;}
+.mast-right{text-align:right;font-size:12.5px;color:#c9d8e8;}
+.mast-right .date{font-size:15px;font-weight:800;color:#fff;}
+.mast-right .wx{margin-top:4px;color:#a9c1d9;}
+.mast-tools{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
+.lead-sec{max-width:1200px;margin:0 auto;padding:22px 18px 0;}
+.lead-kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:6px;}
+.lead-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;}
+.lead-main{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 24px;border-top:5px solid var(--gold);}
+.lead-main h2{font-size:24px;font-weight:900;color:var(--navy);line-height:1.25;margin-bottom:10px;}
+.lead-main h2 a{color:var(--navy);} .lead-main h2 a:hover{color:var(--blue);}
+.lead-main p{font-size:14px;color:var(--muted);line-height:1.6;}
+.lead-side{display:flex;flex-direction:column;gap:14px;}
+.lead-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 18px;flex:1;border-top:4px solid var(--blue);}
+.lead-card h3{font-size:16px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:6px;}
+.lead-card h3 a{color:var(--navy);} .lead-card h3 a:hover{color:var(--blue);}
+.lead-card p{font-size:12.6px;color:var(--muted);line-height:1.5;}
+.lead-meta{margin-top:8px;font-size:11px;color:#8a99aa;font-weight:600;}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;max-width:1200px;margin:20px auto 0;padding:0 18px;}
+.tile{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px 16px;border-left:4px solid var(--blue);transition:transform .12s;}
+.tile:hover{transform:translateY(-2px);text-decoration:none;}
+.tile .ic{font-size:21px;}
+.tile b{display:block;font-size:13.5px;color:var(--navy);margin-top:5px;}
+.tile span{display:block;font-size:11.3px;color:var(--muted);margin-top:2px;line-height:1.35;}
+.tile .n{font-size:19px;font-weight:800;color:var(--blue);}
+.wrap1200{max-width:1200px;margin:0 auto;padding:0 18px;}
+.af-mini{display:flex;gap:11px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
+.af-mini:last-child{border-bottom:none;}
+@media (max-width:900px){.lead-grid{grid-template-columns:1fr;}.tiles{grid-template-columns:repeat(2,1fr);}.mast-title{font-size:34px;}}
 </style><script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<nav class="nav"><div class="nav-inner"><a class="" href="../index.html">🏠 Первая полоса</a><a class="" href="../digests/digest_2026-09-12.html">📰 Выпуск № 0 🧪</a><a class="active" href="../digests/exec_2026-09-12.html">📋 Руководителю</a><a class="" href="../afisha.html">🎭 Афиша</a><a class="" href="../projects.html">📁 Проекты</a><a class="" href="../infospace.html">🔬 Инфопространство</a><a class="" href="../index.html#archive">🗄 Архив</a><a class="nav-util nav-util-first" href="../special/analytics_2026-09-11.html">Аналитика недели</a></div></nav><div class="exec-wrap">
-<div class="exec-head">
-<h1>📋 Дайджест руководителя</h1>
-<div class="d"><b>Гудок</b> · информационно-аналитическое издание<br>12.09.2026 · сформирован 03:03 (UTC+4) · 1 страница</div>
-</div>
-
-<div class="exec-sec"><h2>5 событий дня</h2><ol><li><b><a href="https://t.me/dimitrovgradonline/33489">В димитровградских дворах «зашевелились» После дождливых дней, воспользовавшись хорошей погодой, подрядчики во…</a></b>
-<div class="sub">В димитровградских дворах «зашевелились» После дождливых дней, воспользовавшись хорошей погодой, подрядчики возобновили работу по ремонту городских дворов. Источник: dimgrad24.ru</div>
-<div class="src">11.09 20:40 · t.me/dimitrovgradonline · 👁 5.2K</div></li><li><b><a href="https://t.me/ulgovru/23643">Провёл оперштаб по содействию избирательным комиссиям и проверил готовность избирательного участка на базе Мар…</a></b>
-<div class="sub">Провёл оперштаб по содействию избирательным комиссиям и проверил готовность избирательного участка на базе Мариинской гимназии в Ульяновске. ✅ В этом году в период проведения голосования с 18 по 20 сентября будут функционировать 9</div>
-<div class="src">11.09 19:48 · t.me/ulgovru · 👁 54</div></li><li><b><a href="https://t.me/vmkononov/5276">РЕГИОНАЛЬНЫЕ БРЕНДЫ КАК СТИМУЛ РАЗВИТИЯ МЕСТНЫХ ПРЕДПРИЯТИЙ В Доме правительства состоялся первый в России кру…</a></b>
-<div class="sub">РЕГИОНАЛЬНЫЕ БРЕНДЫ КАК СТИМУЛ РАЗВИТИЯ МЕСТНЫХ ПРЕДПРИЯТИЙ В Доме правительства состоялся первый в России круглый стол по продвижению региональных брендов. Мероприятие прошло в формате расширенного заседания комитета ТПП РФ по вы</div>
-<div class="src">11.09 18:46 · t.me/vmkononov · 👁 28</div></li><li><b><a href="https://t.me/ulpressa/74484">Ребенку нужна консультация детского невролога? ❤️ В Клинике Фомина в Ульяновске принимает Жураев Данияр Саттар…</a></b>
-<div class="sub">Ребенку нужна консультация детского невролога? ❤️ В Клинике Фомина в Ульяновске принимает Жураев Данияр Саттаркулович — врач-невролог, врач функциональной диагностики и детский невролог из Казани со стажем 10 лет. Данияр Саттаркул</div>
-<div class="src">11.09 20:03 · t.me/ulpressa · 👁 1.5K</div></li><li><b><a href="https://t.me/insaid173/46875">😏 На Шолмова в Ульяновске появился новый арт-объект.</a></b>
-<div class="sub">😏 На Шолмова в Ульяновске появился новый арт-объект.</div>
-<div class="src">11.09 18:04 · t.me/insaid173 · 👁 9.8K</div></li></ol></div>
-<div class="exec-sec risk"><h2>3 риска</h2><ol><li><b><a href="https://t.me/insaid173/46878">❗ Сейчас на Тюленева серьёзное ДТП. На месте работает реанимация</a></b>
-<div class="sub">❗ Сейчас на Тюленева серьёзное ДТП. На месте работает реанимация</div>
-<div class="src">11.09 19:27 · t.me/insaid173 · 👁 9.8K</div></li><li><b><a href="https://t.me/tresh_ulyan/56124">😱 Буйного постояльца задержали росгвардейцы в гостинице на Московском шоссе В Засвияжском районе Ульяновска, в…</a></b>
-<div class="sub">😱 Буйного постояльца задержали росгвардейцы в гостинице на Московском шоссе В Засвияжском районе Ульяновска, в гостинице на Московском шоссе, сотрудники Росгвардии задержали 33-летнего жителя Ханты-Мансийского автономного округа, </div>
-<div class="src">11.09 18:33 · t.me/tresh_ulyan · 👁 9.1K</div></li><li><b><a href="https://t.me/insaid173/46890">В Ульяновске поймали водителя, который скрылся с места ДТП после наезда на 16-летнюю школьницу В Ленинском рай…</a></b>
-<div class="sub">В Ульяновске поймали водителя, который скрылся с места ДТП после наезда на 16-летнюю школьницу В Ленинском районе областного центра Hyundai ix35 под управлением 47-летнего мужчины сбил подростка. Девочка переходила дорогу по нерег</div>
-<div class="src">11.09 23:40 · t.me/insaid173 · 👁 4K</div></li></ol></div>
-<div class="exec-sec dec"><h2>2 решения</h2><ol><li><b><a href="https://t.me/reporter73/52141">🏞 В Ульяновске после благоустройства открыли сквер «Губернаторский». Здесь появились новая сцена, детская площ…</a></b>
-<div class="sub">🏞 В Ульяновске после благоустройства открыли сквер «Губернаторский». Здесь появились новая сцена, детская площадка, качели, современные скамейки и урны, обновили дорожки и установили освещение. Работы выполнены в полном объёме. Ск</div>
-<div class="src">11.09 19:18 · t.me/reporter73 · 👁 35</div></li></ol></div>
-
-<div class="exec-sec"><h2>Повестка</h2>
-<div class="exec-trend">🔥 На подъёме: «Суды и криминал», «Транспорт и дороги», «Школы и вузы». Материалов за 24 ч: <b>381</b>, всего в базе: <b>790</b>. Последний сбор: 12.09.2026 01:24.</div></div>
-
-<div class="exec-foot">
-<span>Автономный режим: события/риски/решения отобраны алгоритмом по просмотрам, темам и свежести; решения — по маркерам действий в tier-1 источниках. Требует вычитки перед рассылкой (human-in-the-loop).</span>
-<span>Подробная версия: digest_2026-09-12.html · листок Гудок</span>
-</div>
-<button class="print-btn" onclick="window.print()" style="margin-top:14px;">🖨 Печать / PDF</button>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · ГОСЗАКУПКИ</div>
+<div class="brand-sub">Проект рубрики «Проекты»: аналитика государственных закупок региона</div>
+</div></div>
+<div class="top-meta">
+<div class="chip">неделя: <b>3</b> упоминаний</div>
+<div class="chip">обновлено <b>12.09 03:03</b></div>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
-</div><script>
+</div></div></header>
+<nav class="nav"><div class="nav-inner"><a class="" href="../index.html">🏠 Первая полоса</a><a class="" href="../digests/digest_2026-09-12.html">📰 Выпуск № 0 🧪</a><a class="" href="../digests/exec_2026-09-12.html">📋 Руководителю</a><a class="" href="../afisha.html">🎭 Афиша</a><a class="active" href="../projects.html">📁 Проекты</a><a class="" href="../infospace.html">🔬 Инфопространство</a><a class="" href="../index.html#archive">🗄 Архив</a><a class="nav-util nav-util-first" href="../special/analytics_2026-09-11.html">Аналитика недели</a></div></nav>
+<div class="wrap1200" style="padding-top:20px;">
+<div class="sec-head" style="margin-top:0;"><h2>Паспорт проекта</h2><div class="line"></div></div>
+<div class="note" style="margin-bottom:16px;"><b>Цель</b> — видеть, как расходуются бюджетные деньги региона: что закупается,
+кем, у кого и по какой цене; и как закупочная повестка отражается в СМИ и телеграм-каналах.
+<b>Источники:</b> (1) инфопоток издания — упоминания закупок в 30+ мониторируемых источниках; (2) ЕИС zakupki.gov.ru
+(44-ФЗ и 223-ФЗ) — прямое подключение возможно из контура РФ (сервер редакции или ручной экспорт выгрузки:
+csv/json со полями заказчик, НМЦК, способ, дата, поставщик); из песочницы и облачных раннеров ЕИС недоступна (таймауты).
+<b>Методика:</b> недельные срезы, сравнение периодов, разбор аномалий (крупные единственные поставщики, рост НМЦК по темам).</div>
+
+<div class="grid2">
+<div>
+<div class="sec-head"><h2>📰 Закупки в инфопотоке</h2><div class="line"></div>
+<div class="badge">3 за неделю · тон +0.00</div></div>
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Кто освещает закупки</div>
+<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">Russkih_Aleksey</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:100%;height:100%;background:#96690a;border-radius:6px;"></div></div><div style="width:30px;font-weight:800;">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">volkodav73</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:100%;height:100%;background:#96690a;border-radius:6px;"></div></div><div style="width:30px;font-weight:800;">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">ulsk_73online</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:100%;height:100%;background:#96690a;border-radius:6px;"></div></div><div style="width:30px;font-weight:800;">1</div></div>
+</div></div>
+<div class="card" style="margin-top:14px;"><div class="side-head">🗂 Сюжеты недели о закупках</div>
+<div class="side-body"><div class="af-mini"><div class="cal-badge"><b>09</b><span>Sep</span></div>
+<div style="flex:1;"><a href="https://t.me/volkodav73/30671" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🛑 Прокуратура Засвияжского района г. Ульяновска проводит проверку исполнения законодательства о контрактной си</a>
+<div style="font-size:11.3px;color:var(--muted);">t.me/volkodav73 · 👁 4.2K</div></div></div><div class="af-mini"><div class="cal-badge"><b>08</b><span>Sep</span></div>
+<div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12289" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🇷🇺 🇮🇷 По моему приглашению в регионе три дня работает делегация из Ирана. Это наши партнёры из провинции Казви</a>
+<div style="font-size:11.3px;color:var(--muted);">t.me/Russkih_Aleksey · 👁 2K</div></div></div><div class="af-mini"><div class="cal-badge"><b>11</b><span>Sep</span></div>
+<div style="flex:1;"><a href="https://t.me/ulsk_73online/35858" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Цифровая модернизация за ₽109 млн: «Ульяновскэнерго» ищет подрядчика для установки тысяч «умных» счетчиков Зая</a>
+<div style="font-size:11.3px;color:var(--muted);">t.me/ulsk_73online · 👁 680</div></div></div></div></div>
+</div>
+<div>
+<div class="sec-head"><h2>🏛 Метрики ЕИС</h2><div class="line"></div>
+<div class="badge">подключение</div></div>
+<div class="card"><div class="card-pad" style="padding:10px 14px;">
+<table class="tbl"><tr><th>Метрика</th><th>Ед.</th><th>Статус</th></tr><tr><td>Число извещений 44-ФЗ заказчиков Ульяновской области</td><td>неделя / месяц</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr><tr><td>Суммарная НМЦК и цена заключённых контрактов</td><td>млн ₽</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr><tr><td>Доля закупки у единственного поставщика</td><td>%</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr><tr><td>Среднее снижение цены на конкурентных процедурах</td><td>%</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr><tr><td>Топ-10 заказчиков региона по объёму</td><td>рейтинг</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr><tr><td>Топ-10 поставщиков и концентрация рынка</td><td>HHI</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr></table>
+<div class="note">Как подключить: выгрузка ЕИС (личный кабинет / открытые данные) кладётся в <code>data/goszakupki_eis.csv</code>
+со столбцами date, customer, method, nmck, supplier — страница начнёт считать метрики автоматически (следующая итерация).
+До подключения проект ведёт повесточную часть и готовит разборы вручную.</div>
+</div></div>
+</div>
+</div>
+</div>
+<footer class="footer"><div class="footer-inner">
+<div><b>Гудок</b><p>Гудок — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года.</p></div>
+<div><b>Рубрика</b><p><a href="../projects.html" style="color:#ffd47e;">Все проекты</a> · <a href="../infospace.html" style="color:#ffd47e;">Инфопространство</a></p></div>
+</div></footer>
+<script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
 document.documentElement.setAttribute("data-theme",c);
 try{localStorage.setItem("gudok-theme",c);}catch(e){}
@@ -283,9 +320,4 @@ syncThemeBtn();}
 function syncThemeBtn(){var b=document.getElementById("themeBtn");
 if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
 syncThemeBtn();
-</script><div class="util-bar-wrap"><div class="util-bar">
-<span class="util-lbl">Служебное</span>
-<a href="../roadmap.html">🧭 Роадмап издания</a>
-<a href="../status.html">🩺 Статус системы</a>
-<a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
-</div></div></body></html>
+</script></body></html>

@@ -558,9 +558,34 @@ def build_infospace(items, trends, cfg):
     if low:
         concl.append(f"На грани видимости (1–2 упоминания): {', '.join(low[:8])}.")
 
+    # --- отслеживаемые метрики инфопространства
+    src_counter_all = Counter(it.get("channel") or it.get("source") or "?" for it in week)
+    top3 = sum(n for _, n in src_counter_all.most_common(3))
+    concentration = round(top3 / len(week) * 100) if week else 0
+    casc_sizes = [it["cluster"] for it in primaries if it.get("cluster") and it["cluster"] >= 2]
+    avg_cascade = round(sum(casc_sizes) / len(casc_sizes), 1) if casc_sizes else 0
+    muni_total = len(cfg.get("municipalities") or {})
+    muni_cov = round((muni_total - len(silent)) / muni_total * 100) if muni_total else 0
+    scores = [t["score"] for t in tone_series if t["score"] is not None]
+    if len(scores) > 1:
+        mean = sum(scores) / len(scores)
+        tone_vol = round((sum((x - mean) ** 2 for x in scores) / len(scores)) ** 0.5, 2)
+    else:
+        tone_vol = 0
+    sec_n = sum(1 for it in week if it.get("category") == "security")
+    metrics = {
+        "original_share": round(len(primaries) / len(week) * 100) if week else 0,
+        "concentration_top3": concentration,
+        "avg_cascade": avg_cascade,
+        "muni_coverage": muni_cov,
+        "tone_volatility": tone_vol,
+        "alert_share": round(sec_n / len(week) * 100) if week else 0,
+    }
+
     return {
         "generated_local": now.strftime("%d.%m.%Y %H:%M"),
         "week_items": len(week), "week_primaries": len(primaries), "week_dups": len(dups),
+        "metrics": metrics,
         "by_type": dict(by_type), "by_tier": dict(by_tier),
         "orig_by_tier": orig_by_tier,
         "setters": setters.most_common(8),

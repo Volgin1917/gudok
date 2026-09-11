@@ -589,7 +589,7 @@ def render_nav(cfg, current, prefix="", subnav=""):
         ("digest", f"📰 Выпуск {label_num}", f"{prefix}digests/{latest}" if latest else ""),
         ("exec", "📋 Руководителю", f"{prefix}digests/{ex}" if ex_exists else ""),
         ("afisha", "🎭 Афиша", f"{prefix}afisha.html"),
-        ("elections", "🗳 Выборы-2026", f"{prefix}special/elections_2026.html"),
+        ("projects", "📁 Проекты", f"{prefix}projects.html"),
         ("infospace", "🔬 Инфопространство", f"{prefix}infospace.html"),
         ("archive", "🗄 Архив", f"{prefix}index.html#archive"),
     ]
@@ -1307,6 +1307,149 @@ def render_elections(cfg, trends, store, status):
 </body></html>"""
 
 
+# ------------------------------------------------------------------ projects
+def render_projects(cfg, trends, store, status):
+    """Хаб рубрики «Проекты»: спецстраницы-досье издания."""
+    now = datetime.now(UTC4)
+    nav_html = render_nav(cfg, "projects", "")
+    cards = ""
+    for pr in cfg.get("projects", []):
+        st = {"active": ("в работе", "#1d7a4d"), "plan": ("в плане", "#96690a")}.get(pr.get("status"), (pr.get("status", ""), "#5b6b7c"))
+        cards += f"""<div class="sec-card" style="border-top-color:{st[1]};text-decoration:none;display:block;">
+<div class="ic">📁</div><b>{esc(pr['title'])}</b>
+<div class="fig" style="font-size:12px;color:{st[1]};">{st[0]}</div>
+<p>{esc(pr.get('desc',''))}</p>
+<a class="go" href="{esc(pr['path'])}">открыть досье →</a></div>"""
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проекты — {cfg['brand']}</title>
+<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<style>{CSS}{INDEX_CSS}</style></head><body>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · ПРОЕКТЫ</div>
+<div class="brand-sub">Специальные досье и кампанийные страницы издания</div>
+</div></div>
+<div class="top-meta">
+<div class="chip">обновлено <b>{now:%d.%m %H:%M}</b></div>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+</div></div></header>
+{nav_html}
+<div class="wrap1200" style="padding-top:20px;">
+<div class="sec-head" style="margin-top:0;"><h2>Проекты издания</h2><div class="line"></div>
+<div class="badge">{len(cfg.get('projects', []))} в работе</div></div>
+<div class="note" style="margin-bottom:16px;">Проект — это спецстраница-досье с собственной методикой наблюдения: кампания (выборы),
+сквозной мониторинг (госзакупки) или расследование. Проекты живут вне ежедневной ленты, но питаются общей базой
+и «Инфопространством». Название рубрики рабочее — редакция обсуждает варианты: «Проекты», «Спецпроекты», «Досье».</div>
+<div class="sec-grid">{cards}</div>
+</div>
+<footer class="footer"><div class="footer-inner">
+<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
+<div><b>Разделы</b><p><a href="index.html" style="color:#ffd47e;">Первая полоса</a> · <a href="infospace.html" style="color:#ffd47e;">Инфопространство</a> · <a href="afisha.html" style="color:#ffd47e;">Афиша</a></p></div>
+</div></footer>
+</body></html>"""
+
+
+GZ_RE = None
+
+
+def render_goszakupki(cfg, trends, store, status, an):
+    """Проект «Госзакупки»: повестка закупок в инфопотоке + методики ЕИС."""
+    global GZ_RE
+    import re as _re
+    from analytics import sentiment_of
+    if GZ_RE is None:
+        GZ_RE = _re.compile(cfg.get("goszakupki_keywords", "закуп|тендер|аукцион"), _re.I)
+    now = datetime.now(UTC4)
+    nav_html = render_nav(cfg, "projects", "../")
+    week_ago = now - timedelta(days=7)
+    live = [it for it in store if not it.get("dup_of") and local_dt(it.get("published"))]
+    gz = [it for it in live if GZ_RE.search(f"{it.get('title','')} {(it.get('text') or '')[:300]}")]
+    gz_week = [it for it in gz if local_dt(it["published"]) >= week_ago]
+    sc = [sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:250]}")[0] for it in gz_week]
+    tone = round(sum(sc) / len(sc), 2) if sc else 0
+    src_c = {}
+    for it in gz_week:
+        k = it.get("channel") or it.get("source") or "?"
+        src_c[k] = src_c.get(k, 0) + 1
+    src_rows = "".join(
+        f'<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">'
+        f'<div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">{esc(k)}</div>'
+        f'<div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;">'
+        f'<div style="width:{max(4, int(v / max(src_c.values()) * 100))}%;height:100%;background:#96690a;border-radius:6px;"></div></div>'
+        f'<div style="width:30px;font-weight:800;">{v}</div></div>'
+        for k, v in sorted(src_c.items(), key=lambda x: -x[1])[:8])
+    stories = "".join(
+        f"""<div class="af-mini"><div class="cal-badge"><b>{(local_dt(it['published']) or now):%d}</b><span>{(local_dt(it['published']) or now):%b}</span></div>
+<div style="flex:1;"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(it['title'][:110])}</a>
+<div style="font-size:11.3px;color:var(--muted);">{esc(it.get('source',''))} · 👁 {fmt_views(it.get('views')) if it.get('views') else '—'}</div></div></div>"""
+        for it in sorted(gz_week, key=lambda x: x.get("views") or 0, reverse=True)[:8])
+    eis_metrics = [
+        ("Число извещений 44-ФЗ заказчиков Ульяновской области", "неделя / месяц", "ожидает подключения"),
+        ("Суммарная НМЦК и цена заключённых контрактов", "млн ₽", "ожидает подключения"),
+        ("Доля закупки у единственного поставщика", "%", "ожидает подключения"),
+        ("Среднее снижение цены на конкурентных процедурах", "%", "ожидает подключения"),
+        ("Топ-10 заказчиков региона по объёму", "рейтинг", "ожидает подключения"),
+        ("Топ-10 поставщиков и концентрация рынка", "HHI", "ожидает подключения"),
+    ]
+    eis_rows = "".join(
+        f'<tr><td>{esc(n)}</td><td>{esc(u)}</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">{esc(st)}</span></td></tr>'
+        for n, u, st in eis_metrics)
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проект «Госзакупки» — {cfg['brand']}</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
+<style>{CSS}{INDEX_CSS}</style></head><body>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · ГОСЗАКУПКИ</div>
+<div class="brand-sub">Проект рубрики «Проекты»: аналитика государственных закупок региона</div>
+</div></div>
+<div class="top-meta">
+<div class="chip">неделя: <b>{len(gz_week)}</b> упоминаний</div>
+<div class="chip">обновлено <b>{now:%d.%m %H:%M}</b></div>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+</div></div></header>
+{nav_html}
+<div class="wrap1200" style="padding-top:20px;">
+<div class="sec-head" style="margin-top:0;"><h2>Паспорт проекта</h2><div class="line"></div></div>
+<div class="note" style="margin-bottom:16px;"><b>Цель</b> — видеть, как расходуются бюджетные деньги региона: что закупается,
+кем, у кого и по какой цене; и как закупочная повестка отражается в СМИ и телеграм-каналах.
+<b>Источники:</b> (1) инфопоток издания — упоминания закупок в 30+ мониторируемых источниках; (2) ЕИС zakupki.gov.ru
+(44-ФЗ и 223-ФЗ) — прямое подключение возможно из контура РФ (сервер редакции или ручной экспорт выгрузки:
+csv/json со полями заказчик, НМЦК, способ, дата, поставщик); из песочницы и облачных раннеров ЕИС недоступна (таймауты).
+<b>Методика:</b> недельные срезы, сравнение периодов, разбор аномалий (крупные единственные поставщики, рост НМЦК по темам).</div>
+
+<div class="grid2">
+<div>
+<div class="sec-head"><h2>📰 Закупки в инфопотоке</h2><div class="line"></div>
+<div class="badge">{len(gz_week)} за неделю · тон {tone:+.2f}</div></div>
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Кто освещает закупки</div>
+{src_rows or '<div class="now-line">За неделю упоминаний не было.</div>'}
+</div></div>
+<div class="card" style="margin-top:14px;"><div class="side-head">🗂 Сюжеты недели о закупках</div>
+<div class="side-body">{stories or '<div style="color:var(--muted);font-size:12.5px;">Сюжетов за неделю нет.</div>'}</div></div>
+</div>
+<div>
+<div class="sec-head"><h2>🏛 Метрики ЕИС</h2><div class="line"></div>
+<div class="badge">подключение</div></div>
+<div class="card"><div class="card-pad" style="padding:10px 14px;">
+<table class="tbl"><tr><th>Метрика</th><th>Ед.</th><th>Статус</th></tr>{eis_rows}</table>
+<div class="note">Как подключить: выгрузка ЕИС (личный кабинет / открытые данные) кладётся в <code>data/goszakupki_eis.csv</code>
+со столбцами date, customer, method, nmck, supplier — страница начнёт считать метрики автоматически (следующая итерация).
+До подключения проект ведёт повесточную часть и готовит разборы вручную.</div>
+</div></div>
+</div>
+</div>
+</div>
+<footer class="footer"><div class="footer-inner">
+<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
+<div><b>Рубрика</b><p><a href="../projects.html" style="color:#ffd47e;">Все проекты</a> · <a href="../infospace.html" style="color:#ffd47e;">Инфопространство</a></p></div>
+</div></footer>
+</body></html>"""
+
+
 # ------------------------------------------------------------------ afisha
 ETYPE_META = {
     "festival": ("🎪", "Фестивали и праздники"),
@@ -1603,6 +1746,8 @@ def render_infospace(cfg, trends, store, status, info):
     spark = sparkline(daily, w=280, h=48, color="#1d4066") if daily else ""
 
     concl_html = "".join(f"<li>{esc(c)}</li>" for c in concl)
+    m = info.get("metrics") or {}
+    planned_metrics = "; ".join(esc(x) for x in cfg.get("infospace_planned_metrics", [])) or "—"
 
     wow = info.get("wow") or {}
     w_this, w_prev = wow.get("this", 0), wow.get("prev", 0)
@@ -1695,6 +1840,24 @@ def render_infospace(cfg, trends, store, status, info):
 <div class="badge">по упоминаниям за 7 дней</div></div>
 <div class="card"><div class="card-pad">{muni_html}{silence_html}
 <div class="note">Ульяновск не участвует в подсчёте (он заведомо доминирует). Красным — муниципалитеты, полностью выпавшие из инфополя за неделю; жёлтым — 1–2 упоминания. Это измеримый признак информационного неравенства территорий: жизнь районов существует для областного читателя только через происшествия или визиты чиновников.</div></div></div>
+
+<div class="sec-head"><h2>🎛 Отслеживаемые метрики</h2><div class="line"></div>
+<div class="badge">реестр метрик расширяется</div></div>
+<div class="card"><div class="card-pad">
+<div class="kpi-grid" style="grid-template-columns:repeat(6,1fr);margin-bottom:12px;">
+<div class="kpi green"><div class="num">{m.get('original_share', 0)}<small>%</small></div><div class="lbl">оригинального контента (не перепечатки)</div></div>
+<div class="kpi"><div class="num">{m.get('concentration_top3', 0)}<small>%</small></div><div class="lbl">концентрация: доля топ-3 источников</div></div>
+<div class="kpi violet"><div class="num">{m.get('avg_cascade', 0)}</div><div class="lbl">средняя глубина каскада</div></div>
+<div class="kpi gold"><div class="num">{m.get('muni_coverage', 0)}<small>%</small></div><div class="lbl">покрытие муниципалитетов за неделю</div></div>
+<div class="kpi red"><div class="num">{m.get('alert_share', 0)}<small>%</small></div><div class="lbl">доля оперативных/тревожных сообщений</div></div>
+<div class="kpi"><div class="num">{m.get('tone_volatility', 0)}</div><div class="lbl">волатильность тона (std по дням)</div></div>
+</div>
+<div class="note"><b>Методики.</b> Оригинальность — дедупликация перепечаток (Жаккар + вложенность заголовков).
+Концентрация — доля трёх крупнейших источников в недельном объёме: рост означает зависимость повестки от узкой группы редакций.
+Глубина каскада — среднее число источников, подхвативших один сюжет. Покрытие муниципалитетов — доля территорий с хотя бы одним упоминанием.
+Волатильность тона — разброс дневных значений: всплески соответствуют тревогам или праздникам.<br>
+<b>В очереди на подключение:</b> {planned_metrics}</div>
+</div></div>
 
 <div class="sec-head"><h2>📆 Динамика: неделя к неделе</h2><div class="line"></div>
 <div class="badge">объём, темы, тон</div></div>
@@ -1958,9 +2121,9 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
         ("🎭", "Афиша", f"{af_n} <small>событий на 45 дней</small>",
          "Культурные события области: фестивали, театр, концерты, выставки; фильтры по дням и районам.",
          "afisha.html", "#9a4d8f"),
-        ("🗳", "Выборы-2026", f"{d_vote} <small>дн. до голосования</small>" if d_vote > 0 else "голосование",
-         "Спецвыпуск: кандидаты в губернаторы, округа Госдумы № 185/186, довыборы в ЗСО, предвыборные тренды.",
-         "special/elections_2026.html", "#b02a2f"),
+        ("📁", "Проекты", f"{len(cfg.get('projects', []))} <small>досье</small>",
+         f"Выборы-2026 ({d_vote} дн. до голосования), госзакупки региона и будущие кампании — спецстраницы с методиками.",
+         "projects.html", "#b02a2f"),
         ("🔬", "Инфопространство", f"{n_week} <small>сообщений за неделю</small>",
          "Сквозное исследование: кто задаёт повестку, каскады перепечаток, тон по уровням, федеральное эхо, карта районов.",
          "infospace.html", "#0f9b8e"),
@@ -2068,7 +2231,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 
 <footer class="footer"><div class="footer-inner">
 <div><b>Гудок</b><p>{esc(cfg['tagline_full'])} Выходит ежедневно в 07:30 (UTC+4).</p></div>
-<div><b>Разделы</b><p><a href="digests/{latest_digest}" style="color:#ffd47e;">Свежий выпуск</a> · <a href="afisha.html" style="color:#ffd47e;">Афиша</a> · <a href="special/elections_2026.html" style="color:#ffd47e;">Выборы-2026</a> · <a href="infospace.html" style="color:#ffd47e;">Инфопространство</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a> · <a href="status.html" style="color:#ffd47e;">Статус</a></p></div>
+<div><b>Разделы</b><p><a href="digests/{latest_digest}" style="color:#ffd47e;">Свежий выпуск</a> · <a href="afisha.html" style="color:#ffd47e;">Афиша</a> · <a href="projects.html" style="color:#ffd47e;">Проекты</a> · <a href="infospace.html" style="color:#ffd47e;">Инфопространство</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a> · <a href="status.html" style="color:#ffd47e;">Статус</a></p></div>
 <div><b>Редакция</b><p>Мониторинг {sum(1 for c in cfg.get('telegram_channels',[]) if c.get('enabled'))} Telegram-каналов и {sum(1 for c in cfg.get('rss_sources',[]) if c.get('enabled',True))} RSS-лент. Колонку редактора и аналитику готовит ассистент. Реестр источников и здоровье конвейера — на <a href="status.html" style="color:#ffd47e;">status-странице</a>.</p>
 <p style="margin-top:6px;">Исходный код, архив выпусков и конвейер публикации — в репозитории: <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener" style="color:#ffd47e;">github.com/Volgin1917/gudok</a></p></div>
 </div></footer>
@@ -2129,11 +2292,7 @@ def main():
     with open(target, "w", encoding="utf-8") as f:
         f.write(digest_html)
 
-    if args.elections:
-        os.makedirs(SPECIAL, exist_ok=True)
-        el_html = with_utilbar(themed(render_elections(cfg, trends, store, status)), "../")
-        with open(os.path.join(SPECIAL, "elections_2026.html"), "w", encoding="utf-8") as f:
-            f.write(el_html)
+    # (выборы-2026 теперь живут в projects/elections_2026.html — см. выше)
         print("[generate] спецвыпуск: special/elections_2026.html")
 
     if args.exec_mode:
@@ -2161,6 +2320,20 @@ def main():
     with open(os.path.join(BASE, "afisha.html"), "w", encoding="utf-8") as f:
         f.write(afisha_html)
     print("[generate] афиша: afisha.html")
+
+    proj_dir = os.path.join(BASE, "projects")
+    os.makedirs(proj_dir, exist_ok=True)
+    proj_html = themed(render_projects(cfg, trends, store, status))
+    with open(os.path.join(BASE, "projects.html"), "w", encoding="utf-8") as f:
+        f.write(proj_html)
+    el_html2 = themed(render_elections(cfg, trends, store, status))
+    with open(os.path.join(proj_dir, "elections_2026.html"), "w", encoding="utf-8") as f:
+        f.write(el_html2)
+    gz_html = themed(render_goszakupki(cfg, trends, store, status,
+                                       load_json(os.path.join(DATA, "analytics.json")) or {}))
+    with open(os.path.join(proj_dir, "goszakupki.html"), "w", encoding="utf-8") as f:
+        f.write(gz_html)
+    print("[generate] проекты: projects.html, projects/elections_2026.html, projects/goszakupki.html")
 
     special_files = sorted(glob.glob(os.path.join(SPECIAL, "*.html")))
     index_html = themed(render_index(cfg, trends, store, status, digest_files, special_files))
