@@ -11,7 +11,6 @@ generate.py — рендер выпусков издание Гудок.
 Запуск: python3 generate.py [--date YYYY-MM-DD]
 """
 import argparse
-import base64
 import glob
 import re
 import html as H
@@ -20,11 +19,6 @@ import os
 from datetime import datetime, timedelta, timezone
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-try:
-    with open(os.path.join(BASE, "assets", "logo_gudok.png"), "rb") as _f:
-        LOGO_SRC = "data:image/png;base64," + base64.b64encode(_f.read()).decode()
-except OSError:
-    LOGO_SRC = "assets/logo_gudok.png"
 DATA = os.path.join(BASE, "data")
 DIGESTS = os.path.join(BASE, "digests")
 SPECIAL = os.path.join(BASE, "special")
@@ -48,6 +42,8 @@ body{font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:v
 a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
 .topbar{background:linear-gradient(135deg,var(--navy),var(--navy2) 60%,var(--navy3));color:#fff;padding:14px 22px;box-shadow:0 2px 14px rgba(0,0,0,.25);}
 .topbar-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.brand{align-items:center;}
+.brand>div{display:flex;flex-direction:column;justify-content:center;}
 .brand{display:flex;align-items:center;gap:12px;}
 .brand-title{font-size:19px;font-weight:800;letter-spacing:.6px;}
 .brand-title span{color:#fff;}
@@ -269,14 +265,14 @@ THEME_BTN = '<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" tit
 INDEX_CSS = """
 .masthead{background:linear-gradient(135deg,var(--navy) 0%,#10263d 55%,var(--navy3) 100%);color:#fff;padding:20px 22px 0;border-bottom:4px double var(--gold);}
 :root[data-theme="dark"] .masthead{background:linear-gradient(135deg,#08121e,#0d1f33 55%,#122b45);}
-.mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;}
+.mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
 .mast-brand{flex:1;min-width:280px;display:flex;align-items:center;gap:18px;}
 .mast-brand>div{display:flex;flex-direction:column;justify-content:center;}
 .brand>div{display:flex;flex-direction:column;justify-content:center;}
 .mast-title{font-size:44px;font-weight:900;letter-spacing:5px;line-height:1;font-family:Georgia,'Times New Roman',serif;}
 
 .mast-slogan{font-size:12px;color:#a9c1d9;letter-spacing:1.6px;text-transform:uppercase;margin-top:7px;}
-.mast-right{text-align:right;font-size:12.5px;color:#c9d8e8;padding-bottom:4px;}
+.mast-right{text-align:right;font-size:12.5px;color:#c9d8e8;}
 .mast-right .date{font-size:15px;font-weight:800;color:#fff;}
 .mast-right .wx{margin-top:4px;color:#a9c1d9;}
 .mast-tools{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
@@ -521,7 +517,6 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
     now = datetime.now(UTC4)
     an = load_json(os.path.join(DATA, "analytics.json")) or {}
     nav_html = render_nav(cfg, "digest", "../", subnav=SUBNAV_DIGEST)
-    logo_html = f'<img src="{LOGO_SRC}" class="logo" alt="">'
     day = datetime.strptime(date_str, "%Y-%m-%d").date()
     cats = {c["id"]: c for c in cfg["categories"]}
     tg_channels = {c["username"]: c for c in cfg["telegram_channels"] if c.get("enabled", True)}
@@ -575,7 +570,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 <title>Дайджест №{digest_no} · Ульяновская область · {day:%d.%m.%Y} — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png"><style>{CSS}</style></head><body>
 <header class="topbar"><div class="topbar-inner">
-<div class="brand">{logo_html}<div>
+<div class="brand"><div>
 <div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span></div>
 <div class="brand-sub">Информационно-аналитическое издание · выпуск № {digest_no}{' · 🧪 ТЕСТОВЫЙ' if digest_no == 0 else ''}</div>
 </div></div>
@@ -979,7 +974,7 @@ def render_exec(cfg, trends, store, status, date_str):
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png"><style>{CSS}
 @page {{ size: A4; margin: 14mm; }}
 .exec-wrap{{max-width:860px;margin:0 auto;padding:26px 30px 40px;background:#fff;}}
-.exec-head{{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--navy);padding-bottom:12px;margin-bottom:18px;flex-wrap:wrap;gap:8px;}}
+.exec-head{{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--navy);padding-bottom:12px;margin-bottom:18px;flex-wrap:wrap;gap:8px;}}
 .exec-head h1{{font-size:22px;color:var(--navy);}}
 .exec-head .d{{font-size:13px;color:var(--muted);text-align:right;}}
 .exec-sec{{margin-bottom:20px;break-inside:avoid;}}
@@ -997,7 +992,6 @@ def render_exec(cfg, trends, store, status, date_str):
 </style></head><body>
 {nav_html}<div class="exec-wrap">
 <div class="exec-head">
-<img src="{LOGO_SRC}" style="width:46px;height:46px;object-fit:contain;border-radius:11px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.25);" alt="">
 <h1>📋 Дайджест руководителя</h1>
 <div class="d"><b>Гудок</b> · информационно-аналитическое издание<br>{day:%d.%m.%Y} · сформирован {now:%H:%M} (UTC+4) · 1 страница</div>
 </div>
@@ -1078,7 +1072,6 @@ EXTRA_CSS = """
 def render_elections(cfg, trends, store, status):
     now = datetime.now(UTC4)
     nav_html = render_nav(cfg, "elections", "../")
-    logo_html = f'<img src="{LOGO_SRC}" class="logo" alt="">'
     vote_day = datetime(2026, 9, 18, tzinfo=UTC4).date()
     days_left = (vote_day - now.date()).days
 
@@ -1134,7 +1127,7 @@ def render_elections(cfg, trends, store, status):
 @media print{{.nav,.print-btn{{display:none!important;}}body{{background:#fff;}}}}
 </style></head><body>
 <header class="topbar"><div class="topbar-inner">
-<div class="brand">{logo_html}<div>
+<div class="brand"><div>
 <div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · ВЫБОРЫ-2026</div>
 <div class="brand-sub">Информационно-аналитическое издание · спецвыпуск: губернатор, Госдума IX созыва, довыборы в ЗСО</div>
 </div></div>
@@ -1283,7 +1276,6 @@ function afFilter(mode,btn){
 def render_afisha(cfg, trends, store, status, an):
     now = datetime.now(UTC4)
     nav_html = render_nav(cfg, "afisha", "")
-    logo_html = f'<img src="{LOGO_SRC}" class="logo" alt="">'
     today = now.date()
     cal = (an or {}).get("calendar", [])
 
@@ -1369,7 +1361,7 @@ def render_afisha(cfg, trends, store, status, an):
 <title>Афиша культурных событий · Ульяновская область — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="assets/logo_gudok.png"><style>{CSS}{AFISHA_CSS}</style></head><body>
 <header class="topbar"><div class="topbar-inner">
-<div class="brand">{logo_html}<div>
+<div class="brand"><div>
 <div class="brand-title">🎭 АФИША <span>ГУДОК</span></div>
 <div class="brand-sub">Информационно-аналитическое издание · культурные события Ульяновской области</div>
 </div></div>
@@ -1451,7 +1443,6 @@ def ru_date(dt):
 def render_infospace(cfg, trends, store, status, info):
     """«Инфопространство» — сквозное исследование информационного поля региона."""
     now = datetime.now(UTC4)
-    logo_html = f'<img src="{LOGO_SRC}" class="logo" alt="">'
     if not info:
         info = {}
     week = info.get("week_items", 0)
@@ -1521,7 +1512,7 @@ def render_infospace(cfg, trends, store, status, info):
 <title>Инфопространство — сквозное исследование · {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="assets/logo_gudok.png"><style>{CSS}</style></head><body>
 <header class="topbar"><div class="topbar-inner">
-<div class="brand">{logo_html}<div>
+<div class="brand"><div>
 <div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · 🔬 ИНФОПРОСТРАНСТВО</div>
 <div class="brand-sub">Информационно-аналитическое издание · сквозное исследование информационного поля Ульяновской области</div>
 </div></div>
@@ -1762,7 +1753,6 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 
 <header class="masthead"><div class="mast-inner">
 <div class="mast-brand">
-<img src="{LOGO_SRC}" class="mast-logo" alt="">
 <div>
 <div class="mast-title">ГУДОК</div>
 <div class="mast-slogan">{esc(cfg["tagline_short"])}</div>
