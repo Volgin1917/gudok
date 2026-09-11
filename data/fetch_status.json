@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": false,
-  "items": 0,
-  "error": "<urlopen error [Errno 101] Network is unreachable>"
+  "ok": true,
+  "items": 10,
+  "error": null
  },
  "rss:Улпресса": {
   "ok": true,
@@ -17,7 +17,7 @@
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 5,
+  "items": 4,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
@@ -29,7 +29,7 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 29,
+  "items": 30,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -41,7 +41,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 6,
+  "items": 7,
   "error": null,
   "title": "Репортёр73"
  },
@@ -53,7 +53,7 @@
  },
  "tg:vmkononov": {
   "ok": true,
-  "items": 5,
+  "items": 3,
   "error": null,
   "title": "Владимир Кононов (депутат Госдумы)"
  },
@@ -71,43 +71,43 @@
  },
  "tg:tresh_ulyan": {
   "ok": true,
-  "items": 20,
+  "items": 17,
   "error": null,
   "title": "Треш Ульяновск"
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 18,
+  "items": 11,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 14,
+  "items": 8,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 11,
+  "items": 6,
   "error": null,
   "title": "Информационный Димитровград"
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 16,
+  "items": 14,
   "error": null,
   "title": "Топор Ульяновск"
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 11,
+  "items": 5,
   "error": null,
   "title": "Короче, Ульяновск"
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 15,
+  "items": 7,
   "error": null,
   "title": "Типичный Димитровград"
  },
@@ -125,7 +125,7 @@
  },
  "tg:ulsk_on": {
   "ok": true,
-  "items": 18,
+  "items": 17,
   "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
@@ -149,7 +149,7 @@
  },
  "tg:shugozhor73": {
   "ok": true,
-  "items": 10,
+  "items": 9,
   "error": null,
   "title": "Симбирский шугожор"
  },
@@ -190,11 +190,11 @@
   "title": "Что-то на ульяновском"
  },
  "_meta": {
-  "last_run_utc": "2026-09-11T14:01:19.332739+00:00",
-  "last_run_local": "11.09.2026 18:01",
-  "fetched": 431,
-  "new": 8,
-  "total_store": 711
+  "last_run_utc": "2026-09-11T21:24:07.069067+00:00",
+  "last_run_local": "12.09.2026 01:24",
+  "fetched": 405,
+  "new": 87,
+  "total_store": 790
  },
  "rss:Улград": {
   "ok": true,

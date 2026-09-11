@@ -1592,6 +1592,33 @@ def render_infospace(cfg, trends, store, status, info):
 
     concl_html = "".join(f"<li>{esc(c)}</li>" for c in concl)
 
+    wow = info.get("wow") or {}
+    w_this, w_prev = wow.get("this", 0), wow.get("prev", 0)
+    mx = max(w_this, w_prev, 1)
+    d_txt = f"{wow.get('delta'):+d}%" if wow.get("delta") is not None else "нет данных о прошлой неделе"
+    wow_bars = f"""<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:110px;text-align:right;font-weight:600;">эта неделя</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:18px;overflow:hidden;"><div style="width:{int(w_this/mx*100)}%;height:100%;background:#2f80ed;border-radius:6px;"></div></div>
+<div style="width:60px;font-weight:800;color:var(--navy);">{w_this}</div></div>
+<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
+<div style="width:110px;text-align:right;font-weight:600;">прошлая</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:18px;overflow:hidden;"><div style="width:{int(w_prev/mx*100)}%;height:100%;background:#8fa9c4;border-radius:6px;"></div></div>
+<div style="width:60px;font-weight:800;color:var(--navy);">{w_prev}</div></div>
+<div class="note" style="margin-top:6px;">{'Прошлая неделя неполная (история наблюдений с 03.09) — процентное изменение пока непоказательно; сравнение набирает силу с каждой неделей.' if w_prev < 100 else f'Изменение: <b>{d_txt}</b>.'}</div>"""
+
+    wow_topics = ""
+    for t in info.get("topic_wow", [])[:6]:
+        dl = t.get("delta")
+        arrow = f'<span style="color:{"#b02a2f" if (dl or 0) > 0 else "#1d7a4d"};font-weight:800;">{dl:+d}%</span>' if dl is not None else '<span style="color:var(--muted);">новая</span>'
+        wow_topics += f"""<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:5px;font-size:12.2px;">
+<div style="width:150px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">{esc(t['name'])}</div>
+<div style="flex:1;background:#edf2f8;border-radius:6px;height:14px;overflow:hidden;"><div style="width:{max(3,int(t['this']/max(1,max(x['this'] for x in info.get('topic_wow',[]) or [{'this':1}]))*100))}%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
+<div style="width:86px;font-size:11.5px;color:var(--muted);">{t['prev']} → <b style="color:var(--navy);">{t['this']}</b> {arrow}</div></div>"""
+
+    ts = info.get("tone_series") or []
+    tone_spark = sparkline([ (t.get("score") or 0) for t in ts ], w=300, h=56, color="#9a4d8f") if ts else ""
+    tone_days = "".join(f"<span style='font-size:10px;color:var(--muted);'>{t['date'][8:10]}</span> " for t in ts[-7:])
+
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Инфопространство — сквозное исследование · {cfg['brand']}</title>
@@ -1656,6 +1683,22 @@ def render_infospace(cfg, trends, store, status, info):
 <div class="badge">по упоминаниям за 7 дней</div></div>
 <div class="card"><div class="card-pad">{muni_html}{silence_html}
 <div class="note">Ульяновск не участвует в подсчёте (он заведомо доминирует). Красным — муниципалитеты, полностью выпавшие из инфополя за неделю; жёлтым — 1–2 упоминания. Это измеримый признак информационного неравенства территорий: жизнь районов существует для областного читателя только через происшествия или визиты чиновников.</div></div></div>
+
+<div class="sec-head"><h2>📆 Динамика: неделя к неделе</h2><div class="line"></div>
+<div class="badge">объём, темы, тон</div></div>
+<div class="grid2">
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Объём инфопотока</div>
+{wow_bars}
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin:14px 0 8px;">Темы: эта неделя vs прошлая</div>
+{wow_topics}
+</div></div>
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Тон повестки по дням (14 дней)</div>
+{tone_spark}
+<div class="note">Средняя лексиконная тональность оригинальных сообщений за день. Провалы — дни тревог и происшествий, пики — праздники и хорошие новости. По мере накопления истории сравнение недель станет полнее.</div>
+</div></div>
+</div>
 
 <div class="sec-head"><h2>📌 Выводы наблюдения</h2><div class="line"></div>
 <div class="badge">автоматические</div></div>

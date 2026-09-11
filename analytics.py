@@ -500,8 +500,44 @@ def build_infospace(items, trends, cfg):
             if d in idx:
                 daily[idx[d]] += 1
 
+    # --- динамика тона по дням (14 дней)
+    tone_series = []
+    for i in range(13, -1, -1):
+        d0 = today - timedelta(days=i)
+        day_items = [it for it in primaries
+                     if _local_dt(it["published"]).astimezone(UTC4).date() == d0]
+        sc = [sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:300]}")[0] for it in day_items]
+        tone_series.append({"date": d0.isoformat(),
+                            "score": round(sum(sc) / len(sc), 3) if sc else None,
+                            "n": len(day_items)})
+
+    # --- неделя к неделе
+    this_week = len([it for it in week if _local_dt(it["published"]) >= now - timedelta(days=7)])
+    prev_week = len([it for it in live
+                     if now - timedelta(days=14) <= _local_dt(it["published"]) < now - timedelta(days=7)])
+    wow = {"this": this_week, "prev": prev_week,
+           "delta": round((this_week - prev_week) / prev_week * 100) if prev_week else None}
+
+    topic_wow = []
+    for tid, t in (trends or {}).get("topics", {}).items():
+        ser = t.get("series", [])
+        if len(ser) >= 14:
+            tw, pw = sum(ser[-7:]), sum(ser[-14:-7])
+            if tw or pw:
+                topic_wow.append({"name": t["name"], "this": tw, "prev": pw,
+                                  "delta": round((tw - pw) / pw * 100) if pw else None})
+    topic_wow.sort(key=lambda x: -(x["this"]))
+
     # --- выводы
     concl = []
+    if wow.get("delta") is not None and wow.get("prev", 0) >= 100:
+        concl.append(f"Объём инфопотока неделя-к-неделе: {wow['this']} против {wow['prev']} ({wow['delta']:+d}%) — "
+                     + ("интенсивность растёт." if wow["delta"] > 10 else
+                        ("интенсивность падает." if wow["delta"] < -10 else "интенсивность стабильна.")))
+    if topic_wow:
+        risers = [t for t in topic_wow if (t["delta"] or 0) > 50][:3]
+        if risers:
+            concl.append("Резко усилились темы: " + ", ".join(f"«{t['name']}» ({t['delta']:+d}%)" for t in risers) + ".")
     if primaries:
         orig_share = round(len(primaries) / len(week), 2) if week else 0
         concl.append(f"За 7 дней поток составил {len(week)} сообщений, из них оригинальных (не перепечаток) — {int(orig_share*100)}%.")
@@ -534,6 +570,8 @@ def build_infospace(items, trends, cfg):
         "municipal": dict(sorted(muni.items(), key=lambda x: -x[1])),
         "silent": silent, "low": low,
         "daily": daily, "days": days,
+        "tone_series": tone_series,
+        "wow": wow, "topic_wow": topic_wow[:8],
         "conclusions": concl,
     }
 
