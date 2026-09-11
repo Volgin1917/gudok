@@ -1,5 +1,5 @@
 {
- "generated_local": "11.09.2026 16:28",
+ "generated_local": "11.09.2026 16:32",
  "calendar": [
   {
    "etype": "kids",
@@ -329,6 +329,37 @@
  ],
  "clusters": [
   {
+   "name": "мрот · рублей · ульяновцы",
+   "terms": [
+    "мрот",
+    "рублей",
+    "ульяновцы"
+   ],
+   "size": 3,
+   "coverage": 0.0,
+   "gap": true,
+   "samples": [
+    {
+     "title": "💸 Ульяновцы назвали справедливый МРОТ — 52 300 рублей По мнению жителей Ульяновска, минимальная оплата труда д",
+     "url": "https://t.me/tresh_ulyan/56120",
+     "source": "t.me/tresh_ulyan",
+     "views": 1330
+    },
+    {
+     "title": "Официальный - почти вдвое меньше. Ульяновцы считают справедливым МРОТ в 52 300 рублей.",
+     "url": "https://t.me/ulpressa/74457",
+     "source": "t.me/ulpressa",
+     "views": 320
+    },
+    {
+     "title": "Ульяновцы считают справедливым МРОТ в 52 300 рублей",
+     "url": "https://ulpressa.ru/2026/09/11/ulyanovczy-schitayut-spravedlivym-mrot-v-52-300-rublej/",
+     "source": "Улпресса",
+     "views": null
+    }
+   ]
+  },
+  {
    "name": "сеть · городах · мегафон",
    "terms": [
     "сеть",
@@ -360,11 +391,11 @@
    ]
   },
   {
-   "name": "мост · смычки · шевченко",
+   "name": "мост · смычки · створе",
    "terms": [
     "мост",
     "смычки",
-    "шевченко"
+    "створе"
    ],
    "size": 6,
    "coverage": 1.0,
@@ -422,6 +453,37 @@
    ]
   },
   {
+   "name": "чумаковой · анастасии · дело",
+   "terms": [
+    "чумаковой",
+    "анастасии",
+    "дело"
+   ],
+   "size": 6,
+   "coverage": 1.0,
+   "gap": false,
+   "samples": [
+    {
+     "title": "⚡️ Дело иноагента Анастасии Чумаковой передали в суд СК совместно с ФСБ по Ульяновской области завершил рассле",
+     "url": "https://t.me/insaid173/46872",
+     "source": "t.me/insaid173",
+     "views": 1390
+    },
+    {
+     "title": "😱 Дело иноагента Анастасии Чумаковой передали в суд В Заволжский районный суд Ульяновска направлено дело 34-ле",
+     "url": "https://t.me/tresh_ulyan/56119",
+     "source": "t.me/tresh_ulyan",
+     "views": 848
+    },
+    {
+     "title": "СУ СК сообщило о завершении расследования дела журналистки из Ульяновска Анастасии Чумаковой —главного редакто",
+     "url": "https://t.me/shugozhor73/45262",
+     "source": "t.me/shugozhor73",
+     "views": 789
+    }
+   ]
+  },
+  {
    "name": "врачи · резус · спасли",
    "terms": [
     "врачи",
@@ -451,77 +513,15 @@
      "views": 440
     }
    ]
-  },
-  {
-   "name": "роспотребнадзор · канистры · отказывать",
-   "terms": [
-    "роспотребнадзор",
-    "канистры",
-    "отказывать"
-   ],
-   "size": 5,
-   "coverage": 0.8,
-   "gap": false,
-   "samples": [
-    {
-     "title": "АЗС запретили отказывать в продаже бензина в канистры Роспотребнадзор предостерег заправки, в том числе в Улья",
-     "url": "https://t.me/insaid173/46867",
-     "source": "t.me/insaid173",
-     "views": 5490
-    },
-    {
-     "title": "❗️ Роспотребнадзор запретил АЗС отказывать автомобилистам в отпуске топлива в канистры По сообщению «Фонтанки»",
-     "url": "https://t.me/ulpressa/74437",
-     "source": "t.me/ulpressa",
-     "views": 962
-    },
-    {
-     "title": "❗ Российским АЗС запретили отказывать водителям в продаже бензина в канистры Роспотребнадзор пояснил, что при ",
-     "url": "https://t.me/topor_ul/11574",
-     "source": "t.me/topor_ul",
-     "views": 537
-    }
-   ]
-  },
-  {
-   "name": "ключевую · ставку · уровне",
-   "terms": [
-    "ключевую",
-    "ставку",
-    "уровне"
-   ],
-   "size": 5,
-   "coverage": 1.0,
-   "gap": false,
-   "samples": [
-    {
-     "title": "⚡️ ЦБ сохранил ключевую ставку на уровне 14% Последнее изменение было в июле этого года — ставка понизилась до",
-     "url": "https://t.me/tresh_ulyan/56117",
-     "source": "t.me/tresh_ulyan",
-     "views": 1930
-    },
-    {
-     "title": "⚡️ ЦБ оставил ключевую ставку без изменений — 14 % Банк России сохранил ключевую ставку на уровне 14% годовых ",
-     "url": "https://t.me/insaid173/46871",
-     "source": "t.me/insaid173",
-     "views": 1690
-    },
-    {
-     "title": "❗️ ЦБ оставил ключевую ставку на уровне 14%. Мы в Telegram | Мы в MAX",
-     "url": "https://t.me/ulpressa/74472",
-     "source": "t.me/ulpressa",
-     "views": 242
-    }
-   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.022,
-  "today_items": 210,
-  "today_pos": 197,
+  "today_score": 0.03,
+  "today_items": 220,
+  "today_pos": 199,
   "today_neg": 123,
-  "today_neu": 240,
+  "today_neu": 248,
   "series": [
    {
     "date": "2026-08-29",
@@ -577,18 +577,18 @@
    },
    {
     "date": "2026-09-11",
-    "score": 0.022
+    "score": 0.03
    }
   ],
   "by_category": {
    "agro": -0.333,
    "culture": 0.818,
-   "economy": 0.528,
-   "education": 0.312,
+   "economy": 0.452,
+   "education": 0.316,
    "health": 0.0,
-   "politics": 0.087,
-   "security": -0.548,
-   "society": 0.182,
+   "politics": 0.125,
+   "security": -0.53,
+   "society": 0.177,
    "sport": 0.167
   }
  },
@@ -609,8 +609,8 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 40,
-   "primary": 37,
+   "total": 42,
+   "primary": 39,
    "dup": 3,
    "repost_rate": 0.07,
    "views_median": null,
@@ -645,11 +645,11 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 28,
-   "primary": 18,
+   "total": 30,
+   "primary": 20,
    "dup": 10,
-   "repost_rate": 0.36,
-   "views_median": 5970,
+   "repost_rate": 0.33,
+   "views_median": 5960,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -657,11 +657,11 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 27,
-   "primary": 18,
+   "total": 28,
+   "primary": 19,
    "dup": 9,
-   "repost_rate": 0.33,
-   "views_median": 9000,
+   "repost_rate": 0.32,
+   "views_median": 7810,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -774,6 +774,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "ulsk_73online",
+   "tier": 2,
+   "type": "tg",
+   "total": 20,
+   "primary": 18,
+   "dup": 2,
+   "repost_rate": 0.1,
+   "views_median": 389,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "chpul",
    "tier": 2,
    "type": "tg",
@@ -783,18 +795,6 @@
    "repost_rate": 0.32,
    "views_median": 364,
    "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulsk_73online",
-   "tier": 2,
-   "type": "tg",
-   "total": 19,
-   "primary": 17,
-   "dup": 2,
-   "repost_rate": 0.11,
-   "views_median": 389,
-   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -814,9 +814,9 @@
    "tier": 2,
    "type": "tg",
    "total": 17,
-   "primary": 13,
-   "dup": 4,
-   "repost_rate": 0.24,
+   "primary": 14,
+   "dup": 3,
+   "repost_rate": 0.18,
    "views_median": 2090,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -825,12 +825,24 @@
    "source": "shugozhor73",
    "tier": 3,
    "type": "tg",
-   "total": 16,
-   "primary": 11,
+   "total": 17,
+   "primary": 12,
    "dup": 5,
-   "repost_rate": 0.31,
+   "repost_rate": 0.29,
    "views_median": 3310,
    "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulyanovsk_smi",
+   "tier": 2,
+   "type": "tg",
+   "total": 16,
+   "primary": 14,
+   "dup": 2,
+   "repost_rate": 0.12,
+   "views_median": 440,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -846,15 +858,15 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "ulyanovsk_smi",
-   "tier": 2,
+   "source": "ulgovru",
+   "tier": 1,
    "type": "tg",
    "total": 15,
-   "primary": 13,
-   "dup": 2,
-   "repost_rate": 0.13,
-   "views_median": 440,
-   "label": "первоисточник",
+   "primary": 10,
+   "dup": 5,
+   "repost_rate": 0.33,
+   "views_median": 85,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -870,15 +882,15 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "ulgovru",
+   "source": "Russkih_Aleksey",
    "tier": 1,
    "type": "tg",
    "total": 14,
-   "primary": 10,
-   "dup": 4,
-   "repost_rate": 0.29,
-   "views_median": 85,
-   "label": "смешанный",
+   "primary": 12,
+   "dup": 2,
+   "repost_rate": 0.14,
+   "views_median": 3650,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -918,18 +930,6 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "Russkih_Aleksey",
-   "tier": 1,
-   "type": "tg",
-   "total": 13,
-   "primary": 11,
-   "dup": 2,
-   "repost_rate": 0.15,
-   "views_median": 3650,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "sergeymorozov73",
    "tier": 1,
    "type": "tg",
@@ -958,9 +958,9 @@
    "tier": 2,
    "type": "tg",
    "total": 12,
-   "primary": 11,
-   "dup": 1,
-   "repost_rate": 0.08,
+   "primary": 10,
+   "dup": 2,
+   "repost_rate": 0.17,
    "views_median": 366,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -969,8 +969,8 @@
    "source": "A_Boldakin",
    "tier": 1,
    "type": "tg",
-   "total": 7,
-   "primary": 7,
+   "total": 8,
+   "primary": 8,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 436,
@@ -994,16 +994,24 @@
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 51.9,
-   "slope": 8.18,
+   "expected": 53.4,
+   "slope": 8.39,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 49.2,
-   "slope": 7.93,
+   "expected": 50.6,
+   "slope": 8.14,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "schools",
+   "name": "Школы и вузы",
+   "expected": 46.3,
+   "slope": 7.71,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1012,14 +1020,6 @@
    "name": "Губернатор / власть",
    "expected": 44.8,
    "slope": 7.5,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "schools",
-   "name": "Школы и вузы",
-   "expected": 43.4,
-   "slope": 7.29,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1048,18 +1048,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "medicine",
-   "name": "Медицина",
-   "expected": 17.9,
-   "slope": 3.25,
+   "topic": "cityspace",
+   "name": "Городская среда",
+   "expected": 22.3,
+   "slope": 3.32,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
-   "topic": "cityspace",
-   "name": "Городская среда",
-   "expected": 21.6,
-   "slope": 3.21,
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 17.9,
+   "slope": 3.25,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1074,8 +1074,8 @@
   {
    "topic": "cityday",
    "name": "День города (378 лет)",
-   "expected": 13.7,
-   "slope": 2.29,
+   "expected": 14.4,
+   "slope": 2.39,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1088,18 +1088,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "export",
-   "name": "Экспорт и кооперация",
-   "expected": 11.9,
+   "topic": "avia",
+   "name": "Авиапром / УКБП / Ил-114",
+   "expected": 10.3,
    "slope": 1.79,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
-   "topic": "avia",
-   "name": "Авиапром / УКБП / Ил-114",
-   "expected": 9.6,
-   "slope": 1.68,
+   "topic": "export",
+   "name": "Экспорт и кооперация",
+   "expected": 11.9,
+   "slope": 1.79,
    "direction": "рост",
    "confidence": "средняя"
   },

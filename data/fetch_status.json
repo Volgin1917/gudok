@@ -11,25 +11,25 @@
  },
  "tg:Russkih_Aleksey": {
   "ok": true,
-  "items": 9,
+  "items": 8,
   "error": null,
   "title": "Алексей Русских (губернатор)"
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 7,
+  "items": 5,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
  "tg:A_Boldakin": {
   "ok": true,
-  "items": 7,
+  "items": 4,
   "error": null,
   "title": "Александр Болдакин (глава Ульяновска)"
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 30,
+  "items": 29,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -101,7 +101,7 @@
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "Короче, Ульяновск"
  },
@@ -131,7 +131,7 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 9,
+  "items": 12,
   "error": null,
   "title": "73online"
  },
@@ -190,11 +190,11 @@
   "title": "Что-то на ульяновском"
  },
  "_meta": {
-  "last_run_utc": "2026-09-11T11:40:09.826808+00:00",
-  "last_run_local": "11.09.2026 15:40",
-  "fetched": 430,
-  "new": 9,
-  "total_store": 658
+  "last_run_utc": "2026-09-11T12:30:22.126503+00:00",
+  "last_run_local": "11.09.2026 16:30",
+  "fetched": 427,
+  "new": 11,
+  "total_store": 676
  },
  "rss:Улград": {
   "ok": true,
