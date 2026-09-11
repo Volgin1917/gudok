@@ -573,6 +573,36 @@ def build_infospace(items, trends, cfg):
     else:
         tone_vol = 0
     sec_n = sum(1 for it in week if it.get("category") == "security")
+    # --- нацпроекты и госпрограммы в повестке (метрика из очереди, подключена 12.09)
+    NP_RE = re.compile(r"нацпроект|национальн\w+\s+проект", re.I)
+    NP_RULES = [
+        ("Семья", r"семья"),
+        ("Инфраструктура для жизни", r"инфраструктур"),
+        ("Образование", r"образован"),
+        ("Здравоохранение", r"здравоохран"),
+        ("Экономика и производительность", r"экономик|производительн"),
+        ("Экологическое благополучие", r"эколог"),
+        ("Молодёжь России", r"молодеж"),
+        ("Туризм", r"туризм"),
+    ]
+    np_items = [it for it in week if NP_RE.search(f"{it.get('title','')} {(it.get('text') or '')[:400]}")]
+    np_by = Counter()
+    for it in np_items:
+        blob = f"{it.get('title','')} {(it.get('text') or '')[:400]}".lower()
+        hit = [n for n, pat in NP_RULES if re.search(pat, blob)]
+        if hit:
+            for n in hit:
+                np_by[n] += 1
+        else:
+            np_by["(проект не указан)"] += 1
+    np_sc = [sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:250]}")[0] for it in np_items]
+    natproj = {
+        "total": len(np_items),
+        "share": round(len(np_items) / len(week) * 100, 1) if week else 0,
+        "by_project": np_by.most_common(8),
+        "tone": round(sum(np_sc) / len(np_sc), 2) if np_sc else None,
+    }
+
     metrics = {
         "original_share": round(len(primaries) / len(week) * 100) if week else 0,
         "concentration_top3": concentration,
@@ -585,7 +615,7 @@ def build_infospace(items, trends, cfg):
     return {
         "generated_local": now.strftime("%d.%m.%Y %H:%M"),
         "week_items": len(week), "week_primaries": len(primaries), "week_dups": len(dups),
-        "metrics": metrics,
+        "metrics": metrics, "natproj": natproj,
         "by_type": dict(by_type), "by_tier": dict(by_tier),
         "orig_by_tier": orig_by_tier,
         "setters": setters.most_common(8),

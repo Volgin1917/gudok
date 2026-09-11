@@ -1748,6 +1748,15 @@ def render_infospace(cfg, trends, store, status, info):
     concl_html = "".join(f"<li>{esc(c)}</li>" for c in concl)
     m = info.get("metrics") or {}
     planned_metrics = "; ".join(esc(x) for x in cfg.get("infospace_planned_metrics", [])) or "—"
+    np = info.get("natproj") or {}
+    np_max = max((n for _, n in np.get("by_project", [])), default=1) or 1
+    np_rows = "".join(
+        f'<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">'
+        f'<div style="width:210px;text-align:right;font-weight:600;flex-shrink:0;">{esc(name)}</div>'
+        f'<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">'
+        f'<div style="width:{max(4, int(cnt / np_max * 100))}%;height:100%;background:linear-gradient(90deg,#96690a,#d9b23a);border-radius:6px;"></div></div>'
+        f'<div style="width:30px;font-weight:800;color:var(--navy);">{cnt}</div></div>'
+        for name, cnt in np.get("by_project", [])) or '<div class="now-line">За неделю нацпроекты в повестке не упоминались.</div>' 
 
     wow = info.get("wow") or {}
     w_this, w_prev = wow.get("this", 0), wow.get("prev", 0)
@@ -1857,6 +1866,20 @@ def render_infospace(cfg, trends, store, status, info):
 Глубина каскада — среднее число источников, подхвативших один сюжет. Покрытие муниципалитетов — доля территорий с хотя бы одним упоминанием.
 Волатильность тона — разброс дневных значений: всплески соответствуют тревогам или праздникам.<br>
 <b>В очереди на подключение:</b> {planned_metrics}</div>
+</div></div>
+
+<div class="sec-head"><h2>🏗 Нацпроекты и госпрограммы в повестке</h2><div class="line"></div>
+<div class="badge">метрика подключена 12.09</div></div>
+<div class="card"><div class="card-pad">
+<div style="display:flex;gap:26px;flex-wrap:wrap;align-items:baseline;margin-bottom:10px;">
+<div><span style="font-size:22px;font-weight:900;color:var(--navy);">{np.get('total', 0)}</span> <span style="font-size:12px;color:var(--muted);">упоминаний за неделю</span></div>
+<div><span style="font-size:15px;font-weight:800;color:var(--blue);">{np.get('share', 0)}%</span> <span style="font-size:12px;color:var(--muted);">объёма повестки</span></div>
+<div><span style="font-size:15px;font-weight:800;color:{'#1d7a4d' if (np.get('tone') or 0) > 0 else '#b02a2f'};">{np.get('tone') if np.get('tone') is not None else '—'}</span> <span style="font-size:12px;color:var(--muted);">тон упоминаний</span></div>
+</div>
+{np_rows}
+<div class="note"><b>Методика.</b> Считаются сообщения, где явно назван нацпроект или «национальный проект»; принадлежность
+к конкретному проекту — по ключевым словам в окружении упоминания. Одно сообщение может относиться к нескольким проектам.
+Метрика показывает, какие госпрограммы реально присутствуют в публичной повестке региона, а какие идут без публичного следа.</div>
 </div></div>
 
 <div class="sec-head"><h2>📆 Динамика: неделя к неделе</h2><div class="line"></div>

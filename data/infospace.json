@@ -1,5 +1,5 @@
 {
- "generated_local": "12.09.2026 03:04",
+ "generated_local": "12.09.2026 03:09",
  "week_items": 750,
  "week_primaries": 615,
  "week_dups": 135,
@@ -10,6 +10,29 @@
   "muni_coverage": 91,
   "tone_volatility": 0.3,
   "alert_share": 25
+ },
+ "natproj": {
+  "total": 9,
+  "share": 1.2,
+  "by_project": [
+   [
+    "Инфраструктура для жизни",
+    5
+   ],
+   [
+    "(проект не указан)",
+    2
+   ],
+   [
+    "Семья",
+    1
+   ],
+   [
+    "Экономика и производительность",
+    1
+   ]
+  ],
+  "tone": 0.48
  },
  "by_type": {
   "tg": 647,
