@@ -195,12 +195,18 @@
   "error": null,
   "title": "Барыш live"
  },
+ "tg:uac_ru": {
+  "ok": true,
+  "items": 9,
+  "error": null,
+  "title": "ПАО «ОАК»"
+ },
  "_meta": {
-  "last_run_utc": "2026-09-11T23:15:56.383589+00:00",
-  "last_run_local": "12.09.2026 03:15",
-  "fetched": 423,
-  "new": 19,
-  "total_store": 810
+  "last_run_utc": "2026-09-11T23:32:18.177074+00:00",
+  "last_run_local": "12.09.2026 03:32",
+  "fetched": 433,
+  "new": 10,
+  "total_store": 820
  },
  "rss:Улград": {
   "ok": true,

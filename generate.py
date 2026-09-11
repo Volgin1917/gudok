@@ -186,6 +186,15 @@ code,pre{font-family:Consolas,Menlo,monospace;}
 .util-bar a{color:var(--muted);font-size:12.3px;font-weight:700;text-decoration:none;}
 .util-bar a:hover{color:var(--gold);}
 .util-lbl{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}
+.wk-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:start;margin-top:14px;}
+.wk-rail{display:flex;flex-direction:column;gap:12px;}
+.wk-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
+.wk-box h4{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:800;}
+.wk-passport{background:var(--card);border-left:5px solid var(--gold);border-radius:12px;padding:12px 16px;margin-top:14px;display:flex;gap:16px;flex-wrap:wrap;align-items:baseline;}
+.wk-passport b{font-size:15px;color:var(--navy);}
+.wk-stamp{font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;background:#e0f4ea;color:#1d7a4d;}
+.wk-stamp.wip{background:#fdf3dd;color:#96690a;}
+@media (max-width:980px){.wk-grid{grid-template-columns:1fr;}}
 /* ===== ТЁМНАЯ ТЕМА ===== */
 :root[data-theme="dark"]{
   --bg:#0b1622; --card:#12202f; --line:#24384e; --txt:#dfe9f4; --muted:#93a7bc;
@@ -594,7 +603,7 @@ def render_nav(cfg, current, prefix="", subnav=""):
         ("archive", "🗄 Архив", f"{prefix}index.html#archive"),
     ]
     utils = [
-        ("analytics", "Аналитика недели", f"{prefix}special/analytics_2026-09-11.html"),
+        ("analytics", "Аналитика недели", f"{prefix}weekly.html"),
     ]
     html_items = []
     for key, txt, href in items:
@@ -1934,7 +1943,7 @@ def render_infospace(cfg, trends, store, status, info):
 <footer class="footer"><div class="footer-inner">
 <div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
 <div><b>Методика</b><p>Дедупликация (Жаккар + вложенность заголовков), TF-IDF-кластеризация, лексикон тональности (±110 маркеров), географические маркеры муниципалитетов. Всё — на открытых данных мониторинга; воспроизводится из data/store.jsonl.</p></div>
-<div><b>Навигация</b><p><a href="index.html" style="color:#ffd47e;">Первая полоса</a> · <a href="special/analytics_2026-09-11.html" style="color:#ffd47e;">Аналитика недели</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a></p></div>
+<div><b>Навигация</b><p><a href="index.html" style="color:#ffd47e;">Первая полоса</a> · <a href="weekly.html" style="color:#ffd47e;">Аналитика недели</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a></p></div>
 </div></footer>
 </body></html>"""
 
@@ -2054,6 +2063,109 @@ def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest
 </div>
 <div class="pm-page">стр. 1</div>
 </div>
+</body></html>"""
+
+
+# ------------------------------------------------------------------ weekly
+def fetch_cbr():
+    return load_json(os.path.join(DATA, "cbr_rates.json")) or {}
+
+
+def render_weekly_rail(cfg, an, store, start, end):
+    """Правая колонка 1/3 недельника: погода, курсы ЦБ, события региона, промышленность и бизнес."""
+    from analytics import extract_calendar
+    now = datetime.now(UTC4)
+    cbr = fetch_cbr()
+    rates = cbr.get("rates", {})
+    rate_rows = "".join(
+        f'<div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);">'
+        f'<span>{nm}</span><b style="color:var(--navy);">{rates[key]["value"]:,.2f} ₽ / {rates[key]["nominal"]}</b></div>'
+        for nm, key in [("Доллар США", "USD"), ("Евро", "EUR"), ("Юань", "CNY")] if key in rates)
+    rate_note = f'ЦБ РФ, {esc(cbr.get("date", ""))}' if cbr else "курсы недоступны"
+
+    cal = (an or {}).get("calendar", [])
+    in_period = [e for e in cal if start <= e["date"] <= end]
+    upcoming = [e for e in cal if e["date"] > end][:5]
+
+    def ev_rows(evs, limit=6):
+        return "".join(
+            f'<div class="tl-row"><div class="tl-time">{e["date"][8:10]}.{e["date"][5:7]}{(" " + e["time"]) if e.get("time") else ""}</div>'
+            f'<div class="tl-txt"><a href="{esc(e.get("url") or "#")}" target="_blank" rel="noopener">{esc(e["title"][:80])}</a></div></div>'
+            for e in evs[:limit]) or '<div class="now-line">Нет событий.</div>'
+
+    econ = [it for it in store if not it.get("dup_of") and it.get("category") in ("economy", "agro")
+            and local_dt(it.get("published"))]
+    econ_events = extract_calendar(econ, now)[:6]
+    corp = []
+    for chn in ("UAZ_Today", "uac_ru"):
+        posts = sorted([it for it in store if it.get("channel") == chn],
+                       key=lambda x: x.get("published") or "", reverse=True)[:2]
+        corp.extend(posts)
+    corp_rows = "".join(
+        f'<div class="tl-row"><div class="tl-time">@{(it.get("channel") or "")[:8]}</div>'
+        f'<div class="tl-txt"><a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">{esc(it["title"][:80])}</a></div></div>'
+        for it in corp[:4]) or '<div class="now-line">Корпоративные каналы молчат.</div>'
+
+    return f"""<aside class="wk-rail">
+<div class="wk-box"><h4>🌦 Погода</h4>
+<div style="font-size:13px;font-weight:700;color:var(--navy);">{esc(fetch_weather() or "—")}</div>
+<div class="now-line">Прогноз на выходные — в афише и на первой полосе.</div></div>
+<div class="wk-box"><h4>💱 Курсы валют</h4>{rate_rows}<div class="now-line">{rate_note}</div></div>
+<div class="wk-box"><h4>📅 События региона за период</h4>{ev_rows(in_period)}
+<h4 style="margin-top:10px;">Впереди</h4>{ev_rows(upcoming, 5)}</div>
+<div class="wk-box"><h4>🏭 Промышленность и бизнес: новости → события</h4>{ev_rows(econ_events, 6)}
+<h4 style="margin-top:10px;">Корпоративные каналы</h4>{corp_rows}
+<div class="now-line">{esc((cfg.get("enterprise_note") or "")[:220])}</div></div>
+</aside>"""
+
+
+def render_weekly_hub(cfg, trends, store, status):
+    """Хаб «Аналитика недели»: реестр выпусков, регламент, методика."""
+    now = datetime.now(UTC4)
+    nav_html = render_nav(cfg, "analytics", "")
+    weeks = sorted(glob.glob(os.path.join(BASE, "weekly", "week_*.html")))
+    rows = ""
+    for w in weeks:
+        nm = os.path.basename(w).replace(".html", "")
+        parts_nm = nm.split("_")
+        num = parts_nm[1]
+        start, end = parts_nm[2], parts_nm[3]
+        done = end < now.strftime("%Y-%m-%d")
+        stamp = '<span class="wk-stamp">завершён</span>' if done else '<span class="wk-stamp wip">готовится</span>'
+        rows += f"""<div class="arch-item"><div class="arch-date"><b>№{num}</b><span>{start[5:7]}.{start[8:10]}–{end[8:10]}</span></div>
+<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">Неделя {start[8:10]}.{start[5:7]}–{end[8:10]}.{end[5:7]}.{end[2:4]}</b><br>
+<span style="font-size:11.8px;color:var(--muted);">аналитика повестки периода {stamp}</span></div>
+<a class="btn" href="weekly/{nm}.html">Открыть</a></div>"""
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Аналитика недели — {cfg['brand']}</title>
+<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<style>{CSS}{INDEX_CSS}</style></head><body>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · АНАЛИТИКА НЕДЕЛИ</div>
+<div class="brand-sub">Завершённые недельные страницы: период, паспорт, правая колонка справочных данных</div>
+</div></div>
+<div class="top-meta">
+<div class="chip">выпусков: <b>{len(weeks)}</b></div>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+</div></div></header>
+{nav_html}
+<div class="wrap1200" style="padding-top:20px;">
+<div class="wk-passport"><b>Регламент</b>
+<span style="font-size:12.5px;color:var(--muted);">Выпуск недели — законченная страница за период понедельник–воскресенье;
+публикуется в понедельник и после доводки получает штамп «завершён». Структура: паспорт периода, основная колонка 2/3
+(итоги, сюжеты, аналитика), правая колонка 1/3 — всегда: погода, курсы ЦБ, события региона, промышленность и бизнес.</span></div>
+<div class="sec-head"><h2>Выпуски</h2><div class="line"></div></div>
+<div class="card"><div class="card-pad">{rows or '<span style="color:var(--muted);">Пока нет выпусков.</span>'}</div></div>
+<div class="note" style="margin-top:14px;">Нулевой выпуск (04–11.09.2026) — предпусковой: период нерегулярный, дальше недели идут по календарю.
+Правая колонка каждого выпуска генерируется функцией render_weekly_rail (python3 generate.py --weekly-rail START END) —
+данные всегда свежие на момент доводки выпуска.</div>
+</div>
+<footer class="footer"><div class="footer-inner">
+<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
+<div><b>Разделы</b><p><a href="index.html" style="color:#ffd47e;">Первая полоса</a> · <a href="infospace.html" style="color:#ffd47e;">Инфопространство</a> · <a href="projects.html" style="color:#ffd47e;">Проекты</a></p></div>
+</div></footer>
 </body></html>"""
 
 
@@ -2178,7 +2290,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
          "infospace.html", "#0f9b8e"),
         ("📕", "Аналитика недели", "спецвыпуск",
          "Глубокий ручной разбор повестки: политика, экономика, бюджет, безопасность — с верификацией фактов.",
-         "special/analytics_2026-09-11.html", "#96690a"),
+         "weekly.html", "#96690a"),
         ("🗄", "Архив", f"{len(digest_files)} <small>выпусков · {len(special_files)} спец.</small>",
          "Все ежедневные выпуски и специальные материалы издания с первого дня.",
          "#archive", "var(--muted)"),
@@ -2308,6 +2420,8 @@ def big_spark(trends):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", default=None, help="дата выпуска YYYY-MM-DD (по умолчанию сегодня)")
+    ap.add_argument("--weekly-rail", nargs=2, metavar=("START", "END"),
+                    help="напечатать HTML правой колонки недельника за период")
     ap.add_argument("--exec", dest="exec_mode", action="store_true",
                     help="сформировать «Дайджест руководителя» (1 страница)")
     ap.add_argument("--elections", action="store_true",
@@ -2344,6 +2458,11 @@ def main():
     # (выборы-2026 теперь живут в projects/elections_2026.html — см. выше)
         print("[generate] спецвыпуск: special/elections_2026.html")
 
+    if args.weekly_rail:
+        print(render_weekly_rail(cfg, load_json(os.path.join(DATA, "analytics.json")) or {},
+                                 store, args.weekly_rail[0], args.weekly_rail[1]))
+        return
+
     if args.exec_mode:
         exec_html = with_utilbar(themed(render_exec(cfg, trends, store, status, date_str)), "../")
         exec_path = os.path.join(DIGESTS, f"exec_{date_str}.html")
@@ -2369,6 +2488,11 @@ def main():
     with open(os.path.join(BASE, "afisha.html"), "w", encoding="utf-8") as f:
         f.write(afisha_html)
     print("[generate] афиша: afisha.html")
+
+    weekly_html = themed(render_weekly_hub(cfg, trends, store, status))
+    with open(os.path.join(BASE, "weekly.html"), "w", encoding="utf-8") as f:
+        f.write(weekly_html)
+    print("[generate] хаб недель: weekly.html")
 
     proj_dir = os.path.join(BASE, "projects")
     os.makedirs(proj_dir, exist_ok=True)

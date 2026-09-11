@@ -333,6 +333,14 @@
   .subnav-inner a:hover{color:var(--blue);}
   .subnav .lbl{color:var(--navy);font-weight:800;text-transform:uppercase;font-size:10px;letter-spacing:.9px;}
   :root[data-theme="dark"] .subnav .lbl{color:#dce9f8;}
+.wk-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:start;margin-top:14px;}
+.wk-rail{display:flex;flex-direction:column;gap:12px;}
+.wk-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
+.wk-box h4{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:800;}
+.wk-passport{background:var(--card);border-left:5px solid var(--gold);border-radius:12px;padding:12px 16px;margin-top:14px;display:flex;gap:16px;flex-wrap:wrap;align-items:baseline;}
+.wk-passport b{font-size:15px;color:var(--navy);}
+.wk-stamp{font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;background:#e0f4ea;color:#1d7a4d;}
+@media (max-width:980px){.wk-grid{grid-template-columns:1fr;}}
 </style>
 <script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
@@ -361,7 +369,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </header>
 
 <!-- ================= NAV ================= -->
-<nav class="nav"><div class="nav-inner"><a href="../index.html">🏠 Первая полоса</a><a href="../digests/digest_2026-09-11.html">📰 Выпуск № 0 🧪</a><a href="../digests/exec_2026-09-11.html">📋 Руководителю</a><a href="../afisha.html">🎭 Афиша</a><a href="../projects.html">🗳 Выборы-2026</a><a href="../infospace.html">🔬 Инфопространство</a><a href="../index.html#archive">🗄 Архив</a><a class="nav-util nav-util-first active" href="analytics_2026-09-11.html">Аналитика недели</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">В спецвыпуске:</span><a href="#top">Главное</a><a href="#kpi">Показатели</a><a href="#feed">Лента новостей</a><a href="#elections">Выборы</a><a href="#analytics">Аналитика</a><a href="#calendar">Календарь</a><a href="#sources">Источники</a></div></div>
+<nav class="nav"><div class="nav-inner"><a href="../index.html">🏠 Первая полоса</a><a href="../digests/digest_2026-09-11.html">📰 Выпуск № 0 🧪</a><a href="../digests/exec_2026-09-11.html">📋 Руководителю</a><a href="../afisha.html">🎭 Афиша</a><a href="../projects.html">📁 Проекты</a><a href="../infospace.html">🔬 Инфопространство</a><a href="../index.html#archive">🗄 Архив</a><a class="nav-util nav-util-first" href="../weekly.html">Аналитика недели</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">В спецвыпуске:</span><a href="#top">Главное</a><a href="#kpi">Показатели</a><a href="#feed">Лента новостей</a><a href="#elections">Выборы</a><a href="#analytics">Аналитика</a><a href="#calendar">Календарь</a><a href="#sources">Источники</a></div></div>
 
 <!-- ================= TICKER ================= -->
 <div class="ticker-wrap">
@@ -372,7 +380,10 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
   </div>
 </div>
 
-<div class="page" id="top">
+<div class="page" id="top" style="max-width:1280px;"><div class="wk-passport"><b>Аналитика недели · выпуск № 0</b>
+<span style="font-size:12.5px;color:var(--muted);">период: 04–11.09.2026 (предпусковой) · подготовлен 11.09.2026 · источники: 35 каналов и лент, 800+ записей</span>
+<span class="wk-stamp">завершён</span></div>
+<div class="wk-grid"><div class="wk-main">
 
   <!-- ================= EDITORIAL ================= -->
   <div class="note" style="margin-bottom:18px;font-size:12.8px;">
@@ -1239,6 +1250,17 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </div>
 
 <!-- ================= FOOTER ================= -->
+</div><aside class="wk-rail">
+<div class="wk-box"><h4>🌦 Погода</h4>
+<div style="font-size:13px;font-weight:700;color:var(--navy);">сейчас 13° (ощущается 10°), днём до 16°</div>
+<div class="now-line">Прогноз на выходные — в афише и на первой полосе.</div></div>
+<div class="wk-box"><h4>💱 Курсы валют</h4><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Доллар США</span><b style="color:var(--navy);">84.26 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Евро</span><b style="color:var(--navy);">97.87 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Юань</span><b style="color:var(--navy);">12.55 ₽ / 1</b></div><div class="now-line">ЦБ РФ, 12.09.2026</div></div>
+<div class="wk-box"><h4>📅 События региона за период</h4><div class="now-line">Нет событий.</div>
+<h4 style="margin-top:10px;">Впереди</h4><div class="tl-row"><div class="tl-time">12.09 08:30</div><div class="tl-txt"><a href="https://t.me/ProNovosty73/5905" target="_blank" rel="noopener">Еженедельный забег «5 вёрст» Маршрут проходит в три круга по дорожкам парка, пет</a></div></div><div class="tl-row"><div class="tl-time">12.09</div><div class="tl-txt"><a href="https://t.me/dimitrovgradonline/33487" target="_blank" rel="noopener">Уважаемые горожане! В субботу, 12 сентября, на набережной Верхнего пруда пройдёт</a></div></div><div class="tl-row"><div class="tl-time">12.09 04:00</div><div class="tl-txt"><a href="https://t.me/ulkoroche/33701" target="_blank" rel="noopener">❗️ В Ульяновске ограничат движение из-за празднования Дня города. В эти выходные</a></div></div><div class="tl-row"><div class="tl-time">12.09</div><div class="tl-txt"><a href="https://t.me/ulyanovsk_smi/29403" target="_blank" rel="noopener">📊 Центр перекроют из-за Дня города в Ульяновске 12 сентября будет перекрыта нече</a></div></div><div class="tl-row"><div class="tl-time">13.09</div><div class="tl-txt"><a href="https://t.me/reporter73/52130" target="_blank" rel="noopener">❗️ С 11 по 13 сентября на дорогах Ульяновской области проходит профилактическая </a></div></div></div>
+<div class="wk-box"><h4>🏭 Промышленность и бизнес: новости → события</h4><div class="tl-row"><div class="tl-time">17.09 23:00</div><div class="tl-txt"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener">Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли м</a></div></div><div class="tl-row"><div class="tl-time">30.09</div><div class="tl-txt"><a href="https://media73.ru/2026/ulyanovsk-eto-po-lyubvi-zhiteli-regiona-poboryutsya-za-100-tysyach-rubley" target="_blank" rel="noopener">«Ульяновск — это по любви»: жители региона поборются за 100 тысяч рублей</a></div></div>
+<h4 style="margin-top:10px;">Корпоративные каналы</h4><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3825" target="_blank" rel="noopener">Выставка «УАЗ - природа движения», приуроченная к 85-летию УАЗ открылась в Музее</a></div></div><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3824" target="_blank" rel="noopener">Ульяновск встречает новый арт-объект! 🚙 🌟 Сегодня одну из клумб на улице Автозав</a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5043" target="_blank" rel="noopener">Перед пленарным заседанием Делового форума БРИКС Владимир Путин и Нарендра Моди </a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5042" target="_blank" rel="noopener">От кульмана и 3D-моделирования к цифровому аватару гражданского самолета ✈️ Заче</a></div></div>
+<div class="now-line">Публичные TG-каналы предприятий региона (проверка 12.09.2026): УАЗ (@UAZ_Today), ОАК (@uac_ru, включает «Авиастар-СП»). УКБП, НИИАР, «Волга-Днепр», «Контактор», «Ульяновскцемент», Т-плюс публичных каналов не имеют — их п</div></div>
+</aside></div>
 <footer class="footer">
   <div class="footer-inner">
     <div>

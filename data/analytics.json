@@ -1,5 +1,5 @@
 {
- "generated_local": "12.09.2026 03:19",
+ "generated_local": "12.09.2026 03:33",
  "calendar": [
   {
    "etype": "sport",
@@ -465,11 +465,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.4,
-  "today_items": 5,
-  "today_pos": 230,
-  "today_neg": 150,
-  "today_neu": 294,
+  "today_score": 0.278,
+  "today_items": 6,
+  "today_pos": 232,
+  "today_neg": 151,
+  "today_neu": 301,
   "series": [
    {
     "date": "2026-08-30",
@@ -509,15 +509,15 @@
    },
    {
     "date": "2026-09-08",
-    "score": 0.065
+    "score": 0.061
    },
    {
     "date": "2026-09-09",
-    "score": 0.151
+    "score": 0.159
    },
    {
     "date": "2026-09-10",
-    "score": 0.12
+    "score": 0.124
    },
    {
     "date": "2026-09-11",
@@ -525,7 +525,7 @@
    },
    {
     "date": "2026-09-12",
-    "score": 0.4
+    "score": 0.278
    }
   ],
   "by_category": {
@@ -634,9 +634,9 @@
    "tier": 3,
    "type": "tg",
    "total": 28,
-   "primary": 24,
-   "dup": 4,
-   "repost_rate": 0.14,
+   "primary": 23,
+   "dup": 5,
+   "repost_rate": 0.18,
    "views_median": 542,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -705,10 +705,10 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 23,
-   "primary": 21,
+   "total": 24,
+   "primary": 22,
    "dup": 2,
-   "repost_rate": 0.09,
+   "repost_rate": 0.08,
    "views_median": 440,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -730,11 +730,11 @@
    "tier": 2,
    "type": "tg",
    "total": 22,
-   "primary": 16,
-   "dup": 6,
-   "repost_rate": 0.27,
-   "views_median": 1470,
-   "label": "смешанный",
+   "primary": 17,
+   "dup": 5,
+   "repost_rate": 0.23,
+   "views_median": 1410,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -766,9 +766,9 @@
    "tier": 3,
    "type": "tg",
    "total": 20,
-   "primary": 13,
-   "dup": 7,
-   "repost_rate": 0.35,
+   "primary": 14,
+   "dup": 6,
+   "repost_rate": 0.3,
    "views_median": 3300,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -802,10 +802,10 @@
    "tier": 2,
    "type": "tg",
    "total": 19,
-   "primary": 16,
-   "dup": 3,
-   "repost_rate": 0.16,
-   "views_median": 441,
+   "primary": 15,
+   "dup": 4,
+   "repost_rate": 0.21,
+   "views_median": 392,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -918,6 +918,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "uac_ru",
+   "tier": 1,
+   "type": "tg",
+   "total": 9,
+   "primary": 9,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": 5500,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "A_Boldakin",
    "tier": 1,
    "type": "tg",
@@ -962,8 +974,8 @@
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 24.8,
-   "slope": 5.0,
+   "expected": 24.9,
+   "slope": 5.04,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -978,16 +990,16 @@
   {
    "topic": "uav",
    "name": "БПЛА и воздушные угрозы",
-   "expected": 16.9,
-   "slope": 3.68,
+   "expected": 17.7,
+   "slope": 3.79,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "sport",
    "name": "Спорт",
-   "expected": 13.7,
-   "slope": 2.79,
+   "expected": 13.8,
+   "slope": 2.82,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1002,8 +1014,8 @@
   {
    "topic": "medicine",
    "name": "Медицина",
-   "expected": 9.9,
-   "slope": 2.11,
+   "expected": 10.2,
+   "slope": 2.18,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1018,8 +1030,8 @@
   {
    "topic": "culture",
    "name": "Культура и туризм",
-   "expected": 12.1,
-   "slope": 1.86,
+   "expected": 12.6,
+   "slope": 1.96,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1042,16 +1054,16 @@
   {
    "topic": "avia",
    "name": "Авиапром / УКБП / Ил-114",
-   "expected": 4.7,
-   "slope": 1.04,
+   "expected": 5.3,
+   "slope": 1.18,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "export",
    "name": "Экспорт и кооперация",
-   "expected": 5.9,
-   "slope": 1.0,
+   "expected": 6.5,
+   "slope": 1.14,
    "direction": "рост",
    "confidence": "средняя"
   },

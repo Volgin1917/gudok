@@ -184,7 +184,7 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 <a href="{latest_digest_href}">📰 Выпуск</a>
 <a href="{latest_exec_href}">📋 Руководителю</a>
 <a href="afisha.html">🎭 Афиша</a>
-<a href="special/elections_2026.html">🗳 Выборы-2026</a>
+<a href="projects/elections_2026.html">🗳 Выборы-2026</a>
 <a href="infospace.html">🔬 Инфопространство</a>
 <a href="index.html#archive">🗄 Архив</a>
 </div></nav>

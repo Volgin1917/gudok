@@ -1,0 +1,17 @@
+{
+ "date": "12.09.2026",
+ "rates": {
+  "USD": {
+   "nominal": 1,
+   "value": 84.2569
+  },
+  "EUR": {
+   "nominal": 1,
+   "value": 97.8728
+  },
+  "CNY": {
+   "nominal": 1,
+   "value": 12.5519
+  }
+ }
+}
