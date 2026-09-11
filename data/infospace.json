@@ -1,8 +1,16 @@
 {
- "generated_local": "12.09.2026 02:42",
+ "generated_local": "12.09.2026 03:04",
  "week_items": 750,
  "week_primaries": 615,
  "week_dups": 135,
+ "metrics": {
+  "original_share": 82,
+  "concentration_top3": 19,
+  "avg_cascade": 2.6,
+  "muni_coverage": 91,
+  "tone_volatility": 0.3,
+  "alert_share": 25
+ },
  "by_type": {
   "tg": 647,
   "seed": 48,
