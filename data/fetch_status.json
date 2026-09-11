@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Улпресса": {
   "ok": true,
@@ -29,7 +29,7 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 29,
+  "items": 30,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -83,7 +83,7 @@
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 13,
+  "items": 14,
   "error": null,
   "title": "ЧП Ульяновск"
  },
@@ -101,7 +101,7 @@
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 11,
+  "items": 10,
   "error": null,
   "title": "Короче, Ульяновск"
  },
@@ -131,7 +131,7 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 11,
+  "items": 9,
   "error": null,
   "title": "73online"
  },
@@ -190,11 +190,11 @@
   "title": "Что-то на ульяновском"
  },
  "_meta": {
-  "last_run_utc": "2026-09-11T12:09:14.615188+00:00",
-  "last_run_local": "11.09.2026 16:09",
-  "fetched": 441,
-  "new": 7,
-  "total_store": 665
+  "last_run_utc": "2026-09-11T11:40:09.826808+00:00",
+  "last_run_local": "11.09.2026 15:40",
+  "fetched": 430,
+  "new": 9,
+  "total_store": 658
  },
  "rss:Улград": {
   "ok": true,

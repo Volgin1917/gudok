@@ -170,6 +170,15 @@ code,pre{font-family:Consolas,Menlo,monospace;}
 @media (max-width:1080px){.main-grid,.grid2,.hero-grid{grid-template-columns:1fr;}.kpi-grid{grid-template-columns:repeat(2,1fr);}.grid3{grid-template-columns:1fr;}.topic-row{grid-template-columns:150px 1fr 110px;}.topic-row .sparkcell{display:none;}}
 @media print{.nav,.print-btn,.top-meta .chip{display:none!important;}body{background:#fff;}.card,.kpi{box-shadow:none;break-inside:avoid;}}
 
+.nav a.active{color:#fff;border-bottom-color:var(--gold);}
+.nav a.nav-util{color:#8fa9c4;font-weight:600;}
+.nav a.nav-util:hover{color:#fff;}
+.nav-util-first{margin-left:auto;}
+.subnav{background:var(--card);border-bottom:1px solid var(--line);}
+.subnav-inner{max-width:1280px;margin:0 auto;padding:7px 18px;display:flex;gap:15px;flex-wrap:wrap;font-size:12.2px;align-items:center;}
+.subnav-inner a{color:var(--muted);font-weight:700;}
+.subnav-inner a:hover{color:var(--blue);}
+.subnav .lbl{color:var(--navy);font-weight:800;text-transform:uppercase;font-size:10px;letter-spacing:.9px;}
 /* ===== ТЁМНАЯ ТЕМА ===== */
 :root[data-theme="dark"]{
   --bg:#0b1622; --card:#12202f; --line:#24384e; --txt:#dfe9f4; --muted:#93a7bc;
@@ -438,10 +447,69 @@ def render_editorial(date_str):
 <div class="note">Колонка пишется ассистентом в чате (LLM-слой проекта, без внешних API) поверх верифицированных фактов выпуска. При автономной работе конвейера секция опускается.</div></div></div>"""
 
 
+# ------------------------------------------------------------------ навигация
+SUBNAV_DIGEST = ('<div class="subnav"><div class="subnav-inner"><span class="lbl">В выпуске:</span>'
+                 '<a href="#heroes">Главное</a><a href="#pulse">Пульс повестки</a><a href="#afisha">Автоафиша</a>'
+                 '<a href="#feed">Лента дня</a><a href="#tg">Telegram-монитор</a><a href="#clusters">Сюжеты 72 ч</a>'
+                 '<a href="#tone">Тон дня</a><a href="#forecast">Прогноз</a></div></div>')
+
+SUBNAV_INDEX = ('<div class="subnav"><div class="subnav-inner"><span class="lbl">На полосе:</span>'
+                '<a href="#leads">Главное сегодня</a><a href="#pulse">Тенденции повестки</a>'
+                '<a href="#sources">Источники</a><a href="#archive">Архив</a></div></div>')
+
+
+def digest_number(cfg, date_str):
+    """Номер выпуска = дней от launch_date (день запуска = №0, тестовый)."""
+    launch = cfg.get("launch_date")
+    try:
+        d = datetime.strptime(date_str, "%Y-%m-%d").date()
+        if launch:
+            n = (d - datetime.strptime(launch, "%Y-%m-%d").date()).days
+            return max(n, 0), n <= 0
+    except (ValueError, TypeError):
+        pass
+    return 1, False
+
+
+def render_nav(cfg, current, prefix="", subnav=""):
+    """Единая сквозная навигация для всех страниц издания."""
+    dig = sorted(glob.glob(os.path.join(DIGESTS, "digest_*.html")))
+    latest = os.path.basename(dig[-1]) if dig else ""
+    latest_date = latest.replace("digest_", "").replace(".html", "")
+    num, test = digest_number(cfg, latest_date) if latest_date else (1, False)
+    ex = f"exec_{latest_date}.html" if latest_date else ""
+    ex_exists = os.path.exists(os.path.join(DIGESTS, ex))
+    label_num = f"№ {num}" + (" 🧪" if test else "")
+    items = [
+        ("index", "🏠 Первая полоса", f"{prefix}index.html"),
+        ("digest", f"📰 Выпуск {label_num}", f"{prefix}digests/{latest}" if latest else ""),
+        ("exec", "📋 Руководителю", f"{prefix}digests/{ex}" if ex_exists else ""),
+        ("afisha", "🎭 Афиша", f"{prefix}afisha.html"),
+        ("elections", "🗳 Выборы-2026", f"{prefix}special/elections_2026.html"),
+        ("archive", "🗄 Архив", f"{prefix}index.html#archive"),
+    ]
+    utils = [
+        ("analytics", "Аналитика недели", f"{prefix}special/analytics_2026-09-11.html"),
+        ("roadmap", "🧭 Роадмап", f"{prefix}roadmap.html"),
+        ("status", "🩺 Статус", f"{prefix}status.html"),
+    ]
+    html_items = []
+    for key, txt, href in items:
+        if not href:
+            continue
+        cls = "active" if key == current else ""
+        html_items.append(f'<a class="{cls}" href="{href}">{txt}</a>')
+    for i, (key, txt, href) in enumerate(utils):
+        cls = ("nav-util nav-util-first" if i == 0 else "nav-util") + (" active" if key == current else "")
+        html_items.append(f'<a class="{cls}" href="{href}">{txt}</a>')
+    return f'<nav class="nav"><div class="nav-inner">{"".join(html_items)}</div></nav>' + subnav
+
+
 # ------------------------------------------------------------------ digest
 def render_digest(cfg, trends, store, status, date_str, digest_no):
     now = datetime.now(UTC4)
     an = load_json(os.path.join(DATA, "analytics.json")) or {}
+    nav_html = render_nav(cfg, "digest", "../", subnav=SUBNAV_DIGEST)
     day = datetime.strptime(date_str, "%Y-%m-%d").date()
     cats = {c["id"]: c for c in cfg["categories"]}
     tg_channels = {c["username"]: c for c in cfg["telegram_channels"] if c.get("enabled", True)}
@@ -497,18 +565,16 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 <header class="topbar"><div class="topbar-inner">
 <div class="brand">{EMBLEM}<div>
 <div class="brand-title">ИЗДАНИЕ <span>«ГУДОК»</span></div>
-<div class="brand-sub">Ежедневный дайджест · Ульяновская область · выпуск №{digest_no}</div>
+<div class="brand-sub">Ежедневный дайджест · Ульяновская область · выпуск № {digest_no}{' · 🧪 ТЕСТОВЫЙ' if digest_no == 0 else ''}</div>
 </div></div>
 <div class="top-meta">
-<div class="chip"><span class="dot"></span> Выпуск от <b>{day:%d.%m.%Y}</b></div>
+<div class="chip">{'🧪 тестовый номер · ' if digest_no == 0 else ''}<span class="dot"></span> Выпуск от <b>{day:%d.%m.%Y}</b></div>
 <div class="chip">🤖 сгенерирован <b>{now:%H:%M}</b> (UTC+4)</div>
 <a class="chip" href="../index.html">← Центр</a>
 {THEME_BTN}
 <button class="print-btn" onclick="window.print()">🖨 PDF</button>
 </div></div></header>
-{alert_banner}<nav class="nav"><div class="nav-inner">
-<a href="#heroes">Главное</a><a href="#pulse">Пульс повестки</a><a href="#afisha">Афиша</a><a href="../afisha.html">🎭 Афиша области</a><a href="#feed">Лента дня</a><a href="#tg">Telegram-монитор</a><a href="#clusters">Сюжеты</a><a href="#tone">Тон дня</a><a href="#forecast">Прогноз</a><a href="../roadmap.html">🧭 Роадмап</a>
-</div></nav>
+{alert_banner}{nav_html}
 <div class="page">""")
 
     # ---- KPI
@@ -814,7 +880,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 <footer class="footer"><div class="footer-inner">
 <div><b>{cfg['brand']}</b><p>Выпуск №{digest_no} от {day:%d.%m.%Y}. Собрано автоматически: {esc(meta.get('last_run_local','—'))} (UTC+4), новых записей: {meta.get('new','—')}.</p></div>
 <div><b>Методика</b><p>Мониторинг RSS ({', '.join(s['name'] for s in cfg['rss_sources'] if s.get('enabled', True))}) и публичных превью Telegram-каналов (t.me/s/…). Классификация — по словарю config.json; тренды — сравнение 3-дневного окна с недельной базой.</p></div>
-<div><b>Навигация</b><p><a href="../index.html" style="color:#ffd47e;">← Витрина центра</a> · <a href="../special/analytics_2026-09-11.html" style="color:#ffd47e;">Аналитический спецвыпуск 11.09</a></p></div>
+<div><b>Навигация</b><p><a href="../index.html" style="color:#ffd47e;">← Первая полоса</a> · <a href="../special/analytics_2026-09-11.html" style="color:#ffd47e;">Аналитический спецвыпуск 11.09</a></p></div>
 </div></footer></body></html>""")
     return "".join(parts)
 
@@ -839,6 +905,7 @@ DECISION_RE = None  # инициализируется в render_exec
 def render_exec(cfg, trends, store, status, date_str):
     """«Дайджест руководителя»: одна страница A4 — 5 событий, 3 риска, 2 решения."""
     import re as _re
+    nav_html = render_nav(cfg, "exec", "../")
     global DECISION_RE
     if DECISION_RE is None:
         DECISION_RE = _re.compile(
@@ -916,7 +983,7 @@ def render_exec(cfg, trends, store, status, date_str):
 .exec-foot{{border-top:1px solid var(--line);margin-top:24px;padding-top:10px;font-size:10.5px;color:#8a99aa;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}}
 @media print{{ .topbar,.nav,.print-btn{{display:none!important;}} .exec-wrap{{padding:0;}} }}
 </style></head><body>
-<div class="exec-wrap">
+{nav_html}<div class="exec-wrap">
 <div class="exec-head">
 <h1>📋 Дайджест руководителя</h1>
 <div class="d"><b>{cfg['brand']}</b> · Ульяновская область<br>{day:%d.%m.%Y} · сформирован {now:%H:%M} (UTC+4) · 1 страница</div>
@@ -997,6 +1064,7 @@ EXTRA_CSS = """
 
 def render_elections(cfg, trends, store, status):
     now = datetime.now(UTC4)
+    nav_html = render_nav(cfg, "elections", "../")
     vote_day = datetime(2026, 9, 18, tzinfo=UTC4).date()
     days_left = (vote_day - now.date()).days
 
@@ -1059,11 +1127,11 @@ def render_elections(cfg, trends, store, status):
 <div class="top-meta">
 <div class="chip">🗳 Голосование <b>18–20 сентября</b></div>
 <div class="chip">🤖 обновлён <b>{now:%d.%m %H:%M}</b></div>
-<a class="chip" href="../index.html">← Витрина центра</a>
+<a class="chip" href="../index.html">← Первая полоса</a>
 {THEME_BTN}
 <button class="print-btn" onclick="window.print()">🖨 PDF</button>
 </div></div></header>
-
+{nav_html}
 <div class="page">
 
 <div class="countdown" style="margin-bottom:18px;">
@@ -1200,6 +1268,7 @@ function afFilter(mode,btn){
 
 def render_afisha(cfg, trends, store, status, an):
     now = datetime.now(UTC4)
+    nav_html = render_nav(cfg, "afisha", "")
     today = now.date()
     cal = (an or {}).get("calendar", [])
 
@@ -1294,9 +1363,9 @@ def render_afisha(cfg, trends, store, status, an):
 <div class="chip">сегодня: <b>{today_n}</b> · выходные: <b>{we_n}</b></div>
 <div class="chip">обновлено <b>{now:%d.%m %H:%M}</b></div>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
-<a class="chip" href="index.html">← Витрина центра</a>
+<a class="chip" href="index.html">← Первая полоса</a>
 </div></div></header>
-
+{nav_html}
 <div class="page">
 
 <div class="af-chips">
@@ -1323,7 +1392,7 @@ def render_afisha(cfg, trends, store, status, an):
 </div>
 <footer class="footer"><div class="footer-inner">
 <div><b>{cfg['brand']} · Афиша</b><p>Автономная страница, обновляется каждым прогоном run.sh. Источники: Telegram-каналы (@culturnik, @ulpromo, @ProNovosty73 и др.) и RSS СМИ региона.</p></div>
-<div><b>Навигация</b><p><a href="index.html" style="color:#ffd47e;">Витрина центра</a> · <a href="digests/digest_{today.isoformat()}.html" style="color:#ffd47e;">Свежий дайджест</a> · <a href="status.html" style="color:#ffd47e;">Статус системы</a></p></div>
+<div><b>Навигация</b><p><a href="index.html" style="color:#ffd47e;">Первая полоса</a> · <a href="digests/digest_{today.isoformat()}.html" style="color:#ffd47e;">Свежий дайджест</a> · <a href="status.html" style="color:#ffd47e;">Статус системы</a></p></div>
 </div></footer>
 {AFISHA_JS}
 </body></html>"""
@@ -1367,6 +1436,7 @@ def ru_date(dt):
 def render_index(cfg, trends, store, status, digest_files, special_files):
     """Первая полоса издания: главное за день, разделы, повестка, афиша, архив, источники."""
     now = datetime.now(UTC4)
+    nav_html = render_nav(cfg, "index", "", subnav=SUBNAV_INDEX)
     an = load_json(os.path.join(DATA, "analytics.json")) or {}
     cats = {c["id"]: c for c in cfg["categories"]}
     special_labels = {
@@ -1490,7 +1560,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
             continue
         arch_rows += f"""<div class="arch-item"><div class="arch-date"><b>{dd:%d}</b><span>{dd:%b}</span></div>
 <div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">Выпуск за {dd:%d.%m.%Y}</b><br>
-<span style="font-size:11.8px;color:var(--muted);">ежедневный дайджест №{digest_files.index(path)+1}</span></div>
+<span style="font-size:11.8px;color:var(--muted);">{'🧪 тестовый номер' if digest_number(cfg, dstr)[1] else 'ежедневный дайджест № ' + str(digest_number(cfg, dstr)[0])}</span></div>
 <a class="btn" href="digests/{nm}">Открыть</a></div>"""
     spec_rows = ""
     for path in reversed(special_files):
@@ -1540,9 +1610,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 </div>
 </div></header>
 
-<nav class="nav"><div class="nav-inner" style="max-width:1200px;">
-<a href="#leads">Главное</a><a href="#pulse">Повестка</a><a href="afisha.html">🎭 Афиша</a><a href="special/elections_2026.html">🗳 Выборы</a><a href="#sources">Источники</a><a href="#archive">Архив</a><a href="roadmap.html">🧭 Роадмап</a><a href="status.html" title="Служебная информация">🩺</a>
-</div></nav>
+{nav_html}
 
 <div class="lead-sec" id="leads">
 <div class="sec-head" style="margin-top:0;"><h2>Главное сегодня</h2><div class="line"></div>
@@ -1625,7 +1693,7 @@ def main():
     if target not in digest_files:
         digest_files.append(target)
         digest_files = sorted(digest_files)
-    digest_no = digest_files.index(target) + 1
+    digest_no, _test = digest_number(cfg, date_str)
 
     def themed(html):
         html = html.replace("</head>", THEME_HEAD + "</head>", 1)

@@ -45,6 +45,11 @@ def age_str(iso):
     return f"{hours // 24} дн назад"
 
 
+def esc_(v):
+    import html as _h
+    return _h.escape(str(v)) if v is not None else "—"
+
+
 def main():
     cfg = jload(os.path.join(BASE, "config.json"), {})
     status = jload(os.path.join(DATA, "fetch_status.json"), {})
@@ -93,7 +98,7 @@ def main():
     tr_html = "".join(
         f"""<tr><td><span class="badge-t">{kind}</span></td>
 <td><a href="{url}" target="_blank" rel="noopener">{name}</a></td>
-<td>{'<span class="ok">в сети</span>' if st.get('ok') else '<span class="fail">ошибка: ' + (st.get('error') or 'нет данных')[:60] + '</span>'}</td>
+<td>{'<span class="ok">в сети</span>' if st.get('ok') else '<span class="fail">ошибка: ' + esc_((st.get('error') or 'нет данных')[:60]) + '</span>'}</td>
 <td>{st.get('items', '—')}</td></tr>"""
         for kind, name, url, st in rows)
 
@@ -105,6 +110,12 @@ def main():
         for r in alerts.get("resolved", [])[-5:][::-1]) or '<div class="alert-line">Отбоев не зафиксировано</div>'
 
     counts = trends.get("counts", {})
+    import glob as _glob
+    _dig = sorted(_glob.glob(os.path.join(BASE, "digests", "digest_*.html")))
+    latest_digest_href = f"digests/{os.path.basename(_dig[-1])}" if _dig else "index.html"
+    _dstr = os.path.basename(_dig[-1]).replace("digest_", "") if _dig else ""
+    _ex = os.path.join(BASE, "digests", f"exec_{_dstr}")
+    latest_exec_href = f"digests/exec_{_dstr}" if os.path.exists(_ex) else "index.html"
     html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="refresh" content="60">
@@ -138,6 +149,14 @@ td{{padding:7px 12px;border-bottom:1px solid var(--line);}}
 .alert-line.red{{border-left:4px solid var(--red);font-weight:700;}}
 .alert-line.green{{border-left:4px solid var(--green);}}
 .alert-line span{{color:var(--muted);font-weight:400;font-size:11.5px;}}
+.nav{{background:#0d2137;border-top:1px solid rgba(255,255,255,.12);}}
+:root[data-theme="dark"] .nav{{background:#0a1826;}}
+.nav-inner{{max-width:1000px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 14px;}}
+.nav a{{color:#c9d8e8;font-size:13px;font-weight:600;padding:10px 13px;white-space:nowrap;border-bottom:3px solid transparent;text-decoration:none;}}
+.nav a:hover{{color:#fff;background:rgba(255,255,255,.06);}}
+.nav a.active{{color:#fff;border-bottom-color:#f2b134;}}
+.nav a.nav-util{{color:#8fa9c4;}}
+.nav a.nav-util-first{{margin-left:auto;}}
 .note{{font-size:11.5px;color:var(--muted);margin-top:8px;}}
 </style>
 <script>
@@ -151,8 +170,19 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 <div class="topbar">
 <div><h1>🩺 Status — конвейер издания «Гудок»</h1><div class="sub">автообновление каждые 60 с · {now:%d.%m.%Y %H:%M} UTC+4</div></div>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
-<a href="index.html">← Витрина центра</a>
+
 </div>
+<nav class="nav"><div class="nav-inner">
+<a href="index.html">🏠 Первая полоса</a>
+<a href="{latest_digest_href}">📰 Выпуск</a>
+<a href="{latest_exec_href}">📋 Руководителю</a>
+<a href="afisha.html">🎭 Афиша</a>
+<a href="special/elections_2026.html">🗳 Выборы-2026</a>
+<a href="index.html#archive">🗄 Архив</a>
+<a class="nav-util nav-util-first" href="special/analytics_2026-09-11.html">Аналитика недели</a>
+<a class="nav-util" href="roadmap.html">🧭 Роадмап</a>
+<a class="nav-util active" href="status.html">🩺 Статус</a>
+</div></nav>
 <div class="page">
 
 <div class="grid">
@@ -185,11 +215,6 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
     with open(os.path.join(BASE, "status.html"), "w", encoding="utf-8") as f:
         f.write(html)
     print(f"[status] status.html: {health}, источников {ok_n}/{len(rows)}, записей {n_items}")
-
-
-def esc_(v):
-    import html as _h
-    return _h.escape(str(v)) if v is not None else "—"
 
 
 if __name__ == "__main__":

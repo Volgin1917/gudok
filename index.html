@@ -139,6 +139,15 @@ code,pre{font-family:Consolas,Menlo,monospace;}
 @media (max-width:1080px){.main-grid,.grid2,.hero-grid{grid-template-columns:1fr;}.kpi-grid{grid-template-columns:repeat(2,1fr);}.grid3{grid-template-columns:1fr;}.topic-row{grid-template-columns:150px 1fr 110px;}.topic-row .sparkcell{display:none;}}
 @media print{.nav,.print-btn,.top-meta .chip{display:none!important;}body{background:#fff;}.card,.kpi{box-shadow:none;break-inside:avoid;}}
 
+.nav a.active{color:#fff;border-bottom-color:var(--gold);}
+.nav a.nav-util{color:#8fa9c4;font-weight:600;}
+.nav a.nav-util:hover{color:#fff;}
+.nav-util-first{margin-left:auto;}
+.subnav{background:var(--card);border-bottom:1px solid var(--line);}
+.subnav-inner{max-width:1280px;margin:0 auto;padding:7px 18px;display:flex;gap:15px;flex-wrap:wrap;font-size:12.2px;align-items:center;}
+.subnav-inner a{color:var(--muted);font-weight:700;}
+.subnav-inner a:hover{color:var(--blue);}
+.subnav .lbl{color:var(--navy);font-weight:800;text-transform:uppercase;font-size:10px;letter-spacing:.9px;}
 /* ===== ТЁМНАЯ ТЕМА ===== */
 :root[data-theme="dark"]{
   --bg:#0b1622; --card:#12202f; --line:#24384e; --txt:#dfe9f4; --muted:#93a7bc;
@@ -246,7 +255,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </div>
 <div class="mast-right">
 <div class="date">пятница, 11 сентября 2026</div>
-<div style="font-size:11.5px;color:#9db6cf;margin-top:2px;">🕐 <b id="clock">--:--</b> (UTC+4) · последний выпуск: 11.09.2026 16:09</div>
+<div style="font-size:11.5px;color:#9db6cf;margin-top:2px;">🕐 <b id="clock">--:--</b> (UTC+4) · последний выпуск: 11.09.2026 15:40</div>
 <div class="wx-line"><div class="wx">🌡 сейчас 15° (ощущается 14°), днём до 17°</div></div>
 <div class="mast-tools">
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
@@ -255,13 +264,11 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </div>
 </div></header>
 
-<nav class="nav"><div class="nav-inner" style="max-width:1200px;">
-<a href="#leads">Главное</a><a href="#pulse">Повестка</a><a href="afisha.html">🎭 Афиша</a><a href="special/elections_2026.html">🗳 Выборы</a><a href="#sources">Источники</a><a href="#archive">Архив</a><a href="roadmap.html">🧭 Роадмап</a><a href="status.html" title="Служебная информация">🩺</a>
-</div></nav>
+<nav class="nav"><div class="nav-inner"><a class="active" href="index.html">🏠 Первая полоса</a><a class="" href="digests/digest_2026-09-11.html">📰 Выпуск № 0 🧪</a><a class="" href="digests/exec_2026-09-11.html">📋 Руководителю</a><a class="" href="afisha.html">🎭 Афиша</a><a class="" href="special/elections_2026.html">🗳 Выборы-2026</a><a class="" href="index.html#archive">🗄 Архив</a><a class="nav-util nav-util-first" href="special/analytics_2026-09-11.html">Аналитика недели</a><a class="nav-util" href="roadmap.html">🧭 Роадмап</a><a class="nav-util" href="status.html">🩺 Статус</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">На полосе:</span><a href="#leads">Главное сегодня</a><a href="#pulse">Тенденции повестки</a><a href="#sources">Источники</a><a href="#archive">Архив</a></div></div>
 
 <div class="lead-sec" id="leads">
 <div class="sec-head" style="margin-top:0;"><h2>Главное сегодня</h2><div class="line"></div>
-<div class="badge">11.09.2026 · обновлено 16:10</div></div>
+<div class="badge">11.09.2026 · обновлено 16:28</div></div>
 <div class="lead-grid"><div class="lead-main" style="border-top-color:#0f9b8e;">
 <div class="lead-kicker" style="color:#0f9b8e;">🎓 Образование и наука · сюжет дня</div>
 <h2><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновской области…</a></h2>
@@ -277,7 +284,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="lead-meta">11.09 11:30 · t.me/insaid173 · 👁 7.2K</div></div></div></div>
 </div>
 
-<div class="tiles"><a class="tile" style="border-left-color:var(--blue);" href="digests/digest_2026-09-11.html"><div class="ic">📰</div><b>Выпуск за 11.09</b><span>398 материалов за 24 ч · лента, тренды, хроника</span></a><a class="tile" style="border-left-color:#1d7a4d;" href="digests/exec_2026-09-11.html"><div class="ic">📋</div><b>Дайджест руководителя</b><span>1 страница: 5 событий, 3 риска, 2 решения</span></a><a class="tile" style="border-left-color:#9a4d8f;" href="afisha.html"><div class="ic">🎭</div><b>Афиша области</b><span>25 событий на 45 дней · фильтры по дням</span></a><a class="tile" style="border-left-color:#b02a2f;" href="special/elections_2026.html"><div class="ic">🗳</div><b>Выборы-2026</b><span>до голосования 7 дн.</span></a><a class="tile" style="border-left-color:var(--gold);" href="#pulse"><div class="ic">📈</div><b>Тренды повестки</b><span>19 тем под наблюдением, прогноз на завтра</span></a></div>
+<div class="tiles"><a class="tile" style="border-left-color:var(--blue);" href="digests/digest_2026-09-11.html"><div class="ic">📰</div><b>Выпуск за 11.09</b><span>393 материалов за 24 ч · лента, тренды, хроника</span></a><a class="tile" style="border-left-color:#1d7a4d;" href="digests/exec_2026-09-11.html"><div class="ic">📋</div><b>Дайджест руководителя</b><span>1 страница: 5 событий, 3 риска, 2 решения</span></a><a class="tile" style="border-left-color:#9a4d8f;" href="afisha.html"><div class="ic">🎭</div><b>Афиша области</b><span>25 событий на 45 дней · фильтры по дням</span></a><a class="tile" style="border-left-color:#b02a2f;" href="special/elections_2026.html"><div class="ic">🗳</div><b>Выборы-2026</b><span>до голосования 7 дн.</span></a><a class="tile" style="border-left-color:var(--gold);" href="#pulse"><div class="ic">📈</div><b>Тренды повестки</b><span>19 тем под наблюдением, прогноз на завтра</span></a></div>
 
 <div class="wrap1200">
 <div class="sec-head" id="pulse"><h2>📈 Тенденции повестки</h2><div class="line"></div>
@@ -332,7 +339,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="grid2">
 <div class="card"><div class="card-pad"><div class="arch-item"><div class="arch-date"><b>11</b><span>Sep</span></div>
 <div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">Выпуск за 11.09.2026</b><br>
-<span style="font-size:11.8px;color:var(--muted);">ежедневный дайджест №1</span></div>
+<span style="font-size:11.8px;color:var(--muted);">🧪 тестовый номер</span></div>
 <a class="btn" href="digests/digest_2026-09-11.html">Открыть</a></div></div></div>
 <div class="card"><div class="card-pad"><div class="arch-item"><div class="arch-date" style="background:var(--gold);color:#4d3a06;"><b>📕</b><span>спец</span></div>
 <div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">Выборы-2026</b><br>
