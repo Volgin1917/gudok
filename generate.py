@@ -341,6 +341,51 @@ FRONT2_CSS = """
 @media (max-width:980px){.now-grid{grid-template-columns:1fr;}.now-col{border-right:none;border-bottom:1px dashed var(--line);}.sec-grid{grid-template-columns:repeat(2,1fr);}.more-heads{columns:1;}}
 """
 
+PRINT_CSS = """
+body.print-mode{background:#8b939c;margin:0;font-family:Georgia,'Times New Roman',serif;}
+.sheet{width:186mm;min-height:266mm;margin:10mm auto;background:#fdfcf8;color:#141414;
+padding:11mm 13mm 9mm;box-shadow:0 4px 24px rgba(0,0,0,.45);position:relative;box-sizing:border-box;}
+.pm-mast{text-align:center;border-bottom:3px double #141414;padding-bottom:4mm;}
+.pm-title{font-size:44pt;font-weight:900;letter-spacing:10px;line-height:1;margin:0;}
+.pm-line{font-size:8.5pt;letter-spacing:1.2px;text-transform:uppercase;margin-top:2.5mm;color:#333;}
+.pm-line b{color:#141414;}
+.pm-kicker{font-size:8pt;letter-spacing:2px;text-transform:uppercase;color:#7a1f1f;font-weight:700;margin:3mm 0 1.5mm;}
+.pm-lead-h{font-size:21pt;font-weight:900;line-height:1.15;margin:0 0 2.5mm;}
+.pm-deck{font-size:10.5pt;font-style:italic;color:#3a3a3a;line-height:1.45;margin:0 0 3mm;}
+.cols{column-count:3;column-gap:6mm;column-rule:.6pt solid #b9b2a6;}
+.cols p{font-size:9.3pt;line-height:1.42;margin:0 0 2.2mm;text-align:justify;hyphens:auto;}
+.pm-h3{font-size:10pt;font-weight:900;text-transform:uppercase;letter-spacing:1px;border-top:1.6pt solid #141414;
+padding-top:1.4mm;margin:3mm 0 1.8mm;break-after:avoid;}
+.pm-item{margin-bottom:2.4mm;break-inside:avoid;}
+.pm-item b{font-size:9.6pt;line-height:1.25;display:block;}
+.pm-item span{font-size:8.6pt;color:#4a4a4a;line-height:1.35;display:block;}
+.pm-item i{font-size:7.6pt;color:#8a8378;font-style:normal;}
+.pm-box{border:1.2pt solid #141414;padding:3mm;margin:3mm 0;break-inside:avoid;}
+.pm-box h4{font-size:9pt;text-transform:uppercase;letter-spacing:1.4px;margin:0 0 2mm;border-bottom:.8pt solid #141414;padding-bottom:1.2mm;}
+.pm-box ul{list-style:none;margin:0;padding:0;}
+.pm-box li{font-size:8.8pt;line-height:1.4;margin-bottom:1.4mm;}
+.pm-box li b{color:#7a1f1f;}
+.pm-stats{display:flex;gap:4mm;justify-content:space-between;margin:3mm 0;break-inside:avoid;}
+.pm-stat{flex:1;text-align:center;border:.8pt solid #141414;padding:2mm 1mm;}
+.pm-stat b{display:block;font-size:15pt;font-weight:900;}
+.pm-stat span{font-size:7.4pt;text-transform:uppercase;letter-spacing:.8px;color:#4a4a4a;}
+.pm-colophon{border-top:3px double #141414;margin-top:4mm;padding-top:2mm;font-size:7.6pt;color:#5a5a5a;line-height:1.5;
+display:flex;justify-content:space-between;gap:6mm;}
+.pm-page{position:absolute;bottom:4mm;right:13mm;font-size:8pt;color:#7a7a7a;}
+.pm-ed{font-size:9.3pt;line-height:1.5;text-align:justify;}
+.pm-ed p{margin:0 0 2.2mm;}
+.pm-toolbar{position:fixed;top:10px;right:14px;z-index:9;display:flex;gap:8px;}
+.pm-toolbar a,.pm-toolbar button{background:#141414;color:#fff;border:none;border-radius:8px;padding:8px 14px;
+font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;font-family:Segoe UI,Arial,sans-serif;}
+@media print{
+  body.print-mode{background:#fff;}
+  .sheet{margin:0;box-shadow:none;width:auto;min-height:auto;page-break-after:always;}
+  .sheet:last-of-type{page-break-after:auto;}
+  .pm-toolbar{display:none;}
+  @page{size:A4;margin:0;}
+}
+"""
+
 EMBLEM = """<svg width="44" height="50" viewBox="0 0 46 52" fill="none">
 <path d="M23 1 L44 9 V25 C44 38 35 47 23 51 C11 47 2 38 2 25 V9 Z" fill="#1d4066" stroke="#f2b134" stroke-width="2"/>
 <rect x="19" y="13" width="8" height="4.5" rx="1" fill="#e8eef5"/>
@@ -615,6 +660,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 </div></div>
 <div class="top-meta">
 <div class="chip">{'🧪 тестовый номер · ' if digest_no == 0 else ''}<span class="dot"></span> Выпуск от <b>{day:%d.%m.%Y}</b></div>
+<div class="chip"><a href="print_{date_str}.html" style="color:#ffe9b8;">📄 Печатная полоса</a></div>
 <div class="chip">🤖 сгенерирован <b>{now:%H:%M}</b> (UTC+4)</div>
 <a class="chip" href="../index.html">← Центр</a>
 {THEME_BTN}
@@ -1626,6 +1672,124 @@ def render_infospace(cfg, trends, store, status, info):
 </body></html>"""
 
 
+# ------------------------------------------------------------------ print edition
+def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest):
+    """Печатная полоса A4: газета для PDF/бумаги."""
+    now = datetime.now(UTC4)
+    day = datetime.strptime(date_str, "%Y-%m-%d").date()
+    cats = {c["id"]: c for c in cfg["categories"]}
+
+    win_start = datetime.combine(day, datetime.min.time(), tzinfo=UTC4) - timedelta(hours=30)
+    window = [it for it in store if not it.get("dup_of")
+              and local_dt(it.get("published")) and local_dt(it["published"]) >= win_start]
+    if len(window) < 6:
+        win_start -= timedelta(days=2)
+        window = [it for it in store if not it.get("dup_of")
+                  and local_dt(it.get("published")) and local_dt(it["published"]) >= win_start]
+    pool = [it for it in window if is_regional(it) and it.get("category") != "security"] or window
+    leads = hero_pick(pool, trends, now, 3)
+
+    ed_path = os.path.join(DATA, f"editorial_{date_str}.md")
+    editorial = ""
+    if os.path.exists(ed_path):
+        editorial = open(ed_path, encoding="utf-8").read().strip()
+        editorial = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", esc(editorial))
+        editorial = "".join(f"<p>{b.strip().replace(chr(10), ' ')}</p>"
+                            for b in editorial.split("\n\n") if b.strip() and not b.strip().startswith("- "))
+
+    lead = leads[0] if leads else None
+    lead_body = esc((lead.get("text") or "")[:1500]) if lead else ""
+    side_html = ""
+    for m in leads[1:4]:
+        dt = local_dt(m.get("published"))
+        side_html += f"""<div class="pm-item"><b>{esc(m['title'][:120])}</b>
+<span>{esc((m.get('text') or '')[:220])}</span>
+<i>{cats.get(m.get('category'), {}).get('name', '')} · {dt.strftime('%d.%m %H:%M') if dt else ''} · {esc(m.get('source', ''))}</i></div>"""
+
+    by_cat = {}
+    lead_ids = {m["id"] for m in leads}
+    for it in window:
+        if it["id"] in lead_ids:
+            continue
+        by_cat.setdefault(it.get("category", "society"), []).append(it)
+    rubrics = ""
+    for c in cfg["categories"]:
+        items = by_cat.get(c["id"], [])
+        if not items:
+            continue
+        rows = "".join(
+            f"""<div class="pm-item"><b>{esc(it['title'][:110])}</b>
+<span>{esc((it.get('text') or '')[:160])}</span>
+<i>{(local_dt(it.get('published')) or now):%H:%M} · {esc(it.get('source', ''))}</i></div>"""
+            for it in items[:4])
+        rubrics += f'<div class="pm-h3">{c["icon"]} {esc(c["name"])}</div>{rows}'
+
+    tomorrow = day + timedelta(days=1)
+    af = [e for e in (an.get("calendar") or []) if e.get("date") in (day.isoformat(), tomorrow.isoformat())][:8]
+    af_html = "".join(
+        f'<li><b>{e["date"][8:10]}.{e["date"][5:7]} {esc(e.get("time") or "—")}</b> — {esc(e["title"][:95])}</li>'
+        for e in af) or "<li>Событий на эти дни в афише нет.</li>"
+
+    topics = (trends or {}).get("topics", {})
+    top_topic = max(topics.items(), key=lambda kv: (kv[1]["today"], kv[1]["week"]), default=None)
+    sent = (an.get("sentiment") or {})
+    tone = sent.get("today_score") or 0
+    vote_day = datetime(2026, 9, 18, tzinfo=UTC4).date()
+    d_vote = max(0, (vote_day - day).days)
+    n24 = (trends or {}).get("counts", {}).get("last24h", 0)
+    casc = (isp.get("cascades") or [{}])[0]
+    silent = isp.get("silent") or []
+
+    test_mark = " · ТЕСТОВЫЙ НОМЕР" if dtest else ""
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гудок № {digest_no} от {day:%d.%m.%Y} — печатная полоса</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
+<style>{PRINT_CSS}</style></head>
+<body class="print-mode">
+<div class="pm-toolbar">
+<a href="digest_{date_str}.html">← Электронный выпуск</a>
+<button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<div class="sheet">
+<div class="pm-mast">
+<div class="pm-title">ГУДОК</div>
+<div class="pm-line">информационно-аналитическое издание · выпуск № <b>{digest_no}</b>{test_mark} · {ru_date(day)} · Ульяновск</div>
+<div class="pm-line">марксистская группа «Победа» · для внутреннего распространения · выходит с 11.09.2026</div>
+</div>
+
+<div class="pm-kicker">⟡ Сюжет дня</div>
+<div class="pm-lead-h">{esc(lead['title']) if lead else '—'}</div>
+<div class="pm-deck">{esc((lead.get('text') or '')[:260]) if lead else ''}</div>
+
+<div class="pm-stats">
+<div class="pm-stat"><b>{n24}</b><span>публикаций за сутки</span></div>
+<div class="pm-stat"><b>{top_topic[1]['today'] if top_topic else 0}</b><span>тема дня: {esc(top_topic[1]['name']) if top_topic else '—'}</span></div>
+<div class="pm-stat"><b>{tone:+.2f}</b><span>тон повестки</span></div>
+<div class="pm-stat"><b>{d_vote}</b><span>дн. до голосования</span></div>
+<div class="pm-stat"><b>{casc.get('size', 0)}</b><span>каскад недели, источников</span></div>
+</div>
+
+<div class="cols">
+<p>{lead_body}</p>
+{side_html}
+{rubrics}
+</div>
+
+<div class="pm-box"><h4>Афиша: сегодня и завтра</h4><ul>{af_html}</ul></div>
+
+{'<div class="pm-box"><h4>Колонка редактора</h4><div class="pm-ed">' + editorial + '</div></div>' if editorial else ''}
+
+<div class="pm-colophon">
+<div>Набрано и выпущено автоматически: мониторинг {sum(1 for c in cfg.get('telegram_channels', []) if c.get('enabled'))} Telegram-каналов и {sum(1 for c in cfg.get('rss_sources', []) if c.get('enabled', True))} RSS-лент; колонку редактора готовит ассистент.</div>
+<div>Материалы принадлежат их изданиям. Листок не является агитацией.{" Зоны инфотишины: " + ", ".join(silent[:4]) + "." if silent else ""}</div>
+</div>
+<div class="pm-page">стр. 1</div>
+</div>
+</body></html>"""
+
+
 # ------------------------------------------------------------------ index
 def render_index(cfg, trends, store, status, digest_files, special_files):
     """Первая полоса: СЕЙЧАС → НОВОСТИ → РАЗДЕЛЫ ПОРТАЛА."""
@@ -1919,6 +2083,14 @@ def main():
 
     afisha_html = themed(render_afisha(cfg, trends, store, status,
                                         load_json(os.path.join(DATA, "analytics.json")) or {}))
+    print_html = render_print(cfg, trends, store, status,
+                              load_json(os.path.join(DATA, "analytics.json")) or {},
+                              load_json(os.path.join(DATA, "infospace.json")) or {},
+                              date_str, digest_no, _test)
+    with open(os.path.join(DIGESTS, f"print_{date_str}.html"), "w", encoding="utf-8") as f:
+        f.write(print_html)
+    print("[generate] печатная полоса: digests/print_" + date_str + ".html")
+
     infospace_html = themed(render_infospace(cfg, trends, store, status,
                                              load_json(os.path.join(DATA, "infospace.json")) or {}))
     with open(os.path.join(BASE, "infospace.html"), "w", encoding="utf-8") as f:
