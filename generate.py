@@ -181,6 +181,11 @@ code,pre{font-family:Consolas,Menlo,monospace;}
 .subnav-inner a{color:var(--muted);font-weight:700;}
 .subnav-inner a:hover{color:var(--blue);}
 .subnav .lbl{color:var(--navy);font-weight:800;text-transform:uppercase;font-size:10px;letter-spacing:.9px;}
+.util-bar-wrap{max-width:1200px;margin:0 auto;padding:16px 18px 0;}
+.util-bar{display:flex;gap:22px;align-items:center;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:12px;}
+.util-bar a{color:var(--muted);font-size:12.3px;font-weight:700;text-decoration:none;}
+.util-bar a:hover{color:var(--gold);}
+.util-lbl{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}
 /* ===== ТЁМНАЯ ТЕМА ===== */
 :root[data-theme="dark"]{
   --bg:#0b1622; --card:#12202f; --line:#24384e; --txt:#dfe9f4; --muted:#93a7bc;
@@ -329,10 +334,6 @@ FRONT2_CSS = """
 .more-heads a{display:block;font-size:13px;font-weight:700;color:var(--navy);padding:5px 0;border-bottom:1px dashed var(--line);break-inside:avoid;}
 .more-heads a:hover{color:var(--blue);}
 .more-heads a span{color:var(--muted);font-weight:600;font-size:11px;}
-.util-bar{display:flex;gap:22px;align-items:center;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:12px;}
-.util-bar a{color:var(--muted);font-size:12.3px;font-weight:700;text-decoration:none;}
-.util-bar a:hover{color:var(--gold);}
-.util-lbl{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}
 .sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1200px;margin:0 auto;padding:0 18px;}
 .sec-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;border-top:4px solid var(--blue);display:flex;flex-direction:column;text-decoration:none;}
 .sec-card:hover{transform:translateY(-2px);text-decoration:none;}
@@ -541,6 +542,15 @@ def render_editorial(date_str):
 <div class="note">Колонка пишется ассистентом в чате (LLM-слой проекта, без внешних API) поверх верифицированных фактов выпуска. При автономной работе конвейера секция опускается.</div></div></div>"""
 
 
+def render_utilbar(prefix=""):
+    return f"""<div class="util-bar-wrap"><div class="util-bar">
+<span class="util-lbl">Служебное</span>
+<a href="{prefix}roadmap.html">🧭 Роадмап издания</a>
+<a href="{prefix}status.html">🩺 Статус системы</a>
+<a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
+</div></div>"""
+
+
 # ------------------------------------------------------------------ навигация
 SUBNAV_DIGEST = ('<div class="subnav"><div class="subnav-inner"><span class="lbl">В выпуске:</span>'
                  '<a href="#heroes">Главное</a><a href="#pulse">Пульс повестки</a><a href="#afisha">Автоафиша</a>'
@@ -585,8 +595,6 @@ def render_nav(cfg, current, prefix="", subnav=""):
     ]
     utils = [
         ("analytics", "Аналитика недели", f"{prefix}special/analytics_2026-09-11.html"),
-        ("roadmap", "🧭 Роадмап", f"{prefix}roadmap.html"),
-        ("status", "🩺 Статус", f"{prefix}status.html"),
     ]
     html_items = []
     for key, txt, href in items:
@@ -2114,26 +2122,29 @@ def main():
         html = html.replace("</head>", THEME_HEAD + "</head>", 1)
         return html.replace("</body>", THEME_FOOT + "</body>", 1)
 
-    digest_html = themed(render_digest(cfg, trends, store, status, date_str, digest_no))
+    def with_utilbar(html, prefix=""):
+        return html.replace("</body>", render_utilbar(prefix) + "</body>", 1)
+
+    digest_html = with_utilbar(themed(render_digest(cfg, trends, store, status, date_str, digest_no)), "../")
     with open(target, "w", encoding="utf-8") as f:
         f.write(digest_html)
 
     if args.elections:
         os.makedirs(SPECIAL, exist_ok=True)
-        el_html = themed(render_elections(cfg, trends, store, status))
+        el_html = with_utilbar(themed(render_elections(cfg, trends, store, status)), "../")
         with open(os.path.join(SPECIAL, "elections_2026.html"), "w", encoding="utf-8") as f:
             f.write(el_html)
         print("[generate] спецвыпуск: special/elections_2026.html")
 
     if args.exec_mode:
-        exec_html = themed(render_exec(cfg, trends, store, status, date_str))
+        exec_html = with_utilbar(themed(render_exec(cfg, trends, store, status, date_str)), "../")
         exec_path = os.path.join(DIGESTS, f"exec_{date_str}.html")
         with open(exec_path, "w", encoding="utf-8") as f:
             f.write(exec_html)
         print(f"[generate] дайджест руководителя: digests/exec_{date_str}.html")
 
-    afisha_html = themed(render_afisha(cfg, trends, store, status,
-                                        load_json(os.path.join(DATA, "analytics.json")) or {}))
+    afisha_html = with_utilbar(themed(render_afisha(cfg, trends, store, status,
+                                        load_json(os.path.join(DATA, "analytics.json")) or {})), "")
     print_html = render_print(cfg, trends, store, status,
                               load_json(os.path.join(DATA, "analytics.json")) or {},
                               load_json(os.path.join(DATA, "infospace.json")) or {},
@@ -2142,8 +2153,8 @@ def main():
         f.write(print_html)
     print("[generate] печатная полоса: digests/print_" + date_str + ".html")
 
-    infospace_html = themed(render_infospace(cfg, trends, store, status,
-                                             load_json(os.path.join(DATA, "infospace.json")) or {}))
+    infospace_html = with_utilbar(themed(render_infospace(cfg, trends, store, status,
+                                             load_json(os.path.join(DATA, "infospace.json")) or {})), "")
     with open(os.path.join(BASE, "infospace.html"), "w", encoding="utf-8") as f:
         f.write(infospace_html)
     print("[generate] инфопространство: infospace.html")

@@ -158,6 +158,11 @@ td{{padding:7px 12px;border-bottom:1px solid var(--line);}}
 .nav a.active{{color:#fff;border-bottom-color:#f2b134;}}
 .nav a.nav-util{{color:#8fa9c4;}}
 .nav a.nav-util-first{{margin-left:auto;}}
+.util-bar-wrap{{max-width:1000px;margin:0 auto;padding:16px 18px 0;}}
+.util-bar{{display:flex;gap:22px;align-items:center;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:12px;}}
+.util-bar a{{color:var(--muted);font-size:12.3px;font-weight:700;text-decoration:none;}}
+.util-bar a:hover{{color:#f2b134;}}
+.util-lbl{{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}}
 .note{{font-size:11.5px;color:var(--muted);margin-top:8px;}}
 </style>
 <script>
@@ -182,9 +187,6 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 <a href="special/elections_2026.html">🗳 Выборы-2026</a>
 <a href="infospace.html">🔬 Инфопространство</a>
 <a href="index.html#archive">🗄 Архив</a>
-<a class="nav-util nav-util-first" href="special/analytics_2026-09-11.html">Аналитика недели</a>
-<a class="nav-util" href="roadmap.html">🧭 Роадмап</a>
-<a class="nav-util active" href="status.html">🩺 Статус</a>
 </div></nav>
 <div class="page">
 
@@ -213,7 +215,13 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 <tr><td>тесты</td><td>python3 -m unittest discover -s tests (38 тестов)</td></tr>
 </table>
 
-</div></body></html>"""
+</div><div class="util-bar-wrap"><div class="util-bar">
+<span class="util-lbl">Служебное</span>
+<a href="roadmap.html">🧭 Роадмап издания</a>
+<a href="status.html">🩺 Статус системы</a>
+<a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
+</div></div>
+</body></html>"""
 
     with open(os.path.join(BASE, "status.html"), "w", encoding="utf-8") as f:
         f.write(html)

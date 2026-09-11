@@ -150,6 +150,11 @@ code,pre{font-family:Consolas,Menlo,monospace;}
 .subnav-inner a{color:var(--muted);font-weight:700;}
 .subnav-inner a:hover{color:var(--blue);}
 .subnav .lbl{color:var(--navy);font-weight:800;text-transform:uppercase;font-size:10px;letter-spacing:.9px;}
+.util-bar-wrap{max-width:1200px;margin:0 auto;padding:16px 18px 0;}
+.util-bar{display:flex;gap:22px;align-items:center;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:12px;}
+.util-bar a{color:var(--muted);font-size:12.3px;font-weight:700;text-decoration:none;}
+.util-bar a:hover{color:var(--gold);}
+.util-lbl{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}
 /* ===== ТЁМНАЯ ТЕМА ===== */
 :root[data-theme="dark"]{
   --bg:#0b1622; --card:#12202f; --line:#24384e; --txt:#dfe9f4; --muted:#93a7bc;
@@ -225,7 +230,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="chip">обновлено <b>12.09.2026 01:26</b></div>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
 </div></div></header>
-<nav class="nav"><div class="nav-inner"><a class="" href="index.html">🏠 Первая полоса</a><a class="" href="digests/digest_2026-09-12.html">📰 Выпуск № 0 🧪</a><a class="" href="digests/exec_2026-09-12.html">📋 Руководителю</a><a class="" href="afisha.html">🎭 Афиша</a><a class="" href="special/elections_2026.html">🗳 Выборы-2026</a><a class="active" href="infospace.html">🔬 Инфопространство</a><a class="" href="index.html#archive">🗄 Архив</a><a class="nav-util nav-util-first" href="special/analytics_2026-09-11.html">Аналитика недели</a><a class="nav-util" href="roadmap.html">🧭 Роадмап</a><a class="nav-util" href="status.html">🩺 Статус</a></div></nav>
+<nav class="nav"><div class="nav-inner"><a class="" href="index.html">🏠 Первая полоса</a><a class="" href="digests/digest_2026-09-12.html">📰 Выпуск № 0 🧪</a><a class="" href="digests/exec_2026-09-12.html">📋 Руководителю</a><a class="" href="afisha.html">🎭 Афиша</a><a class="" href="special/elections_2026.html">🗳 Выборы-2026</a><a class="active" href="infospace.html">🔬 Инфопространство</a><a class="" href="index.html#archive">🗄 Архив</a><a class="nav-util nav-util-first" href="special/analytics_2026-09-11.html">Аналитика недели</a></div></nav>
 
 <div class="page">
 
@@ -478,4 +483,9 @@ syncThemeBtn();}
 function syncThemeBtn(){var b=document.getElementById("themeBtn");
 if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
 syncThemeBtn();
-</script></body></html>
+</script><div class="util-bar-wrap"><div class="util-bar">
+<span class="util-lbl">Служебное</span>
+<a href="roadmap.html">🧭 Роадмап издания</a>
+<a href="status.html">🩺 Статус системы</a>
+<a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
+</div></div></body></html>
