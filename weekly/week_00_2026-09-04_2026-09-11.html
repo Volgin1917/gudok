@@ -30,27 +30,37 @@ h1,h2,h3,.mast-title,.lead-main h2,.lead-card h3,.news-item h4 a{font-family:var
 .skip:focus{left:8px;}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
 
-/* шапка-масthead газетная */
-.topbar,.masthead{background:var(--paper);color:var(--ink);border-bottom:3px double var(--rule-strong);padding:18px 22px 12px;}
-.topbar-inner,.mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
-.brand{display:flex;align-items:center;gap:14px;}
-.brand>div{display:flex;flex-direction:column;justify-content:center;}
-.brand-title{font-family:var(--serif);font-size:26px;font-weight:900;letter-spacing:2px;line-height:1.05;color:var(--ink);}
+/* шапка по образцу ведущих мировых изданий: флаг-линия, центровый мастхэд, линейки */
+.flagline{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;gap:14px;
+  font:400 11.5px/1.4 var(--sans);color:var(--muted);letter-spacing:.6px;text-transform:uppercase;
+  padding-bottom:7px;border-bottom:1px solid var(--rule);flex-wrap:wrap;}
+.flagline b{color:var(--ink2);font-weight:700;}
+.topbar,.masthead{background:var(--paper);color:var(--ink);border-bottom:1px solid var(--rule-strong);padding:10px 22px 0;}
+.topbar::after,.masthead::after{content:"";display:block;border-bottom:3px double var(--rule-strong);margin-top:10px;}
+.topbar-inner,.mast-inner{max-width:1200px;margin:0 auto;display:block;text-align:center;}
+.brand{display:flex;align-items:center;justify-content:center;gap:0;}
+.brand>div{display:block;}
+.brand-title{font-family:var(--serif);font-size:34px;font-weight:900;letter-spacing:4px;line-height:1.05;color:var(--ink);text-transform:uppercase;}
 .brand-title span{color:var(--ink);}
-.brand-sub{font-size:11.5px;color:var(--muted);letter-spacing:1.4px;text-transform:uppercase;margin-top:3px;}
-.mast-brand{flex:1;min-width:260px;display:flex;align-items:center;gap:18px;}
-.mast-brand>div{display:flex;flex-direction:column;justify-content:center;}
-.mast-title{font-family:var(--serif);font-size:clamp(38px,7vw,64px);font-weight:900;letter-spacing:6px;line-height:1;color:var(--ink);}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:1.6px;text-transform:uppercase;margin-top:5px;}
+.mast-brand{display:block;text-align:center;}
+.mast-title{font-family:var(--serif);font-size:clamp(44px,9vw,84px);font-weight:900;letter-spacing:10px;line-height:1;color:var(--ink);text-transform:uppercase;}
 .mast-title em{font-style:normal;color:var(--accent);}
-.mast-slogan{font-size:12px;color:var(--muted);letter-spacing:1.6px;text-transform:uppercase;margin-top:8px;}
-.mast-logo{width:64px;height:64px;object-fit:contain;border-radius:10px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15);flex-shrink:0;}
-.mast-right{text-align:right;font-size:13px;color:var(--ink2);}
-.mast-right .date{font-size:15px;font-weight:700;color:var(--ink);font-family:var(--serif);}
-.mast-right .wx{margin-top:3px;color:var(--muted);}
-.mast-tools{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
-.top-meta{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-.chip{background:var(--chip);border:1px solid var(--rule);border-radius:3px;padding:4px 11px;font-size:12.5px;color:var(--ink2);}
-.chip b{color:var(--ink);}
+.mast-slogan{font-size:11.5px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:9px;}
+.mast-logo{display:none;}
+.logo{display:none;}
+.mast-right{display:none;}
+.top-meta{margin:9px auto 0;display:flex;gap:0;flex-wrap:wrap;align-items:center;justify-content:center;}
+.chip{background:none;border:none;border-radius:0;padding:0 10px;font:400 11.5px var(--sans);color:var(--muted);position:relative;}
+.chip+.chip::before{content:"·";position:absolute;left:-3px;color:var(--rule);}
+.chip b{color:var(--ink2);font-weight:700;}
+.chip a,.chip-link,.flink{color:var(--muted);text-decoration:none;}
+.chip a:hover,.chip-link:hover,.flink:hover{color:var(--accent);}
+.theme-btn,.print-btn{border:none;background:none;color:var(--muted);font:400 11.5px var(--sans);padding:0 10px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
+.theme-btn:hover,.print-btn:hover{color:var(--accent);}
+.ticker-wrap{background:var(--paper);color:var(--ink2);border-bottom:1px solid var(--rule);overflow:hidden;position:relative;height:30px;}
+.ticker{display:flex;white-space:nowrap;animation:none;padding-left:110px;align-items:center;height:100%;}
+
 .chip a,.chip-link,.flink{color:var(--ink2);text-decoration:none;}
 .chip a:hover,.chip-link:hover{color:var(--accent);}
 .dot{width:8px;height:8px;border-radius:50%;background:#2e7d4f;display:inline-block;}
@@ -378,7 +388,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="top-meta"><div class="chip">сюжетов: <b>7</b></div>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button></div>
 </div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">☰ Разделы</button><div class="nav-inner"><a class="" href="../index.html">🏠 Первая полоса</a><a class="" href="../digests/digest_2026-09-12.html">📰 День · № 1</a><a class="active" href="../weekly.html">📕 Неделя</a><a class="" href="../monthly.html">📊 Месяц</a><a class="" href="../infospace.html">🔬 Инфопространство</a><a class="" href="../afisha.html">🎭 Афиша</a><a class="" href="../projects.html">📁 Проекты</a><a class="" href="../archive.html">🗄 Архив</a><a class="" href="../digests/exec_2026-09-12.html">📋 Руководителю</a></div></nav><main id="main">
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">☰ Разделы</button><div class="nav-inner"><a class="" href="../index.html">🏠 Первая полоса</a><a class="" href="../digests/digest_2026-09-12.html">📰 День · № 1</a><a class="active" href="../weekly.html">📕 Неделя</a><a class="" href="../monthly.html">📊 Месяц</a><a class="" href="../afisha.html">🎭 Афиша</a><a class="" href="../projects.html">📁 Проекты</a><a class="" href="../archive.html">🗄 Архив</a><a class="" href="../digests/exec_2026-09-12.html">📋 Руководителю</a></div></nav><main id="main">
 <div class="page" style="max-width:1280px;">
 <div class="wk-passport"><b>Неделя № 0</b>
 <span style="font-size:12.5px;color:var(--muted);">период: 04.09–11.09.26 (пн–вс) · объём потока: 762 сообщений · дуг: 7</span><span class="wk-stamp">завершён</span></div>
@@ -461,13 +471,13 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 Формула дуги: возникновение → пик → развязка, со ссылками на дневные выпуски. Редакционная доводка (оценки, колонка)
 вносится ассистентом по понедельникам, после чего штамп меняется на «завершён».</div>
 </div><aside class="wk-rail">
-<div class="wk-box"><h4>🌦 Погода</h4>
+<div class="wk-box"><h4>Погода</h4>
 <div style="font-size:13px;font-weight:700;color:var(--navy);">сейчас 13° (ощущается 9°), днём до 16°</div>
 <div class="now-line">Прогноз на выходные — в афише и на первой полосе.</div></div>
-<div class="wk-box"><h4>💱 Курсы валют</h4><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Доллар США</span><b style="color:var(--navy);">84.26 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Евро</span><b style="color:var(--navy);">97.87 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Юань</span><b style="color:var(--navy);">12.55 ₽ / 1</b></div><div class="now-line">ЦБ РФ, 12.09.2026</div></div>
-<div class="wk-box"><h4>📅 События региона за период</h4><div class="now-line">Нет событий.</div>
+<div class="wk-box"><h4>Курсы валют</h4><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Доллар США</span><b style="color:var(--navy);">84.26 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Евро</span><b style="color:var(--navy);">97.87 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Юань</span><b style="color:var(--navy);">12.55 ₽ / 1</b></div><div class="now-line">ЦБ РФ, 12.09.2026</div></div>
+<div class="wk-box"><h4>События региона за период</h4><div class="now-line">Нет событий.</div>
 <h4 style="margin-top:10px;">Впереди</h4><div class="now-line">Нет событий.</div></div>
-<div class="wk-box"><h4>🏭 Промышленность и бизнес: новости → события</h4><div class="tl-row"><div class="tl-time">17.09 23:00</div><div class="tl-txt"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener">Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли м</a></div></div><div class="tl-row"><div class="tl-time">30.09</div><div class="tl-txt"><a href="https://media73.ru/2026/ulyanovsk-eto-po-lyubvi-zhiteli-regiona-poboryutsya-za-100-tysyach-rubley" target="_blank" rel="noopener">«Ульяновск — это по любви»: жители региона поборются за 100 тысяч рублей</a></div></div>
+<div class="wk-box"><h4>Промышленность и бизнес: новости → события</h4><div class="tl-row"><div class="tl-time">17.09 23:00</div><div class="tl-txt"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener">Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли м</a></div></div><div class="tl-row"><div class="tl-time">30.09</div><div class="tl-txt"><a href="https://media73.ru/2026/ulyanovsk-eto-po-lyubvi-zhiteli-regiona-poboryutsya-za-100-tysyach-rubley" target="_blank" rel="noopener">«Ульяновск — это по любви»: жители региона поборются за 100 тысяч рублей</a></div></div>
 <h4 style="margin-top:10px;">Корпоративные каналы</h4><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3825" target="_blank" rel="noopener">Выставка «УАЗ - природа движения», приуроченная к 85-летию УАЗ открылась в Музее</a></div></div><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3824" target="_blank" rel="noopener">Ульяновск встречает новый арт-объект! 🚙 🌟 Сегодня одну из клумб на улице Автозав</a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5043" target="_blank" rel="noopener">Перед пленарным заседанием Делового форума БРИКС Владимир Путин и Нарендра Моди </a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5042" target="_blank" rel="noopener">От кульмана и 3D-моделирования к цифровому аватару гражданского самолета ✈️ Заче</a></div></div>
 <div class="now-line">Публичные TG-каналы предприятий региона (проверка 12.09.2026): УАЗ (@UAZ_Today), ОАК (@uac_ru, включает «Авиастар-СП»). УКБП, НИИАР, «Волга-Днепр», «Контактор», «Ульяновскцемент», Т-плюс публичных каналов не имеют — их п</div></div>
 </aside></div>
@@ -477,7 +487,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div><b>Гудок</b><p>Гудок — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года.</p></div>
 <div><b>Периоды</b><p><a href="../weekly.html" class="flink">Все недели</a> · <a href="../archive.html" class="flink">Архив-матрица</a> · <a href="../index.html" class="flink">Первая полоса</a></p></div>
 </div></footer>
-<script>
+<script>(function(){var d=new Date();var M=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];var W=["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];var e=document.getElementById("flagdate");if(e)e.textContent=W[d.getDay()]+", "+d.getDate()+" "+M[d.getMonth()]+" "+d.getFullYear()+" г.";})()</script><script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
 document.documentElement.setAttribute("data-theme",c);
 try{localStorage.setItem("gudok-theme",c);}catch(e){}

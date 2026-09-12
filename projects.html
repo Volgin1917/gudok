@@ -30,27 +30,37 @@ h1,h2,h3,.mast-title,.lead-main h2,.lead-card h3,.news-item h4 a{font-family:var
 .skip:focus{left:8px;}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
 
-/* шапка-масthead газетная */
-.topbar,.masthead{background:var(--paper);color:var(--ink);border-bottom:3px double var(--rule-strong);padding:18px 22px 12px;}
-.topbar-inner,.mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
-.brand{display:flex;align-items:center;gap:14px;}
-.brand>div{display:flex;flex-direction:column;justify-content:center;}
-.brand-title{font-family:var(--serif);font-size:26px;font-weight:900;letter-spacing:2px;line-height:1.05;color:var(--ink);}
+/* шапка по образцу ведущих мировых изданий: флаг-линия, центровый мастхэд, линейки */
+.flagline{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;gap:14px;
+  font:400 11.5px/1.4 var(--sans);color:var(--muted);letter-spacing:.6px;text-transform:uppercase;
+  padding-bottom:7px;border-bottom:1px solid var(--rule);flex-wrap:wrap;}
+.flagline b{color:var(--ink2);font-weight:700;}
+.topbar,.masthead{background:var(--paper);color:var(--ink);border-bottom:1px solid var(--rule-strong);padding:10px 22px 0;}
+.topbar::after,.masthead::after{content:"";display:block;border-bottom:3px double var(--rule-strong);margin-top:10px;}
+.topbar-inner,.mast-inner{max-width:1200px;margin:0 auto;display:block;text-align:center;}
+.brand{display:flex;align-items:center;justify-content:center;gap:0;}
+.brand>div{display:block;}
+.brand-title{font-family:var(--serif);font-size:34px;font-weight:900;letter-spacing:4px;line-height:1.05;color:var(--ink);text-transform:uppercase;}
 .brand-title span{color:var(--ink);}
-.brand-sub{font-size:11.5px;color:var(--muted);letter-spacing:1.4px;text-transform:uppercase;margin-top:3px;}
-.mast-brand{flex:1;min-width:260px;display:flex;align-items:center;gap:18px;}
-.mast-brand>div{display:flex;flex-direction:column;justify-content:center;}
-.mast-title{font-family:var(--serif);font-size:clamp(38px,7vw,64px);font-weight:900;letter-spacing:6px;line-height:1;color:var(--ink);}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:1.6px;text-transform:uppercase;margin-top:5px;}
+.mast-brand{display:block;text-align:center;}
+.mast-title{font-family:var(--serif);font-size:clamp(44px,9vw,84px);font-weight:900;letter-spacing:10px;line-height:1;color:var(--ink);text-transform:uppercase;}
 .mast-title em{font-style:normal;color:var(--accent);}
-.mast-slogan{font-size:12px;color:var(--muted);letter-spacing:1.6px;text-transform:uppercase;margin-top:8px;}
-.mast-logo{width:64px;height:64px;object-fit:contain;border-radius:10px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15);flex-shrink:0;}
-.mast-right{text-align:right;font-size:13px;color:var(--ink2);}
-.mast-right .date{font-size:15px;font-weight:700;color:var(--ink);font-family:var(--serif);}
-.mast-right .wx{margin-top:3px;color:var(--muted);}
-.mast-tools{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
-.top-meta{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-.chip{background:var(--chip);border:1px solid var(--rule);border-radius:3px;padding:4px 11px;font-size:12.5px;color:var(--ink2);}
-.chip b{color:var(--ink);}
+.mast-slogan{font-size:11.5px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:9px;}
+.mast-logo{display:none;}
+.logo{display:none;}
+.mast-right{display:none;}
+.top-meta{margin:9px auto 0;display:flex;gap:0;flex-wrap:wrap;align-items:center;justify-content:center;}
+.chip{background:none;border:none;border-radius:0;padding:0 10px;font:400 11.5px var(--sans);color:var(--muted);position:relative;}
+.chip+.chip::before{content:"·";position:absolute;left:-3px;color:var(--rule);}
+.chip b{color:var(--ink2);font-weight:700;}
+.chip a,.chip-link,.flink{color:var(--muted);text-decoration:none;}
+.chip a:hover,.chip-link:hover,.flink:hover{color:var(--accent);}
+.theme-btn,.print-btn{border:none;background:none;color:var(--muted);font:400 11.5px var(--sans);padding:0 10px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
+.theme-btn:hover,.print-btn:hover{color:var(--accent);}
+.ticker-wrap{background:var(--paper);color:var(--ink2);border-bottom:1px solid var(--rule);overflow:hidden;position:relative;height:30px;}
+.ticker{display:flex;white-space:nowrap;animation:none;padding-left:110px;align-items:center;height:100%;}
+
 .chip a,.chip-link,.flink{color:var(--ink2);text-decoration:none;}
 .chip a:hover,.chip-link:hover{color:var(--accent);}
 .dot{width:8px;height:8px;border-radius:50%;background:#2e7d4f;display:inline-block;}
@@ -367,22 +377,26 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="brand-sub">Специальные досье и кампанийные страницы издания</div>
 </div></div>
 <div class="top-meta">
-<div class="chip">обновлено <b>12.09 10:33</b></div>
+<div class="chip">обновлено <b>12.09 10:44</b></div>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
 </div></div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">☰ Разделы</button><div class="nav-inner"><a class="" href="index.html">🏠 Первая полоса</a><a class="" href="digests/digest_2026-09-12.html">📰 День · № 1</a><a class="" href="weekly.html">📕 Неделя</a><a class="" href="monthly.html">📊 Месяц</a><a class="" href="infospace.html">🔬 Инфопространство</a><a class="" href="afisha.html">🎭 Афиша</a><a class="active" href="projects.html">📁 Проекты</a><a class="" href="archive.html">🗄 Архив</a><a class="" href="digests/exec_2026-09-12.html">📋 Руководителю</a></div></nav><main id="main">
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">☰ Разделы</button><div class="nav-inner"><a class="" href="index.html">🏠 Первая полоса</a><a class="" href="digests/digest_2026-09-12.html">📰 День · № 1</a><a class="" href="weekly.html">📕 Неделя</a><a class="" href="monthly.html">📊 Месяц</a><a class="" href="afisha.html">🎭 Афиша</a><a class="active" href="projects.html">📁 Проекты</a><a class="" href="archive.html">🗄 Архив</a><a class="" href="digests/exec_2026-09-12.html">📋 Руководителю</a></div></nav><main id="main">
 <div class="wrap1200" style="padding-top:20px;">
 <div class="sec-head" style="margin-top:0;"><h2>Проекты издания</h2><div class="line"></div>
 <div class="badge">2 в работе</div></div>
 <div class="note" style="margin-bottom:16px;">Проект — это спецстраница-досье с собственной методикой наблюдения: кампания (выборы),
 сквозной мониторинг (госзакупки) или расследование. Проекты живут вне ежедневной ленты, но питаются общей базой
 и «Инфопространством». Название рубрики рабочее — редакция обсуждает варианты: «Проекты», «Спецпроекты», «Досье».</div>
-<div class="sec-grid"><div class="sec-card" style="border-top-color:#1d7a4d;text-decoration:none;display:block;">
-<div class="ic">📁</div><b>Выборы-2026</b>
+<div class="sec-grid"><div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
+<div><b>Инфопространство</b></div>
+<div class="fig">live <small>дашборд</small></div>
+<p>Скользящее исследование инфополя: метрики, тон, каскады, карта муниципалитетов, очередь новых метрик.</p>
+<a class="go" href="infospace.html">открыть дашборд →</a></div><div class="sec-card" style="border-top-color:#1d7a4d;text-decoration:none;display:block;">
+<b>Выборы-2026</b>
 <div class="fig" style="font-size:12px;color:#1d7a4d;">в работе</div>
 <p>Губернатор, одномандатные округа Госдумы № 185/186, довыборы в ЗСО. Предвыборный мониторинг, спецвыпуск с итогами — 21.09.2026.</p>
 <a class="go" href="projects/elections_2026.html">открыть досье →</a></div><div class="sec-card" style="border-top-color:#1d7a4d;text-decoration:none;display:block;">
-<div class="ic">📁</div><b>Госзакупки</b>
+<b>Госзакупки</b>
 <div class="fig" style="font-size:12px;color:#1d7a4d;">в работе</div>
 <p>Аналитика государственных закупок Ульяновской области: повестка в инфопотоке + метрики ЕИС (44-ФЗ, 223-ФЗ). Прямое подключение ЕИС — из контура РФ или ручным экспортом.</p>
 <a class="go" href="projects/goszakupki.html">открыть досье →</a></div></div>
@@ -392,7 +406,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div><b>Гудок</b><p>Гудок — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года.</p></div>
 <div><b>Разделы</b><p><a href="index.html" class="flink">Первая полоса</a> · <a href="infospace.html" class="flink">Инфопространство</a> · <a href="afisha.html" class="flink">Афиша</a></p></div>
 </div></footer>
-<script>
+<script>(function(){var d=new Date();var M=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];var W=["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];var e=document.getElementById("flagdate");if(e)e.textContent=W[d.getDay()]+", "+d.getDate()+" "+M[d.getMonth()]+" "+d.getFullYear()+" г.";})()</script><script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
 document.documentElement.setAttribute("data-theme",c);
 try{localStorage.setItem("gudok-theme",c);}catch(e){}

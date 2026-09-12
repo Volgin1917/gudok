@@ -29,27 +29,37 @@ h1,h2,h3,.mast-title,.lead-main h2,.lead-card h3,.news-item h4 a{font-family:var
 .skip:focus{left:8px;}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
 
-/* шапка-масthead газетная */
-.topbar,.masthead{background:var(--paper);color:var(--ink);border-bottom:3px double var(--rule-strong);padding:18px 22px 12px;}
-.topbar-inner,.mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
-.brand{display:flex;align-items:center;gap:14px;}
-.brand>div{display:flex;flex-direction:column;justify-content:center;}
-.brand-title{font-family:var(--serif);font-size:26px;font-weight:900;letter-spacing:2px;line-height:1.05;color:var(--ink);}
+/* шапка по образцу ведущих мировых изданий: флаг-линия, центровый мастхэд, линейки */
+.flagline{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;gap:14px;
+  font:400 11.5px/1.4 var(--sans);color:var(--muted);letter-spacing:.6px;text-transform:uppercase;
+  padding-bottom:7px;border-bottom:1px solid var(--rule);flex-wrap:wrap;}
+.flagline b{color:var(--ink2);font-weight:700;}
+.topbar,.masthead{background:var(--paper);color:var(--ink);border-bottom:1px solid var(--rule-strong);padding:10px 22px 0;}
+.topbar::after,.masthead::after{content:"";display:block;border-bottom:3px double var(--rule-strong);margin-top:10px;}
+.topbar-inner,.mast-inner{max-width:1200px;margin:0 auto;display:block;text-align:center;}
+.brand{display:flex;align-items:center;justify-content:center;gap:0;}
+.brand>div{display:block;}
+.brand-title{font-family:var(--serif);font-size:34px;font-weight:900;letter-spacing:4px;line-height:1.05;color:var(--ink);text-transform:uppercase;}
 .brand-title span{color:var(--ink);}
-.brand-sub{font-size:11.5px;color:var(--muted);letter-spacing:1.4px;text-transform:uppercase;margin-top:3px;}
-.mast-brand{flex:1;min-width:260px;display:flex;align-items:center;gap:18px;}
-.mast-brand>div{display:flex;flex-direction:column;justify-content:center;}
-.mast-title{font-family:var(--serif);font-size:clamp(38px,7vw,64px);font-weight:900;letter-spacing:6px;line-height:1;color:var(--ink);}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:1.6px;text-transform:uppercase;margin-top:5px;}
+.mast-brand{display:block;text-align:center;}
+.mast-title{font-family:var(--serif);font-size:clamp(44px,9vw,84px);font-weight:900;letter-spacing:10px;line-height:1;color:var(--ink);text-transform:uppercase;}
 .mast-title em{font-style:normal;color:var(--accent);}
-.mast-slogan{font-size:12px;color:var(--muted);letter-spacing:1.6px;text-transform:uppercase;margin-top:8px;}
-.mast-logo{width:64px;height:64px;object-fit:contain;border-radius:10px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15);flex-shrink:0;}
-.mast-right{text-align:right;font-size:13px;color:var(--ink2);}
-.mast-right .date{font-size:15px;font-weight:700;color:var(--ink);font-family:var(--serif);}
-.mast-right .wx{margin-top:3px;color:var(--muted);}
-.mast-tools{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
-.top-meta{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-.chip{background:var(--chip);border:1px solid var(--rule);border-radius:3px;padding:4px 11px;font-size:12.5px;color:var(--ink2);}
-.chip b{color:var(--ink);}
+.mast-slogan{font-size:11.5px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:9px;}
+.mast-logo{display:none;}
+.logo{display:none;}
+.mast-right{display:none;}
+.top-meta{margin:9px auto 0;display:flex;gap:0;flex-wrap:wrap;align-items:center;justify-content:center;}
+.chip{background:none;border:none;border-radius:0;padding:0 10px;font:400 11.5px var(--sans);color:var(--muted);position:relative;}
+.chip+.chip::before{content:"·";position:absolute;left:-3px;color:var(--rule);}
+.chip b{color:var(--ink2);font-weight:700;}
+.chip a,.chip-link,.flink{color:var(--muted);text-decoration:none;}
+.chip a:hover,.chip-link:hover,.flink:hover{color:var(--accent);}
+.theme-btn,.print-btn{border:none;background:none;color:var(--muted);font:400 11.5px var(--sans);padding:0 10px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
+.theme-btn:hover,.print-btn:hover{color:var(--accent);}
+.ticker-wrap{background:var(--paper);color:var(--ink2);border-bottom:1px solid var(--rule);overflow:hidden;position:relative;height:30px;}
+.ticker{display:flex;white-space:nowrap;animation:none;padding-left:110px;align-items:center;height:100%;}
+
 .chip a,.chip-link,.flink{color:var(--ink2);text-decoration:none;}
 .chip a:hover,.chip-link:hover{color:var(--accent);}
 .dot{width:8px;height:8px;border-radius:50%;background:#2e7d4f;display:inline-block;}
@@ -332,7 +342,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="chip">обновлено <b>12.09.2026 04:09</b></div>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
 </div></div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">☰ Разделы</button><div class="nav-inner"><a class="" href="index.html">🏠 Первая полоса</a><a class="" href="digests/digest_2026-09-12.html">📰 День · № 1</a><a class="" href="weekly.html">📕 Неделя</a><a class="" href="monthly.html">📊 Месяц</a><a class="active" href="infospace.html">🔬 Инфопространство</a><a class="" href="afisha.html">🎭 Афиша</a><a class="" href="projects.html">📁 Проекты</a><a class="" href="archive.html">🗄 Архив</a><a class="" href="digests/exec_2026-09-12.html">📋 Руководителю</a></div></nav><main id="main">
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">☰ Разделы</button><div class="nav-inner"><a class="" href="index.html">🏠 Первая полоса</a><a class="" href="digests/digest_2026-09-12.html">📰 День · № 1</a><a class="" href="weekly.html">📕 Неделя</a><a class="" href="monthly.html">📊 Месяц</a><a class="" href="afisha.html">🎭 Афиша</a><a class="" href="projects.html">📁 Проекты</a><a class="" href="archive.html">🗄 Архив</a><a class="" href="digests/exec_2026-09-12.html">📋 Руководителю</a></div></nav><main id="main">
 
 <div class="page">
 
@@ -345,7 +355,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </div>
 <div class="note" style="margin-bottom:18px;">Раздел обновляется каждым прогоном конвейера — это не разовый отчёт, а непрерывное наблюдение за устройством регионального инфополя: кто производит новости, кто их тиражирует, какие сюжеты побеждают, кого не слышно. Данные — 12.09.2026 04:09, база: 820 записей.</div>
 
-<div class="sec-head"><h2>🎯 Кто задаёт повестку</h2><div class="line"></div>
+<div class="sec-head"><h2>Кто задаёт повестку</h2><div class="line"></div>
 <div class="badge">первичность в каскадах перепечаток</div></div>
 <div class="grid2">
 <div class="card"><div class="card-pad">
@@ -391,7 +401,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="note">T1 — официальные каналы и зарегистрированные СМИ, T2 — агрегаторы, T3 — авторские/анонимные.</div></div></div>
 </div>
 
-<div class="sec-head"><h2>🌊 Каскады недели</h2><div class="line"></div>
+<div class="sec-head"><h2>Каскады недели</h2><div class="line"></div>
 <div class="badge">как сюжеты расходятся по каналам</div></div>
 <div class="card"><div class="card-pad"><div class="cal-ev" style="align-items:center;"><div class="cal-badge" style="background:var(--red);"><b>×16</b><span>источн.</span></div>
 <div class="cal-txt"><a href="https://t.me/ulpressa/74455" target="_blank" rel="noopener"><b>В Ульяновской области снят режим "Беспилотная опасность" Мы в Telegram | Мы в MAX</b></a>
@@ -408,7 +418,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="t2">первоисточник: insaid173 · разошлось: t.me/chpul, t.me/tresh_ulyan, t.me/ulkoroche</div></div></div>
 <div class="note">Каскад — одно событие, разошедшееся перепечатками по нескольким источникам. Ширина каскада = резонанс сюжета в инфополе.</div></div></div>
 
-<div class="sec-head"><h2>🎭 Тон информационного пространства</h2><div class="line"></div>
+<div class="sec-head"><h2>Тон информационного пространства</h2><div class="line"></div>
 <div class="badge">лексиконная оценка −1…+1</div></div>
 <div class="grid2">
 <div class="card"><div class="card-pad"><div style="margin-bottom:9px;"><div style="display:flex;justify-content:space-between;font-size:12.4px;font-weight:700;color:var(--navy);">
@@ -430,7 +440,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="note">46% оригинальных сообщений недели — федеральные сюжеты (5G, ключевая ставка, Госдума, СВО-сводки и т.п.) без прямой региональной привязки. Для областной повестки это заметная доля «эха» — местное инфополе почти наполовину формируется извне.</div></div></div>
 </div>
 
-<div class="sec-head"><h2>🗺 Карта муниципалитетов: кого слышно</h2><div class="line"></div>
+<div class="sec-head"><h2>Карта муниципалитетов: кого слышно</h2><div class="line"></div>
 <div class="badge">по упоминаниям за 7 дней</div></div>
 <div class="card"><div class="card-pad"><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">
 <div style="width:170px;text-align:right;font-weight:600;color:var(--txt);flex-shrink:0;">Димитровград</div>
@@ -523,7 +533,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div style="width:44px;font-weight:800;color:var(--navy);">0</div></div><div style="margin-top:10px;"><span class="stchip" style="background:#fde7e8;color:#b02a2f;margin:2px;">Кузоватовский р-н · 0</span><span class="stchip" style="background:#fde7e8;color:#b02a2f;margin:2px;">Николаевский р-н · 0</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Новоульяновск · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Барышский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Вешкаймский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Инзенский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Карсунский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Новоспасский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Старокулаткинский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Старомайнский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Сурский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Тереньгульский р-н · 1–2</span><span class="stchip" style="background:#fdf3dd;color:#96690a;margin:2px;">Ульяновский р-н · 1–2</span></div>
 <div class="note">Ульяновск не участвует в подсчёте (он заведомо доминирует). Красным — муниципалитеты, полностью выпавшие из инфополя за неделю; жёлтым — 1–2 упоминания. Это измеримый признак информационного неравенства территорий: жизнь районов существует для областного читателя только через происшествия или визиты чиновников.</div></div></div>
 
-<div class="sec-head"><h2>🎛 Отслеживаемые метрики</h2><div class="line"></div>
+<div class="sec-head"><h2>Отслеживаемые метрики</h2><div class="line"></div>
 <div class="badge">реестр метрик расширяется</div></div>
 <div class="card"><div class="card-pad">
 <div class="kpi-grid" style="grid-template-columns:repeat(6,1fr);margin-bottom:12px;">
@@ -541,7 +551,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <b>В очереди на подключение:</b> ЖКХ и тарифы: доля и тон; Федеральные темы в разрезе источников; Активность будни/выходные; Индекс тревожности (доля оперативных сообщений); Задержки освещения: время от события до первой публикации</div>
 </div></div>
 
-<div class="sec-head"><h2>🏗 Нацпроекты и госпрограммы в повестке</h2><div class="line"></div>
+<div class="sec-head"><h2>Нацпроекты и госпрограммы в повестке</h2><div class="line"></div>
 <div class="badge">метрика подключена 12.09</div></div>
 <div class="card"><div class="card-pad">
 <div style="display:flex;gap:26px;flex-wrap:wrap;align-items:baseline;margin-bottom:10px;">
@@ -555,7 +565,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 Метрика показывает, какие госпрограммы реально присутствуют в публичной повестке региона, а какие идут без публичного следа.</div>
 </div></div>
 
-<div class="sec-head"><h2>🗺 Муниципальная повестка: свой и областной голос</h2><div class="line"></div>
+<div class="sec-head"><h2>Муниципальная повестка: свой и областной голос</h2><div class="line"></div>
 <div class="badge">метрика подключена 12.09</div></div>
 <div class="card"><div class="card-pad" style="padding:10px 14px;">
 <table class="tbl"><tr><th>Территория</th><th>Упоминаний</th><th>Из них сюжетом</th><th>Тон</th><th>Источников</th><th>Свой голос</th></tr>
@@ -567,7 +577,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 а не случайность недели. Кандидаты на подключение: районные газеты и паблики (ищем вручную, tgstat закрыт для ботов).</div>
 </div></div>
 
-<div class="sec-head"><h2>📆 Динамика: неделя к неделе</h2><div class="line"></div>
+<div class="sec-head"><h2>Динамика: неделя к неделе</h2><div class="line"></div>
 <div class="badge">объём, темы, тон</div></div>
 <div class="grid2">
 <div class="card"><div class="card-pad">
@@ -609,7 +619,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </div></div>
 </div>
 
-<div class="sec-head"><h2>📌 Выводы наблюдения</h2><div class="line"></div>
+<div class="sec-head"><h2>Выводы наблюдения</h2><div class="line"></div>
 <div class="badge">автоматические</div></div>
 <div class="card"><div class="card-pad"><div class="verdict"><b>Сводка недели</b>
 <ul style="padding-left:20px;margin-top:4px;line-height:1.7;font-size:13px;"><li>Резко усилились темы: «Суды и криминал» (+3400%), «Транспорт и дороги» (+1657%), «Школы и вузы» (+1425%).</li><li>За 7 дней поток составил 761 сообщений, из них оригинальных (не перепечаток) — 82%.</li><li>Повестку задают: ulpressa (первичен в 12 каскадах), Улпресса (первичен в 8 каскадах), Russkih_Aleksey (первичен в 7 каскадах).</li><li>Крупнейший каскад недели — «В Ульяновской области снят режим "Беспилотная опасность" Мы в Telegram» (×16 источников).</li><li>Федеральное эхо: 46% оригинальных сообщений не про регион напрямую.</li><li>Зоны информационного молчания (0 упоминаний за 7 дней): Кузоватовский р-н, Николаевский р-н.</li><li>На грани видимости (1–2 упоминания): Новоульяновск, Барышский р-н, Вешкаймский р-н, Инзенский р-н, Карсунский р-н, Новоспасский р-н, Старокулаткинский р-н, Старомайнский р-н.</li></ul></div>
@@ -622,7 +632,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div><b>Методика</b><p>Дедупликация (Жаккар + вложенность заголовков), TF-IDF-кластеризация, лексикон тональности (±110 маркеров), географические маркеры муниципалитетов. Всё — на открытых данных мониторинга; воспроизводится из data/store.jsonl.</p></div>
 <div><b>Навигация</b><p><a href="index.html" class="flink">Первая полоса</a> · <a href="weekly.html" class="flink">Аналитика недели</a> · <a href="roadmap.html" class="flink">Роадмап</a></p></div>
 </div></footer>
-<script>
+<script>(function(){var d=new Date();var M=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];var W=["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];var e=document.getElementById("flagdate");if(e)e.textContent=W[d.getDay()]+", "+d.getDate()+" "+M[d.getMonth()]+" "+d.getFullYear()+" г.";})()</script><script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
 document.documentElement.setAttribute("data-theme",c);
 try{localStorage.setItem("gudok-theme",c);}catch(e){}
