@@ -99,6 +99,28 @@ def clip_sentences(s, maxlen):
     return out + "…"
 
 
+def norm_sq(s):
+    return re.sub(r"[^a-zа-яё0-9]", "", (s or "").lower())
+
+
+def strip_title_lead(text, title):
+    t = (text or "").strip()
+    ti = norm_sq(title)
+    if not ti or not t:
+        return t
+    parts = SENT_SPLIT_RE.split(t)
+    while parts:
+        p0 = norm_sq(parts[0])
+        if not p0:
+            parts.pop(0)
+            continue
+        if p0 == ti or p0 in ti or ti in p0:
+            parts.pop(0)
+            continue
+        break
+    return " ".join(parts) if parts else t
+
+
 def clean_text(s, maxlen=600):
     if not s:
         return ""
@@ -160,6 +182,7 @@ def normalize_item(cfg, raw):
     """Сырая запись -> нормализованный элемент базы (или None, если это мусор)."""
     title = clean_text(raw.get("title", ""), 220) or "(без заголовка)"
     text = clean_text(raw.get("text", ""), cfg["settings"]["max_text_len"])
+    text = strip_title_lead(text, title)
     # фильтр служебного/мусорного контента (эмодзи/символы вначале не должны мешать ^-паттернам)
     probe = EMOJI_STRIP_RE.sub("", f"{title} {text[:120]}").strip().lower()
     for pat in cfg["settings"].get("junk_patterns", []):

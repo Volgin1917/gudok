@@ -667,6 +667,30 @@ def sparkline(series, w=120, h=26, color="#2f80ed"):
 SENT_SPLIT = re.compile(r"(?<=[.!?…])\s+")
 
 
+
+def norm_sq(s):
+    return re.sub(r"[^a-zа-яё0-9]", "", (s or "").lower())
+
+
+def strip_title_lead(text, title):
+    """Убирает из начала текста повтор заголовка (частая болезнь RSS и TG-постов)."""
+    t = (text or "").strip()
+    ti = norm_sq(title)
+    if not ti or not t:
+        return t
+    parts = SENT_SPLIT.split(t)
+    while parts:
+        p0 = norm_sq(parts[0])
+        if not p0:
+            parts.pop(0)
+            continue
+        if p0 == ti or p0 in ti or ti in p0:
+            parts.pop(0)
+            continue
+        break
+    return " ".join(parts) if parts else t
+
+
 def clip_sentences(text, limit):
     text = CHANNEL_TAIL_RE.sub("", text or "").strip()
     parts = SENT_SPLIT.split(text)
@@ -974,7 +998,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
             hero_html.append(f"""<div class="hero-card" style="border-top-color:{color};">
 {img}<div class="hk" style="color:{color};">{cat.get('icon','📌')} {esc(cat.get('name','Главное'))}<span class="w">событие №{rank}</span></div>
 <h3><a href="{link}" target="_blank" rel="noopener">{esc(it['title'])}</a></h3>
-<p>{esc(clip_sentences(it.get('text') or '', 340))}</p>
+<p>{esc(clip_sentences(strip_title_lead(it.get('text') or '', it.get('title')), 340))}</p>
 <div class="hero-meta">{dt.strftime('%d.%m %H:%M') if dt else ''} · {esc(it.get('source',''))}{views} · <a href="{link}" target="_blank" rel="noopener">источник →</a></div></div>""")
         parts.append(f"""<div class="sec-head" id="heroes"><h2>Главные события дня</h2><div class="line"></div>
 <div class="badge">авторанжирование: просмотры × темы × свежесть</div></div>
@@ -1082,7 +1106,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
                            f'onerror="this.style.display=\'none\'">' ) if it.get("image") else ""
                 items_html.append(f"""<article class="news-item">
 {thumb}<h4><a href="{link}" target="_blank" rel="noopener">{esc(it['title'])}</a></h4>
-<p>{esc(clip_sentences(it.get('text') or '', 340))}</p>
+<p>{esc(clip_sentences(strip_title_lead(it.get('text') or '', it.get('title')), 340))}</p>
 <div class="meta"><time datetime="{dt.isoformat() if dt else ''}">{dt.strftime('%d.%m %H:%M') if dt else ''}</time> · {esc(it.get('source',''))}{tg_badge}</div>
 {chips}</article>""")
             block = (f"""<div class="card cat-block"><div class="cat-head">
@@ -1458,7 +1482,7 @@ def render_elections(cfg, trends, store, status):
     feed = "".join(
         f"""<div class="news-item">
 <h4><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it['title'],140))}</a></h4>
-<p>{esc(clip_sentences((it.get('text') or ''),300))}</p>
+<p>{esc(clip_sentences(strip_title_lead(it.get('text') or '', it.get('title')),300))}</p>
 <div class="meta">{(local_dt(it.get('published')) or now).strftime('%d.%m %H:%M')} · {esc(it.get('source',''))}{(' · 👁 ' + fmt_views(it['views'])) if it.get('views') else ''}</div></div>"""
         for it in elec[:10]) or '<div class="news-item"><p>Материалов пока нет — запустите сбор.</p></div>'
 
@@ -2927,7 +2951,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <div class="card__media card__media--{media_var[i % 4]}" role="img" aria-label="{esc(cat.get('name',''))}"></div>
 <span class="kicker card__kicker">{esc(cat.get('name','Новости'))}</span>
 <h3 class="card__title"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it['title'],100))}</a></h3>
-<p class="card__dek">{esc(clip_sentences((it.get('text') or ''),150))}</p>
+<p class="card__dek">{esc(clip_sentences(strip_title_lead(it.get('text') or '', it.get('title')),150))}</p>
 <div class="card__meta">{esc(it.get('source',''))} · {dt.strftime('%d.%m %H:%M') if dt else ''}</div>
 </article>"""
 
@@ -3002,7 +3026,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <div class="hero__eyebrow"><span class="live" aria-hidden="true"></span>
 <span class="kicker">{esc(lead_cat.get('name','Главное'))}</span></div>
 <h1 class="hero__title"><a href="{esc(lead.get('url') or '#') if lead else '#'}" target="_blank" rel="noopener">{esc(lead['title']) if lead else '—'}</a></h1>
-<p class="hero__dek">{esc(clip_sentences(lead.get('text') or '', 320)) if lead else ''}</p>
+<p class="hero__dek">{esc(clip_sentences(strip_title_lead(lead.get('text') or '', lead.get('title')), 320)) if lead else ''}</p>
 <div class="hero__byline"><span class="avatar" aria-hidden="true">Г</span>
 <span><strong>{esc(lead.get('source','')) if lead else ''}</strong>
 <span class="dot-sep">{lead_dt.strftime('%d.%m %H:%M') if lead_dt else ''}</span>
