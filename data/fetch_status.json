@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Улпресса": {
   "ok": false,
@@ -202,10 +202,10 @@
   "title": "ПАО «ОАК»"
  },
  "_meta": {
-  "last_run_utc": "2026-09-12T07:38:59.712843+00:00",
-  "last_run_local": "12.09.2026 11:38",
-  "fetched": 95,
-  "new": 1,
+  "last_run_utc": "2026-09-12T07:44:05.334132+00:00",
+  "last_run_local": "12.09.2026 11:44",
+  "fetched": 85,
+  "new": 0,
   "total_store": 904
  },
  "rss:Улград": {
