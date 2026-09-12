@@ -602,6 +602,7 @@ def render_nav(cfg, current, prefix="", subnav=""):
         ("infospace", "🔬 Инфопространство", f"{prefix}infospace.html"),
         ("afisha", "🎭 Афиша", f"{prefix}afisha.html"),
         ("projects", "📁 Проекты", f"{prefix}projects.html"),
+        ("archive", "🗄 Архив", f"{prefix}archive.html"),
         ("exec", "📋 Руководителю", f"{prefix}digests/{ex}" if ex_exists else ""),
     ]
     utils = []
@@ -627,18 +628,19 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
     tg_channels = {c["username"]: c for c in cfg["telegram_channels"] if c.get("enabled", True)}
 
     # окно выборки: сутки вокруг даты дайджеста (+6 ч запас)
-    win_start = datetime.combine(day, datetime.min.time(), tzinfo=UTC4) - timedelta(hours=6)
-    win_end = win_start + timedelta(hours=cfg["settings"].get("digest_window_hours", 26))
+    # утренний выпуск за дату D собирает материалы календарных суток D-1 (+3 ч ночи D)
+    cover_day = day - timedelta(days=1)
+    win_start = datetime.combine(cover_day, datetime.min.time(), tzinfo=UTC4)
+    win_end = win_start + timedelta(days=1) + timedelta(hours=3)
     window = []
     for it in store:
         if it.get("dup_of"):
-            continue  # перепечатки скрыты — показан первичный материал с also_in
+            continue
         dt = local_dt(it.get("published"))
         if dt and win_start <= dt < win_end:
             window.append(it)
-    # если материалов мало — расширяем до 3 суток
     if len(window) < 8:
-        win_start -= timedelta(days=2)
+        win_start -= timedelta(days=1)
         window = [it for it in store if not it.get("dup_of")
                   and local_dt(it.get("published")) and win_start <= local_dt(it["published"]) < win_end]
     window.sort(key=lambda x: x.get("published") or "", reverse=True)
@@ -677,7 +679,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 <header class="topbar"><div class="topbar-inner">
 <div class="brand"><div>
 <div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span></div>
-<div class="brand-sub">Информационно-аналитическое издание · выпуск № {digest_no}{' · 🧪 ТЕСТОВЫЙ' if digest_no == 0 else ''}</div>
+<div class="brand-sub">Информационно-аналитическое издание · выпуск № {digest_no}{' · 🧪 ТЕСТОВЫЙ' if digest_no == 0 else ''} · материалы за {cover_day:%d.%m.%Y}</div>
 </div></div>
 <div class="top-meta">
 <div class="chip">{'🧪 тестовый номер · ' if digest_no == 0 else ''}<span class="dot"></span> Выпуск от <b>{day:%d.%m.%Y}</b></div>
@@ -2066,6 +2068,64 @@ def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest
 </body></html>"""
 
 
+def week_num(cfg, monday):
+    """Сквозной номер ISO-недели от недели запуска (launch_week_monday)."""
+    try:
+        base = datetime.strptime(cfg.get("launch_week_monday", "2026-09-07"), "%Y-%m-%d").date()
+    except ValueError:
+        base = monday
+    return max(0, (monday - base).days // 7 + 1)
+
+
+def period_nav(links):
+    """Полоска «пред | текущий | след» для периодических страниц."""
+    prev_l, cur, next_l = links
+    p = f'<a href="{prev_l[1]}">← {esc(prev_l[0])}</a>' if prev_l else '<span style="color:var(--muted);">← начало</span>'
+    n = f'<a href="{next_l[1]}">{esc(next_l[0])} →</a>' if next_l else '<span style="color:var(--muted);">далее выйдет</span>'
+    return (f'<div style="display:flex;justify-content:space-between;gap:12px;font-size:12.5px;font-weight:700;'
+            f'margin:10px 0 0;">{p}<b style="color:var(--navy);">{esc(cur)}</b>{n}</div>')
+
+
+def week_arcs(store, start, end, trends=None):
+    """Сюжетные дуги недели: кластеры-каскады и крупные одиночные сюжеты."""
+    from analytics import sentiment_of
+
+    def pdate(it):
+        dt = local_dt(it.get("published"))
+        return dt.date() if dt else None
+
+    prim = [it for it in store if not it.get("dup_of") and pdate(it) and start <= pdate(it) <= end]
+    by_id = {it["id"]: it for it in prim}
+    members = {}
+    for it in store:
+        if it.get("dup_of") and it["dup_of"] in by_id and pdate(it):
+            members.setdefault(it["dup_of"], []).append(it)
+    arcs = []
+    for it in prim:
+        mem = members.get(it["id"], [])
+        size = len(mem) + 1
+        views = it.get("views") or 0
+        if size < 2 and views < 3000:
+            continue
+        days = sorted([pdate(it)] + [pdate(m) for m in mem])
+        cnt = {}
+        for d in days:
+            cnt[d] = cnt.get(d, 0) + 1
+        peak = max(cnt, key=lambda d: cnt[d])
+        srcs = {it.get("channel") or it.get("source")} | {m.get("channel") or m.get("source") for m in mem}
+        t_first = sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:200]}")[0]
+        last_m = sorted(mem, key=lambda m: pdate(m))[-1] if mem else it
+        t_last = sentiment_of(f"{last_m.get('title','')} {(last_m.get('text') or '')[:200]}")[0]
+        status = "затух" if days[-1] < end - timedelta(days=1) else ("в развитии" if days[-1] >= end else "пик пройден")
+        arcs.append({
+            "title": it["title"], "url": it.get("url") or "", "src": it.get("channel") or it.get("source"),
+            "first": days[0], "peak": peak, "last": days[-1], "size": size, "views": views,
+            "srcs": srcs, "t1": t_first, "t2": t_last, "status": status, "days": sorted(set(days)),
+        })
+    arcs.sort(key=lambda a: (-a["size"], -a["views"]))
+    return arcs[:7]
+
+
 # ------------------------------------------------------------------ weekly
 def fetch_cbr():
     return load_json(os.path.join(DATA, "cbr_rates.json")) or {}
@@ -2403,37 +2463,56 @@ def render_monthly_hub(cfg, trends, store, status):
 </body></html>"""
 
 
-def render_weekly_skeleton(cfg, trends, store, status):
-    """Скелет недельника для последней завершённой недели (понедельничный воркфлоу)."""
-    from analytics import sentiment_of
+def render_weekly_full(cfg, trends, store, status, start, end, rail=None):
+    """Недельник = сюжетные дуги недели (без повтора ленты) + правая колонка справок."""
     now = datetime.now(UTC4)
-    this_monday = now.date() - timedelta(days=now.weekday())
-    start = this_monday - timedelta(days=7)
-    end = this_monday - timedelta(days=1)
-    weeks = sorted(glob.glob(os.path.join(BASE, "weekly", "week_*.html")))
-    num = f"{len(weeks):02d}"
-    target = os.path.join(BASE, "weekly", f"week_{num}_{start.isoformat()}_{end.isoformat()}.html")
-    if os.path.exists(target):
-        return None
-    rail = render_weekly_rail(cfg, trends and load_json(os.path.join(DATA, "analytics.json")) or {},
-                              store, start.isoformat(), end.isoformat())
+    monday = start
+    num = week_num(cfg, monday)
+    done = end < now.date()
+    nav_html = render_nav(cfg, "weekly", "../")
+    arcs = week_arcs(store, start, end, trends)
+    if rail is None:
+        rail = render_weekly_rail(cfg, trends, store, start.isoformat(), end.isoformat())
+
     def pdate(it):
         dt = local_dt(it.get("published"))
         return dt.date() if dt else None
-    wk_items = [it for it in store if not it.get("dup_of") and pdate(it) and start <= pdate(it) <= end]
-    volume = len([it for it in store if pdate(it) and start <= pdate(it) <= end])
-    sc = [sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:250]}")[0] for it in wk_items]
-    tone = round(sum(sc) / len(sc), 2) if sc else 0
-    casc = sorted([it for it in wk_items if it.get("cluster") and it["cluster"] >= 2], key=lambda x: -x["cluster"])[:5]
-    casc_rows = "".join(
-        f'<div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×{c["cluster"]}</b><span>ист.</span></div>'
-        f'<div style="flex:1;"><b style="font-size:13px;color:var(--navy);">{esc(c["title"][:100])}</b>'
-        f'<div style="font-size:11.3px;color:var(--muted);">{pdate(c):%d.%m} · {esc(c.get("source",""))}</div></div></div>'
-        for c in casc) or '<div class="now-line">Каскадов за неделю нет.</div>'
-    nav_html = render_nav(cfg, "weekly", "")
-    html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+
+    wk_all = [it for it in store if pdate(it) and start <= pdate(it) <= end]
+    volume = len(wk_all)
+    arc_html = ""
+    for i, a in enumerate(arcs, 1):
+        day_links = " ".join(
+            f'<a href="../digests/digest_{d.isoformat()}.html" style="font-weight:700;">{d:%d.%m}</a>'
+            for d in a["days"] if os.path.exists(os.path.join(DIGESTS, f"digest_{d.isoformat()}.html")))
+        arc_html += f"""<div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">{i:02d}</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">{esc(a['title'][:110])}</b>
+<span class="wk-stamp{' wip' if a['status'] != 'затух' else ''}">{a['status']}</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник {a['first']:%d.%m} ({esc(str(a['src']))}), пик {a['peak']:%d.%m} — сюжет держали {a['size']} источника одновременно,
+всего источников дуги: {len(a['srcs'])}. Тон дуги: {a['t1']:+.2f} → {a['t2']:+.2f}.
+К {a['last']:%d.%m} — {a['status']}.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: {day_links or '—'} · охват 👁 {fmt_views(a['views'])}</div>
+</div></div>"""
+    stamp = '<span class="wk-stamp">завершён</span>' if done else '<span class="wk-stamp wip">готовится</span>'
+    # prev/next недели
+    weeks = sorted(glob.glob(os.path.join(BASE, "weekly", "week_*.html")))
+    cur_name = f"week_{num:02d}_{start.isoformat()}_{end.isoformat()}"
+    idx = next((i for i, w in enumerate(weeks) if cur_name in w), None)
+    prev_l = next_l = None
+    if idx is not None and idx > 0:
+        pn = os.path.basename(weeks[idx - 1]).replace(".html", "").split("_")
+        prev_l = (f"нед. {pn[1]} ({pn[2][8:10]}.{pn[2][5:7]})", f"../weekly/{weeks[idx - 1].split(os.sep)[-1]}")
+    if idx is not None and idx + 1 < len(weeks):
+        nn = os.path.basename(weeks[idx + 1]).replace(".html", "").split("_")
+        next_l = (f"нед. {nn[1]} ({nn[2][8:10]}.{nn[2][5:7]})", f"../weekly/{weeks[idx + 1].split(os.sep)[-1]}")
+    pnav = period_nav((prev_l, f"неделя № {num} · {start:%d.%m}–{end:%d.%m}", next_l))
+
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Аналитика недели № {num} — {cfg['brand']}</title>
+<title>Неделя № {num} · {start:%d.%m}–{end:%d.%m} — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png">
 <style>{CSS}{INDEX_CSS}
 .wk-grid{{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:start;margin-top:14px;}}
@@ -2447,36 +2526,105 @@ def render_weekly_skeleton(cfg, trends, store, status):
 @media (max-width:980px){{.wk-grid{{grid-template-columns:1fr;}}}}</style></head><body>
 <header class="topbar"><div class="topbar-inner">
 <div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · АНАЛИТИКА НЕДЕЛИ</div>
-<div class="brand-sub">Неделя {start:%d.%m}–{end:%d.%m}.{end:%y}</div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · НЕДЕЛЯ</div>
+<div class="brand-sub">Сюжетные дуги недели {start:%d.%m}–{end:%d.%m}.{end:%y} · без повтора дневной ленты</div>
 </div></div>
-<div class="top-meta"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button></div>
+<div class="top-meta"><div class="chip">сюжетов: <b>{len(arcs)}</b></div>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button></div>
 </div></header>
 {nav_html}
 <div class="page" style="max-width:1280px;">
-<div class="wk-passport"><b>Аналитика недели · выпуск № {num}</b>
-<span style="font-size:12.5px;color:var(--muted);">период: {start:%d.%m}–{end:%d.%m}.{end:%y} · скелет собран автоматически {now:%d.%m %H:%M}</span>
-<span class="wk-stamp wip">готовится</span></div>
+<div class="wk-passport"><b>Неделя № {num}</b>
+<span style="font-size:12.5px;color:var(--muted);">период: {start:%d.%m}–{end:%d.%m}.{end:%y} (пн–вс) · объём потока: {volume} сообщений · дуг: {len(arcs)}</span>{stamp}</div>
+{pnav}
 <div class="wk-grid"><div class="wk-main">
-<div class="sec-head"><h2>Цифры недели</h2><div class="line"></div></div>
-<div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
-<div class="kpi"><div class="num">{volume}</div><div class="lbl">сообщений за неделю</div></div>
-<div class="kpi violet"><div class="num">{tone:+.2f}</div><div class="lbl">тон недели</div></div>
-<div class="kpi red"><div class="num">{casc[0]['cluster'] if casc else 0}</div><div class="lbl">макс. каскад</div></div></div>
-<div class="sec-head"><h2>Каскады недели</h2><div class="line"></div></div>
-<div class="card"><div class="side-body">{casc_rows}</div></div>
-<div class="note" style="margin-top:14px;">⚠️ Скелет выпуска: редакционная доводка (нарратив, оценки, колонка) вносится ассистентом,
-после чего штамп меняется на «завершён».</div>
+<div class="sec-head" style="margin-top:14px;"><h2>Сюжетные дуги недели</h2><div class="line"></div>
+<div class="badge">{len(arcs)} дуг</div></div>
+{arc_html or '<div class="card"><div class="card-pad">Выраженных дуг за неделю нет.</div></div>'}
+<div class="note">Дуга = сюжет, который держали ≥2 источника одновременно или который собрал большой охват.
+Формула дуги: возникновение → пик → развязка, со ссылками на дневные выпуски. Редакционная доводка (оценки, колонка)
+вносится ассистентом по понедельникам, после чего штамп меняется на «завершён».</div>
 </div>{rail}</div>
 </div>
 <footer class="footer"><div class="footer-inner">
 <div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
-<div><b>Разделы</b><p><a href="../weekly.html" style="color:#ffd47e;">Все недели</a> · <a href="../index.html" style="color:#ffd47e;">Первая полоса</a></p></div>
+<div><b>Периоды</b><p><a href="../weekly.html" style="color:#ffd47e;">Все недели</a> · <a href="../archive.html" style="color:#ffd47e;">Архив-матрица</a> · <a href="../index.html" style="color:#ffd47e;">Первая полоса</a></p></div>
 </div></footer>
 </body></html>"""
-    with open(target, "w", encoding="utf-8") as f:
-        f.write(html)
-    return target
+
+
+# ------------------------------------------------------------------ archive
+def render_archive(cfg, trends, store, status):
+    """Архив-матрица: месяцы строками, недели колонками, дни точками."""
+    now = datetime.now(UTC4)
+    nav_html = render_nav(cfg, "archive", "")
+    digests = sorted(glob.glob(os.path.join(DIGESTS, "digest_*.html")))
+    dset = {os.path.basename(d)[7:17] for d in digests}
+    weeks = sorted(glob.glob(os.path.join(BASE, "weekly", "week_*.html")))
+    months = sorted({d[:7] for d in dset} | {os.path.basename(m)[6:13] for m in
+                    sorted(glob.glob(os.path.join(BASE, "monthly", "month_*.html")))})
+    rows = ""
+    for ym in months:
+        y, mo = map(int, ym.split("-"))
+        first = datetime(y, mo, 1, tzinfo=UTC4).date()
+        last = (datetime(y + 1, 1, 1, tzinfo=UTC4).date() if mo == 12
+                else datetime(y, mo + 1, 1, tzinfo=UTC4).date()) - timedelta(days=1)
+        monday = first - timedelta(days=first.weekday())
+        cells = ""
+        while monday <= last:
+            w_end = monday + timedelta(days=6)
+            num = week_num(cfg, monday)
+            wfile = next((w for w in weeks if f"_{monday.isoformat()}_" in w), None)
+            dots = ""
+            for k in range(7):
+                d = monday + timedelta(days=k)
+                if d.month != mo:
+                    dots += '<span style="opacity:.25;">·</span>'
+                    continue
+                has = d.isoformat() in dset
+                dots += (f'<a href="digests/digest_{d.isoformat()}.html" title="{d:%d.%m}" '
+                         f'style="display:inline-block;width:9px;height:9px;border-radius:50%;'
+                         f'background:{"#2f80ed" if has else "#d7dee8"};margin:0 1px;"></a>'
+                         if has else f'<span style="display:inline-block;width:9px;height:9px;border-radius:50%;'
+                                      f'background:#e3e9f1;margin:0 1px;" title="{d:%d.%m} нет выпуска"></span>')
+            wlink = (f'<a href="weekly/{os.path.basename(wfile)}" style="font-weight:800;">№{num}</a>'
+                     if wfile else f'<span style="color:var(--muted);">№{num}</span>')
+            cells += (f'<td style="text-align:center;padding:6px 8px;border-bottom:1px solid var(--line);">'
+                      f'{wlink}<br>{dots}</td>')
+            monday += timedelta(days=7)
+        mfile = f"monthly/month_{ym}.html"
+        mlink = (f'<a href="{mfile}" style="font-weight:800;color:var(--navy);">{MONTHS_RU_GEN[mo-1][:3]} {y}</a>'
+                 if os.path.exists(os.path.join(BASE, mfile)) else f'{MONTHS_RU_GEN[mo-1][:3]} {y}')
+        rows += f'<tr><td style="padding:6px 10px;border-bottom:1px solid var(--line);font-weight:700;">{mlink}</td>{cells}</tr>'
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Архив-матрица — {cfg['brand']}</title>
+<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<style>{CSS}{INDEX_CSS}
+table.matrix{{border-collapse:collapse;width:100%;}}
+</style></head><body>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · АРХИВ</div>
+<div class="brand-sub">Матрица периодов: месяцы строками, недели колонками, дни точками</div>
+</div></div>
+<div class="top-meta"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button></div>
+</div></header>
+{nav_html}
+<div class="wrap1200" style="padding-top:20px;">
+<div class="card"><div class="card-pad" style="overflow-x:auto;">
+<table class="matrix"><tr><th style="text-align:left;padding:6px 10px;background:var(--navy3);color:#fff;">Месяц</th>
+<th style="padding:6px 8px;background:var(--navy3);color:#fff;">недели →</th></tr>
+{rows}</table>
+<div class="note">Номер недели — сквозной от недели запуска (07.09.2026 = № 1). Точка — дневной выпуск за дату;
+серая точка — выпуска нет (день до запуска или пропуск). Клик по номеру недели — недельник, по месяцу — месячный отчёт.</div>
+</div></div>
+</div>
+<footer class="footer"><div class="footer-inner">
+<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
+<div><b>Периоды</b><p><a href="index.html" style="color:#ffd47e;">Первая полоса</a> · <a href="weekly.html" style="color:#ffd47e;">Недели</a> · <a href="monthly.html" style="color:#ffd47e;">Месяцы</a></p></div>
+</div></footer>
+</body></html>"""
 
 
 # ------------------------------------------------------------------ index
@@ -2735,7 +2883,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", default=None, help="дата выпуска YYYY-MM-DD (по умолчанию сегодня)")
     ap.add_argument("--monthly", metavar="YYYY-MM", help="сгенерировать месячный отчёт")
-    ap.add_argument("--weekly-new", action="store_true", help="скелет недельника за последнюю завершённую неделю")
+    ap.add_argument("--weekly-new", action="store_true", help="недельник за последнюю завершённую ISO-неделю")
+    ap.add_argument("--weekly-period", nargs=2, metavar=("START", "END"), help="недельник за период YYYY-MM-DD")
     ap.add_argument("--weekly-rail", nargs=2, metavar=("START", "END"),
                     help="напечатать HTML правой колонки недельника за период")
     ap.add_argument("--exec", dest="exec_mode", action="store_true",
@@ -2774,8 +2923,26 @@ def main():
     # (выборы-2026 теперь живут в projects/elections_2026.html — см. выше)
 
     if args.weekly_new:
-        tgt = render_weekly_skeleton(cfg, trends, store, status)
-        print(f"[generate] скелет недели: {os.path.basename(tgt) if tgt else 'уже существует'}")
+        this_monday = now.date() - timedelta(days=now.weekday())
+        start = this_monday - timedelta(days=7)
+        end = this_monday - timedelta(days=1)
+        os.makedirs(os.path.join(BASE, "weekly"), exist_ok=True)
+        html = themed(render_weekly_full(cfg, trends, store, status, start, end))
+        tgt = os.path.join(BASE, "weekly", f"week_{week_num(cfg, start):02d}_{start.isoformat()}_{end.isoformat()}.html")
+        with open(tgt, "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"[generate] недельник: {os.path.basename(tgt)}")
+        return
+
+    if args.weekly_period:
+        st_d = datetime.strptime(args.weekly_period[0], "%Y-%m-%d").date()
+        en_d = datetime.strptime(args.weekly_period[1], "%Y-%m-%d").date()
+        os.makedirs(os.path.join(BASE, "weekly"), exist_ok=True)
+        html = themed(render_weekly_full(cfg, trends, store, status, st_d, en_d))
+        tgt = os.path.join(BASE, "weekly", f"week_{week_num(cfg, st_d):02d}_{st_d.isoformat()}_{en_d.isoformat()}.html")
+        with open(tgt, "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"[generate] недельник: {os.path.basename(tgt)}")
         return
 
     if args.monthly:
@@ -2817,6 +2984,11 @@ def main():
     with open(os.path.join(BASE, "afisha.html"), "w", encoding="utf-8") as f:
         f.write(afisha_html)
     print("[generate] афиша: afisha.html")
+
+    arch_html = themed(render_archive(cfg, trends, store, status))
+    with open(os.path.join(BASE, "archive.html"), "w", encoding="utf-8") as f:
+        f.write(arch_html)
+    print("[generate] архив-матрица: archive.html")
 
     os.makedirs(os.path.join(BASE, "monthly"), exist_ok=True)
     monthly_html = themed(render_monthly_hub(cfg, trends, store, status))
