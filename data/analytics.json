@@ -1,5 +1,5 @@
 {
- "generated_local": "12.09.2026 11:38",
+ "generated_local": "12.09.2026 11:39",
  "calendar": [
   {
    "etype": "sport",
@@ -478,10 +478,10 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.094,
-  "today_items": 73,
+  "today_score": 0.079,
+  "today_items": 74,
   "today_pos": 253,
-  "today_neg": 165,
+  "today_neg": 166,
   "today_neu": 323,
   "series": [
    {
@@ -538,7 +538,7 @@
    },
    {
     "date": "2026-09-12",
-    "score": 0.094
+    "score": 0.079
    }
   ],
   "by_category": {
@@ -548,7 +548,7 @@
    "education": 0.25,
    "health": 0.0,
    "politics": 0.625,
-   "security": -0.741,
+   "security": -0.754,
    "society": 0.148,
    "sport": 1.0
   }
@@ -558,8 +558,8 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 69,
-   "primary": 64,
+   "total": 70,
+   "primary": 65,
    "dup": 5,
    "repost_rate": 0.07,
    "views_median": null,
@@ -835,9 +835,9 @@
    "tier": 1,
    "type": "tg",
    "total": 19,
-   "primary": 13,
-   "dup": 6,
-   "repost_rate": 0.32,
+   "primary": 14,
+   "dup": 5,
+   "repost_rate": 0.26,
    "views_median": 54,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -859,11 +859,11 @@
    "tier": 1,
    "type": "tg",
    "total": 17,
-   "primary": 13,
-   "dup": 4,
-   "repost_rate": 0.24,
-   "views_median": 2490,
-   "label": "первоисточник",
+   "primary": 12,
+   "dup": 5,
+   "repost_rate": 0.29,
+   "views_median": 3650,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -979,8 +979,8 @@
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 40.5,
-   "slope": 7.75,
+   "expected": 41.2,
+   "slope": 7.86,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1065,18 +1065,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "elections",
-   "name": "Выборы-2026",
-   "expected": 8.9,
-   "slope": 1.75,
+   "topic": "avia",
+   "name": "Авиапром / УКБП / Ил-114",
+   "expected": 9.7,
+   "slope": 1.82,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
-   "topic": "avia",
-   "name": "Авиапром / УКБП / Ил-114",
-   "expected": 9.0,
-   "slope": 1.71,
+   "topic": "elections",
+   "name": "Выборы-2026",
+   "expected": 8.9,
+   "slope": 1.75,
    "direction": "рост",
    "confidence": "средняя"
   },
