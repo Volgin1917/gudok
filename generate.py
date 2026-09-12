@@ -717,6 +717,14 @@ def clip_sentences(text, limit):
     return out + "…"
 
 
+def photo_img(it, prefix, style):
+    pl = it.get("photo_local")
+    if not pl:
+        return ""
+    return (f'<img src="{prefix}{pl}" alt="" loading="lazy" style="{style}" '
+            f'onerror="this.style.display=\'none\'">')
+
+
 def dek_p(it, limit, cls=""):
     """Дек без повтора заголовка; пустой — не выводится."""
     d = clip_sentences(strip_title_lead(it.get("text") or "", it.get("title")), limit)
@@ -999,9 +1007,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
             dt = local_dt(it.get("published"))
             views = f" · 👁 {fmt_views(it['views'])}" if it.get("views") else ""
             link = esc(it.get("url") or "#")
-            img = (f'<img src="{esc(it["image"])}" alt="" loading="lazy" '
-                   f'style="width:100%;height:150px;object-fit:cover;border-radius:9px;margin-bottom:9px;" '
-                   f'onerror="this.style.display=\'none\'">' ) if it.get("image") else ""
+            img = photo_img(it, "../", "width:100%;height:150px;object-fit:cover;border-radius:9px;margin-bottom:9px;")
             hero_html.append(f"""<div class="hero-card" style="border-top-color:{color};">
 {img}<div class="hk" style="color:{color};">{cat.get('icon','📌')} {esc(cat.get('name','Главное'))}<span class="w">событие №{rank}</span></div>
 <h3><a href="{link}" target="_blank" rel="noopener">{esc(it['title'])}</a></h3>
@@ -1108,9 +1114,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
                 if also:
                     more = f" +{len(also)-3}" if len(also) > 3 else ""
                     chips += f'<span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: {esc(", ".join(also[:3]))}{more}</span>'
-                thumb = (f'<img src="{esc(it["image"])}" alt="" loading="lazy" '
-                           f'style="float:right;width:118px;height:78px;object-fit:cover;border-radius:9px;margin:2px 0 8px 12px;" '
-                           f'onerror="this.style.display=\'none\'">' ) if it.get("image") else ""
+                thumb = photo_img(it, "../", "float:right;width:118px;height:78px;object-fit:cover;border-radius:9px;margin:2px 0 8px 12px;")
                 items_html.append(f"""<article class="news-item">
 {thumb}<h4><a href="{link}" target="_blank" rel="noopener">{esc(it['title'])}</a></h4>
 {dek_p(it, 340)}
@@ -2955,7 +2959,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
         cat = cats.get(it.get("category"), {})
         dt = local_dt(it.get("published"))
         cards += f"""<article class="card">
-<div class="card__media card__media--{media_var[i % 4]}" role="img" aria-label="{esc(cat.get('name',''))}"></div>
+<div class="card__media card__media--{media_var[i % 4]}" role="img" aria-label="{esc(cat.get('name',''))}">{photo_img(it, "", "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")}</div>
 <span class="kicker card__kicker">{esc(cat.get('name','Новости'))}</span>
 <h3 class="card__title"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it['title'],100))}</a></h3>
 {dek_p(it, 150, 'card__dek')}
@@ -3039,7 +3043,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <span class="dot-sep">{lead_dt.strftime('%d.%m %H:%M') if lead_dt else ''}</span>
 <span class="dot-sep">{esc(str(n24)) + ' материалов за сутки'}</span>{lead_views}</span></div>
 </div>
-<figure class="hero__media"><figcaption><span>Ульяновская область</span><span>Гудок · {day:%d.%m.%Y}</span></figcaption></figure>
+<figure class="hero__media">{photo_img(lead, "", "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")}<figcaption><span>Ульяновская область</span><span>Гудок · {day:%d.%m.%Y}</span></figcaption></figure>
 </div></section>
 
 <section class="mostread" aria-label="Самое читаемое"><div class="mostread__inner">

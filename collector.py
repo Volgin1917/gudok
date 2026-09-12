@@ -207,6 +207,7 @@ def normalize_item(cfg, raw):
         "category": category,
         "topics": topics,
         "tier": raw.get("tier"),
+        "photo": raw.get("photo"),
     }
 
 
@@ -336,6 +337,7 @@ def parse_tg_page(page_html, username):
         m_dt = re.search(r'tgme_widget_message_date[^>]*>\s*<time[^>]*datetime="([^"]+)"', chunk) \
             or re.search(r'<time[^>]*datetime="([^"]+)"', chunk)
         m_views = re.search(r'tgme_widget_message_views[^>]*>([^<]+)<', chunk)
+        m_ph = re.search(r"background-image:url\('(https?://[^']*telesco\.pe[^']*)'\)", chunk)
         text = clean_text(raw_txt, 700)
         # «заголовок» — первая строка/предложение поста
         first_line = text.split("\n")[0].strip()
@@ -347,6 +349,7 @@ def parse_tg_page(page_html, username):
             "text": text,
             "published": m_dt.group(1) if m_dt else None,
             "views": parse_views(m_views.group(1) if m_views else None),
+            "photo": (m_ph.group(1) if m_ph else None),
         })
     return posts
 
