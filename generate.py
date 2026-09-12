@@ -789,7 +789,7 @@ def render_nav(cfg, current, prefix="", subnav=""):
     label_num = f"№ {num}" + (" 🧪" if test else "")
     items = [
         ("index", "Первая полоса", f"{prefix}index.html"),
-        ("digest", f"День · № {num}" + (" 🧪" if test else ""), f"{prefix}digests/{latest}" if latest else ""),
+        ("digest", f"День · № {num}" + (" (тест)" if test else ""), f"{prefix}digests/{latest}" if latest else ""),
         ("weekly", "Неделя", f"{prefix}weekly.html"),
         ("monthly", "Месяц", f"{prefix}monthly.html"),
         ("afisha", "Афиша", f"{prefix}afisha.html"),
