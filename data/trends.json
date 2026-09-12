@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-12T07:38:48.229371+00:00",
- "generated_local": "12.09.2026 11:38",
+ "generated_utc": "2026-09-12T07:39:37.958276+00:00",
+ "generated_local": "12.09.2026 11:39",
  "days": [
   "2026-08-30",
   "2026-08-31",
@@ -18,9 +18,9 @@
   "2026-09-12"
  ],
  "counts": {
-  "total": 903,
+  "total": 904,
   "last24h": 321,
-  "last7d": 842
+  "last7d": 843
  },
  "topics": {
   "elections": {
@@ -177,11 +177,11 @@
     4,
     13,
     10,
-    5
+    6
    ],
-   "today": 5,
-   "week": 32,
-   "total": 33,
+   "today": 6,
+   "week": 33,
+   "total": 34,
    "status": "rising"
   },
   "harvest": {
@@ -338,11 +338,11 @@
     10,
     40,
     76,
-    14
+    15
    ],
-   "today": 14,
-   "week": 154,
-   "total": 158,
+   "today": 15,
+   "week": 155,
+   "total": 159,
    "status": "rising"
   },
   "culture": {
@@ -499,10 +499,10 @@
     8,
     54,
     117,
-    23
+    24
    ],
-   "week": 212,
-   "today": 23
+   "week": 213,
+   "today": 24
   },
   "economy": {
    "name": "Экономика и промышленность",
