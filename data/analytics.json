@@ -1,5 +1,5 @@
 {
- "generated_local": "12.09.2026 11:12",
+ "generated_local": "12.09.2026 11:15",
  "calendar": [
   {
    "etype": "sport",
@@ -352,11 +352,11 @@
    ]
   },
   {
-   "name": "мрот · справедливым · рублей",
+   "name": "мрот · рублей · справедливым",
    "terms": [
     "мрот",
-    "справедливым",
-    "рублей"
+    "рублей",
+    "справедливым"
    ],
    "size": 4,
    "coverage": 0.0,
@@ -432,9 +432,9 @@
     },
     {
      "title": "В преддверии Дня города отдаём дань уважения всем, кто внёс вклад в развитие Ульяновска и прославил Малую Роди",
-     "url": "https://t.me/Russkih_Aleksey/12317",
-     "source": "t.me/Russkih_Aleksey",
-     "views": 271
+     "url": "https://t.me/ulgovru/23613",
+     "source": "t.me/ulgovru",
+     "views": 20
     },
     {
      "title": "Ульяновцы возложили цветы к стеле «Город трудовой доблести»: фото",
@@ -478,11 +478,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.112,
-  "today_items": 67,
-  "today_pos": 251,
-  "today_neg": 163,
-  "today_neu": 321,
+  "today_score": 0.094,
+  "today_items": 73,
+  "today_pos": 253,
+  "today_neg": 165,
+  "today_neu": 323,
   "series": [
    {
     "date": "2026-08-30",
@@ -538,17 +538,18 @@
    },
    {
     "date": "2026-09-12",
-    "score": 0.112
+    "score": 0.094
    }
   ],
   "by_category": {
+   "agro": 0.667,
    "culture": 0.667,
    "economy": 0.867,
    "education": 0.25,
-   "health": -0.333,
+   "health": 0.0,
    "politics": 0.625,
-   "security": -0.725,
-   "society": 0.208,
+   "security": -0.741,
+   "society": 0.148,
    "sport": 1.0
   }
  },
@@ -557,8 +558,8 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 68,
-   "primary": 63,
+   "total": 69,
+   "primary": 64,
    "dup": 5,
    "repost_rate": 0.07,
    "views_median": null,
@@ -569,10 +570,10 @@
    "source": "ulpressa",
    "tier": 1,
    "type": "tg",
-   "total": 66,
+   "total": 67,
    "primary": 51,
-   "dup": 15,
-   "repost_rate": 0.23,
+   "dup": 16,
+   "repost_rate": 0.24,
    "views_median": 1060,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -638,6 +639,30 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "ulyanovsk_smi",
+   "tier": 2,
+   "type": "tg",
+   "total": 31,
+   "primary": 27,
+   "dup": 4,
+   "repost_rate": 0.13,
+   "views_median": 421,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "topor_ul",
+   "tier": 2,
+   "type": "tg",
+   "total": 30,
+   "primary": 24,
+   "dup": 6,
+   "repost_rate": 0.2,
+   "views_median": 2490,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "reporter73",
    "tier": 1,
    "type": "tg",
@@ -646,30 +671,6 @@
    "dup": 5,
    "repost_rate": 0.17,
    "views_median": 57,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulyanovsk_smi",
-   "tier": 2,
-   "type": "tg",
-   "total": 30,
-   "primary": 26,
-   "dup": 4,
-   "repost_rate": 0.13,
-   "views_median": 426,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "topor_ul",
-   "tier": 2,
-   "type": "tg",
-   "total": 29,
-   "primary": 23,
-   "dup": 6,
-   "repost_rate": 0.21,
-   "views_median": 2490,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -689,12 +690,24 @@
    "source": "ulsk_73online",
    "tier": 2,
    "type": "tg",
-   "total": 27,
-   "primary": 25,
+   "total": 28,
+   "primary": 26,
    "dup": 2,
    "repost_rate": 0.07,
    "views_median": 389,
    "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "dimitrovgradd",
+   "tier": 2,
+   "type": "tg",
+   "total": 26,
+   "primary": 19,
+   "dup": 7,
+   "repost_rate": 0.27,
+   "views_median": 1210,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -718,18 +731,6 @@
    "dup": 8,
    "repost_rate": 0.32,
    "views_median": 679,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "dimitrovgradd",
-   "tier": 2,
-   "type": "tg",
-   "total": 25,
-   "primary": 18,
-   "dup": 7,
-   "repost_rate": 0.28,
-   "views_median": 1410,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -834,11 +835,23 @@
    "tier": 1,
    "type": "tg",
    "total": 19,
-   "primary": 13,
-   "dup": 6,
-   "repost_rate": 0.32,
+   "primary": 14,
+   "dup": 5,
+   "repost_rate": 0.26,
    "views_median": 54,
    "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulkoroche",
+   "tier": 2,
+   "type": "tg",
+   "total": 18,
+   "primary": 15,
+   "dup": 3,
+   "repost_rate": 0.17,
+   "views_median": 689,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -846,11 +859,11 @@
    "tier": 1,
    "type": "tg",
    "total": 17,
-   "primary": 13,
-   "dup": 4,
-   "repost_rate": 0.24,
-   "views_median": 2490,
-   "label": "первоисточник",
+   "primary": 12,
+   "dup": 5,
+   "repost_rate": 0.29,
+   "views_median": 3650,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -862,18 +875,6 @@
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 79,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulkoroche",
-   "tier": 2,
-   "type": "tg",
-   "total": 17,
-   "primary": 14,
-   "dup": 3,
-   "repost_rate": 0.18,
-   "views_median": 1290,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -978,16 +979,16 @@
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 39.8,
-   "slope": 7.64,
+   "expected": 40.5,
+   "slope": 7.75,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 33.5,
-   "slope": 6.79,
+   "expected": 35.7,
+   "slope": 7.11,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1010,8 +1011,8 @@
   {
    "topic": "uav",
    "name": "БПЛА и воздушные угрозы",
-   "expected": 24.2,
-   "slope": 4.75,
+   "expected": 25.0,
+   "slope": 4.86,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1026,8 +1027,8 @@
   {
    "topic": "medicine",
    "name": "Медицина",
-   "expected": 14.6,
-   "slope": 2.82,
+   "expected": 16.0,
+   "slope": 3.04,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1040,6 +1041,14 @@
    "confidence": "средняя"
   },
   {
+   "topic": "cityspace",
+   "name": "Городская среда",
+   "expected": 15.0,
+   "slope": 2.61,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
    "topic": "weather",
    "name": "Погода",
    "expected": 13.0,
@@ -1048,18 +1057,10 @@
    "confidence": "средняя"
   },
   {
-   "topic": "cityspace",
-   "name": "Городская среда",
-   "expected": 13.5,
-   "slope": 2.39,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
    "topic": "cityday",
    "name": "День города (378 лет)",
-   "expected": 10.7,
-   "slope": 1.96,
+   "expected": 11.4,
+   "slope": 2.07,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1122,10 +1123,10 @@
   {
    "topic": "harvest",
    "name": "Урожай и АПК",
-   "expected": 1.7,
-   "slope": 0.32,
-   "direction": "плато",
-   "confidence": "низкая"
+   "expected": 2.4,
+   "slope": 0.43,
+   "direction": "рост",
+   "confidence": "средняя"
   }
  ]
 }
