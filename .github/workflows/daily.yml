@@ -1,0 +1,34 @@
+name: Ежедневный выпуск
+on:
+  schedule:
+    - cron: "30 3 * * *"   # 07:30 UTC+4 ежедневно
+  workflow_dispatch: {}
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Конвейер дня
+        run: bash run.sh
+      - name: Коммит
+        run: |
+          git config user.name "gudok-bot"
+          git config user.email "gudok-bot@users.noreply.github.com"
+          git add data digests index.html afisha.html infospace.html status.html weekly.html monthly.html projects.html projects 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Ежедневный выпуск $(date -u +%F)"
+          git push
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-pages-artifact@v3
+        with: {path: .}
+      - uses: actions/deploy-pages@v4

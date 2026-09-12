@@ -1,0 +1,41 @@
+name: Месячный отчёт
+on:
+  schedule:
+    - cron: "0 6 1 * *"   # 1-е число, 09:00 UTC+4: отчёт за прошедший месяц
+  workflow_dispatch:
+    inputs:
+      month:
+        description: "Период отчёта YYYY-MM (по умолчанию прошедший месяц)"
+        required: false
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Конвейер + месячный отчёт
+        run: |
+          bash run.sh
+          YM="${{ inputs.month || $(date -d 'last month' +%Y-%m) }}"
+          python3 generate.py --monthly "$YM"
+      - name: Коммит
+        run: |
+          git config user.name "gudok-bot"
+          git config user.email "gudok-bot@users.noreply.github.com"
+          git add data monthly monthly.html 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Месячный отчёт $(date -u +%F)"
+          git push
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-pages-artifact@v3
+        with: {path: .}
+      - uses: actions/deploy-pages@v4

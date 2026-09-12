@@ -11,6 +11,7 @@ generate.py — рендер выпусков издание Гудок.
 Запуск: python3 generate.py [--date YYYY-MM-DD]
 """
 import argparse
+from collections import Counter
 import glob
 import re
 import html as H
@@ -595,16 +596,15 @@ def render_nav(cfg, current, prefix="", subnav=""):
     label_num = f"№ {num}" + (" 🧪" if test else "")
     items = [
         ("index", "🏠 Первая полоса", f"{prefix}index.html"),
-        ("digest", f"📰 Выпуск {label_num}", f"{prefix}digests/{latest}" if latest else ""),
-        ("exec", "📋 Руководителю", f"{prefix}digests/{ex}" if ex_exists else ""),
+        ("digest", f"📰 День · № {num}" + (" 🧪" if test else ""), f"{prefix}digests/{latest}" if latest else ""),
+        ("weekly", "📕 Неделя", f"{prefix}weekly.html"),
+        ("monthly", "📊 Месяц", f"{prefix}monthly.html"),
+        ("infospace", "🔬 Инфопространство", f"{prefix}infospace.html"),
         ("afisha", "🎭 Афиша", f"{prefix}afisha.html"),
         ("projects", "📁 Проекты", f"{prefix}projects.html"),
-        ("infospace", "🔬 Инфопространство", f"{prefix}infospace.html"),
-        ("archive", "🗄 Архив", f"{prefix}index.html#archive"),
+        ("exec", "📋 Руководителю", f"{prefix}digests/{ex}" if ex_exists else ""),
     ]
-    utils = [
-        ("analytics", "Аналитика недели", f"{prefix}weekly.html"),
-    ]
+    utils = []
     html_items = []
     for key, txt, href in items:
         if not href:
@@ -2169,6 +2169,316 @@ def render_weekly_hub(cfg, trends, store, status):
 </body></html>"""
 
 
+# ------------------------------------------------------------------ monthly
+MONTHS_RU_GEN = ["январь", "февраль", "март", "апрель", "май", "июнь",
+                 "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"]
+
+
+def render_monthly(cfg, trends, store, status, ym):
+    """Месячный отчёт: все метрики и тенденции месяца."""
+    from analytics import sentiment_of
+    now = datetime.now(UTC4)
+    y, mo = map(int, ym.split("-"))
+    start = datetime(y, mo, 1, tzinfo=UTC4).date()
+    end = (datetime(y + 1, 1, 1, tzinfo=UTC4).date() if mo == 12
+           else datetime(y, mo + 1, 1, tzinfo=UTC4).date()) - timedelta(days=1)
+    done = end < now.date()
+    nav_html = render_nav(cfg, "monthly", "../")
+
+    def pdate(it):
+        dt = local_dt(it.get("published"))
+        return dt.date() if dt else None
+
+    all_m = [it for it in store if pdate(it) and start <= pdate(it) <= min(end, now.date())]
+    prim = [it for it in all_m if not it.get("dup_of")]
+    volume = len(all_m)
+    orig = round(len(prim) / volume * 100) if volume else 0
+    src_c = Counter(it.get("channel") or it.get("source") or "?" for it in all_m)
+    top3 = sum(n for _, n in src_c.most_common(3))
+    conc = round(top3 / volume * 100) if volume else 0
+    casc = sorted([it for it in prim if it.get("cluster") and it["cluster"] >= 2],
+                  key=lambda x: -x["cluster"])[:6]
+    # тон: по дням и по неделям
+    day_tone = {}
+    for it in prim:
+        d = pdate(it)
+        sc = sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:250]}")[0]
+        day_tone.setdefault(d, []).append(sc)
+    days_sorted = sorted(day_tone)
+    tone_series = [round(sum(day_tone[d]) / len(day_tone[d]), 2) for d in days_sorted]
+    tone_avg = round(sum(tone_series) / len(tone_series), 2) if tone_series else 0
+    weeks = []
+    d = start - timedelta(days=start.weekday())
+    while d <= min(end, now.date()):
+        w_end = d + timedelta(days=6)
+        w_items = [it for it in prim if pdate(it) and d <= pdate(it) <= w_end]
+        sc = [sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:250]}")[0] for it in w_items]
+        weeks.append({"start": d, "n": len(w_items),
+                      "tone": round(sum(sc) / len(sc), 2) if sc else None})
+        d += timedelta(days=7)
+    # темы месяца с недельной разбивкой
+    topic_c = Counter()
+    topic_week = {}
+    for it in all_m:
+        d = pdate(it)
+        wi = next((i for i, w in enumerate(weeks) if w["start"] <= d <= w["start"] + timedelta(days=6)), None)
+        for t in it.get("topics", []):
+            topic_c[t] += 1
+            if wi is not None:
+                topic_week.setdefault(t, [0] * len(weeks))[wi] += 1
+    tnames = {t["id"]: t["name"] for t in cfg["topics"]}
+    top_topics = topic_c.most_common(8)
+    # муниципалитеты за месяц
+    muni_rows = []
+    muni_src = set(cfg.get("municipal_sources") or [])
+    for name, pat in (cfg.get("municipalities") or {}).items():
+        rx = re.compile(pat, re.I)
+        n = own = 0
+        for it in all_m:
+            if rx.search(it.get("title", "") or ""):
+                n += 1
+                if (it.get("channel") or it.get("source")) in muni_src:
+                    own += 1
+            elif rx.search((it.get("text") or "")[:300]):
+                n += 1
+        if n:
+            muni_rows.append((name, n, own))
+    muni_rows.sort(key=lambda x: -x[1])
+    # хроника месяца: топ по просмотрам
+    chron = sorted([it for it in prim if it.get("views")], key=lambda x: -x["views"])[:10]
+
+    topic_rows = ""
+    for tid, n in top_topics:
+        wk = topic_week.get(tid, [0] * len(weeks))
+        mx = max(wk) if max(wk, default=0) else 1
+        bars = "".join(
+            f'<div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;">'
+            f'<div style="width:{max(4, int(v / mx * 100))}%;height:100%;background:#1d4066;"></div></div>'
+            for v in wk)
+        topic_rows += (f'<div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;">'
+                       f'<div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">{esc(tnames.get(tid, tid))}</div>'
+                       f'<div style="flex:1;display:flex;">{bars}</div>'
+                       f'<div style="width:40px;font-weight:800;color:var(--navy);">{n}</div></div>')
+    week_bars = "".join(
+        f'<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">'
+        f'<div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">нед. {w["start"]:%d.%m}</div>'
+        f'<div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;">'
+        f'<div style="width:{max(4, int(w["n"] / max(x["n"] for x in weeks) * 100))}%;height:100%;background:#2f80ed;"></div></div>'
+        f'<div style="width:90px;font-size:11.5px;color:var(--muted);">{w["n"]} · тон {w["tone"] if w["tone"] is not None else "—"}</div></div>'
+        for w in weeks)
+    casc_rows = "".join(
+        f'<div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×{c["cluster"]}</b><span>ист.</span></div>'
+        f'<div style="flex:1;"><a href="{esc(c.get("url") or "#")}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(c["title"][:100])}</a>'
+        f'<div style="font-size:11.3px;color:var(--muted);">{(pdate(c) or now):%d.%m} · {esc(c.get("source",""))}</div></div></div>'
+        for c in casc) or '<div class="now-line">Каскадов за месяц не зафиксировано.</div>'
+    def _muni_own(own):
+        return "✅ " + str(own) if own else '<span style="color:#b02a2f;font-weight:700;">нет</span>'
+
+    muni_tbl = "".join(
+        f'<tr><td><b>{esc(nm)}</b></td><td>{n}</td><td>{_muni_own(own)}</td></tr>'
+        for nm, n, own in muni_rows[:14]) or '<tr><td colspan="3">Нет данных.</td></tr>'
+    chron_rows = "".join(
+        f'<div class="af-mini"><div class="cal-badge"><b>{(pdate(c) or now):%d}</b><span>{(pdate(c) or now):%b}</span></div>'
+        f'<div style="flex:1;"><a href="{esc(c.get("url") or "#")}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(c["title"][:100])}</a>'
+        f'<div style="font-size:11.3px;color:var(--muted);">👁 {fmt_views(c["views"])} · {esc(c.get("source",""))}</div></div></div>'
+        for c in chron)
+    concl = [
+        f"Объём инфопотока за месяц: {volume} сообщений, оригинальных {orig}%.",
+        f"Концентрация источников: топ-3 дают {conc}% потока.",
+        f"Средний тон месяца: {tone_avg:+.2f}." + (" Повестка эмоционально умеренная." if abs(tone_avg) < 0.2 else ""),
+        f"Крупнейший каскад: ×{casc[0]['cluster']} («{casc[0]['title'][:60]}»)." if casc else "Каскадов нет.",
+        f"Территорий с упоминаниями: {len(muni_rows)} из {len(cfg.get('municipalities') or {})}; "
+        f"свой голос — у {sum(1 for _, _, o in muni_rows if o)}.",
+    ]
+    stamp = '<span class="wk-stamp">завершён</span>' if done else '<span class="wk-stamp wip">готовится</span>'
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Месячный отчёт {MONTHS_RU_GEN[mo-1]} {y} — {cfg['brand']}</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
+<style>{CSS}{INDEX_CSS}</style></head><body>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · МЕСЯЧНЫЙ ОТЧЁТ</div>
+<div class="brand-sub">Все метрики и тенденции месяца: объём, темы, тон, каскады, территории</div>
+</div></div>
+<div class="top-meta">
+<div class="chip">период: <b>{start:%d.%m}–{end:%d.%m}.{end:%y}</b></div>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+</div></div></header>
+{nav_html}
+<div class="wrap1200" style="padding-top:16px;">
+<div class="wk-passport"><b>{MONTHS_RU_GEN[mo-1].capitalize()} {y} · месячный отчёт</b>
+<span style="font-size:12.5px;color:var(--muted);">данные на {now:%d.%m.%Y} · источников: {len(src_c)} · публикация 1-го числа следующего месяца</span>{stamp}</div>
+
+<div class="sec-head"><h2>Ключевые метрики месяца</h2><div class="line"></div></div>
+<div class="kpi-grid" style="grid-template-columns:repeat(6,1fr);">
+<div class="kpi"><div class="num">{volume}</div><div class="lbl">сообщений в потоке</div></div>
+<div class="kpi green"><div class="num">{orig}<small>%</small></div><div class="lbl">оригинальных</div></div>
+<div class="kpi"><div class="num">{conc}<small>%</small></div><div class="lbl">концентрация топ-3</div></div>
+<div class="kpi violet"><div class="num">{tone_avg:+.2f}</div><div class="lbl">средний тон</div></div>
+<div class="kpi red"><div class="num">{casc[0]['cluster'] if casc else 0}</div><div class="lbl">макс. каскад</div></div>
+<div class="kpi gold"><div class="num">{len(muni_rows)}</div><div class="lbl">территорий в повестке</div></div>
+</div>
+
+<div class="grid2" style="margin-top:18px;">
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Темы месяца (недельная разбивка)</div>
+{topic_rows}
+<div class="note">Столбцы — недели месяца слева направо; высота — относительная интенсивность темы.</div>
+</div></div>
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Объём и тон по неделям</div>
+{week_bars}
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin:12px 0 8px;">Тон по дням месяца</div>
+{sparkline(tone_series, w=320, h=52, color="#9a4d8f")}
+</div></div>
+</div>
+
+<div class="grid2" style="margin-top:18px;">
+<div>
+<div class="sec-head"><h2>🌊 Каскады месяца</h2><div class="line"></div></div>
+<div class="card"><div class="side-body">{casc_rows}</div></div>
+<div class="sec-head"><h2>🗺 Территории за месяц</h2><div class="line"></div></div>
+<div class="card"><div class="card-pad" style="padding:10px 14px;">
+<table class="tbl"><tr><th>Муниципалитет</th><th>Упоминаний</th><th>Свой голос</th></tr>{muni_tbl}</table></div></div>
+</div>
+<div>
+<div class="sec-head"><h2>📌 Хроника месяца: топ-10 по охвату</h2><div class="line"></div></div>
+<div class="card"><div class="side-body">{chron_rows}</div></div>
+<div class="sec-head"><h2>Выводы</h2><div class="line"></div></div>
+<div class="card"><div class="card-pad"><div class="verdict"><b>Итоги периода</b>
+<ul style="padding-left:20px;line-height:1.7;font-size:13px;">{''.join(f"<li>{esc(c)}</li>" for c in concl)}</ul></div></div></div>
+</div>
+</div>
+</div>
+<footer class="footer"><div class="footer-inner">
+<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
+<div><b>Периодичности</b><p><a href="../weekly.html" style="color:#ffd47e;">Неделя</a> · <a href="../monthly.html" style="color:#ffd47e;">Месяц</a> · <a href="../index.html" style="color:#ffd47e;">Первая полоса</a></p></div>
+</div></footer>
+</body></html>"""
+
+
+def render_monthly_hub(cfg, trends, store, status):
+    now = datetime.now(UTC4)
+    nav_html = render_nav(cfg, "monthly", "")
+    months = sorted(glob.glob(os.path.join(BASE, "monthly", "month_*.html")))
+    rows = ""
+    for mf in months:
+        nm = os.path.basename(mf).replace(".html", "")
+        y, mo = map(int, nm.replace("month_", "").split("-"))
+        end = (datetime(y + 1, 1, 1, tzinfo=UTC4).date() if mo == 12
+               else datetime(y, mo + 1, 1, tzinfo=UTC4).date()) - timedelta(days=1)
+        done = end < now.date()
+        stamp = '<span class="wk-stamp">завершён</span>' if done else '<span class="wk-stamp wip">готовится</span>'
+        rows += f"""<div class="arch-item"><div class="arch-date"><b>{mo:02d}</b><span>{y}</span></div>
+<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">{MONTHS_RU_GEN[mo-1].capitalize()} {y}</b><br>
+<span style="font-size:11.8px;color:var(--muted);">метрики и тенденции месяца {stamp}</span></div>
+<a class="btn" href="monthly/{nm}.html">Открыть</a></div>"""
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Месячные отчёты — {cfg['brand']}</title>
+<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<style>{CSS}{INDEX_CSS}</style></head><body>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · МЕСЯЦ</div>
+<div class="brand-sub">Месячные отчёты: все метрики и тенденции периода</div>
+</div></div>
+<div class="top-meta"><div class="chip">отчётов: <b>{len(months)}</b></div>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div>
+</div></header>
+{nav_html}
+<div class="wrap1200" style="padding-top:20px;">
+<div class="wk-passport"><b>Регламент</b>
+<span style="font-size:12.5px;color:var(--muted);">Месячный отчёт публикуется 1-го числа следующим месяцем и получает штамп «завершён».
+Содержит все метрики инфопространства за период: объём и оригинальность, концентрацию источников, темы с недельной
+разбивкой, тон по неделям и дням, каскады, карту территорий с «своим голосом», хронику топ-10 по охвату и авто-выводы.</span></div>
+<div class="sec-head"><h2>Отчёты</h2><div class="line"></div></div>
+<div class="card"><div class="card-pad">{rows or '<span style="color:var(--muted);">Пока нет отчётов.</span>'}</div></div>
+</div>
+<footer class="footer"><div class="footer-inner">
+<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
+<div><b>Периодичности</b><p><a href="index.html" style="color:#ffd47e;">Первая полоса</a> · <a href="weekly.html" style="color:#ffd47e;">Неделя</a> · <a href="infospace.html" style="color:#ffd47e;">Инфопространство</a></p></div>
+</div></footer>
+</body></html>"""
+
+
+def render_weekly_skeleton(cfg, trends, store, status):
+    """Скелет недельника для последней завершённой недели (понедельничный воркфлоу)."""
+    from analytics import sentiment_of
+    now = datetime.now(UTC4)
+    this_monday = now.date() - timedelta(days=now.weekday())
+    start = this_monday - timedelta(days=7)
+    end = this_monday - timedelta(days=1)
+    weeks = sorted(glob.glob(os.path.join(BASE, "weekly", "week_*.html")))
+    num = f"{len(weeks):02d}"
+    target = os.path.join(BASE, "weekly", f"week_{num}_{start.isoformat()}_{end.isoformat()}.html")
+    if os.path.exists(target):
+        return None
+    rail = render_weekly_rail(cfg, trends and load_json(os.path.join(DATA, "analytics.json")) or {},
+                              store, start.isoformat(), end.isoformat())
+    def pdate(it):
+        dt = local_dt(it.get("published"))
+        return dt.date() if dt else None
+    wk_items = [it for it in store if not it.get("dup_of") and pdate(it) and start <= pdate(it) <= end]
+    volume = len([it for it in store if pdate(it) and start <= pdate(it) <= end])
+    sc = [sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:250]}")[0] for it in wk_items]
+    tone = round(sum(sc) / len(sc), 2) if sc else 0
+    casc = sorted([it for it in wk_items if it.get("cluster") and it["cluster"] >= 2], key=lambda x: -x["cluster"])[:5]
+    casc_rows = "".join(
+        f'<div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×{c["cluster"]}</b><span>ист.</span></div>'
+        f'<div style="flex:1;"><b style="font-size:13px;color:var(--navy);">{esc(c["title"][:100])}</b>'
+        f'<div style="font-size:11.3px;color:var(--muted);">{pdate(c):%d.%m} · {esc(c.get("source",""))}</div></div></div>'
+        for c in casc) or '<div class="now-line">Каскадов за неделю нет.</div>'
+    nav_html = render_nav(cfg, "weekly", "")
+    html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Аналитика недели № {num} — {cfg['brand']}</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
+<style>{CSS}{INDEX_CSS}
+.wk-grid{{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:start;margin-top:14px;}}
+.wk-rail{{display:flex;flex-direction:column;gap:12px;}}
+.wk-box{{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;}}
+.wk-box h4{{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:800;}}
+.wk-passport{{background:var(--card);border-left:5px solid var(--gold);border-radius:12px;padding:12px 16px;margin-top:14px;display:flex;gap:16px;flex-wrap:wrap;align-items:baseline;}}
+.wk-passport b{{font-size:15px;color:var(--navy);}}
+.wk-stamp{{font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;background:#e0f4ea;color:#1d7a4d;}}
+.wk-stamp.wip{{background:#fdf3dd;color:#96690a;}}
+@media (max-width:980px){{.wk-grid{{grid-template-columns:1fr;}}}}</style></head><body>
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · АНАЛИТИКА НЕДЕЛИ</div>
+<div class="brand-sub">Неделя {start:%d.%m}–{end:%d.%m}.{end:%y}</div>
+</div></div>
+<div class="top-meta"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button></div>
+</div></header>
+{nav_html}
+<div class="page" style="max-width:1280px;">
+<div class="wk-passport"><b>Аналитика недели · выпуск № {num}</b>
+<span style="font-size:12.5px;color:var(--muted);">период: {start:%d.%m}–{end:%d.%m}.{end:%y} · скелет собран автоматически {now:%d.%m %H:%M}</span>
+<span class="wk-stamp wip">готовится</span></div>
+<div class="wk-grid"><div class="wk-main">
+<div class="sec-head"><h2>Цифры недели</h2><div class="line"></div></div>
+<div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
+<div class="kpi"><div class="num">{volume}</div><div class="lbl">сообщений за неделю</div></div>
+<div class="kpi violet"><div class="num">{tone:+.2f}</div><div class="lbl">тон недели</div></div>
+<div class="kpi red"><div class="num">{casc[0]['cluster'] if casc else 0}</div><div class="lbl">макс. каскад</div></div></div>
+<div class="sec-head"><h2>Каскады недели</h2><div class="line"></div></div>
+<div class="card"><div class="side-body">{casc_rows}</div></div>
+<div class="note" style="margin-top:14px;">⚠️ Скелет выпуска: редакционная доводка (нарратив, оценки, колонка) вносится ассистентом,
+после чего штамп меняется на «завершён».</div>
+</div>{rail}</div>
+</div>
+<footer class="footer"><div class="footer-inner">
+<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
+<div><b>Разделы</b><p><a href="../weekly.html" style="color:#ffd47e;">Все недели</a> · <a href="../index.html" style="color:#ffd47e;">Первая полоса</a></p></div>
+</div></footer>
+</body></html>"""
+    with open(target, "w", encoding="utf-8") as f:
+        f.write(html)
+    return target
+
+
 # ------------------------------------------------------------------ index
 def render_index(cfg, trends, store, status, digest_files, special_files):
     """Первая полоса: СЕЙЧАС → НОВОСТИ → РАЗДЕЛЫ ПОРТАЛА."""
@@ -2273,9 +2583,15 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
     ex_ok = os.path.exists(os.path.join(DIGESTS, ex))
     af_n = len(an.get("calendar", []))
     cards = [
-        ("📰", f"Выпуск № {dnum}{' (тестовый)' if dtest else ''}", f"{n24} <small>материалов за 24 ч</small>",
-         "Лента дня по девяти рубрикам, пульс повестки, сюжеты 72 часов, тон дня и прогноз на завтра.",
+        ("📰", f"День · выпуск № {dnum}{' 🧪' if dtest else ''}", f"{n24} <small>материалов за 24 ч</small>",
+         "Ежедневный выпуск: лента по девяти рубрикам, пульс повестки, сюжеты 72 часов, тон и прогноз.",
          f"digests/{latest_digest}" if latest_digest else "", "var(--blue)"),
+        ("📕", "Неделя · аналитика", f"{len(glob.glob(os.path.join(BASE, 'weekly', 'week_*.html')))} <small>выпуска</small>",
+         "Завершённая страница за неделю: паспорт периода, нарратив, правая колонка справок.",
+         "weekly.html", "#96690a"),
+        ("📊", "Месяц · отчёт", f"{len(glob.glob(os.path.join(BASE, 'monthly', 'month_*.html')))} <small>отчёт</small>",
+         "Все метрики и тенденции месяца: темы по неделям, тон, каскады, территории, хроника.",
+         "monthly.html", "#0f9b8e"),
         ("📋", "Дайджест руководителя", "1 <small>страница A4</small>",
          "Пять событий, три риска, два решения — для быстрого чтения руководством организации.",
          f"digests/{ex}" if ex_ok else "", "#1d7a4d"),
@@ -2288,9 +2604,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
         ("🔬", "Инфопространство", f"{n_week} <small>сообщений за неделю</small>",
          "Сквозное исследование: кто задаёт повестку, каскады перепечаток, тон по уровням, федеральное эхо, карта районов.",
          "infospace.html", "#0f9b8e"),
-        ("📕", "Аналитика недели", "спецвыпуск",
-         "Глубокий ручной разбор повестки: политика, экономика, бюджет, безопасность — с верификацией фактов.",
-         "weekly.html", "#96690a"),
+
         ("🗄", "Архив", f"{len(digest_files)} <small>выпусков · {len(special_files)} спец.</small>",
          "Все ежедневные выпуски и специальные материалы издания с первого дня.",
          "#archive", "var(--muted)"),
@@ -2420,6 +2734,8 @@ def big_spark(trends):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", default=None, help="дата выпуска YYYY-MM-DD (по умолчанию сегодня)")
+    ap.add_argument("--monthly", metavar="YYYY-MM", help="сгенерировать месячный отчёт")
+    ap.add_argument("--weekly-new", action="store_true", help="скелет недельника за последнюю завершённую неделю")
     ap.add_argument("--weekly-rail", nargs=2, metavar=("START", "END"),
                     help="напечатать HTML правой колонки недельника за период")
     ap.add_argument("--exec", dest="exec_mode", action="store_true",
@@ -2456,7 +2772,20 @@ def main():
         f.write(digest_html)
 
     # (выборы-2026 теперь живут в projects/elections_2026.html — см. выше)
-        print("[generate] спецвыпуск: special/elections_2026.html")
+
+    if args.weekly_new:
+        tgt = render_weekly_skeleton(cfg, trends, store, status)
+        print(f"[generate] скелет недели: {os.path.basename(tgt) if tgt else 'уже существует'}")
+        return
+
+    if args.monthly:
+        os.makedirs(os.path.join(BASE, "monthly"), exist_ok=True)
+        m_html = themed(render_monthly(cfg, trends, store, status, args.monthly))
+        mp = os.path.join(BASE, "monthly", f"month_{args.monthly}.html")
+        with open(mp, "w", encoding="utf-8") as f:
+            f.write(m_html)
+        print(f"[generate] месячный отчёт: monthly/month_{args.monthly}.html")
+        return
 
     if args.weekly_rail:
         print(render_weekly_rail(cfg, load_json(os.path.join(DATA, "analytics.json")) or {},
@@ -2488,6 +2817,12 @@ def main():
     with open(os.path.join(BASE, "afisha.html"), "w", encoding="utf-8") as f:
         f.write(afisha_html)
     print("[generate] афиша: afisha.html")
+
+    os.makedirs(os.path.join(BASE, "monthly"), exist_ok=True)
+    monthly_html = themed(render_monthly_hub(cfg, trends, store, status))
+    with open(os.path.join(BASE, "monthly.html"), "w", encoding="utf-8") as f:
+        f.write(monthly_html)
+    print("[generate] хаб месяцев: monthly.html")
 
     weekly_html = themed(render_weekly_hub(cfg, trends, store, status))
     with open(os.path.join(BASE, "weekly.html"), "w", encoding="utf-8") as f:

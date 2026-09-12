@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Гудок — информационно-аналитическое издание · Ульяновская область</title>
+<title>Месячный отчёт сентябрь 2026 — листок Гудок</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
 <style>
 :root{--navy:#0d2137;--navy2:#14314f;--navy3:#1d4066;--blue:#2f80ed;--sky:#dce9f8;
 --gold:#f2b134;--red:#e5484d;--green:#2ea36b;--bg:#eef2f7;--card:#fff;--line:#dbe4ee;
@@ -262,164 +263,70 @@ code,pre{font-family:Consolas,Menlo,monospace;}
 .af-mini{display:flex;gap:11px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
 .af-mini:last-child{border-bottom:none;}
 @media (max-width:900px){.lead-grid{grid-template-columns:1fr;}.tiles{grid-template-columns:repeat(2,1fr);}.mast-title{font-size:34px;}}
-
-.now-wrap{max-width:1200px;margin:0 auto;padding:20px 18px 0;}
-.now-panel{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border-left:5px solid var(--gold);overflow:hidden;}
-.now-alert{padding:9px 18px;font-size:12.8px;font-weight:700;display:flex;align-items:center;gap:10px;}
-.now-alert.calm{background:#e6f4ec;color:#1d7a4d;}
-.now-alert.danger{background:#fde7e8;color:#b02a2f;}
-:root[data-theme="dark"] .now-alert.calm{background:#12291d;color:#6fd39b;}
-:root[data-theme="dark"] .now-alert.danger{background:#2a1416;color:#ff8a8e;}
-.now-grid{display:grid;grid-template-columns:1.25fr 1fr 0.9fr;gap:0;}
-.now-col{padding:14px 18px;border-right:1px dashed var(--line);}
-.now-col:last-child{border-right:none;}
-.now-h{font-size:10.5px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
-.tl-row{display:flex;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line);align-items:baseline;}
-.tl-row:last-child{border-bottom:none;}
-.tl-time{flex-shrink:0;font-size:11px;font-weight:800;color:var(--blue);width:42px;}
-.tl-txt{font-size:12.6px;line-height:1.4;color:var(--txt);}
-.tl-txt a{color:var(--txt);font-weight:600;}
-.tl-txt a:hover{color:var(--blue);}
-.tl-src{color:var(--muted);font-size:10.8px;}
-.now-num{font-size:24px;font-weight:900;color:var(--navy);line-height:1.1;}
-.now-num small{font-size:11px;font-weight:700;color:var(--muted);}
-.now-line{font-size:12.3px;color:var(--muted);margin-top:2px;line-height:1.4;}
-.now-line b{color:var(--navy);}
-.more-heads{columns:2;column-gap:26px;margin-top:4px;}
-.more-heads a{display:block;font-size:13px;font-weight:700;color:var(--navy);padding:5px 0;border-bottom:1px dashed var(--line);break-inside:avoid;}
-.more-heads a:hover{color:var(--blue);}
-.more-heads a span{color:var(--muted);font-weight:600;font-size:11px;}
-.sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1200px;margin:0 auto;padding:0 18px;}
-.sec-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;border-top:4px solid var(--blue);display:flex;flex-direction:column;text-decoration:none;}
-.sec-card:hover{transform:translateY(-2px);text-decoration:none;}
-.sec-card .ic{font-size:22px;}
-.sec-card b{display:block;font-size:14.5px;color:var(--navy);margin-top:6px;}
-.sec-card .fig{font-size:17px;font-weight:900;color:var(--blue);margin-top:2px;}
-.sec-card .fig small{font-size:10.5px;font-weight:700;color:var(--muted);}
-.sec-card p{font-size:12px;color:var(--muted);line-height:1.45;margin-top:5px;flex:1;}
-.sec-card .go{font-size:11.5px;font-weight:800;color:var(--blue);margin-top:8px;}
-@media (max-width:980px){.now-grid{grid-template-columns:1fr;}.now-col{border-right:none;border-bottom:1px dashed var(--line);}.sec-grid{grid-template-columns:repeat(2,1fr);}.more-heads{columns:1;}}
 </style><script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-
-<header class="masthead"><div class="mast-inner">
-<div class="mast-brand">
-<div>
-<div class="mast-title">ГУДОК</div>
-<div class="mast-slogan">Информационно-аналитическое издание</div>
-</div>
-</div>
-<div class="mast-right">
-<div class="date">суббота, 12 сентября 2026</div>
-<div class="wx">🌡 сейчас 13° (ощущается 10°), днём до 16°</div>
-<div class="mast-tools">
+<header class="topbar"><div class="topbar-inner">
+<div class="brand"><div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · МЕСЯЧНЫЙ ОТЧЁТ</div>
+<div class="brand-sub">Все метрики и тенденции месяца: объём, темы, тон, каскады, территории</div>
+</div></div>
+<div class="top-meta">
+<div class="chip">период: <b>01.09–30.09.26</b></div>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
-<a class="chip" href="digests/digest_2026-09-12.html" style="color:#ffe9b8;">Свежий выпуск →</a>
-</div>
-</div>
-</div></header>
-<nav class="nav"><div class="nav-inner"><a class="active" href="index.html">🏠 Первая полоса</a><a class="" href="digests/digest_2026-09-12.html">📰 День · № 0 🧪</a><a class="" href="weekly.html">📕 Неделя</a><a class="" href="monthly.html">📊 Месяц</a><a class="" href="infospace.html">🔬 Инфопространство</a><a class="" href="afisha.html">🎭 Афиша</a><a class="" href="projects.html">📁 Проекты</a><a class="" href="digests/exec_2026-09-12.html">📋 Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">На полосе:</span><a href="#now">Сейчас</a><a href="#news">Новости</a><a href="#sections">Разделы портала</a></div></div>
+</div></div></header>
+<nav class="nav"><div class="nav-inner"><a class="" href="../index.html">🏠 Первая полоса</a><a class="" href="../digests/digest_2026-09-12.html">📰 День · № 0 🧪</a><a class="" href="../weekly.html">📕 Неделя</a><a class="active" href="../monthly.html">📊 Месяц</a><a class="" href="../infospace.html">🔬 Инфопространство</a><a class="" href="../afisha.html">🎭 Афиша</a><a class="" href="../projects.html">📁 Проекты</a><a class="" href="../digests/exec_2026-09-12.html">📋 Руководителю</a></div></nav>
+<div class="wrap1200" style="padding-top:16px;">
+<div class="wk-passport"><b>Сентябрь 2026 · месячный отчёт</b>
+<span style="font-size:12.5px;color:var(--muted);">данные на 12.09.2026 · источников: 43 · публикация 1-го числа следующего месяца</span><span class="wk-stamp wip">готовится</span></div>
 
-<div class="now-wrap" id="now">
-<div class="now-panel">
-<div class="now-alert calm">✅ Воздушных угроз сейчас нет.</div>
-<div class="now-grid">
-<div class="now-col">
-<div class="now-h">⏱ Происходит прямо сейчас</div>
-<div class="tl-row"><div class="tl-time">03:27</div>
-<div class="tl-txt"><a href="https://t.me/ulyanovsk_smi/29415" target="_blank" rel="noopener">❗️ Опасность БПЛА объявили в Ульяновской области Жителям рекомендуют быть бдительнее, избегать открытых участк</a>
-<div class="tl-src">t.me/ulyanovsk_smi</div></div></div><div class="tl-row"><div class="tl-time">02:13</div>
-<div class="tl-txt"><a href="https://t.me/tresh_ulyan/56134" target="_blank" rel="noopener">😱 Разборки у клуба Maison прямо сейчас 😱 Подписаться | Прислать новость</a>
-<div class="tl-src">t.me/tresh_ulyan</div></div></div><div class="tl-row"><div class="tl-time">01:05</div>
-<div class="tl-txt"><a href="https://t.me/ulyanovsk_smi/29414" target="_blank" rel="noopener">🍳 Готовим омлет как в садике Ингредиенты: 🍳 Яйцо — 5 шт. 🍳 Молоко — 250 мл. 🍳 Сливочное масло 🍳 Соль по вкусу </a>
-<div class="tl-src">t.me/ulyanovsk_smi</div></div></div><div class="tl-row"><div class="tl-time">00:30</div>
-<div class="tl-txt"><a href="https://t.me/ulyanovsk_smi/29413" target="_blank" rel="noopener">Открываем ночной чат! Предлагаем поиграть в слова. Мы начнем: «поезд». Вам на Д 👇 📲 Читайте нас в МАКС 😉 Подпи</a>
-<div class="tl-src">t.me/ulyanovsk_smi</div></div></div><div class="tl-row"><div class="tl-time">00:29</div>
-<div class="tl-txt"><a href="https://t.me/tresh_ulyan/56133" target="_blank" rel="noopener">⚡️ К войне с Россией подталкивает свои страны Европа — Владимир Путин Он подметил, что ввод европейских войск </a>
-<div class="tl-src">t.me/tresh_ulyan</div></div></div><div class="tl-row"><div class="tl-time">00:07</div>
-<div class="tl-txt"><a href="https://t.me/insaid173/46891" target="_blank" rel="noopener">😱 Какой-то неадекват громит машину в Новой жизни. Выходные в Ульяновске начались...</a>
-<div class="tl-src">t.me/insaid173</div></div></div>
-</div>
-<div class="now-col">
-<div class="now-h">📅 Сегодня в области</div>
-<div class="tl-row"><div class="tl-time">08:30</div><div class="tl-txt"><a href="https://t.me/ProNovosty73/5905" target="_blank" rel="noopener">Еженедельный забег «5 вёрст» Маршрут проходит в три круга по дорожкам парка, петляя по алл</a></div></div><div class="tl-row"><div class="tl-time">—</div><div class="tl-txt"><a href="https://t.me/dimitrovgradonline/33487" target="_blank" rel="noopener">Уважаемые горожане! В субботу, 12 сентября, на набережной Верхнего пруда пройдёт традицион</a></div></div><div class="tl-row"><div class="tl-time">04:00</div><div class="tl-txt"><a href="https://t.me/ulkoroche/33701" target="_blank" rel="noopener">❗️ В Ульяновске ограничат движение из-за празднования Дня города. В эти выходные будем отм</a></div></div><div class="tl-row"><div class="tl-time">—</div><div class="tl-txt"><a href="https://t.me/ulyanovsk_smi/29403" target="_blank" rel="noopener">📊 Центр перекроют из-за Дня города в Ульяновске 12 сентября будет перекрыта нечетная сторо</a></div></div>
-</div>
-<div class="now-col">
-<div class="now-h">📊 Картина момента</div>
-<div class="now-num">385 <small>публикаций за 24 ч</small></div>
-<div class="now-line">тема часа: <b>БПЛА и воздушные угрозы</b> (1 упом.)</div>
-<div class="now-line">тон повестки: <b>+0.28</b> — приподнятый</div>
-<div class="now-line">до дня голосования: <b>6 дн.</b></div>
-<div class="now-line">погода: сейчас 13° (ощущается 10°), днём до 16°</div>
-</div>
-</div>
-</div>
+<div class="sec-head"><h2>Ключевые метрики месяца</h2><div class="line"></div></div>
+<div class="kpi-grid" style="grid-template-columns:repeat(6,1fr);">
+<div class="kpi"><div class="num">779</div><div class="lbl">сообщений в потоке</div></div>
+<div class="kpi green"><div class="num">83<small>%</small></div><div class="lbl">оригинальных</div></div>
+<div class="kpi"><div class="num">18<small>%</small></div><div class="lbl">концентрация топ-3</div></div>
+<div class="kpi violet"><div class="num">+0.35</div><div class="lbl">средний тон</div></div>
+<div class="kpi red"><div class="num">16</div><div class="lbl">макс. каскад</div></div>
+<div class="kpi gold"><div class="num">20</div><div class="lbl">территорий в повестке</div></div>
 </div>
 
-<div class="wrap1200" id="news" style="padding-top:6px;">
-<div class="sec-head"><h2>Новости дня</h2><div class="line"></div>
-<div class="badge">12.09.2026 · обновлено 04:08</div></div>
-<div class="lead-grid"><div class="lead-main" style="border-top-color:#0f9b8e;">
-<div class="lead-kicker" style="color:#0f9b8e;">🎓 Образование и наука · сюжет дня</div>
-<h2><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновской области…</a></h2>
-<p>🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновской области. ✅ 30 имен занесены в Золотую книгу Почёта молодёжи и на доску Почёта молодёжи. Это наши школьники, студенты, молодые работники разных отраслей. Трудолюбие, целеустремленность и талант помогают им добиваться высоких результатов. </p>
-<div class="lead-meta">10.09 20:44 · t.me/Russkih_Aleksey · 👁 20.1K · <a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener">читать полностью →</a></div></div><div class="lead-side"><div class="lead-card" style="border-top-color:#2f80ed;">
-<div class="lead-kicker" style="color:#2f80ed;">🏛 Политика и выборы</div>
-<h3><a href="https://t.me/insaid173/46860" target="_blank" rel="noopener">Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября . Об этом сообщил мэр Ульяновска Алекс…</a></h3>
-<p>Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября . Об этом сообщил мэр Ульяновска Александр Болдакин. По словам главы города, п</p>
-<div class="lead-meta">10.09 23:53 · t.me/insaid173 · 👁 10.6K</div></div><div class="lead-card" style="border-top-color:#2ea36b;">
-<div class="lead-kicker" style="color:#2ea36b;">💼 Экономика и промышленность</div>
-<h3><a href="https://t.me/uac_ru/5043" target="_blank" rel="noopener">Перед пленарным заседанием Делового форума БРИКС Владимир Путин и Нарендра Моди посетили международную промышл…</a></h3>
-<p>Перед пленарным заседанием Делового форума БРИКС Владимир Путин и Нарендра Моди посетили международную промышленную выставку «Иннопром. Индия» На эксп</p>
-<div class="lead-meta">11.09 17:25 · t.me/uac_ru · 👁 2.2K</div></div></div></div>
-<div class="sec-head" style="margin:18px 0 6px;"><h2 style="font-size:15px;">Ещё в выпуске</h2><div class="line"></div></div>
-<div class="more-heads"><a href="https://t.me/insaid173/46891" target="_blank" rel="noopener">😱 Какой-то неадекват громит машину в Новой жизни. Выходные в Ульяновске начались... <span>· 00:07</span></a><a href="https://t.me/ulkoroche/33714" target="_blank" rel="noopener">Доброй ночи, Ульяновск! ❤️ Спасибо за фото нашей подписчице 🍁 Если и у вас есть что показать или рас <span>· 22:22</span></a><a href="https://t.me/tresh_ulyan/56131" target="_blank" rel="noopener">😳 Вот такой трансформер обнаружили в маршрутке №94 Ульяновск — город инноваций 😏 😱 Подписаться | При <span>· 22:17</span></a><a href="https://t.me/dimitrovgradonline/33491" target="_blank" rel="noopener">Сергей Сандрюков: Встретился сегодня с руководителями спортивных учреждений и федераций. Обсудили во <span>· 22:16</span></a><a href="https://t.me/dimitrovgradd/31679" target="_blank" rel="noopener">Каскадеры на заборах уехали, появилось "Шапито" на столбах... Неужели такая реклама приносит в бюдже <span>· 21:53</span></a><a href="https://t.me/reporter73/52147" target="_blank" rel="noopener">📰 Подборка дня — 11 сентября: 🛠 На улице Кирова начали укладывать верхний слой асфальта. 🔥 С начала  <span>· 21:43</span></a></div>
+<div class="grid2" style="margin-top:18px;">
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Темы месяца (недельная разбивка)</div>
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Суды и криминал</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">144</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Транспорт и дороги</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">129</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Школы и вузы</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:6%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">128</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Губернатор / власть</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:5%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">124</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Культура и туризм</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:10%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">97</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Спорт</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:6%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">82</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">БПЛА и воздушные угрозы</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">72</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Городская среда</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:10%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">63</div></div>
+<div class="note">Столбцы — недели месяца слева направо; высота — относительная интенсивность темы.</div>
+</div></div>
+<div class="card"><div class="card-pad">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Объём и тон по неделям</div>
+<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">нед. 31.08</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;"><div style="width:5%;height:100%;background:#2f80ed;"></div></div><div style="width:90px;font-size:11.5px;color:var(--muted);">34 · тон 0.65</div></div><div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">нед. 07.09</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;"><div style="width:100%;height:100%;background:#2f80ed;"></div></div><div style="width:90px;font-size:11.5px;color:var(--muted);">610 · тон 0.07</div></div>
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin:12px 0 8px;">Тон по дням месяца</div>
+<svg width="320" height="52" viewBox="0 0 320 52"><path d="M2.0,34.3 L33.6,15.6 L65.2,7.3 L96.8,5.0 L128.4,5.0 L160.0,34.9 L191.6,49.0 L223.2,42.0 L254.8,40.8 L286.4,47.8 L318.0,32.6 L318,50 L2,50 Z" fill="#9a4d8f" opacity="0.12"/><path d="M2.0,34.3 L33.6,15.6 L65.2,7.3 L96.8,5.0 L128.4,5.0 L160.0,34.9 L191.6,49.0 L223.2,42.0 L254.8,40.8 L286.4,47.8 L318.0,32.6" fill="none" stroke="#9a4d8f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="318.0" cy="32.6" r="2.6" fill="#9a4d8f"/></svg>
+</div></div>
 </div>
 
-<div class="sec-head" id="sections" style="max-width:1200px;margin:26px auto 12px;padding:0 18px;"><h2>Разделы портала</h2><div class="line"></div>
-<div class="badge">всё издание целиком</div></div>
-<div class="sec-grid"><a class="sec-card" style="border-top-color:var(--blue);" href="digests/digest_2026-09-12.html"><div class="ic">📰</div><b>День · выпуск № 0 🧪</b><div class="fig">385 <small>материалов за 24 ч</small></div>
-<p>Ежедневный выпуск: лента по девяти рубрикам, пульс повестки, сюжеты 72 часов, тон и прогноз.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:#96690a;" href="weekly.html"><div class="ic">📕</div><b>Неделя · аналитика</b><div class="fig">1 <small>выпуска</small></div>
-<p>Завершённая страница за неделю: паспорт периода, нарратив, правая колонка справок.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:#0f9b8e;" href="monthly.html"><div class="ic">📊</div><b>Месяц · отчёт</b><div class="fig">1 <small>отчёт</small></div>
-<p>Все метрики и тенденции месяца: темы по неделям, тон, каскады, территории, хроника.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:#1d7a4d;" href="digests/exec_2026-09-12.html"><div class="ic">📋</div><b>Дайджест руководителя</b><div class="fig">1 <small>страница A4</small></div>
-<p>Пять событий, три риска, два решения — для быстрого чтения руководством организации.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:#9a4d8f;" href="afisha.html"><div class="ic">🎭</div><b>Афиша</b><div class="fig">21 <small>событий на 45 дней</small></div>
-<p>Культурные события области: фестивали, театр, концерты, выставки; фильтры по дням и районам.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:#b02a2f;" href="projects.html"><div class="ic">📁</div><b>Проекты</b><div class="fig">2 <small>досье</small></div>
-<p>Выборы-2026 (6 дн. до голосования), госзакупки региона и будущие кампании — спецстраницы с методиками.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:#0f9b8e;" href="infospace.html"><div class="ic">🔬</div><b>Инфопространство</b><div class="fig">761 <small>сообщений за неделю</small></div>
-<p>Сквозное исследование: кто задаёт повестку, каскады перепечаток, тон по уровням, федеральное эхо, карта районов.</p><div class="go">открыть →</div></a><a class="sec-card" style="border-top-color:var(--muted);" href="#archive"><div class="ic">🗄</div><b>Архив</b><div class="fig">2 <small>выпусков · 0 спец.</small></div>
-<p>Все ежедневные выпуски и специальные материалы издания с первого дня.</p><div class="go">открыть →</div></a></div>
-
-<div class="wrap1200" id="archive" style="margin-top:26px;">
-<div class="sec-head"><h2>Последние выпуски</h2><div class="line"></div>
-<div class="badge"><a href="#sections" style="color:var(--muted);">весь архив — в разделе «Архив»</a></div></div>
-<div class="card"><div class="card-pad"><div class="arch-item"><div class="arch-date"><b>12</b><span>Sep</span></div>
-<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">Выпуск № 0 🧪 за 12.09.2026</b></div>
-<a class="btn" href="digests/digest_2026-09-12.html">Открыть</a></div><div class="arch-item"><div class="arch-date"><b>11</b><span>Sep</span></div>
-<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">Выпуск № 0 🧪 за 11.09.2026</b></div>
-<a class="btn" href="digests/digest_2026-09-11.html">Открыть</a></div></div></div>
+<div class="grid2" style="margin-top:18px;">
+<div>
+<div class="sec-head"><h2>🌊 Каскады месяца</h2><div class="line"></div></div>
+<div class="card"><div class="side-body"><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×16</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/ulpressa/74456" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">В Ульяновской области снят режим "Беспилотная опасность" Мы в Telegram | Мы в MAX</a><div style="font-size:11.3px;color:var(--muted);">11.09 · t.me/ulpressa</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×7</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/ulpressa/74421" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Geely Monjaro загорелся на Юго-западной</a><div style="font-size:11.3px;color:var(--muted);">10.09 · t.me/ulpressa</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×6</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновск</a><div style="font-size:11.3px;color:var(--muted);">10.09 · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×5</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/ProNovosty73/5904" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Открытие осеннего сезона в «Квартале» 🍁 В программе: в 16:00 — живое джазовое выступление, в 18:00 —</a><div style="font-size:11.3px;color:var(--muted);">10.09 · t.me/ProNovosty73</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×4</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12309" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Внимание! Ракетная опасность на территории Ульяновской области. Нельзя оставаться на открытой местно</a><div style="font-size:11.3px;color:var(--muted);">10.09 · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×4</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/insaid173/46860" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября . Об этом сообщил мэр Ульяно</a><div style="font-size:11.3px;color:var(--muted);">10.09 · t.me/insaid173</div></div></div></div></div>
+<div class="sec-head"><h2>🗺 Территории за месяц</h2><div class="line"></div></div>
+<div class="card"><div class="card-pad" style="padding:10px 14px;">
+<table class="tbl"><tr><th>Муниципалитет</th><th>Упоминаний</th><th>Свой голос</th></tr><tr><td><b>Димитровград</b></td><td>35</td><td>✅ 11</td></tr><tr><td><b>Павловский р-н</b></td><td>8</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Радищевский р-н</b></td><td>8</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Новомалыклинский р-н</b></td><td>4</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Цильнинский р-н</b></td><td>4</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Чердаклинский р-н</b></td><td>4</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Майнский р-н</b></td><td>3</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Мелекесский р-н</b></td><td>3</td><td>✅ 2</td></tr><tr><td><b>Сенгилеевский р-н</b></td><td>2</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Старокулаткинский р-н</b></td><td>2</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Сурский р-н</b></td><td>2</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Новоульяновск</b></td><td>1</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Барышский р-н</b></td><td>1</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Вешкаймский р-н</b></td><td>1</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr></table></div></div>
 </div>
-
-<div class="wrap1200" style="margin-top:26px;padding-bottom:6px;">
-<div class="util-bar">
-<span class="util-lbl">Служебное</span>
-<a href="roadmap.html">🧭 Роадмап издания</a>
-<a href="status.html">🩺 Статус системы</a>
-<a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
+<div>
+<div class="sec-head"><h2>📌 Хроника месяца: топ-10 по охвату</h2><div class="line"></div></div>
+<div class="card"><div class="side-body"><div class="af-mini"><div class="cal-badge"><b>09</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/ulpatriot/6899" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Бесплатному питанию для школьников - быть Губернатор Алексей Русских в своих соцсетях сделал заявлен</a><div style="font-size:11.3px;color:var(--muted);">👁 31.6K · t.me/ulpatriot</div></div></div><div class="af-mini"><div class="cal-badge"><b>08</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12293" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Друзья, сегодня провел совещание с главами администраций муниципальных образований. Поводом стало ре</a><div style="font-size:11.3px;color:var(--muted);">👁 25.5K · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge"><b>06</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12276" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">«Когда тепло приходит в семьи — сразу понимаешь, что трудишься не зря». 🔹 26 лет Александр Викторови</a><div style="font-size:11.3px;color:var(--muted);">👁 24.8K · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge"><b>10</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновск</a><div style="font-size:11.3px;color:var(--muted);">👁 20.1K · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge"><b>10</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/tresh_ulyan/56102" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">⚡️ Ракетная опасность объявлена в Ульяновской области ⚠️ Внимание! Оперативные каналы Ульяновской об</a><div style="font-size:11.3px;color:var(--muted);">👁 16.2K · t.me/tresh_ulyan</div></div></div><div class="af-mini"><div class="cal-badge"><b>10</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/insaid173/46858" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">😏 Где лучшие тусовки? - В Ульяновске у ЦУМа.</a><div style="font-size:11.3px;color:var(--muted);">👁 15K · t.me/insaid173</div></div></div><div class="af-mini"><div class="cal-badge"><b>10</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/tresh_ulyan/56097" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">❗️ Центр Ульяновска снова перекроют из-за мероприятий 12 сентября нечетную сторону ул. Гончарова вдо</a><div style="font-size:11.3px;color:var(--muted);">👁 14.7K · t.me/tresh_ulyan</div></div></div><div class="af-mini"><div class="cal-badge"><b>10</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/insaid173/46859" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">❗️ Сейчас в Ульяновске слышны сирены Ракетная опасность на территории Ульяновской области.</a><div style="font-size:11.3px;color:var(--muted);">👁 14.3K · t.me/insaid173</div></div></div><div class="af-mini"><div class="cal-badge"><b>10</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/insaid173/46852" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">❗️ Буллинг в школах Ульяновской области — расскажите о проблеме Травля, унижения, угрозы, издеватель</a><div style="font-size:11.3px;color:var(--muted);">👁 13.1K · t.me/insaid173</div></div></div><div class="af-mini"><div class="cal-badge"><b>10</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/insaid173/46848" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🚒 Сотрудники МЧС потушили китайца, который загорелся на Камышинской 93</a><div style="font-size:11.3px;color:var(--muted);">👁 12.5K · t.me/insaid173</div></div></div></div></div>
+<div class="sec-head"><h2>Выводы</h2><div class="line"></div></div>
+<div class="card"><div class="card-pad"><div class="verdict"><b>Итоги периода</b>
+<ul style="padding-left:20px;line-height:1.7;font-size:13px;"><li>Объём инфопотока за месяц: 779 сообщений, оригинальных 83%.</li><li>Концентрация источников: топ-3 дают 18% потока.</li><li>Средний тон месяца: +0.35.</li><li>Крупнейший каскад: ×16 («В Ульяновской области снят режим "Беспилотная опасность" Мы »).</li><li>Территорий с упоминаниями: 20 из 22; свой голос — у 2.</li></ul></div></div></div>
 </div>
 </div>
-
+</div>
 <footer class="footer"><div class="footer-inner">
-<div><b>Гудок</b><p>Гудок — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года. Выходит ежедневно в 07:30 (UTC+4).</p></div>
-<div><b>Разделы</b><p><a href="digests/digest_2026-09-12.html" style="color:#ffd47e;">Свежий выпуск</a> · <a href="afisha.html" style="color:#ffd47e;">Афиша</a> · <a href="projects.html" style="color:#ffd47e;">Проекты</a> · <a href="infospace.html" style="color:#ffd47e;">Инфопространство</a> · <a href="roadmap.html" style="color:#ffd47e;">Роадмап</a> · <a href="status.html" style="color:#ffd47e;">Статус</a></p></div>
-<div><b>Редакция</b><p>Мониторинг 32 Telegram-каналов и 2 RSS-лент. Колонку редактора и аналитику готовит ассистент. Реестр источников и здоровье конвейера — на <a href="status.html" style="color:#ffd47e;">status-странице</a>.</p>
-<p style="margin-top:6px;">Исходный код, архив выпусков и конвейер публикации — в репозитории: <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener" style="color:#ffd47e;">github.com/Volgin1917/gudok</a></p></div>
+<div><b>Гудок</b><p>Гудок — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года.</p></div>
+<div><b>Периодичности</b><p><a href="../weekly.html" style="color:#ffd47e;">Неделя</a> · <a href="../monthly.html" style="color:#ffd47e;">Месяц</a> · <a href="../index.html" style="color:#ffd47e;">Первая полоса</a></p></div>
 </div></footer>
-<script>
-function tick(){try{var f=new Intl.DateTimeFormat('ru-RU',{timeZone:'Europe/Ulyanovsk',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});var el=document.getElementById('clock');if(el)el.textContent=f.format(new Date());}catch(e){}}
-tick();setInterval(tick,1000);
-</script>
 <script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
 document.documentElement.setAttribute("data-theme",c);
