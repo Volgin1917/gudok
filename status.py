@@ -166,21 +166,21 @@ td{{padding:7px 12px;border-bottom:1px solid var(--line);}}
 .note{{font-size:11.5px;color:var(--muted);margin-top:8px;}}
 
 /* мастхэд по образцу мировых изданий (override) */
-.topbar,.masthead{background:var(--paper,#faf9f6);border-bottom:1px solid var(--rule-strong,#15181d);padding:10px 22px 0;}
-.topbar-inner,.mast-inner{display:block;text-align:center;max-width:1200px;margin:0 auto;}
-.brand{justify-content:center;}
-.brand>div{display:block;}
-.brand-title{font-family:Georgia,"Times New Roman",serif;font-size:30px;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:var(--ink,#15181d);}
-.brand-title span{color:var(--ink,#15181d);}
-.brand-sub{letter-spacing:1.6px;text-transform:uppercase;}
-.top-meta{margin:8px auto 0;justify-content:center;display:flex;flex-wrap:wrap;gap:0;}
-.chip{background:none;border:none;border-radius:0;padding:0 10px;font-size:11.5px;color:var(--muted,#57616c);position:relative;}
-.chip+.chip::before{content:"·";position:absolute;left:-3px;color:var(--rule,#ddd8ce);}
-.chip b{color:var(--ink2,#39424c);}
-.chip a{color:var(--muted,#57616c);text-decoration:none;}
-.theme-btn,.print-btn{border:none;background:none;color:var(--muted,#57616c);font-size:11.5px;text-decoration:underline;cursor:pointer;}
-.logo,.mast-logo,.mast-right{display:none;}
-.ticker{animation:none;}
+.topbar,.masthead{{background:var(--paper,#faf9f6);border-bottom:1px solid var(--rule-strong,#15181d);padding:10px 22px 0;}}
+.topbar-inner,.mast-inner{{display:block;text-align:center;max-width:1200px;margin:0 auto;}}
+.brand{{justify-content:center;}}
+.brand>div{{display:block;}}
+.brand-title{{font-family:Georgia,"Times New Roman",serif;font-size:30px;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:var(--ink,#15181d);}}
+.brand-title span{{color:var(--ink,#15181d);}}
+.brand-sub{{letter-spacing:1.6px;text-transform:uppercase;}}
+.top-meta{{margin:8px auto 0;justify-content:center;display:flex;flex-wrap:wrap;gap:0;}}
+.chip{{background:none;border:none;border-radius:0;padding:0 10px;font-size:11.5px;color:var(--muted,#57616c);position:relative;}}
+.chip+.chip::before{{content:"·";position:absolute;left:-3px;color:var(--rule,#ddd8ce);}}
+.chip b{{color:var(--ink2,#39424c);}}
+.chip a{{color:var(--muted,#57616c);text-decoration:none;}}
+.theme-btn,.print-btn{{border:none;background:none;color:var(--muted,#57616c);font-size:11.5px;text-decoration:underline;cursor:pointer;}}
+.logo,.mast-logo,.mast-right{{display:none;}}
+.ticker{{animation:none;}}
 </style>
 <script>
 (function(){{try{{var t=localStorage.getItem("gudok-theme");
