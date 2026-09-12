@@ -3033,7 +3033,11 @@ def main():
     def themed(html):
         now = datetime.now(UTC4)
         html = html.replace("</head>", THEME_HEAD + "</head>", 1)
-        flag = ('<div class="flagline"><span>' + now.strftime("%A, %d %B %Y г.").capitalize() + '</span>'
+        WD = ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"]
+        MR = ["января", "февраля", "марта", "апреля", "мая", "июня",
+              "июля", "августа", "сентября", "октября", "ноября", "декабря"]
+        flag = ('<div class="flagline"><span>' + WD[now.weekday()] + ', '
+                + str(now.day) + ' ' + MR[now.month - 1] + ' ' + str(now.year) + ' г.</span>'
                 '<span>Ульяновск · издание внутреннее</span>'
                 '<span>выпуск собран ' + now.strftime("%H:%M") + '</span></div>')
         html = html.replace('<header class="topbar"><div class="topbar-inner">',
