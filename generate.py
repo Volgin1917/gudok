@@ -2937,9 +2937,9 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
     if os.path.exists(ed_path):
         ed_text = open(ed_path, encoding="utf-8").read().strip()
     if ed_text:
-        first = ed_text.split("\n\n")[0]
-        feat_title = first.split(".")[0][:110]
-        feat_dek = first[len(feat_title):].strip(" .")[:300] or first[:300]
+        first = re.sub(r"\*\*(.+?)\*\*", r"\1", ed_text.split("\n\n")[0])
+        feat_title = clip_words(first.split(".")[0], 110)
+        feat_dek = clip_sentences(first[len(feat_title):].strip(" ."), 300) or clip_sentences(first, 300)
         feat_kicker = "Колонка редактора · Долгое чтение"
         feat_byline = "Редакция Гудка · внутренний выпуск"
     else:
