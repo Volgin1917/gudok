@@ -2237,7 +2237,7 @@ def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Гудок № {digest_no} от {day:%d.%m.%Y} — печатная полоса</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png">
-<style>{PRINT_CSS}</style></head>
+<style>{CSS}{PRINT_CSS}</style></head>
 <body class="print-mode">
 <div class="pm-toolbar">
 <a href="digest_{date_str}.html">← Электронный выпуск</a>
@@ -3110,6 +3110,8 @@ def main():
         html = re.sub(r'(</nav>(?:<div class="subnav">.*?</div></div>)?)', r'\1<main id="main">',
                       html, count=1, flags=re.S)
         html = html.replace('<footer class="footer">', '</main>\n<footer class="footer">', 1)
+        if "</main>" not in html:
+            html = html.replace("</body>", "</main></body>", 1)
         return html.replace("</body>", THEME_FOOT + "</body>", 1)
 
     manifest = []

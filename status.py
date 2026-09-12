@@ -122,6 +122,14 @@ def main():
 <link rel="icon" type="image/png" href="assets/logo_gudok.png">
 <title>Status — {cfg.get('brand','издание Гудок')}</title>
 <style>
+:root{--paper:#FAF7F2;--paper-2:#F3EFE7;--ink:#0B0B0B;--ink-2:#2A2620;--muted:#6B655C;--rule:#E3DED4;--rule-strong:#0B0B0B;--accent:#D63F1F;--on-ink:#C9C2B6;
+--serif-display:"Fraunces","Source Serif 4",Georgia,serif;--serif-body:"Source Serif 4",Georgia,serif;--sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--rubleny:Impact,"Arial Black","Franklin Gothic Bold",sans-serif;}
+:root[data-theme="dark"]{--paper:#101214;--paper-2:#17191c;--ink:#ECE7DE;--ink-2:#D5CFC4;--muted:#9A948A;--rule:#2A2D31;--rule-strong:#ECE7DE;--accent:#FF6A4D;--on-ink:#2A2620;}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif-body);font-size:16.5px;line-height:1.55;}
+a{color:inherit;text-decoration:none;} a:hover{color:var(--accent);}
+.brand-title{font-family:var(--rubleny);font-weight:900;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);}
+.brand-title span{color:var(--accent);}
+
 :root{{--navy:#0d2137;--navy3:#1d4066;--blue:#2f80ed;--gold:#f2b134;--red:#e5484d;--green:#2ea36b;
 --bg:#eef2f7;--card:#fff;--line:#dbe4ee;--txt:#1c2733;--muted:#5b6b7c;}}
 :root[data-theme="dark"]{{--bg:#0b1622;--card:#12202f;--line:#24384e;--txt:#dfe9f4;--muted:#93a7bc;--navy:#dce9f8;}}
