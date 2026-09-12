@@ -1,13 +1,13 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": false,
-  "items": 0,
-  "error": "<urlopen error [Errno 101] Network is unreachable>"
+  "ok": true,
+  "items": 10,
+  "error": null
  },
  "rss:Улпресса": {
-  "ok": false,
-  "items": 0,
-  "error": "name 'SENT_SPLIT' is not defined"
+  "ok": true,
+  "items": 20,
+  "error": null
  },
  "tg:Russkih_Aleksey": {
   "ok": false,
@@ -101,7 +101,7 @@
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 4,
+  "items": 7,
   "error": null,
   "title": "Короче, Ульяновск"
  },
@@ -113,7 +113,7 @@
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 17,
+  "items": 14,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
@@ -124,9 +124,9 @@
   "title": "Инцидент Ульяновск"
  },
  "tg:ulsk_on": {
-  "ok": false,
-  "items": 0,
-  "error": "name 'SENT_SPLIT' is not defined",
+  "ok": true,
+  "items": 18,
+  "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
  "tg:ulsk_73online": {
@@ -137,7 +137,7 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 12,
+  "items": 11,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -202,11 +202,11 @@
   "title": "ПАО «ОАК»"
  },
  "_meta": {
-  "last_run_utc": "2026-09-12T08:05:30.227998+00:00",
-  "last_run_local": "12.09.2026 12:05",
-  "fetched": 83,
-  "new": 0,
-  "total_store": 905
+  "last_run_utc": "2026-09-12T19:29:24.514875+00:00",
+  "last_run_local": "12.09.2026 23:29",
+  "fetched": 108,
+  "new": 42,
+  "total_store": 947
  },
  "rss:Улград": {
   "ok": true,
