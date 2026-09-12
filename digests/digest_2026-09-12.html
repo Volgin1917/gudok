@@ -2,227 +2,320 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Дайджест №1 · Ульяновская область · 12.09.2026 — листок Гудок</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png"><style>
-:root{--navy:#0d2137;--navy2:#14314f;--navy3:#1d4066;--blue:#2f80ed;--sky:#dce9f8;
---gold:#f2b134;--red:#e5484d;--green:#2ea36b;--bg:#eef2f7;--card:#fff;--line:#dbe4ee;
---txt:#1c2733;--muted:#5b6b7c;--radius:14px;--shadow:0 2px 10px rgba(13,33,55,.08);}
+:root{
+  --paper:#faf9f6; --card:#fffdf9; --ink:#15181d; --ink2:#39424c; --muted:#57616c;
+  --rule:#ddd8ce; --rule-strong:#15181d; --accent:#a31621; --accent-soft:#8c2b31;
+  --link:#1d5b8f; --chip:#f1efe8; --focus:#1a6fd4;
+  --navy:#15181d; --navy2:#15181d; --navy3:#22262c; --blue:#1d5b8f; --gold:#a31621;
+  --line:#ddd8ce; --txt:#15181d; --bg:#faf9f6; --shadow:none;
+  --serif:Georgia,"Times New Roman","Noto Serif",serif;
+  --sans:-apple-system,"Segoe UI",Roboto,Arial,"Helvetica Neue",sans-serif;
+}
+:root[data-theme="dark"]{
+  --paper:#131519; --card:#1a1d23; --ink:#e9e7e2; --ink2:#c3c9d0; --muted:#9aa4ae;
+  --rule:#31363e; --rule-strong:#e9e7e2; --accent:#e05252; --accent-soft:#e88a8a;
+  --link:#8fc1e9; --chip:#22262c;
+  --navy:#e9e7e2; --navy2:#1a1d23; --navy3:#22262c; --blue:#8fc1e9; --gold:#e05252;
+  --line:#31363e; --txt:#e9e7e2; --bg:#131519;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt);font-size:15px;line-height:1.5;}
-a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
-.topbar{background:linear-gradient(135deg,var(--navy),var(--navy2) 60%,var(--navy3));color:#fff;padding:14px 22px;box-shadow:0 2px 14px rgba(0,0,0,.25);}
-.topbar-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-.brand{align-items:center;}
-.brand>div{display:flex;flex-direction:column;justify-content:center;}
-.brand{display:flex;align-items:center;gap:12px;}
-.brand-title{font-size:19px;font-weight:800;letter-spacing:.6px;}
-.brand-title span{color:#fff;}
-.brand-sub{font-size:11.5px;color:#a9c1d9;text-transform:uppercase;letter-spacing:.4px;}
-.top-meta{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap;align-items:center;}
-.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 13px;font-size:12.5px;color:#e7eef6;display:flex;gap:7px;align-items:center;white-space:nowrap;}
-.chip b{color:var(--gold);}
-.dot{width:8px;height:8px;border-radius:50%;background:#41d17a;display:inline-block;animation:p 1.6s infinite;}
-.dot.err{background:#e5484d;}
-@keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
-.nav{background:var(--navy);border-top:1px solid rgba(255,255,255,.12);}
-.nav-inner{max-width:1280px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 14px;}
-.nav a{color:#c9d8e8;font-size:13px;font-weight:600;padding:10px 13px;white-space:nowrap;border-bottom:3px solid transparent;}
-.nav a:hover{color:#fff;background:rgba(255,255,255,.06);text-decoration:none;}
-.page{max-width:1280px;margin:0 auto;padding:22px 18px 40px;}
-.sec-head{display:flex;align-items:center;gap:12px;margin:30px 0 14px;}
-.sec-head h2{font-size:20px;font-weight:800;color:var(--navy);}
-.sec-head .line{flex:1;height:2px;background:linear-gradient(90deg,var(--line),transparent);}
-.sec-head .badge{font-size:11px;font-weight:700;background:var(--sky);color:var(--navy3);padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px;}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.main-grid{display:grid;grid-template-columns:1fr 370px;gap:20px;align-items:start;}
-.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden;}
-.card-pad{padding:16px 18px;}
-.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
-.kpi{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:13px 15px;border-left:4px solid var(--blue);}
-.kpi .num{font-size:22px;font-weight:800;color:var(--navy);line-height:1.1;}
-.kpi .num small{font-size:12px;color:var(--muted);}
-.kpi .lbl{font-size:11.8px;color:var(--muted);margin-top:4px;}
-.kpi.gold{border-left-color:var(--gold);} .kpi.red{border-left-color:var(--red);}
-.kpi.green{border-left-color:var(--green);} .kpi.violet{border-left-color:#7b5aa6;}
-.topic-row{display:grid;grid-template-columns:210px 1fr 130px 90px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px;}
-.topic-row:last-child{border-bottom:none;}
-.topic-name{font-weight:700;color:var(--navy);}
-.topic-name small{display:block;font-weight:600;color:var(--muted);font-size:11px;}
-.stchip{font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 9px;white-space:nowrap;display:inline-block;}
-.bar-wrap{background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;}
-.bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--blue),#5aa0f5);}
-.bar-fill.hot{background:linear-gradient(90deg,#d5494e,#f08a8d);}
-.bar-fill.warm{background:linear-gradient(90deg,#d99a1b,#f2c14e);}
-.bar-fill.cool{background:linear-gradient(90deg,#218a58,#3ec27f);}
-.tgpost{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);}
-.tgpost:last-child{border-bottom:none;}
-.tgpost .views{flex-shrink:0;background:#e8f4ff;color:#1d4f9c;border-radius:8px;font-size:11px;font-weight:800;padding:3px 8px;height:fit-content;white-space:nowrap;}
-.tgpost .t{font-size:12.8px;color:var(--txt);line-height:1.4;}
-.tgpost .m{font-size:11px;color:var(--muted);margin-top:2px;}
-.cat-block{margin-bottom:16px;}
-.cat-head{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#f8fbfe,#fff);}
-.cat-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex-shrink:0;}
-.cat-head h3{font-size:15px;font-weight:800;color:var(--navy);}
-.cat-head .count{margin-left:auto;font-size:11px;color:var(--muted);background:var(--bg);border-radius:999px;padding:3px 9px;font-weight:700;}
-.news-item{padding:11px 16px;border-bottom:1px dashed var(--line);}
-.news-item:last-child{border-bottom:none;}
-.news-item h4{font-size:13.8px;font-weight:700;line-height:1.35;margin-bottom:3px;}
-.news-item h4 a{color:var(--txt);} .news-item h4 a:hover{color:var(--blue);}
-.news-item p{font-size:12.5px;color:var(--muted);line-height:1.45;}
-.news-item .meta{font-size:10.8px;color:#8a99aa;margin-top:4px;font-weight:600;}
-.news-item .meta .tg{color:#1d4f9c;}
-.side-head{padding:12px 15px;background:var(--navy);color:#fff;font-size:13.5px;font-weight:800;display:flex;align-items:center;gap:8px;}
-.side-head .sub{margin-left:auto;font-size:10.5px;font-weight:600;color:#9db6cf;}
-.side-body{padding:13px 15px;}
-.note{font-size:11.5px;color:var(--muted);background:#f7fafd;border:1px dashed var(--line);border-radius:9px;padding:8px 11px;margin-top:10px;line-height:1.45;}
-.verdict{background:#f7fafd;border-left:3px solid var(--gold);border-radius:0 9px 9px 0;padding:9px 13px;font-size:12.6px;color:var(--navy3);margin-top:10px;}
-.verdict b{color:#96690a;text-transform:uppercase;font-size:11px;letter-spacing:.8px;display:block;margin-bottom:3px;}
-.tbl{width:100%;border-collapse:collapse;font-size:12.8px;}
-.tbl th{background:var(--navy);color:#fff;text-align:left;padding:8px 11px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;}
-.tbl td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top;}
-.tbl tr:nth-child(even) td{background:#f8fbfe;}
-.ok{color:var(--green);font-weight:800;} .fail{color:var(--red);font-weight:800;}
-.arch-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);}
-.arch-item:last-child{border-bottom:none;}
-.arch-date{width:52px;height:46px;border-radius:10px;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;flex-shrink:0;}
-.arch-date b{font-size:16px;} .arch-date span{font-size:9px;color:#9db6cf;margin-top:2px;text-transform:uppercase;}
-.btn{display:inline-block;background:var(--navy);color:#fff;border-radius:9px;padding:8px 15px;font-size:12.5px;font-weight:700;}
-.btn:hover{background:var(--navy3);text-decoration:none;}
-.btn.gold{background:var(--gold);color:#3d2e04;}
-.alert-banner{background:linear-gradient(90deg,#b02a2f,#e5484d);color:#fff;padding:12px 20px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.alert-banner a{color:#ffe3a8;}
-.alert-banner .blink{animation:p 1s infinite;font-size:17px;}
-.print-btn{background:var(--gold);border:none;color:#3d2e04;font-weight:800;font-size:12px;padding:7px 14px;border-radius:8px;cursor:pointer;}
-.footer{background:var(--navy);color:#9db6cf;margin-top:36px;padding:24px 22px;font-size:12px;}
-.footer-inner{max-width:1280px;margin:0 auto;display:flex;gap:30px;flex-wrap:wrap;}
-.footer b{color:#fff;display:block;font-size:13px;margin-bottom:6px;}
-.footer p{line-height:1.6;max-width:480px;}
-code,pre{font-family:Consolas,Menlo,monospace;}
-.codebox{background:#0d2137;color:#c9d8e8;border-radius:10px;padding:12px 14px;font-size:12px;overflow-x:auto;line-height:1.55;}
-.codebox .c{color:#7fa3c7;}
-.cal-ev{display:flex;gap:11px;padding:8px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
-.cal-ev:last-child{border-bottom:none;}
-.cal-badge{flex-shrink:0;width:44px;height:42px;border-radius:9px;background:var(--navy3);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
-.cal-badge b{font-size:15px;} .cal-badge span{font-size:8.5px;text-transform:uppercase;color:#a9c1d9;margin-top:2px;}
-.cal-badge.gold{background:var(--gold);color:#4d3a06;} .cal-badge.gold span{color:#7a5f10;}
-.cal-txt{font-size:12.8px;line-height:1.4;}
-.cal-txt .t2{color:var(--muted);font-size:11.3px;}
-.cl-card{border:1px solid var(--line);border-radius:11px;padding:11px 14px;margin-bottom:10px;background:#fbfdff;}
-.cl-card.gap{border-left:4px solid var(--gold);}
-.cl-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:6px;}
-.cl-name{font-size:13.5px;font-weight:800;color:var(--navy);}
-.cl-badge{font-size:10px;font-weight:800;border-radius:999px;padding:2px 9px;}
-.cl-samples{font-size:12px;color:var(--muted);line-height:1.55;}
-.cl-samples a{color:var(--txt);}
-.tone-wrap{display:flex;gap:22px;align-items:center;flex-wrap:wrap;}
-.tone-gauge{flex:1;min-width:250px;}
-.tone-bar{height:20px;border-radius:10px;background:linear-gradient(90deg,#d5494e,#efe6cd 50%,#3ec27f);position:relative;}
-.tone-pin{position:absolute;top:-4px;width:4px;height:28px;background:var(--navy);border-radius:2px;box-shadow:0 0 0 2px #fff;}
-.tone-cats{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;}
-.tone-cat{font-size:11px;border-radius:8px;padding:3px 9px;border:1px solid var(--line);background:#fff;font-weight:700;}
-.fc-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px;}
-.fc-tbl th{text-align:left;padding:6px 10px;background:var(--bg);color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;}
-.fc-tbl td{padding:6px 10px;border-bottom:1px dashed var(--line);}
-.fc-up{color:#b02a2f;font-weight:800;} .fc-down{color:#1d7a4d;font-weight:800;} .fc-flat{color:var(--muted);font-weight:800;}
-.tchip{display:inline-block;font-size:10px;font-weight:700;background:#eef4fc;color:#3d5a7a;border:1px solid #d8e4f2;border-radius:999px;padding:1px 8px;margin:5px 4px 0 0;}
-.hero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.hero-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border-top:4px solid var(--blue);padding:14px 16px;display:flex;flex-direction:column;}
-.hero-card .hk{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--blue);margin-bottom:7px;display:flex;justify-content:space-between;}
-.hero-card .hk .w{color:var(--muted);letter-spacing:.2px;text-transform:none;font-weight:600;}
-.hero-card h3{font-size:15.5px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:7px;}
-.hero-card h3 a{color:var(--navy);} .hero-card h3 a:hover{color:var(--blue);}
-.hero-card p{font-size:12.8px;color:var(--muted);line-height:1.5;}
-.hero-meta{margin-top:auto;padding-top:8px;font-size:11px;color:#8a99aa;font-weight:600;border-top:1px dashed var(--line);}
-.chrono{border-left:3px solid var(--red);padding-left:15px;margin-top:6px;}
-.chrono-item{position:relative;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12.8px;line-height:1.4;}
-.chrono-item:last-child{border-bottom:none;}
-.chrono-item::before{content:"";position:absolute;left:-22px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--red);border:2px solid #fff;}
-.chrono-time{font-weight:800;color:var(--red);font-size:11.5px;margin-right:6px;white-space:nowrap;}
-@media (max-width:1080px){.main-grid,.grid2,.hero-grid{grid-template-columns:1fr;}.kpi-grid{grid-template-columns:repeat(2,1fr);}.grid3{grid-template-columns:1fr;}.topic-row{grid-template-columns:150px 1fr 110px;}.topic-row .sparkcell{display:none;}}
-@media print{.nav,.print-btn,.top-meta .chip{display:none!important;}body{background:#fff;}.card,.kpi{box-shadow:none;break-inside:avoid;}}
+body{background:var(--paper);color:var(--ink);font:16.5px/1.6 var(--sans);-webkit-font-smoothing:antialiased;}
+a{color:var(--link);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;}
+a:hover{color:var(--accent);}
+h1,h2,h3,.mast-title,.lead-main h2,.lead-card h3,.news-item h4 a{font-family:var(--serif);}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:99;}
+.skip:focus{left:8px;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
 
-.nav a.active{color:#fff;border-bottom-color:var(--gold);}
-.nav a.nav-util{color:#8fa9c4;font-weight:600;}
-.nav a.nav-util:hover{color:#fff;}
+/* шапка-масthead газетная */
+.topbar,.masthead{background:var(--paper);color:var(--ink);border-bottom:3px double var(--rule-strong);padding:18px 22px 12px;}
+.topbar-inner,.mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:14px;}
+.brand>div{display:flex;flex-direction:column;justify-content:center;}
+.brand-title{font-family:var(--serif);font-size:26px;font-weight:900;letter-spacing:2px;line-height:1.05;color:var(--ink);}
+.brand-title span{color:var(--ink);}
+.brand-sub{font-size:11.5px;color:var(--muted);letter-spacing:1.4px;text-transform:uppercase;margin-top:3px;}
+.mast-brand{flex:1;min-width:260px;display:flex;align-items:center;gap:18px;}
+.mast-brand>div{display:flex;flex-direction:column;justify-content:center;}
+.mast-title{font-family:var(--serif);font-size:clamp(38px,7vw,64px);font-weight:900;letter-spacing:6px;line-height:1;color:var(--ink);}
+.mast-title em{font-style:normal;color:var(--accent);}
+.mast-slogan{font-size:12px;color:var(--muted);letter-spacing:1.6px;text-transform:uppercase;margin-top:8px;}
+.mast-logo{width:64px;height:64px;object-fit:contain;border-radius:10px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15);flex-shrink:0;}
+.mast-right{text-align:right;font-size:13px;color:var(--ink2);}
+.mast-right .date{font-size:15px;font-weight:700;color:var(--ink);font-family:var(--serif);}
+.mast-right .wx{margin-top:3px;color:var(--muted);}
+.mast-tools{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
+.top-meta{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.chip{background:var(--chip);border:1px solid var(--rule);border-radius:3px;padding:4px 11px;font-size:12.5px;color:var(--ink2);}
+.chip b{color:var(--ink);}
+.chip a,.chip-link,.flink{color:var(--ink2);text-decoration:none;}
+.chip a:hover,.chip-link:hover{color:var(--accent);}
+.dot{width:8px;height:8px;border-radius:50%;background:#2e7d4f;display:inline-block;}
+.dot.err{background:var(--accent);}
+.theme-btn,.print-btn{border:1px solid var(--rule);background:var(--chip);color:var(--ink2);font:700 12.5px var(--sans);padding:6px 12px;border-radius:3px;cursor:pointer;}
+.theme-btn:hover,.print-btn:hover{border-color:var(--ink);color:var(--ink);}
+.logo{width:40px;height:40px;object-fit:contain;border-radius:8px;background:#fff;flex-shrink:0;}
+
+/* навигация: линейка с линейками, мобильный гамбургер */
+.nav{background:var(--paper);border-bottom:1px solid var(--rule-strong);}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;gap:0;flex-wrap:wrap;}
+.nav a{color:var(--ink2);font:700 13px/1 var(--sans);text-transform:uppercase;letter-spacing:.8px;padding:12px 14px;border-bottom:3px solid transparent;text-decoration:none;}
+.nav a:hover{color:var(--accent);}
+.nav a.active{color:var(--ink);border-bottom-color:var(--accent);}
+.nav a.nav-util{color:var(--muted);}
 .nav-util-first{margin-left:auto;}
-.subnav{background:var(--card);border-bottom:1px solid var(--line);}
-.subnav-inner{max-width:1280px;margin:0 auto;padding:7px 18px;display:flex;gap:15px;flex-wrap:wrap;font-size:12.2px;align-items:center;}
-.subnav-inner a{color:var(--muted);font-weight:700;}
-.subnav-inner a:hover{color:var(--blue);}
-.subnav .lbl{color:var(--navy);font-weight:800;text-transform:uppercase;font-size:10px;letter-spacing:.9px;}
-.util-bar-wrap{max-width:1200px;margin:0 auto;padding:16px 18px 0;}
-.util-bar{display:flex;gap:22px;align-items:center;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:12px;}
-.util-bar a{color:var(--muted);font-size:12.3px;font-weight:700;text-decoration:none;}
-.util-bar a:hover{color:var(--gold);}
-.util-lbl{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}
-.wk-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:start;margin-top:14px;}
-.wk-rail{display:flex;flex-direction:column;gap:12px;}
-.wk-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
-.wk-box h4{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:800;}
-.wk-passport{background:var(--card);border-left:5px solid var(--gold);border-radius:12px;padding:12px 16px;margin-top:14px;display:flex;gap:16px;flex-wrap:wrap;align-items:baseline;}
-.wk-passport b{font-size:15px;color:var(--navy);}
-.wk-stamp{font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;background:#e0f4ea;color:#1d7a4d;}
-.wk-stamp.wip{background:#fdf3dd;color:#96690a;}
-@media (max-width:980px){.wk-grid{grid-template-columns:1fr;}}
-/* ===== ТЁМНАЯ ТЕМА ===== */
-:root[data-theme="dark"]{
-  --bg:#0b1622; --card:#12202f; --line:#24384e; --txt:#dfe9f4; --muted:#93a7bc;
-  --sky:#1c3350; --navy:#dce9f8; --navy3:#a9c9e8; --shadow:0 2px 12px rgba(0,0,0,.45);
+.nav-toggle{display:none;border:1px solid var(--rule);background:var(--chip);color:var(--ink);font:700 13px var(--sans);padding:8px 12px;border-radius:3px;cursor:pointer;margin:8px 14px;}
+.nav-search{margin:8px 14px 8px auto;display:flex;}
+.nav-search input{border:1px solid var(--rule);background:var(--card);color:var(--ink);font:14px var(--sans);padding:7px 11px;border-radius:3px;width:210px;}
+.nav-search input:focus{outline:2px solid var(--focus);}
+.search-drop{position:absolute;right:14px;top:100%;width:340px;max-height:320px;overflow:auto;background:var(--card);border:1px solid var(--rule);box-shadow:0 6px 18px rgba(0,0,0,.12);display:none;z-index:40;}
+.search-drop.on{display:block;}
+.search-drop a{display:block;padding:8px 12px;border-bottom:1px solid var(--rule);color:var(--ink);font-size:13px;text-decoration:none;}
+.search-drop a:hover{background:var(--chip);}
+.search-drop a span{color:var(--muted);font-size:11px;display:block;}
+@media (max-width:900px){
+  .nav-toggle{display:block;}
+  .nav-inner{display:none;flex-direction:column;}
+  body.nav-open .nav-inner{display:flex;}
+  .nav a{border-bottom:1px solid var(--rule);padding:12px 16px;}
+  .nav-search{margin:8px 14px;}
+  .search-drop{width:auto;left:14px;}
 }
-:root[data-theme="dark"] .topbar{background:linear-gradient(135deg,#0a1826,#0f2033 60%,#14314f);}
-:root[data-theme="dark"] .nav{background:#0a1826;}
-:root[data-theme="dark"] .ticker-wrap{background:#060d16;border-color:#1d3550;}
-:root[data-theme="dark"] .side-head,
-:root[data-theme="dark"] .tbl th,
-:root[data-theme="dark"] .cal-badge,
-:root[data-theme="dark"] .arch-date,
-:root[data-theme="dark"] .dist-head,
-:root[data-theme="dark"] .exec-sec h2{background:#16283c;}
-:root[data-theme="dark"] .cal-badge.gold{background:var(--gold);color:#4d3a06;}
-:root[data-theme="dark"] .cal-badge.gold span{color:#7a5f10;}
-:root[data-theme="dark"] .cat-head{background:linear-gradient(90deg,#15263a,#12202f);border-color:var(--line);}
-:root[data-theme="dark"] .note{background:#101e2d;border-color:#24384e;}
-:root[data-theme="dark"] .verdict,:root[data-theme="dark"] .an-verdict{background:#101e2d;color:#c9d8e8;}
-:root[data-theme="dark"] .verdict b,:root[data-theme="dark"] .an-verdict b{color:#e8b64c;}
-:root[data-theme="dark"] .tbl tr:nth-child(even) td{background:#14243a;}
-:root[data-theme="dark"] .tbl td{border-color:var(--line);}
-:root[data-theme="dark"] .bar-wrap,:root[data-theme="dark"] .bar-row .bt{background:#1c3049;}
-:root[data-theme="dark"] .btn{background:#1d4066;color:#fff;}
-:root[data-theme="dark"] .btn:hover{background:#2a5580;}
-:root[data-theme="dark"] .footer{background:#0a1826;}
-:root[data-theme="dark"] .fbtn{background:#12202f;border-color:#24384e;color:var(--muted);}
-:root[data-theme="dark"] .fbtn.active{background:#2f80ed;border-color:#2f80ed;color:#fff;}
-:root[data-theme="dark"] .wx{background:linear-gradient(160deg,#15263a,#101e2d);border-color:#24384e;}
-:root[data-theme="dark"] .wx.alert{background:linear-gradient(160deg,#2a1c1c,#201414);border-color:#4e3030;}
-:root[data-theme="dark"] .wx .t{color:var(--txt);}
-:root[data-theme="dark"] .hero-src{background:#101e2d;border-color:var(--line);}
-:root[data-theme="dark"] .drone{background:#251616;border-color:#4e3030;}
-:root[data-theme="dark"] .codebox{background:#060d16;}
-:root[data-theme="dark"] .cl-card{background:#101e2d;border-color:var(--line);}
-:root[data-theme="dark"] .person{background:#101e2d;border-color:var(--line);}
-:root[data-theme="dark"] .reserved{background:repeating-linear-gradient(45deg,#101e2d,#101e2d 12px,#0d1926 12px,#0d1926 24px);border-color:#2c4258;}
-:root[data-theme="dark"] .tone-cat{background:#101e2d;border-color:var(--line);}
-:root[data-theme="dark"] .tgpost .views{background:#16283c;color:#8ab4e8;}
-:root[data-theme="dark"] .exec-wrap{background:var(--bg);}
-:root[data-theme="dark"] .news-item .meta .tg{color:#7fa8d9;}
-:root[data-theme="dark"] .fc-up{color:#ff8a8e;}
-:root[data-theme="dark"] .fc-down{color:#6fd39b;}
-:root[data-theme="dark"] .hl{color:#3d2e04;}
-:root[data-theme="dark"] .okrug-title .no{background:#1c3350;color:#cfe2f7;}
-:root[data-theme="dark"] .chipC{background:#101e2d;border-color:#24384e;color:var(--txt);}
-:root[data-theme="dark"] .timeline::before{background:linear-gradient(180deg,#2ea36b,#2f80ed 30%,#9a7cc9 60%,#d99a1b);}
-:root[data-theme="dark"] .phase::before{background:#0b1622;}
-:root[data-theme="dark"] .sprint{background:linear-gradient(135deg,#0f2033,#16283c);}
-:root[data-theme="dark"] .mission{background:var(--card);}
-:root[data-theme="dark"] .src-card{background:var(--card);border-color:var(--line);}
-.logo{width:42px;height:42px;object-fit:contain;border-radius:10px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.3);flex-shrink:0;}
-.mast-logo{width:68px;height:68px;object-fit:contain;border-radius:16px;background:#fff;box-shadow:0 3px 14px rgba(0,0,0,.45);flex-shrink:0;}
-.theme-btn{border:1px solid rgba(255,255,255,.22);font-size:13px;padding:6px 12px;border-radius:8px;cursor:pointer;background:rgba(255,255,255,.12);color:#ffe9b8;font-weight:800;}
-.theme-btn:hover{background:rgba(255,255,255,.22);}
+.subnav{background:var(--paper);border-bottom:1px solid var(--rule);}
+.subnav-inner{max-width:1200px;margin:0 auto;padding:7px 16px;display:flex;gap:15px;flex-wrap:wrap;font-size:12.5px;align-items:center;}
+.subnav-inner a{color:var(--muted);text-decoration:none;}
+.subnav-inner a:hover{color:var(--accent);}
+.subnav .lbl{color:var(--ink);font-weight:800;text-transform:uppercase;font-size:10px;letter-spacing:1px;}
+
+/* ленты и карточки — линейная газетная вёрстка без теней */
+.page,.wrap1200{max-width:1200px;margin:0 auto;padding:0 18px;}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin:30px 0 14px;border-top:2px solid var(--rule-strong);padding-top:10px;}
+.sec-head h2{font-family:var(--serif);font-size:23px;font-weight:900;color:var(--ink);}
+.sec-head .line{flex:1;}
+.sec-head .badge{font-size:11px;font-weight:700;background:var(--chip);color:var(--muted);padding:3px 10px;border-radius:3px;text-transform:uppercase;letter-spacing:.6px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.main-grid{display:grid;grid-template-columns:1fr 360px;gap:26px;align-items:start;}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:4px;}
+.card-pad{padding:16px 18px;}
+.lead-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:26px;}
+.lead-main{border-top:3px solid var(--rule-strong);padding-top:12px;}
+.lead-main h2{font-size:31px;font-weight:900;line-height:1.15;color:var(--ink);margin-bottom:10px;}
+.lead-main h2 a{color:var(--ink);text-decoration:none;}
+.lead-main h2 a:hover{color:var(--accent);}
+.lead-main p{font-size:17px;color:var(--ink2);line-height:1.6;font-family:var(--serif);}
+.lead-side{display:flex;flex-direction:column;gap:16px;}
+.lead-card{border-top:1px solid var(--rule-strong);padding-top:10px;}
+.lead-card h3{font-size:19px;font-weight:800;line-height:1.25;color:var(--ink);}
+.lead-card h3 a{color:var(--ink);text-decoration:none;}
+.lead-card h3 a:hover{color:var(--accent);}
+.lead-card p{font-size:14.5px;color:var(--ink2);line-height:1.55;}
+.lead-kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+.lead-meta{margin-top:8px;font-size:12px;color:var(--muted);}
+.lead-meta a{color:var(--muted);}
+.more-heads{columns:2;column-gap:28px;margin-top:6px;}
+.more-heads a{display:block;font:700 14.5px/1.35 var(--serif);color:var(--ink);padding:6px 0;border-bottom:1px solid var(--rule);break-inside:avoid;text-decoration:none;}
+.more-heads a:hover{color:var(--accent);}
+.more-heads a span{color:var(--muted);font:400 11.5px var(--sans);}
+
+/* «сейчас» */
+.now-panel{border-top:3px solid var(--rule-strong);border-bottom:1px solid var(--rule);padding:14px 0;}
+.now-alert{padding:8px 0;font-size:14px;font-weight:700;color:var(--ink);}
+.now-alert.calm{color:#2e7d4f;}
+.now-alert.danger{color:var(--accent);}
+.now-grid{display:grid;grid-template-columns:1.25fr 1fr 0.9fr;gap:24px;}
+.now-col{border-left:1px solid var(--rule);padding-left:18px;}
+.now-col:first-child{border-left:none;padding-left:0;}
+.now-h{font-size:10.5px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
+.tl-row{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--rule);align-items:baseline;}
+.tl-row:last-child{border-bottom:none;}
+.tl-time{flex-shrink:0;font:700 11.5px var(--sans);color:var(--accent);width:44px;}
+.tl-txt{font-size:14px;line-height:1.45;color:var(--ink2);}
+.tl-txt a{color:var(--ink);text-decoration:none;}
+.tl-txt a:hover{color:var(--accent);}
+.tl-src{color:var(--muted);font-size:11px;}
+.now-line{font-size:13px;color:var(--ink2);margin-top:3px;line-height:1.5;}
+.now-line b{color:var(--ink);}
+.now-num{font-family:var(--serif);font-size:26px;font-weight:900;color:var(--ink);line-height:1.1;}
+.now-num small{font-size:11px;font-weight:700;color:var(--muted);}
+
+/* рубрики ленты */
+.cat-block{border-top:2px solid var(--rule-strong);margin-bottom:22px;}
+.cat-head{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--rule);}
+.cat-ico{width:26px;height:26px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:13px;background:var(--chip);}
+.cat-head h3{font-family:var(--serif);font-size:18px;font-weight:900;color:var(--ink);}
+.cat-head .count{margin-left:auto;font-size:11px;color:var(--muted);}
+.news-item{padding:12px 0;border-bottom:1px solid var(--rule);}
+.news-item:last-child{border-bottom:none;}
+.news-item h4{font-size:16.5px;font-weight:800;line-height:1.35;margin-bottom:4px;}
+.news-item h4 a{color:var(--ink);text-decoration:none;}
+.news-item h4 a:hover{color:var(--accent);}
+.news-item p{font-size:14.5px;color:var(--ink2);line-height:1.55;}
+.news-item .meta{font-size:11.5px;color:var(--muted);margin-top:5px;}
+.news-item .meta .tg{color:var(--link);}
+.tchip{display:inline-block;font-size:10.5px;font-weight:700;background:var(--chip);color:var(--muted);border:1px solid var(--rule);border-radius:3px;padding:1px 8px;margin:5px 4px 0 0;}
+.stchip{font-size:10.5px;font-weight:800;border-radius:3px;padding:2px 9px;}
+
+/* боковые и таблицы */
+.side-card,.side-head+.side-body{background:var(--card);}
+.side-head{padding:10px 16px;background:var(--chip);color:var(--ink);font-size:13.5px;font-weight:800;border-bottom:1px solid var(--rule);}
+.side-head .sub{margin-left:auto;font-size:10.5px;font-weight:600;color:var(--muted);}
+.side-body{padding:12px 16px;}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;}
+.tbl th{background:var(--chip);color:var(--ink);text-align:left;padding:7px 11px;font-size:11px;text-transform:uppercase;letter-spacing:.6px;border-bottom:2px solid var(--rule-strong);}
+.tbl td{padding:7px 11px;border-bottom:1px solid var(--rule);vertical-align:top;}
+.tbl tr:nth-child(even) td{background:transparent;}
+.note{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.55;border-left:2px solid var(--rule);padding-left:11px;}
+.verdict{border-left:3px solid var(--accent);padding:9px 13px;font-size:13.5px;color:var(--ink2);margin-top:10px;background:var(--chip);}
+.verdict b{color:var(--accent);text-transform:uppercase;font-size:11px;letter-spacing:.8px;display:block;margin-bottom:3px;}
+.bar-row .bt,.bar-wrap{background:var(--chip);}
+.bar-fill{background:var(--ink2);}
+.bar-fill.hot{background:var(--accent);}
+.bar-fill.cool{background:#2e7d4f;}
+.bar-fill.gold{background:var(--accent-soft);}
+.bar-fill.violet{background:var(--ink2);}
+.topic-row{display:grid;grid-template-columns:200px 1fr 120px 92px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--rule);font-size:13px;}
+.topic-row:last-child{border-bottom:none;}
+.topic-name{font-weight:700;color:var(--ink);}
+.topic-name small{display:block;font-weight:600;color:var(--muted);font-size:11px;}
+.kpi{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--ink);border-radius:4px;padding:12px 14px;}
+.kpi .num{font-family:var(--serif);font-size:24px;font-weight:900;color:var(--ink);line-height:1.1;}
+.kpi .num small{font-size:11px;font-weight:700;color:var(--muted);}
+.kpi .lbl{font-size:11.5px;color:var(--muted);margin-top:4px;}
+.kpi.gold,.kpi.red,.kpi.green,.kpi.violet{border-left-color:var(--accent);}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
+
+/* афиша/события/календарь */
+.cal-badge{flex-shrink:0;width:44px;height:42px;border-radius:4px;background:var(--chip);border:1px solid var(--rule);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
+.cal-badge b{font-family:var(--serif);font-size:16px;}
+.cal-badge span{font-size:8.5px;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+.cal-badge.gold{background:var(--accent);border-color:var(--accent);color:#fff;}
+.cal-badge.gold span{color:#f4dcdc;}
+.af-mini{display:flex;gap:11px;padding:8px 0;border-bottom:1px solid var(--rule);align-items:flex-start;}
+.af-mini:last-child{border-bottom:none;}
+.af-mini a{color:var(--ink);text-decoration:none;font-weight:700;}
+.af-mini a:hover{color:var(--accent);}
+.af-daybar,.af-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.af-chip{border:1px solid var(--rule);background:var(--card);color:var(--muted);font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:3px;cursor:pointer;}
+.af-chip.on{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1200px;margin:0 auto;padding:0 18px;}
+.sec-card{background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--ink);border-radius:4px;padding:15px 16px;display:flex;flex-direction:column;text-decoration:none;}
+.sec-card:hover{border-top-color:var(--accent);}
+.sec-card .ic{font-size:20px;}
+.sec-card b{display:block;font-family:var(--serif);font-size:16px;color:var(--ink);margin-top:5px;}
+.sec-card .fig{font-family:var(--serif);font-size:18px;font-weight:900;color:var(--accent);margin-top:2px;}
+.sec-card .fig small{font-size:10.5px;font-weight:700;color:var(--muted);}
+.sec-card p{font-size:12.5px;color:var(--muted);line-height:1.5;margin-top:5px;flex:1;}
+.sec-card .go{font-size:11.5px;font-weight:800;color:var(--accent);margin-top:8px;}
+.arch-item{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule);align-items:center;}
+.arch-item:last-child{border-bottom:none;}
+.arch-date{width:46px;height:44px;border-radius:4px;background:var(--chip);border:1px solid var(--rule);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
+.arch-date b{font-family:var(--serif);font-size:16px;}
+.arch-date span{font-size:8.5px;color:var(--muted);margin-top:2px;text-transform:uppercase;}
+.btn{display:inline-block;background:var(--ink);color:var(--paper);border-radius:3px;padding:7px 14px;font-size:12.5px;font-weight:700;text-decoration:none;}
+.btn:hover{background:var(--accent);color:#fff;}
+.btn.gold{background:var(--accent);color:#fff;}
+
+/* недели/месяцы/рельс */
+.wk-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start;margin-top:14px;}
+.wk-rail{display:flex;flex-direction:column;gap:12px;}
+.wk-box{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:12px 14px;}
+.wk-box h4{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:800;}
+.wk-passport{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:4px;padding:12px 16px;margin-top:14px;display:flex;gap:16px;flex-wrap:wrap;align-items:baseline;}
+.wk-passport b{font-family:var(--serif);font-size:17px;color:var(--ink);}
+.wk-stamp{font-size:11px;font-weight:800;border-radius:3px;padding:3px 10px;background:#e2efe6;color:#20603c;}
+:root[data-theme="dark"] .wk-stamp{background:#1d2a22;color:#8fd0a8;}
+.wk-stamp.wip{background:#f4e8d8;color:#8a5a17;}
+:root[data-theme="dark"] .wk-stamp.wip{background:#2a241a;color:#d9b06a;}
+
+/* прочее */
+.util-bar-wrap{max-width:1200px;margin:0 auto;padding:16px 18px 0;}
+.util-bar{display:flex;gap:22px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:12px;}
+.util-bar a{color:var(--muted);font-size:12.5px;font-weight:700;text-decoration:none;}
+.util-bar a:hover{color:var(--accent);}
+.util-lbl{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.fbtn{border:1px solid var(--rule);background:var(--card);color:var(--muted);font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:3px;cursor:pointer;}
+.fbtn.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.alert-banner{background:var(--accent);color:#fff;padding:10px 20px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.alert-banner a{color:#ffe3e3;}
+.alert-banner .blink{animation:none;font-size:16px;}
+.ticker-wrap{background:var(--chip);color:var(--ink2);border-bottom:1px solid var(--rule);overflow:hidden;position:relative;height:32px;}
+.ticker-label{position:absolute;left:0;top:0;bottom:0;z-index:2;background:var(--accent);color:#fff;font-size:11px;font-weight:800;letter-spacing:1px;display:flex;align-items:center;padding:0 12px;text-transform:uppercase;}
+.ticker{display:flex;white-space:nowrap;animation:ticker 60s linear infinite;padding-left:120px;align-items:center;height:100%;}
+.ticker:hover{animation-play-state:paused;}
+.ticker span{font-size:12.5px;padding-right:52px;}
+.ticker span b{color:var(--accent);}
+@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.tone-bar{height:14px;border-radius:3px;background:linear-gradient(90deg,#b04848,#e8e2d6 50%,#4c8a63);position:relative;}
+.tone-pin{position:absolute;top:-4px;width:3px;height:22px;background:var(--ink);border-radius:2px;}
+.tone-cat{font-size:11px;border-radius:3px;padding:3px 9px;border:1px solid var(--rule);background:var(--card);font-weight:700;color:var(--ink2);}
+.fc-tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+.fc-tbl th{text-align:left;padding:6px 10px;background:var(--chip);color:var(--muted);font-size:10.5px;text-transform:uppercase;}
+.fc-tbl td{padding:6px 10px;border-bottom:1px solid var(--rule);}
+.fc-up{color:var(--accent);font-weight:800;} .fc-down{color:#2e7d4f;font-weight:800;} .fc-flat{color:var(--muted);font-weight:800;}
+.drone{width:24px;height:24px;border-radius:4px;background:var(--chip);border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:12px;}
+.hl{background:linear-gradient(transparent 62%,#f3d9a4 62%);}
+:root[data-theme="dark"] .hl{background:linear-gradient(transparent 62%,#5a4a22 62%);}
+
+/* печать */
+.pm-mast{text-align:center;border-bottom:3px double var(--rule-strong);padding-bottom:4mm;}
+.pm-title{font-family:var(--serif);font-size:44pt;font-weight:900;letter-spacing:10px;line-height:1;margin:0;color:var(--ink);}
+.pm-line{font-size:8.5pt;letter-spacing:1.2px;text-transform:uppercase;margin-top:2.5mm;color:var(--muted);}
+.pm-line b{color:var(--ink);}
+.pm-kicker{font-size:8pt;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700;margin:3mm 0 1.5mm;}
+.pm-lead-h{font-family:var(--serif);font-size:21pt;font-weight:900;line-height:1.15;margin:0 0 2.5mm;color:var(--ink);}
+.pm-deck{font-size:10.5pt;font-style:italic;color:var(--ink2);line-height:1.45;margin:0 0 3mm;font-family:var(--serif);}
+.cols{column-count:3;column-gap:6mm;column-rule:.5pt solid var(--rule);}
+.cols p{font-size:9.3pt;line-height:1.42;margin:0 0 2.2mm;text-align:justify;hyphens:auto;}
+.pm-h3{font-family:var(--serif);font-size:10pt;font-weight:900;text-transform:uppercase;letter-spacing:1px;border-top:1.6pt solid var(--ink);padding-top:1.4mm;margin:3mm 0 1.8mm;break-after:avoid;}
+.pm-item{margin-bottom:2.4mm;break-inside:avoid;}
+.pm-item b{font-size:9.6pt;line-height:1.25;display:block;}
+.pm-item span{font-size:8.6pt;color:var(--muted);line-height:1.35;display:block;}
+.pm-item i{font-size:7.6pt;color:var(--muted);font-style:normal;}
+.pm-box{border:1.2pt solid var(--ink);padding:3mm;margin:3mm 0;break-inside:avoid;}
+.pm-box h4{font-size:9pt;text-transform:uppercase;letter-spacing:1.4px;margin:0 0 2mm;border-bottom:.8pt solid var(--ink);padding-bottom:1.2mm;}
+.pm-box ul{list-style:none;margin:0;padding:0;}
+.pm-box li{font-size:8.8pt;line-height:1.4;margin-bottom:1.4mm;}
+.pm-box li b{color:var(--accent);}
+.pm-stats{display:flex;gap:4mm;justify-content:space-between;margin:3mm 0;break-inside:avoid;}
+.pm-stat{flex:1;text-align:center;border:.8pt solid var(--ink);padding:2mm 1mm;}
+.pm-stat b{display:block;font-family:var(--serif);font-size:15pt;font-weight:900;}
+.pm-stat span{font-size:7.4pt;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);}
+.pm-colophon{border-top:3px double var(--rule-strong);margin-top:4mm;padding-top:2mm;font-size:7.6pt;color:var(--muted);line-height:1.5;display:flex;justify-content:space-between;gap:6mm;}
+.pm-page{position:absolute;bottom:4mm;right:13mm;font-size:8pt;color:var(--muted);}
+.pm-ed{font-size:9.3pt;line-height:1.5;text-align:justify;}
+.pm-ed p{margin:0 0 2.2mm;}
+
+/* подвал */
+.footer{background:var(--paper);color:var(--muted);border-top:3px double var(--rule-strong);margin-top:40px;padding:22px;}
+.footer b{color:var(--ink);font-family:var(--serif);}
+.footer a,.flink{color:var(--muted);}
+.footer a:hover{color:var(--accent);}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;gap:34px;flex-wrap:wrap;}
+.footer p{line-height:1.6;max-width:440px;font-size:12.5px;}
+
+@media (max-width:1080px){
+  .main-grid,.grid2,.lead-grid,.wk-grid{grid-template-columns:1fr;}
+  .now-grid{grid-template-columns:1fr;}
+  .now-col{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:10px;}
+  .kpi-grid{grid-template-columns:repeat(3,1fr);}
+  .sec-grid{grid-template-columns:repeat(2,1fr);}
+  .more-heads{columns:1;}
+  .topic-row{grid-template-columns:140px 1fr 90px;}
+  .topic-row .sparkcell{display:none;}
+}
+@media (max-width:640px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .sec-grid{grid-template-columns:1fr;}
+  body{font-size:16px;}
+}
 @media print{
-  :root[data-theme="dark"]{--bg:#fff;--card:#fff;--line:#dbe4ee;--txt:#1c2733;--muted:#5b6b7c;--navy:#0d2137;--navy3:#1d4066;--sky:#dce9f8;}
-  :root[data-theme="dark"] .exec-wrap{background:#fff;}
-  .theme-btn{display:none!important;}
+  .nav,.ticker-wrap,.filters,.print-btn,.theme-btn,.nav-toggle,.nav-search,.util-bar-wrap{display:none!important;}
+  body{background:#fff;}
+  .card,.kpi,.sec-card{border-color:#bbb;}
 }
 </style><script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
@@ -236,13 +329,13 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </div></div>
 <div class="top-meta">
 <div class="chip"><span class="dot"></span> Выпуск от <b>12.09.2026</b></div>
-<div class="chip"><a href="print_2026-09-12.html" style="color:#ffe9b8;">📄 Печатная полоса</a></div>
-<div class="chip">🤖 сгенерирован <b>10:17</b> (UTC+4)</div>
+<div class="chip"><a href="print_2026-09-12.html" class="chip-link">📄 Печатная полоса</a></div>
+<div class="chip">🤖 сгенерирован <b>10:33</b> (UTC+4)</div>
 <a class="chip" href="../index.html">← Центр</a>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
 <button class="print-btn" onclick="window.print()">🖨 PDF</button>
 </div></div></header>
-<nav class="nav"><div class="nav-inner"><a class="" href="../index.html">🏠 Первая полоса</a><a class="active" href="../digests/digest_2026-09-12.html">📰 День · № 1</a><a class="" href="../weekly.html">📕 Неделя</a><a class="" href="../monthly.html">📊 Месяц</a><a class="" href="../infospace.html">🔬 Инфопространство</a><a class="" href="../afisha.html">🎭 Афиша</a><a class="" href="../projects.html">📁 Проекты</a><a class="" href="../archive.html">🗄 Архив</a><a class="" href="../digests/exec_2026-09-12.html">📋 Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">В выпуске:</span><a href="#heroes">Главное</a><a href="#pulse">Пульс повестки</a><a href="#afisha">Автоафиша</a><a href="#feed">Лента дня</a><a href="#tg">Telegram-монитор</a><a href="#clusters">Сюжеты 72 ч</a><a href="#tone">Тон дня</a><a href="#forecast">Прогноз</a></div></div>
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">☰ Разделы</button><div class="nav-search" style="position:relative;"><input id="q" type="search" placeholder="Поиск по выпуску…" aria-label="Поиск по выпуску" oninput="qSearch(this.value)" onfocus="qSearch(this.value)"><div class="search-drop" id="qdrop"></div></div><script>var QMAN=[{"t": "❗️ Опасность БПЛА объявили в Ульяновской области Жителям рекомендуют быть бдительнее, избегать открытых участк", "u": "https://t.me/ulyanovsk_smi/29415", "d": "12.09", "c": "t.me/ulyanovsk_smi"}, {"t": "😱 Разборки у клуба Maison прямо сейчас 😱 Подписаться | Прислать новость", "u": "https://t.me/tresh_ulyan/56134", "d": "12.09", "c": "t.me/tresh_ulyan"}, {"t": "🍳 Готовим омлет как в садике Ингредиенты: 🍳 Яйцо — 5 шт. 🍳 Молоко — 250 мл. 🍳 Сливочное масло 🍳 Соль по вкусу ", "u": "https://t.me/ulyanovsk_smi/29414", "d": "12.09", "c": "t.me/ulyanovsk_smi"}, {"t": "Открываем ночной чат! Предлагаем поиграть в слова. Мы начнем: «поезд». Вам на Д 👇 📲 Читайте нас в МАКС 😉 Подпи", "u": "https://t.me/ulyanovsk_smi/29413", "d": "12.09", "c": "t.me/ulyanovsk_smi"}, {"t": "⚡️ К войне с Россией подталкивает свои страны Европа — Владимир Путин Он подметил, что ввод европейских войск ", "u": "https://t.me/tresh_ulyan/56133", "d": "12.09", "c": "t.me/tresh_ulyan"}, {"t": "😱 Какой-то неадекват громит машину в Новой жизни. Выходные в Ульяновске начались...", "u": "https://t.me/insaid173/46891", "d": "12.09", "c": "t.me/insaid173"}, {"t": "😱 Дебош в гостинице закончился задержанием: росгвардейцы скрутили буйного гостя В гостинице на Московском шосс", "u": "https://t.me/topor_ul/11586", "d": "11.09", "c": "t.me/topor_ul"}, {"t": "#итогинедели Дебаты Якушева, дистант в Красноярске, рыбные палочки на ГТРК, дебаты Гибатдинова и нашествие бож", "u": "https://t.me/ulkompr/36272", "d": "11.09", "c": "t.me/ulkompr"}, {"t": "В Ульяновске поймали водителя, который скрылся с места ДТП после наезда на 16-летнюю школьницу В Ленинском рай", "u": "https://t.me/insaid173/46890", "d": "11.09", "c": "t.me/insaid173"}, {"t": "Не забудьте, завтра ул. Гончарова будет перекрыта вдоль ЦУМа от К. Маркса", "u": "https://t.me/shugozhor73/45266", "d": "11.09", "c": "t.me/shugozhor73"}, {"t": "Должникам по алиментам в России могут запретить делать ставки и участвовать в азартных играх, заявили в Совфед", "u": "https://t.me/chpul/34380", "d": "11.09", "c": "t.me/chpul"}, {"t": "Доброй ночи, Ульяновск! ❤️ Спасибо за фото нашей подписчице 🍁 Если и у вас есть что показать или рассказать го", "u": "https://t.me/ulkoroche/33714", "d": "11.09", "c": "t.me/ulkoroche"}, {"t": "😳 Вот такой трансформер обнаружили в маршрутке №94 Ульяновск — город инноваций 😏 😱 Подписаться | Прислать ново", "u": "https://t.me/tresh_ulyan/56131", "d": "11.09", "c": "t.me/tresh_ulyan"}, {"t": "Сергей Сандрюков: Встретился сегодня с руководителями спортивных учреждений и федераций. Обсудили вопросы даль", "u": "https://t.me/dimitrovgradonline/33491", "d": "11.09", "c": "t.me/dimitrovgrado"}, {"t": "❗️ Россия не нуждается в проведении мобилизации , заявил Медведев. Сообщения о подготовке к ней он назвал «пур", "u": "https://t.me/chpulsk/50702", "d": "11.09", "c": "t.me/chpulsk"}, {"t": "Работники массово увольняются из-за отсутствия похвалы от начальства Исследования показали: глухой дефицит при", "u": "https://t.me/ulyanovsk_smi/29411", "d": "11.09", "c": "t.me/ulyanovsk_smi"}, {"t": "В Железнодорожном районе мужчина избил жену и угрожал убить", "u": "https://ulpressa.ru/2026/09/11/v-zheleznodorozhnom-rajone-muzhchina-izbil-zhenu-i-ugrozhal-ubit/", "d": "11.09", "c": "Улпресса"}, {"t": "🚌 В Ульяновске хотят усилить контроль за перевозчиками. Если маршрутка без причины перестанет передавать данны", "u": "https://t.me/chpulsk/50700", "d": "11.09", "c": "t.me/chpulsk"}, {"t": "🤔 Россиян с долгами по алиментам хотят не допускать к азартным играм В Совфеде предложили новые меры против лу", "u": "https://t.me/topor_ul/11585", "d": "11.09", "c": "t.me/topor_ul"}, {"t": "Каскадеры на заборах уехали, появилось \"Шапито\" на столбах... Неужели такая реклама приносит в бюджет Димитров", "u": "https://t.me/dimitrovgradd/31679", "d": "11.09", "c": "t.me/dimitrovgradd"}, {"t": "📰 Подборка дня — 11 сентября: 🛠 На улице Кирова начали укладывать верхний слой асфальта. 🔥 С начала 2026 года ", "u": "https://t.me/reporter73/52147", "d": "11.09", "c": "t.me/reporter73"}, {"t": "🇷🇺 Государственный фонд «Защитники Отечества» передал машину с ручным управлением ветерану СВО, получившему тя", "u": "https://t.me/insaid173/46880", "d": "11.09", "c": "t.me/insaid173"}, {"t": "В преддверии Дня города отдаём дань уважения всем, кто внёс вклад в развитие Ульяновска и прославил Малую Роди", "u": "https://t.me/chpulsk/50690", "d": "11.09", "c": "t.me/chpulsk"}, {"t": "❗️ ❗️ ❗️ Сбил подростка на «зебре» и уехал житель Ульяновска Авария произошла на улице Радищева возле дома №17", "u": "https://t.me/ulyanovsk_smi/29410", "d": "11.09", "c": "t.me/ulyanovsk_smi"}, {"t": "Предвыборными листовками загадили весь подъезд. Убирать кто будет? Тот, кто изображён? От подписчика", "u": "https://t.me/dimitrovgradonline/33490", "d": "11.09", "c": "t.me/dimitrovgrado"}, {"t": "В Заволжском районе мужчина забрал телефон девочки с прилавка магазина, прикрыв его сумкой", "u": "https://ulpressa.ru/2026/09/11/v-zavolzhskom-rajone-muzhchina-zabral-telefon-devochki-s-prilavka-magazina-prikryv-ego-sumkoj/", "d": "11.09", "c": "Улпресса"}, {"t": "#КорочеАфиша : Куда сходить в Ульяновске на выходных? Информацию о событиях в городе смотрите на карточках ⬆️ ", "u": "https://t.me/ulkoroche/33704", "d": "11.09", "c": "t.me/ulkoroche"}, {"t": "12 СЕНТЯБРЯ | ЗАКРЫТОЕ ОТКРЫТИЕ Собираем всех, кто соскучился по ночам в А5: музыка, танцы, знакомые лица и то", "u": "https://t.me/ulpromo/18002", "d": "11.09", "c": "t.me/ulpromo"}, {"t": "💰 Средняя зарплата в Ульяновской области достигла 74 653 рубля За первое полугодие она составила 74 653 руб., ", "u": "https://t.me/tresh_ulyan/56130", "d": "11.09", "c": "t.me/tresh_ulyan"}, {"t": "На АЗС не могут отказать в продаже бензина в канистру Роспотребнадзор напомнил: заправки не вправе запрещать п", "u": "https://t.me/ulsk_driver73/18496", "d": "11.09", "c": "t.me/ulsk_driver73"}, {"t": "Министерство ЖКХ и строительства Ульяновской области потратит 3 миллиона на \"услуги по проведению мониторинга ", "u": "https://t.me/ulkompr/36271", "d": "11.09", "c": "t.me/ulkompr"}, {"t": "В Димитровграде 19‑летняя сотрудница пункта выдачи маркетплейса два месяца присваивала товары из посылок: вскр", "u": "https://t.me/ulsk_on/22771", "d": "11.09", "c": "t.me/ulsk_on"}, {"t": "Мобилизации в России не будет, контрактников приходит даже больше, чем ожидалось, — заявил Медведев.", "u": "https://t.me/chpul/34378", "d": "11.09", "c": "t.me/chpul"}, {"t": "😳 Контроль за нетрезвыми водителями усилят в Ульяновске С 11 по 13 сентября в регионе проходит профилактическа", "u": "https://t.me/ulyanovsk_smi/29409", "d": "11.09", "c": "t.me/ulyanovsk_smi"}, {"t": "🚨 Вскрывала упаковки, забирала вещи, запечатывала коробки и выдавала покупателям. Сотрудница пункта выдачи в Д", "u": "https://t.me/ulpressa/74485", "d": "11.09", "c": "t.me/ulpressa"}, {"t": "В димитровградских дворах «зашевелились» После дождливых дней, воспользовавшись хорошей погодой, подрядчики во", "u": "https://t.me/dimitrovgradonline/33489", "d": "11.09", "c": "t.me/dimitrovgrado"}, {"t": "❗ Сейчас на Тюленева серьёзное ДТП. На месте работает реанимация", "u": "https://t.me/insaid173/46879", "d": "11.09", "c": "t.me/insaid173"}, {"t": "СУББОТНИК НА БЕРЕГУ ВОЛГИ 🗓 12 сентября, в субботу 🕔 16:00 📍 Парк «Прибрежный» — сбор у входа в парк ❤️ Движен", "u": "https://t.me/volkodav73/30697", "d": "11.09", "c": "t.me/volkodav73"}, {"t": "Турнир по шахматам ♟️ 🗓️ 13 сентября 12:00 📍 Театральный сквер, около входа Драмтеатр ♟ сыграем турнир с контр", "u": "https://t.me/culturnik/9289", "d": "11.09", "c": "t.me/culturnik"}, {"t": "Сотрудница пункта выдачи в Димитровграде присвоила товары на 321 тысячу рублей", "u": "https://ulpressa.ru/2026/09/11/sotrudnicza-punkta-vydachi-v-dimitrovgrade-prisvoila-tovary-na-321-tysyachu-rublej/", "d": "11.09", "c": "Улпресса"}, {"t": "Сергей Сандрюков: Дорожники ведут прочистку водоотводные канав, перепускных труб и ливнеприёмных колодцев в ра", "u": "https://t.me/dimitrovgradd/31670", "d": "11.09", "c": "t.me/dimitrovgradd"}, {"t": "Ребенку нужна консультация детского невролога? ❤️ В Клинике Фомина в Ульяновске принимает Жураев Данияр Саттар", "u": "https://t.me/ulpressa/74484", "d": "11.09", "c": "t.me/ulpressa"}, {"t": "Дорога на Прониной ждет второй слой На участке дороги по улице Прониной продолжается ремонт. Источник: dimgrad", "u": "https://t.me/dimitrovgradonline/33488", "d": "11.09", "c": "t.me/dimitrovgrado"}, {"t": "🚌 В Ульяновске хотят усилить контроль за перевозчиками Если маршрутка без уважительной причины перестаёт перед", "u": "https://t.me/topor_ul/11584", "d": "11.09", "c": "t.me/topor_ul"}, {"t": "Ко Дню города по Ульяновску начала курсировать маршрутка №94 с наличием спальных мест. Бизнес-класс, очевидно,", "u": "https://t.me/shugozhor73/45264", "d": "11.09", "c": "t.me/shugozhor73"}, {"t": "Провёл оперштаб по содействию избирательным комиссиям и проверил готовность избирательного участка на базе Мар", "u": "https://t.me/ulgovru/23643", "d": "11.09", "c": "t.me/ulgovru"}, {"t": "❗ Мобилизации в России не будет, — заявил Медведев в четвёртый раз «Потребности ВС РФ полностью удовлетворяютс", "u": "https://t.me/tresh_ulyan/56129", "d": "11.09", "c": "t.me/tresh_ulyan"}, {"t": "Ко Дню города по Ульяновску начала курсировать маршрутка №94 с наличием спальных мест. Бизнес-класс, очевидно,", "u": "https://t.me/shugozhor73/45263", "d": "11.09", "c": "t.me/shugozhor73"}, {"t": "🚨 Серьёзное ДТП на Генерала Тюленева. Спецслужбы на месте. 😱 Подписаться | Прислать новость", "u": "https://t.me/tresh_ulyan/56127", "d": "11.09", "c": "t.me/tresh_ulyan"}, {"t": "✅ 11 сентября ▶️ Куда сходить ульяновцам: афиша событий на 12 и 13 сентября ▶️ Безопасность, современность, те", "u": "https://t.me/ulgovru/23642", "d": "11.09", "c": "t.me/ulgovru"}, {"t": "❗ Сейчас на Тюленева серьёзное ДТП. На месте работает реанимация", "u": "https://t.me/insaid173/46878", "d": "11.09", "c": "t.me/insaid173"}, {"t": "«Сапля» привела к Хоботу В Ульяновске задержан исполнитель убийства 26-летней давности Следственное управление", "u": "https://t.me/ulkompr/36270", "d": "11.09", "c": "t.me/ulkompr"}, {"t": "Уважаемые горожане! В субботу, 12 сентября, на набережной Верхнего пруда пройдёт традиционный национальный мор", "u": "https://t.me/dimitrovgradonline/33487", "d": "11.09", "c": "t.me/dimitrovgrado"}, {"t": "ПОВОЛЖСКАЯ БОЧКА: КАРДИО завтра. 8 часов техно в спортивном зале. Ульяновск / Димитровград / Казань / Самара д", "u": "https://t.me/ulpromo/18001", "d": "11.09", "c": "t.me/ulpromo"}, {"t": "🛴 Самокаты будут эвакуировать в Ульяновске Оставленные в неположенных местах электросамокаты и другие средства", "u": "https://t.me/ulyanovsk_smi/29408", "d": "11.09", "c": "t.me/ulyanovsk_smi"}, {"t": "🏞 В Ульяновске после благоустройства открыли сквер «Губернаторский». Здесь появились новая сцена, детская площ", "u": "https://t.me/reporter73/52141", "d": "11.09", "c": "t.me/reporter73"}, {"t": "😱 Дебош в гостинице закончился задержанием: росгвардейцы скрутили буйного гостя В гостинице на Московском шосс", "u": "https://t.me/insaid173/46877", "d": "11.09", "c": "t.me/insaid173"}, {"t": "В Павловке у 44‑летнего мужчины в ходе операции «Арсенал» изъяли незарегистрированное оружие и боеприпасы: руж", "u": "https://t.me/chpul/34376", "d": "11.09", "c": "t.me/chpul"}, {"t": "В Ульяновской области средняя зарплата за первое полугодие 2026 года — 74 653 рубля, в июне — 80 386 рублей. Н", "u": "https://t.me/ulsk_on/22770", "d": "11.09", "c": "t.me/ulsk_on"}, {"t": "🌿 «Экосфера Фест 2026» Приглашаем вас на экофестиваль от благотворительного фонда «Экосфера»! 📅 1 2 сентября, ", "u": "https://t.me/topor_ul/11582", "d": "11.09", "c": "t.me/topor_ul"}, {"t": "Жительница Майнского района заплатила 10 тысяч рублей за фейковую корову с сайта объявлений", "u": "https://ulpressa.ru/2026/09/11/zhitelnicza-majnskogo-rajona-zaplatila-10-tysyach-rublej-za-fejkovuyu-korovu-s-sajta-obyavlenij/", "d": "11.09", "c": "Улпресса"}, {"t": "😱 В Павловке у мужчины изъяли незарегистрированное ружьё и боеприпасы В ходе операции «Арсенал» в Павловке у 4", "u": "https://t.me/topor_ul/11580", "d": "11.09", "c": "t.me/topor_ul"}, {"t": "🌿 «Экосфера Фест 2026» Приглашаем вас на экофестиваль от благотворительного фонда «Экосфера»! 📅 1 2 сентября, ", "u": "https://t.me/tresh_ulyan/56125", "d": "11.09", "c": "t.me/tresh_ulyan"}, {"t": "РЕГИОНАЛЬНЫЕ БРЕНДЫ КАК СТИМУЛ РАЗВИТИЯ МЕСТНЫХ ПРЕДПРИЯТИЙ В Доме правительства состоялся первый в России кру", "u": "https://t.me/vmkononov/5276", "d": "11.09", "c": "t.me/vmkononov"}, {"t": "11-13 сентября 1906 года Симбирск посетил председатель Совета министров и министр внутренних дел Российской им", "u": "https://t.me/ulsk_73online/35859", "d": "11.09", "c": "t.me/ulsk_73online"}, {"t": "Сергей Сандрюков: На улице Прониной ведём ремонт моста через реку Мелекесску.", "u": "https://t.me/dimitrovgradd/31669", "d": "11.09", "c": "t.me/dimitrovgradd"}, {"t": "🇷🇺 Государственный фонд «Защитники Отечества» передал машину с ручным управлением ветерану СВО, получившему тя", "u": "https://t.me/dimitrovgradonline/33478", "d": "11.09", "c": "t.me/dimitrovgrado"}, {"t": "😱 Буйного постояльца задержали росгвардейцы в гостинице на Московском шоссе В Засвияжском районе Ульяновска, в", "u": "https://t.me/tresh_ulyan/56124", "d": "11.09", "c": "t.me/tresh_ulyan"}, {"t": "🚌 В Ульяновске хотят усилить контроль за перевозчиками. Если маршрутка без уважительной причины перестаёт пере", "u": "https://t.me/ulkoroche/33703", "d": "11.09", "c": "t.me/ulkoroche"}, {"t": "В Павловке у 44‑летнего мужчины в ходе операции «Арсенал» изъяли незарегистрированное оружие и боеприпасы: руж", "u": "https://t.me/ulsk_on/22768", "d": "11.09", "c": "t.me/ulsk_on"}, {"t": "⚡ Шестой кассационный суд заменил экс-депутату Гордумы Димитровграда Сергею Королёву пять с половиной лет коло", "u": "https://t.me/ulpressa/74482", "d": "11.09", "c": "t.me/ulpressa"}, {"t": "Традиционный коридор для Игоря! ❤️ — еще раз поздравим с прошедшим!", "u": "https://t.me/fcvolga/12507", "d": "11.09", "c": "t.me/fcvolga"}, {"t": "В Ульяновске Засвияжский суд приговорил 28‑летнего мужчину к 5 месяцам колонии строгого режима за неуплату али", "u": "https://t.me/chpul/34375", "d": "11.09", "c": "t.me/chpul"}, {"t": "Кассационный суд заменил экс-депутату Димитровграда Королёву реальный срок на условный", "u": "https://ulpressa.ru/2026/09/11/kassaczionnyj-sud-zamenil-eks-deputatu-dimitrovgrada-korolyovu-realnyj-srok-na-uslovnyj/", "d": "11.09", "c": "Улпресса"}, {"t": "Ульяновца отправили в колонию строгого режима за алименты", "u": "https://t.me/ulpressa/74481", "d": "11.09", "c": "t.me/ulpressa"}, {"t": "Королёв готовится выйти на волю. 11 сентября шестой кассационный суд общей юрисдикции заменил экс-депутату Гор", "u": "https://t.me/ulkompr/36269", "d": "11.09", "c": "t.me/ulkompr"}, {"t": "Провёл оперштаб по содействию избирательным комиссиям и проверил готовность избирательного участка на базе Мар", "u": "https://t.me/Russkih_Aleksey/12344", "d": "11.09", "c": "t.me/Russkih_Aleks"}, {"t": "Слуцкий: ЛДПР была и всегда будет рядом с русским народом «Мы как стояли на защите русского народа, так и буде", "u": "https://t.me/insaid173/46876", "d": "11.09", "c": "t.me/insaid173"}, {"t": "В трёх школах Димитровграда были заблокированы эвакуационные выходы", "u": "https://ulpressa.ru/2026/09/11/v-tryoh-shkolah-dimitrovgrada-byli-zablokirovany-evakuaczionnye-vyhody/", "d": "11.09", "c": "Улпресса"}, {"t": "😏 На Шолмова в Ульяновске появился новый арт-объект.", "u": "https://t.me/insaid173/46875", "d": "11.09", "c": "t.me/insaid173"}, {"t": "🛴 В Ульяновске утвердили порядок эвакуации брошенных самокатов Брошенные электросамокаты и другие СИМ будут ув", "u": "https://t.me/topor_ul/11579", "d": "11.09", "c": "t.me/topor_ul"}, {"t": "👷🏻‍♂️ На улице Кирова начали укладывать верхний слой асфальта. Работы стартовали в ночь с 10 на 11 сентября. Н", "u": "https://t.me/chpulsk/50687", "d": "11.09", "c": "t.me/chpulsk"}, {"t": "Где министр и заместитель председателя правительства Ульяновской области Зайцев? Большой вопрос. Сейчас читаю ", "u": "https://t.me/volkodav73/30696", "d": "11.09", "c": "t.me/volkodav73"}, {"t": "В димитровградских дворах «зашевелились» После дождливых дней, воспользовавшись хорошей погодой, подрядчики во", "u": "https://t.me/dimitrovgradd/31668", "d": "11.09", "c": "t.me/dimitrovgradd"}, {"t": "👮🏻‍♂️ В гостинице на Московском шоссе росгвардейцы задержали 33-летнего жителя Ханты-Мансийского автономного о", "u": "https://t.me/chpulsk/50686", "d": "11.09", "c": "t.me/chpulsk"}, {"t": "💸 Ульяновцы хотят получать минимум 52,3 тысячи рублей Именно такую сумму жители города считают справедливым ми", "u": "https://t.me/ulyanovsk_smi/29407", "d": "11.09", "c": "t.me/ulyanovsk_smi"}, {"t": "Цифровая модернизация за ₽109 млн: «Ульяновскэнерго» ищет подрядчика для установки тысяч «умных» счетчиков Зая", "u": "https://t.me/ulsk_73online/35858", "d": "11.09", "c": "t.me/ulsk_73online"}, {"t": "До этого момента человечество просто было не готово.", "u": "https://t.me/ulsk_driver73/18494", "d": "11.09", "c": "t.me/ulsk_driver73"}, {"t": "Рост цен в России заметно ускорился в последние месяцы, заявила глава ЦБ Эльвира Набиуллина По её словам, регу", "u": "https://t.me/tresh_ulyan/56123", "d": "11.09", "c": "t.me/tresh_ulyan"}, {"t": "🇷🇺 Государственный фонд «Защитники Отечества» передал машину с ручным управлением ветерану СВО, получившему тя", "u": "https://t.me/ulgovru/23632", "d": "11.09", "c": "t.me/ulgovru"}, {"t": "⚽️ Футбольная «Волга» сыграет против ФК «Уфа» в это воскресенье. Матч пройдёт в столице Башкирии на стадионе «", "u": "https://t.me/reporter73/52140", "d": "11.09", "c": "t.me/reporter73"}, {"t": "🇷🇺 Государственный фонд «Защитники Отечества» передал машину с ручным управлением ветерану СВО, получившему тя", "u": "https://t.me/Russkih_Aleksey/12334", "d": "11.09", "c": "t.me/Russkih_Aleks"}, {"t": "Коммунальный тупик: жители села Карлинское остались один на один с нечистотами. 📻 Система канализации нарушена", "u": "https://t.me/ulkompr/36268", "d": "11.09", "c": "t.me/ulkompr"}, {"t": "Коммунальный тупик: жители села Карлинское остались один на один с нечистотами. 📻 Система канализации нарушена", "u": "https://t.me/volkodav73/30695", "d": "11.09", "c": "t.me/volkodav73"}, {"t": "Перед пленарным заседанием Делового форума БРИКС Владимир Путин и Нарендра Моди посетили международную промышл", "u": "https://t.me/uac_ru/5043", "d": "11.09", "c": "t.me/uac_ru"}, {"t": "Засвияжский суд отправил в колонию отца, год игнорировавшего алименты на дочь", "u": "https://ulpressa.ru/2026/09/11/zasviyazhskij-sud-otpravil-v-koloniyu-otcza-god-ignorirovavshego-alimenty-na-doch/", "d": "11.09", "c": "Улпресса"}, {"t": "Никас Сафронов едет в Ульяновск на День города Наш знаменитый земляк откроет скульптуру «След Пушкина» в сквер", "u": "https://t.me/ulsk_73online/35857", "d": "11.09", "c": "t.me/ulsk_73online"}, {"t": "🎸 24 сентября оркестр АУРА ШОУ зажжет для вас тысячи свечей, чтобы сыграть программу «Главная музыка столетия»", "u": "https://t.me/tresh_ulyan/56122", "d": "11.09", "c": "t.me/tresh_ulyan"}, {"t": "Пропустили ночную презентацию с новыми айфонами??? Не волнуйтесь, CDEK.Shopping уже подготовился и собрал для ", "u": "https://t.me/insaid173/46874", "d": "11.09", "c": "t.me/insaid173"}, {"t": "Выборы в Государственную Думу–2026: прогноз АЦ ВЦИОМ", "u": "https://ulpressa.ru/2026/09/11/vybory-v-gosudarstvennuyu-dumu-2026-prognoz-acz-vcziom/", "d": "11.09", "c": "Улпресса"}, {"t": "Ульяновский областной комитет КПРФ от всей души поздравляет Александра Леонидовича Кругликова с 75-летним юбил", "u": "https://t.me/ulsk_73online/35856", "d": "11.09", "c": "t.me/ulsk_73online"}, {"t": "Королёв готовится выйти на волю. 11 сентября шестой кассационный суд общей юрисдикции заменил экс-депутату Гор", "u": "https://t.me/dimitrovgradd/31667", "d": "11.09", "c": "t.me/dimitrovgradd"}, {"t": "🤯 Ульяновску может грозить мусорный коллапс: региональный оператор «Контракт плюс» остался без лицензии Компан", "u": "https://t.me/topor_ul/11577", "d": "11.09", "c": "t.me/topor_ul"}, {"t": "«Атомные клубы» появятся в Ульяновске Росатом и общество «Знание» запустили новый проект - теперь школы, колле", "u": "https://t.me/ulpatriot/6914", "d": "11.09", "c": "t.me/ulpatriot"}, {"t": "❗️ С 11 по 13 сентября Госавтоинспекция Ульяновской области проведёт масштабные рейды по выявлению нетрезвых в", "u": "https://t.me/tresh_ulyan/56121", "d": "11.09", "c": "t.me/tresh_ulyan"}, {"t": "Из‑за ремонта трамвайной крестовины на перекрёстке Тимирязева и Нариманова (12 сентября, с 9:00 до 18:00) изме", "u": "https://t.me/ulsk_on/22767", "d": "11.09", "c": "t.me/ulsk_on"}, {"t": "⚖️ В Димитровграде собственников незарегистрированных баз-стоянок для маломерных судов привлекли к ответственн", "u": "https://t.me/dimitrovgradonline/33475", "d": "11.09", "c": "t.me/dimitrovgrado"}, {"t": "12 сентября с 9:00 до 18:00 4, 107 и 15 трамваи пойдут в объезд из-за замены крестовины на узле «Телецентр»", "u": "https://t.me/ulpressa/74480", "d": "11.09", "c": "t.me/ulpressa"}, {"t": "👤 12 сентября Ульяновск отметит День города — дата исторически связана с основанием Синбирской крепости Богдан", "u": "https://t.me/reporter73/52135", "d": "11.09", "c": "t.me/reporter73"}, {"t": "📱 Жителям Ульяновской нужно работать примерно 4,3 месяца ради складного iPhone. Столько времени понадобится, ч", "u": "https://t.me/chpulsk/50685", "d": "11.09", "c": "t.me/chpulsk"}, {"t": "В России начали массово производить ЛЕТАЮЩИЕ электромобили — первые пять аппаратов уже заказали частные покупа", "u": "https://t.me/ulsk_driver73/18493", "d": "11.09", "c": "t.me/ulsk_driver73"}, {"t": "🚔 Ульяновских водителей ждут массовые проверки: ГАИ усилит контроль на дорогах С 11 по 13 сентября Госавтоинсп", "u": "https://t.me/insaid173/46873", "d": "11.09", "c": "t.me/insaid173"}, {"t": "В Ульяновской области средняя зарплата за первое полугодие 2026 года — 74 653 рубля, в июне — 80 386 рублей. Н", "u": "https://t.me/chpul/34374", "d": "11.09", "c": "t.me/chpul"}, {"t": "💳 Директор одной из столичных фирм не выплатил работникам вознаграждение за труд. Размер задолженности перед т", "u": "https://t.me/ulkompr/36267", "d": "11.09", "c": "t.me/ulkompr"}, {"t": "Средняя зарплата ульяновцев за первое полугодие достигла 74 653 рублей Рост к прошлому году — 10,3 процента, р", "u": "https://t.me/ulpressa/74478", "d": "11.09", "c": "t.me/ulpressa"}, {"t": "Директора ульяновских «Лесников» обвиняют в неуплате 7,4 млн рублей налогов и взносов", "u": "https://t.me/ulpressa/74477", "d": "11.09", "c": "t.me/ulpressa"}, {"t": "Средняя зарплата в Ульяновской области за первое полугодие достигла 74 653 рублей", "u": "https://ulpressa.ru/2026/09/11/srednyaya-zarplata-v-ulyanovskoj-oblasti-za-pervoe-polugodie-dostigla-74-653-rublej/", "d": "11.09", "c": "Улпресса"}, {"t": "Ремонт трамвайных путей на Нариманова изменит схему движения трёх маршрутов", "u": "https://ulpressa.ru/2026/09/11/remont-tramvajnyh-putej-na-narimanova-izmenit-shemu-dvizheniya-tryoh-marshrutov/", "d": "11.09", "c": "Улпресса"}, {"t": "🚔 С 11 по 13 сентября Госавтоинспекция Ульяновской области проведёт тотальные проверки по выявлению нетрезвых ", "u": "https://t.me/chpulsk/50684", "d": "11.09", "c": "t.me/chpulsk"}, {"t": "💻 💐 Наш IT-сектор продолжает уверенное развитие. Более 1700 компаний и 7000 высококлассных специалистов! ✅ В п", "u": "https://t.me/ulgovru/23625", "d": "11.09", "c": "t.me/ulgovru"}];function qSearch(v){var d=document.getElementById('qdrop');v=v.trim().toLowerCase();if(v.length<3){d.classList.remove('on');return;}var r=QMAN.filter(function(x){return x.t.toLowerCase().indexOf(v)>=0;}).slice(0,8);d.innerHTML=r.map(function(x){return '<a href="'+x.u+'">'+x.t+'<span>'+x.d+' · '+x.c+'</span></a>';}).join('')||'<a href='#'>Ничего не найдено</a>';d.classList.add('on');}document.addEventListener('click',function(e){if(!e.target.closest('.nav-search'))document.getElementById('qdrop').classList.remove('on');});</script><div class="nav-inner"><a class="" href="../index.html">🏠 Первая полоса</a><a class="active" href="../digests/digest_2026-09-12.html">📰 День · № 1</a><a class="" href="../weekly.html">📕 Неделя</a><a class="" href="../monthly.html">📊 Месяц</a><a class="" href="../infospace.html">🔬 Инфопространство</a><a class="" href="../afisha.html">🎭 Афиша</a><a class="" href="../projects.html">📁 Проекты</a><a class="" href="../archive.html">🗄 Архив</a><a class="" href="../digests/exec_2026-09-12.html">📋 Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">В выпуске:</span><a href="#heroes">Главное</a><a href="#pulse">Пульс повестки</a><a href="#afisha">Автоафиша</a><a href="#feed">Лента дня</a><a href="#tg">Telegram-монитор</a><a href="#clusters">Сюжеты 72 ч</a><a href="#tone">Тон дня</a><a href="#forecast">Прогноз</a></div></div><main id="main">
 <div class="page"><div class="kpi-grid" style="margin-bottom:8px;">
 <div class="kpi"><div class="num">384</div><div class="lbl">публикаций за 24 часа</div></div>
 <div class="kpi gold"><div class="num">311</div><div class="lbl">материалов в этом выпуске</div></div>
@@ -401,340 +494,340 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div><div class="card cat-block"><div class="cat-head">
 <div class="cat-ico" style="background:#2f80ed;">🏛</div>
 <h3>Политика и выборы</h3><div class="count">29</div></div>
-<div class="news-item">
+<article class="news-item">
 <h4><a href="https://t.me/dimitrovgradonline/33490" target="_blank" rel="noopener">Предвыборными листовками загадили весь подъезд. Убирать кто будет? Тот, кто изображён? От подписчика</a></h4>
 <p>Предвыборными листовками загадили весь подъезд. Убирать кто будет? Тот, кто изображён? От подписчика</p>
-<div class="meta">11.09 21:25 · t.me/dimitrovgradonline · <span class="tg">Telegram @dimitrovgradonline</span> · 👁 5.1K</div>
-<span class="tchip">#Выборы-2026</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T21:25:04+04:00">11.09 21:25</time> · t.me/dimitrovgradonline · <span class="tg">Telegram @dimitrovgradonline</span> · 👁 5.1K</div>
+<span class="tchip">#Выборы-2026</span></article><article class="news-item">
 <h4><a href="https://t.me/insaid173/46876" target="_blank" rel="noopener">Слуцкий: ЛДПР была и всегда будет рядом с русским народом «Мы как стояли на защите русского народа, так и буде…</a></h4>
 <p>Слуцкий: ЛДПР была и всегда будет рядом с русским народом «Мы как стояли на защите русского народа, так и будем стоять до конца. ЛДПР — оппозиционная партия. Не всем нравится, что мы говорим, но так нас научил Великий Жириновский — говорить правду. За последние несколько месяцев мы проехали множество городов, и действительно могу сказать, что с людьми была и остается только ЛДПР. За нами миллионы людей, которым мы дали обещание не просто победить, но и сделать жизнь русского человека лучше. В нас верят, верят как в партию, которая никогда не бросает своих», — отметил Леонид Слуцкий.</p>
-<div class="meta">11.09 18:16 · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 10.1K</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T18:16:26+04:00">11.09 18:16</time> · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 10.1K</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/volkodav73/30696" target="_blank" rel="noopener">Где министр и заместитель председателя правительства Ульяновской области Зайцев? Большой вопрос. Сейчас читаю …</a></h4>
 <p>Где министр и заместитель председателя правительства Ульяновской области Зайцев? Большой вопрос. Сейчас читаю заголовки СМИ о том, что Ульяновску грозит мусорный коллапс: компания ООО "Контракт Плюс лишилась лицензии. Ещё два года назад я одним из первых поднимал вопрос о большом количестве нарушений в работе региональных операторов Ульяновской области. Этот вопрос необходимо было решать ещё тогда, в том числе губернатору Алексею Русских, ведь все знали об этой проблеме, но почему-то не принимали решений. За это время можно было инициировать и действительно построить новый полигон ТКО с…</p>
-<div class="meta">11.09 18:00 · t.me/volkodav73 · <span class="tg">Telegram @volkodav73</span> · 👁 2.8K</div>
-<span class="tchip">#Губернатор / власть</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T18:00:55+04:00">11.09 18:00</time> · t.me/volkodav73 · <span class="tg">Telegram @volkodav73</span> · 👁 2.8K</div>
+<span class="tchip">#Губернатор / власть</span></article><article class="news-item">
 <img src="https://ulpressa.ru/wp-content/themes/ulpressa/img/ulpressa-logo-1200x630.jpg" alt="" loading="lazy" style="float:right;width:118px;height:78px;object-fit:cover;border-radius:9px;margin:2px 0 8px 12px;" onerror="this.style.display='none'"><h4><a href="https://ulpressa.ru/2026/09/11/vybory-v-gosudarstvennuyu-dumu-2026-prognoz-acz-vcziom/" target="_blank" rel="noopener">Выборы в Государственную Думу–2026: прогноз АЦ ВЦИОМ</a></h4>
 <p>По прогнозу АЦ ВЦИОМ, пятипроцентный барьер уверенно проходят четыре партии. «Единая Россия» преодолевает планку в 50% голосов. «Справедливая Россия» находится в пограничной зоне и сохраняет шансы на прохождение в Государственную Думу Федерального Собрания РФ. Явка на выборы ожидается в диапазоне 51-53%. Аналитический центр ВЦИОМ представляет расчет результатов выборов в Государственную Думу ФС РФ IX созыва. За несколько недель до единого дня голосования о своем намерении принять участие в думских выборах с разной степенью уверенности заявили семь из десяти россиян (70%), в том числе 54% точно планируют прийти на избирательный участок. Прогнозируемая АЦ ВЦИОМ явка на предстоящих выборах в Государственную Думу находится в диапазоне 51-53%. Согласно электоральному прогнозу, в Государственную Думу уверенно проходят четыре партии: «Единая Россия», возможный диапазон результата — 51-53%; КПРФ (13-15%) «Новые люди» (9-11%) ЛДПР (9-11%) У партии «Справедливая Россия» также есть шансы преодолеть пятипроцентный барьер, однако пока ее электоральное положение неустойчивое (4-6%). За непарламентские партии, по прогнозу АЦ ВЦИОМ, проголосуют 2-5% россиян.</p>
-<div class="meta">11.09 17:00 · Улпресса</div>
-<span class="tchip">#Выборы-2026</span><span class="tchip">#Суды и криминал</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T17:00:27+04:00">11.09 17:00</time> · Улпресса</div>
+<span class="tchip">#Выборы-2026</span><span class="tchip">#Суды и криминал</span></article><article class="news-item">
 <h4><a href="https://t.me/ulsk_73online/35856" target="_blank" rel="noopener">Ульяновский областной комитет КПРФ от всей души поздравляет Александра Леонидовича Кругликова с 75-летним юбил…</a></h4>
 <p>Ульяновский областной комитет КПРФ от всей души поздравляет Александра Леонидовича Кругликова с 75-летним юбилеем! Его жизненный путь — это пример беззаветного служения родному краю, делу народного образования и идеалам Коммунистической партии. Жизнь Александра Леонидовича неразрывно связана с КПРФ. Став первым секретарем Ульяновского областного комитета партии, он на долгие годы стали одним из самых узнаваемых и уважаемых политиков региона. Его работа в Государственной Думе II и III созывов в Комитете по образованию и науке, участие в губернаторских выборах 1996 года, где он получил…</p>
-<div class="meta">11.09 16:58 · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 258</div>
-<span class="tchip">#Выборы-2026</span><span class="tchip">#Губернатор / власть</span><span class="tchip">#День города (378 лет)</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T16:58:17+04:00">11.09 16:58</time> · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 258</div>
+<span class="tchip">#Выборы-2026</span><span class="tchip">#Губернатор / власть</span><span class="tchip">#День города (378 лет)</span></article><article class="news-item">
 <h4><a href="https://t.me/A_Boldakin/5293" target="_blank" rel="noopener">Ульяновск – город-труженик и город тружеников! В преддверии 378-летия мы благодарим всех, кто своим трудом и у…</a></h4>
 <p>Ульяновск – город-труженик и город тружеников! В преддверии 378-летия мы благодарим всех, кто своим трудом и усердием сохраняет и приумножает его достояние У Симбирска-Ульяновска великая история. Здесь живут люди с большим сердцем и чистой душой — потомки Героев, которые в суровые военные годы работали на пределе человеческих сил. Стальная воля, бессонные ночи у станков, искреннее желание наших земляков помочь фронту приблизили долгожданную Победу, за которую пришлось заплатить самую высокую цену. Их трудовой подвиг навсегда – в нашей истории и в наших сердцах. Их вклад в разгром врага Указом…</p>
-<div class="meta">11.09 16:25 · t.me/A_Boldakin · <span class="tg">Telegram @A_Boldakin</span> · 👁 23</div>
-<span class="tchip">#День города (378 лет)</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T16:25:51+04:00">11.09 16:25</time> · t.me/A_Boldakin · <span class="tg">Telegram @A_Boldakin</span> · 👁 23</div>
+<span class="tchip">#День города (378 лет)</span></article><article class="news-item">
 <h4><a href="https://t.me/ulsk_73online/35853" target="_blank" rel="noopener">ВЦИОМ нагадал Думу-2026 ВЦИОМ представил прогноз : явка — 51-53%, то есть придет примерно каждый второй. Из ни…</a></h4>
 <p>ВЦИОМ нагадал Думу-2026 ВЦИОМ представил прогноз : явка — 51-53%, то есть придет примерно каждый второй. Из них 54% заявляют, что точно дойдут до участка. Остальные, видимо, точно дойдут до дивана или магазина. Пятипроцентный барьер уверенно берут четыре партии: «Единая Россия» (51-53%), КПРФ (13-15%), «Новые люди» и ЛДПР (по 9-11%). «Справедливая Россия» — в зоне турбулентности: то ли пройдет, то ли нет. Как вам такой прогноз? Подписаться | Прислать новость | Мы в МАКС</p>
-<div class="meta">11.09 15:44 · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 267</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T15:44:06+04:00">11.09 15:44</time> · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 267</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/ulkompr/36264" target="_blank" rel="noopener">Начался рабочий визит Владимира Путина в Индию Первый пункт в программе Президента России – беседа с Премьер-м…</a></h4>
 <p>Начался рабочий визит Владимира Путина в Индию Первый пункт в программе Президента России – беседа с Премьер-министром Индии Нарендрой Моди. В ходе встречи Нарендра Моди подарил Владимиру Путину переведённую на русский язык книгу «Тирукурал», написанную две тысячи лет назад в Индии поэтом и философом Тируваллуваром. Подробнее – на сайте Кремля . Кремль. Новости</p>
-<div class="meta">11.09 15:21 · t.me/ulkompr · <span class="tg">Telegram @ulkompr</span> · 👁 146</div>
-<span class="tchip">#Губернатор / власть</span><span class="tchip">#Экспорт и кооперация</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T15:21:16+04:00">11.09 15:21</time> · t.me/ulkompr · <span class="tg">Telegram @ulkompr</span> · 👁 146</div>
+<span class="tchip">#Губернатор / власть</span><span class="tchip">#Экспорт и кооперация</span></article><article class="news-item">
 <h4><a href="https://t.me/ulgovru/23624" target="_blank" rel="noopener">Легитимно и открыто: ульяновцы поделились мнением о предстоящих выборах 🤝 Уже через неделю жители Ульяновской …</a></h4>
 <p>Легитимно и открыто: ульяновцы поделились мнением о предстоящих выборах 🤝 Уже через неделю жители Ульяновской области выберут губернатора и депутатов Государственной Думы. В законности голосования не сомневаются. Кто-то знает о камерах видеонаблюдения на участках, кто-то — о работе общественных наблюдателей. А чего еще ждут ульяновцы от предстоящих выборов? Смотрите видео с улиц нашего города. 🇷🇺 Ульяновская область в MAX</p>
-<div class="meta">11.09 15:02 · t.me/ulgovru · <span class="tg">Telegram @ulgovru</span> · 👁 4</div>
-<span class="tchip">#Выборы-2026</span><span class="tchip">#Губернатор / власть</span><span class="tchip">#Суды и криминал</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T15:02:50+04:00">11.09 15:02</time> · t.me/ulgovru · <span class="tg">Telegram @ulgovru</span> · 👁 4</div>
+<span class="tchip">#Выборы-2026</span><span class="tchip">#Губернатор / власть</span><span class="tchip">#Суды и криминал</span></article><article class="news-item">
 <h4><a href="https://t.me/ulpromo/17999" target="_blank" rel="noopener">МОДА УЛИЦ 📍 Улица Гончарова, Ульяновск 📅 12 сентября | Вход свободный Яркий fashion-день в центре города: диза…</a></h4>
 <p>МОДА УЛИЦ 📍 Улица Гончарова, Ульяновск 📅 12 сентября | Вход свободный Яркий fashion-день в центре города: дизайн-маркет, street style, показы дизайнеров, DJ-сеты и большой шоу-перформанс. ПРОГРАММА: 12:00 — дизайн-маркет 15:00 — DJ set 15:30 — детский street style 16:00 — детский блок показов 17:00 — взрослый street style 18:00 — показ хедлайнера — Академии Русской Моды 19:00 — взрослый блок показов 20:30 — DJ set 💃 Хедлайнер — проект «Академия Русской Моды. Россия — миру» , поддержанный Президентским фондом культурных инициатив. В рамках показа — 35 образов от пяти финалистов проекта из…</p>
-<div class="meta">11.09 14:48 · t.me/ulpromo · <span class="tg">Telegram @ulpromo</span> · 👁 118</div>
-</div></div><div class="card cat-block"><div class="cat-head">
+<div class="meta"><time datetime="2026-09-11T14:48:05+04:00">11.09 14:48</time> · t.me/ulpromo · <span class="tg">Telegram @ulpromo</span> · 👁 118</div>
+</article></div><div class="card cat-block"><div class="cat-head">
 <div class="cat-ico" style="background:#2ea36b;">💼</div>
 <h3>Экономика и промышленность</h3><div class="count">25</div></div>
-<div class="news-item">
+<article class="news-item">
 <h4><a href="https://t.me/dimitrovgradd/31679" target="_blank" rel="noopener">Каскадеры на заборах уехали, появилось "Шапито" на столбах... Неужели такая реклама приносит в бюджет Димитров…</a></h4>
 <p>Каскадеры на заборах уехали, появилось "Шапито" на столбах... Неужели такая реклама приносит в бюджет Димитровграда так много денег, что местные чиновники готовы закрывать глаза на это уродство? Источник: dimgrad24.ru</p>
-<div class="meta">11.09 21:53 · t.me/dimitrovgradd · <span class="tg">Telegram @dimitrovgradd</span> · 👁 1.1K</div>
-<span class="tchip">#Бюджет-2027</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T21:53:23+04:00">11.09 21:53</time> · t.me/dimitrovgradd · <span class="tg">Telegram @dimitrovgradd</span> · 👁 1.1K</div>
+<span class="tchip">#Бюджет-2027</span></article><article class="news-item">
 <h4><a href="https://t.me/ulpromo/18002" target="_blank" rel="noopener">12 СЕНТЯБРЯ | ЗАКРЫТОЕ ОТКРЫТИЕ Собираем всех, кто соскучился по ночам в А5: музыка, танцы, знакомые лица и то…</a></h4>
 <p>12 СЕНТЯБРЯ | ЗАКРЫТОЕ ОТКРЫТИЕ Собираем всех, кто соскучился по ночам в А5: музыка, танцы, знакомые лица и тот самый вайб, ради которого мы всё это затевали. Но есть нюанс 👀 Вход — строго по спискам. 🎟 Стоимость входа — 600₽ 📍 Ночной клуб А5, Молочный переулок, 5А ❗️ FC/DC 18+ Line up: Kiirprok | Kradson | Mute | Zajigalkina 20:00 welcome 21:00 программа от ведущего 23:00 вечеринка от резидентов клуба Чтобы попасть в список, напиши нам свои имя и фамилию . А5 танцевать А5 петь Молочный переулок, 5А Бронь столов - @a5reserve #12сентября2026@ulpromo Движ в любимом У | Подписаться 💃 Движ в MAX…</p>
-<div class="meta">11.09 21:00 · t.me/ulpromo · <span class="tg">Telegram @ulpromo</span> · 👁 466</div>
-<span class="tchip">#Транспорт и дороги</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/ulpromo</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T21:00:13+04:00">11.09 21:00</time> · t.me/ulpromo · <span class="tg">Telegram @ulpromo</span> · 👁 466</div>
+<span class="tchip">#Транспорт и дороги</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/ulpromo</span></article><article class="news-item">
 <h4><a href="https://t.me/shugozhor73/45263" target="_blank" rel="noopener">Ко Дню города по Ульяновску начала курсировать маршрутка №94 с наличием спальных мест. Бизнес-класс, очевидно,…</a></h4>
 <p>Ко Дню города по Ульяновску начала курсировать маршрутка №94 с наличием спальных мест. Бизнес-класс, очевидно, по цене эконом-класса. Спасибо!</p>
-<div class="meta">11.09 19:43 · t.me/shugozhor73 · <span class="tg">Telegram @shugozhor73</span> · 👁 2.3K</div>
-<span class="tchip">#Школы и вузы</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/shugozhor73</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T19:43:16+04:00">11.09 19:43</time> · t.me/shugozhor73 · <span class="tg">Telegram @shugozhor73</span> · 👁 2.3K</div>
+<span class="tchip">#Школы и вузы</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/shugozhor73</span></article><article class="news-item">
 <h4><a href="https://t.me/vmkononov/5276" target="_blank" rel="noopener">РЕГИОНАЛЬНЫЕ БРЕНДЫ КАК СТИМУЛ РАЗВИТИЯ МЕСТНЫХ ПРЕДПРИЯТИЙ В Доме правительства состоялся первый в России кру…</a></h4>
 <p>РЕГИОНАЛЬНЫЕ БРЕНДЫ КАК СТИМУЛ РАЗВИТИЯ МЕСТНЫХ ПРЕДПРИЯТИЙ В Доме правительства состоялся первый в России круглый стол по продвижению региональных брендов. Мероприятие прошло в формате расширенного заседания комитета ТПП РФ по выставочно-ярмарочной и конгрессной деятельности. В современном мире, чтобы продукт заметили на федеральном или международном уровне, недостаточно просто произвести качественный товар — нужно грамотно его представить. Выставки становятся ключевым инструментом роста экономики, и наш регион должен использовать этот потенциал по максимуму. В мероприятии приняли участие…</p>
-<div class="meta">11.09 18:46 · t.me/vmkononov · <span class="tg">Telegram @vmkononov</span> · 👁 28</div>
-<span class="tchip">#Губернатор / власть</span><span class="tchip">#Культура и туризм</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T18:46:33+04:00">11.09 18:46</time> · t.me/vmkononov · <span class="tg">Telegram @vmkononov</span> · 👁 28</div>
+<span class="tchip">#Губернатор / власть</span><span class="tchip">#Культура и туризм</span></article><article class="news-item">
 <h4><a href="https://t.me/ulyanovsk_smi/29407" target="_blank" rel="noopener">💸 Ульяновцы хотят получать минимум 52,3 тысячи рублей Именно такую сумму жители города считают справедливым ми…</a></h4>
 <p>💸 Ульяновцы хотят получать минимум 52,3 тысячи рублей Именно такую сумму жители города считают справедливым минимальным уровнем зарплаты. Это почти в два раза выше федерального МРОТ — с 1 января 2026 года он составляет 27 093 рубля. При этом за последние полгода ожидания ульяновцев выросли на 2,3%. В феврале жители называли справедливым МРОТ в размере 51 100 рублей. А сколько, по-вашему, должна составлять минимальная зарплата? Пишите в комментариях ✈️ 📲 Читайте нас в МАКС 😉 Подписаться | Поделиться новостью</p>
-<div class="meta">11.09 17:55 · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 751</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T17:55:25+04:00">11.09 17:55</time> · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 751</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/ulsk_73online/35858" target="_blank" rel="noopener">Цифровая модернизация за ₽109 млн: «Ульяновскэнерго» ищет подрядчика для установки тысяч «умных» счетчиков Зая…</a></h4>
 <p>Цифровая модернизация за ₽109 млн: «Ульяновскэнерго» ищет подрядчика для установки тысяч «умных» счетчиков Заявка на закупку официально размещена на электронной площадке ЕИС « Закупки ». Среди требований — форма с логотипом, предупреждать об отключениях и надевать бахилы. Цифровизация начинается с чистых полов. Подписаться | Прислать новость | Мы в МАКС</p>
-<div class="meta">11.09 17:52 · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 680</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T17:52:01+04:00">11.09 17:52</time> · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 680</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/uac_ru/5043" target="_blank" rel="noopener">Перед пленарным заседанием Делового форума БРИКС Владимир Путин и Нарендра Моди посетили международную промышл…</a></h4>
 <p>Перед пленарным заседанием Делового форума БРИКС Владимир Путин и Нарендра Моди посетили международную промышленную выставку «Иннопром. Индия» На экспозиции представлена продукция 146 компаний – 110 из России, 36 из Индии, – работающих в таких отраслях, как машиностроение, добывающая промышленность, ядерная энергетика, металлургия, химия, IT, медицина, фармацевтика и другие. Подробнее – на сайте Кремля .</p>
-<div class="meta">11.09 17:25 · t.me/uac_ru · <span class="tg">Telegram @uac_ru</span> · 👁 2.2K</div>
-<span class="tchip">#Медицина</span><span class="tchip">#Культура и туризм</span><span class="tchip">#Экспорт и кооперация</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T17:25:29+04:00">11.09 17:25</time> · t.me/uac_ru · <span class="tg">Telegram @uac_ru</span> · 👁 2.2K</div>
+<span class="tchip">#Медицина</span><span class="tchip">#Культура и туризм</span><span class="tchip">#Экспорт и кооперация</span></article><article class="news-item">
 <h4><a href="https://t.me/insaid173/46874" target="_blank" rel="noopener">Пропустили ночную презентацию с новыми айфонами??? Не волнуйтесь, CDEK.Shopping уже подготовился и собрал для …</a></h4>
 <p>Пропустили ночную презентацию с новыми айфонами??? Не волнуйтесь, CDEK.Shopping уже подготовился и собрал для вас актуальные цены: – IPhone 18 Pro - от 147 000 рублей – IPhone 18 Pro Max - от 155 000 рублей – IPhone 18 DUO - от 232 000 рублей Сервис выкупит ваш заказ у иностранного магазина и доставит в пункт выдачи CDEK или прямо к вашей двери. Если давно думали обновиться - сейчас самое время сделать это в числе первых! CDEK.Shopping</p>
-<div class="meta">11.09 17:03 · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 1.7K</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T17:03:37+04:00">11.09 17:03</time> · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 1.7K</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/ulpressa/74478" target="_blank" rel="noopener">Средняя зарплата ульяновцев за первое полугодие достигла 74 653 рублей Рост к прошлому году — 10,3 процента, р…</a></h4>
 <p>Средняя зарплата ульяновцев за первое полугодие достигла 74 653 рублей Рост к прошлому году — 10,3 процента, реальный с учётом инфляции — 2,8 процента. Быстрее всего растут зарплаты в текстильной промышленности и деревообработке — почти на 40 и 36 процентов, сообщил министр Зонтов.</p>
-<div class="meta">11.09 16:40 · t.me/ulpressa · <span class="tg">Telegram @ulpressa</span> · 👁 538</div>
-<span class="tchip">#Губернатор / власть</span><span class="tchip">#Макроэкономика / ЦБ</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T16:40:32+04:00">11.09 16:40</time> · t.me/ulpressa · <span class="tg">Telegram @ulpressa</span> · 👁 538</div>
+<span class="tchip">#Губернатор / власть</span><span class="tchip">#Макроэкономика / ЦБ</span></article><article class="news-item">
 <h4><a href="https://t.me/ulpressa/74477" target="_blank" rel="noopener">Директора ульяновских «Лесников» обвиняют в неуплате 7,4 млн рублей налогов и взносов</a></h4>
 <p>Директора ульяновских «Лесников» обвиняют в неуплате 7,4 млн рублей налогов и взносов</p>
-<div class="meta">11.09 16:34 · t.me/ulpressa · <span class="tg">Telegram @ulpressa</span> · 👁 612</div>
-<span class="tchip">#Бюджет-2027</span></div></div><div class="card cat-block"><div class="cat-head">
+<div class="meta"><time datetime="2026-09-11T16:34:41+04:00">11.09 16:34</time> · t.me/ulpressa · <span class="tg">Telegram @ulpressa</span> · 👁 612</div>
+<span class="tchip">#Бюджет-2027</span></article></div><div class="card cat-block"><div class="cat-head">
 <div class="cat-ico" style="background:#7b5aa6;">🏙</div>
 <h3>Общество и городская среда</h3><div class="count">114</div></div>
-<div class="news-item">
+<article class="news-item">
 <h4><a href="https://t.me/tresh_ulyan/56134" target="_blank" rel="noopener">😱 Разборки у клуба Maison прямо сейчас 😱 Подписаться | Прислать новость</a></h4>
 <p>😱 Разборки у клуба Maison прямо сейчас 😱 Подписаться | Прислать новость</p>
-<div class="meta">12.09 02:13 · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 1.2K</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-12T02:13:18+04:00">12.09 02:13</time> · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 1.2K</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/ulyanovsk_smi/29413" target="_blank" rel="noopener">Открываем ночной чат! Предлагаем поиграть в слова. Мы начнем: «поезд». Вам на Д 👇 📲 Читайте нас в МАКС 😉 Подпи…</a></h4>
 <p>Открываем ночной чат! Предлагаем поиграть в слова. Мы начнем: «поезд». Вам на Д 👇 📲 Читайте нас в МАКС 😉 Подписаться | Поделиться новостью</p>
-<div class="meta">12.09 00:30 · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 98</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-12T00:30:33+04:00">12.09 00:30</time> · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 98</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/tresh_ulyan/56133" target="_blank" rel="noopener">⚡️ К войне с Россией подталкивает свои страны Европа — Владимир Путин Он подметил, что ввод европейских войск …</a></h4>
 <p>⚡️ К войне с Россией подталкивает свои страны Европа — Владимир Путин Он подметил, что ввод европейских войск в Украину будет означать полномасштабную войну с Россией . 😱 Подписаться | Прислать новость</p>
-<div class="meta">12.09 00:29 · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 2.4K</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-12T00:29:23+04:00">12.09 00:29</time> · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 2.4K</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/insaid173/46891" target="_blank" rel="noopener">😱 Какой-то неадекват громит машину в Новой жизни. Выходные в Ульяновске начались...</a></h4>
 <p>😱 Какой-то неадекват громит машину в Новой жизни. Выходные в Ульяновске начались...</p>
-<div class="meta">12.09 00:07 · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 3K</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-12T00:07:21+04:00">12.09 00:07</time> · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 3K</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/ulkompr/36272" target="_blank" rel="noopener">#итогинедели Дебаты Якушева, дистант в Красноярске, рыбные палочки на ГТРК, дебаты Гибатдинова и нашествие бож…</a></h4>
 <p>#итогинедели Дебаты Якушева, дистант в Красноярске, рыбные палочки на ГТРК, дебаты Гибатдинова и нашествие божьих коровок ВК YouTube Rutube Каштан на стороне</p>
-<div class="meta">11.09 23:51 · t.me/ulkompr · <span class="tg">Telegram @ulkompr</span> · 👁 138</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T23:51:57+04:00">11.09 23:51</time> · t.me/ulkompr · <span class="tg">Telegram @ulkompr</span> · 👁 138</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/shugozhor73/45266" target="_blank" rel="noopener">Не забудьте, завтра ул. Гончарова будет перекрыта вдоль ЦУМа от К. Маркса</a></h4>
 <p>Не забудьте, завтра ул. Гончарова будет перекрыта вдоль ЦУМа от К. Маркса</p>
-<div class="meta">11.09 23:31 · t.me/shugozhor73 · <span class="tg">Telegram @shugozhor73</span> · 👁 949</div>
-<span class="tchip">#Транспорт и дороги</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T23:31:34+04:00">11.09 23:31</time> · t.me/shugozhor73 · <span class="tg">Telegram @shugozhor73</span> · 👁 949</div>
+<span class="tchip">#Транспорт и дороги</span></article><article class="news-item">
 <h4><a href="https://t.me/chpul/34380" target="_blank" rel="noopener">Должникам по алиментам в России могут запретить делать ставки и участвовать в азартных играх, заявили в Совфед…</a></h4>
 <p>Должникам по алиментам в России могут запретить делать ставки и участвовать в азартных играх, заявили в Совфеде. По словам сенатора Александра Трембицкого, ограничения также могут коснуться ставок с кредитных карт, а соответствующие законы планируют принять до конца года.</p>
-<div class="meta">11.09 22:30 · t.me/chpul · <span class="tg">Telegram @chpul</span> · 👁 304</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T22:30:34+04:00">11.09 22:30</time> · t.me/chpul · <span class="tg">Telegram @chpul</span> · 👁 304</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/ulkoroche/33714" target="_blank" rel="noopener">Доброй ночи, Ульяновск! ❤️ Спасибо за фото нашей подписчице 🍁 Если и у вас есть что показать или рассказать го…</a></h4>
 <p>Доброй ночи, Ульяновск! ❤️ Спасибо за фото нашей подписчице 🍁 Если и у вас есть что показать или рассказать городу, пишите нам в предложку в Телеграм или в MAX . ❤️ Новости Ульяновска без замедления</p>
-<div class="meta">11.09 22:22 · t.me/ulkoroche · <span class="tg">Telegram @ulkoroche</span> · 👁 482</div>
-<span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/ulkoroche</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T22:22:02+04:00">11.09 22:22</time> · t.me/ulkoroche · <span class="tg">Telegram @ulkoroche</span> · 👁 482</div>
+<span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/ulkoroche</span></article><article class="news-item">
 <h4><a href="https://t.me/tresh_ulyan/56131" target="_blank" rel="noopener">😳 Вот такой трансформер обнаружили в маршрутке №94 Ульяновск — город инноваций 😏 😱 Подписаться | Прислать ново…</a></h4>
 <p>😳 Вот такой трансформер обнаружили в маршрутке №94 Ульяновск — город инноваций 😏 😱 Подписаться | Прислать новость</p>
-<div class="meta">11.09 22:17 · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 7.3K</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T22:17:53+04:00">11.09 22:17</time> · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 7.3K</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/chpulsk/50702" target="_blank" rel="noopener">❗️ Россия не нуждается в проведении мобилизации , заявил Медведев. Сообщения о подготовке к ней он назвал «пур…</a></h4>
 <p>❗️ Россия не нуждается в проведении мобилизации , заявил Медведев. Сообщения о подготовке к ней он назвал «пургой» и провокацией. Он подчеркнул, что мобилизация не нужна, поскольку темпы комплектования по контракту даже выше предполагавшихся.</p>
-<div class="meta">11.09 22:13 · t.me/chpulsk · <span class="tg">Telegram @chpulsk</span> · 👁 2.5K</div>
-</div></div><div class="card cat-block"><div class="cat-head">
+<div class="meta"><time datetime="2026-09-11T22:13:22+04:00">11.09 22:13</time> · t.me/chpulsk · <span class="tg">Telegram @chpulsk</span> · 👁 2.5K</div>
+</article></div><div class="card cat-block"><div class="cat-head">
 <div class="cat-ico" style="background:#0f9b8e;">🎓</div>
 <h3>Образование и наука</h3><div class="count">21</div></div>
-<div class="news-item">
+<article class="news-item">
 <h4><a href="https://t.me/dimitrovgradonline/33491" target="_blank" rel="noopener">Сергей Сандрюков: Встретился сегодня с руководителями спортивных учреждений и федераций. Обсудили вопросы даль…</a></h4>
 <p>Сергей Сандрюков: Встретился сегодня с руководителями спортивных учреждений и федераций. Обсудили вопросы дальнейшего развития разных спортивных направлений в нашем городе. Димитровград имеет репутацию спортивного города, и даже несколько лет назад ему присуждался титул Спортивной столицы Ульяновской области. Всё это заслуженно. У нас крепкие и давние спортивные традиции. Достаточно сказать, что в сентябре прошлого года отметила 80-летний юбилей детская спортивная школа имени Жанны Борисовны Лобановой. Это одна из старейших спортшкол региона. Даже сложно представить, сколько за эти 8…</p>
-<div class="meta">11.09 22:16 · t.me/dimitrovgradonline · <span class="tg">Telegram @dimitrovgradonline</span> · 👁 392</div>
-<span class="tchip">#День города (378 лет)</span><span class="tchip">#Школы и вузы</span><span class="tchip">#Суды и криминал</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/dimitrovgradd</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T22:16:17+04:00">11.09 22:16</time> · t.me/dimitrovgradonline · <span class="tg">Telegram @dimitrovgradonline</span> · 👁 392</div>
+<span class="tchip">#День города (378 лет)</span><span class="tchip">#Школы и вузы</span><span class="tchip">#Суды и криминал</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/dimitrovgradd</span></article><article class="news-item">
 <h4><a href="https://t.me/ulgovru/23643" target="_blank" rel="noopener">Провёл оперштаб по содействию избирательным комиссиям и проверил готовность избирательного участка на базе Мар…</a></h4>
 <p>Провёл оперштаб по содействию избирательным комиссиям и проверил готовность избирательного участка на базе Мариинской гимназии в Ульяновске. ✅ В этом году в период проведения голосования с 18 по 20 сентября будут функционировать 904 постоянных избирательных участка в муниципальных образованиях и округах Ульяновской области. Для ряда населённых пунктов будут организованы «мобильные» помещения для голосования. Наша общая задача — создать комфортные условия и обеспечить безопасность процесса, чтобы жители региона смогли реализовать своё избирательное право. ✅ Помогать обеспечивать легитимность и…</p>
-<div class="meta">11.09 19:48 · t.me/ulgovru · <span class="tg">Telegram @ulgovru</span> · 👁 54</div>
-<span class="tchip">#Выборы-2026</span><span class="tchip">#Школы и вузы</span><span class="tchip">#Экспорт и кооперация</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/Russkih_Aleksey</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T19:48:35+04:00">11.09 19:48</time> · t.me/ulgovru · <span class="tg">Telegram @ulgovru</span> · 👁 54</div>
+<span class="tchip">#Выборы-2026</span><span class="tchip">#Школы и вузы</span><span class="tchip">#Экспорт и кооперация</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/Russkih_Aleksey</span></article><article class="news-item">
 <h4><a href="https://t.me/ulpatriot/6914" target="_blank" rel="noopener">«Атомные клубы» появятся в Ульяновске Росатом и общество «Знание» запустили новый проект - теперь школы, колле…</a></h4>
 <p>«Атомные клубы» появятся в Ульяновске Росатом и общество «Знание» запустили новый проект - теперь школы, колледжи и учреждения допобразования Ульяновской области могут открыть «Атомные клубы». Куратором клуба может стать любой педагог, независимо от его специальности: для старта проекта педагоги получат готовые сценарии, видео, лекции и кинолекции, а также викторины для школьников. Сейчас доступны три вводные лекции, до конца сентября каталог расширят до 15 материалов. На данный момент ожидается, что занятия клубов будут проходить еженедельно в школах, а также для просмотра дополнительной…</p>
-<div class="meta">11.09 16:56 · t.me/ulpatriot · <span class="tg">Telegram @ulpatriot</span> · 👁 1.3K</div>
-<span class="tchip">#Школы и вузы</span><span class="tchip">#Культура и туризм</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T16:56:01+04:00">11.09 16:56</time> · t.me/ulpatriot · <span class="tg">Telegram @ulpatriot</span> · 👁 1.3K</div>
+<span class="tchip">#Школы и вузы</span><span class="tchip">#Культура и туризм</span></article><article class="news-item">
 <h4><a href="https://t.me/Russkih_Aleksey/12327" target="_blank" rel="noopener">💻 💐 Наш IT-сектор продолжает уверенное развитие. Более 1700 компаний и 7000 высококлассных специалистов! ✅ В п…</a></h4>
 <p>💻 💐 Наш IT-сектор продолжает уверенное развитие. Более 1700 компаний и 7000 высококлассных специалистов! ✅ В преддверии Дня программиста вручил заслуженные награды работникам IT-отрасли, которые своим каждодневным трудом помогают внедрять современные технологии в самые разные сферы — от промышленности и торговли до образования и здравоохранения. Для IT-компаний региона до конца 2026 года продлили льготы по упрощённой системе налогообложения. ✅ Совместно готовим кадры. Особое внимание — ранней профориентации. Для этого, к примеру, ежегодно расширяем сеть инженерных классов. В следующем году…</p>
-<div class="meta">11.09 16:25 · t.me/Russkih_Aleksey · <span class="tg">Telegram @Russkih_Aleksey</span> · 👁 82</div>
-<span class="tchip">#Школы и вузы</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/ulgovru</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T16:25:01+04:00">11.09 16:25</time> · t.me/Russkih_Aleksey · <span class="tg">Telegram @Russkih_Aleksey</span> · 👁 82</div>
+<span class="tchip">#Школы и вузы</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/ulgovru</span></article><article class="news-item">
 <h4><a href="https://t.me/chpulsk/50683" target="_blank" rel="noopener">🏫 Минпросвещения запустило круглосуточную линию психологической помощи «Школа доверия». По номеру 8 800 707 02…</a></h4>
 <p>🏫 Минпросвещения запустило круглосуточную линию психологической помощи «Школа доверия». По номеру 8 800 707 02 01 школьники, родители и учителя смогут сообщать о любых проблемных ситуациях, возникающих в образовательных организациях.</p>
-<div class="meta">11.09 16:14 · t.me/chpulsk · <span class="tg">Telegram @chpulsk</span> · 👁 665</div>
-<span class="tchip">#Городская среда</span><span class="tchip">#Школы и вузы</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T16:14:34+04:00">11.09 16:14</time> · t.me/chpulsk · <span class="tg">Telegram @chpulsk</span> · 👁 665</div>
+<span class="tchip">#Городская среда</span><span class="tchip">#Школы и вузы</span></article><article class="news-item">
 <h4><a href="https://t.me/shugozhor73/45262" target="_blank" rel="noopener">СУ СК сообщило о завершении расследования дела журналистки из Ульяновска Анастасии Чумаковой —главного редакто…</a></h4>
 <p>СУ СК сообщило о завершении расследования дела журналистки из Ульяновска Анастасии Чумаковой —главного редактора издания ASTRA*. Анастасия — выпускница УлГУ, в нашем университете девушка училась на журналистку. Несколько лет назад переехала в США, где в 2022 году начала вести новостной телеграм-канал ASTRA*, позже признанный иностранным агентом. Сейчас у канала 341 тысяча подписчиков. Некоторые публикации в этом канале ульяновские следователи сочли фейками о российкой армии, за них Чумакову и собираются судить. Судить заочно, т.к. журналистка остаётся за границей и объявлена в федеральный и…</p>
-<div class="meta">11.09 16:13 · t.me/shugozhor73 · <span class="tg">Telegram @shugozhor73</span> · 👁 789</div>
-<span class="tchip">#Школы и вузы</span><span class="tchip">#Суды и криминал</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T16:13:36+04:00">11.09 16:13</time> · t.me/shugozhor73 · <span class="tg">Telegram @shugozhor73</span> · 👁 789</div>
+<span class="tchip">#Школы и вузы</span><span class="tchip">#Суды и криминал</span></article><article class="news-item">
 <h4><a href="https://t.me/shugozhor73/45258" target="_blank" rel="noopener">‼️ 2026 год — последний год, когда можно поступить на бакалавриат и магистратуру С 2026/27 учебного года начин…</a></h4>
 <p>‼️ 2026 год — последний год, когда можно поступить на бакалавриат и магистратуру С 2026/27 учебного года начинается переход на новую модель высшего образования. Поэтому для тех, кто планировал получить бакалавриат или магистратуру в привычном формате, откладывать поступление может быть не лучшей идеей . И главное: поступить ещё можно. 12 сентября Московский институт психоанализа проводит последний День открытых дверей — и это возможность не просто посмотреть университет, а заняться поступлением прямо на месте. Можно познакомиться с программами и преподавателями, получить консультацию приёмной…</p>
-<div class="meta">11.09 15:00 · t.me/shugozhor73 · <span class="tg">Telegram @shugozhor73</span> · 👁 290</div>
-<span class="tchip">#Школы и вузы</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T15:00:38+04:00">11.09 15:00</time> · t.me/shugozhor73 · <span class="tg">Telegram @shugozhor73</span> · 👁 290</div>
+<span class="tchip">#Школы и вузы</span></article><article class="news-item">
 <h4><a href="https://t.me/dimitrovgradd/31660" target="_blank" rel="noopener">Из предложки : Добрый день! Хотелось бы узнать, почему такое отношение к людям?!? Вчера с 8 до 22 должны были …</a></h4>
 <p>Из предложки : Добрый день! Хотелось бы узнать, почему такое отношение к людям?!? Вчера с 8 до 22 должны были отключить горячую воду, КСК. Ну во первых отключили в 6:30! Не дав спокойно собрать детей в школу, сад, да и самим на работу. Во вторых, время сейчас доходит 8 утра- воды до сих пор нет! Так же как и нет никаких объявлений и оповещений жителей. Когда будет вода??? Октябрьская нет, не знаю конечно как обстоят дела на других улицах. Анонимно пожалуйста.</p>
-<div class="meta">11.09 14:14 · t.me/dimitrovgradd · <span class="tg">Telegram @dimitrovgradd</span> · 👁 487</div>
-<span class="tchip">#Школы и вузы</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T14:14:07+04:00">11.09 14:14</time> · t.me/dimitrovgradd · <span class="tg">Telegram @dimitrovgradd</span> · 👁 487</div>
+<span class="tchip">#Школы и вузы</span></article><article class="news-item">
 <h4><a href="https://t.me/reporter73/52119" target="_blank" rel="noopener">👩‍🏫 Преподаватель информатики Ульяновского педагогического колледжа Анна Данилис готовится представить Ульянов…</a></h4>
 <p>👩‍🏫 Преподаватель информатики Ульяновского педагогического колледжа Анна Данилис готовится представить Ульяновскую область в финале Всероссийского конкурса среди педагогов системы среднего профессионального образования «Мастер года». Накануне поездки в педагогическом колледже прошла встреча со студентами и коллегами, где Анна Викторовна провела мастер-класс, который представит на федеральном этапе конкурса в Ямало-Ненецком автономном округе.</p>
-<div class="meta">11.09 12:32 · t.me/reporter73 · <span class="tg">Telegram @reporter73</span> · 👁 30</div>
-<span class="tchip">#Школы и вузы</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T12:32:20+04:00">11.09 12:32</time> · t.me/reporter73 · <span class="tg">Telegram @reporter73</span> · 👁 30</div>
+<span class="tchip">#Школы и вузы</span></article><article class="news-item">
 <h4><a href="https://t.me/tresh_ulyan/56113" target="_blank" rel="noopener">🎓 В школах РФ с 2027 года отменят обязательное изучение предметов на углублённом уровне Согласно новому федера…</a></h4>
 <p>🎓 В школах РФ с 2027 года отменят обязательное изучение предметов на углублённом уровне Согласно новому федеральному государственному образовательному стандарту (ФГОС) среднего общего образования, который вступает в силу с 1 сентября 2027 года, старшеклассники смогут изучать все предметы исключительно на базовом уровне. Ключевым нововведением станет отказ от действующей нормы, обязывающей учеников выбирать не менее двух предметов для углублённого изучения. При этом в школах сохранится обучение по шести профилям. 😱 Подписаться | Прислать новость</p>
-<div class="meta">11.09 12:12 · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 7.8K</div>
-<span class="tchip">#Школы и вузы</span><span class="tchip">#Суды и криминал</span></div></div><div class="card cat-block"><div class="cat-head">
+<div class="meta"><time datetime="2026-09-11T12:12:08+04:00">11.09 12:12</time> · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 7.8K</div>
+<span class="tchip">#Школы и вузы</span><span class="tchip">#Суды и криминал</span></article></div><div class="card cat-block"><div class="cat-head">
 <div class="cat-ico" style="background:#9a4d8f;">🎭</div>
 <h3>Культура и афиша</h3><div class="count">18</div></div>
-<div class="news-item">
+<article class="news-item">
 <h4><a href="https://t.me/ulyanovsk_smi/29411" target="_blank" rel="noopener">Работники массово увольняются из-за отсутствия похвалы от начальства Исследования показали: глухой дефицит при…</a></h4>
 <p>Работники массово увольняются из-за отсутствия похвалы от начальства Исследования показали: глухой дефицит признания моментально убивает мотивацию, загоняет в стресс и доводит специалистов до выгорания. Без внятной обратной связи сотрудники начинают накручивать себя и искать новое место, сообщает «Абзац». Эксперты напоминают: простое «спасибо» за проделанную работу закрывает базовую потребность в признании, поэтому руководителям советуют не скупиться на добрые слова команде. А вас начальство часто хвалит за работу? 👍 / 👎 📲 Читайте Россию в МАКС 🇷🇺 Подписаться | Поделиться новостью</p>
-<div class="meta">11.09 22:10 · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 384</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T22:10:46+04:00">11.09 22:10</time> · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 384</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/dimitrovgradd/31670" target="_blank" rel="noopener">Сергей Сандрюков: Дорожники ведут прочистку водоотводные канав, перепускных труб и ливнеприёмных колодцев в ра…</a></h4>
 <p>Сергей Сандрюков: Дорожники ведут прочистку водоотводные канав, перепускных труб и ливнеприёмных колодцев в разных частях города. Такие работы выполнены на улицах Октябрьской, Кирпичной, Западной, Гоголя, Кулькова, Самарской, Аблова, Пушкина, Гончарова, Королёва, Баданова, III Интернационала, Черемшанской, Комсомольской и других.</p>
-<div class="meta">11.09 20:05 · t.me/dimitrovgradd · <span class="tg">Telegram @dimitrovgradd</span> · 👁 1.4K</div>
-<span class="tchip">#Культура и туризм</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T20:05:18+04:00">11.09 20:05</time> · t.me/dimitrovgradd · <span class="tg">Telegram @dimitrovgradd</span> · 👁 1.4K</div>
+<span class="tchip">#Культура и туризм</span></article><article class="news-item">
 <h4><a href="https://t.me/dimitrovgradonline/33487" target="_blank" rel="noopener">Уважаемые горожане! В субботу, 12 сентября, на набережной Верхнего пруда пройдёт традиционный национальный мор…</a></h4>
 <p>Уважаемые горожане! В субботу, 12 сентября, на набережной Верхнего пруда пройдёт традиционный национальный мордовский праздник Шумбрат. Мордовская национально-культурная автономия Димитровграда приглашает на праздник всех желающих. Источник: Сергей Сандрюков</p>
-<div class="meta">11.09 19:26 · t.me/dimitrovgradonline · <span class="tg">Telegram @dimitrovgradonline</span> · 👁 5.2K</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T19:26:04+04:00">11.09 19:26</time> · t.me/dimitrovgradonline · <span class="tg">Telegram @dimitrovgradonline</span> · 👁 5.2K</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/tresh_ulyan/56125" target="_blank" rel="noopener">🌿 «Экосфера Фест 2026» Приглашаем вас на экофестиваль от благотворительного фонда «Экосфера»! 📅 1 2 сентября, …</a></h4>
 <p>🌿 «Экосфера Фест 2026» Приглашаем вас на экофестиваль от благотворительного фонда «Экосфера»! 📅 1 2 сентября, 15:00–19:00 📍 ТРЦ «Аквамолл» , Московское шоссе, 108 (рядом со сценой) В программе: 🌿 Концертная программа от артистов проекта «Голос города» 🌿 Лекция от Полины Симпофетки «Стилизуем старые вещи по‑новому» 🌿 Мастер‑классы: свечи из вощины, игрушки для собак, роспись шоперов и футболок 🌿 Выступления кинологов и фотовыставка животных из приютов 🌿 Экоквиз и розыгрыш призов 🌿 Зона СВОП — обмен вещами и книгами 🌿 Сбор гуманитарной помощи для приютов А также аквагрим 🎨 для детей! 🔗…</p>
-<div class="meta">11.09 19:00 · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 9.2K</div>
-<span class="tchip">#Школы и вузы</span><span class="tchip">#Культура и туризм</span><span class="tchip">#Спорт</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/topor_ul, t.me/tresh_ulyan</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T19:00:11+04:00">11.09 19:00</time> · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 9.2K</div>
+<span class="tchip">#Школы и вузы</span><span class="tchip">#Культура и туризм</span><span class="tchip">#Спорт</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/topor_ul, t.me/tresh_ulyan</span></article><article class="news-item">
 <h4><a href="https://t.me/insaid173/46875" target="_blank" rel="noopener">😏 На Шолмова в Ульяновске появился новый арт-объект.</a></h4>
 <p>😏 На Шолмова в Ульяновске появился новый арт-объект.</p>
-<div class="meta">11.09 18:04 · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 9.8K</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T18:04:01+04:00">11.09 18:04</time> · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 9.8K</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/ulsk_73online/35857" target="_blank" rel="noopener">Никас Сафронов едет в Ульяновск на День города Наш знаменитый земляк откроет скульптуру «След Пушкина» в сквер…</a></h4>
 <p>Никас Сафронов едет в Ульяновск на День города Наш знаменитый земляк откроет скульптуру «След Пушкина» в сквере Языкова, заглянет на Соборную площадь и поздравит ульяновцев вечером. Вот такой насыщенный день у художника. Подписаться | Прислать новость | Мы в МАКС</p>
-<div class="meta">11.09 17:11 · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 141</div>
-<span class="tchip">#День города (378 лет)</span><span class="tchip">#Городская среда</span><span class="tchip">#Культура и туризм</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T17:11:55+04:00">11.09 17:11</time> · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 141</div>
+<span class="tchip">#День города (378 лет)</span><span class="tchip">#Городская среда</span><span class="tchip">#Культура и туризм</span></article><article class="news-item">
 <h4><a href="https://t.me/reporter73/52135" target="_blank" rel="noopener">👤 12 сентября Ульяновск отметит День города — дата исторически связана с основанием Синбирской крепости Богдан…</a></h4>
 <p>👤 12 сентября Ульяновск отметит День города — дата исторически связана с основанием Синбирской крепости Богданом Хитрово. За 378 лет небольшое воинское поселение выросло в крупный город, один из промышленных центров, не забывающий про культурную самобытность, национальное многообразие и неизменно стоящий на страже интересов государства. В самые тёмные годы прошлого столетия Ульяновск был в числе мощнейших тыловых кузниц Великой Победы. В наши дни земляки всеми силами поддерживают защитников Родины, выполняющих задачи СВО. В преддверии праздничной даты отдать дань уважения трудовому подвигу…</p>
-<div class="meta">11.09 16:49 · t.me/reporter73 · <span class="tg">Telegram @reporter73</span> · 👁 18</div>
-<span class="tchip">#День города (378 лет)</span><span class="tchip">#Суды и криминал</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T16:49:22+04:00">11.09 16:49</time> · t.me/reporter73 · <span class="tg">Telegram @reporter73</span> · 👁 18</div>
+<span class="tchip">#День города (378 лет)</span><span class="tchip">#Суды и криминал</span></article><article class="news-item">
 <h4><a href="https://t.me/culturnik/9287" target="_blank" rel="noopener">Открытие новой фотовыставки в Музее наличников 🗓️ 13 сентября 11:00 📍 «Владимирский сад», центральный вход Осн…</a></h4>
 <p>Открытие новой фотовыставки в Музее наличников 🗓️ 13 сентября 11:00 📍 «Владимирский сад», центральный вход Основная тема экспозиции - архитектурное наследие региона. В ней представлены культовая архитектура, усадьбы, крестьянские дома, городские комплексы и административные здания XIX - XX веков в сохранившемся или частично руинированном состоянии. ⠀ В рамках открытия пройдет авторская экскурсия, где руководитель проекта Кирилл Валов расскажет о новых экспедициях, объектах на фотографиях и фактах о них, ну и, конечно же, о самом музее. ⠀ 🏷️ вход свободный ⠀ Записаться на экскурсию можно по…</p>
-<div class="meta">11.09 14:29 · t.me/culturnik · <span class="tg">Telegram @culturnik</span> · 👁 75</div>
-<span class="tchip">#Губернатор / власть</span><span class="tchip">#Культура и туризм</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T14:29:13+04:00">11.09 14:29</time> · t.me/culturnik · <span class="tg">Telegram @culturnik</span> · 👁 75</div>
+<span class="tchip">#Губернатор / власть</span><span class="tchip">#Культура и туризм</span></article><article class="news-item">
 <h4><a href="https://t.me/shugozhor73/45257" target="_blank" rel="noopener">Пропустил вот этот анонс во вчерашней афише, а зря, звучит интересно. 12 сентября в 15:00 на бульваре Новый Ве…</a></h4>
 <p>Пропустил вот этот анонс во вчерашней афише, а зря, звучит интересно. 12 сентября в 15:00 на бульваре Новый Венец (начало у здания филармонии) — спектакль-променад «Евгений Онегин. Наши дни» от творческого объединения «Театр.Форма. Содержание» , режиссёр Владимир Золотарь</p>
-<div class="meta">11.09 14:01 · t.me/shugozhor73 · <span class="tg">Telegram @shugozhor73</span> · 👁 326</div>
-<span class="tchip">#Культура и туризм</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T14:01:31+04:00">11.09 14:01</time> · t.me/shugozhor73 · <span class="tg">Telegram @shugozhor73</span> · 👁 326</div>
+<span class="tchip">#Культура и туризм</span></article><article class="news-item">
 <h4><a href="https://t.me/ulgovru/23612" target="_blank" rel="noopener">🇷🇺 В Ульяновске выступит ансамбль Росгвардии В День города, 13 сентября, на Соборной площади состоится концерт…</a></h4>
 <p>🇷🇺 В Ульяновске выступит ансамбль Росгвардии В День города, 13 сентября, на Соборной площади состоится концерт прославленного коллектива под управлением народного артиста России Виктора Елисеева. Артисты представят программу в честь 10-летия Росгвардии и 215-летия войск правопорядка. Житель и гостей города ждут знаменитые эстрадные и народные произведения, виртуозная хореография и живая музыка. 📌 Начало в 13:00. Вход свободный. 🇷🇺 Ульяновская область в MAX</p>
-<div class="meta">11.09 13:22 · t.me/ulgovru · <span class="tg">Telegram @ulgovru</span> · 👁 38</div>
-<span class="tchip">#День города (378 лет)</span><span class="tchip">#Культура и туризм</span></div></div></div><div><div class="card cat-block"><div class="cat-head">
+<div class="meta"><time datetime="2026-09-11T13:22:01+04:00">11.09 13:22</time> · t.me/ulgovru · <span class="tg">Telegram @ulgovru</span> · 👁 38</div>
+<span class="tchip">#День города (378 лет)</span><span class="tchip">#Культура и туризм</span></article></div></div><div><div class="card cat-block"><div class="cat-head">
 <div class="cat-ico" style="background:#b02a2f;">🛡</div>
 <h3>Безопасность и происшествия</h3><div class="count">87</div></div>
-<div class="news-item">
+<article class="news-item">
 <h4><a href="https://t.me/topor_ul/11586" target="_blank" rel="noopener">😱 Дебош в гостинице закончился задержанием: росгвардейцы скрутили буйного гостя В гостинице на Московском шосс…</a></h4>
 <p>😱 Дебош в гостинице закончился задержанием: росгвардейцы скрутили буйного гостя В гостинице на Московском шоссе 33-летний житель ХМАО устроил скандал: нецензурно ругался, размахивал руками и игнорировал замечания сотрудников. Мужчина мешал другим постояльцам. Росгвардейцы задержали дебошира и передали его полиции. 🪓 Подписаться на канал</p>
-<div class="meta">11.09 23:53 · t.me/topor_ul · <span class="tg">Telegram @topor_ul</span> · 👁 683</div>
-<span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/insaid173</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T23:53:46+04:00">11.09 23:53</time> · t.me/topor_ul · <span class="tg">Telegram @topor_ul</span> · 👁 683</div>
+<span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/insaid173</span></article><article class="news-item">
 <h4><a href="https://t.me/insaid173/46890" target="_blank" rel="noopener">В Ульяновске поймали водителя, который скрылся с места ДТП после наезда на 16-летнюю школьницу В Ленинском рай…</a></h4>
 <p>В Ульяновске поймали водителя, который скрылся с места ДТП после наезда на 16-летнюю школьницу В Ленинском районе областного центра Hyundai ix35 под управлением 47-летнего мужчины сбил подростка. Девочка переходила дорогу по нерегулируемому пешеходному переходу у дома № 173 по улице Радищева. После столкновения водитель не остановился и попытался скрыться. Его быстро нашли и задержали. Пострадавшую 16-летнюю школьницу доставили в больницу, оказали помощь и отпустили домой.</p>
-<div class="meta">11.09 23:40 · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 4K</div>
-<span class="tchip">#Транспорт и дороги</span><span class="tchip">#Школы и вузы</span><span class="tchip">#Медицина</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T23:40:47+04:00">11.09 23:40</time> · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 4K</div>
+<span class="tchip">#Транспорт и дороги</span><span class="tchip">#Школы и вузы</span><span class="tchip">#Медицина</span></article><article class="news-item">
 <img src="https://ulpressa.ru/wp-content/themes/ulpressa/img/ulpressa-logo-1200x630.jpg" alt="" loading="lazy" style="float:right;width:118px;height:78px;object-fit:cover;border-radius:9px;margin:2px 0 8px 12px;" onerror="this.style.display='none'"><h4><a href="https://ulpressa.ru/2026/09/11/v-zheleznodorozhnom-rajone-muzhchina-izbil-zhenu-i-ugrozhal-ubit/" target="_blank" rel="noopener">В Железнодорожном районе мужчина избил жену и угрожал убить</a></h4>
 <p>В Железнодорожном районе задержан мужчина, избивший жену и угрожавший ей убийством. Мужчина длительное время злоупотреблял алкоголем. Вернувшись домой пьяным, он поссорился с супругой, избил её, а затем стал размахивать стеклянной бутылкой и угрожать убийством. Когда он отвлёкся, женщина вызвала полицию. Участковый задержал подозреваемого на месте. Возбуждено дело по ч. 1 ст. 119 УК РФ. Подозреваемый […]</p>
-<div class="meta">11.09 22:07 · Улпресса</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T22:07:23+04:00">11.09 22:07</time> · Улпресса</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/ulyanovsk_smi/29410" target="_blank" rel="noopener">❗️ ❗️ ❗️ Сбил подростка на «зебре» и уехал житель Ульяновска Авария произошла на улице Радищева возле дома №17…</a></h4>
 <p>❗️ ❗️ ❗️ Сбил подростка на «зебре» и уехал житель Ульяновска Авария произошла на улице Радищева возле дома №173. 47-летний водитель Hyundai ix35 сбил подростка, которая переходила дорогу по нерегулируемому пешеходному переходу, после чего уехал с места ДТП. Вскоре мужчину нашли и задержали. Девочку доставили в больницу. После осмотра медики отпустили её домой. Обстоятельства произошедшего устанавливаются. 📲 Читайте нас в МАКС 😉 Подписаться | Поделиться новостью</p>
-<div class="meta">11.09 21:33 · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 493</div>
-<span class="tchip">#Транспорт и дороги</span><span class="tchip">#Медицина</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T21:33:01+04:00">11.09 21:33</time> · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 493</div>
+<span class="tchip">#Транспорт и дороги</span><span class="tchip">#Медицина</span></article><article class="news-item">
 <img src="https://ulpressa.ru/wp-content/themes/ulpressa/img/ulpressa-logo-1200x630.jpg" alt="" loading="lazy" style="float:right;width:118px;height:78px;object-fit:cover;border-radius:9px;margin:2px 0 8px 12px;" onerror="this.style.display='none'"><h4><a href="https://ulpressa.ru/2026/09/11/v-zavolzhskom-rajone-muzhchina-zabral-telefon-devochki-s-prilavka-magazina-prikryv-ego-sumkoj/" target="_blank" rel="noopener">В Заволжском районе мужчина забрал телефон девочки с прилавка магазина, прикрыв его сумкой</a></h4>
 <p>В Заволжском районе задержан 49-летний мужчина, укравший телефон в магазине. Предыдущая покупательница оставила телефон стоимостью 10 тысяч рублей на прилавке. Мужчина поставил рядом свою сумку, собрал покупки и незаметно положил туда же чужой гаджет. Телефон планировал продать. Возбуждено дело по ч. 1 ст. 158 УК РФ. Подозреваемый находится под подпиской о невыезде.</p>
-<div class="meta">11.09 21:07 · Улпресса</div>
-<span class="tchip">#Транспорт и дороги</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T21:07:19+04:00">11.09 21:07</time> · Улпресса</div>
+<span class="tchip">#Транспорт и дороги</span></article><article class="news-item">
 <h4><a href="https://t.me/ulsk_driver73/18496" target="_blank" rel="noopener">На АЗС не могут отказать в продаже бензина в канистру Роспотребнадзор напомнил: заправки не вправе запрещать п…</a></h4>
 <p>На АЗС не могут отказать в продаже бензина в канистру Роспотребнадзор напомнил: заправки не вправе запрещать продажу топлива в подходящую для этого тару. Если оператор отказал — водитель может пожаловаться и при необходимости обратиться в суд.</p>
-<div class="meta">11.09 20:52 · t.me/ulsk_driver73 · <span class="tg">Telegram @ulsk_driver73</span> · 👁 449</div>
-<span class="tchip">#Транспорт и дороги</span><span class="tchip">#Суды и криминал</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T20:52:13+04:00">11.09 20:52</time> · t.me/ulsk_driver73 · <span class="tg">Telegram @ulsk_driver73</span> · 👁 449</div>
+<span class="tchip">#Транспорт и дороги</span><span class="tchip">#Суды и криминал</span></article><article class="news-item">
 <h4><a href="https://t.me/ulsk_on/22771" target="_blank" rel="noopener">В Димитровграде 19‑летняя сотрудница пункта выдачи маркетплейса два месяца присваивала товары из посылок: вскр…</a></h4>
 <p>В Димитровграде 19‑летняя сотрудница пункта выдачи маркетплейса два месяца присваивала товары из посылок: вскрывала упаковки, забирала вещи, а коробки запечатывала и выдавала покупателям. За это время она похитила более 40 единиц товара (ТВ‑приставку, клавиатуру, часы и др.) на 321 тысячу рублей — часть продала, остальное оставила себе. При задержании всё изъяли. Возбуждено дело по ст. 159 УК РФ, девушка находится под подпиской о невыезде.</p>
-<div class="meta">11.09 20:51 · t.me/ulsk_on · <span class="tg">Telegram @ulsk_on</span> · 👁 350</div>
-<span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/ulpressa</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T20:51:17+04:00">11.09 20:51</time> · t.me/ulsk_on · <span class="tg">Telegram @ulsk_on</span> · 👁 350</div>
+<span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/ulpressa</span></article><article class="news-item">
 <h4><a href="https://t.me/ulyanovsk_smi/29409" target="_blank" rel="noopener">😳 Контроль за нетрезвыми водителями усилят в Ульяновске С 11 по 13 сентября в регионе проходит профилактическа…</a></h4>
 <p>😳 Контроль за нетрезвыми водителями усилят в Ульяновске С 11 по 13 сентября в регионе проходит профилактическая операция «Нетрезвый водитель». Сотрудники ДПС увеличат количество проверок на трассах, при въезде в город и возле мест массового отдыха. Водителей призывают соблюдать правила и не рисковать своей и чужой безопасностью. Предупредите водителей ❗️ 📲 Читайте нас в МАКС 😉 Подписаться | Поделиться новостью</p>
-<div class="meta">11.09 20:47 · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 541</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T20:47:30+04:00">11.09 20:47</time> · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 541</div>
+</article><article class="news-item">
 <img src="https://ulpressa.ru/wp-content/themes/ulpressa/img/ulpressa-logo-1200x630.jpg" alt="" loading="lazy" style="float:right;width:118px;height:78px;object-fit:cover;border-radius:9px;margin:2px 0 8px 12px;" onerror="this.style.display='none'"><h4><a href="https://ulpressa.ru/2026/09/11/sotrudnicza-punkta-vydachi-v-dimitrovgrade-prisvoila-tovary-na-321-tysyachu-rublej/" target="_blank" rel="noopener">Сотрудница пункта выдачи в Димитровграде присвоила товары на 321 тысячу рублей</a></h4>
 <p>В Димитровграде задержана 19-летняя сотрудница пункта выдачи заказов маркетплейса, два месяца тайно присваивавшая товары из посылок. С 28 июня по 2 сентября девушка вскрывала упаковки, забирала нужные вещи, запечатывала коробки обратно и выдавала покупателям. Те обнаруживали пустые коробки и оформляли возврат. За два месяца она похитила более 40 единиц товара на 321 тысячу рублей — ТВ-приставку, игровую клавиатуру, смарт-часы, наборы для татуировок и ресниц, одежду и обувь. Часть продала, остальное оставила себе. При задержании всё изъяли. Возбуждено дело по ст. 159 УК РФ. Подозреваемая находится под подпиской о невыезде.</p>
-<div class="meta">11.09 20:06 · Улпресса</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T20:06:01+04:00">11.09 20:06</time> · Улпресса</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/tresh_ulyan/56127" target="_blank" rel="noopener">🚨 Серьёзное ДТП на Генерала Тюленева. Спецслужбы на месте. 😱 Подписаться | Прислать новость</a></h4>
 <p>🚨 Серьёзное ДТП на Генерала Тюленева. Спецслужбы на месте. 😱 Подписаться | Прислать новость</p>
-<div class="meta">11.09 19:38 · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 9.5K</div>
-<span class="tchip">#Транспорт и дороги</span></div></div><div class="card cat-block"><div class="cat-head">
+<div class="meta"><time datetime="2026-09-11T19:38:36+04:00">11.09 19:38</time> · t.me/tresh_ulyan · <span class="tg">Telegram @tresh_ulyan</span> · 👁 9.5K</div>
+<span class="tchip">#Транспорт и дороги</span></article></div><div class="card cat-block"><div class="cat-head">
 <div class="cat-ico" style="background:#d99a1b;">🌾</div>
 <h3>Агропром</h3><div class="count">4</div></div>
-<div class="news-item">
+<article class="news-item">
 <h4><a href="https://t.me/ulyanovsk_smi/29414" target="_blank" rel="noopener">🍳 Готовим омлет как в садике Ингредиенты: 🍳 Яйцо — 5 шт. 🍳 Молоко — 250 мл. 🍳 Сливочное масло 🍳 Соль по вкусу …</a></h4>
 <p>🍳 Готовим омлет как в садике Ингредиенты: 🍳 Яйцо — 5 шт. 🍳 Молоко — 250 мл. 🍳 Сливочное масло 🍳 Соль по вкусу Сохраняй себе и отправляй друзьям 👉 📲 Читайте нас в МАКС 😉 Подписаться | Поделиться новостью</p>
-<div class="meta">12.09 01:05 · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 35</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-12T01:05:19+04:00">12.09 01:05</time> · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 35</div>
+</article><article class="news-item">
 <img src="https://ulpressa.ru/wp-content/uploads/2026/09/image-11-09-26-12-38.webp" alt="" loading="lazy" style="float:right;width:118px;height:78px;object-fit:cover;border-radius:9px;margin:2px 0 8px 12px;" onerror="this.style.display='none'"><h4><a href="https://ulpressa.ru/2026/09/11/pogruzka-zerna-na-zheleznoj-doroge-v-ulyanovskoj-oblasti-vyrosla-v-16-raza/" target="_blank" rel="noopener">Погрузка зерна на железной дороге в Ульяновской области выросла в 1,6 раза</a></h4>
 <p>За январь — август 2026 года на станциях РЖД в Ульяновской области погружено 2,2 миллиона тонн грузов — на 18,3 процента больше, чем за тот же период прошлого года. Наибольший рост показали продукты перемола — в два раза, нефть и нефтепродукты — в 1,7 раза, зерно — в 1,6 раза, чёрные металлы — в 1,5 раза. Строительные грузы выросли на 32,7 процента, метизы — на 19,4 процента. Промышленное сырьё и формовочные материалы остаются крупнейшей категорией — 1,1 миллиона тонн, плюс 4 процента к прошлому году. Только за август погрузили 300,8 тысячи тонн — на 8 процентов больше августа 2025 года.</p>
-<div class="meta">11.09 15:06 · Улпресса</div>
-<span class="tchip">#Урожай и АПК</span><span class="tchip">#Транспорт и дороги</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T15:06:04+04:00">11.09 15:06</time> · Улпресса</div>
+<span class="tchip">#Урожай и АПК</span><span class="tchip">#Транспорт и дороги</span></article><article class="news-item">
 <h4><a href="https://t.me/ulpressa/74441" target="_blank" rel="noopener">⚡ Хлопковая совка впервые за многие годы массово поразила поля подсолнечника и сои в Ульяновской области — до …</a></h4>
 <p>⚡ Хлопковая совка впервые за многие годы массово поразила поля подсолнечника и сои в Ульяновской области — до 20 гусениц на одно растение при пороге вредоносности в две, пишет «Российская газета». Фермеры тратят миллионы на обработку и просят ввести режим ЧС — чиновники отказывают. Учёные предупреждают: при тёплой зиме в следующем году ситуация может оказаться ещё хуже. Мы в Telegram | Мы в MAX</p>
-<div class="meta">11.09 09:21 · t.me/ulpressa · <span class="tg">Telegram @ulpressa</span> · 👁 576</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T09:21:37+04:00">11.09 09:21</time> · t.me/ulpressa · <span class="tg">Telegram @ulpressa</span> · 👁 576</div>
+</article><article class="news-item">
 <img src="https://ulpressa.ru/wp-content/themes/ulpressa/img/ulpressa-logo-1200x630.jpg" alt="" loading="lazy" style="float:right;width:118px;height:78px;object-fit:cover;border-radius:9px;margin:2px 0 8px 12px;" onerror="this.style.display='none'"><h4><a href="https://ulpressa.ru/2026/09/11/do-20-gusenicz-na-odno-rastenie-hlopkovaya-sovka-unichtozhaet-polya-podsolnechnika-v-ulyanovskoj-oblasti/" target="_blank" rel="noopener">До 20 гусениц на одно растение. Хлопковая совка уничтожает поля подсолнечника в Ульяновской области</a></h4>
 <p>Хлопковая совка нанесла масштабный ущерб посевам подсолнечника и сои в Ульяновской и Самарской областях, пишет «Российская газета». Аграрии называют нашествие беспрецедентным как минимум за семь лет. Южный вредитель прежде сдерживался холодными зимами, но несколько тёплых сезонов подряд позволили совке перезимовать прямо в Поволжье. Экономический порог вредоносности для подсолнечника — две гусеницы на растение, при котором урожайность падает на 20–30 процентов. Этим летом аграрии фиксировали от 10 до 20 гусениц на одном растении. «Сожрёт всё, если её не травить. Нам пришлось экстренно опрыскивать с самолётов и дронов смесью из трёх-четырёх препаратов. Это очень дорого», — рассказал гендиректор ульяновской компании «Биоком» Валерий Шилов. Одной из главных проблем стала высота подсолнечника — обработать его стандартной техникой невозможно, нужны высококлиренсные опрыскиватели, которых нет почти ни у кого. Агродроны оказались законтрактованы крупными предприятиями под обработку рапса — фермеры буквально дрались за технику. Ульяновский фермер Алексей Якушев сообщил, что его хозяйство тратит миллионы рублей на борьбу с вредителем и к весне рискует остаться без денег на посевную. Он добивается введения режима ЧС — это позволило бы получить мораторий на выплату кредитов и лизинга. Местные чиновники от введения ЧС отказываются. Минсельхоз Ульяновской области сообщил изданию, что актов на списание культур не поступало и оценить ущерб «не представляется возможным». Директор Ульяновского НИИСХ Александр Тойгильдин предупреждает: при тёплой зиме совка снова перезимует в Поволжье и следующий год может оказаться ещё хуже. Учёный рекомендует переходить на биологические методы борьбы — препараты на основе паразитарных грибов и выпуск насекомых-наездников.</p>
-<div class="meta">11.09 09:15 · Улпресса</div>
-<span class="tchip">#БПЛА и воздушные угрозы</span><span class="tchip">#Авиапром / УКБП / Ил-114</span><span class="tchip">#Урожай и АПК</span></div></div><div class="card cat-block"><div class="cat-head">
+<div class="meta"><time datetime="2026-09-11T09:15:41+04:00">11.09 09:15</time> · Улпресса</div>
+<span class="tchip">#БПЛА и воздушные угрозы</span><span class="tchip">#Авиапром / УКБП / Ил-114</span><span class="tchip">#Урожай и АПК</span></article></div><div class="card cat-block"><div class="cat-head">
 <div class="cat-ico" style="background:#e5484d;">⚕️</div>
 <h3>Здравоохранение</h3><div class="count">5</div></div>
-<div class="news-item">
+<article class="news-item">
 <h4><a href="https://t.me/ulpressa/74484" target="_blank" rel="noopener">Ребенку нужна консультация детского невролога? ❤️ В Клинике Фомина в Ульяновске принимает Жураев Данияр Саттар…</a></h4>
 <p>Ребенку нужна консультация детского невролога? ❤️ В Клинике Фомина в Ульяновске принимает Жураев Данияр Саттаркулович — врач-невролог, врач функциональной диагностики и детский невролог из Казани со стажем 10 лет. Данияр Саттаркулович помогает разобраться с вопросами развития и здоровья ребенка, в том числе занимается: ✔️ наблюдением детей первого года жизни; ✔️ наблюдением детей из группы риска; ✔️ задержками развития и речи; ✔️ РАС и СДВГ; ✔️ головными болями; ✔️ энурезом; ✔️ пароксизмальными состояниями; ✔️ другими неврологическими нарушениями. Если вас что-то беспокоит в развитии или…</p>
-<div class="meta">11.09 20:03 · t.me/ulpressa · <span class="tg">Telegram @ulpressa</span> · 👁 1.5K</div>
-<span class="tchip">#Медицина</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T20:03:13+04:00">11.09 20:03</time> · t.me/ulpressa · <span class="tg">Telegram @ulpressa</span> · 👁 1.5K</div>
+<span class="tchip">#Медицина</span></article><article class="news-item">
 <h4><a href="https://t.me/reporter73/52131" target="_blank" rel="noopener">❤️ История спасения малыша, которому сделали 11 внутриутробных переливаний крови, удивила всю Ульяновскую обла…</a></h4>
 <p>❤️ История спасения малыша, которому сделали 11 внутриутробных переливаний крови, удивила всю Ульяновскую область. Татьяна Дамаданова побывала в перинатальном центре «Мама». Подробности подвига врачей, мамы и ребёнка расскажем в программе «Реальность». 👍 Репортер 73 |</p>
-<div class="meta">11.09 15:17 · t.me/reporter73 · <span class="tg">Telegram @reporter73</span> · 👁 2</div>
-<span class="tchip">#Медицина</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T15:17:36+04:00">11.09 15:17</time> · t.me/reporter73 · <span class="tg">Telegram @reporter73</span> · 👁 2</div>
+<span class="tchip">#Медицина</span></article><article class="news-item">
 <h4><a href="https://t.me/insaid173/46868" target="_blank" rel="noopener">Здравствуйте, в центре ходит больной мужчина, который орет на всех матом, предположительно похож на того же му…</a></h4>
 <p>Здравствуйте, в центре ходит больной мужчина, который орет на всех матом, предположительно похож на того же мужчину, который также ходил в центре, ударил бабушку в спину и облил девушек на Пушкаре. Я шла с подругой с пар и попался этот человек. Сказал что:теперь я должна подняться по лестнице около частной поликлинике надежда на улице Орлова. Я сказала, что не пойду и начала обходить, чтобы пройти, на что мужчина плюнул мне в лицо и удалился. Прошу предать огласке эту новость, мужчина агрессивен.(если это человек из постов и новостей прошлого года, то может применить физическую силу к…</p>
-<div class="meta">11.09 13:02 · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 3.8K</div>
-<span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/insaid173</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T13:02:08+04:00">11.09 13:02</time> · t.me/insaid173 · <span class="tg">Telegram @insaid173</span> · 👁 3.8K</div>
+<span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/insaid173</span></article><article class="news-item">
 <h4><a href="https://t.me/ulyanovsk_smi/29400" target="_blank" rel="noopener">🏥 Врачи спасли малыша с тяжелейшим резус-конфликтом в Ульяновске У мамы с отрицательным резусом и ребёнка с по…</a></h4>
 <p>🏥 Врачи спасли малыша с тяжелейшим резус-конфликтом в Ульяновске У мамы с отрицательным резусом и ребёнка с положительным развилась отёчная форма гемолитической болезни — антитела матери разрушали кровь ребёнка, к 24-й неделе появились тяжёлая анемия и водянка, сообщает Минздрав. Спасти могло только внутриутробное переливание крови через сосуды пуповины: за 10 недель сделали 11 переливаний и 3 пункции, удалив более 700 мл жидкости. На 33-й неделе ребёнок родился с помощью кесарева сечения и сейчас находится под круглосуточным наблюдением. ❤️ — здоровья ребёнку 👍 — врачи — молодцы! 📲 Читайте…</p>
-<div class="meta">11.09 11:35 · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 440</div>
-<span class="tchip">#Медицина</span><span class="tchip">#Суды и криминал</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T11:35:06+04:00">11.09 11:35</time> · t.me/ulyanovsk_smi · <span class="tg">Telegram @ulyanovsk_smi</span> · 👁 440</div>
+<span class="tchip">#Медицина</span><span class="tchip">#Суды и криминал</span></article><article class="news-item">
 <h4><a href="https://t.me/chpul/34361" target="_blank" rel="noopener">Коронавирус накрыл Таиланд. Российские туристы массово жалуются на тяжёлые симптомы: высокую температуру, силь…</a></h4>
 <p>Коронавирус накрыл Таиланд. Российские туристы массово жалуются на тяжёлые симптомы: высокую температуру, сильные мигрени и ломоту в теле . Особенно тяжело ночью — жар такой, что одежду можно выжимать от пота . Власти подтверждают новую волну и призывают не посещать людные места и носить маски . Только за последнюю неделю августа в больнице Вачира зафиксировали 64 случая .</p>
-<div class="meta">11.09 07:33 · t.me/chpul · <span class="tg">Telegram @chpul</span> · 👁 473</div>
-<span class="tchip">#Медицина</span><span class="tchip">#Погода</span></div></div><div class="card cat-block"><div class="cat-head">
+<div class="meta"><time datetime="2026-09-11T07:33:49+04:00">11.09 07:33</time> · t.me/chpul · <span class="tg">Telegram @chpul</span> · 👁 473</div>
+<span class="tchip">#Медицина</span><span class="tchip">#Погода</span></article></div><div class="card cat-block"><div class="cat-head">
 <div class="cat-ico" style="background:#e8842c;">🏆</div>
 <h3>Спорт</h3><div class="count">8</div></div>
-<div class="news-item">
+<article class="news-item">
 <h4><a href="https://t.me/ulpromo/18001" target="_blank" rel="noopener">ПОВОЛЖСКАЯ БОЧКА: КАРДИО завтра. 8 часов техно в спортивном зале. Ульяновск / Димитровград / Казань / Самара д…</a></h4>
 <p>ПОВОЛЖСКАЯ БОЧКА: КАРДИО завтра. 8 часов техно в спортивном зале. Ульяновск / Димитровград / Казань / Самара диджей-сеты, живые выступления, арт-инсталляции и чай. 12 сентября / 20:00 секретное место 18+ / FC / DC 500₽ — по регистрации 800₽ — без регистрации адрес получат зарегистрированные в Telegram-боте: @undergrounduln_bot #12сентября2026@ulpromo Движ в любимом У | Подписаться 💃 Движ в MAX Движ в ВК</p>
-<div class="meta">11.09 19:24 · t.me/ulpromo · <span class="tg">Telegram @ulpromo</span> · 👁 541</div>
-<span class="tchip">#Спорт</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T19:24:08+04:00">11.09 19:24</time> · t.me/ulpromo · <span class="tg">Telegram @ulpromo</span> · 👁 541</div>
+<span class="tchip">#Спорт</span></article><article class="news-item">
 <h4><a href="https://t.me/reporter73/52140" target="_blank" rel="noopener">⚽️ Футбольная «Волга» сыграет против ФК «Уфа» в это воскресенье. Матч пройдёт в столице Башкирии на стадионе «…</a></h4>
 <p>⚽️ Футбольная «Волга» сыграет против ФК «Уфа» в это воскресенье. Матч пройдёт в столице Башкирии на стадионе «Нефтяник». Будем смотреть и болеть за наших 🔥 📸 : ФК «ВОЛГА» 👍 Репортер 73 |</p>
-<div class="meta">11.09 17:39 · t.me/reporter73 · <span class="tg">Telegram @reporter73</span> · 👁 7</div>
-<span class="tchip">#Спорт</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T17:39:38+04:00">11.09 17:39</time> · t.me/reporter73 · <span class="tg">Telegram @reporter73</span> · 👁 7</div>
+<span class="tchip">#Спорт</span></article><article class="news-item">
 <h4><a href="https://t.me/fcvolga/12506" target="_blank" rel="noopener">🔜 🔜 🔜 🔜 Ещё не успели утихнуть кубковые переживания и обсуждения трансферного дедлайна, а уже в воскресенье но…</a></h4>
 <p>🔜 🔜 🔜 🔜 Ещё не успели утихнуть кубковые переживания и обсуждения трансферного дедлайна, а уже в воскресенье новый вызов - выезд в столицу Башкирии</p>
-<div class="meta">11.09 15:53 · t.me/fcvolga · <span class="tg">Telegram @fcvolga</span> · 👁 307</div>
-</div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T15:53:05+04:00">11.09 15:53</time> · t.me/fcvolga · <span class="tg">Telegram @fcvolga</span> · 👁 307</div>
+</article><article class="news-item">
 <h4><a href="https://t.me/ulsk_73online/35830" target="_blank" rel="noopener">В «Волге» - два новых футболиста Состав команды пополнили голкипер Андрей Ходанович из «Оренбурга» и защитник …</a></h4>
 <p>В «Волге» - два новых футболиста Состав команды пополнили голкипер Андрей Ходанович из «Оренбурга» и защитник Макс Дзиов , который начинал сезон в заявке воронежского «Факела» Ходанович совсем недавно – восьмого сентября – отметил свой двадцать второй день рождения. В нынешнем сезоне он отыграл два матча за свой клуб в Кубке России. Появление нового голкипера связывают с травмой опытного Егора Бабурина, который будет вынужден пропустить несколько недель. О возможном появлении Дзиова наш портал со ссылкой на инсадеров сообщал накануне. Сегодня «Волга» подтвердила появление нового игрока. В…</p>
-<div class="meta">11.09 09:41 · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 389</div>
-<span class="tchip">#Спорт</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T09:41:30+04:00">11.09 09:41</time> · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 389</div>
+<span class="tchip">#Спорт</span></article><article class="news-item">
 <img src="https://ulpressa.ru/wp-content/uploads/2026/09/2026-09-11-09.30.42.jpg" alt="" loading="lazy" style="float:right;width:118px;height:78px;object-fit:cover;border-radius:9px;margin:2px 0 8px 12px;" onerror="this.style.display='none'"><h4><a href="https://ulpressa.ru/2026/09/11/volga-vzyala-v-arendu-vratarya-orenburgskogo-kluba-andreya-hodanovicha/" target="_blank" rel="noopener">«Волга» взяла в аренду вратаря оренбургского клуба Андрея Ходановича</a></h4>
 <p>«Волга» взяла в аренду 22-летнего вратаря Андрея Ходановича из «Оренбурга». Ходанович — воспитанник Академии оренбургского клуба. Также провёл сезон в песчанокопской «Чайке». За основу «Оренбурга» сыграл два матча в нынешнем розыгрыше Кубка России: дома с «Рубином» — 1:1 (3:5 по пенальти) и в гостях с «Родиной» — 4:1.</p>
-<div class="meta">11.09 09:32 · Улпресса</div>
-<span class="tchip">#Спорт</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/chpul, t.me/ulpressa</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T09:32:02+04:00">11.09 09:32</time> · Улпресса</div>
+<span class="tchip">#Спорт</span><span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: t.me/chpul, t.me/ulpressa</span></article><article class="news-item">
 <h4><a href="https://t.me/sergeymorozov73/23279" target="_blank" rel="noopener">И еще немногого об исторических событий сегодняшнего дня- 11 сентября 1834 Открытие Александровской колонны в …</a></h4>
 <p>И еще немногого об исторических событий сегодняшнего дня- 11 сентября 1834 Открытие Александровской колонны в Петербурге – монумент победы в Отечественной войне 1812. Надпись на пьедестале колонны: « Александру I благодарная Россия». Вес более 600 т, вышина 47,5 м 1911 День трезвости. Установлен Церковью на день, когда Иоанна Предтечу обезглавили по пьяной клятве Ирода. «Пьянство есть корень всякаго зла» 1960 Безоговорочной победой сборной СССР завершилась XVII Олимпиада в Риме. Наши спортсмены завоевали 43 золотых медали (у «пришедших к финишу» вторыми американцев было 34). А всего наша…</p>
-<div class="meta">11.09 09:05 · t.me/sergeymorozov73 · <span class="tg">Telegram @sergeymorozov73</span> · 👁 53</div>
-<span class="tchip">#Спорт</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T09:05:56+04:00">11.09 09:05</time> · t.me/sergeymorozov73 · <span class="tg">Telegram @sergeymorozov73</span> · 👁 53</div>
+<span class="tchip">#Спорт</span></article><article class="news-item">
 <h4><a href="https://t.me/fcvolga/12505" target="_blank" rel="noopener">✍️ Вратарскую бригаду "Волги" пополнил Андрей Ходанович "Жёлто-чёрные" взяли в аренду 22-летнего голкипера "Ор…</a></h4>
 <p>✍️ Вратарскую бригаду "Волги" пополнил Андрей Ходанович "Жёлто-чёрные" взяли в аренду 22-летнего голкипера "Оренбурга". Ходанович - воспитанник воспитанник Академии южноуральцев. Помимо родного клуба, провел сезон в песчанокопской "Чайке". За основу оренбуржцев успел сыграть два матча в нынешнем розыгрыше кубка: дома с казанским "Рубином" - 1:1 (3:5 по пенальти) и в гостях с "Родиной" (4:1). Добро пожаловать с берегов Урала на берега Волги, Андрей!</p>
-<div class="meta">11.09 09:04 · t.me/fcvolga · <span class="tg">Telegram @fcvolga</span> · 👁 575</div>
-<span class="tchip">#Спорт</span></div><div class="news-item">
+<div class="meta"><time datetime="2026-09-11T09:04:24+04:00">11.09 09:04</time> · t.me/fcvolga · <span class="tg">Telegram @fcvolga</span> · 👁 575</div>
+<span class="tchip">#Спорт</span></article><article class="news-item">
 <h4><a href="https://t.me/ulsk_73online/35823" target="_blank" rel="noopener">Заказчиком Хобота называют убитого авторитета Рамиса Садиева По сведениям источников 73online, авторитета Вале…</a></h4>
 <p>Заказчиком Хобота называют убитого авторитета Рамиса Садиева По сведениям источников 73online, авторитета Валерия Хабатулина (Хобот) мог заказать предприниматель Рамис Садиев . Примечательно, что через 12 лет он повторил судьбу убитого — его устранил киллер в спорткомплексе «Арена». Второй предполагаемый организатор расправы пропал без вести в 2002 году. Основной мотив — устранение конкурента и личная неприязнь. Подписаться | Прислать новость | Мы в МАКС</p>
-<div class="meta">11.09 07:15 · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 876</div>
-<span class="tchip">#Суды и криминал</span><span class="tchip">#Спорт</span></div></div></div></div><div class="sec-head" id="tg"><h2>📡 Telegram-монитор</h2><div class="line"></div>
-<div class="badge">32 каналов · 255 постов за 24 ч · через t.me/s</div></div><div class="grid2"><div class="card" style="margin-bottom:14px;"><div class="side-head"><span class="ok">●</span>
+<div class="meta"><time datetime="2026-09-11T07:15:08+04:00">11.09 07:15</time> · t.me/ulsk_73online · <span class="tg">Telegram @ulsk_73online</span> · 👁 876</div>
+<span class="tchip">#Суды и криминал</span><span class="tchip">#Спорт</span></article></div></div></div><div class="sec-head" id="tg"><h2>📡 Telegram-монитор</h2><div class="line"></div>
+<div class="badge">32 каналов · 244 постов за 24 ч · через t.me/s</div></div><div class="grid2"><div class="card" style="margin-bottom:14px;"><div class="side-head"><span class="ok">●</span>
 <a href="https://t.me/Russkih_Aleksey" target="_blank" rel="noopener" style="color:#fff;">@Russkih_Aleksey</a>
 <span class="sub">Алексей Русских (губернатор)</span></div><div class="side-body"><div class="tgpost"><div class="views">👁 623</div>
 <div><div class="t"><a href="https://t.me/Russkih_Aleksey/12344" target="_blank" rel="noopener">Провёл оперштаб по содействию избирательным комиссиям и проверил готовность избирательного участка на базе Мар…</a></div>
@@ -805,15 +898,15 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <tr><th>Канал</th><th>Тип</th><th>Подп.</th><th>24ч</th><th>Последний пост</th></tr>
 <tr><td><span class="ok">●</span> <a href="https://t.me/tresh_ulyan" target="_blank" rel="noopener">@tresh_ulyan</a><br>
 <span style="color:var(--muted);font-size:11px;">Треш Ульяновск</span></td>
-<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>146K</td><td>21</td><td><a href="https://t.me/tresh_ulyan/56134" target="_blank" rel="noopener">😱 Разборки у клуба Maison прямо сейчас 😱 Подписаться | Прислать новость</a> <span style="color:var(--muted);">12.09 02:13</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/insaid173" target="_blank" rel="noopener">@insaid173</a><br>
+<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>146K</td><td>20</td><td><a href="https://t.me/tresh_ulyan/56134" target="_blank" rel="noopener">😱 Разборки у клуба Maison прямо сейчас 😱 Подписаться | Прислать новость</a> <span style="color:var(--muted);">12.09 02:13</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/insaid173" target="_blank" rel="noopener">@insaid173</a><br>
 <span style="color:var(--muted);font-size:11px;">Инсайд Ульяновск</span></td>
-<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>139K</td><td>19</td><td><a href="https://t.me/insaid173/46891" target="_blank" rel="noopener">😱 Какой-то неадекват громит машину в Новой жизни. Выходные в Ульяновске начались</a> <span style="color:var(--muted);">12.09 00:07</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/chpulsk" target="_blank" rel="noopener">@chpulsk</a><br>
+<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>139K</td><td>18</td><td><a href="https://t.me/insaid173/46891" target="_blank" rel="noopener">😱 Какой-то неадекват громит машину в Новой жизни. Выходные в Ульяновске начались</a> <span style="color:var(--muted);">12.09 00:07</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/chpulsk" target="_blank" rel="noopener">@chpulsk</a><br>
 <span style="color:var(--muted);font-size:11px;">ЧП Ульяновск</span></td>
-<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>84K</td><td>14</td><td><a href="https://t.me/chpulsk/50702" target="_blank" rel="noopener">❗️ Россия не нуждается в проведении мобилизации , заявил Медведев. Сообщения о п</a> <span style="color:var(--muted);">11.09 22:13</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/dimitrovgradonline" target="_blank" rel="noopener">@dimitrovgradonline</a><br>
+<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>84K</td><td>12</td><td><a href="https://t.me/chpulsk/50702" target="_blank" rel="noopener">❗️ Россия не нуждается в проведении мобилизации , заявил Медведев. Сообщения о п</a> <span style="color:var(--muted);">11.09 22:13</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/dimitrovgradonline" target="_blank" rel="noopener">@dimitrovgradonline</a><br>
 <span style="color:var(--muted);font-size:11px;">Информационный Димитровград</span></td>
 <td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>56K</td><td>12</td><td><a href="https://t.me/dimitrovgradonline/33491" target="_blank" rel="noopener">Сергей Сандрюков: Встретился сегодня с руководителями спортивных учреждений и фе</a> <span style="color:var(--muted);">11.09 22:16</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/topor_ul" target="_blank" rel="noopener">@topor_ul</a><br>
 <span style="color:var(--muted);font-size:11px;">Топор Ульяновск</span></td>
-<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>47K</td><td>11</td><td><a href="https://t.me/topor_ul/11586" target="_blank" rel="noopener">😱 Дебош в гостинице закончился задержанием: росгвардейцы скрутили буйного гостя </a> <span style="color:var(--muted);">11.09 23:53</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/ulkoroche" target="_blank" rel="noopener">@ulkoroche</a><br>
+<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>47K</td><td>10</td><td><a href="https://t.me/topor_ul/11586" target="_blank" rel="noopener">😱 Дебош в гостинице закончился задержанием: росгвардейцы скрутили буйного гостя </a> <span style="color:var(--muted);">11.09 23:53</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/ulkoroche" target="_blank" rel="noopener">@ulkoroche</a><br>
 <span style="color:var(--muted);font-size:11px;">Короче, Ульяновск</span></td>
 <td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>33K</td><td>8</td><td><a href="https://t.me/ulkoroche/33714" target="_blank" rel="noopener">Доброй ночи, Ульяновск! ❤️ Спасибо за фото нашей подписчице 🍁 Если и у вас есть </a> <span style="color:var(--muted);">11.09 22:22</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/dimitrovgradd" target="_blank" rel="noopener">@dimitrovgradd</a><br>
 <span style="color:var(--muted);font-size:11px;">Типичный Димитровград</span></td>
@@ -821,11 +914,11 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span style="color:var(--muted);font-size:11px;">Новости Ульяновска и Области</span></td>
 <td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>27K</td><td>14</td><td><a href="https://t.me/ulyanovsk_smi/29415" target="_blank" rel="noopener">❗️ Опасность БПЛА объявили в Ульяновской области Жителям рекомендуют быть бдител</a> <span style="color:var(--muted);">12.09 03:27</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/chpul" target="_blank" rel="noopener">@chpul</a><br>
 <span style="color:var(--muted);font-size:11px;">Инцидент Ульяновск</span></td>
-<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>18K</td><td>11</td><td><a href="https://t.me/chpul/34380" target="_blank" rel="noopener">Должникам по алиментам в России могут запретить делать ставки и участвовать в аз</a> <span style="color:var(--muted);">11.09 22:30</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/ulsk_on" target="_blank" rel="noopener">@ulsk_on</a><br>
+<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>18K</td><td>10</td><td><a href="https://t.me/chpul/34380" target="_blank" rel="noopener">Должникам по алиментам в России могут запретить делать ставки и участвовать в аз</a> <span style="color:var(--muted);">11.09 22:30</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/ulsk_on" target="_blank" rel="noopener">@ulsk_on</a><br>
 <span style="color:var(--muted);font-size:11px;">Ульяновск Новости (онлайн)</span></td>
 <td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>13K</td><td>8</td><td><a href="https://t.me/ulsk_on/22771" target="_blank" rel="noopener">В Димитровграде 19‑летняя сотрудница пункта выдачи маркетплейса два месяца присв</a> <span style="color:var(--muted);">11.09 20:51</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/ulsk_73online" target="_blank" rel="noopener">@ulsk_73online</a><br>
 <span style="color:var(--muted);font-size:11px;">73online</span></td>
-<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>13K</td><td>15</td><td><a href="https://t.me/ulsk_73online/35859" target="_blank" rel="noopener">11-13 сентября 1906 года Симбирск посетил председатель Совета министров и минист</a> <span style="color:var(--muted);">11.09 18:41</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/ulsk_driver73" target="_blank" rel="noopener">@ulsk_driver73</a><br>
+<td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>13K</td><td>14</td><td><a href="https://t.me/ulsk_73online/35859" target="_blank" rel="noopener">11-13 сентября 1906 года Симбирск посетил председатель Совета министров и минист</a> <span style="color:var(--muted);">11.09 18:41</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/ulsk_driver73" target="_blank" rel="noopener">@ulsk_driver73</a><br>
 <span style="color:var(--muted);font-size:11px;">Ульяновский водитель</span></td>
 <td><span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span></td><td>13K</td><td>7</td><td><a href="https://t.me/ulsk_driver73/18496" target="_blank" rel="noopener">На АЗС не могут отказать в продаже бензина в канистру Роспотребнадзор напомнил: </a> <span style="color:var(--muted);">11.09 20:52</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/ProNovosty73" target="_blank" rel="noopener">@ProNovosty73</a><br>
 <span style="color:var(--muted);font-size:11px;">Что-то на ульяновском</span></td>
@@ -839,7 +932,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span style="color:var(--muted);font-size:11px;">Движ в любимом У</span></td>
 <td><span class="stchip" style="background:#f3edfa;color:#5f418f;">мнения</span></td><td>14K</td><td>4</td><td><a href="https://t.me/ulpromo/18002" target="_blank" rel="noopener">12 СЕНТЯБРЯ | ЗАКРЫТОЕ ОТКРЫТИЕ Собираем всех, кто соскучился по ночам в А5: муз</a> <span style="color:var(--muted);">11.09 21:00</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/ulkompr" target="_blank" rel="noopener">@ulkompr</a><br>
 <span style="color:var(--muted);font-size:11px;">Компромат Ульяновск</span></td>
-<td><span class="stchip" style="background:#f3edfa;color:#5f418f;">мнения</span></td><td>13K</td><td>14</td><td><a href="https://t.me/ulkompr/36272" target="_blank" rel="noopener">#итогинедели Дебаты Якушева, дистант в Красноярске, рыбные палочки на ГТРК, деба</a> <span style="color:var(--muted);">11.09 23:51</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/terr73" target="_blank" rel="noopener">@terr73</a><br>
+<td><span class="stchip" style="background:#f3edfa;color:#5f418f;">мнения</span></td><td>13K</td><td>13</td><td><a href="https://t.me/ulkompr/36272" target="_blank" rel="noopener">#итогинедели Дебаты Якушева, дистант в Красноярске, рыбные палочки на ГТРК, деба</a> <span style="color:var(--muted);">11.09 23:51</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/terr73" target="_blank" rel="noopener">@terr73</a><br>
 <span style="color:var(--muted);font-size:11px;">Территория Русских</span></td>
 <td><span class="stchip" style="background:#f3edfa;color:#5f418f;">мнения</span></td><td>9K</td><td>0</td><td><a href="https://t.me/terr73/1231" target="_blank" rel="noopener">Алексей Русских отреагировал на острую ситуацию, возникшую после решения отдельн</a> <span style="color:var(--muted);">09.09 12:47</span></td></tr><tr><td><span class="ok">●</span> <a href="https://t.me/volkodav73" target="_blank" rel="noopener">@volkodav73</a><br>
 <span style="color:var(--muted);font-size:11px;">Волкодав73</span></td>
@@ -883,10 +976,11 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="badge">автоматические выводы</div></div>
 <div class="card"><div class="card-pad"><div class="verdict"><b>Сводка трекера</b>Доминирующая тема недели — <b>«Суды и криминал»</b> (140 упоминаний за 7 дней). Ведущая рубрика — <b>Общество и городская среда</b> (260 материалов). 🔥 На подъёме: <b>Суды и криминал</b>, <b>Транспорт и дороги</b>, <b>Школы и вузы</b>, <b>Губернатор / власть</b>, <b>Культура и туризм</b> и ещё 14 — вероятно сохранение/усиление в ближайшие 1–2 дня. ⚠️ Массовый рост большинства тем — признак пиковой новостной недели (День города + предвыборная кампания + инциденты); интерпретируйте статусы с учётом общей интенсивности повестки.</div><table class="fc-tbl"><tr><th>Тема</th><th>Завтра</th><th>Ожидание</th><th>Уверенность</th></tr><tr><td><b>Транспорт и дороги</b></td><td><span class="fc-up">↑ рост</span></td><td>~29.9 упоминаний</td><td>средняя</td></tr><tr><td><b>Суды и криминал</b></td><td><span class="fc-up">↑ рост</span></td><td>~30.2 упоминаний</td><td>средняя</td></tr><tr><td><b>Школы и вузы</b></td><td><span class="fc-up">↑ рост</span></td><td>~24.9 упоминаний</td><td>средняя</td></tr><tr><td><b>Губернатор / власть</b></td><td><span class="fc-up">↑ рост</span></td><td>~23.4 упоминаний</td><td>средняя</td></tr><tr><td><b>БПЛА и воздушные угрозы</b></td><td><span class="fc-up">↑ рост</span></td><td>~17.7 упоминаний</td><td>средняя</td></tr><tr><td><b>Спорт</b></td><td><span class="fc-up">↑ рост</span></td><td>~13.8 упоминаний</td><td>средняя</td></tr></table>
 <div class="note">Выводы — правила trends.py; прогноз — наклон ряда + EMA (analytics.py), уверенность по разбросу остатков. При накоплении истории точность растёт.</div></div></div></div>
+</main>
 <footer class="footer"><div class="footer-inner">
 <div><b>листок Гудок</b><p>Гудок — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года.</p><p style="margin-top:6px;">Выпуск №1 от 12.09.2026. Собрано автоматически: 12.09.2026 03:42 (UTC+4).</p></div>
 <div><b>Методика</b><p>Мониторинг RSS (Ulnovosti.ru, Улпресса) и публичных превью Telegram-каналов (t.me/s/…). Классификация — по словарю config.json; тренды — сравнение 3-дневного окна с недельной базой.</p></div>
-<div><b>Навигация</b><p><a href="../index.html" style="color:#ffd47e;">← Первая полоса</a> · <a href="../weekly.html" style="color:#ffd47e;">Аналитика недели</a></p></div>
+<div><b>Навигация</b><p><a href="../index.html" class="flink">← Первая полоса</a> · <a href="../weekly.html" class="flink">Аналитика недели</a></p></div>
 </div></footer><script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
 document.documentElement.setAttribute("data-theme",c);

@@ -188,7 +188,7 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 <a href="infospace.html">🔬 Инфопространство</a>
 <a href="index.html#archive">🗄 Архив</a>
 </div></nav>
-<div class="page">
+<main id="main"><div class="page">
 
 <div class="grid">
 <div class="stat"><b>{health}</b><span>последний сбор: {age_str(meta.get('last_run_utc'))}</span></div>
@@ -221,6 +221,7 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 <a href="status.html">🩺 Статус системы</a>
 <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
 </div></div>
+</main>
 </body></html>"""
 
     with open(os.path.join(BASE, "status.html"), "w", encoding="utf-8") as f:
