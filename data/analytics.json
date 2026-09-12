@@ -1,5 +1,5 @@
 {
- "generated_local": "12.09.2026 11:50",
+ "generated_local": "12.09.2026 11:52",
  "calendar": [
   {
    "etype": "sport",
@@ -478,11 +478,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.079,
-  "today_items": 74,
+  "today_score": 0.078,
+  "today_items": 75,
   "today_pos": 253,
   "today_neg": 166,
-  "today_neu": 323,
+  "today_neu": 324,
   "series": [
    {
     "date": "2026-08-30",
@@ -538,7 +538,7 @@
    },
    {
     "date": "2026-09-12",
-    "score": 0.079
+    "score": 0.078
    }
   ],
   "by_category": {
@@ -547,7 +547,7 @@
    "economy": 0.867,
    "education": 0.25,
    "health": 0.0,
-   "politics": 0.625,
+   "politics": 0.5,
    "security": -0.754,
    "society": 0.148,
    "sport": 1.0
@@ -558,8 +558,8 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 70,
-   "primary": 65,
+   "total": 71,
+   "primary": 66,
    "dup": 5,
    "repost_rate": 0.07,
    "views_median": null,
@@ -979,8 +979,8 @@
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 41.2,
-   "slope": 7.86,
+   "expected": 42.0,
+   "slope": 7.96,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1003,8 +1003,8 @@
   {
    "topic": "governor",
    "name": "Губернатор / власть",
-   "expected": 29.3,
-   "slope": 5.54,
+   "expected": 30.0,
+   "slope": 5.64,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1091,8 +1091,8 @@
   {
    "topic": "zhkh",
    "name": "ЖКХ, газ, тепло",
-   "expected": 6.2,
-   "slope": 1.18,
+   "expected": 6.9,
+   "slope": 1.29,
    "direction": "рост",
    "confidence": "средняя"
   },
