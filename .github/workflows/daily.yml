@@ -1,5 +1,7 @@
 name: Ежедневный выпуск
 on:
+  push:
+    branches: [main]
   schedule:
     - cron: "30 3 * * *"   # 07:30 UTC+4 ежедневно
   workflow_dispatch: {}
@@ -9,6 +11,7 @@ permissions:
   id-token: write
 jobs:
   build:
+    if: github.actor != 'gudok-bot'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

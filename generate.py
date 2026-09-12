@@ -3031,19 +3031,16 @@ def main():
     digest_no, _test = digest_number(cfg, date_str)
 
     def themed(html):
+        now = datetime.now(UTC4)
         html = html.replace("</head>", THEME_HEAD + "</head>", 1)
-        flag = ('<div class="flagline"><span id="flagdate"></span><span>Ульяновск · издание внутреннее</span>'
-                '<span id="flagwx"></span></div>')
-        html = html.replace('<div class="topbar"><div class="topbar-inner">',
-                            '<div class="topbar">' + flag + '<div class="topbar-inner">', 1)
-        html = html.replace('<div class="masthead"><div class="mast-inner">',
-                            '<div class="masthead">' + flag + '<div class="mast-inner">', 1)
-        html = html.replace("</body>", '<script>(function(){var d=new Date();'
-                            'var M=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];'
-                            'var W=["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];'
-                            'var e=document.getElementById("flagdate");'
-                            'if(e)e.textContent=W[d.getDay()]+", "+d.getDate()+" "+M[d.getMonth()]+" "+d.getFullYear()+" г.";'
-                            '})()</script></body>', 1)
+        flag = ('<div class="flagline"><span>' + now.strftime("%A, %d %B %Y г.").capitalize() + '</span>'
+                '<span>Ульяновск · издание внутреннее</span>'
+                '<span>выпуск собран ' + now.strftime("%H:%M") + '</span></div>')
+        html = html.replace('<header class="topbar"><div class="topbar-inner">',
+                            '<header class="topbar">' + flag + '<div class="topbar-inner">', 1)
+        html = html.replace('<header class="masthead"><div class="mast-inner">',
+                            '<header class="masthead">' + flag + '<div class="mast-inner">', 1)
+
         html = re.sub(r'(</nav>(?:<div class="subnav">.*?</div></div>)?)', r'\1<main id="main">',
                       html, count=1, flags=re.S)
         html = html.replace('<footer class="footer">', '</main>\n<footer class="footer">', 1)
