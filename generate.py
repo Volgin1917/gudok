@@ -664,6 +664,46 @@ def sparkline(series, w=120, h=26, color="#2f80ed"):
             f'<circle cx="{last[0]}" cy="{last[1]}" r="2.6" fill="{color}"/></svg>')
 
 
+SENT_SPLIT = re.compile(r"(?<=[.!?…])\s+")
+
+
+def clip_sentences(text, limit):
+    text = CHANNEL_TAIL_RE.sub("", text or "").strip()
+    parts = SENT_SPLIT.split(text)
+    tail_cut = False
+    if parts and not re.search(r'[.!?…»]"?$', parts[-1].strip()):
+        if len(parts) > 1:
+            parts = parts[:-1]
+            tail_cut = True
+        else:
+            cut = text[:limit].rsplit(" ", 1)[0]
+            return cut.rstrip(" ,;:—-") + "…"
+    full = " ".join(parts)
+    if len(full) <= limit:
+        return full + ("…" if tail_cut else "")
+    out = ""
+    for p in parts:
+        if not out:
+            out = p
+            continue
+        if len(out) + 1 + len(p) <= limit:
+            out += " " + p
+        else:
+            break
+    return out + "…"
+
+
+def clip_words(text, limit):
+    text = (text or "").strip()
+    if len(text) <= limit:
+        return text
+    cut = text[:limit].rsplit(" ", 1)[0]
+    return cut.rstrip(" ,;:—-") + "…"
+
+
+CHANNEL_TAIL_RE = re.compile(r"(?is)\s*(подписаться\s*\|\s*прислать|прислать новость|мы в макс|читайте нас в макс|подпишись).*$")
+
+
 def esc(s):
     return H.escape(s or "", quote=False)
 
@@ -873,7 +913,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
     if active_alerts:
         a0 = active_alerts[-1]
         adt = local_dt(a0.get("published")) or now
-        alert_banner = (f'<div class="alert-banner"><span class="blink">🚨</span> АЛЕРТ: {esc(a0["title"][:140])} '
+        alert_banner = (f'<div class="alert-banner"><span class="blink">🚨</span> АЛЕРТ: {esc(clip_words(a0["title"],140))} '
                         f'<span style="font-weight:600;font-size:12px;">@{esc(a0["channel"])} · {adt.strftime("%d.%m %H:%M")}</span> '
                         f'<a href="{esc(a0["url"])}" target="_blank" rel="noopener">источник →</a></div>')
     else:
@@ -947,7 +987,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
             dt = local_dt(it.get("published"))
             link = esc(it.get("url") or "#")
             rows.append(f"""<div class="chrono-item"><span class="chrono-time">{dt.strftime('%d.%m %H:%M') if dt else ''}</span>
-<a href="{link}" target="_blank" rel="noopener"><b>{esc(it['title'][:150])}</b></a>
+<a href="{link}" target="_blank" rel="noopener"><b>{esc(clip_words(it['title'],150))}</b></a>
 <span style="color:var(--muted);font-size:11.5px;">· {esc(it.get('source',''))}</span></div>""")
         parts.append(f"""<div class="sec-head"><h2>Оперативная хроника: безопасность</h2><div class="line"></div>
 <div class="badge">БПЛА · ракетная опасность · аэропорт</div></div>
@@ -1005,7 +1045,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
             span = f" — по {end[8:10]}.{end[5:7]}" if end else ""
             venue = f' · 📍 {esc(e["venue"])}' if e.get("venue") else ""
             rows.append(f"""<div class="cal-ev"><div class="cal-badge{gold}"><b>{day_txt}</b><span>{sub} {d:%m}</span></div>
-<div class="cal-txt"><a href="{esc(e.get('url') or '#')}" target="_blank" rel="noopener"><b>{esc(e['title'][:120])}</b></a>{span}
+<div class="cal-txt"><a href="{esc(e.get('url') or '#')}" target="_blank" rel="noopener"><b>{esc(clip_words(e['title'],120))}</b></a>{span}
 <div class="t2">{esc(e.get('time','')) or 'время уточняйте'}{venue} · {esc(e.get('source',''))}</div></div></div>""")
         parts.append(f"""<div class="sec-head" id="afisha"><h2>Автоафиша: ближайшие события</h2><div class="line"></div>
 <div class="badge">извлечено из новостей · {len(cal)} дат</div></div>
@@ -1076,7 +1116,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
             st_icon = '<span class="ok">●</span>' if st.get("ok") else ('<span class="fail">●</span>' if st else "●")
             rows = "".join(
                 f"""<div class="tgpost">{'<div class="views">👁 ' + fmt_views(p['views']) + '</div>' if p.get('views') else ''}
-<div><div class="t"><a href="{esc(p.get('url') or '#')}" target="_blank" rel="noopener">{esc(p['title'][:130])}</a></div>
+<div><div class="t"><a href="{esc(p.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(p['title'],130))}</a></div>
 <div class="m">{(local_dt(p.get('published')) or now).strftime('%d.%m %H:%M')}</div></div></div>"""
                 for p in posts) or '<div class="tgpost"><div class="t" style="color:var(--muted);">Нет свежих сообщений</div></div>'
             parts.append(f"""<div class="card" style="margin-bottom:14px;"><div class="side-head">{st_icon}
@@ -1094,7 +1134,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
         subs = f"{ch['subs']/1000:.0f}K" if ch.get("subs") else "—"
         if last:
             lp = last[0]
-            last_html = (f'<a href="{esc(lp.get("url") or "#")}" target="_blank" rel="noopener">{esc(lp["title"][:80])}</a> '
+            last_html = (f'<a href="{esc(lp.get("url") or "#")}" target="_blank" rel="noopener">{esc(clip_words(lp["title"],80))}</a> '
                          f'<span style="color:var(--muted);">{(local_dt(lp.get("published")) or now).strftime("%d.%m %H:%M")}</span>')
         else:
             last_html = '<span style="color:#8a99aa;">нет постов</span>'
@@ -1279,8 +1319,8 @@ def render_exec(cfg, trends, store, status, date_str):
             dt = local_dt(it.get("published"))
             src = esc(it.get("source", ""))
             views = f" · 👁 {fmt_views(it['views'])}" if it.get("views") else ""
-            out.append(f"""<li><b><a href="{esc(it.get('url') or '#')}">{esc(it['title'][:150])}</a></b>
-<div class="sub">{esc((it.get('text') or '')[:230])}</div>
+            out.append(f"""<li><b><a href="{esc(it.get('url') or '#')}">{esc(clip_words(it['title'],150))}</a></b>
+<div class="sub">{esc(clip_sentences((it.get('text') or ''),230))}</div>
 <div class="src">{dt.strftime('%d.%m %H:%M') if dt else ''} · {src}{views}</div></li>""")
         return "".join(out) or f"<li><span class='sub'>Нет данных за период ({kind})</span></li>"
 
@@ -1417,8 +1457,8 @@ def render_elections(cfg, trends, store, status):
 
     feed = "".join(
         f"""<div class="news-item">
-<h4><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(it['title'][:140])}</a></h4>
-<p>{esc((it.get('text') or '')[:300])}</p>
+<h4><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it['title'],140))}</a></h4>
+<p>{esc(clip_sentences((it.get('text') or ''),300))}</p>
 <div class="meta">{(local_dt(it.get('published')) or now).strftime('%d.%m %H:%M')} · {esc(it.get('source',''))}{(' · 👁 ' + fmt_views(it['views'])) if it.get('views') else ''}</div></div>"""
         for it in elec[:10]) or '<div class="news-item"><p>Материалов пока нет — запустите сбор.</p></div>'
 
@@ -1606,7 +1646,7 @@ def render_goszakupki(cfg, trends, store, status, an):
         for k, v in sorted(src_c.items(), key=lambda x: -x[1])[:8])
     stories = "".join(
         f"""<div class="af-mini"><div class="cal-badge"><b>{(local_dt(it['published']) or now):%d}</b><span>{(local_dt(it['published']) or now):%b}</span></div>
-<div style="flex:1;"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(it['title'][:110])}</a>
+<div style="flex:1;"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(clip_words(it['title'],110))}</a>
 <div style="font-size:11.3px;color:var(--muted);">{esc(it.get('source',''))} · 👁 {fmt_views(it.get('views')) if it.get('views') else '—'}</div></div></div>"""
         for it in sorted(gz_week, key=lambda x: x.get("views") or 0, reverse=True)[:8])
     eis_metrics = [
@@ -1797,7 +1837,7 @@ def render_afisha(cfg, trends, store, status, an):
             span = f' — {end[8:10]}.{end[5:7]}' if end else ''
             rows.append(f"""<div class="af-event" data-date="{e['date']}" data-weekend="{'1' if d in weekend else '0'}">
 <div class="cal-badge{gold}"><b>{d:%d}</b><span>{wd[d.weekday()]} {d:%m}</span></div>
-<div class="af-body"><a href="{esc(e.get('url') or '#')}" target="_blank" rel="noopener"><b>{esc(e['title'][:130])}</b></a>{span}
+<div class="af-body"><a href="{esc(e.get('url') or '#')}" target="_blank" rel="noopener"><b>{esc(clip_words(e['title'],130))}</b></a>{span}
 <div class="af-meta">{t}{esc(e.get('source',''))}{venue}{dist}</div></div></div>""")
         sections.append(f"""<div class="af-sec" id="et-{et}"><div class="sec-head" style="margin:16px 0 8px;"><h2>{icon} {name}</h2><div class="line"></div>
 <div class="badge">{len(evs)}</div></div><div class="card"><div class="card-pad">{''.join(rows)}</div></div></div>""")
@@ -1810,7 +1850,7 @@ def render_afisha(cfg, trends, store, status, an):
         posts = sorted([it for it in tg_items if it.get("channel") == chn],
                        key=lambda x: x.get("published") or "", reverse=True)[:3]
         rows = "".join(
-            f"""<div class="tgpost"><div><div class="t"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(it['title'][:120])}</a></div>
+            f"""<div class="tgpost"><div><div class="t"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it['title'],120))}</a></div>
 <div class="m">{(local_dt(it.get('published')) or now).strftime('%d.%m %H:%M')}{' · 👁 ' + fmt_views(it['views']) if it.get('views') else ''}</div></div></div>"""
             for it in posts) or '<div class="tgpost"><div class="t" style="color:var(--muted);">нет свежих постов</div></div>'
         chan_html.append(f"""<div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
@@ -2194,8 +2234,8 @@ def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest
     side_html = ""
     for m in leads[1:4]:
         dt = local_dt(m.get("published"))
-        side_html += f"""<div class="pm-item"><b>{esc(m['title'][:120])}</b>
-<span>{esc((m.get('text') or '')[:220])}</span>
+        side_html += f"""<div class="pm-item"><b>{esc(clip_words(m['title'],120))}</b>
+<span>{esc(clip_sentences((m.get('text') or ''),220))}</span>
 <i>{cats.get(m.get('category'), {}).get('name', '')} · {dt.strftime('%d.%m %H:%M') if dt else ''} · {esc(m.get('source', ''))}</i></div>"""
 
     by_cat = {}
@@ -2210,8 +2250,8 @@ def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest
         if not items:
             continue
         rows = "".join(
-            f"""<div class="pm-item"><b>{esc(it['title'][:110])}</b>
-<span>{esc((it.get('text') or '')[:160])}</span>
+            f"""<div class="pm-item"><b>{esc(clip_words(it['title'],110))}</b>
+<span>{esc(clip_sentences((it.get('text') or ''),160))}</span>
 <i>{(local_dt(it.get('published')) or now):%H:%M} · {esc(it.get('source', ''))}</i></div>"""
             for it in items[:4])
         rubrics += f'<div class="pm-h3">{c["icon"]} {esc(c["name"])}</div>{rows}'
@@ -2219,7 +2259,7 @@ def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest
     tomorrow = day + timedelta(days=1)
     af = [e for e in (an.get("calendar") or []) if e.get("date") in (day.isoformat(), tomorrow.isoformat())][:8]
     af_html = "".join(
-        f'<li><b>{e["date"][8:10]}.{e["date"][5:7]} {esc(e.get("time") or "—")}</b> — {esc(e["title"][:95])}</li>'
+        f'<li><b>{e["date"][8:10]}.{e["date"][5:7]} {esc(e.get("time") or "—")}</b> — {esc(clip_words(e["title"],95))}</li>'
         for e in af) or "<li>Событий на эти дни в афише нет.</li>"
 
     topics = (trends or {}).get("topics", {})
@@ -2253,7 +2293,7 @@ def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest
 
 <div class="pm-kicker">⟡ Сюжет дня</div>
 <div class="pm-lead-h">{esc(lead['title']) if lead else '—'}</div>
-<div class="pm-deck">{esc((lead.get('text') or '')[:260]) if lead else ''}</div>
+<div class="pm-deck">{esc(clip_sentences(lead.get('text') or '', 260)) if lead else ''}</div>
 
 <div class="pm-stats">
 <div class="pm-stat"><b>{n24}</b><span>публикаций за сутки</span></div>
@@ -2364,7 +2404,7 @@ def render_weekly_rail(cfg, an, store, start, end):
     def ev_rows(evs, limit=6):
         return "".join(
             f'<div class="tl-row"><div class="tl-time">{e["date"][8:10]}.{e["date"][5:7]}{(" " + e["time"]) if e.get("time") else ""}</div>'
-            f'<div class="tl-txt"><a href="{esc(e.get("url") or "#")}" target="_blank" rel="noopener">{esc(e["title"][:80])}</a></div></div>'
+            f'<div class="tl-txt"><a href="{esc(e.get("url") or "#")}" target="_blank" rel="noopener">{esc(clip_words(e["title"],80))}</a></div></div>'
             for e in evs[:limit]) or '<div class="now-line">Нет событий.</div>'
 
     econ = [it for it in store if not it.get("dup_of") and it.get("category") in ("economy", "agro")
@@ -2377,7 +2417,7 @@ def render_weekly_rail(cfg, an, store, start, end):
         corp.extend(posts)
     corp_rows = "".join(
         f'<div class="tl-row"><div class="tl-time">@{(it.get("channel") or "")[:8]}</div>'
-        f'<div class="tl-txt"><a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">{esc(it["title"][:80])}</a></div></div>'
+        f'<div class="tl-txt"><a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">{esc(clip_words(it["title"],80))}</a></div></div>'
         for it in corp[:4]) or '<div class="now-line">Корпоративные каналы молчат.</div>'
 
     return f"""<aside class="wk-rail">
@@ -2389,7 +2429,7 @@ def render_weekly_rail(cfg, an, store, start, end):
 <h4 style="margin-top:10px;">Впереди</h4>{ev_rows(upcoming, 5)}</div>
 <div class="wk-box"><h4>Промышленность и бизнес: новости → события</h4>{ev_rows(econ_events, 6)}
 <h4 style="margin-top:10px;">Корпоративные каналы</h4>{corp_rows}
-<div class="now-line">{esc((cfg.get("enterprise_note") or "")[:220])}</div></div>
+<div class="now-line">{esc(clip_words((cfg.get("enterprise_note") or ""),220))}</div></div>
 </aside>"""
 
 
@@ -2542,7 +2582,7 @@ def render_monthly(cfg, trends, store, status, ym):
         for w in weeks)
     casc_rows = "".join(
         f'<div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×{c["cluster"]}</b><span>ист.</span></div>'
-        f'<div style="flex:1;"><a href="{esc(c.get("url") or "#")}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(c["title"][:100])}</a>'
+        f'<div style="flex:1;"><a href="{esc(c.get("url") or "#")}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(clip_words(c["title"],100))}</a>'
         f'<div style="font-size:11.3px;color:var(--muted);">{(pdate(c) or now):%d.%m} · {esc(c.get("source",""))}</div></div></div>'
         for c in casc) or '<div class="now-line">Каскадов за месяц не зафиксировано.</div>'
     def _muni_own(own):
@@ -2553,7 +2593,7 @@ def render_monthly(cfg, trends, store, status, ym):
         for nm, n, own in muni_rows[:14]) or '<tr><td colspan="3">Нет данных.</td></tr>'
     chron_rows = "".join(
         f'<div class="af-mini"><div class="cal-badge"><b>{(pdate(c) or now):%d}</b><span>{(pdate(c) or now):%b}</span></div>'
-        f'<div style="flex:1;"><a href="{esc(c.get("url") or "#")}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(c["title"][:100])}</a>'
+        f'<div style="flex:1;"><a href="{esc(c.get("url") or "#")}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(clip_words(c["title"],100))}</a>'
         f'<div style="font-size:11.3px;color:var(--muted);">👁 {fmt_views(c["views"])} · {esc(c.get("source",""))}</div></div></div>'
         for c in chron)
     concl = [
@@ -2702,7 +2742,7 @@ def render_weekly_full(cfg, trends, store, status, start, end, rail=None):
         arc_html += f"""<div class="card" style="margin-bottom:12px;"><div class="card-pad">
 <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
 <span style="font-size:15px;font-weight:900;color:var(--gold);">{i:02d}</span>
-<b style="font-size:14.5px;color:var(--navy);flex:1;">{esc(a['title'][:110])}</b>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">{esc(clip_words(a['title'],110))}</b>
 <span class="wk-stamp{' wip' if a['status'] != 'затух' else ''}">{a['status']}</span></div>
 <p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
 Возник {a['first']:%d.%m} ({esc(str(a['src']))}), пик {a['peak']:%d.%m} — сюжет держали {a['size']} источника одновременно,
@@ -2872,7 +2912,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
                     key=lambda x: -x["views"])[:5]
     mostread = "".join(
         f'<li><span class="mostread__num" aria-hidden="true">{i:02d}</span>'
-        f'<a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">{esc(it["title"][:90])}</a></li>'
+        f'<a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">{esc(clip_words(it["title"],90))}</a></li>'
         for i, it in enumerate(viewed, 1))
 
     # карточки последних материалов
@@ -2886,8 +2926,8 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
         cards += f"""<article class="card">
 <div class="card__media card__media--{media_var[i % 4]}" role="img" aria-label="{esc(cat.get('name',''))}"></div>
 <span class="kicker card__kicker">{esc(cat.get('name','Новости'))}</span>
-<h3 class="card__title"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(it['title'][:100])}</a></h3>
-<p class="card__dek">{esc((it.get('text') or '')[:150])}</p>
+<h3 class="card__title"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it['title'],100))}</a></h3>
+<p class="card__dek">{esc(clip_sentences((it.get('text') or ''),150))}</p>
 <div class="card__meta">{esc(it.get('source',''))} · {dt.strftime('%d.%m %H:%M') if dt else ''}</div>
 </article>"""
 
@@ -2905,7 +2945,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
     else:
         arcs = week_arcs(store, day - timedelta(days=6), day)
         if arcs:
-            feat_title = arcs[0]["title"][:110]
+            feat_title = clip_words(arcs[0]["title"],110)
             feat_dek = f'Возник {arcs[0]["first"]:%d.%m}, пик {arcs[0]["peak"]:%d.%m} — сюжет держали {arcs[0]["size"]} источника. Полная дуга — в недельнике.'
             feat_kicker = "Сюжет недели · Аналитика"
             feat_byline = "Инфопространство · автоматически"
@@ -2920,7 +2960,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
           and local_dt(it.get("published")) and local_dt(it["published"]) >= week_ago]
     for i, it in enumerate(t3[:3]):
         ops.append(f"""<article class="op">
-<p class="op__quote"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">«{esc(it['title'][:110])}».</a></p>
+<p class="op__quote"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">«{esc(clip_words(it['title'],110))}».</a></p>
 <div class="op__author"><span class="op__avatar" aria-hidden="true">{av[i]}</span>
 <span><div class="op__name">@{esc(it.get('channel') or '')}</div>
 <div class="op__role">телеграм-канал, анонимный источник повестки</div></span></div></article>""")
@@ -2930,12 +2970,12 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
     live_items = sorted(window, key=lambda x: x.get("published") or "", reverse=True)[:6]
     tl = "".join(
         f'<div class="tl-row"><div class="tl-time">{(local_dt(it["published"]) or now):%H:%M}</div>'
-        f'<div class="tl-txt"><a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">{esc(it["title"][:100])}</a>'
+        f'<div class="tl-txt"><a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">{esc(clip_words(it["title"],100))}</a>'
         f'<div class="tl-src">{esc(it.get("source",""))}</div></div></div>' for it in live_items)
     today_events = [e for e in an.get("calendar", []) if e.get("date") == day.isoformat()][:4]
     tev = "".join(
         f'<div class="tl-row"><div class="tl-time">{esc(e.get("time") or "—")}</div>'
-        f'<div class="tl-txt"><a href="{esc(e.get("url") or "#")}" target="_blank" rel="noopener">{esc(e["title"][:90])}</a></div></div>'
+        f'<div class="tl-txt"><a href="{esc(e.get("url") or "#")}" target="_blank" rel="noopener">{esc(clip_words(e["title"],90))}</a></div></div>'
         for e in today_events) or '<div class="now-line">Событий на сегодня в афише нет — <a href="afisha.html">вся афиша</a>.</div>'
 
     lead_cat = cats.get(lead.get("category"), {}) if lead else {}
@@ -2962,7 +3002,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <div class="hero__eyebrow"><span class="live" aria-hidden="true"></span>
 <span class="kicker">{esc(lead_cat.get('name','Главное'))}</span></div>
 <h1 class="hero__title"><a href="{esc(lead.get('url') or '#') if lead else '#'}" target="_blank" rel="noopener">{esc(lead['title']) if lead else '—'}</a></h1>
-<p class="hero__dek">{esc((lead.get('text') or '')[:320]) if lead else ''}</p>
+<p class="hero__dek">{esc(clip_sentences(lead.get('text') or '', 320)) if lead else ''}</p>
 <div class="hero__byline"><span class="avatar" aria-hidden="true">Г</span>
 <span><strong>{esc(lead.get('source','')) if lead else ''}</strong>
 <span class="dot-sep">{lead_dt.strftime('%d.%m %H:%M') if lead_dt else ''}</span>
@@ -3117,7 +3157,7 @@ def main():
     manifest = []
     for it in sorted([x for x in store if x.get("published")], key=lambda x: x["published"], reverse=True)[:120]:
         dt = local_dt(it["published"])
-        manifest.append({"t": it["title"][:110], "u": it.get("url") or "#",
+        manifest.append({"t": clip_words(it["title"],110), "u": it.get("url") or "#",
                          "d": dt.strftime("%d.%m") if dt else "",
                          "c": (cats_all.get(it.get("category"), {}) or {}).get("name", "") if False else str(it.get("source", ""))[:18]})
     import json as _json

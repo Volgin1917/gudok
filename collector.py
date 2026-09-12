@@ -65,8 +65,38 @@ def http_get(url, cfg, timeout=None):
 
 TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")
+CHANNEL_TAIL_X = ""
 PROMO_TAIL_RE = re.compile(r"(?is)\s*(плохо грузит|читай в max|подпишись в max|max\.ru/|наш канал в max|👍 [^|]{0,40}\| наш канал).*$")
 EMOJI_STRIP_RE = re.compile("[\U0001F000-\U0001FAFF\U00002600-\U000027BF\U0001F1E6-\U0001F1FF\uFE0F\u200D\u203C\u2049\u2B50\u2705\u274C\u2764]+")
+
+
+SENT_SPLIT_RE = re.compile(r"(?<=[.!?…])\s+")
+
+
+def clip_sentences(s, maxlen):
+    s = (s or "").strip()
+    parts = SENT_SPLIT.split(s)
+    tail_cut = False
+    if parts and not re.search(r'[.!?…»]"?$', parts[-1].strip()):
+        if len(parts) > 1:
+            parts = parts[:-1]
+            tail_cut = True
+        else:
+            cut = s[:maxlen].rsplit(" ", 1)[0]
+            return cut.rstrip(" ,;:—-") + "…"
+    full = " ".join(parts)
+    if len(full) <= maxlen:
+        return full + ("…" if tail_cut else "")
+    out = ""
+    for p in parts:
+        if not out:
+            out = p
+            continue
+        if len(out) + 1 + len(p) <= maxlen:
+            out += " " + p
+        else:
+            break
+    return out + "…"
 
 
 def clean_text(s, maxlen=600):
@@ -75,9 +105,10 @@ def clean_text(s, maxlen=600):
     s = htmlmod.unescape(s)
     s = TAG_RE.sub(" ", s)
     s = PROMO_TAIL_RE.sub("", s)
+    s = re.sub(r"(?is)\s*(подписаться\s*\|\s*прислать|прислать новость|мы в макс|читайте нас в макс|подпишись).*$", "", s)
     s = WS_RE.sub(" ", s).strip()
     if len(s) > maxlen:
-        s = s[:maxlen].rsplit(" ", 1)[0] + "…"
+        s = clip_sentences(s, maxlen)
     return s
 
 
