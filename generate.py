@@ -748,8 +748,8 @@ def render_editorial(date_str):
 def render_utilbar(prefix=""):
     return f"""<div class="util-bar-wrap"><div class="util-bar">
 <span class="util-lbl">Служебное</span>
-<a href="{prefix}roadmap.html">🧭 Роадмап издания</a>
-<a href="{prefix}status.html">🩺 Статус системы</a>
+<a href="{prefix}roadmap.html">Роадмап издания</a>
+<a href="{prefix}status.html">Статус системы</a>
 <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
 </div></div>"""
 
@@ -788,14 +788,14 @@ def render_nav(cfg, current, prefix="", subnav=""):
     ex_exists = os.path.exists(os.path.join(DIGESTS, ex))
     label_num = f"№ {num}" + (" 🧪" if test else "")
     items = [
-        ("index", "🏠 Первая полоса", f"{prefix}index.html"),
-        ("digest", f"📰 День · № {num}" + (" 🧪" if test else ""), f"{prefix}digests/{latest}" if latest else ""),
-        ("weekly", "📕 Неделя", f"{prefix}weekly.html"),
-        ("monthly", "📊 Месяц", f"{prefix}monthly.html"),
-        ("afisha", "🎭 Афиша", f"{prefix}afisha.html"),
-        ("projects", "📁 Проекты", f"{prefix}projects.html"),
-        ("archive", "🗄 Архив", f"{prefix}archive.html"),
-        ("exec", "📋 Руководителю", f"{prefix}digests/{ex}" if ex_exists else ""),
+        ("index", "Первая полоса", f"{prefix}index.html"),
+        ("digest", f"День · № {num}" + (" 🧪" if test else ""), f"{prefix}digests/{latest}" if latest else ""),
+        ("weekly", "Неделя", f"{prefix}weekly.html"),
+        ("monthly", "Месяц", f"{prefix}monthly.html"),
+        ("afisha", "Афиша", f"{prefix}afisha.html"),
+        ("projects", "Проекты", f"{prefix}projects.html"),
+        ("archive", "Архив", f"{prefix}archive.html"),
+        ("exec", "Руководителю", f"{prefix}digests/{ex}" if ex_exists else ""),
     ]
     utils = []
     html_items = []
@@ -823,7 +823,7 @@ def render_nav(cfg, current, prefix="", subnav=""):
                       'oninput="qSearch(this.value)" onfocus="qSearch(this.value)">'
                       '<div class="search-drop" id="qdrop"></div></div><script>' + js + '</script>')
     toggle = ('<button class="nav-toggle" aria-label="Открыть разделы" '
-              "onclick=\"document.body.classList.toggle('nav-open')\">☰ Разделы</button>")
+              "onclick=\"document.body.classList.toggle('nav-open')\">Меню</button>")
     return (f'<nav class="nav">{toggle}{search_box}<div class="nav-inner">{"".join(html_items)}</div></nav>'
             + subnav)
 
@@ -893,7 +893,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 </div></div>
 <div class="top-meta">
 <div class="chip">{'🧪 тестовый номер · ' if digest_no == 0 else ''}<span class="dot"></span> Выпуск от <b>{day:%d.%m.%Y}</b></div>
-<div class="chip"><a href="print_{date_str}.html" class="chip-link">📄 Печатная полоса</a></div>
+<div class="chip"><a href="print_{date_str}.html" class="chip-link">Печатная полоса</a></div>
 <div class="chip">🤖 сгенерирован <b>{now:%H:%M}</b> (UTC+4)</div>
 <a class="chip" href="../index.html">← Центр</a>
 {THEME_BTN}

@@ -205,13 +205,13 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 
 </div>
 <nav class="nav"><div class="nav-inner">
-<a href="index.html">🏠 Первая полоса</a>
-<a href="{latest_digest_href}">📰 Выпуск</a>
-<a href="{latest_exec_href}">📋 Руководителю</a>
-<a href="afisha.html">🎭 Афиша</a>
-<a href="projects/elections_2026.html">🗳 Выборы-2026</a>
-<a href="infospace.html">🔬 Инфопространство</a>
-<a href="index.html#archive">🗄 Архив</a>
+<a href="index.html">Первая полоса</a>
+<a href="{latest_digest_href}">Выпуск</a>
+<a href="{latest_exec_href}">Руководителю</a>
+<a href="afisha.html">Афиша</a>
+<a href="projects/elections_2026.html">Выборы-2026</a>
+<a href="infospace.html">Инфопространство</a>
+<a href="index.html#archive">Архив</a>
 </div></nav>
 <main id="main"><div class="page">
 
@@ -242,8 +242,8 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 
 </div><div class="util-bar-wrap"><div class="util-bar">
 <span class="util-lbl">Служебное</span>
-<a href="roadmap.html">🧭 Роадмап издания</a>
-<a href="status.html">🩺 Статус системы</a>
+<a href="roadmap.html">Роадмап издания</a>
+<a href="status.html">Статус системы</a>
 <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
 </div></div>
 </main>
