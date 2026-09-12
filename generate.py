@@ -974,7 +974,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
             hero_html.append(f"""<div class="hero-card" style="border-top-color:{color};">
 {img}<div class="hk" style="color:{color};">{cat.get('icon','📌')} {esc(cat.get('name','Главное'))}<span class="w">событие №{rank}</span></div>
 <h3><a href="{link}" target="_blank" rel="noopener">{esc(it['title'])}</a></h3>
-<p>{esc(it.get('text') or '')}</p>
+<p>{esc(clip_sentences(it.get('text') or '', 340))}</p>
 <div class="hero-meta">{dt.strftime('%d.%m %H:%M') if dt else ''} · {esc(it.get('source',''))}{views} · <a href="{link}" target="_blank" rel="noopener">источник →</a></div></div>""")
         parts.append(f"""<div class="sec-head" id="heroes"><h2>Главные события дня</h2><div class="line"></div>
 <div class="badge">авторанжирование: просмотры × темы × свежесть</div></div>
@@ -1082,7 +1082,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
                            f'onerror="this.style.display=\'none\'">' ) if it.get("image") else ""
                 items_html.append(f"""<article class="news-item">
 {thumb}<h4><a href="{link}" target="_blank" rel="noopener">{esc(it['title'])}</a></h4>
-<p>{esc(it.get('text') or '')}</p>
+<p>{esc(clip_sentences(it.get('text') or '', 340))}</p>
 <div class="meta"><time datetime="{dt.isoformat() if dt else ''}">{dt.strftime('%d.%m %H:%M') if dt else ''}</time> · {esc(it.get('source',''))}{tg_badge}</div>
 {chips}</article>""")
             block = (f"""<div class="card cat-block"><div class="cat-head">
