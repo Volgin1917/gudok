@@ -261,6 +261,10 @@ def parse_rss(xml_text):
                     fields["link"] = val
                 elif child.attrib.get("href"):
                     fields["link"] = child.attrib["href"]
+            elif ln == "enclosure" and child.attrib.get("url"):
+                fields.setdefault("photo", child.attrib["url"])
+            elif ln == "content" and child.attrib.get("url") and "media" in child.tag:
+                fields.setdefault("photo", child.attrib["url"])
             elif ln in ("title", "description", "summary", "encoded"):
                 fields.setdefault(ln, val)
             elif ln in ("pubdate", "published", "updated", "date"):
@@ -272,6 +276,7 @@ def parse_rss(xml_text):
             "text": fields.get("description") or fields.get("encoded") or "",
             "url": fields.get("link"),
             "published": fields.get("date"),
+            "photo": fields.get("photo"),
         })
     return out
 

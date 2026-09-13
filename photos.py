@@ -38,7 +38,7 @@ def magic_ext(b):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--days", type=int, default=5)
+    ap.add_argument("--days", type=int, default=10)
     ap.add_argument("--max", type=int, default=80)
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
@@ -77,6 +77,44 @@ def main():
                 print(f"  [photos] @{ch}: {str(e)[:60]}")
         time.sleep(cfg["settings"]["http_delay_sec"])
 
+    # 1b) добивка photo из RSS-фидов (enclosure / media:content) для записей без photo
+    import xml.etree.ElementTree as ET
+    rss_items = [it for it in items if it.get("source_type") == "rss" and not it.get("photo")
+                 and pdate(it) and pdate(it) >= cutoff]
+    if rss_items:
+        feeds = {s_["url"]: s_["name"] for s_ in cfg.get("rss_sources", []) if s_.get("enabled", True)}
+        link2ph = {}
+        for furl in feeds:
+            try:
+                raw = http_get(furl, cfg)
+                root = ET.fromstring(raw)
+                for el in root.iter():
+                    ln = el.tag.rsplit("}", 1)[-1].lower()
+                    if ln == "item":
+                        link = photo = None
+                        for ch_ in el:
+                            cln = ch_.tag.rsplit("}", 1)[-1].lower()
+                            if cln == "link":
+                                link = (ch_.text or "").strip()
+                            elif cln == "enclosure" and ch_.attrib.get("url"):
+                                photo = photo or ch_.attrib["url"]
+                            elif cln == "content" and ch_.attrib.get("url") and "media" in ch_.tag:
+                                photo = photo or ch_.attrib["url"]
+                        if link and photo:
+                            link2ph[link] = photo
+            except Exception as e:  # noqa: BLE001
+                if not args.quiet:
+                    print(f"  [photos] feed {furl}: {str(e)[:60]}")
+            time.sleep(cfg["settings"]["http_delay_sec"])
+        n_fb = 0
+        for it in rss_items:
+            ph = link2ph.get(it.get("url"))
+            if ph:
+                it["photo"] = ph
+                n_fb += 1
+        if not args.quiet:
+            print(f"[photos] добивка из фидов: {n_fb}")
+
     # 2) скачивание fehlende фото
     downloaded = 0
     for it in items:
@@ -88,7 +126,7 @@ def main():
         if not (pdate(it) and pdate(it) >= cutoff):
             continue
         url = ph if ph.startswith("http") else "https:" + ph
-        if "telesco.pe" not in url and "telegram" not in url:
+        if not url.startswith("http"):
             continue
         try:
             req = urllib.request.Request(url, headers={"User-Agent": cfg["settings"]["user_agent"]})

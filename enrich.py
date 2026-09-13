@@ -170,6 +170,7 @@ def main():
     for it, dom in todo:
         try:
             page = http_get(it["url"], cfg)
+            og = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\'>]+)["\']', page)
         except Exception as e:  # noqa: BLE001
             code = getattr(e, "code", None) or ("timeout" if "timed out" in str(e).lower() else "blocked")
             fails[dom] = {"code": code, "date": datetime.now(UTC4).strftime("%Y-%m-%d"),
@@ -191,6 +192,8 @@ def main():
             updated += 1
         if og_img:
             it["image"] = urllib.parse.urljoin(it["url"], og_img)
+            if not it.get("photo"):
+                it["photo"] = it["image"]
         if pub and not it.get("published"):
             it["published"] = pub
         it["enriched"] = True

@@ -2952,8 +2952,11 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 
     # карточки последних материалов
     media_var = ["a", "b", "c", "d"]
-    cards_src = [it for it in sorted(window, key=lambda x: x.get("published") or "", reverse=True)
-                 if not leads or it["id"] != lead["id"]][:8]
+    pool_cards = [it for it in window if not leads or it["id"] != lead["id"]]
+    rec = lambda x: x.get("published") or ""
+    with_photo = sorted([it for it in pool_cards if it.get("photo_local")], key=rec, reverse=True)[:4]
+    rest = sorted([it for it in pool_cards if not it.get("photo_local")], key=rec, reverse=True)
+    cards_src = (with_photo + rest)[:8]
     cards = ""
     for i, it in enumerate(cards_src):
         cat = cats.get(it.get("category"), {})
