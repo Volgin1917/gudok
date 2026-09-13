@@ -1,5 +1,5 @@
 {
- "generated_local": "13.09.2026 05:21",
+ "generated_local": "13.09.2026 05:23",
  "calendar": [
   {
    "etype": "other",
@@ -644,9 +644,9 @@
    "tier": 3,
    "type": "tg",
    "total": 28,
-   "primary": 24,
-   "dup": 4,
-   "repost_rate": 0.14,
+   "primary": 23,
+   "dup": 5,
+   "repost_rate": 0.18,
    "views_median": 542,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -704,10 +704,10 @@
    "tier": 3,
    "type": "tg",
    "total": 23,
-   "primary": 14,
-   "dup": 9,
-   "repost_rate": 0.39,
-   "views_median": 3300,
+   "primary": 15,
+   "dup": 8,
+   "repost_rate": 0.35,
+   "views_median": 3220,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
