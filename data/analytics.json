@@ -1,5 +1,5 @@
 {
- "generated_local": "13.09.2026 16:34",
+ "generated_local": "13.09.2026 16:38",
  "calendar": [
   {
    "etype": "other",
@@ -452,11 +452,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.333,
-  "today_items": 78,
+  "today_score": 0.329,
+  "today_items": 79,
   "today_pos": 304,
   "today_neg": 192,
-  "today_neu": 383,
+  "today_neu": 384,
   "series": [
    {
     "date": "2026-08-31",
@@ -512,7 +512,7 @@
    },
    {
     "date": "2026-09-13",
-    "score": 0.333
+    "score": 0.329
    }
   ],
   "by_category": {
@@ -521,7 +521,7 @@
    "education": 0.667,
    "politics": 1.0,
    "security": -0.6,
-   "society": 0.4
+   "society": 0.389
   }
  },
  "credibility": [
@@ -541,10 +541,10 @@
    "source": "ulpressa",
    "tier": 1,
    "type": "tg",
-   "total": 77,
+   "total": 78,
    "primary": 57,
-   "dup": 20,
-   "repost_rate": 0.26,
+   "dup": 21,
+   "repost_rate": 0.27,
    "views_median": 1190,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -590,9 +590,9 @@
    "tier": 2,
    "type": "tg",
    "total": 43,
-   "primary": 31,
-   "dup": 12,
-   "repost_rate": 0.28,
+   "primary": 30,
+   "dup": 13,
+   "repost_rate": 0.3,
    "views_median": 682,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -602,11 +602,11 @@
    "tier": 2,
    "type": "tg",
    "total": 41,
-   "primary": 30,
-   "dup": 11,
-   "repost_rate": 0.27,
+   "primary": 31,
+   "dup": 10,
+   "repost_rate": 0.24,
    "views_median": 455,
-   "label": "смешанный",
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -682,6 +682,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "fcvolga",
+   "tier": 1,
+   "type": "tg",
+   "total": 28,
+   "primary": 28,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": 1650,
+   "label": "первоисточник",
+   "clickbait_rate": 0.07
+  },
+  {
    "source": "ulkompr",
    "tier": 3,
    "type": "tg",
@@ -704,18 +716,6 @@
    "views_median": 389,
    "label": "первоисточник",
    "clickbait_rate": 0.0
-  },
-  {
-   "source": "fcvolga",
-   "tier": 1,
-   "type": "tg",
-   "total": 27,
-   "primary": 27,
-   "dup": 0,
-   "repost_rate": 0.0,
-   "views_median": 1650,
-   "label": "первоисточник",
-   "clickbait_rate": 0.07
   },
   {
    "source": "ulsk_driver73",
@@ -1054,8 +1054,8 @@
   {
    "topic": "uaz",
    "name": "УАЗ / Соллерс",
-   "expected": 3.5,
-   "slope": 0.64,
+   "expected": 4.2,
+   "slope": 0.75,
    "direction": "рост",
    "confidence": "средняя"
   },
