@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Архив-матрица — листок Гудок</title>
-<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<title>Гудок № 2 от 13.09.2026 — печатная полоса</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
 <style>
 :root{
   --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
@@ -419,78 +419,160 @@ img{max-width:100%;display:block;}
   body{background:#fff;}
 }
 
-.masthead{background:linear-gradient(135deg,var(--navy) 0%,#10263d 55%,var(--navy3) 100%);color:#fff;padding:20px 22px 0;border-bottom:4px double var(--gold);}
-:root[data-theme="dark"] .masthead{background:linear-gradient(135deg,#08121e,#0d1f33 55%,#122b45);}
-.mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
-.mast-brand{flex:1;min-width:280px;display:flex;align-items:center;gap:18px;}
-.mast-brand>div{display:flex;flex-direction:column;justify-content:center;}
-.brand>div{display:flex;flex-direction:column;justify-content:center;}
-.mast-title{font-size:44px;font-weight:900;letter-spacing:5px;line-height:1;font-family:Georgia,'Times New Roman',serif;}
-
-.mast-slogan{font-size:12px;color:#a9c1d9;letter-spacing:1.6px;text-transform:uppercase;margin-top:7px;}
-.mast-right{text-align:right;font-size:12.5px;color:#c9d8e8;}
-.mast-right .date{font-size:15px;font-weight:800;color:#fff;}
-.mast-right .wx{margin-top:4px;color:#a9c1d9;}
-.mast-tools{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
-.lead-sec{max-width:1200px;margin:0 auto;padding:22px 18px 0;}
-.lead-kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:6px;}
-.lead-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;}
-.lead-main{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 24px;border-top:5px solid var(--gold);}
-.lead-main h2{font-size:24px;font-weight:900;color:var(--navy);line-height:1.25;margin-bottom:10px;}
-.lead-main h2 a{color:var(--navy);} .lead-main h2 a:hover{color:var(--blue);}
-.lead-main p{font-size:14px;color:var(--muted);line-height:1.6;}
-.lead-side{display:flex;flex-direction:column;gap:14px;}
-.lead-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 18px;flex:1;border-top:4px solid var(--blue);}
-.lead-card h3{font-size:16px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:6px;}
-.lead-card h3 a{color:var(--navy);} .lead-card h3 a:hover{color:var(--blue);}
-.lead-card p{font-size:12.6px;color:var(--muted);line-height:1.5;}
-.lead-meta{margin-top:8px;font-size:11px;color:#8a99aa;font-weight:600;}
-.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;max-width:1200px;margin:20px auto 0;padding:0 18px;}
-.tile{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px 16px;border-left:4px solid var(--blue);transition:transform .12s;}
-.tile:hover{transform:translateY(-2px);text-decoration:none;}
-.tile .ic{font-size:21px;}
-.tile b{display:block;font-size:13.5px;color:var(--navy);margin-top:5px;}
-.tile span{display:block;font-size:11.3px;color:var(--muted);margin-top:2px;line-height:1.35;}
-.tile .n{font-size:19px;font-weight:800;color:var(--blue);}
-.wrap1200{max-width:1200px;margin:0 auto;padding:0 18px;}
-.af-mini{display:flex;gap:11px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
-.af-mini:last-child{border-bottom:none;}
-@media (max-width:900px){.lead-grid{grid-template-columns:1fr;}.tiles{grid-template-columns:repeat(2,1fr);}.mast-title{font-size:34px;}}
-
-table.matrix{border-collapse:collapse;width:100%;}
-</style><script>
-(function(){try{var t=localStorage.getItem("gudok-theme");
-if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
-document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
-</script></head><body>
-<header class="topbar"><div class="flagline"><span>воскресенье, 13 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 05:20</span></div><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · АРХИВ</div>
-<div class="brand-sub">Матрица периодов: месяцы строками, недели колонками, дни точками</div>
-</div></div>
-<div class="top-meta"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button></div>
-</div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/digest_2026-09-13.html">День · № 2</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="" href="afisha.html">Афиша</a><a class="" href="projects.html">Проекты</a><a class="active" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-13.html">Руководителю</a></div></nav><main id="main">
-<div class="wrap1200" style="padding-top:20px;">
-<div class="card"><div class="card-pad" style="overflow-x:auto;">
-<table class="matrix"><tr><th style="text-align:left;padding:6px 10px;background:var(--navy3);color:#fff;">Месяц</th>
-<th style="padding:6px 8px;background:var(--navy3);color:#fff;">недели →</th></tr>
-<tr><td style="padding:6px 10px;border-bottom:1px solid var(--line);font-weight:700;"><a href="monthly/month_2026-09.html" style="font-weight:800;color:var(--navy);">сен 2026</a></td><td style="text-align:center;padding:6px 8px;border-bottom:1px solid var(--line);"><span style="color:var(--muted);">№0</span><br><span style="opacity:.25;">·</span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="01.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="02.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="03.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="04.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="05.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="06.09 нет выпуска"></span></td><td style="text-align:center;padding:6px 8px;border-bottom:1px solid var(--line);"><span style="color:var(--muted);">№1</span><br><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="07.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="08.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="09.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="10.09 нет выпуска"></span><a href="digests/digest_2026-09-11.html" title="11.09" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#2f80ed;margin:0 1px;"></a><a href="digests/digest_2026-09-12.html" title="12.09" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#2f80ed;margin:0 1px;"></a><a href="digests/digest_2026-09-13.html" title="13.09" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#2f80ed;margin:0 1px;"></a></td><td style="text-align:center;padding:6px 8px;border-bottom:1px solid var(--line);"><span style="color:var(--muted);">№2</span><br><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="14.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="15.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="16.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="17.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="18.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="19.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="20.09 нет выпуска"></span></td><td style="text-align:center;padding:6px 8px;border-bottom:1px solid var(--line);"><span style="color:var(--muted);">№3</span><br><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="21.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="22.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="23.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="24.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="25.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="26.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="27.09 нет выпуска"></span></td><td style="text-align:center;padding:6px 8px;border-bottom:1px solid var(--line);"><span style="color:var(--muted);">№4</span><br><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="28.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="29.09 нет выпуска"></span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#e3e9f1;margin:0 1px;" title="30.09 нет выпуска"></span><span style="opacity:.25;">·</span><span style="opacity:.25;">·</span><span style="opacity:.25;">·</span><span style="opacity:.25;">·</span></td></tr></table>
-<div class="note">Номер недели — сквозной от недели запуска (07.09.2026 = № 1). Точка — дневной выпуск за дату;
-серая точка — выпуска нет (день до запуска или пропуск). Клик по номеру недели — недельник, по месяцу — месячный отчёт.</div>
-</div></div>
+body.print-mode{background:#8b939c;margin:0;font-family:Georgia,'Times New Roman',serif;}
+.sheet{width:186mm;min-height:266mm;margin:10mm auto;background:#fdfcf8;color:#141414;
+padding:11mm 13mm 9mm;box-shadow:0 4px 24px rgba(0,0,0,.45);position:relative;box-sizing:border-box;}
+.pm-mast{text-align:center;border-bottom:3px double #141414;padding-bottom:4mm;}
+.pm-title{font-size:44pt;font-weight:900;letter-spacing:10px;line-height:1;margin:0;}
+.pm-line{font-size:8.5pt;letter-spacing:1.2px;text-transform:uppercase;margin-top:2.5mm;color:#333;}
+.pm-line b{color:#141414;}
+.pm-kicker{font-size:8pt;letter-spacing:2px;text-transform:uppercase;color:#7a1f1f;font-weight:700;margin:3mm 0 1.5mm;}
+.pm-lead-h{font-size:21pt;font-weight:900;line-height:1.15;margin:0 0 2.5mm;}
+.pm-deck{font-size:10.5pt;font-style:italic;color:#3a3a3a;line-height:1.45;margin:0 0 3mm;}
+.cols{column-count:3;column-gap:6mm;column-rule:.6pt solid #b9b2a6;}
+.cols p{font-size:9.3pt;line-height:1.42;margin:0 0 2.2mm;text-align:justify;hyphens:auto;}
+.pm-h3{font-size:10pt;font-weight:900;text-transform:uppercase;letter-spacing:1px;border-top:1.6pt solid #141414;
+padding-top:1.4mm;margin:3mm 0 1.8mm;break-after:avoid;}
+.pm-item{margin-bottom:2.4mm;break-inside:avoid;}
+.pm-item b{font-size:9.6pt;line-height:1.25;display:block;}
+.pm-item span{font-size:8.6pt;color:#4a4a4a;line-height:1.35;display:block;}
+.pm-item i{font-size:7.6pt;color:#8a8378;font-style:normal;}
+.pm-box{border:1.2pt solid #141414;padding:3mm;margin:3mm 0;break-inside:avoid;}
+.pm-box h4{font-size:9pt;text-transform:uppercase;letter-spacing:1.4px;margin:0 0 2mm;border-bottom:.8pt solid #141414;padding-bottom:1.2mm;}
+.pm-box ul{list-style:none;margin:0;padding:0;}
+.pm-box li{font-size:8.8pt;line-height:1.4;margin-bottom:1.4mm;}
+.pm-box li b{color:#7a1f1f;}
+.pm-stats{display:flex;gap:4mm;justify-content:space-between;margin:3mm 0;break-inside:avoid;}
+.pm-stat{flex:1;text-align:center;border:.8pt solid #141414;padding:2mm 1mm;}
+.pm-stat b{display:block;font-size:15pt;font-weight:900;}
+.pm-stat span{font-size:7.4pt;text-transform:uppercase;letter-spacing:.8px;color:#4a4a4a;}
+.pm-colophon{border-top:3px double #141414;margin-top:4mm;padding-top:2mm;font-size:7.6pt;color:#5a5a5a;line-height:1.5;
+display:flex;justify-content:space-between;gap:6mm;}
+.pm-page{position:absolute;bottom:4mm;right:13mm;font-size:8pt;color:#7a7a7a;}
+.pm-ed{font-size:9.3pt;line-height:1.5;text-align:justify;}
+.pm-ed p{margin:0 0 2.2mm;}
+.pm-toolbar{position:fixed;top:10px;right:14px;z-index:9;display:flex;gap:8px;}
+.pm-toolbar a,.pm-toolbar button{background:#141414;color:#fff;border:none;border-radius:8px;padding:8px 14px;
+font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;font-family:Segoe UI,Arial,sans-serif;}
+@media print{
+  body.print-mode{background:#fff;}
+  .sheet{margin:0;box-shadow:none;width:auto;min-height:auto;page-break-after:always;}
+  .sheet:last-of-type{page-break-after:auto;}
+  .pm-toolbar{display:none;}
+  @page{size:A4;margin:0;}
+}
+</style></head>
+<body class="print-mode">
+<div class="pm-toolbar">
+<a href="digest_2026-09-13.html">← Электронный выпуск</a>
+<button onclick="window.print()">🖨 Печать / PDF</button>
 </div>
-</main>
-<footer class="footer"><div class="footer-inner">
-<div><b>Гудок</b><p>Гудок — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года.</p></div>
-<div><b>Периоды</b><p><a href="index.html" class="flink">Первая полоса</a> · <a href="weekly.html" class="flink">Недели</a> · <a href="monthly.html" class="flink">Месяцы</a></p></div>
-</div></footer>
-<script>
-function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
-document.documentElement.setAttribute("data-theme",c);
-try{localStorage.setItem("gudok-theme",c);}catch(e){}
-syncThemeBtn();}
-function syncThemeBtn(){var b=document.getElementById("themeBtn");
-if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
-syncThemeBtn();
-</script></body></html>
+
+<div class="sheet">
+<div class="pm-mast">
+<div class="pm-title">ГУДОК</div>
+<div class="pm-line">информационно-аналитическое издание · выпуск № <b>2</b> · воскресенье, 13 сентября 2026 · Ульяновск</div>
+<div class="pm-line">марксистская группа «Победа» · для внутреннего распространения · выходит с 11.09.2026</div>
+</div>
+
+<div class="pm-kicker">⟡ Сюжет дня</div>
+<div class="pm-lead-h">«Мода улиц», звон-концерт, фестиваль балетного искусства, «Любовный балаган» и Александр Иванов: программа пра…</div>
+<div class="pm-deck">«Мода улиц», звон-концерт, фестиваль балетного искусства, «Любовный балаган» и Александр Иванов: программа празднования 378-летия Ульяновска.</div>
+
+<div class="pm-stats">
+<div class="pm-stat"><b>130</b><span>публикаций за сутки</span></div>
+<div class="pm-stat"><b>1</b><span>тема дня: БПЛА и воздушные угрозы</span></div>
+<div class="pm-stat"><b>+0.67</b><span>тон повестки</span></div>
+<div class="pm-stat"><b>5</b><span>дн. до голосования</span></div>
+<div class="pm-stat"><b>16</b><span>каскад недели, источников</span></div>
+</div>
+
+<div class="cols">
+<p>«Мода улиц», звон-концерт, фестиваль балетного искусства, «Любовный балаган» и Александр Иванов: программа празднования 378-летия Ульяновска.</p>
+<div class="pm-item"><b>🇷🇺 Владимир Путин принял участие в пленарном заседании ежегодного Делового форума БРИКС Глава государства расс…</b>
+<span>🇷🇺 Владимир Путин принял участие в пленарном заседании ежегодного Делового форума БРИКС Глава государства рассказал об успехах БРИКС, вкладе объединения в рост мировой экономики и перспективах международного сотрудничества.…</span>
+<i>Экономика и промышленность · 12.09 09:22 · t.me/ulgovru</i></div><div class="pm-item"><b>Ульяновцы приняли уставшую сову за больную и отвезли ее к ветеринарам</b>
+<span>В прошлые выходные в Симбирский референтный центр поступило необычное сообщение: на тротуаре во дворе жилого дома в Ленинском районе сидит птица похожая на ушастую сову.…</span>
+<i>Здравоохранение · 12.09 15:58 · Улпресса</i></div>
+<div class="pm-h3">🏛 Политика и выборы</div><div class="pm-item"><b>Где министр и заместитель председателя правительства Ульяновской области Зайцев? Большой вопрос. Сейчас читаю…</b>
+<span>Где министр и заместитель председателя правительства Ульяновской области Зайцев? Большой вопрос.…</span>
+<i>18:00 · t.me/volkodav73</i></div><div class="pm-item"><b>Слуцкий: ЛДПР была и всегда будет рядом с русским народом «Мы как стояли на защите русского народа, так и…</b>
+<span>Слуцкий: ЛДПР была и всегда будет рядом с русским народом «Мы как стояли на защите русского народа, так и будем стоять до конца. ЛДПР — оппозиционная партия.…</span>
+<i>18:16 · t.me/insaid173</i></div><div class="pm-item"><b>Предвыборными листовками загадили весь подъезд. Убирать кто будет? Тот, кто изображён? От подписчика</b>
+<span>Предвыборными листовками загадили весь подъезд. Убирать кто будет? Тот, кто изображён?…</span>
+<i>21:25 · t.me/dimitrovgradonline</i></div><div class="pm-item"><b>В Ульяновской области к выборам подготовили порядка 2,5 тысячи общественных наблюдателей</b>
+<span>Итоги образовательной кампании по подготовке к осуществлению общественного наблюдения за ходом голосования на выборах депутатов Государственной Думы Федерального Собрания РФ IX созыва и губернатора Ульяновской области обсудили на заседании Регионального общественного штаба 7 сентября.…</span>
+<i>08:00 · Улпресса</i></div><div class="pm-h3">🛡 Безопасность и происшествия</div><div class="pm-item"><b>🛴 В Ульяновске утвердили порядок эвакуации брошенных самокатов Брошенные электросамокаты и другие СИМ будут…</b>
+<span>🛴 В Ульяновске утвердили порядок эвакуации брошенных самокатов Брошенные электросамокаты и другие СИМ будут увозить на штрафстоянки.…</span>
+<i>18:03 · t.me/topor_ul</i></div><div class="pm-item"><b>В трёх школах Димитровграда были заблокированы эвакуационные выходы</b>
+<span>Прокуратура Димитровграда выявила нарушения пожарной безопасности в трёх учебных заведениях: школе №19, городской гимназии и многопрофильном лицее.…</span>
+<i>18:16 · Улпресса</i></div><div class="pm-item"><b>Ульяновца отправили в колонию строгого режима за алименты</b>
+<span>Ульяновца отправили в колонию строгого режима за…</span>
+<i>18:29 · t.me/ulpressa</i></div><div class="pm-item"><b>Кассационный суд заменил экс-депутату Димитровграда Королёву реальный срок на условный</b>
+<span>Королёва обвиняли в мошенничестве в особо крупном размере — по версии следствия, он вместе с подельником обманом завладел имуществом бизнес-партнёра Олега Аблапохина: долями в земельном участке турбазы «Сашуля» на Сусканском заливе и магазином площадью 300 квадратных метров на улице Западной в Димитровграде.…</span>
+<i>18:30 · Улпресса</i></div><div class="pm-h3">💼 Экономика и промышленность</div><div class="pm-item"><b>РЕГИОНАЛЬНЫЕ БРЕНДЫ КАК СТИМУЛ РАЗВИТИЯ МЕСТНЫХ ПРЕДПРИЯТИЙ В Доме правительства состоялся первый в России…</b>
+<span>РЕГИОНАЛЬНЫЕ БРЕНДЫ КАК СТИМУЛ РАЗВИТИЯ МЕСТНЫХ ПРЕДПРИЯТИЙ В Доме правительства состоялся первый в России круглый стол по продвижению региональных брендов.…</span>
+<i>18:46 · t.me/vmkononov</i></div><div class="pm-item"><b>Ко Дню города по Ульяновску начала курсировать маршрутка №94 с наличием спальных мест. Бизнес-класс…</b>
+<span>Ко Дню города по Ульяновску начала курсировать маршрутка №94 с наличием спальных мест. Бизнес-класс, очевидно, по цене эконом-класса. Спасибо!</span>
+<i>19:43 · t.me/shugozhor73</i></div><div class="pm-item"><b>12 СЕНТЯБРЯ | ЗАКРЫТОЕ ОТКРЫТИЕ Собираем всех, кто соскучился по ночам в А5: музыка, танцы, знакомые лица и…</b>
+<span>12 СЕНТЯБРЯ | ЗАКРЫТОЕ ОТКРЫТИЕ Собираем всех, кто соскучился по ночам в А5: музыка, танцы, знакомые лица и тот самый вайб, ради которого мы всё это затевали.…</span>
+<i>21:00 · t.me/ulpromo</i></div><div class="pm-item"><b>Каскадеры на заборах уехали, появилось "Шапито" на столбах... Неужели такая реклама приносит в бюджет…</b>
+<span>Каскадеры на заборах уехали, появилось "Шапито" на столбах...…</span>
+<i>21:53 · t.me/dimitrovgradd</i></div><div class="pm-h3">🌾 Агропром</div><div class="pm-item"><b>🍳 Готовим омлет как в садике Ингредиенты: 🍳 Яйцо — 5 шт. 🍳 Молоко — 250 мл. 🍳 Сливочное масло 🍳 Соль по вкусу…</b>
+<span>🍳 Готовим омлет как в садике Ингредиенты: 🍳 Яйцо — 5 шт. 🍳 Молоко — 250 мл.…</span>
+<i>01:05 · t.me/ulyanovsk_smi</i></div><div class="pm-item"><b>Ульяновские железнодорожники начали подготовку техники к зиме</b>
+<span>Специалисты протестировали снегоуборочную и снегоочистительную технику, выполнив ее пробный запуск на территории Ульяновска и Бугульмы, сообщили в пресс-службе Куйбышевской железной дороги.…</span>
+<i>11:08 · Улпресса</i></div><div class="pm-h3">🏙 Общество и городская среда</div><div class="pm-item"><b>Традиционный коридор для Игоря! ❤️ — еще раз поздравим с прошедшим!</b>
+<span>Традиционный коридор для Игоря! ❤️ — еще раз поздравим с прошедшим!</span>
+<i>18:31 · t.me/fcvolga</i></div><div class="pm-item"><b>Сергей Сандрюков: На улице Прониной ведём ремонт моста через реку Мелекесску.</b>
+<span>Сергей Сандрюков: На улице Прониной ведём ремонт моста через реку Мелекесску.</span>
+<i>18:40 · t.me/dimitrovgradd</i></div><div class="pm-item"><b>11-13 сентября 1906 года Симбирск посетил председатель Совета министров и министр внутренних дел Российской…</b>
+<span>11-13 сентября 1906 года Симбирск посетил председатель Совета министров и министр внутренних дел Российской империи Пётр Столыпин Он посетил наши края, возвращаясь из своего знаменитого сибирского вояжа на пароходе «Межень».…</span>
+<i>18:41 · t.me/ulsk_73online</i></div><div class="pm-item"><b>🏞 В Ульяновске после благоустройства открыли сквер «Губернаторский». Здесь появились новая сцена, детская…</b>
+<span>🏞 В Ульяновске после благоустройства открыли сквер «Губернаторский».…</span>
+<i>19:18 · t.me/reporter73</i></div><div class="pm-h3">⚕️ Здравоохранение</div><div class="pm-item"><b>Ребенку нужна консультация детского невролога? ❤️ В Клинике Фомина в Ульяновске принимает Жураев Данияр…</b>
+<span>Ребенку нужна консультация детского невролога?…</span>
+<i>20:03 · t.me/ulpressa</i></div><div class="pm-item"><b>Санавиация доставила в больницу Андрея Первозванного пациента с тяжелыми ожогами</b>
+<span>11 сентября в Ульяновске вертолётом санитарной авиации на вертолётную площадку Городской клинической больницы святого апостола Андрея Первозванного был доставлен пациент с тяжёлыми ожогами.…</span>
+<i>08:14 · Улпресса</i></div><div class="pm-item"><b>Вертолет санавиации доставил в больницу Андрея Первозванного пациента с тяжелыми ожогами.</b>
+<span>Вертолет санавиации доставил в больницу Андрея Первозванного пациента с тяжелыми ожогами.</span>
+<i>08:42 · t.me/ulpressa</i></div><div class="pm-item"><b>🚁 11 сентября вертолёт санавиации приземлился на вертолётную площадку Городской клинической больницы и…</b>
+<span>🚁 11 сентября вертолёт санавиации приземлился на вертолётную площадку Городской клинической больницы и доставил пациента с тяжёлыми ожогами, откуда пациента с…</span>
+<i>10:19 · t.me/chpulsk</i></div><div class="pm-h3">🎓 Образование и наука</div><div class="pm-item"><b>Провёл оперштаб по содействию избирательным комиссиям и проверил готовность избирательного участка на базе…</b>
+<span>Провёл оперштаб по содействию избирательным комиссиям и проверил готовность избирательного участка на базе Мариинской гимназии в Ульяновске.…</span>
+<i>19:48 · t.me/ulgovru</i></div><div class="pm-item"><b>Сергей Сандрюков: Встретился сегодня с руководителями спортивных учреждений и федераций. Обсудили вопросы…</b>
+<span>Сергей Сандрюков: Встретился сегодня с руководителями спортивных учреждений и федераций.…</span>
+<i>22:16 · t.me/dimitrovgradonline</i></div><div class="pm-item"><b>В преддверии Дня города больше двух тысяч ульяновцев стали участниками «санитарной пятницы»</b>
+<span>По поручению главы города Александра Болдакина в Ульяновске 11 сентября прошла «санитарная пятница», приуроченная к празднованию Дня города.…</span>
+<i>08:25 · Улпресса</i></div><div class="pm-item"><b>🩺 В Димитровграде начал работу первый медицинский класс На базе Лицея ядерных технологий при НИЯУ МИФИ…</b>
+<span>🩺 В Димитровграде начал работу первый медицинский класс На базе Лицея ядерных технологий при НИЯУ МИФИ открылся первый в городе медицинский класс.…</span>
+<i>08:35 · t.me/dimitrovgradonline</i></div><div class="pm-h3">🏆 Спорт</div><div class="pm-item"><b>ПОВОЛЖСКАЯ БОЧКА: КАРДИО завтра. 8 часов техно в спортивном зале. Ульяновск / Димитровград / Казань / Самара…</b>
+<span>ПОВОЛЖСКАЯ БОЧКА: КАРДИО завтра. 8 часов техно в спортивном зале.…</span>
+<i>19:24 · t.me/ulpromo</i></div><div class="pm-item"><b>🥊 ПРИГЛАШАЕМ ВСЕХ В ПАРК ПОБЕДЫ! 🥊 12 сентября в Парке Победы состоится яркий и зрелищный турнир по…</b>
+<span>🥊 ПРИГЛАШАЕМ ВСЕХ В ПАРК ПОБЕДЫ! 🥊 12 сентября в Парке Победы состоится яркий и зрелищный турнир по кикбоксингу «ПОБЕДА» , посвящённый празднованию Дня города !…</span>
+<i>08:43 · t.me/volkodav73</i></div><div class="pm-item"><b>На территории школы №28 хотят обустроить футбольное поле</b>
+<span>Проект по обновлению спортивной инфраструктуры образовательного учреждения для участия в Программе поддержки местных инициатив-2027 был выбран на собрании, которое прошло в округе депутута Гордумы Игоря Аринахина 4 сентября.…</span>
+<i>08:59 · Улпресса</i></div><div class="pm-item"><b>В Ульяновске прошел турнир по настольному теннису среди ветеранов СВО: фото</b>
+<span>Состязания состоялись в спортивном манеже УлГПУ имени И.Н. Ульянова 11 сентября. В церемонии награждения победителей принял участие губернатор Алексей Русских.…</span>
+<i>09:34 · Улпресса</i></div><div class="pm-h3">🎭 Культура и афиша</div><div class="pm-item"><b>😏 На Шолмова в Ульяновске появился новый арт-объект.</b>
+<span>😏 На Шолмова в Ульяновске появился новый арт-объект.</span>
+<i>18:04 · t.me/insaid173</i></div><div class="pm-item"><b>Уважаемые горожане! В субботу, 12 сентября, на набережной Верхнего пруда пройдёт традиционный национальный…</b>
+<span>Уважаемые горожане! В субботу, 12 сентября, на набережной Верхнего пруда пройдёт традиционный национальный мордовский праздник Шумбрат.…</span>
+<i>19:26 · t.me/dimitrovgradonline</i></div><div class="pm-item"><b>Сергей Сандрюков: Дорожники ведут прочистку водоотводные канав, перепускных труб и ливнеприёмных колодцев в…</b>
+<span>Сергей Сандрюков: Дорожники ведут прочистку водоотводные канав, перепускных труб и ливнеприёмных колодцев в разных частях города.…</span>
+<i>20:05 · t.me/dimitrovgradd</i></div><div class="pm-item"><b>Работники массово увольняются из-за отсутствия похвалы от начальства Исследования показали: глухой дефицит…</b>
+<span>Работники массово увольняются из-за отсутствия похвалы от начальства Исследования показали: глухой дефицит признания моментально убивает мотивацию, загоняет в стресс и доводит специалистов до выгорания.…</span>
+<i>22:10 · t.me/ulyanovsk_smi</i></div>
+</div>
+
+<div class="pm-box"><h4>Афиша: сегодня и завтра</h4><ul><li><b>13.09 —</b> — ❗️ С 11 по 13 сентября на дорогах Ульяновской области проходит профилактическая операция…</li><li><b>13.09 —</b> — ✅ 11 сентября ▶️ Куда сходить ульяновцам: афиша событий на 12 и 13 сентября ▶️ Безопасность…</li><li><b>13.09 13:00</b> — 🇷🇺 В Ульяновске выступит ансамбль Росгвардии В День города, 13 сентября, на Соборной площади…</li><li><b>13.09 —</b> — Общественный транспорт развезёт ульяновцев по домам после празднования Дня города Глава…</li><li><b>14.09 —</b> — Айфоны россиян превратятся в «кирпичи» 14 сентября, когда выйдет iOS 27, пишет Baza. Есть…</li></ul></div>
+
+
+
+<div class="pm-colophon">
+<div>Набрано и выпущено автоматически: мониторинг 32 Telegram-каналов и 2 RSS-лент; колонку редактора готовит ассистент.</div>
+<div>Материалы принадлежат их изданиям. Листок не является агитацией. Зоны инфотишины: Кузоватовский р-н, Николаевский р-н.</div>
+</div>
+<div class="pm-page">стр. 1</div>
+</div>
+</body></html>

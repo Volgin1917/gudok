@@ -1,58 +1,6 @@
 {
- "generated_local": "12.09.2026 23:47",
+ "generated_local": "13.09.2026 05:20",
  "calendar": [
-  {
-   "etype": "sport",
-   "is_culture": false,
-   "district": false,
-   "date": "2026-09-12",
-   "date_end": null,
-   "time": "08:30",
-   "title": "Еженедельный забег «5 вёрст» Маршрут проходит в три круга по дорожкам парка, петляя по аллеям. Старт и финиш —…",
-   "url": "https://t.me/ProNovosty73/5905",
-   "source": "t.me/ProNovosty73",
-   "tier": 2,
-   "venue": "Где: парк «Молодёжный»"
-  },
-  {
-   "etype": "festival",
-   "is_culture": true,
-   "district": true,
-   "date": "2026-09-12",
-   "date_end": null,
-   "time": "",
-   "title": "Уважаемые горожане! В субботу, 12 сентября, на набережной Верхнего пруда пройдёт традиционный национальный мор…",
-   "url": "https://t.me/dimitrovgradonline/33487",
-   "source": "t.me/dimitrovgradonline",
-   "tier": 2,
-   "venue": ""
-  },
-  {
-   "etype": "festival",
-   "is_culture": true,
-   "district": false,
-   "date": "2026-09-12",
-   "date_end": null,
-   "time": "04:00",
-   "title": "❗️ В Ульяновске ограничат движение из-за празднования Дня города. В эти выходные будем отмечать 378-летие Симб…",
-   "url": "https://t.me/ulkoroche/33701",
-   "source": "t.me/ulkoroche",
-   "tier": 2,
-   "venue": ""
-  },
-  {
-   "etype": "festival",
-   "is_culture": true,
-   "district": false,
-   "date": "2026-09-12",
-   "date_end": null,
-   "time": "",
-   "title": "📊 Центр перекроют из-за Дня города в Ульяновске 12 сентября будет перекрыта нечетная сторона ул. Гончарова вдо…",
-   "url": "https://t.me/ulyanovsk_smi/29403",
-   "source": "t.me/ulyanovsk_smi",
-   "tier": 2,
-   "venue": ""
-  },
   {
    "etype": "other",
    "is_culture": false,
@@ -396,37 +344,6 @@
    ]
   },
   {
-   "name": "читайте · отправляй · макс",
-   "terms": [
-    "читайте",
-    "отправляй",
-    "макс"
-   ],
-   "size": 3,
-   "coverage": 0.0,
-   "gap": true,
-   "samples": [
-    {
-     "title": "😁 Без маленьких дегустаторов никуда Доброе утро! 🌞 📲 Читайте нас в МАКС 😉 Подписаться | Поделиться новостью",
-     "url": "https://t.me/ulyanovsk_smi/29418",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 457
-    },
-    {
-     "title": "🍻 Сегодня — Всемирный день трезвости Отправляй тому, с кем будет отмечать газировкой ❗️ 📲 Читайте нас в МАКС 😉",
-     "url": "https://t.me/ulyanovsk_smi/29398",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 172
-    },
-    {
-     "title": "🍳 Готовим омлет как в садике Ингредиенты: 🍳 Яйцо — 5 шт. 🍳 Молоко — 250 мл. 🍳 Сливочное масло 🍳 Соль по вкусу ",
-     "url": "https://t.me/ulyanovsk_smi/29414",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 35
-    }
-   ]
-  },
-  {
    "name": "сеть · городах · мегафон",
    "terms": [
     "сеть",
@@ -487,20 +404,47 @@
      "views": null
     }
    ]
+  },
+  {
+   "name": "мобилизации · заявил · медведев",
+   "terms": [
+    "мобилизации",
+    "заявил",
+    "медведев"
+   ],
+   "size": 3,
+   "coverage": 0.33,
+   "gap": true,
+   "samples": [
+    {
+     "title": "❗ Мобилизации в России не будет, — заявил Медведев в четвёртый раз «Потребности ВС РФ полностью удовлетворяютс",
+     "url": "https://t.me/tresh_ulyan/56129",
+     "source": "t.me/tresh_ulyan",
+     "views": 9840
+    },
+    {
+     "title": "❗️ Россия не нуждается в проведении мобилизации , заявил Медведев. Сообщения о подготовке к ней он назвал «пур",
+     "url": "https://t.me/chpulsk/50702",
+     "source": "t.me/chpulsk",
+     "views": 2510
+    },
+    {
+     "title": "Мобилизации в России не будет, контрактников приходит даже больше, чем ожидалось, — заявил Медведев.",
+     "url": "https://t.me/chpul/34378",
+     "source": "t.me/chpul",
+     "views": 521
+    }
+   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.062,
-  "today_items": 115,
-  "today_pos": 264,
+  "today_score": 0.667,
+  "today_items": 3,
+  "today_pos": 266,
   "today_neg": 177,
-  "today_neu": 342,
+  "today_neu": 343,
   "series": [
-   {
-    "date": "2026-08-30",
-    "score": null
-   },
    {
     "date": "2026-08-31",
     "score": 0.75
@@ -552,18 +496,14 @@
    {
     "date": "2026-09-12",
     "score": 0.062
+   },
+   {
+    "date": "2026-09-13",
+    "score": 0.667
    }
   ],
   "by_category": {
-   "agro": 0.667,
-   "culture": 0.6,
-   "economy": 0.762,
-   "education": 0.375,
-   "health": 0.0,
-   "politics": 0.5,
-   "security": -0.724,
-   "society": 0.14,
-   "sport": 1.0
+   "society": 0.667
   }
  },
  "credibility": [
@@ -604,6 +544,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "ulyanovsk_smi",
+   "tier": 2,
+   "type": "tg",
+   "total": 44,
+   "primary": 38,
+   "dup": 6,
+   "repost_rate": 0.14,
+   "views_median": 437,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
@@ -613,18 +565,6 @@
    "repost_rate": 0.41,
    "views_median": 5760,
    "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulyanovsk_smi",
-   "tier": 2,
-   "type": "tg",
-   "total": 39,
-   "primary": 35,
-   "dup": 4,
-   "repost_rate": 0.1,
-   "views_median": 440,
-   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -728,11 +668,11 @@
    "tier": 2,
    "type": "tg",
    "total": 26,
-   "primary": 20,
-   "dup": 6,
-   "repost_rate": 0.23,
+   "primary": 19,
+   "dup": 7,
+   "repost_rate": 0.27,
    "views_median": 1210,
-   "label": "первоисточник",
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -836,10 +776,10 @@
    "tier": 2,
    "type": "tg",
    "total": 21,
-   "primary": 16,
-   "dup": 5,
-   "repost_rate": 0.24,
-   "views_median": 462,
+   "primary": 17,
+   "dup": 4,
+   "repost_rate": 0.19,
+   "views_median": 441,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -992,154 +932,154 @@
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 49.3,
-   "slope": 9.04,
+   "expected": 19.1,
+   "slope": 3.11,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 39.4,
-   "slope": 7.64,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "schools",
-   "name": "Школы и вузы",
-   "expected": 36.6,
-   "slope": 6.75,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "governor",
-   "name": "Губернатор / власть",
-   "expected": 34.4,
-   "slope": 6.29,
+   "expected": 15.9,
+   "slope": 2.79,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "uav",
    "name": "БПЛА и воздушные угрозы",
-   "expected": 25.0,
-   "slope": 4.86,
+   "expected": 10.6,
+   "slope": 2.14,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
-   "topic": "sport",
-   "name": "Спорт",
-   "expected": 21.9,
-   "slope": 4.0,
+   "topic": "schools",
+   "name": "Школы и вузы",
+   "expected": 13.4,
+   "slope": 2.11,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 11.8,
+   "slope": 1.54,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "medicine",
    "name": "Медицина",
-   "expected": 19.0,
-   "slope": 3.46,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "cityspace",
-   "name": "Городская среда",
-   "expected": 17.9,
-   "slope": 3.04,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "cityday",
-   "name": "День города (378 лет)",
-   "expected": 15.8,
-   "slope": 2.71,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "culture",
-   "name": "Культура и туризм",
-   "expected": 17.7,
-   "slope": 2.71,
+   "expected": 6.3,
+   "slope": 1.21,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "weather",
    "name": "Погода",
-   "expected": 13.8,
-   "slope": 2.64,
+   "expected": 5.2,
+   "slope": 1.0,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "cityday",
+   "name": "День города (378 лет)",
+   "expected": 5.9,
+   "slope": 0.93,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "cityspace",
+   "name": "Городская среда",
+   "expected": 7.2,
+   "slope": 0.93,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "sport",
+   "name": "Спорт",
+   "expected": 7.1,
+   "slope": 0.86,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "avia",
    "name": "Авиапром / УКБП / Ил-114",
-   "expected": 10.4,
-   "slope": 1.93,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "elections",
-   "name": "Выборы-2026",
-   "expected": 9.6,
-   "slope": 1.86,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "export",
-   "name": "Экспорт и кооперация",
-   "expected": 10.2,
-   "slope": 1.68,
+   "expected": 4.4,
+   "slope": 0.82,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "zhkh",
    "name": "ЖКХ, газ, тепло",
-   "expected": 8.4,
-   "slope": 1.5,
+   "expected": 3.6,
+   "slope": 0.68,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
-   "topic": "budget",
-   "name": "Бюджет-2027",
-   "expected": 9.0,
-   "slope": 1.14,
+   "topic": "elections",
+   "name": "Выборы-2026",
+   "expected": 3.2,
+   "slope": 0.43,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "uaz",
    "name": "УАЗ / Соллерс",
-   "expected": 6.0,
-   "slope": 1.14,
+   "expected": 2.1,
+   "slope": 0.43,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "macro",
    "name": "Макроэкономика / ЦБ",
-   "expected": 5.6,
-   "slope": 1.07,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "harvest",
-   "name": "Урожай и АПК",
    "expected": 2.4,
    "slope": 0.43,
    "direction": "рост",
    "confidence": "средняя"
+  },
+  {
+   "topic": "culture",
+   "name": "Культура и туризм",
+   "expected": 4.9,
+   "slope": -0.36,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "budget",
+   "name": "Бюджет-2027",
+   "expected": 2.6,
+   "slope": -0.29,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "harvest",
+   "name": "Урожай и АПК",
+   "expected": 1.0,
+   "slope": 0.21,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "export",
+   "name": "Экспорт и кооперация",
+   "expected": 3.4,
+   "slope": 0.11,
+   "direction": "плато",
+   "confidence": "низкая"
   }
  ]
 }
