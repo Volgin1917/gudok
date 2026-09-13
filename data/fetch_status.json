@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": false,
-  "items": 0,
-  "error": "<urlopen error [Errno 101] Network is unreachable>"
+  "ok": true,
+  "items": 10,
+  "error": null
  },
  "rss:Улпресса": {
   "ok": true,
@@ -28,9 +28,9 @@
   "title": "Александр Болдакин (глава Ульяновска)"
  },
  "tg:ulpressa": {
-  "ok": false,
-  "items": 0,
-  "error": "name 'SENT_SPLIT' is not defined",
+  "ok": true,
+  "items": 6,
+  "error": null,
   "title": "УЛПРЕССА"
  },
  "tg:ulpravda": {
@@ -101,26 +101,26 @@
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 7,
+  "items": 9,
   "error": null,
   "title": "Короче, Ульяновск"
  },
  "tg:dimitrovgradd": {
-  "ok": false,
-  "items": 0,
-  "error": "name 'SENT_SPLIT' is not defined",
+  "ok": true,
+  "items": 6,
+  "error": null,
   "title": "Типичный Димитровград"
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 14,
+  "items": 17,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
  "tg:chpul": {
-  "ok": false,
-  "items": 0,
-  "error": "name 'SENT_SPLIT' is not defined",
+  "ok": true,
+  "items": 15,
+  "error": null,
   "title": "Инцидент Ульяновск"
  },
  "tg:ulsk_on": {
@@ -137,7 +137,7 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 11,
+  "items": 10,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -202,11 +202,11 @@
   "title": "ПАО «ОАК»"
  },
  "_meta": {
-  "last_run_utc": "2026-09-13T02:37:59.141141+00:00",
-  "last_run_local": "13.09.2026 06:37",
-  "fetched": 96,
-  "new": 0,
-  "total_store": 952
+  "last_run_utc": "2026-09-13T08:30:57.566371+00:00",
+  "last_run_local": "13.09.2026 12:30",
+  "fetched": 149,
+  "new": 71,
+  "total_store": 1023
  },
  "rss:Улград": {
   "ok": true,
