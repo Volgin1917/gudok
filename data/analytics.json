@@ -1,5 +1,5 @@
 {
- "generated_local": "13.09.2026 12:33",
+ "generated_local": "13.09.2026 16:34",
  "calendar": [
   {
    "etype": "other",
@@ -326,37 +326,6 @@
    ]
   },
   {
-   "name": "дебаты · новые · нашествие",
-   "terms": [
-    "дебаты",
-    "новые",
-    "нашествие"
-   ],
-   "size": 3,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "Губернаторы перестали ходить на предвыборные дебаты Впервые за несколько лет ни один действующий губернатор, у",
-     "url": "https://t.me/ulkompr/36243",
-     "source": "t.me/ulkompr",
-     "views": 876
-    },
-    {
-     "title": "Новые дебаты. Про обиженных из чиновников и тюрьмы.",
-     "url": "https://t.me/volkodav73/30685",
-     "source": "t.me/volkodav73",
-     "views": 821
-    },
-    {
-     "title": "#итогинедели Дебаты Якушева, дистант в Красноярске, рыбные палочки на ГТРК, дебаты Гибатдинова и нашествие бож",
-     "url": "https://t.me/ulkompr/36272",
-     "source": "t.me/ulkompr",
-     "views": 138
-    }
-   ]
-  },
-  {
    "name": "сеть · городах · мегафон",
    "terms": [
     "сеть",
@@ -448,15 +417,46 @@
      "views": 521
     }
    ]
+  },
+  {
+   "name": "сотрудница · товары · месяца",
+   "terms": [
+    "сотрудница",
+    "товары",
+    "месяца"
+   ],
+   "size": 3,
+   "coverage": 0.33,
+   "gap": true,
+   "samples": [
+    {
+     "title": "🤯 19-летняя сотрудница ПВЗ два месяца похищала товары из посылок почти на 321 тысячу рублей В Димитровграде с ",
+     "url": "https://t.me/tresh_ulyan/56136",
+     "source": "t.me/tresh_ulyan",
+     "views": 7650
+    },
+    {
+     "title": "В Димитровграде 19‑летняя сотрудница пункта выдачи маркетплейса два месяца присваивала товары из посылок: вскр",
+     "url": "https://t.me/ulsk_on/22771",
+     "source": "t.me/ulsk_on",
+     "views": 350
+    },
+    {
+     "title": "Сотрудница пункта выдачи в Димитровграде присвоила товары на 321 тысячу рублей",
+     "url": "https://ulpressa.ru/2026/09/11/sotrudnicza-punkta-vydachi-v-dimitrovgrade-prisvoila-tovary-na-321-tysyachu-rublej/",
+     "source": "Улпресса",
+     "views": null
+    }
+   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.34,
-  "today_items": 50,
-  "today_pos": 292,
-  "today_neg": 187,
-  "today_neu": 368,
+  "today_score": 0.333,
+  "today_items": 78,
+  "today_pos": 304,
+  "today_neg": 192,
+  "today_neu": 383,
   "series": [
    {
     "date": "2026-08-31",
@@ -508,19 +508,20 @@
    },
    {
     "date": "2026-09-12",
-    "score": 0.055
+    "score": 0.039
    },
    {
     "date": "2026-09-13",
-    "score": 0.34
+    "score": 0.333
    }
   ],
   "by_category": {
-   "culture": 0.6,
-   "economy": 0.0,
-   "education": 0.8,
-   "security": -0.714,
-   "society": 0.44
+   "culture": 0.5,
+   "economy": 0.5,
+   "education": 0.667,
+   "politics": 1.0,
+   "security": -0.6,
+   "society": 0.4
   }
  },
  "credibility": [
@@ -528,8 +529,8 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 95,
-   "primary": 90,
+   "total": 100,
+   "primary": 95,
    "dup": 5,
    "repost_rate": 0.05,
    "views_median": null,
@@ -540,12 +541,12 @@
    "source": "ulpressa",
    "tier": 1,
    "type": "tg",
-   "total": 73,
-   "primary": 56,
-   "dup": 17,
-   "repost_rate": 0.23,
-   "views_median": 1130,
-   "label": "первоисточник",
+   "total": 77,
+   "primary": 57,
+   "dup": 20,
+   "repost_rate": 0.26,
+   "views_median": 1190,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -556,7 +557,7 @@
    "primary": 45,
    "dup": 16,
    "repost_rate": 0.26,
-   "views_median": 9000,
+   "views_median": 9290,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -564,22 +565,46 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 50,
-   "primary": 42,
-   "dup": 8,
-   "repost_rate": 0.16,
-   "views_median": 437,
+   "total": 54,
+   "primary": 45,
+   "dup": 9,
+   "repost_rate": 0.17,
+   "views_median": 440,
    "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "topor_ul",
+   "tier": 2,
+   "type": "tg",
+   "total": 45,
+   "primary": 37,
+   "dup": 8,
+   "repost_rate": 0.18,
+   "views_median": 2040,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "chpul",
+   "tier": 2,
+   "type": "tg",
+   "total": 43,
+   "primary": 31,
+   "dup": 12,
+   "repost_rate": 0.28,
+   "views_median": 682,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
    "source": "ulsk_on",
    "tier": 2,
    "type": "tg",
-   "total": 40,
-   "primary": 29,
+   "total": 41,
+   "primary": 30,
    "dup": 11,
-   "repost_rate": 0.28,
+   "repost_rate": 0.27,
    "views_median": 455,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -594,18 +619,6 @@
    "repost_rate": 0.41,
    "views_median": 5760,
    "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "chpul",
-   "tier": 2,
-   "type": "tg",
-   "total": 39,
-   "primary": 30,
-   "dup": 9,
-   "repost_rate": 0.23,
-   "views_median": 532,
-   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -648,23 +661,11 @@
    "source": "dimitrovgradd",
    "tier": 2,
    "type": "tg",
-   "total": 32,
-   "primary": 26,
+   "total": 34,
+   "primary": 28,
    "dup": 6,
-   "repost_rate": 0.19,
+   "repost_rate": 0.18,
    "views_median": 1210,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "topor_ul",
-   "tier": 2,
-   "type": "tg",
-   "total": 30,
-   "primary": 24,
-   "dup": 6,
-   "repost_rate": 0.2,
-   "views_median": 2490,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -705,6 +706,30 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "fcvolga",
+   "tier": 1,
+   "type": "tg",
+   "total": 27,
+   "primary": 27,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": 1650,
+   "label": "первоисточник",
+   "clickbait_rate": 0.07
+  },
+  {
+   "source": "ulsk_driver73",
+   "tier": 2,
+   "type": "tg",
+   "total": 26,
+   "primary": 20,
+   "dup": 6,
+   "repost_rate": 0.23,
+   "views_median": 498,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "volkodav73",
    "tier": 3,
    "type": "tg",
@@ -717,28 +742,16 @@
    "clickbait_rate": 0.04
   },
   {
-   "source": "ulsk_driver73",
+   "source": "ulkoroche",
    "tier": 2,
    "type": "tg",
    "total": 25,
-   "primary": 19,
-   "dup": 6,
-   "repost_rate": 0.24,
-   "views_median": 445,
+   "primary": 21,
+   "dup": 4,
+   "repost_rate": 0.16,
+   "views_median": 944,
    "label": "первоисточник",
    "clickbait_rate": 0.0
-  },
-  {
-   "source": "fcvolga",
-   "tier": 1,
-   "type": "tg",
-   "total": 24,
-   "primary": 24,
-   "dup": 0,
-   "repost_rate": 0.0,
-   "views_median": 1680,
-   "label": "первоисточник",
-   "clickbait_rate": 0.08
   },
   {
    "source": "shugozhor73",
@@ -750,18 +763,6 @@
    "repost_rate": 0.35,
    "views_median": 3220,
    "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulkoroche",
-   "tier": 2,
-   "type": "tg",
-   "total": 23,
-   "primary": 19,
-   "dup": 4,
-   "repost_rate": 0.17,
-   "views_median": 944,
-   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -947,106 +948,114 @@
  ],
  "forecast": [
   {
+   "topic": "cityday",
+   "name": "День города (378 лет)",
+   "expected": 26.4,
+   "slope": 3.93,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 21.9,
-   "slope": 3.57,
+   "expected": 23.6,
+   "slope": 3.89,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 19.5,
-   "slope": 3.36,
+   "expected": 20.5,
+   "slope": 3.54,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 19.5,
-   "slope": 3.04,
+   "expected": 22.1,
+   "slope": 3.43,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "uav",
    "name": "БПЛА и воздушные угрозы",
-   "expected": 15.0,
-   "slope": 2.79,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "cityday",
-   "name": "День города (378 лет)",
-   "expected": 15.4,
-   "slope": 2.32,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "governor",
-   "name": "Губернатор / власть",
    "expected": 15.8,
-   "slope": 2.14,
+   "slope": 2.89,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "cityspace",
    "name": "Городская среда",
-   "expected": 14.7,
-   "slope": 2.11,
+   "expected": 19.1,
+   "slope": 2.75,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
-   "topic": "medicine",
-   "name": "Медицина",
-   "expected": 8.9,
-   "slope": 1.61,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "weather",
-   "name": "Погода",
-   "expected": 8.9,
-   "slope": 1.54,
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 19.4,
+   "slope": 2.68,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "sport",
    "name": "Спорт",
-   "expected": 11.5,
-   "slope": 1.5,
+   "expected": 13.7,
+   "slope": 1.82,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "weather",
+   "name": "Погода",
+   "expected": 10.7,
+   "slope": 1.82,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 9.6,
+   "slope": 1.71,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "zhkh",
    "name": "ЖКХ, газ, тепло",
-   "expected": 6.4,
-   "slope": 1.14,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "avia",
-   "name": "Авиапром / УКБП / Ил-114",
-   "expected": 5.8,
-   "slope": 1.07,
+   "expected": 8.2,
+   "slope": 1.43,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "culture",
    "name": "Культура и туризм",
-   "expected": 12.2,
-   "slope": 0.71,
+   "expected": 16.6,
+   "slope": 1.36,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "avia",
+   "name": "Авиапром / УКБП / Ил-114",
+   "expected": 6.9,
+   "slope": 1.25,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "uaz",
+   "name": "УАЗ / Соллерс",
+   "expected": 3.5,
+   "slope": 0.64,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1055,14 +1064,6 @@
    "name": "Выборы-2026",
    "expected": 3.5,
    "slope": 0.5,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "uaz",
-   "name": "УАЗ / Соллерс",
-   "expected": 2.1,
-   "slope": 0.43,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1077,8 +1078,8 @@
   {
    "topic": "harvest",
    "name": "Урожай и АПК",
-   "expected": 1.0,
-   "slope": 0.21,
+   "expected": 1.3,
+   "slope": 0.29,
    "direction": "плато",
    "confidence": "низкая"
   },

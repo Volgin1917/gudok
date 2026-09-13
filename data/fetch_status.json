@@ -29,7 +29,7 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 6,
+  "items": 7,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -94,9 +94,9 @@
   "title": "Информационный Димитровград"
  },
  "tg:topor_ul": {
-  "ok": false,
-  "items": 0,
-  "error": "name 'SENT_SPLIT' is not defined",
+  "ok": true,
+  "items": 15,
+  "error": null,
   "title": "Топор Ульяновск"
  },
  "tg:ulkoroche": {
@@ -106,26 +106,26 @@
   "title": "Короче, Ульяновск"
  },
  "tg:dimitrovgradd": {
-  "ok": true,
-  "items": 6,
-  "error": null,
+  "ok": false,
+  "items": 0,
+  "error": "name 'SENT_SPLIT' is not defined",
   "title": "Типичный Димитровград"
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 17,
+  "items": 15,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
  "tg:chpul": {
   "ok": true,
-  "items": 15,
+  "items": 17,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
  "tg:ulsk_on": {
   "ok": true,
-  "items": 18,
+  "items": 19,
   "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
@@ -137,7 +137,7 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -202,11 +202,11 @@
   "title": "ПАО «ОАК»"
  },
  "_meta": {
-  "last_run_utc": "2026-09-13T08:30:57.566371+00:00",
-  "last_run_local": "13.09.2026 12:30",
-  "fetched": 149,
-  "new": 71,
-  "total_store": 1023
+  "last_run_utc": "2026-09-13T12:29:09.679988+00:00",
+  "last_run_local": "13.09.2026 16:29",
+  "fetched": 157,
+  "new": 95,
+  "total_store": 1047
  },
  "rss:Улград": {
   "ok": true,
