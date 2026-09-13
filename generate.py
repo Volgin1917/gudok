@@ -60,6 +60,12 @@ a{color:inherit;text-decoration:none;}
 a:hover{color:var(--accent);}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
 img{max-width:100%;display:block;}
+.genstamp{background:var(--ink);color:var(--paper);border-left:5px solid var(--accent);}
+:root[data-theme="dark"] .genstamp{background:var(--paper);color:var(--ink);}
+.genstamp-inner{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter);display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;}
+.genstamp .g1{font-family:var(--serif-display);font-size:17px;font-weight:700;}
+.genstamp .g2{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;}
+.genstamp .g3{font-family:var(--sans);font-size:11.5px;opacity:.75;}
 .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:99;}
 .skip:focus{left:8px;}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}}
@@ -868,7 +874,7 @@ def render_nav(cfg, current, prefix="", subnav=""):
     label_num = f"№ {num}" + (" 🧪" if test else "")
     items = [
         ("index", "Первая полоса", f"{prefix}index.html"),
-        ("digest", f"День · № {num}" + (" (тест)" if test else ""), f"{prefix}digests/{latest}" if latest else ""),
+        ("today", "Сегодня", f"{prefix}digests/today.html"),
         ("weekly", "Неделя", f"{prefix}weekly.html"),
         ("monthly", "Месяц", f"{prefix}monthly.html"),
         ("afisha", "Афиша", f"{prefix}afisha.html"),
@@ -908,19 +914,24 @@ def render_nav(cfg, current, prefix="", subnav=""):
 
 
 # ------------------------------------------------------------------ digest
-def render_digest(cfg, trends, store, status, date_str, digest_no):
+def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"):
     now = datetime.now(UTC4)
     an = load_json(os.path.join(DATA, "analytics.json")) or {}
-    nav_html = render_nav(cfg, "digest", "../", subnav=SUBNAV_DIGEST)
+    nav_html = render_nav(cfg, "today" if mode == "today" else "archive", "../", subnav=SUBNAV_DIGEST)
     day = datetime.strptime(date_str, "%Y-%m-%d").date()
     cats = {c["id"]: c for c in cfg["categories"]}
     tg_channels = {c["username"]: c for c in cfg["telegram_channels"] if c.get("enabled", True)}
 
     # окно выборки: сутки вокруг даты дайджеста (+6 ч запас)
     # утренний выпуск за дату D собирает материалы календарных суток D-1 (+3 ч ночи D)
-    cover_day = day - timedelta(days=1)
-    win_start = datetime.combine(cover_day, datetime.min.time(), tzinfo=UTC4)
-    win_end = win_start + timedelta(days=1) + timedelta(hours=3)
+    if mode == "today":
+        cover_day = day
+        win_start = datetime.combine(cover_day, datetime.min.time(), tzinfo=UTC4)
+        win_end = now + timedelta(minutes=5)
+    else:
+        cover_day = day
+        win_start = datetime.combine(cover_day, datetime.min.time(), tzinfo=UTC4)
+        win_end = win_start + timedelta(days=1)
     window = []
     for it in store:
         if it.get("dup_of"):
@@ -968,7 +979,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 <header class="topbar"><div class="topbar-inner">
 <div class="brand"><div>
 <div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span></div>
-<div class="brand-sub">Информационно-аналитическое издание · выпуск № {digest_no}{' · 🧪 ТЕСТОВЫЙ' if digest_no == 0 else ''} · материалы за {cover_day:%d.%m.%Y}</div>
+<div class="brand-sub">Информационно-аналитическое издание · {"«Сегодня» · живая страница" if mode == "today" else f"выпуск № {digest_no}" + (" · 🧪 ТЕСТОВЫЙ" if digest_no == 0 else "") + f" · сутки {cover_day:%d.%m.%Y}"}</div>
 </div></div>
 <div class="top-meta">
 <div class="chip">{'🧪 тестовый номер · ' if digest_no == 0 else ''}<span class="dot"></span> Выпуск от <b>{day:%d.%m.%Y}</b></div>
@@ -979,6 +990,11 @@ def render_digest(cfg, trends, store, status, date_str, digest_no):
 <button class="print-btn" onclick="window.print()">🖨 PDF</button>
 </div></div></header>
 {alert_banner}{nav_html}
+<div class="genstamp"><div class="genstamp-inner">
+<span class="g1">{'Живая страница суток' if mode == 'today' else f'Выпуск № {digest_no} · сутки закрыты'}</span>
+<span class="g2">сгенерировано {now:%d.%m.%Y %H:%M} UTC+4</span>
+<span class="g3">материалы: {cover_day:%d.%m.%Y}{' с 00:00 по текущий момент' if mode == 'today' else ' 00:00–24:00'} · материалов в выпуске: {len(window)}</span>
+</div></div>
 <div class="page">""")
 
     # ---- KPI
@@ -2905,7 +2921,7 @@ table.matrix{{border-collapse:collapse;width:100%;}}
 <table class="matrix"><tr><th style="text-align:left;padding:6px 10px;background:var(--navy3);color:#fff;">Месяц</th>
 <th style="padding:6px 8px;background:var(--navy3);color:#fff;">недели →</th></tr>
 {rows}</table>
-<div class="note">Номер недели — сквозной от недели запуска (07.09.2026 = № 1). Точка — дневной выпуск за дату;
+<div class="note"><a href="digests/today.html" style="font-weight:700;">→ Живая страница «Сегодня»</a> — материалы текущих суток. Номер недели — сквозной от недели запуска (07.09.2026 = № 1). Точка — выпуск за закрытые сутки;
 серая точка — выпуска нет (день до запуска или пропуск). Клик по номеру недели — недельник, по месяцу — месячный отчёт.</div>
 </div></div>
 </div>
@@ -3204,9 +3220,35 @@ def main():
     def with_utilbar(html, prefix=""):
         return html.replace("</body>", render_utilbar(prefix) + "</body>", 1)
 
-    digest_html = with_utilbar(themed(render_digest(cfg, trends, store, status, date_str, digest_no)), "../")
-    with open(target, "w", encoding="utf-8") as f:
-        f.write(digest_html)
+    now_main = datetime.now(UTC4)
+    today_str = now_main.strftime("%Y-%m-%d")
+    today_no, _ = digest_number(cfg, today_str)
+    today_html = with_utilbar(themed(render_digest(cfg, trends, store, status, today_str, today_no, mode="today")), "../")
+    with open(os.path.join(DIGESTS, "today.html"), "w", encoding="utf-8") as f:
+        f.write(today_html)
+    print("[generate] живая страница: digests/today.html")
+
+    def day_has_items(dstr):
+        ds = datetime.strptime(dstr, "%Y-%m-%d").date()
+        ws = datetime.combine(ds, datetime.min.time(), tzinfo=UTC4)
+        we = ws + timedelta(days=1)
+        return any(local_dt(it.get("published")) and ws <= local_dt(it["published"]) < we for it in store)
+
+    for back in range(1, 4):
+        dstr = (now_main.date() - timedelta(days=back)).isoformat()
+        if not day_has_items(dstr):
+            continue
+        dno, _ = digest_number(cfg, dstr)
+        dhtml = with_utilbar(themed(render_digest(cfg, trends, store, status, dstr, dno, mode="closed")), "../")
+        with open(os.path.join(DIGESTS, f"digest_{dstr}.html"), "w", encoding="utf-8") as f:
+            f.write(dhtml)
+    print("[generate] закрытые сутки: пересобраны за последние 3 дня")
+
+    if args.date and args.date != today_str:
+        dno, _ = digest_number(cfg, args.date)
+        dhtml = with_utilbar(themed(render_digest(cfg, trends, store, status, args.date, dno, mode="closed")), "../")
+        with open(os.path.join(DIGESTS, f"digest_{args.date}.html"), "w", encoding="utf-8") as f:
+            f.write(dhtml)
 
     # (выборы-2026 теперь живут в projects/elections_2026.html — см. выше)
 

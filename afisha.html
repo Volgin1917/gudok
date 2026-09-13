@@ -28,6 +28,12 @@ a{color:inherit;text-decoration:none;}
 a:hover{color:var(--accent);}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
 img{max-width:100%;display:block;}
+.genstamp{background:var(--ink);color:var(--paper);border-left:5px solid var(--accent);}
+:root[data-theme="dark"] .genstamp{background:var(--paper);color:var(--ink);}
+.genstamp-inner{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter);display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;}
+.genstamp .g1{font-family:var(--serif-display);font-size:17px;font-weight:700;}
+.genstamp .g2{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;}
+.genstamp .g3{font-family:var(--sans);font-size:11.5px;opacity:.75;}
 .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:99;}
 .skip:focus{left:8px;}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}}
@@ -445,7 +451,7 @@ img{max-width:100%;display:block;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="topbar"><div class="flagline"><span>воскресенье, 13 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 22:43</span></div><div class="topbar-inner">
+<header class="topbar"><div class="flagline"><span>воскресенье, 13 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 23:24</span></div><div class="topbar-inner">
 <div class="brand"><div>
 <div class="brand-title">🎭 АФИША <span>ГУДОК</span></div>
 <div class="brand-sub">Информационно-аналитическое издание · культурные события Ульяновской области</div>
@@ -453,11 +459,11 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="top-meta">
 <div class="chip">📅 событий: <b>20</b></div>
 <div class="chip">сегодня: <b>4</b> · выходные: <b>4</b></div>
-<div class="chip">обновлено <b>13.09 22:43</b></div>
+<div class="chip">обновлено <b>13.09 23:24</b></div>
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
 <a class="chip" href="index.html">← Первая полоса</a>
 </div></div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/digest_2026-09-13.html">День · № 2</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="active" href="afisha.html">Афиша</a><a class="" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-13.html">Руководителю</a></div></nav><main id="main">
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="active" href="afisha.html">Афиша</a><a class="" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-12.html">Руководителю</a></div></nav><main id="main">
 <div class="page">
 
 <div class="af-chips">
