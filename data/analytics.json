@@ -1,5 +1,5 @@
 {
- "generated_local": "13.09.2026 23:25",
+ "generated_local": "13.09.2026 23:29",
  "calendar": [
   {
    "etype": "other",
@@ -452,11 +452,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.236,
-  "today_items": 127,
-  "today_pos": 312,
+  "today_score": 0.227,
+  "today_items": 141,
+  "today_pos": 314,
   "today_neg": 196,
-  "today_neu": 419,
+  "today_neu": 430,
   "series": [
    {
     "date": "2026-08-31",
@@ -512,16 +512,16 @@
    },
    {
     "date": "2026-09-13",
-    "score": 0.236
+    "score": 0.227
    }
   ],
   "by_category": {
-   "culture": 0.423,
-   "economy": 0.333,
-   "education": 0.667,
+   "culture": 0.429,
+   "economy": 0.429,
+   "education": 0.6,
    "politics": 0.667,
-   "security": -0.571,
-   "society": 0.25,
+   "security": -0.5,
+   "society": 0.221,
    "sport": 0.25
   }
  },
@@ -554,12 +554,12 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 61,
-   "primary": 45,
-   "dup": 16,
-   "repost_rate": 0.26,
-   "views_median": 9290,
-   "label": "смешанный",
+   "total": 79,
+   "primary": 61,
+   "dup": 18,
+   "repost_rate": 0.23,
+   "views_median": 10800,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -579,9 +579,9 @@
    "tier": 2,
    "type": "tg",
    "total": 50,
-   "primary": 37,
-   "dup": 13,
-   "repost_rate": 0.26,
+   "primary": 36,
+   "dup": 14,
+   "repost_rate": 0.28,
    "views_median": 595,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -590,10 +590,10 @@
    "source": "topor_ul",
    "tier": 2,
    "type": "tg",
-   "total": 48,
-   "primary": 40,
-   "dup": 8,
-   "repost_rate": 0.17,
+   "total": 49,
+   "primary": 39,
+   "dup": 10,
+   "repost_rate": 0.2,
    "views_median": 1970,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -602,8 +602,8 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 47,
-   "primary": 29,
+   "total": 48,
+   "primary": 30,
    "dup": 18,
    "repost_rate": 0.38,
    "views_median": 4950,
@@ -615,10 +615,10 @@
    "tier": 2,
    "type": "tg",
    "total": 45,
-   "primary": 33,
-   "dup": 12,
-   "repost_rate": 0.27,
-   "views_median": 440,
+   "primary": 31,
+   "dup": 14,
+   "repost_rate": 0.31,
+   "views_median": 455,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -711,9 +711,9 @@
    "tier": 3,
    "type": "tg",
    "total": 28,
-   "primary": 23,
-   "dup": 5,
-   "repost_rate": 0.18,
+   "primary": 24,
+   "dup": 4,
+   "repost_rate": 0.14,
    "views_median": 542,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -747,11 +747,11 @@
    "tier": 3,
    "type": "tg",
    "total": 25,
-   "primary": 19,
-   "dup": 6,
-   "repost_rate": 0.24,
-   "views_median": 3110,
-   "label": "первоисточник",
+   "primary": 18,
+   "dup": 7,
+   "repost_rate": 0.28,
+   "views_median": 3220,
+   "label": "смешанный",
    "clickbait_rate": 0.04
   },
   {
@@ -831,9 +831,9 @@
    "tier": 1,
    "type": "tg",
    "total": 19,
-   "primary": 14,
-   "dup": 5,
-   "repost_rate": 0.26,
+   "primary": 13,
+   "dup": 6,
+   "repost_rate": 0.32,
    "views_median": 54,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -843,11 +843,11 @@
    "tier": 1,
    "type": "tg",
    "total": 17,
-   "primary": 12,
-   "dup": 5,
-   "repost_rate": 0.29,
-   "views_median": 3650,
-   "label": "смешанный",
+   "primary": 13,
+   "dup": 4,
+   "repost_rate": 0.24,
+   "views_median": 2490,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -951,8 +951,8 @@
   {
    "topic": "cityday",
    "name": "День города (378 лет)",
-   "expected": 33.0,
-   "slope": 4.89,
+   "expected": 37.4,
+   "slope": 5.54,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -967,40 +967,40 @@
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 24.2,
-   "slope": 3.75,
+   "expected": 25.0,
+   "slope": 3.86,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 21.3,
-   "slope": 3.64,
+   "expected": 22.0,
+   "slope": 3.75,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "cityspace",
    "name": "Городская среда",
-   "expected": 22.8,
-   "slope": 3.29,
+   "expected": 25.0,
+   "slope": 3.61,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "uav",
    "name": "БПЛА и воздушные угрозы",
-   "expected": 17.2,
-   "slope": 3.11,
+   "expected": 18.0,
+   "slope": 3.21,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "governor",
    "name": "Губернатор / власть",
-   "expected": 20.9,
-   "slope": 2.89,
+   "expected": 22.4,
+   "slope": 3.11,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1039,8 +1039,8 @@
   {
    "topic": "culture",
    "name": "Культура и туризм",
-   "expected": 17.3,
-   "slope": 1.46,
+   "expected": 18.1,
+   "slope": 1.57,
    "direction": "рост",
    "confidence": "средняя"
   },

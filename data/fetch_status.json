@@ -70,9 +70,9 @@
   "title": "ФК «Волга»"
  },
  "tg:tresh_ulyan": {
-  "ok": false,
-  "items": 0,
-  "error": "name 'SENT_SPLIT' is not defined",
+  "ok": true,
+  "items": 18,
+  "error": null,
   "title": "Треш Ульяновск"
  },
  "tg:insaid173": {
@@ -202,11 +202,11 @@
   "title": "ПАО «ОАК»"
  },
  "_meta": {
-  "last_run_utc": "2026-09-13T18:44:14.285568+00:00",
-  "last_run_local": "13.09.2026 22:44",
-  "fetched": 157,
-  "new": 0,
-  "total_store": 1119
+  "last_run_utc": "2026-09-13T19:25:37.974442+00:00",
+  "last_run_local": "13.09.2026 23:25",
+  "fetched": 174,
+  "new": 20,
+  "total_store": 1139
  },
  "rss:Улград": {
   "ok": true,
