@@ -1,5 +1,5 @@
 {
- "generated_local": "14.09.2026 21:40",
+ "generated_local": "14.09.2026 21:47",
  "calendar": [
   {
    "etype": "other",
@@ -438,10 +438,10 @@
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
   "today_score": 0.09,
-  "today_items": 263,
+  "today_items": 264,
   "today_pos": 410,
   "today_neg": 262,
-  "today_neu": 561,
+  "today_neu": 562,
   "series": [
    {
     "date": "2026-09-01",
@@ -697,8 +697,8 @@
    "source": "ulkompr",
    "tier": 3,
    "type": "tg",
-   "total": 39,
-   "primary": 33,
+   "total": 40,
+   "primary": 34,
    "dup": 6,
    "repost_rate": 0.15,
    "views_median": 576,
@@ -718,6 +718,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "shugozhor73",
+   "tier": 3,
+   "type": "tg",
+   "total": 35,
+   "primary": 24,
+   "dup": 11,
+   "repost_rate": 0.31,
+   "views_median": 3270,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "volkodav73",
    "tier": 3,
    "type": "tg",
@@ -728,18 +740,6 @@
    "views_median": 3210,
    "label": "первоисточник",
    "clickbait_rate": 0.03
-  },
-  {
-   "source": "shugozhor73",
-   "tier": 3,
-   "type": "tg",
-   "total": 34,
-   "primary": 24,
-   "dup": 10,
-   "repost_rate": 0.29,
-   "views_median": 3270,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
   },
   {
    "source": "ulkoroche",
