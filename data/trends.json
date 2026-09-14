@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-14T20:30:30.320059+00:00",
- "generated_local": "15.09.2026 00:30",
+ "generated_utc": "2026-09-14T20:36:53.470773+00:00",
+ "generated_local": "15.09.2026 00:36",
  "days": [
   "2026-09-02",
   "2026-09-03",
@@ -18,9 +18,9 @@
   "2026-09-15"
  ],
  "counts": {
-  "total": 1500,
-  "last24h": 316,
-  "last7d": 1405
+  "total": 1506,
+  "last24h": 322,
+  "last7d": 1411
  },
  "topics": {
   "elections": {
@@ -38,12 +38,12 @@
     16,
     5,
     2,
-    10,
+    11,
     0
    ],
    "today": 0,
-   "week": 52,
-   "total": 54,
+   "week": 53,
+   "total": 55,
    "status": "stable"
   },
   "governor": {
@@ -84,13 +84,13 @@
     41,
     11,
     11,
-    4,
+    6,
     0
    ],
    "today": 0,
-   "week": 92,
-   "total": 97,
-   "status": "fading"
+   "week": 94,
+   "total": 99,
+   "status": "stable"
   },
   "cityday": {
    "name": "День города (378 лет)",
@@ -223,11 +223,11 @@
     8,
     7,
     5,
-    0
+    1
    ],
-   "today": 0,
-   "week": 41,
-   "total": 43,
+   "today": 1,
+   "week": 42,
+   "total": 44,
    "status": "stable"
   },
   "cityspace": {
@@ -269,11 +269,11 @@
     16,
     8,
     69,
-    0
+    1
    ],
-   "today": 0,
-   "week": 206,
-   "total": 221,
+   "today": 1,
+   "week": 207,
+   "total": 222,
    "status": "stable"
   },
   "schools": {
@@ -477,10 +477,10 @@
     39,
     9,
     5,
-    17,
+    18,
     0
    ],
-   "week": 90,
+   "week": 91,
    "today": 0
   },
   "security": {
@@ -498,10 +498,10 @@
     117,
     38,
     22,
-    66,
+    68,
     0
    ],
-   "week": 306,
+   "week": 308,
    "today": 0
   },
   "economy": {
@@ -562,10 +562,10 @@
     76,
     89,
     130,
-    0
+    3
    ],
-   "week": 522,
-   "today": 0
+   "week": 525,
+   "today": 3
   },
   "health": {
    "name": "Здравоохранение",

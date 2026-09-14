@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 00:30",
+ "generated_local": "15.09.2026 00:36",
  "calendar": [
   {
    "etype": "sport",
@@ -325,7 +325,7 @@
     "поделиться"
    ],
    "size": 3,
-   "coverage": 0.0,
+   "coverage": 0.33,
    "gap": true,
    "samples": [
     {
@@ -341,10 +341,41 @@
      "views": 437
     },
     {
-     "title": "Открываем ночной чат! Предлагаем поиграть в слова. Мы начнем: «поезд». Вам на Д 👇 📲 Читайте нас в МАКС 😉 Подпи",
-     "url": "https://t.me/ulyanovsk_smi/29413",
+     "title": "💬 Отбой опасности атаки БПЛА в регионе Об этом сообщает МЧС Ульяновской области. 📲 Читайте нас в МАКС 😉 Подпис",
+     "url": "https://t.me/ulyanovsk_smi/29420",
      "source": "t.me/ulyanovsk_smi",
-     "views": 98
+     "views": 403
+    }
+   ]
+  },
+  {
+   "name": "открываем · начнем · ночной",
+   "terms": [
+    "открываем",
+    "начнем",
+    "ночной"
+   ],
+   "size": 3,
+   "coverage": 0.0,
+   "gap": true,
+   "samples": [
+    {
+     "title": "🌙 🌙 🌙 Доброй ночи! Открываем ночной чат для тех, кто не спит 🌛 Поиграем в слова? Мы начнем: «Забор» Вам на Р 🔽",
+     "url": "https://t.me/ulyanovsk_smi/29469",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 539
+    },
+    {
+     "title": "😴 Открываем ночной чат Поиграем в города? Мы начнем: «Мурманск». Вам на К 🔽 📲",
+     "url": "https://t.me/ulyanovsk_smi/29441",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 304
+    },
+    {
+     "title": "Открываем ночной чат! Предлагаем поиграть в слова. Мы начнем: «страх». Вам на Х 👇 📲",
+     "url": "https://t.me/ulyanovsk_smi/29496",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 22
     }
    ]
   },
@@ -378,44 +409,15 @@
      "views": 394
     }
    ]
-  },
-  {
-   "name": "заменил",
-   "terms": [
-    "заменил"
-   ],
-   "size": 3,
-   "coverage": 0.0,
-   "gap": true,
-   "samples": [
-    {
-     "title": "♻️ ♻️ ♻️ ♻️ Яковлев заменил Хашкулова",
-     "url": "https://t.me/fcvolga/12522",
-     "source": "t.me/fcvolga",
-     "views": 1240
-    },
-    {
-     "title": "66’ 🔄 Денис Рахманов заменил Багателию Новиков заменил Диму Рахманова ⚫️ 0️⃣ ➖ 1️⃣ 🟡",
-     "url": "https://t.me/fcvolga/12519",
-     "source": "t.me/fcvolga",
-     "views": 1230
-    },
-    {
-     "title": "♻️ ♻️ ♻️ ♻️ 82’ Быкова заменил Гершун",
-     "url": "https://t.me/fcvolga/12523",
-     "source": "t.me/fcvolga",
-     "views": 1220
-    }
-   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": null,
-  "today_items": 0,
+  "today_score": 0.333,
+  "today_items": 3,
   "today_pos": 414,
-  "today_neg": 263,
-  "today_neu": 568,
+  "today_neg": 262,
+  "today_neu": 570,
   "series": [
    {
     "date": "2026-09-02",
@@ -459,22 +461,24 @@
    },
    {
     "date": "2026-09-12",
-    "score": 0.07
+    "score": 0.066
    },
    {
     "date": "2026-09-13",
-    "score": 0.247
+    "score": 0.255
    },
    {
     "date": "2026-09-14",
-    "score": 0.094
+    "score": 0.093
    },
    {
     "date": "2026-09-15",
-    "score": null
+    "score": 0.333
    }
   ],
-  "by_category": {}
+  "by_category": {
+   "society": 0.333
+  }
  },
  "credibility": [
   {
@@ -517,10 +521,10 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 77,
-   "primary": 65,
-   "dup": 12,
-   "repost_rate": 0.16,
+   "total": 80,
+   "primary": 66,
+   "dup": 14,
+   "repost_rate": 0.17,
    "views_median": 485,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -529,10 +533,10 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 63,
-   "primary": 40,
-   "dup": 23,
-   "repost_rate": 0.37,
+   "total": 64,
+   "primary": 39,
+   "dup": 25,
+   "repost_rate": 0.39,
    "views_median": 3400,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -542,10 +546,10 @@
    "tier": 2,
    "type": "tg",
    "total": 62,
-   "primary": 42,
-   "dup": 20,
-   "repost_rate": 0.32,
-   "views_median": 629,
+   "primary": 41,
+   "dup": 21,
+   "repost_rate": 0.34,
+   "views_median": 595,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -553,12 +557,24 @@
    "source": "topor_ul",
    "tier": 2,
    "type": "tg",
-   "total": 58,
-   "primary": 45,
+   "total": 59,
+   "primary": 46,
    "dup": 13,
    "repost_rate": 0.22,
    "views_median": 1630,
    "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "insaid173",
+   "tier": 2,
+   "type": "tg",
+   "total": 57,
+   "primary": 41,
+   "dup": 16,
+   "repost_rate": 0.28,
+   "views_median": 7200,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -570,18 +586,6 @@
    "dup": 14,
    "repost_rate": 0.25,
    "views_median": 350,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "insaid173",
-   "tier": 2,
-   "type": "tg",
-   "total": 56,
-   "primary": 40,
-   "dup": 16,
-   "repost_rate": 0.29,
-   "views_median": 7230,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -924,18 +928,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "uav",
-   "name": "БПЛА и воздушные угрозы",
-   "expected": 0.0,
-   "slope": -2.61,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
    "topic": "culture",
    "name": "Культура и туризм",
    "expected": 5.6,
    "slope": -2.57,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "uav",
+   "name": "БПЛА и воздушные угрозы",
+   "expected": 0.4,
+   "slope": -2.46,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -956,18 +960,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "elections",
-   "name": "Выборы-2026",
-   "expected": 1.5,
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 4.6,
    "slope": -1.29,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "medicine",
-   "name": "Медицина",
-   "expected": 4.6,
-   "slope": -1.29,
+   "topic": "elections",
+   "name": "Выборы-2026",
+   "expected": 1.8,
+   "slope": -1.21,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1022,8 +1026,8 @@
   {
    "topic": "zhkh",
    "name": "ЖКХ, газ, тепло",
-   "expected": 1.6,
-   "slope": -0.57,
+   "expected": 2.3,
+   "slope": -0.46,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1046,8 +1050,8 @@
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 18.1,
-   "slope": -0.14,
+   "expected": 18.8,
+   "slope": -0.04,
    "direction": "плато",
    "confidence": "низкая"
   }
