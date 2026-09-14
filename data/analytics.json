@@ -1,5 +1,5 @@
 {
- "generated_local": "14.09.2026 08:03",
+ "generated_local": "14.09.2026 08:10",
  "calendar": [
   {
    "etype": "other",
@@ -413,11 +413,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.375,
-  "today_items": 8,
+  "today_score": 0.333,
+  "today_items": 9,
   "today_pos": 317,
   "today_neg": 196,
-  "today_neu": 434,
+  "today_neu": 435,
   "series": [
    {
     "date": "2026-09-01",
@@ -473,11 +473,11 @@
    },
    {
     "date": "2026-09-14",
-    "score": 0.375
+    "score": 0.333
    }
   ],
   "by_category": {
-   "economy": 0.5,
+   "economy": 0.333,
    "society": 0.4
   }
  },
@@ -495,6 +495,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "ulpressa",
+   "tier": 1,
+   "type": "tg",
+   "total": 81,
+   "primary": 58,
+   "dup": 23,
+   "repost_rate": 0.28,
+   "views_median": 1190,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
@@ -504,18 +516,6 @@
    "repost_rate": 0.25,
    "views_median": 10800,
    "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulpressa",
-   "tier": 1,
-   "type": "tg",
-   "total": 80,
-   "primary": 57,
-   "dup": 23,
-   "repost_rate": 0.29,
-   "views_median": 1190,
-   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -631,9 +631,9 @@
    "tier": 2,
    "type": "tg",
    "total": 34,
-   "primary": 28,
-   "dup": 6,
-   "repost_rate": 0.18,
+   "primary": 27,
+   "dup": 7,
+   "repost_rate": 0.21,
    "views_median": 1210,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -751,10 +751,10 @@
    "tier": 2,
    "type": "tg",
    "total": 21,
-   "primary": 16,
-   "dup": 5,
-   "repost_rate": 0.24,
-   "views_median": 462,
+   "primary": 17,
+   "dup": 4,
+   "repost_rate": 0.19,
+   "views_median": 441,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -1013,14 +1013,6 @@
    "name": "Медицина",
    "expected": 3.0,
    "slope": -0.36,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "weather",
-   "name": "Погода",
-   "expected": 4.0,
-   "slope": 0.29,
    "direction": "плато",
    "confidence": "низкая"
   },
