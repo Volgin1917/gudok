@@ -1,5 +1,5 @@
 {
- "generated_local": "14.09.2026 07:38",
+ "generated_local": "14.09.2026 07:45",
  "calendar": [
   {
    "etype": "other",
@@ -287,6 +287,37 @@
    ]
   },
   {
+   "name": "открываем · начнем · ночной",
+   "terms": [
+    "открываем",
+    "начнем",
+    "ночной"
+   ],
+   "size": 4,
+   "coverage": 0.0,
+   "gap": true,
+   "samples": [
+    {
+     "title": "🌙 🌙 🌙 Доброй ночи! Открываем ночной чат для тех, кто не спит 🌛 Поиграем в слова? Мы начнем: «Забор» Вам на Р 🔽",
+     "url": "https://t.me/ulyanovsk_smi/29469",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 505
+    },
+    {
+     "title": "😁 Без маленьких дегустаторов никуда Доброе утро! 🌞 📲 Читайте нас в МАКС 😉 Подписаться | Поделиться новостью",
+     "url": "https://t.me/ulyanovsk_smi/29418",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 457
+    },
+    {
+     "title": "😴 Открываем ночной чат Поиграем в города? Мы начнем: «Мурманск». Вам на К 🔽 📲",
+     "url": "https://t.me/ulyanovsk_smi/29441",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 304
+    }
+   ]
+  },
+  {
    "name": "победы · русской · отключил",
    "terms": [
     "победы",
@@ -378,46 +409,15 @@
      "views": 138
     }
    ]
-  },
-  {
-   "name": "возложили · стеле · цветы",
-   "terms": [
-    "возложили",
-    "стеле",
-    "цветы"
-   ],
-   "size": 3,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "Ульяновцы возложили цветы к стеле «Город трудовой доблести».",
-     "url": "https://t.me/ulpressa/74495",
-     "source": "t.me/ulpressa",
-     "views": 597
-    },
-    {
-     "title": "В преддверии Дня города отдаём дань уважения всем, кто внёс вклад в развитие Ульяновска и прославил Малую Роди",
-     "url": "https://t.me/Russkih_Aleksey/12317",
-     "source": "t.me/Russkih_Aleksey",
-     "views": 271
-    },
-    {
-     "title": "Ульяновцы возложили цветы к стеле «Город трудовой доблести»: фото",
-     "url": "https://ulpressa.ru/2026/09/12/ulyanovczy-vozlozhili-czvety-k-stele-gorod-trudovoj-doblesti-foto-2/",
-     "source": "Улпресса",
-     "views": null
-    }
-   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": null,
-  "today_items": 0,
-  "today_pos": 314,
+  "today_score": 0.333,
+  "today_items": 6,
+  "today_pos": 316,
   "today_neg": 196,
-  "today_neu": 430,
+  "today_neu": 433,
   "series": [
    {
     "date": "2026-09-01",
@@ -473,18 +473,20 @@
    },
    {
     "date": "2026-09-14",
-    "score": null
+    "score": 0.333
    }
   ],
-  "by_category": {}
+  "by_category": {
+   "society": 0.5
+  }
  },
  "credibility": [
   {
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 105,
-   "primary": 100,
+   "total": 107,
+   "primary": 102,
    "dup": 5,
    "repost_rate": 0.05,
    "views_median": null,
@@ -492,35 +494,35 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "ulpressa",
-   "tier": 1,
-   "type": "tg",
-   "total": 79,
-   "primary": 57,
-   "dup": 22,
-   "repost_rate": 0.28,
-   "views_median": 1190,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 79,
+   "total": 81,
    "primary": 61,
-   "dup": 18,
-   "repost_rate": 0.23,
+   "dup": 20,
+   "repost_rate": 0.25,
    "views_median": 10800,
    "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulpressa",
+   "tier": 1,
+   "type": "tg",
+   "total": 80,
+   "primary": 57,
+   "dup": 23,
+   "repost_rate": 0.29,
+   "views_median": 1190,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 59,
-   "primary": 50,
+   "total": 61,
+   "primary": 52,
    "dup": 9,
    "repost_rate": 0.15,
    "views_median": 457,
@@ -555,11 +557,11 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 48,
-   "primary": 30,
+   "total": 49,
+   "primary": 31,
    "dup": 18,
-   "repost_rate": 0.38,
-   "views_median": 4950,
+   "repost_rate": 0.37,
+   "views_median": 4710,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -664,9 +666,9 @@
    "tier": 3,
    "type": "tg",
    "total": 28,
-   "primary": 23,
-   "dup": 5,
-   "repost_rate": 0.18,
+   "primary": 24,
+   "dup": 4,
+   "repost_rate": 0.14,
    "views_median": 542,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -712,10 +714,10 @@
    "tier": 3,
    "type": "tg",
    "total": 23,
-   "primary": 15,
-   "dup": 8,
-   "repost_rate": 0.35,
-   "views_median": 3220,
+   "primary": 14,
+   "dup": 9,
+   "repost_rate": 0.39,
+   "views_median": 3300,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -958,14 +960,6 @@
    "confidence": "средняя"
   },
   {
-   "topic": "transport",
-   "name": "Транспорт и дороги",
-   "expected": 2.9,
-   "slope": -0.89,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
    "topic": "sport",
    "name": "Спорт",
    "expected": 4.0,
@@ -978,6 +972,14 @@
    "name": "Экспорт и кооперация",
    "expected": 0.1,
    "slope": -0.82,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "transport",
+   "name": "Транспорт и дороги",
+   "expected": 4.3,
+   "slope": -0.68,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1006,26 +1008,18 @@
    "confidence": "низкая"
   },
   {
+   "topic": "weather",
+   "name": "Погода",
+   "expected": 4.0,
+   "slope": 0.29,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
    "topic": "macro",
    "name": "Макроэкономика / ЦБ",
    "expected": 0.0,
    "slope": -0.21,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "uaz",
-   "name": "УАЗ / Соллерс",
-   "expected": 0.8,
-   "slope": -0.18,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "weather",
-   "name": "Погода",
-   "expected": 3.3,
-   "slope": 0.18,
    "direction": "плато",
    "confidence": "низкая"
   },
@@ -1042,6 +1036,14 @@
    "name": "Авиапром / УКБП / Ил-114",
    "expected": 2.1,
    "slope": -0.11,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "uaz",
+   "name": "УАЗ / Соллерс",
+   "expected": 1.6,
+   "slope": -0.07,
    "direction": "плато",
    "confidence": "низкая"
   },

@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-14T03:38:39.056399+00:00",
- "generated_local": "14.09.2026 07:38",
+ "generated_utc": "2026-09-14T03:45:46.106088+00:00",
+ "generated_local": "14.09.2026 07:45",
  "days": [
   "2026-09-01",
   "2026-09-02",
@@ -18,9 +18,9 @@
   "2026-09-14"
  ],
  "counts": {
-  "total": 1139,
-  "last24h": 157,
-  "last7d": 1064
+  "total": 1147,
+  "last24h": 163,
+  "last7d": 1072
  },
  "topics": {
   "elections": {
@@ -154,11 +154,11 @@
     9,
     2,
     3,
-    0
+    1
    ],
-   "today": 0,
-   "week": 26,
-   "total": 34,
+   "today": 1,
+   "week": 27,
+   "total": 35,
    "status": "stable"
   },
   "avia": {
@@ -269,11 +269,11 @@
     79,
     16,
     7,
-    0
+    2
    ],
-   "today": 0,
-   "week": 142,
-   "total": 152,
+   "today": 2,
+   "week": 144,
+   "total": 154,
    "status": "fading"
   },
   "schools": {
@@ -430,11 +430,11 @@
     22,
     7,
     9,
-    0
+    1
    ],
-   "today": 0,
-   "week": 55,
-   "total": 59,
+   "today": 1,
+   "week": 56,
+   "total": 60,
    "status": "stable"
   },
   "macro": {
@@ -520,10 +520,10 @@
     31,
     9,
     10,
-    0
+    2
    ],
-   "week": 85,
-   "today": 0
+   "week": 87,
+   "today": 2
   },
   "agro": {
    "name": "Агропром",
@@ -562,10 +562,10 @@
     135,
     66,
     74,
-    0
+    4
    ],
-   "week": 390,
-   "today": 0
+   "week": 394,
+   "today": 4
   },
   "health": {
    "name": "Здравоохранение",
@@ -583,10 +583,10 @@
     5,
     7,
     2,
-    0
+    2
    ],
-   "week": 28,
-   "today": 0
+   "week": 30,
+   "today": 2
   },
   "education": {
    "name": "Образование и наука",
