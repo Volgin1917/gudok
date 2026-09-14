@@ -75,7 +75,7 @@ SENT_SPLIT_RE = re.compile(r"(?<=[.!?…])\s+")
 
 def clip_sentences(s, maxlen):
     s = (s or "").strip()
-    parts = SENT_SPLIT.split(s)
+    parts = SENT_SPLIT_RE.split(s)
     tail_cut = False
     if parts and not re.search(r'[.!?…»]"?$', parts[-1].strip()):
         if len(parts) > 1:

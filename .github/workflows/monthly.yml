@@ -21,7 +21,8 @@ jobs:
       - name: Конвейер + месячный отчёт
         run: |
           bash run.sh
-          YM="${{ inputs.month || $(date -d 'last month' +%Y-%m) }}"
+          YM='${{ inputs.month }}'
+          [ -n "$YM" ] || YM=$(date -d 'last month' +%Y-%m)
           python3 generate.py --monthly "$YM"
       - name: Коммит
         run: |
