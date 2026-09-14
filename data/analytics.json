@@ -1,5 +1,5 @@
 {
- "generated_local": "14.09.2026 22:08",
+ "generated_local": "14.09.2026 22:30",
  "calendar": [
   {
    "etype": "sport",
@@ -450,9 +450,9 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.09,
-  "today_items": 268,
-  "today_pos": 412,
+  "today_score": 0.096,
+  "today_items": 271,
+  "today_pos": 414,
   "today_neg": 263,
   "today_neu": 563,
   "series": [
@@ -506,22 +506,22 @@
    },
    {
     "date": "2026-09-13",
-    "score": 0.245
+    "score": 0.247
    },
    {
     "date": "2026-09-14",
-    "score": 0.09
+    "score": 0.096
    }
   ],
   "by_category": {
    "agro": 0.5,
    "culture": 0.648,
-   "economy": 0.51,
-   "education": 0.3,
+   "economy": 0.525,
+   "education": 0.364,
    "health": 0.417,
    "politics": 0.098,
    "security": -0.435,
-   "society": 0.034,
+   "society": 0.033,
    "sport": 0.5
   }
  },
@@ -566,11 +566,11 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 76,
-   "primary": 64,
+   "total": 77,
+   "primary": 65,
    "dup": 12,
    "repost_rate": 0.16,
-   "views_median": 490,
+   "views_median": 485,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -711,9 +711,9 @@
    "tier": 3,
    "type": "tg",
    "total": 40,
-   "primary": 34,
-   "dup": 6,
-   "repost_rate": 0.15,
+   "primary": 33,
+   "dup": 7,
+   "repost_rate": 0.17,
    "views_median": 576,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -735,11 +735,23 @@
    "tier": 3,
    "type": "tg",
    "total": 35,
-   "primary": 24,
-   "dup": 11,
-   "repost_rate": 0.31,
+   "primary": 25,
+   "dup": 10,
+   "repost_rate": 0.29,
    "views_median": 3270,
    "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulkoroche",
+   "tier": 2,
+   "type": "tg",
+   "total": 35,
+   "primary": 29,
+   "dup": 6,
+   "repost_rate": 0.17,
+   "views_median": 831,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -753,18 +765,6 @@
    "views_median": 3210,
    "label": "первоисточник",
    "clickbait_rate": 0.03
-  },
-  {
-   "source": "ulkoroche",
-   "tier": 2,
-   "type": "tg",
-   "total": 34,
-   "primary": 29,
-   "dup": 5,
-   "repost_rate": 0.15,
-   "views_median": 831,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
   },
   {
    "source": "ProNovosty73",
@@ -938,11 +938,11 @@
    "source": "vmkononov",
    "tier": 1,
    "type": "tg",
-   "total": 8,
-   "primary": 8,
+   "total": 9,
+   "primary": 9,
    "dup": 0,
    "repost_rate": 0.0,
-   "views_median": 42,
+   "views_median": 39,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   }
@@ -991,8 +991,8 @@
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 24.4,
-   "slope": 1.79,
+   "expected": 25.9,
+   "slope": 2.0,
    "direction": "рост",
    "confidence": "средняя"
   },

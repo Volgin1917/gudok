@@ -113,7 +113,7 @@
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 16,
+  "items": 17,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
@@ -202,11 +202,11 @@
   "title": "ПАО «ОАК»"
  },
  "_meta": {
-  "last_run_utc": "2026-09-14T18:04:20.211216+00:00",
-  "last_run_local": "14.09.2026 22:04",
-  "fetched": 435,
-  "new": 4,
-  "total_store": 1491
+  "last_run_utc": "2026-09-14T18:27:04.736202+00:00",
+  "last_run_local": "14.09.2026 22:27",
+  "fetched": 436,
+  "new": 3,
+  "total_store": 1494
  },
  "rss:Улград": {
   "ok": true,
