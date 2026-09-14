@@ -41,7 +41,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 11,
+  "items": 12,
   "error": null,
   "title": "Репортёр73"
  },
@@ -77,7 +77,7 @@
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 19,
+  "items": 17,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
@@ -202,11 +202,11 @@
   "title": "ПАО «ОАК»"
  },
  "_meta": {
-  "last_run_utc": "2026-09-14T17:42:57.943504+00:00",
-  "last_run_local": "14.09.2026 21:42",
-  "fetched": 436,
-  "new": 2,
-  "total_store": 1487
+  "last_run_utc": "2026-09-14T18:04:20.211216+00:00",
+  "last_run_local": "14.09.2026 22:04",
+  "fetched": 435,
+  "new": 4,
+  "total_store": 1491
  },
  "rss:Улград": {
   "ok": true,

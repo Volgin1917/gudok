@@ -1,6 +1,19 @@
 {
- "generated_local": "14.09.2026 21:47",
+ "generated_local": "14.09.2026 22:08",
  "calendar": [
+  {
+   "etype": "sport",
+   "is_culture": false,
+   "district": true,
+   "date": "2026-09-14",
+   "date_end": null,
+   "time": "",
+   "title": "📰 Подборка дня — 14 сентября: 🚧 В Ульяновске завершается ремонт улицы Кирова. 🏅 Ульяновский борец взял золото …",
+   "url": "https://t.me/reporter73/52188",
+   "source": "t.me/reporter73",
+   "tier": 1,
+   "venue": ""
+  },
   {
    "etype": "other",
    "is_culture": false,
@@ -251,11 +264,11 @@
  ],
  "clusters": [
   {
-   "name": "недель · осталось · рабочих",
+   "name": "недель · рабочих · осталось",
    "terms": [
     "недель",
-    "осталось",
-    "рабочих"
+    "рабочих",
+    "осталось"
    ],
    "size": 4,
    "coverage": 0.0,
@@ -438,10 +451,10 @@
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
   "today_score": 0.09,
-  "today_items": 264,
-  "today_pos": 410,
-  "today_neg": 262,
-  "today_neu": 562,
+  "today_items": 268,
+  "today_pos": 412,
+  "today_neg": 263,
+  "today_neu": 563,
   "series": [
    {
     "date": "2026-09-01",
@@ -502,12 +515,12 @@
   ],
   "by_category": {
    "agro": 0.5,
-   "culture": 0.627,
+   "culture": 0.648,
    "economy": 0.51,
    "education": 0.3,
-   "health": 0.545,
+   "health": 0.417,
    "politics": 0.098,
-   "security": -0.448,
+   "security": -0.435,
    "society": 0.034,
    "sport": 0.5
   }
@@ -578,9 +591,9 @@
    "tier": 2,
    "type": "tg",
    "total": 62,
-   "primary": 42,
-   "dup": 20,
-   "repost_rate": 0.32,
+   "primary": 43,
+   "dup": 19,
+   "repost_rate": 0.31,
    "views_median": 629,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -589,11 +602,11 @@
    "source": "topor_ul",
    "tier": 2,
    "type": "tg",
-   "total": 57,
-   "primary": 44,
+   "total": 58,
+   "primary": 45,
    "dup": 13,
-   "repost_rate": 0.23,
-   "views_median": 1950,
+   "repost_rate": 0.22,
+   "views_median": 1630,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -602,10 +615,10 @@
    "tier": 2,
    "type": "tg",
    "total": 56,
-   "primary": 42,
-   "dup": 14,
-   "repost_rate": 0.25,
-   "views_median": 350,
+   "primary": 41,
+   "dup": 15,
+   "repost_rate": 0.27,
+   "views_median": 342,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -613,11 +626,11 @@
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 54,
-   "primary": 38,
+   "total": 55,
+   "primary": 39,
    "dup": 16,
-   "repost_rate": 0.3,
-   "views_median": 7620,
+   "repost_rate": 0.29,
+   "views_median": 7230,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -637,11 +650,11 @@
    "source": "reporter73",
    "tier": 1,
    "type": "tg",
-   "total": 44,
-   "primary": 38,
+   "total": 45,
+   "primary": 39,
    "dup": 6,
-   "repost_rate": 0.14,
-   "views_median": 57,
+   "repost_rate": 0.13,
+   "views_median": 56,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -662,9 +675,9 @@
    "tier": 2,
    "type": "tg",
    "total": 43,
-   "primary": 36,
-   "dup": 7,
-   "repost_rate": 0.16,
+   "primary": 35,
+   "dup": 8,
+   "repost_rate": 0.19,
    "views_median": 1260,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -793,12 +806,12 @@
    "source": "dimitrovgradonline",
    "tier": 2,
    "type": "tg",
-   "total": 26,
-   "primary": 19,
-   "dup": 7,
-   "repost_rate": 0.27,
+   "total": 27,
+   "primary": 21,
+   "dup": 6,
+   "repost_rate": 0.22,
    "views_median": 424,
-   "label": "смешанный",
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -938,16 +951,16 @@
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 53.0,
-   "slope": 6.46,
+   "expected": 53.7,
+   "slope": 6.57,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "cityspace",
    "name": "Городская среда",
-   "expected": 32.4,
-   "slope": 4.68,
+   "expected": 33.2,
+   "slope": 4.79,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -986,8 +999,8 @@
   {
    "topic": "medicine",
    "name": "Медицина",
-   "expected": 16.1,
-   "slope": 1.61,
+   "expected": 16.8,
+   "slope": 1.71,
    "direction": "рост",
    "confidence": "средняя"
   },
