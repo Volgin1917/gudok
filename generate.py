@@ -674,6 +674,34 @@ SENT_SPLIT = re.compile(r"(?<=[.!?…])\s+")
 
 
 
+ALERT_RE = re.compile(
+    r"(ракетн\w*|беспилотн\w*|бпла)\W{0,40}опасност"
+    r"|опасност\W{0,40}(бпла|беспилотн\w*|ракетн\w*)"
+    r"|план\s*«?ковер"
+    r"|при[ёе]м и выпуск\W{0,30}ограничен"
+    r"|ограничени\w*\W{0,40}(аэропорт|при[ёе]м)"
+    r"|аэропорт\w*\W{0,40}ограничен", re.I)
+
+
+CASUALTY_RE = re.compile(r"погиб|пострада|ранен|убит|разруш|поврежд|сбит|упал|обломк", re.I)
+PROMO_RE = re.compile(r"(приглашаем|жд[её]м вас|приходите|в программе[:—\s]|анонс|открытие сезона)", re.I)
+
+
+def is_alert(it):
+    """Служебное уведомление о режиме/ограничениях: не материал и не сюжет.
+    Сообщение об атаке с последствиями (погибшие/сбитые/повреждения) — новость, не уведомление."""
+    blob = (it.get("title") or "") + " " + (it.get("text") or "")[:200]
+    if not ALERT_RE.search(blob):
+        return False
+    return not CASUALTY_RE.search(blob)
+
+
+def is_promo(it):
+    """Анонс-завлекаловка (фестивали, открытия сезонов): не сюжет недели."""
+    blob = (it.get("title") or "") + " " + (it.get("text") or "")[:150]
+    return bool(PROMO_RE.search(blob))
+
+
 def norm_sq(s):
     return re.sub(r"[^a-zа-яё0-9]", "", (s or "").lower())
 
@@ -736,6 +764,41 @@ def dek_p(it, limit, cls=""):
     d = clip_sentences(strip_title_lead(it.get("text") or "", it.get("title")), limit)
     cls_attr = f' class="{cls}"' if cls else ""
     return f"<p{cls_attr}>{esc(d)}</p>" if len(d) >= 40 else ""
+
+
+def plural_ru(n, one, few, many):
+    n10, n100 = n % 10, n % 100
+    if n10 == 1 and n100 != 11:
+        return one
+    if 2 <= n10 <= 4 and not (12 <= n100 <= 14):
+        return few
+    return many
+
+
+BOUND_PAT = re.compile(r"[.!?…][»\"\']?\s|\s—\s|\s–\s(?<=\s)\s-\s|:\s")
+
+
+def nice_title(it, limit):
+    """Заголовок без обрыва. Если коллектор обрезал заголовок TG-поста (… на конце):
+    1) первое предложение текста, если короткое; 2) последняя сильная граница
+    (конец предложения, тире, дефис-разделитель, двоеточие) в пределах лимита."""
+    t = (it.get("title") or "").strip()
+    if not t.endswith("\u2026"):
+        return clip_words(t, limit)
+    txt = (it.get("text") or "").strip()
+    if len(txt) <= len(t):
+        return clip_words(t, limit)
+    sent = clip_sentences(txt, limit + 90)
+    if sent and not sent.endswith("\u2026") and len(sent) <= limit + 60:
+        return sent
+    seg = txt[:limit]
+    best = 0
+    for m in re.finditer(r"[.!?…][»\"\']?\s|\s—\s|\s-\s|:\s", seg):
+        if m.start() >= 30:
+            best = m.end()
+    if best:
+        return seg[:best].rstrip(" ,;:.!…—–-\"\'")
+    return clip_words(seg, limit)
 
 
 def clip_words(text, limit):
@@ -1013,7 +1076,8 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
 
     # ---- Главные события дня (hero) + оперативная хроника
     topic_names = {t["id"]: t["name"] for t in cfg["topics"]}
-    hero_pool = [it for it in window if is_regional(it) and it.get("category") != "security"] or window
+    hero_pool = [it for it in window if is_regional(it) and it.get("category") != "security"
+                 and not is_alert(it)] or window
     heroes = hero_pick(hero_pool, trends, now, 3)
     if heroes:
         hero_html = []
@@ -1026,7 +1090,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
             img = photo_img(it, "../", "width:100%;height:150px;object-fit:cover;border-radius:9px;margin-bottom:9px;")
             hero_html.append(f"""<div class="hero-card" style="border-top-color:{color};">
 {img}<div class="hk" style="color:{color};">{cat.get('icon','📌')} {esc(cat.get('name','Главное'))}<span class="w">событие №{rank}</span></div>
-<h3><a href="{link}" target="_blank" rel="noopener">{esc(it['title'])}</a></h3>
+<h3><a href="{link}" target="_blank" rel="noopener">{esc(nice_title(it,110))}</a></h3>
 {dek_p(it, 340)}
 <div class="hero-meta">{dt.strftime('%d.%m %H:%M') if dt else ''} · {esc(it.get('source',''))}{views} · <a href="{link}" target="_blank" rel="noopener">источник →</a></div></div>""")
         parts.append(f"""<div class="sec-head" id="heroes"><h2>Главные события дня</h2><div class="line"></div>
@@ -1132,7 +1196,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
                     chips += f'<span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: {esc(", ".join(also[:3]))}{more}</span>'
                 thumb = photo_img(it, "../", "float:right;width:118px;height:78px;object-fit:cover;border-radius:9px;margin:2px 0 8px 12px;")
                 items_html.append(f"""<article class="news-item">
-{thumb}<h4><a href="{link}" target="_blank" rel="noopener">{esc(it['title'])}</a></h4>
+{thumb}<h4><a href="{link}" target="_blank" rel="noopener">{esc(nice_title(it,100))}</a></h4>
 {dek_p(it, 340)}
 <div class="meta"><time datetime="{dt.isoformat() if dt else ''}">{dt.strftime('%d.%m %H:%M') if dt else ''}</time> · {esc(it.get('source',''))}{tg_badge}</div>
 {chips}</article>""")
@@ -2297,7 +2361,7 @@ def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest
         by_cat.setdefault(it.get("category", "society"), []).append(it)
     rubrics = ""
     for c in cfg["categories"]:
-        items = by_cat.get(c["id"], [])
+        items = [it for it in by_cat.get(c["id"], []) if not is_alert(it)]
         if not items:
             continue
         rows = "".join(
@@ -2407,10 +2471,18 @@ def week_arcs(store, start, end, trends=None):
             members.setdefault(it["dup_of"], []).append(it)
     arcs = []
     for it in prim:
+        if is_alert(it) or is_promo(it):
+            continue  # уведомления о режимах и анонсы — не сюжеты
         mem = members.get(it["id"], [])
         size = len(mem) + 1
         views = it.get("views") or 0
         if size < 2 and views < 3000:
+            continue
+        # сюжет = содержательная тема с независимым освещением:
+        # ≥3 публикаций из ≥2 источников ИЛИ широкий охват. Репост-каскад
+        # одного канала и уведомления о режимах сюжетом не считаются.
+        _srcs = {it.get("source", "")} | {m.get("source", "") for m in mem}
+        if (size < 3 or len(_srcs) < 2) and views < 8000:
             continue
         days = sorted([pdate(it)] + [pdate(m) for m in mem])
         cnt = {}
@@ -2423,11 +2495,11 @@ def week_arcs(store, start, end, trends=None):
         t_last = sentiment_of(f"{last_m.get('title','')} {(last_m.get('text') or '')[:200]}")[0]
         status = "затух" if days[-1] < end - timedelta(days=1) else ("в развитии" if days[-1] >= end else "пик пройден")
         arcs.append({
-            "title": it["title"], "url": it.get("url") or "", "src": it.get("channel") or it.get("source"),
+            "title": nice_title(it, 110), "url": it.get("url") or "", "src": it.get("channel") or it.get("source"),
             "first": days[0], "peak": peak, "last": days[-1], "size": size, "views": views,
             "srcs": srcs, "t1": t_first, "t2": t_last, "status": status, "days": sorted(set(days)),
         })
-    arcs.sort(key=lambda a: (-a["size"], -a["views"]))
+    arcs.sort(key=lambda a: -((a["views"] or 0) + a["size"] * 2000))
     return arcs[:7]
 
 
@@ -2948,7 +3020,8 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
         win_start -= timedelta(days=2)
         window = [it for it in store if not it.get("dup_of")
                   and local_dt(it.get("published")) and win_start <= local_dt(it["published"])]
-    pool = [it for it in window if is_regional(it) and it.get("category") != "security"] or window
+    pool = [it for it in window if is_regional(it) and it.get("category") != "security"
+            and not is_alert(it)] or window
     leads = hero_pick(pool, trends, now, 5)
     lead = leads[0] if leads else None
     n24 = (trends or {}).get("counts", {}).get("last24h", 0)
@@ -2963,12 +3036,13 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
                     key=lambda x: -x["views"])[:5]
     mostread = "".join(
         f'<li><span class="mostread__num" aria-hidden="true">{i:02d}</span>'
-        f'<a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">{esc(clip_words(it["title"],90))}</a></li>'
+        f'<a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">{esc(nice_title(it,90))}</a></li>'
         for i, it in enumerate(viewed, 1))
 
     # карточки последних материалов
     media_var = ["a", "b", "c", "d"]
-    pool_cards = [it for it in window if not leads or it["id"] != lead["id"]]
+    pool_cards = [it for it in window if (not leads or it["id"] != lead["id"])
+                  and not is_alert(it)]
     rec = lambda x: x.get("published") or ""
     with_photo = sorted([it for it in pool_cards if it.get("photo_local")], key=rec, reverse=True)[:4]
     rest = sorted([it for it in pool_cards if not it.get("photo_local")], key=rec, reverse=True)
@@ -2980,7 +3054,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
         cards += f"""<article class="card">
 <div class="card__media card__media--{media_var[i % 4]}" role="img" aria-label="{esc(cat.get('name',''))}">{photo_img(it, "", "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")}</div>
 <span class="kicker card__kicker">{esc(cat.get('name','Новости'))}</span>
-<h3 class="card__title"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it['title'],100))}</a></h3>
+<h3 class="card__title"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(nice_title(it,100))}</a></h3>
 {dek_p(it, 150, 'card__dek')}
 <div class="card__meta">{esc(it.get('source',''))} · {dt.strftime('%d.%m %H:%M') if dt else ''}</div>
 </article>"""
@@ -2997,15 +3071,29 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
         feat_kicker = "Колонка редактора · Долгое чтение"
         feat_byline = "Редакция Гудка · внутренний выпуск"
     else:
-        arcs = week_arcs(store, day - timedelta(days=6), day)
+        arcs = [a for a in week_arcs(store, day - timedelta(days=6), day)]
         if arcs:
-            feat_title = clip_words(arcs[0]["title"],110)
-            feat_dek = f'Возник {arcs[0]["first"]:%d.%m}, пик {arcs[0]["peak"]:%d.%m} — сюжет держали {arcs[0]["size"]} источника. Полная дуга — в недельнике.'
+            feat_title = arcs[0]["title"]
+            _n = arcs[0]["size"]
+            _held = (f'сюжет держал {_n} {plural_ru(_n, "источник", "источника", "источников")}'
+                     if _n == 1 else
+                     f'сюжет держали {_n} {plural_ru(_n, "источник", "источника", "источников")}')
+            feat_dek = f'Возник {arcs[0]["first"]:%d.%m}, пик {arcs[0]["peak"]:%d.%m} — {_held}. Полная дуга — в недельнике.'
             feat_kicker = "Сюжет недели · Аналитика"
             feat_byline = "Инфопространство · автоматически"
         else:
-            feat_title, feat_dek = "Неделя в дугах", "Сюжетные дуги недели — в недельнике."
-            feat_kicker, feat_byline = "Аналитика", "Гудок"
+            week_pool = [it for it in store if not it.get("dup_of") and not is_alert(it)
+                         and it.get("views") and local_dt(it.get("published"))
+                         and local_dt(it["published"]) >= day - timedelta(days=6)]
+            if week_pool:
+                topw = max(week_pool, key=lambda x: x["views"])
+                feat_title = clip_words(topw["title"],110)
+                feat_dek = clip_sentences(strip_title_lead(topw.get("text") or "", topw["title"]), 300) or topw["title"]
+                feat_kicker = "Материал недели · по охвату"
+                feat_byline = f'{topw.get("source", "")} · 👁 {fmt_views(topw["views"])}'
+            else:
+                feat_title, feat_dek = "Неделя в дугах", "Сюжетные дуги недели — в недельнике."
+                feat_kicker, feat_byline = "Аналитика", "Гудок"
 
     # мнения: цитаты каналов tier-3
     ops = []
@@ -3055,7 +3143,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <div>
 <div class="hero__eyebrow"><span class="live" aria-hidden="true"></span>
 <span class="kicker">{esc(lead_cat.get('name','Главное'))}</span></div>
-<h1 class="hero__title"><a href="{esc(lead.get('url') or '#') if lead else '#'}" target="_blank" rel="noopener">{esc(lead['title']) if lead else '—'}</a></h1>
+<h1 class="hero__title"><a href="{esc(lead.get('url') or '#') if lead else '#'}" target="_blank" rel="noopener">{esc(nice_title(lead,90)) if lead else '—'}</a></h1>
 {dek_p(lead, 320, 'hero__dek') if lead else ''}
 <div class="hero__byline"><span class="avatar" aria-hidden="true">Г</span>
 <span><strong>{esc(lead.get('source','')) if lead else ''}</strong>
@@ -3211,7 +3299,7 @@ def main():
     manifest = []
     for it in sorted([x for x in store if x.get("published")], key=lambda x: x["published"], reverse=True)[:120]:
         dt = local_dt(it["published"])
-        manifest.append({"t": clip_words(it["title"],110), "u": it.get("url") or "#",
+        manifest.append({"t": nice_title(it,110), "u": it.get("url") or "#",
                          "d": dt.strftime("%d.%m") if dt else "",
                          "c": (cats_all.get(it.get("category"), {}) or {}).get("name", "") if False else str(it.get("source", ""))[:18]})
     import json as _json

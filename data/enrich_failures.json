@@ -1,22 +1,22 @@
 {
  "uliyanovsk.bezformata.com": {
   "code": 403,
-  "date": "2026-09-13",
+  "date": "2026-09-14",
   "error": "HTTP Error 403: Forbidden"
  },
  "gogov.ru": {
-  "code": 429,
-  "date": "2026-09-13",
-  "error": "HTTP Error 429: Too Many Requests"
+  "code": "timeout",
+  "date": "2026-09-14",
+  "error": "<urlopen error timed out>"
  },
  "rg.ru": {
   "code": 401,
-  "date": "2026-09-13",
+  "date": "2026-09-14",
   "error": "HTTP Error 401: Unauthorized"
  },
  "media73.ru": {
   "code": 404,
-  "date": "2026-09-13",
+  "date": "2026-09-14",
   "error": "HTTP Error 404: Not Found"
  }
 }
