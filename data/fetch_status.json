@@ -95,7 +95,7 @@
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 17,
+  "items": 16,
   "error": null,
   "title": "Топор Ульяновск"
  },
@@ -202,10 +202,10 @@
   "title": "ПАО «ОАК»"
  },
  "_meta": {
-  "last_run_utc": "2026-09-14T19:21:53.685799+00:00",
-  "last_run_local": "14.09.2026 23:21",
-  "fetched": 443,
-  "new": 1,
+  "last_run_utc": "2026-09-14T19:35:29.592391+00:00",
+  "last_run_local": "14.09.2026 23:35",
+  "fetched": 442,
+  "new": 0,
   "total_store": 1500
  },
  "rss:Улград": {
