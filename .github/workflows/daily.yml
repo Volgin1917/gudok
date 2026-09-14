@@ -9,6 +9,9 @@ permissions:
   contents: write
   pages: write
   id-token: write
+concurrency:
+  group: gudok-pipeline        # общая очередь daily/weekly/monthly: гоняют run.sh и пушат в main —
+  cancel-in-progress: false    # только один прогон за раз, свежие ждут (гонки git push исключены)
 jobs:
   build:
     if: github.actor != 'gudok-bot'
