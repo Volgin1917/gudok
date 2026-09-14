@@ -1,5 +1,5 @@
 {
- "generated_local": "14.09.2026 21:14",
+ "generated_local": "14.09.2026 21:40",
  "calendar": [
   {
    "etype": "other",
@@ -375,37 +375,6 @@
    ]
   },
   {
-   "name": "заметили · центре · ульяновцы",
-   "terms": [
-    "заметили",
-    "центре",
-    "ульяновцы"
-   ],
-   "size": 3,
-   "coverage": 0.0,
-   "gap": true,
-   "samples": [
-    {
-     "title": "😳 Змею заметили ульяновцы в центре города Тоже приползла праздновать? 😅 😱",
-     "url": "https://t.me/tresh_ulyan/56175",
-     "source": "t.me/tresh_ulyan",
-     "views": 13200
-    },
-    {
-     "title": "😱 В центре Ульяновска заметили удава Необычного гостя заметили прямо в центре Ульяновска. Змея ползала среди т",
-     "url": "https://t.me/ulyanovsk_smi/29464",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 767
-    },
-    {
-     "title": "😜 Плывущего кабана заметили ульяновцы во время рыбалки Необычную встречу устроил рыбакам в Ульяновске дикий ка",
-     "url": "https://t.me/ulyanovsk_smi/29466",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 394
-    }
-   ]
-  },
-  {
    "name": "заменил",
    "terms": [
     "заменил"
@@ -433,15 +402,46 @@
      "views": 1220
     }
    ]
+  },
+  {
+   "name": "начали · готовиться · весеннему",
+   "terms": [
+    "начали",
+    "готовиться",
+    "весеннему"
+   ],
+   "size": 3,
+   "coverage": 0.33,
+   "gap": true,
+   "samples": [
+    {
+     "title": "7️⃣ В Ульяновске заблаговременно начали готовиться к весеннему паводку 2027 года Уже с этой недели городские п",
+     "url": "https://t.me/topor_ul/11619",
+     "source": "t.me/topor_ul",
+     "views": 2000
+    },
+    {
+     "title": "🌊 В Ульяновске уже сейчас начали готовиться к весеннему паводку 2027 года. Профильные службы города с этой нед",
+     "url": "https://t.me/ulsk_on/22798",
+     "source": "t.me/ulsk_on",
+     "views": 114
+    },
+    {
+     "title": "В Ульяновске до наступления осенних дождей начали чистить водоотводные канавы и трубы",
+     "url": "https://ulpressa.ru/2026/09/14/v-ulyanovske-do-nastupleniya-osennih-dozhdej-nachali-chistit-vodootvodnye-kanavy-i-truby/",
+     "source": "Улпресса",
+     "views": null
+    }
+   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.096,
-  "today_items": 258,
-  "today_pos": 409,
-  "today_neg": 260,
-  "today_neu": 559,
+  "today_score": 0.09,
+  "today_items": 263,
+  "today_pos": 410,
+  "today_neg": 262,
+  "today_neu": 561,
   "series": [
    {
     "date": "2026-09-01",
@@ -497,7 +497,7 @@
    },
    {
     "date": "2026-09-14",
-    "score": 0.096
+    "score": 0.09
    }
   ],
   "by_category": {
@@ -507,8 +507,8 @@
    "education": 0.3,
    "health": 0.545,
    "politics": 0.098,
-   "security": -0.436,
-   "society": 0.025,
+   "security": -0.448,
+   "society": 0.034,
    "sport": 0.5
   }
  },
@@ -517,8 +517,8 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 154,
-   "primary": 147,
+   "total": 155,
+   "primary": 148,
    "dup": 7,
    "repost_rate": 0.05,
    "views_median": null,
@@ -541,8 +541,8 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 101,
-   "primary": 79,
+   "total": 102,
+   "primary": 80,
    "dup": 22,
    "repost_rate": 0.22,
    "views_median": 9840,
@@ -553,8 +553,8 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 75,
-   "primary": 63,
+   "total": 76,
+   "primary": 64,
    "dup": 12,
    "repost_rate": 0.16,
    "views_median": 490,
@@ -562,26 +562,26 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "chpul",
+   "source": "chpulsk",
    "tier": 2,
    "type": "tg",
    "total": 62,
-   "primary": 43,
-   "dup": 19,
-   "repost_rate": 0.31,
-   "views_median": 629,
+   "primary": 39,
+   "dup": 23,
+   "repost_rate": 0.37,
+   "views_median": 3400,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
-   "source": "chpulsk",
+   "source": "chpul",
    "tier": 2,
    "type": "tg",
-   "total": 61,
-   "primary": 38,
-   "dup": 23,
-   "repost_rate": 0.38,
-   "views_median": 3430,
+   "total": 62,
+   "primary": 42,
+   "dup": 20,
+   "repost_rate": 0.32,
+   "views_median": 629,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -602,10 +602,10 @@
    "tier": 2,
    "type": "tg",
    "total": 56,
-   "primary": 41,
-   "dup": 15,
-   "repost_rate": 0.27,
-   "views_median": 342,
+   "primary": 42,
+   "dup": 14,
+   "repost_rate": 0.25,
+   "views_median": 350,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -613,8 +613,8 @@
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 53,
-   "primary": 37,
+   "total": 54,
+   "primary": 38,
    "dup": 16,
    "repost_rate": 0.3,
    "views_median": 7620,
@@ -662,9 +662,9 @@
    "tier": 2,
    "type": "tg",
    "total": 43,
-   "primary": 35,
-   "dup": 8,
-   "repost_rate": 0.19,
+   "primary": 36,
+   "dup": 7,
+   "repost_rate": 0.16,
    "views_median": 1260,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -794,11 +794,11 @@
    "tier": 2,
    "type": "tg",
    "total": 26,
-   "primary": 20,
-   "dup": 6,
-   "repost_rate": 0.23,
-   "views_median": 441,
-   "label": "первоисточник",
+   "primary": 19,
+   "dup": 7,
+   "repost_rate": 0.27,
+   "views_median": 424,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -938,8 +938,8 @@
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 52.2,
-   "slope": 6.36,
+   "expected": 53.0,
+   "slope": 6.46,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -962,8 +962,8 @@
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 34.2,
-   "slope": 2.79,
+   "expected": 34.9,
+   "slope": 2.89,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1010,16 +1010,16 @@
   {
    "topic": "weather",
    "name": "Погода",
-   "expected": 8.7,
-   "slope": 1.04,
+   "expected": 9.4,
+   "slope": 1.14,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "zhkh",
    "name": "ЖКХ, газ, тепло",
-   "expected": 6.0,
-   "slope": 0.79,
+   "expected": 6.8,
+   "slope": 0.89,
    "direction": "рост",
    "confidence": "средняя"
   },

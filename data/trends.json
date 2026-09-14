@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-14T17:14:02.633605+00:00",
- "generated_local": "14.09.2026 21:14",
+ "generated_utc": "2026-09-14T17:40:41.561693+00:00",
+ "generated_local": "14.09.2026 21:40",
  "days": [
   "2026-09-01",
   "2026-09-02",
@@ -18,9 +18,9 @@
   "2026-09-14"
  ],
  "counts": {
-  "total": 1480,
+  "total": 1485,
   "last24h": 314,
-  "last7d": 1386
+  "last7d": 1390
  },
  "topics": {
   "elections": {
@@ -223,12 +223,12 @@
     13,
     8,
     7,
-    4
+    5
    ],
-   "today": 4,
-   "week": 40,
-   "total": 42,
-   "status": "stable"
+   "today": 5,
+   "week": 41,
+   "total": 43,
+   "status": "rising"
   },
   "cityspace": {
    "name": "Городская среда",
@@ -269,11 +269,11 @@
     79,
     16,
     8,
-    67
+    68
    ],
-   "today": 67,
-   "week": 210,
-   "total": 220,
+   "today": 68,
+   "week": 211,
+   "total": 221,
    "status": "stable"
   },
   "schools": {
@@ -338,11 +338,11 @@
     76,
     33,
     9,
-    40
+    41
    ],
-   "today": 40,
-   "week": 219,
-   "total": 226,
+   "today": 41,
+   "week": 220,
+   "total": 227,
    "status": "stable"
   },
   "culture": {
@@ -430,11 +430,11 @@
     22,
     9,
     11,
-    6
+    7
    ],
-   "today": 6,
-   "week": 65,
-   "total": 69,
+   "today": 7,
+   "week": 66,
+   "total": 70,
    "status": "stable"
   },
   "macro": {
@@ -499,10 +499,10 @@
     117,
     38,
     22,
-    60
+    63
    ],
-   "week": 304,
-   "today": 60
+   "week": 307,
+   "today": 63
   },
   "economy": {
    "name": "Экономика и промышленность",
@@ -562,10 +562,10 @@
     135,
     76,
     89,
-    122
+    124
    ],
-   "week": 537,
-   "today": 122
+   "week": 539,
+   "today": 124
   },
   "health": {
    "name": "Здравоохранение",

@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": false,
-  "items": 0,
-  "error": "<urlopen error [Errno 101] Network is unreachable>"
+  "ok": true,
+  "items": 10,
+  "error": null
  },
  "rss:Улпресса": {
   "ok": true,
@@ -83,7 +83,7 @@
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "ЧП Ульяновск"
  },
@@ -202,11 +202,11 @@
   "title": "ПАО «ОАК»"
  },
  "_meta": {
-  "last_run_utc": "2026-09-14T17:09:17.697158+00:00",
-  "last_run_local": "14.09.2026 21:09",
-  "fetched": 434,
+  "last_run_utc": "2026-09-14T17:36:32.607764+00:00",
+  "last_run_local": "14.09.2026 21:36",
+  "fetched": 445,
   "new": 5,
-  "total_store": 1480
+  "total_store": 1485
  },
  "rss:Улград": {
   "ok": true,
