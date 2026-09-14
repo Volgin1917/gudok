@@ -2985,75 +2985,208 @@ def render_weekly_full(cfg, trends, store, status, start, end, rail=None):
 
 # ------------------------------------------------------------------ archive
 def render_archive(cfg, trends, store, status):
-    """Архив-матрица: месяцы строками, недели колонками, дни точками."""
+    """Архив издания: календарь выпусков + реестр + недельники/месячные + проекты."""
     now = datetime.now(UTC4)
+    today = now.date()
     nav_html = render_nav(cfg, "archive", "")
     digests = sorted(glob.glob(os.path.join(DIGESTS, "digest_*.html")))
     dset = {os.path.basename(d)[7:17] for d in digests}
     weeks = sorted(glob.glob(os.path.join(BASE, "weekly", "week_*.html")))
-    months = sorted({d[:7] for d in dset} | {os.path.basename(m)[6:13] for m in
-                    sorted(glob.glob(os.path.join(BASE, "monthly", "month_*.html")))})
-    rows = ""
+    month_files = sorted(glob.glob(os.path.join(BASE, "monthly", "month_*.html")))
+    launch = None
+    try:
+        launch = datetime.strptime(cfg.get("launch_date", ""), "%Y-%m-%d").date()
+    except ValueError:
+        pass
+
+    # материалов по дням (без дублей перепечаток)
+    per_day = Counter()
+    for it in store:
+        if it.get("dup_of"):
+            continue
+        dt = local_dt(it.get("published"))
+        if dt:
+            per_day[dt.date().isoformat()] += 1
+
+    MON_RU = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+              "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
+    WD_S = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
+    WD_F = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"]
+
+    # ── календарь: по блоку на каждый месяц, где есть выпуски (новые сверху) ──
+    months = sorted({d[:7] for d in dset} | {os.path.basename(m)[6:13] for m in month_files}, reverse=True)
+    cal_html = ""
     for ym in months:
         y, mo = map(int, ym.split("-"))
         first = datetime(y, mo, 1, tzinfo=UTC4).date()
         last = (datetime(y + 1, 1, 1, tzinfo=UTC4).date() if mo == 12
                 else datetime(y, mo + 1, 1, tzinfo=UTC4).date()) - timedelta(days=1)
-        monday = first - timedelta(days=first.weekday())
-        cells = ""
-        while monday <= last:
-            w_end = monday + timedelta(days=6)
-            num = week_num(cfg, monday)
-            wfile = next((w for w in weeks if f"_{monday.isoformat()}_" in w), None)
-            dots = ""
-            for k in range(7):
-                d = monday + timedelta(days=k)
-                if d.month != mo:
-                    dots += '<span style="opacity:.25;">·</span>'
-                    continue
-                has = d.isoformat() in dset
-                dots += (f'<a href="digests/digest_{d.isoformat()}.html" title="{d:%d.%m}" '
-                         f'style="display:inline-block;width:9px;height:9px;border-radius:50%;'
-                         f'background:{"#2f80ed" if has else "#d7dee8"};margin:0 1px;"></a>'
-                         if has else f'<span style="display:inline-block;width:9px;height:9px;border-radius:50%;'
-                                      f'background:#e3e9f1;margin:0 1px;" title="{d:%d.%m} нет выпуска"></span>')
-            wlink = (f'<a href="weekly/{os.path.basename(wfile)}" style="font-weight:800;">№{num}</a>'
-                     if wfile else f'<span style="color:var(--muted);">№{num}</span>')
-            cells += (f'<td style="text-align:center;padding:6px 8px;border-bottom:1px solid var(--line);">'
-                      f'{wlink}<br>{dots}</td>')
-            monday += timedelta(days=7)
-        mfile = f"monthly/month_{ym}.html"
-        mlink = (f'<a href="{mfile}" style="font-weight:800;color:var(--navy);">{MONTHS_RU_GEN[mo-1][:3]} {y}</a>'
-                 if os.path.exists(os.path.join(BASE, mfile)) else f'{MONTHS_RU_GEN[mo-1][:3]} {y}')
-        rows += f'<tr><td style="padding:6px 10px;border-bottom:1px solid var(--line);font-weight:700;">{mlink}</td>{cells}</tr>'
+        cells = "".join(f'<span class="cal-h">{w}</span>' for w in WD_S)
+        d = first
+        cells += '<span class="cal-cell empty"></span>' * first.weekday()
+        while d <= last:
+            iso = d.isoformat()
+            if iso in dset:
+                num, test = digest_number(cfg, iso)
+                lbl = f"№{num}" + (" 🧪" if test else "")
+                cls = "cal-cell has" + (" today" if d == today else "")
+                cells += (f'<a class="{cls}" href="digests/digest_{iso}.html" '
+                          f'title="Выпуск {lbl} от {d:%d.%m.%Y} · материалов: {per_day.get(iso, 0)}">'
+                          f'<span class="cal-d">{d.day}</span><span class="cal-n">{lbl}</span></a>')
+            elif launch and d < launch:
+                cells += f'<span class="cal-cell pre" title="до запуска издания"><span class="cal-d">{d.day}</span></span>'
+            elif d > today:
+                cells += f'<span class="cal-cell off"><span class="cal-d">{d.day}</span></span>'
+            else:
+                cells += f'<span class="cal-cell miss" title="{d:%d.%m} — выпуска нет"><span class="cal-d">{d.day}</span></span>'
+            d += timedelta(days=1)
+        mlink = (f' · <a class="cal-mlink" href="monthly/month_{ym}.html">отчёт за месяц</a>'
+                 if os.path.exists(os.path.join(BASE, f"monthly/month_{ym}.html")) else "")
+        cal_html += (f'<div class="cal-month"><div class="cal-title">{MON_RU[mo - 1]} {y}{mlink}</div>'
+                     f'<div class="cal">{cells}</div></div>')
+
+    # ── реестр выпусков: новые сверху ──
+    reg_rows = ""
+    for iso in sorted(dset, reverse=True):
+        d = datetime.strptime(iso, "%Y-%m-%d").date()
+        num, test = digest_number(cfg, iso)
+        n_items = per_day.get(iso, 0)
+        ex = os.path.exists(os.path.join(DIGESTS, f"exec_{iso}.html"))
+        pr = os.path.exists(os.path.join(DIGESTS, f"print_{iso}.html"))
+        links = [f'<a href="digests/digest_{iso}.html">выпуск</a>']
+        links.append(f'<a href="digests/exec_{iso}.html">руководителю</a>' if ex else '<span class="na">руководителю —</span>')
+        links.append(f'<a href="digests/print_{iso}.html">печать</a>' if pr else '<span class="na">печать —</span>')
+        badge = ' <span class="reg-test">🧪 тестовый</span>' if test else ""
+        live = (' <a class="reg-live" href="digests/today.html">живая страница →</a>'
+                if (iso == today.isoformat() and iso in dset) else "")
+        reg_rows += (f'<tr><td class="num">№{num}{badge}</td>'
+                     f'<td>{WD_F[d.weekday()]}, {d:%d.%m.%Y}{live}</td>'
+                     f'<td class="cnt">{n_items}</td>'
+                     f'<td class="lnk"> · '.join(links) + '</td></tr>')
+
+    # ── недельники и месячные ──
+    wk_items = ""
+    for w in sorted(weeks, reverse=True):
+        b = os.path.basename(w)[:-5]
+        parts = b.split("_")
+        if len(parts) >= 3:
+            nn = parts[1].lstrip("0") or "0"
+            st = datetime.strptime(parts[2], "%Y-%m-%d").date()
+            en = datetime.strptime(parts[3], "%Y-%m-%d").date()
+            wk_items += (f'<li><a href="weekly/{os.path.basename(w)}">Недельник №{nn}</a>'
+                         f'<span class="per">{st:%d.%m}–{en:%d.%m.%Y}</span></li>')
+    wk_items = wk_items or '<li class="na">недельники появятся после первой завершённой недели</li>'
+    mo_items = ""
+    for m in month_files:
+        ym = os.path.basename(m)[6:13]
+        y, mo = map(int, ym.split("-"))
+        mo_items += f'<li><a href="monthly/month_{ym}.html">{MON_RU[mo - 1]} {y}</a><span class="per">все метрики месяца</span></li>'
+    mo_items = mo_items or '<li class="na">первый отчёт — после завершения сентября</li>'
+
+    # ── проекты и спецвыпуски ──
+    proj = [("projects/elections_2026.html", "Выборы-2026", "спецвыпуск: губернатор, Госдума, довыборы в ЗСО"),
+            ("projects/goszakupki.html", "Госзакупки", "аналитика закупок региона"),
+            ("infospace.html", "Инфопространство", "сеттеры повестки, каскады, тон, территории"),
+            ("afisha.html", "Афиша", "культурные события области, автоизвлечение")]
+    proj_cards = "".join(
+        f'<a class="proj-card" href="{href}"><b>{esc(name)}</b><span>{esc(desc)}</span></a>'
+        for href, name, desc in proj if os.path.exists(os.path.join(BASE, href)))
+    special_files = sorted(glob.glob(os.path.join(SPECIAL, "*.html")))
+    proj_cards += "".join(
+        f'<a class="proj-card" href="special/{os.path.basename(s)}"><b>{esc(os.path.basename(s)[:-5].replace("_", " "))}</b><span>ручной спецвыпуск</span></a>'
+        for s in special_files)
+
+    n_total = sum(per_day.values())
+    launch_txt = f"{launch:%d.%m.%Y}" if launch else "11.09.2026"
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Архив-матрица — {cfg['brand']}</title>
-<link rel="icon" type="image/png" href="assets/logo_gudok.png">
-<style>{CSS}{INDEX_CSS}
-table.matrix{{border-collapse:collapse;width:100%;}}
+<title>Архив — {cfg['brand']}</title>
+<link rel="icon" type="image/png" href="assets/logo_gudok.png"><style>{CSS}{INDEX_CSS}
+.cal-month{{margin-bottom:20px;}}
+.cal-title{{font-family:var(--serif-display);font-weight:600;font-size:18px;color:var(--ink);margin-bottom:8px;}}
+.cal-mlink{{font-family:var(--sans);font-size:11px;font-weight:500;color:var(--muted);border-bottom:1px solid var(--rule);}}
+.cal-mlink:hover{{color:var(--accent);border-color:var(--accent);}}
+.cal{{display:grid;grid-template-columns:repeat(7,minmax(38px,1fr));gap:4px;}}
+.cal-h{{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;padding:2px 0 6px;}}
+.cal-cell{{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:50px;border:1px solid var(--rule);background:var(--paper-2);text-decoration:none;}}
+.cal-d{{font-family:var(--serif-body);font-size:15px;font-weight:600;color:var(--ink);line-height:1.1;}}
+.cal-n{{font-family:var(--sans);font-size:9.5px;font-weight:700;color:var(--accent);}}
+a.cal-cell.has{{background:var(--paper);border-color:var(--ink);}}
+a.cal-cell.has:hover{{border-color:var(--accent);}}
+a.cal-cell.has:hover .cal-d{{color:var(--accent);}}
+.cal-cell.today{{box-shadow:inset 0 0 0 2px var(--accent);}}
+.cal-cell.pre{{border:none;background:none;opacity:.3;}}
+.cal-cell.off{{opacity:.4;}}
+.cal-cell.miss .cal-d{{color:var(--muted);}}
+.cal-cell.empty{{border:none;background:none;}}
+.reg{{width:100%;border-collapse:collapse;font-size:13px;}}
+.reg th{{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;border-bottom:2px solid var(--ink);padding:6px 10px 6px 0;}}
+.reg td{{border-bottom:1px solid var(--rule);padding:9px 10px 9px 0;vertical-align:baseline;}}
+.reg .num{{font-family:var(--serif-display);font-size:17px;font-weight:700;white-space:nowrap;color:var(--ink);}}
+.reg-test{{font-family:var(--sans);font-size:9.5px;font-weight:700;color:var(--muted);}}
+.reg-live{{font-family:var(--sans);font-size:11px;color:var(--accent);white-space:nowrap;}}
+.reg .cnt{{font-family:var(--sans);font-size:12.5px;color:var(--ink-2);white-space:nowrap;}}
+.reg .lnk{{font-family:var(--sans);font-size:12px;white-space:nowrap;}}
+.reg .lnk a{{color:var(--ink-2);border-bottom:1px solid var(--rule);}}
+.reg .lnk a:hover{{color:var(--accent);border-color:var(--accent);}}
+.reg .na{{color:var(--muted);opacity:.55;}}
+.arch-grid{{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:36px;align-items:start;}}
+.per-list{{list-style:none;padding:0;margin:0;}}
+.per-list li{{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px dashed var(--rule);font-size:14px;}}
+.per-list li:last-child{{border-bottom:none;}}
+.per-list a{{font-family:var(--serif-body);font-weight:600;color:var(--ink);}}
+.per-list a:hover{{color:var(--accent);}}
+.per-list .per{{font-family:var(--sans);font-size:11.5px;color:var(--muted);white-space:nowrap;}}
+.per-list .na{{color:var(--muted);font-size:13px;}}
+.proj-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}}
+.proj-card{{border:1px solid var(--rule);border-top:2px solid var(--ink);background:var(--paper-2);padding:12px 14px;display:flex;flex-direction:column;gap:4px;}}
+.proj-card:hover{{border-color:var(--accent);border-top-color:var(--accent);}}
+.proj-card b{{font-family:var(--serif-body);font-size:15px;color:var(--ink);}}
+.proj-card:hover b{{color:var(--accent);}}
+.proj-card span{{font-family:var(--sans);font-size:11.5px;color:var(--muted);line-height:1.45;}}
+@media (max-width:900px){{.arch-grid{{grid-template-columns:1fr;}}}}
 </style></head><body>
 <header class="masthead"><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
-<div class="mast-side mast-side--right">Архив-матрица<br>месяцы · недели · дни
+<div class="mast-side mast-side--right">Архив издания<br>выходит с {launch_txt}
 <div class="mast-actions">{THEME_BTN}</div></div>
 </div></header>
 {nav_html}
-<div class="wrap1200" style="padding-top:20px;">
-<div class="card"><div class="card-pad" style="overflow-x:auto;">
-<table class="matrix"><tr><th style="text-align:left;padding:6px 10px;background:var(--navy3);color:#fff;">Месяц</th>
-<th style="padding:6px 8px;background:var(--navy3);color:#fff;">недели →</th></tr>
-{rows}</table>
-<div class="note"><a href="digests/today.html" style="font-weight:700;">→ Живая страница «Сегодня»</a> — материалы текущих суток. Номер недели — сквозной от недели запуска (07.09.2026 = № 1). Точка — выпуск за закрытые сутки;
-серая точка — выпуска нет (день до запуска или пропуск). Клик по номеру недели — недельник, по месяцу — месячный отчёт.</div>
-</div></div>
+<div class="page">
+
+<div class="sec-head"><h2>Выпуски по дням</h2><div class="line"></div>
+<div class="badge"><a href="digests/today.html">Живая страница «Сегодня» →</a></div></div>
+<div class="arch-grid">
+<div>{cal_html}
+<div class="note" style="font-size:12px;color:var(--muted);max-width:420px;">Клик по дню — выпуск за закрытые сутки. 🧪 — тестовый номер. Обведённый день — текущие сутки (живая страница). Материалов в базе всего: {n_total}.</div>
+</div>
+<div>
+<table class="reg"><tr><th>Выпуск</th><th>Сутки</th><th>Материалов</th><th>Смотреть</th></tr>
+{reg_rows}</table>
+</div>
+</div>
+
+<div class="sec-head"><h2>Периодические отчёты</h2><div class="line"></div>
+<div class="badge"><a href="weekly.html">все недели</a> · <a href="monthly.html">все месяцы</a></div></div>
+<div class="arch-grid">
+<div><h3 style="font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;">Недельники · сюжетные дуги</h3>
+<ul class="per-list">{wk_items}</ul></div>
+<div><h3 style="font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;">Месячные отчёты · метрики</h3>
+<ul class="per-list">{mo_items}</ul></div>
+</div>
+
+<div class="sec-head"><h2>Проекты и спецвыпуски</h2><div class="line"></div></div>
+<div class="proj-grid">{proj_cards}</div>
+
 </div>
 <footer class="footer"><div class="footer-inner">
 <div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
-<div><b>Периоды</b><p><a href="index.html" class="flink">Первая полоса</a> · <a href="weekly.html" class="flink">Недели</a> · <a href="monthly.html" class="flink">Месяцы</a></p></div>
+<div><b>Периодичности</b><p><a href="digests/today.html" class="flink">День</a> · <a href="weekly.html" class="flink">Неделя</a> · <a href="monthly.html" class="flink">Месяц</a></p></div>
+<div><b>Служебное</b><p><a href="status.html" class="flink">Статус системы</a> · <a href="roadmap.html" class="flink">План развития</a></p></div>
 </div></footer>
 </body></html>"""
+
 
 
 # ------------------------------------------------------------------ index
