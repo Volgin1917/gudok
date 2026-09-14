@@ -1347,7 +1347,13 @@ DECISION_RE = None  # инициализируется в render_exec
 
 
 def render_exec(cfg, trends, store, status, date_str):
-    """«Дайджест руководителя»: одна страница A4 — 5 событий, 3 риска, 2 решения."""
+    """«Дайджест руководителя»: один лист A4 — картина информационной повестки области
+    для руководителя предприятия.
+
+    Левая колонка: 5 событий суток, 3 риска, 3 решения/возможности, экономика и АПК.
+    Правая колонка: оперативная обстановка, пульс повестки, тон инфополя,
+    прогноз на завтра, первоисточники инфополя.
+    """
     import re as _re
     nav_html = render_nav(cfg, "exec", "../")
     global DECISION_RE
@@ -1357,7 +1363,7 @@ def render_exec(cfg, trends, store, status, date_str):
             r"соглашение|запустил|открыли|начнётся|начнется|продлится|увеличат|проложат|выплатит")
     now = datetime.now(UTC4)
     day = datetime.strptime(date_str, "%Y-%m-%d").date()
-    cats = {c["id"]: c for c in cfg["categories"]}
+    WD_EX = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"]
     win_start = datetime.combine(day, datetime.min.time(), tzinfo=UTC4) - timedelta(hours=6)
     win_end = win_start + timedelta(hours=30)
     window = [it for it in store if not it.get("dup_of")
@@ -1367,7 +1373,16 @@ def render_exec(cfg, trends, store, status, date_str):
         window = [it for it in store if not it.get("dup_of")
                   and local_dt(it.get("published")) and win_start <= local_dt(it["published"]) < win_end]
 
-    # события — без безопасности (её место в рисках) и без федерального шума
+    an = load_json(os.path.join(DATA, "analytics.json")) or {}
+    sent = an.get("sentiment") or {}
+    forecast = (an.get("forecast") or [])[:3]
+    cred = an.get("credibility") or []
+    alerts = load_json(os.path.join(DATA, "alerts.json"), {"active": [], "resolved": []}) or {}
+    srcs = {k: v for k, v in (status or {}).items() if k != "_meta"}
+    ok_n = sum(1 for v in srcs.values() if isinstance(v, dict) and v.get("ok"))
+    dno, dtest = digest_number(cfg, date_str)
+
+    # главное за сутки — без безопасности (её место в рисках) и без федерального шума
     ev_pool = [it for it in window if it.get("category") != "security" and is_regional(it)]
     events = hero_pick(ev_pool, trends, now, 5)
     ev_ids = {it["id"] for it in events}
@@ -1384,73 +1399,175 @@ def render_exec(cfg, trends, store, status, date_str):
         if len(risks) == 3:
             break
     risk_ids = {it["id"] for it in risks}
+    # решения и возможности — маркеры действий в tier-1 источниках
     decisions = [it for it in window
                  if it["id"] not in ev_ids and it["id"] not in risk_ids
                  and DECISION_RE.search((it.get("title", "") + " " + (it.get("text") or "")).lower())
                  and (it.get("tier") == 1 or it.get("source_type") == "seed")]
-    decisions = sorted(decisions, key=lambda x: ((x.get("views") or 0), x.get("published") or ""), reverse=True)[:2]
-    rising = sorted((t for t in (trends or {}).get("topics", {}).values() if t["status"] == "rising"),
-                    key=lambda t: -t["week"])[:3]
+    decisions = sorted(decisions, key=lambda x: ((x.get("views") or 0), x.get("published") or ""), reverse=True)[:3]
+    dec_ids = {it["id"] for it in decisions}
+    # экономика и АПК — профильное для руководителя предприятия
+    econ = sorted([it for it in window
+                   if it.get("category") in ("economy", "agro")
+                   and it["id"] not in (ev_ids | dec_ids) and is_regional(it)],
+                  key=lambda x: (x.get("views") or 0, x.get("published") or ""), reverse=True)[:3]
 
-    def li(items, kind):
+    def li(items, kind, sub_len=170, title_len=130):
         out = []
         for it in items:
             dt = local_dt(it.get("published"))
             src = esc(it.get("source", ""))
             views = f" · 👁 {fmt_views(it['views'])}" if it.get("views") else ""
-            out.append(f"""<li><b><a href="{esc(it.get('url') or '#')}">{esc(clip_words(it['title'],150))}</a></b>
-<div class="sub">{esc(clip_sentences((it.get('text') or ''),230))}</div>
-<div class="src">{dt.strftime('%d.%m %H:%M') if dt else ''} · {src}{views}</div></li>""")
+            sub = clip_sentences((it.get("text") or ""), sub_len)
+            sub_html = (f'<div class="sub">{esc(sub)}</div>'
+                        if sub and norm_sq(sub) != norm_sq(it.get("title", "")) else "")
+            out.append(f"""<li><b><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it['title'], title_len))}</a></b>
+{sub_html}<div class="src">{dt.strftime('%d.%m %H:%M') if dt else ''} · {src}{views}</div></li>""")
         return "".join(out) or f"<li><span class='sub'>Нет данных за период ({kind})</span></li>"
 
-    rising_txt = ", ".join(f"«{esc(t['name'])}»" for t in rising) or "резких сдвигов нет"
-    meta = (status or {}).get("_meta", {})
+    # оперативная обстановка: уведомления о режимах за окно выпуска
+    sec_items = sorted([it for it in window if it.get("category") == "security" and is_alert(it)],
+                       key=lambda x: x.get("published") or "")
+    act = alerts.get("active") or []
+    if act:
+        a0 = act[0] if isinstance(act[0], dict) else {"text": str(act[0])}
+        regime = "⚠️ действует: " + esc(clip_words(str(a0.get("text") or a0.get("kind") or "режим опасности"), 90))
+    else:
+        regime = "активных режимов опасности нет"
+    if sec_items:
+        la = sec_items[-1]
+        lad = local_dt(la.get("published"))
+        last_txt = f"{lad.strftime('%d.%m %H:%M') if lad else '—'} · {esc(clip_words(la.get('title', ''), 90))}"
+    else:
+        last_txt = "за окно выпуска уведомлений не зафиксировано"
+
+    # пульс повестки: топ-6 тем недели
+    ST_ICO = {"rising": "🔥", "new": "🆕", "stable": "⚖️", "fading": "📉", "silent": "💤"}
+    topics = (trends or {}).get("topics", {})
+    top6 = sorted(topics.values(), key=lambda t: -(t.get("week") or 0))[:6]
+    pulse_rows = "".join(
+        f'<div class="pulse-row"><span>{ST_ICO.get(t.get("status", "stable"), "⚖️")}</span>'
+        f'<span class="p-name">{esc(t.get("name", ""))}</span>'
+        f'<span class="p-nums">24ч {t.get("today", 0)} · 7д {t.get("week", 0)}</span>'
+        f'{sparkline(t.get("series", []), w=70, h=16, color="#4a7fb5")}</div>'
+        for t in top6) or '<div class="pulse-row"><span class="p-name">Нет данных трекера</span></div>'
+
+    # тон инфополя
+    sc = sent.get("today_score")
+    mood = ("—" if sc is None else
+            "позитивный" if sc >= 0.25 else "спокойный" if sc >= 0.08 else
+            "смешанный" if sc > -0.15 else "напряжённый")
+    tone_series = [x.get("score") for x in (sent.get("series") or []) if x.get("score") is not None]
+    if tone_series and min(tone_series) < 0:
+        shift = -min(tone_series)
+        tone_series = [v + shift for v in tone_series]
+    tone_spark = sparkline(tone_series, w=150, h=28, color="#4a7fb5")
+    sc_txt = "—" if sc is None else f"{sc:+.2f}"
+
+    # прогноз на завтра
+    fc_rows = ""
+    for f in forecast:
+        arrow = {"рост": "↑", "спад": "↓"}.get(f.get("direction", ""), "→")
+        fc_rows += (f'<div class="fc-row"><span class="fc-a">{arrow}</span>'
+                    f'<span class="fc-n">{esc(f.get("name", ""))}</span>'
+                    f'<span class="fc-e">~{float(f.get("expected") or 0):.0f} публ. · {esc(f.get("confidence", ""))}</span></div>')
+    fc_rows = fc_rows or '<div class="fc-row"><span class="fc-n">прогноз недоступен</span></div>'
+
+    # первоисточники инфополя
+    prim = [c for c in cred if c.get("label") == "первоисточник"][:3] or cred[:3]
+    cred_rows = "".join(
+        f'<div class="cr-row"><span class="fc-n">{esc(str(c.get("source", "")))}</span>'
+        f'<span class="cr-v">{c.get("primary", 0)} из {c.get("total", 0)} — оригиналы</span></div>'
+        for c in prim) or '<div class="cr-row"><span class="fc-n">статистика источников накапливается</span></div>'
+
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Дайджест руководителя · {day:%d.%m.%Y} — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png"><style>{CSS}
-@page {{ size: A4; margin: 14mm; }}
-.exec-wrap{{max-width:860px;margin:0 auto;padding:26px 30px 40px;background:#fff;}}
-.exec-head{{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--navy);padding-bottom:12px;margin-bottom:18px;flex-wrap:wrap;gap:8px;}}
-.exec-head h1{{font-size:22px;color:var(--navy);}}
-.exec-head .d{{font-size:13px;color:var(--muted);text-align:right;}}
-.exec-sec{{margin-bottom:20px;break-inside:avoid;}}
-.exec-sec h2{{font-size:14px;text-transform:uppercase;letter-spacing:1.2px;color:#fff;background:var(--navy);display:inline-block;padding:5px 14px;border-radius:7px;margin-bottom:10px;}}
-.exec-sec.risk h2{{background:#b02a2f;}}
-.exec-sec.dec h2{{background:#1d7a4d;}}
-.exec-sec ol,.exec-sec ul{{padding-left:22px;}}
-.exec-sec li{{margin-bottom:12px;font-size:13.5px;line-height:1.5;}}
-.exec-sec li b a{{color:var(--navy);}}
-.exec-sec .sub{{color:var(--muted);font-size:12.3px;margin-top:2px;}}
-.exec-sec .src{{color:#8a99aa;font-size:10.8px;font-weight:700;margin-top:3px;}}
-.exec-trend{{background:#f7fafd;border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-size:13px;color:var(--navy3);}}
-.exec-foot{{border-top:1px solid var(--line);margin-top:24px;padding-top:10px;font-size:10.5px;color:#8a99aa;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}}
-@media print{{ .topbar,.masthead,.flagline,.nav,.print-btn{{display:none!important;}} .exec-wrap{{padding:0;}} }}
+@page {{ size: A4; margin: 9mm; }}
+.exec-wrap{{max-width:1020px;margin:0 auto;padding:22px 26px 30px;}}
+.exec-head{{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px double var(--ink);padding-bottom:10px;margin-bottom:14px;flex-wrap:wrap;gap:8px;}}
+.exec-head .kicker{{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}}
+.exec-head h1{{font-family:var(--serif-display);font-weight:700;font-size:26px;letter-spacing:-.01em;margin:0;color:var(--ink);}}
+.exec-head .d{{font-family:var(--sans);font-size:11.5px;color:var(--muted);text-align:right;line-height:1.55;}}
+.exec-head .d b{{color:var(--ink);}}
+.exec-grid{{display:grid;grid-template-columns:1.55fr 1fr;gap:24px;align-items:start;}}
+.exec-sec{{margin-bottom:13px;break-inside:avoid;}}
+.exec-sec h2{{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);border-top:2px solid var(--ink);padding-top:5px;margin:0 0 7px;display:flex;justify-content:space-between;gap:10px;}}
+.exec-sec h2 .cnt{{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}}
+.exec-sec.risk h2{{border-top-color:#b02a2f;color:#b02a2f;}}
+.exec-sec.dec h2{{border-top-color:#1d7a4d;color:#1d7a4d;}}
+.exec-sec ol{{padding-left:18px;margin:0;}}
+.exec-sec li{{margin-bottom:8px;font-size:13px;line-height:1.42;}}
+.exec-sec li b{{font-family:var(--serif-body);font-weight:600;}}
+.exec-sec li b a{{color:var(--ink);}}
+.exec-sec li b a:hover{{color:var(--accent);}}
+.exec-sec .sub{{color:var(--ink-2);font-size:12px;margin-top:1px;}}
+.exec-sec .src{{color:var(--muted);font-family:var(--sans);font-size:10px;font-weight:600;margin-top:1px;}}
+.panel{{border:1px solid var(--rule);border-top:2px solid var(--ink);padding:9px 12px;margin-bottom:10px;break-inside:avoid;background:var(--paper-2);}}
+.panel h3{{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;}}
+.panel.op{{border-top-color:#b02a2f;}}
+.pulse-row{{display:grid;grid-template-columns:16px minmax(0,1fr) auto auto;gap:6px;align-items:center;font-size:11.5px;padding:2.5px 0;border-bottom:1px dashed var(--rule);}}
+.pulse-row:last-child{{border-bottom:none;}}
+.p-name{{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;color:var(--ink-2);}}
+.p-nums{{font-family:var(--sans);font-size:9.5px;color:var(--muted);white-space:nowrap;}}
+.tone-big{{font-family:var(--serif-display);font-size:30px;font-weight:700;line-height:1;color:var(--ink);}}
+.tone-mood{{font-family:var(--sans);font-size:10.5px;color:var(--muted);margin-top:2px;}}
+.fc-row,.cr-row{{display:flex;gap:8px;align-items:baseline;font-size:11.5px;padding:2.5px 0;border-bottom:1px dashed var(--rule);}}
+.fc-row:last-child,.cr-row:last-child{{border-bottom:none;}}
+.fc-a{{font-weight:800;color:var(--accent);width:12px;flex-shrink:0;}}
+.fc-n{{font-weight:600;color:var(--ink-2);}}
+.fc-e,.cr-v{{margin-left:auto;font-family:var(--sans);font-size:9.5px;color:var(--muted);white-space:nowrap;}}
+.exec-foot{{border-top:1px solid var(--rule);margin-top:14px;padding-top:8px;font-family:var(--sans);font-size:10px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}}
+.exec-foot a{{color:var(--accent);}}
+@media (max-width:900px){{.exec-grid{{grid-template-columns:1fr;}}}}
+@media print{{
+  .topbar,.masthead,.flagline,.nav,.subnav,.print-btn,.theme-btn,.util-bar-wrap,.footer{{display:none!important;}}
+  .exec-wrap{{padding:0;max-width:none;}}
+  body{{background:#fff;}}
+  .exec-head h1{{font-size:17pt;}}
+  .exec-sec li{{font-size:8.8pt;}} .exec-sec .sub{{font-size:8.2pt;}} .exec-sec .src{{font-size:7pt;}}
+  .panel{{background:#fff;}} .pulse-row,.fc-row,.cr-row{{font-size:8.2pt;}}
+  .exec-head .d{{font-size:8.5pt;}}
+}}
+</style></head><body>
 <header class="masthead"><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
-<div class="mast-side mast-side--right">Дайджест руководителя<br>{day:%d.%m.%Y} · 1 страница A4
+<div class="mast-side mast-side--right">Дайджест руководителя<br>{day:%d.%m.%Y} · один лист A4
 <div class="mast-actions">{THEME_BTN}<button class="print-btn" onclick="window.print()">🖈 PDF</button></div></div>
 </div></header>
 {nav_html}<div class="exec-wrap">
 <div class="exec-head">
-<h1>📋 Дайджест руководителя</h1>
-<div class="d"><b>Гудок</b> · информационно-аналитическое издание<br>{day:%d.%m.%Y} · сформирован {now:%H:%M} (UTC+4) · 1 страница</div>
+<div><div class="kicker">Руководителю предприятия · внутренний документ</div>
+<h1>Дайджест руководителя</h1></div>
+<div class="d"><b>{WD_EX[day.weekday()]}, {day:%d.%m.%Y}</b> · выпуск №{dno}{' · 🧪 тестовый' if dtest else ''}<br>сформирован {now:%H:%M} (UTC+4) · источников {ok_n}/{len(srcs)} · материалов за 24 ч: <b>{(trends or {}).get('counts', {}).get('last24h', '—')}</b></div>
 </div>
 
-<div class="exec-sec"><h2>5 событий дня</h2><ol>{li(events, 'события')}</ol></div>
-<div class="exec-sec risk"><h2>3 риска</h2><ol>{li(risks, 'риски')}</ol></div>
-<div class="exec-sec dec"><h2>2 решения</h2><ol>{li(decisions, 'решения')}</ol></div>
-
-<div class="exec-sec"><h2>Повестка</h2>
-<div class="exec-trend">🔥 На подъёме: {rising_txt}. Материалов за 24 ч: <b>{(trends or {}).get('counts',{}).get('last24h','—')}</b>, всего в базе: <b>{(trends or {}).get('counts',{}).get('total','—')}</b>. Последний сбор: {esc(meta.get('last_run_local','—'))}.</div></div>
+<div class="exec-grid">
+<div>
+<div class="exec-sec"><h2>Главное за сутки <span class="cnt">топ-5 по значимости</span></h2><ol>{li(events, 'события')}</ol></div>
+<div class="exec-sec risk"><h2>Риски <span class="cnt">безопасность и происшествия</span></h2><ol>{li(risks, 'риски', 140, 120)}</ol></div>
+<div class="exec-sec dec"><h2>Решения и возможности <span class="cnt">власть и tier-1, чем можно воспользоваться</span></h2><ol>{li(decisions, 'решения', 140, 120)}</ol></div>
+<div class="exec-sec"><h2>Экономика и АПК <span class="cnt">профильное для предприятия</span></h2><ol>{li(econ, 'экономика', 110, 120)}</ol></div>
+</div>
+<div>
+<div class="panel op"><h3>🚨 Оперативная обстановка</h3>
+<div style="font-size:12px;line-height:1.5;"><b>{len(sec_items)}</b> уведомлений о режимах за окно выпуска · {regime}<br>
+<span style="color:var(--muted);font-size:11px;">Последнее: {last_txt}</span></div></div>
+<div class="panel"><h3>📈 Пульс повестки · топ-6 тем недели</h3>{pulse_rows}</div>
+<div class="panel"><h3>🌡 Тон инфополя · {sent.get('today_items', '—')} материалов</h3>
+<div style="display:flex;align-items:center;gap:14px;"><div><div class="tone-big">{sc_txt}</div><div class="tone-mood">{mood} · ряд 14 дней →</div></div>{tone_spark}</div></div>
+<div class="panel"><h3>🔮 Прогноз на завтра</h3>{fc_rows}</div>
+<div class="panel"><h3>📰 Первоисточники инфополя</h3>{cred_rows}</div>
+</div>
+</div>
 
 <div class="exec-foot">
-<span>Автономный режим: события/риски/решения отобраны алгоритмом по просмотрам, темам и свежести; решения — по маркерам действий в tier-1 источниках. Требует вычитки перед рассылкой (human-in-the-loop).</span>
-<span>Подробная версия: digest_{date_str}.html · {cfg['brand']}</span>
+<span>Сформировано автоматически по мониторингу {len(srcs)} источников; отбор алгоритмический. Требует вычитки редактором перед рассылкой (human-in-the-loop).</span>
+<span>Подробно: <a href="digest_{date_str}.html">полный выпуск №{dno}</a> · {esc(cfg['brand'])}</span>
 </div>
-<button class="print-btn" onclick="window.print()" style="margin-top:14px;">🖨 Печать / PDF</button>
-{THEME_BTN}
+<button class="print-btn" onclick="window.print()" style="margin-top:10px;">🖨 Печать / PDF</button>
 </div></body></html>"""
 
 

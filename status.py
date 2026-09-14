@@ -204,12 +204,13 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 </div></header>
 <nav class="nav"><div class="nav-inner">
 <a href="index.html">Первая полоса</a>
-<a href="{latest_digest_href}">Выпуск</a>
-<a href="{latest_exec_href}">Руководителю</a>
+<a href="digests/today.html">Сегодня</a>
+<a href="weekly.html">Неделя</a>
+<a href="monthly.html">Месяц</a>
 <a href="afisha.html">Афиша</a>
-<a href="projects/elections_2026.html">Выборы-2026</a>
-<a href="infospace.html">Инфопространство</a>
-<a href="index.html#archive">Архив</a>
+<a href="projects.html">Проекты</a>
+<a href="archive.html">Архив</a>
+<a href="{latest_exec_href}">Руководителю</a>
 </div></nav>
 <main id="main"><div class="page">
 <h1 class="page-title">🩺 Status — конвейер издания Гудок</h1>
