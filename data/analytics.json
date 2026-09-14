@@ -1,5 +1,5 @@
 {
- "generated_local": "14.09.2026 14:27",
+ "generated_local": "14.09.2026 21:00",
  "calendar": [
   {
    "etype": "other",
@@ -28,6 +28,32 @@
    "venue": ""
   },
   {
+   "etype": "sport",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-15",
+   "date_end": null,
+   "time": "",
+   "title": "Коротко по итогам еженедельного штаба: ✅ 15 сентября откроем новую взрослую поликлинику в Дальнем Засвияжье. А…",
+   "url": "https://t.me/Russkih_Aleksey/12390",
+   "source": "t.me/Russkih_Aleksey",
+   "tier": 1,
+   "venue": ""
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-15",
+   "date_end": null,
+   "time": "",
+   "title": "🏥 15 сентября в Ульяновске откроют новое подразделение городской поликлиники № 4 на улице Героя РФ Колпакова П…",
+   "url": "https://t.me/ulpravda/41044",
+   "source": "t.me/ulpravda",
+   "tier": 1,
+   "venue": ""
+  },
+  {
    "etype": "other",
    "is_culture": false,
    "district": false,
@@ -41,42 +67,16 @@
    "venue": ""
   },
   {
-   "etype": "sport",
+   "etype": "other",
    "is_culture": false,
-   "district": true,
+   "district": false,
    "date": "2026-09-15",
    "date_end": null,
-   "time": "09:00",
-   "title": "В больнице Андрея Первозванного пройдёт День донора",
-   "url": "https://media73.ru/2026/v-bolnitse-andreya-pervozvannogo-proydyet-den-donora",
-   "source": "Media73",
-   "tier": null,
-   "venue": ""
-  },
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": false,
-   "date": "2026-09-15",
-   "date_end": "2026-09-17",
    "time": "",
-   "title": "⚡️ Новый мост в створе улиц Шевченко и Смычки планируют открыть в техническом режиме на следующей неделе , ори…",
-   "url": "https://t.me/chpulsk/50671",
-   "source": "t.me/chpulsk",
-   "tier": 2,
-   "venue": ""
-  },
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": false,
-   "date": "2026-09-15",
-   "date_end": "2026-09-17",
-   "time": "",
-   "title": "Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября . Об этом сообщил мэр Ульяновска Алекс…",
-   "url": "https://t.me/insaid173/46860",
-   "source": "t.me/insaid173",
-   "tier": 2,
+   "title": "Три отдельных входа и автобус до дверей. Новая поликлиника в Дальнем Засвияжье откроется 15 сентября. Мы в Tel…",
+   "url": "https://t.me/ulpressa/74623",
+   "source": "t.me/ulpressa",
+   "tier": 1,
    "venue": ""
   },
   {
@@ -104,6 +104,19 @@
    "source": "t.me/ProNovosty73",
    "tier": 2,
    "venue": "Где: «Matrëshki»"
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-20",
+   "date_end": null,
+   "time": "",
+   "title": "С 18 по 20 сентября в Ульяновской области пройдут выборы губернатора и депутатов Госдумы . Безопасность на уча…",
+   "url": "https://t.me/ulpravda/41047",
+   "source": "t.me/ulpravda",
+   "tier": 1,
+   "venue": ""
   },
   {
    "etype": "other",
@@ -238,64 +251,64 @@
  ],
  "clusters": [
   {
-   "name": "гостинице · росгвардейцы · московском",
+   "name": "недель · осталось · рабочих",
    "terms": [
-    "гостинице",
-    "росгвардейцы",
-    "московском"
+    "недель",
+    "осталось",
+    "рабочих"
    ],
-   "size": 5,
-   "coverage": 0.4,
+   "size": 4,
+   "coverage": 0.0,
    "gap": true,
    "samples": [
     {
-     "title": "😱 Буйного постояльца задержали росгвардейцы в гостинице на Московском шоссе В Засвияжском районе Ульяновска, в",
-     "url": "https://t.me/tresh_ulyan/56124",
-     "source": "t.me/tresh_ulyan",
-     "views": 9100
-    },
-    {
-     "title": "👮🏻‍♂️ В гостинице на Московском шоссе росгвардейцы задержали 33-летнего жителя Ханты-Мансийского автономного о",
-     "url": "https://t.me/chpulsk/50686",
+     "title": "📆 Россиянам осталось работать всего 77 дней до Нового года. До конца года впереди ещё 17 рабочих недель, две и",
+     "url": "https://t.me/chpulsk/50762",
      "source": "t.me/chpulsk",
-     "views": 3400
+     "views": 1290
     },
     {
-     "title": "😱 Дебош в гостинице закончился задержанием: росгвардейцы скрутили буйного гостя В гостинице на Московском шосс",
-     "url": "https://t.me/topor_ul/11586",
-     "source": "t.me/topor_ul",
-     "views": 683
+     "title": "🎄 До Нового года россиянам осталось отработать 77 дней — это 17 рабочих недель, две из них будут короткими. На",
+     "url": "https://t.me/chpul/34420",
+     "source": "t.me/chpul",
+     "views": 885
+    },
+    {
+     "title": "🎄 До Нового года осталось работать 77 дней. Всего до конца 2026 россиян ждут 17 рабочих недель, две из которых",
+     "url": "https://t.me/reporter73/52181",
+     "source": "t.me/reporter73",
+     "views": 52
     }
    ]
   },
   {
-   "name": "мобилизации · медведев · заявил",
+   "name": "балконе · двухлетний · гагарина",
    "terms": [
-    "мобилизации",
-    "медведев",
-    "заявил"
+    "балконе",
+    "двухлетний",
+    "гагарина"
    ],
-   "size": 3,
-   "coverage": 0.33,
+   "size": 4,
+   "coverage": 0.25,
    "gap": true,
    "samples": [
     {
-     "title": "❗ Мобилизации в России не будет, — заявил Медведев в четвёртый раз «Потребности ВС РФ полностью удовлетворяютс",
-     "url": "https://t.me/tresh_ulyan/56129",
-     "source": "t.me/tresh_ulyan",
-     "views": 9840
+     "title": "Бабушка попала в «плен» на собственном балконе из-за двухлетнего внука В Ленинском районе Ульяновска, в доме н",
+     "url": "https://t.me/insaid173/46963",
+     "source": "t.me/insaid173",
+     "views": 9650
     },
     {
-     "title": "❗️ Россия не нуждается в проведении мобилизации , заявил Медведев. Сообщения о подготовке к ней он назвал «пур",
-     "url": "https://t.me/chpulsk/50702",
+     "title": "👵 В Ленинском районе бабушка попала в «плен» на собственном балконе. В доме на улице Гагарина двухлетний ребён",
+     "url": "https://t.me/chpulsk/50757",
      "source": "t.me/chpulsk",
-     "views": 2510
+     "views": 3400
     },
     {
-     "title": "Мобилизации в России не будет, контрактников приходит даже больше, чем ожидалось, — заявил Медведев.",
-     "url": "https://t.me/chpul/34378",
-     "source": "t.me/chpul",
-     "views": 521
+     "title": "😱 Ребёнок запер бабушку на балконе: спасатели пришли на помощь с автолестницей На Гагарина двухлетний внук слу",
+     "url": "https://t.me/topor_ul/11618",
+     "source": "t.me/topor_ul",
+     "views": 575
     }
    ]
   },
@@ -391,31 +404,31 @@
    ]
   },
   {
-   "name": "гагарина · двухлетний · балконе",
+   "name": "начали · готовиться · весеннему",
    "terms": [
-    "гагарина",
-    "двухлетний",
-    "балконе"
+    "начали",
+    "готовиться",
+    "весеннему"
    ],
    "size": 3,
-   "coverage": 0.0,
+   "coverage": 0.33,
    "gap": true,
    "samples": [
     {
-     "title": "👵 В Ленинском районе бабушка попала в «плен» на собственном балконе. В доме на улице Гагарина двухлетний ребён",
-     "url": "https://t.me/chpulsk/50757",
-     "source": "t.me/chpulsk",
-     "views": 3400
-    },
-    {
-     "title": "😱 Ребёнок запер бабушку на балконе: спасатели пришли на помощь с автолестницей На Гагарина двухлетний внук слу",
-     "url": "https://t.me/topor_ul/11618",
+     "title": "7️⃣ В Ульяновске заблаговременно начали готовиться к весеннему паводку 2027 года Уже с этой недели городские п",
+     "url": "https://t.me/topor_ul/11619",
      "source": "t.me/topor_ul",
-     "views": 575
+     "views": 2000
     },
     {
-     "title": "На Гагарина двухлетний малыш запер бабушку на балконе",
-     "url": "https://ulpressa.ru/2026/09/14/na-gagarina-dvuhletnij-malysh-zaper-babushku-na-balkone/",
+     "title": "🌊 В Ульяновске уже сейчас начали готовиться к весеннему паводку 2027 года. Профильные службы города с этой нед",
+     "url": "https://t.me/ulsk_on/22798",
+     "source": "t.me/ulsk_on",
+     "views": 114
+    },
+    {
+     "title": "В Ульяновске до наступления осенних дождей начали чистить водоотводные канавы и трубы",
+     "url": "https://ulpressa.ru/2026/09/14/v-ulyanovske-do-nastupleniya-osennih-dozhdej-nachali-chistit-vodootvodnye-kanavy-i-truby/",
      "source": "Улпресса",
      "views": null
     }
@@ -424,11 +437,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.01,
-  "today_items": 64,
-  "today_pos": 334,
-  "today_neg": 215,
-  "today_neu": 456,
+  "today_score": 0.089,
+  "today_items": 254,
+  "today_pos": 406,
+  "today_neg": 259,
+  "today_neu": 559,
   "series": [
    {
     "date": "2026-09-01",
@@ -448,11 +461,11 @@
    },
    {
     "date": "2026-09-05",
-    "score": 0.75
+    "score": 0.714
    },
    {
     "date": "2026-09-06",
-    "score": 0.875
+    "score": 0.857
    },
    {
     "date": "2026-09-07",
@@ -468,7 +481,7 @@
    },
    {
     "date": "2026-09-10",
-    "score": 0.125
+    "score": 0.126
    },
    {
     "date": "2026-09-11",
@@ -476,24 +489,27 @@
    },
    {
     "date": "2026-09-12",
-    "score": 0.039
+    "score": 0.07
    },
    {
     "date": "2026-09-13",
-    "score": 0.231
+    "score": 0.245
    },
    {
     "date": "2026-09-14",
-    "score": 0.01
+    "score": 0.089
    }
   ],
   "by_category": {
-   "economy": 0.4,
-   "education": 0.5,
-   "politics": 0.0,
-   "security": -0.429,
-   "society": -0.115,
-   "sport": 0.8
+   "agro": 0.5,
+   "culture": 0.604,
+   "economy": 0.51,
+   "education": 0.3,
+   "health": 0.5,
+   "politics": 0.098,
+   "security": -0.436,
+   "society": 0.026,
+   "sport": 0.5
   }
  },
  "credibility": [
@@ -501,23 +517,11 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 134,
-   "primary": 128,
-   "dup": 6,
-   "repost_rate": 0.04,
+   "total": 154,
+   "primary": 147,
+   "dup": 7,
+   "repost_rate": 0.05,
    "views_median": null,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "tresh_ulyan",
-   "tier": 2,
-   "type": "tg",
-   "total": 82,
-   "primary": 62,
-   "dup": 20,
-   "repost_rate": 0.24,
-   "views_median": 10800,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -525,33 +529,57 @@
    "source": "ulpressa",
    "tier": 1,
    "type": "tg",
-   "total": 81,
-   "primary": 58,
-   "dup": 23,
-   "repost_rate": 0.28,
-   "views_median": 1190,
-   "label": "смешанный",
+   "total": 111,
+   "primary": 85,
+   "dup": 26,
+   "repost_rate": 0.23,
+   "views_median": 1520,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
+  },
+  {
+   "source": "tresh_ulyan",
+   "tier": 2,
+   "type": "tg",
+   "total": 101,
+   "primary": 79,
+   "dup": 22,
+   "repost_rate": 0.22,
+   "views_median": 9840,
+   "label": "первоисточник",
+   "clickbait_rate": 0.01
   },
   {
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 63,
-   "primary": 54,
-   "dup": 9,
-   "repost_rate": 0.14,
-   "views_median": 457,
+   "total": 75,
+   "primary": 63,
+   "dup": 12,
+   "repost_rate": 0.16,
+   "views_median": 490,
    "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "chpul",
+   "tier": 2,
+   "type": "tg",
+   "total": 62,
+   "primary": 43,
+   "dup": 19,
+   "repost_rate": 0.31,
+   "views_median": 629,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 55,
-   "primary": 34,
-   "dup": 21,
+   "total": 60,
+   "primary": 37,
+   "dup": 23,
    "repost_rate": 0.38,
    "views_median": 3430,
    "label": "смешанный",
@@ -561,11 +589,11 @@
    "source": "topor_ul",
    "tier": 2,
    "type": "tg",
-   "total": 53,
-   "primary": 43,
-   "dup": 10,
-   "repost_rate": 0.19,
-   "views_median": 1630,
+   "total": 57,
+   "primary": 44,
+   "dup": 13,
+   "repost_rate": 0.23,
+   "views_median": 1950,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -573,32 +601,56 @@
    "source": "ulsk_on",
    "tier": 2,
    "type": "tg",
-   "total": 51,
-   "primary": 37,
-   "dup": 14,
+   "total": 56,
+   "primary": 41,
+   "dup": 15,
    "repost_rate": 0.27,
-   "views_median": 376,
+   "views_median": 342,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
-   "source": "chpul",
+   "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 50,
-   "primary": 36,
-   "dup": 14,
-   "repost_rate": 0.28,
-   "views_median": 595,
+   "total": 53,
+   "primary": 37,
+   "dup": 16,
+   "repost_rate": 0.3,
+   "views_median": 7620,
    "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulpravda",
+   "tier": 1,
+   "type": "tg",
+   "total": 49,
+   "primary": 38,
+   "dup": 11,
+   "repost_rate": 0.22,
+   "views_median": 287,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "reporter73",
+   "tier": 1,
+   "type": "tg",
+   "total": 44,
+   "primary": 38,
+   "dup": 6,
+   "repost_rate": 0.14,
+   "views_median": 57,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
    "source": "fcvolga",
    "tier": 1,
    "type": "tg",
-   "total": 43,
-   "primary": 43,
+   "total": 44,
+   "primary": 44,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 1300,
@@ -606,26 +658,50 @@
    "clickbait_rate": 0.05
   },
   {
-   "source": "reporter73",
-   "tier": 1,
+   "source": "dimitrovgradd",
+   "tier": 2,
    "type": "tg",
-   "total": 39,
-   "primary": 34,
-   "dup": 5,
-   "repost_rate": 0.13,
-   "views_median": 57,
+   "total": 42,
+   "primary": 35,
+   "dup": 7,
+   "repost_rate": 0.17,
+   "views_median": 1260,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
-   "source": "ulpravda",
-   "tier": 1,
+   "source": "ulsk_driver73",
+   "tier": 2,
    "type": "tg",
-   "total": 37,
-   "primary": 29,
+   "total": 42,
+   "primary": 34,
    "dup": 8,
-   "repost_rate": 0.22,
-   "views_median": 290,
+   "repost_rate": 0.19,
+   "views_median": 480,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulsk_73online",
+   "tier": 2,
+   "type": "tg",
+   "total": 41,
+   "primary": 39,
+   "dup": 2,
+   "repost_rate": 0.05,
+   "views_median": 582,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulkompr",
+   "tier": 3,
+   "type": "tg",
+   "total": 39,
+   "primary": 33,
+   "dup": 6,
+   "repost_rate": 0.15,
+   "views_median": 576,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -642,110 +718,50 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "insaid173",
-   "tier": 2,
-   "type": "tg",
-   "total": 35,
-   "primary": 24,
-   "dup": 11,
-   "repost_rate": 0.31,
-   "views_median": 5990,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "dimitrovgradd",
-   "tier": 2,
+   "source": "volkodav73",
+   "tier": 3,
    "type": "tg",
    "total": 34,
-   "primary": 27,
-   "dup": 7,
-   "repost_rate": 0.21,
-   "views_median": 1210,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulsk_driver73",
-   "tier": 2,
-   "type": "tg",
-   "total": 33,
-   "primary": 27,
+   "primary": 28,
    "dup": 6,
    "repost_rate": 0.18,
-   "views_median": 449,
+   "views_median": 3210,
    "label": "первоисточник",
+   "clickbait_rate": 0.03
+  },
+  {
+   "source": "shugozhor73",
+   "tier": 3,
+   "type": "tg",
+   "total": 34,
+   "primary": 24,
+   "dup": 10,
+   "repost_rate": 0.29,
+   "views_median": 3270,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
    "source": "ulkoroche",
    "tier": 2,
    "type": "tg",
-   "total": 31,
-   "primary": 26,
+   "total": 33,
+   "primary": 28,
    "dup": 5,
-   "repost_rate": 0.16,
+   "repost_rate": 0.15,
    "views_median": 915,
    "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulkompr",
-   "tier": 3,
-   "type": "tg",
-   "total": 28,
-   "primary": 24,
-   "dup": 4,
-   "repost_rate": 0.14,
-   "views_median": 542,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulsk_73online",
-   "tier": 2,
-   "type": "tg",
-   "total": 28,
-   "primary": 26,
-   "dup": 2,
-   "repost_rate": 0.07,
-   "views_median": 389,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "volkodav73",
-   "tier": 3,
-   "type": "tg",
-   "total": 25,
-   "primary": 18,
-   "dup": 7,
-   "repost_rate": 0.28,
-   "views_median": 3220,
-   "label": "смешанный",
-   "clickbait_rate": 0.04
-  },
-  {
-   "source": "shugozhor73",
-   "tier": 3,
-   "type": "tg",
-   "total": 23,
-   "primary": 15,
-   "dup": 8,
-   "repost_rate": 0.35,
-   "views_median": 3220,
-   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
    "source": "ProNovosty73",
    "tier": 2,
    "type": "tg",
-   "total": 22,
-   "primary": 20,
-   "dup": 2,
-   "repost_rate": 0.09,
-   "views_median": 238,
+   "total": 30,
+   "primary": 25,
+   "dup": 5,
+   "repost_rate": 0.17,
+   "views_median": 208,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -753,11 +769,35 @@
    "source": "ulpatriot",
    "tier": 3,
    "type": "tg",
-   "total": 21,
-   "primary": 18,
+   "total": 28,
+   "primary": 25,
    "dup": 3,
-   "repost_rate": 0.14,
-   "views_median": 7490,
+   "repost_rate": 0.11,
+   "views_median": 7380,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulgovru",
+   "tier": 1,
+   "type": "tg",
+   "total": 27,
+   "primary": 18,
+   "dup": 9,
+   "repost_rate": 0.33,
+   "views_median": 81,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "sergeymorozov73",
+   "tier": 1,
+   "type": "tg",
+   "total": 25,
+   "primary": 25,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": 142,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -765,11 +805,23 @@
    "source": "dimitrovgradonline",
    "tier": 2,
    "type": "tg",
-   "total": 21,
-   "primary": 17,
-   "dup": 4,
-   "repost_rate": 0.19,
-   "views_median": 441,
+   "total": 25,
+   "primary": 19,
+   "dup": 6,
+   "repost_rate": 0.24,
+   "views_median": 424,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "Russkih_Aleksey",
+   "tier": 1,
+   "type": "tg",
+   "total": 24,
+   "primary": 19,
+   "dup": 5,
+   "repost_rate": 0.21,
+   "views_median": 2490,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -777,11 +829,11 @@
    "source": "ulpromo",
    "tier": 3,
    "type": "tg",
-   "total": 20,
-   "primary": 17,
+   "total": 23,
+   "primary": 20,
    "dup": 3,
-   "repost_rate": 0.15,
-   "views_median": 1180,
+   "repost_rate": 0.13,
+   "views_median": 1140,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -798,50 +850,26 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "ulgovru",
-   "tier": 1,
-   "type": "tg",
-   "total": 19,
-   "primary": 13,
-   "dup": 6,
-   "repost_rate": 0.32,
-   "views_median": 54,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "Russkih_Aleksey",
-   "tier": 1,
-   "type": "tg",
-   "total": 17,
-   "primary": 13,
-   "dup": 4,
-   "repost_rate": 0.24,
-   "views_median": 2490,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "sergeymorozov73",
-   "tier": 1,
-   "type": "tg",
-   "total": 17,
-   "primary": 17,
-   "dup": 0,
-   "repost_rate": 0.0,
-   "views_median": 79,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "terr73",
    "tier": 3,
    "type": "tg",
-   "total": 15,
-   "primary": 15,
+   "total": 16,
+   "primary": 16,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 2660,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "culturnik",
+   "tier": 3,
+   "type": "tg",
+   "total": 16,
+   "primary": 13,
+   "dup": 3,
+   "repost_rate": 0.19,
+   "views_median": 573,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -858,23 +886,11 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "culturnik",
-   "tier": 3,
-   "type": "tg",
-   "total": 14,
-   "primary": 12,
-   "dup": 2,
-   "repost_rate": 0.14,
-   "views_median": 641,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "Ulnovosti.ru",
    "tier": null,
    "type": "rss",
-   "total": 13,
-   "primary": 13,
+   "total": 15,
+   "primary": 15,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": null,
@@ -882,11 +898,23 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "A_Boldakin",
+   "tier": 1,
+   "type": "tg",
+   "total": 12,
+   "primary": 11,
+   "dup": 1,
+   "repost_rate": 0.08,
+   "views_median": 436,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "uac_ru",
    "tier": 1,
    "type": "tg",
-   "total": 9,
-   "primary": 9,
+   "total": 12,
+   "primary": 12,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 5500,
@@ -894,180 +922,168 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "A_Boldakin",
+   "source": "vmkononov",
    "tier": 1,
    "type": "tg",
    "total": 8,
    "primary": 8,
    "dup": 0,
    "repost_rate": 0.0,
-   "views_median": 436,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "vmkononov",
-   "tier": 1,
-   "type": "tg",
-   "total": 7,
-   "primary": 7,
-   "dup": 0,
-   "repost_rate": 0.0,
-   "views_median": 39,
+   "views_median": 42,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   }
  ],
  "forecast": [
   {
-   "topic": "cityday",
-   "name": "День города (378 лет)",
-   "expected": 16.9,
-   "slope": 3.0,
+   "topic": "transport",
+   "name": "Транспорт и дороги",
+   "expected": 52.2,
+   "slope": 6.36,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "cityspace",
    "name": "Городская среда",
-   "expected": 17.0,
-   "slope": 2.36,
+   "expected": 31.7,
+   "slope": 4.57,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "cityday",
+   "name": "День города (378 лет)",
+   "expected": 26.3,
+   "slope": 4.54,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 8.3,
-   "slope": -1.07,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "culture",
-   "name": "Культура и туризм",
-   "expected": 7.9,
-   "slope": -0.86,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "transport",
-   "name": "Транспорт и дороги",
-   "expected": 14.6,
-   "slope": 0.82,
+   "expected": 34.2,
+   "slope": 2.79,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
-   "topic": "export",
-   "name": "Экспорт и кооперация",
-   "expected": 0.1,
-   "slope": -0.82,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "budget",
-   "name": "Бюджет-2027",
-   "expected": 0.8,
-   "slope": -0.79,
-   "direction": "спад",
+   "topic": "sport",
+   "name": "Спорт",
+   "expected": 27.5,
+   "slope": 2.64,
+   "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 8.1,
-   "slope": -0.68,
-   "direction": "спад",
+   "expected": 24.4,
+   "slope": 1.79,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 16.1,
+   "slope": 1.61,
+   "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "governor",
    "name": "Губернатор / власть",
-   "expected": 9.9,
-   "slope": -0.61,
-   "direction": "спад",
+   "expected": 24.4,
+   "slope": 1.57,
+   "direction": "рост",
    "confidence": "средняя"
   },
   {
-   "topic": "zhkh",
-   "name": "ЖКХ, газ, тепло",
-   "expected": 3.8,
-   "slope": 0.46,
+   "topic": "culture",
+   "name": "Культура и туризм",
+   "expected": 20.6,
+   "slope": 1.07,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "weather",
    "name": "Погода",
-   "expected": 4.9,
-   "slope": 0.43,
+   "expected": 8.7,
+   "slope": 1.04,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "zhkh",
+   "name": "ЖКХ, газ, тепло",
+   "expected": 6.0,
+   "slope": 0.79,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "harvest",
+   "name": "Урожай и АПК",
+   "expected": 4.8,
+   "slope": 0.68,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "elections",
    "name": "Выборы-2026",
-   "expected": 1.6,
-   "slope": -0.39,
-   "direction": "плато",
-   "confidence": "низкая"
+   "expected": 7.9,
+   "slope": 0.57,
+   "direction": "рост",
+   "confidence": "средняя"
   },
   {
    "topic": "uav",
    "name": "БПЛА и воздушные угрозы",
-   "expected": 5.0,
+   "expected": 7.2,
+   "slope": 0.57,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "budget",
+   "name": "Бюджет-2027",
+   "expected": 9.9,
+   "slope": 0.57,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "avia",
+   "name": "Авиапром / УКБП / Ил-114",
+   "expected": 6.7,
+   "slope": 0.57,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "uaz",
+   "name": "УАЗ / Соллерс",
+   "expected": 3.8,
    "slope": 0.25,
    "direction": "плато",
    "confidence": "низкая"
   },
   {
-   "topic": "sport",
-   "name": "Спорт",
-   "expected": 11.3,
-   "slope": 0.21,
+   "topic": "export",
+   "name": "Экспорт и кооперация",
+   "expected": 4.4,
+   "slope": -0.18,
    "direction": "плато",
    "confidence": "низкая"
   },
   {
    "topic": "macro",
    "name": "Макроэкономика / ЦБ",
-   "expected": 0.0,
-   "slope": -0.21,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "uaz",
-   "name": "УАЗ / Соллерс",
-   "expected": 3.0,
-   "slope": 0.14,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "avia",
-   "name": "Авиапром / УКБП / Ил-114",
-   "expected": 3.6,
-   "slope": 0.11,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "harvest",
-   "name": "Урожай и АПК",
-   "expected": 0.4,
-   "slope": 0.04,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "medicine",
-   "name": "Медицина",
-   "expected": 5.2,
-   "slope": -0.04,
+   "expected": 1.5,
+   "slope": 0.0,
    "direction": "плато",
    "confidence": "низкая"
   }
