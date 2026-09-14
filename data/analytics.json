@@ -1,5 +1,5 @@
 {
- "generated_local": "14.09.2026 22:30",
+ "generated_local": "14.09.2026 22:58",
  "calendar": [
   {
    "etype": "sport",
@@ -450,11 +450,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.096,
-  "today_items": 271,
+  "today_score": 0.095,
+  "today_items": 275,
   "today_pos": 414,
   "today_neg": 263,
-  "today_neu": 563,
+  "today_neu": 567,
   "series": [
    {
     "date": "2026-09-01",
@@ -510,7 +510,7 @@
    },
    {
     "date": "2026-09-14",
-    "score": 0.096
+    "score": 0.095
    }
   ],
   "by_category": {
@@ -520,7 +520,7 @@
    "education": 0.364,
    "health": 0.417,
    "politics": 0.098,
-   "security": -0.435,
+   "security": -0.42,
    "society": 0.033,
    "sport": 0.5
   }
@@ -554,11 +554,11 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 102,
-   "primary": 80,
+   "total": 103,
+   "primary": 81,
    "dup": 22,
-   "repost_rate": 0.22,
-   "views_median": 9840,
+   "repost_rate": 0.21,
+   "views_median": 9710,
    "label": "первоисточник",
    "clickbait_rate": 0.01
   },
@@ -578,8 +578,8 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 62,
-   "primary": 39,
+   "total": 63,
+   "primary": 40,
    "dup": 23,
    "repost_rate": 0.37,
    "views_median": 3400,
@@ -675,9 +675,9 @@
    "tier": 2,
    "type": "tg",
    "total": 43,
-   "primary": 35,
-   "dup": 8,
-   "repost_rate": 0.19,
+   "primary": 36,
+   "dup": 7,
+   "repost_rate": 0.16,
    "views_median": 1260,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -695,6 +695,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "ulkompr",
+   "tier": 3,
+   "type": "tg",
+   "total": 41,
+   "primary": 35,
+   "dup": 6,
+   "repost_rate": 0.15,
+   "views_median": 542,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "ulsk_73online",
    "tier": 2,
    "type": "tg",
@@ -703,18 +715,6 @@
    "dup": 2,
    "repost_rate": 0.05,
    "views_median": 582,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulkompr",
-   "tier": 3,
-   "type": "tg",
-   "total": 40,
-   "primary": 33,
-   "dup": 7,
-   "repost_rate": 0.17,
-   "views_median": 576,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -735,9 +735,9 @@
    "tier": 3,
    "type": "tg",
    "total": 35,
-   "primary": 25,
-   "dup": 10,
-   "repost_rate": 0.29,
+   "primary": 24,
+   "dup": 11,
+   "repost_rate": 0.31,
    "views_median": 3270,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -807,11 +807,11 @@
    "tier": 2,
    "type": "tg",
    "total": 27,
-   "primary": 21,
-   "dup": 6,
-   "repost_rate": 0.22,
+   "primary": 20,
+   "dup": 7,
+   "repost_rate": 0.26,
    "views_median": 424,
-   "label": "первоисточник",
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -863,6 +863,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "Ulnovosti.ru",
+   "tier": null,
+   "type": "rss",
+   "total": 17,
+   "primary": 16,
+   "dup": 1,
+   "repost_rate": 0.06,
+   "views_median": null,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "culturnik",
    "tier": 3,
    "type": "tg",
@@ -895,18 +907,6 @@
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 2040,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "Ulnovosti.ru",
-   "tier": null,
-   "type": "rss",
-   "total": 15,
-   "primary": 15,
-   "dup": 0,
-   "repost_rate": 0.0,
-   "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -975,16 +975,16 @@
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 34.9,
-   "slope": 2.89,
+   "expected": 36.3,
+   "slope": 3.07,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "sport",
    "name": "Спорт",
-   "expected": 27.5,
-   "slope": 2.64,
+   "expected": 28.2,
+   "slope": 2.75,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1037,6 +1037,14 @@
    "confidence": "средняя"
   },
   {
+   "topic": "budget",
+   "name": "Бюджет-2027",
+   "expected": 10.7,
+   "slope": 0.68,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
    "topic": "harvest",
    "name": "Урожай и АПК",
    "expected": 4.8,
@@ -1056,14 +1064,6 @@
    "topic": "uav",
    "name": "БПЛА и воздушные угрозы",
    "expected": 7.2,
-   "slope": 0.57,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "budget",
-   "name": "Бюджет-2027",
-   "expected": 9.9,
    "slope": 0.57,
    "direction": "рост",
    "confidence": "средняя"
