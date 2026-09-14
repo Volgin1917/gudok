@@ -110,19 +110,11 @@ img{max-width:100%;display:block;}
 .nav a.nav-util{color:var(--muted);}
 .nav-util-first{margin-left:auto;}
 .nav-toggle{display:none;border:1px solid var(--rule);background:none;color:var(--ink);font:600 13px var(--sans);padding:8px 12px;cursor:pointer;margin:8px var(--gutter);}
-.nav-search{margin-left:auto;padding:8px 0;position:relative;}
-.nav-search input{border:1px solid var(--rule);background:var(--paper);color:var(--ink);font:14px var(--serif-body);padding:8px 12px;width:200px;}
-.search-drop{position:absolute;right:0;top:100%;width:340px;max-height:320px;overflow:auto;background:var(--paper);border:1px solid var(--rule);display:none;z-index:40;}
-.search-drop.on{display:block;}
-.search-drop a{display:block;padding:9px 12px;border-bottom:1px solid var(--rule);font-family:var(--serif-body);font-size:14px;}
-.search-drop a span{display:block;font-family:var(--sans);font-size:11px;color:var(--muted);}
 @media (max-width:900px){
   .nav-toggle{display:block;}
   .nav-inner{display:none;flex-direction:column;align-items:stretch;}
   body.nav-open .nav-inner{display:flex;}
   .nav a{padding:12px 16px;border-top:1px solid var(--rule);}
-  .nav-search{margin:8px 16px;}
-  .search-drop{width:auto;left:16px;right:16px;}
 }
 .subnav{background:var(--paper);border-bottom:1px solid var(--rule);}
 .subnav-inner{max-width:var(--maxw);margin:0 auto;padding:8px var(--gutter);display:flex;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:12.5px;}
@@ -452,10 +444,13 @@ img{max-width:100%;display:block;}
 .mast-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;max-width:var(--maxw);margin:0 auto;padding:26px var(--gutter) 20px;}
 .mast-side{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.7;}
 .mast-side--right{text-align:right;}
+.mast-actions{display:flex;gap:14px;justify-content:flex-end;align-items:center;margin-top:10px;}
+.mast-actions a{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule);}
+.mast-actions a:hover{color:var(--accent);border-color:var(--accent);}
 .now-panel-wrap{border-bottom:1px solid var(--rule);}
-@media (max-width:900px){.mast-inner{grid-template-columns:1fr;text-align:center;gap:10px;}.mast-side,.mast-side--right{text-align:center;}}
+@media (max-width:900px){.mast-inner{grid-template-columns:1fr;text-align:center;gap:10px;}.mast-side,.mast-side--right{text-align:center;}.mast-actions{justify-content:center;}}
 @media print{
-  .nav,.ticker-wrap,.filters,.print-btn,.theme-btn,.nav-toggle,.nav-search,.util-bar-wrap{display:none!important;}
+  .nav,.ticker-wrap,.filters,.print-btn,.theme-btn,.nav-toggle,.util-bar-wrap{display:none!important;}
   body{background:#fff;}
 }
 """
@@ -480,19 +475,7 @@ THEME_BTN = '<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" tit
 
 
 INDEX_CSS = """
-.masthead{background:linear-gradient(135deg,var(--navy) 0%,#10263d 55%,var(--navy3) 100%);color:#fff;padding:20px 22px 0;border-bottom:4px double var(--gold);}
-:root[data-theme="dark"] .masthead{background:linear-gradient(135deg,#08121e,#0d1f33 55%,#122b45);}
-.mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
-.mast-brand{flex:1;min-width:280px;display:flex;align-items:center;gap:18px;}
-.mast-brand>div{display:flex;flex-direction:column;justify-content:center;}
-.brand>div{display:flex;flex-direction:column;justify-content:center;}
-.mast-title{font-size:44px;font-weight:900;letter-spacing:5px;line-height:1;font-family:Georgia,'Times New Roman',serif;}
 
-.mast-slogan{font-size:12px;color:#a9c1d9;letter-spacing:1.6px;text-transform:uppercase;margin-top:7px;}
-.mast-right{text-align:right;font-size:12.5px;color:#c9d8e8;}
-.mast-right .date{font-size:15px;font-weight:800;color:#fff;}
-.mast-right .wx{margin-top:4px;color:#a9c1d9;}
-.mast-tools{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
 .lead-sec{max-width:1200px;margin:0 auto;padding:22px 18px 0;}
 .lead-kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:6px;}
 .lead-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;}
@@ -516,7 +499,7 @@ INDEX_CSS = """
 .wrap1200{max-width:1200px;margin:0 auto;padding:0 18px;}
 .af-mini{display:flex;gap:11px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
 .af-mini:last-child{border-bottom:none;}
-@media (max-width:900px){.lead-grid{grid-template-columns:1fr;}.tiles{grid-template-columns:repeat(2,1fr);}.mast-title{font-size:34px;}}
+@media (max-width:900px){.lead-grid{grid-template-columns:1fr;}.tiles{grid-template-columns:repeat(2,1fr);}}
 """
 
 FRONT2_CSS = """
@@ -920,7 +903,7 @@ def digest_number(cfg, date_str):
     """Номер выпуска = дней от launch_date (день запуска = №0, тестовый)."""
     launch = cfg.get("launch_date")
     try:
-        d = datetime.strptime(date_str, "%Y-%m-%d").date()
+        d = date_str if hasattr(date_str, "year") else datetime.strptime(str(date_str), "%Y-%m-%d").date()
         if launch:
             n = (d - datetime.strptime(launch, "%Y-%m-%d").date()).days
             return max(n, 0), n <= 0
@@ -958,24 +941,9 @@ def render_nav(cfg, current, prefix="", subnav=""):
     for i, (key, txt, href) in enumerate(utils):
         cls = ("nav-util nav-util-first" if i == 0 else "nav-util") + (" active" if key == current else "")
         html_items.append(f'<a class="{cls}" href="{href}">{txt}</a>')
-    search_box = ""
-    if getattr(render_nav, "search_manifest", None) and current in ("index", "digest"):
-        js = (
-            "var QMAN=" + render_nav.search_manifest + ";"
-            "function qSearch(v){var d=document.getElementById('qdrop');v=v.trim().toLowerCase();"
-            "if(v.length<3){d.classList.remove('on');return;}"
-            "var r=QMAN.filter(function(x){return x.t.toLowerCase().indexOf(v)>=0;}).slice(0,8);"
-            "d.innerHTML=r.map(function(x){return '<a href=\"'+x.u+'\">'+x.t+'<span>'+x.d+' \u00b7 '+x.c+'</span></a>';}).join('')"
-            "||'<a href=\'#\'>Ничего не найдено</a>';d.classList.add('on');}"
-            "document.addEventListener('click',function(e){if(!e.target.closest('.nav-search'))document.getElementById('qdrop').classList.remove('on');});"
-        )
-        search_box = ('<div class="nav-search" style="position:relative;">'
-                      '<input id="q" type="search" placeholder="Поиск по выпуску…" aria-label="Поиск по выпуску" '
-                      'oninput="qSearch(this.value)" onfocus="qSearch(this.value)">'
-                      '<div class="search-drop" id="qdrop"></div></div><script>' + js + '</script>')
     toggle = ('<button class="nav-toggle" aria-label="Открыть разделы" '
               "onclick=\"document.body.classList.toggle('nav-open')\">Меню</button>")
-    return (f'<nav class="nav">{toggle}{search_box}<div class="nav-inner">{"".join(html_items)}</div></nav>'
+    return (f'<nav class="nav">{toggle}<div class="nav-inner">{"".join(html_items)}</div></nav>'
             + subnav)
 
 
@@ -1042,19 +1010,12 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Дайджест №{digest_no} · Ульяновская область · {day:%d.%m.%Y} — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png"><style>{CSS}</style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span></div>
-<div class="brand-sub">Информационно-аналитическое издание · {"«Сегодня» · живая страница" if mode == "today" else f"выпуск № {digest_no}" + (" · 🧪 ТЕСТОВЫЙ" if digest_no == 0 else "") + f" · сутки {cover_day:%d.%m.%Y}"}</div>
-</div></div>
-<div class="top-meta">
-<div class="chip">{'🧪 тестовый номер · ' if digest_no == 0 else ''}<span class="dot"></span> Выпуск от <b>{day:%d.%m.%Y}</b></div>
-<div class="chip"><a href="print_{date_str}.html" class="chip-link">Печатная полоса</a></div>
-<div class="chip">🤖 сгенерирован <b>{now:%H:%M}</b> (UTC+4)</div>
-<a class="chip" href="../index.html">← Центр</a>
-{THEME_BTN}
-<button class="print-btn" onclick="window.print()">🖨 PDF</button>
-</div></div></header>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">{"«Сегодня» · живая страница" if mode == "today" else f"Выпуск № {digest_no}" + (" · 🧪 тестовый" if digest_no == 0 else "")}<br>сутки {cover_day:%d.%m.%Y}
+<div class="mast-actions"><a href="print_{date_str}.html">Печатная полоса</a>{THEME_BTN}<button class="print-btn" onclick="window.print()">🖈 PDF</button></div></div>
+</div></header>
 {alert_banner}{nav_html}
 <div class="genstamp"><div class="genstamp-inner">
 <span class="g1">{'Живая страница суток' if mode == 'today' else f'Выпуск № {digest_no} · сутки закрыты'}</span>
@@ -1464,8 +1425,13 @@ def render_exec(cfg, trends, store, status, date_str):
 .exec-sec .src{{color:#8a99aa;font-size:10.8px;font-weight:700;margin-top:3px;}}
 .exec-trend{{background:#f7fafd;border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-size:13px;color:var(--navy3);}}
 .exec-foot{{border-top:1px solid var(--line);margin-top:24px;padding-top:10px;font-size:10.5px;color:#8a99aa;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}}
-@media print{{ .topbar,.nav,.print-btn{{display:none!important;}} .exec-wrap{{padding:0;}} }}
-</style></head><body>
+@media print{{ .topbar,.masthead,.flagline,.nav,.print-btn{{display:none!important;}} .exec-wrap{{padding:0;}} }}
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Дайджест руководителя<br>{day:%d.%m.%Y} · 1 страница A4
+<div class="mast-actions">{THEME_BTN}<button class="print-btn" onclick="window.print()">🖈 PDF</button></div></div>
+</div></header>
 {nav_html}<div class="exec-wrap">
 <div class="exec-head">
 <h1>📋 Дайджест руководителя</h1>
@@ -1602,18 +1568,12 @@ def render_elections(cfg, trends, store, status):
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png"><style>{CSS}{EXTRA_CSS}
 @media print{{.nav,.print-btn{{display:none!important;}}body{{background:#fff;}}}}
 </style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · ВЫБОРЫ-2026</div>
-<div class="brand-sub">Информационно-аналитическое издание · спецвыпуск: губернатор, Госдума IX созыва, довыборы в ЗСО</div>
-</div></div>
-<div class="top-meta">
-<div class="chip">🗳 Голосование <b>18–20 сентября</b></div>
-<div class="chip">🤖 обновлён <b>{now:%d.%m %H:%M}</b></div>
-<a class="chip" href="../index.html">← Первая полоса</a>
-{THEME_BTN}
-<button class="print-btn" onclick="window.print()">🖨 PDF</button>
-</div></div></header>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Спецвыпуск «Выборы-2026»<br>голосование 18–20 сентября
+<div class="mast-actions">{THEME_BTN}<button class="print-btn" onclick="window.print()">🖈 PDF</button></div></div>
+</div></header>
 {nav_html}
 <div class="page">
 
@@ -1708,15 +1668,12 @@ def render_projects(cfg, trends, store, status):
 <title>Проекты — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="assets/logo_gudok.png">
 <style>{CSS}{INDEX_CSS}</style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · ПРОЕКТЫ</div>
-<div class="brand-sub">Специальные досье и кампанийные страницы издания</div>
-</div></div>
-<div class="top-meta">
-<div class="chip">обновлено <b>{now:%d.%m %H:%M}</b></div>
-<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
-</div></div></header>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Проекты издания<br>досье и кампанийные страницы
+<div class="mast-actions">{THEME_BTN}</div></div>
+</div></header>
 {nav_html}
 <div class="wrap1200" style="padding-top:20px;">
 <div class="sec-head" style="margin-top:0;"><h2>Проекты издания</h2><div class="line"></div>
@@ -1783,16 +1740,12 @@ def render_goszakupki(cfg, trends, store, status, an):
 <title>Проект «Госзакупки» — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png">
 <style>{CSS}{INDEX_CSS}</style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · ГОСЗАКУПКИ</div>
-<div class="brand-sub">Проект рубрики «Проекты»: аналитика государственных закупок региона</div>
-</div></div>
-<div class="top-meta">
-<div class="chip">неделя: <b>{len(gz_week)}</b> упоминаний</div>
-<div class="chip">обновлено <b>{now:%d.%m %H:%M}</b></div>
-<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
-</div></div></header>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Проект «Госзакупки»<br>неделя: {len(gz_week)} упоминаний
+<div class="mast-actions">{THEME_BTN}</div></div>
+</div></header>
 {nav_html}
 <div class="wrap1200" style="padding-top:20px;">
 <div class="sec-head" style="margin-top:0;"><h2>Паспорт проекта</h2><div class="line"></div></div>
@@ -1983,18 +1936,12 @@ def render_afisha(cfg, trends, store, status, an):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Афиша культурных событий · Ульяновская область — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="assets/logo_gudok.png"><style>{CSS}{AFISHA_CSS}</style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">🎭 АФИША <span>ГУДОК</span></div>
-<div class="brand-sub">Информационно-аналитическое издание · культурные события Ульяновской области</div>
-</div></div>
-<div class="top-meta">
-<div class="chip">📅 событий: <b>{total_n}</b></div>
-<div class="chip">сегодня: <b>{today_n}</b> · выходные: <b>{we_n}</b></div>
-<div class="chip">обновлено <b>{now:%d.%m %H:%M}</b></div>
-<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
-<a class="chip" href="index.html">← Первая полоса</a>
-</div></div></header>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Афиша культурных событий<br>всего {total_n} · сегодня {today_n} · выходные {we_n}
+<div class="mast-actions">{THEME_BTN}</div></div>
+</div></header>
 {nav_html}
 <div class="page">
 
@@ -2186,16 +2133,12 @@ def render_infospace(cfg, trends, store, status, info):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Инфопространство — сквозное исследование · {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="assets/logo_gudok.png"><style>{CSS}</style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · 🔬 ИНФОПРОСТРАНСТВО</div>
-<div class="brand-sub">Информационно-аналитическое издание · сквозное исследование информационного поля Ульяновской области</div>
-</div></div>
-<div class="top-meta">
-<div class="chip">период: <b>7 дней</b></div>
-<div class="chip">обновлено <b>{esc(info.get('generated_local', now.strftime('%d.%m %H:%M')))}</b></div>
-<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
-</div></div></header>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Исследование инфопространства<br>период: 7 дней
+<div class="mast-actions">{THEME_BTN}</div></div>
+</div></header>
 {render_nav(cfg, "infospace", "")}
 
 <div class="page">
@@ -2581,15 +2524,12 @@ def render_weekly_hub(cfg, trends, store, status):
 <title>Аналитика недели — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="assets/logo_gudok.png">
 <style>{CSS}{INDEX_CSS}</style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · АНАЛИТИКА НЕДЕЛИ</div>
-<div class="brand-sub">Завершённые недельные страницы: период, паспорт, правая колонка справочных данных</div>
-</div></div>
-<div class="top-meta">
-<div class="chip">выпусков: <b>{len(weeks)}</b></div>
-<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
-</div></div></header>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Аналитика недели<br>выпусков: {len(weeks)}
+<div class="mast-actions">{THEME_BTN}</div></div>
+</div></header>
 {nav_html}
 <div class="wrap1200" style="padding-top:20px;">
 <div class="wk-passport"><b>Регламент</b>
@@ -2736,15 +2676,12 @@ def render_monthly(cfg, trends, store, status, ym):
 <title>Месячный отчёт {MONTHS_RU_GEN[mo-1]} {y} — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png">
 <style>{CSS}{INDEX_CSS}</style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · МЕСЯЧНЫЙ ОТЧЁТ</div>
-<div class="brand-sub">Все метрики и тенденции месяца: объём, темы, тон, каскады, территории</div>
-</div></div>
-<div class="top-meta">
-<div class="chip">период: <b>{start:%d.%m}–{end:%d.%m}.{end:%y}</b></div>
-<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
-</div></div></header>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Месячный отчёт<br>период {start:%d.%m}–{end:%d.%m}.{end:%y}
+<div class="mast-actions">{THEME_BTN}</div></div>
+</div></header>
 {nav_html}
 <div class="wrap1200" style="padding-top:16px;">
 <div class="wk-passport"><b>{MONTHS_RU_GEN[mo-1].capitalize()} {y} · месячный отчёт</b>
@@ -2819,13 +2756,11 @@ def render_monthly_hub(cfg, trends, store, status):
 <title>Месячные отчёты — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="assets/logo_gudok.png">
 <style>{CSS}{INDEX_CSS}</style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · МЕСЯЦ</div>
-<div class="brand-sub">Месячные отчёты: все метрики и тенденции периода</div>
-</div></div>
-<div class="top-meta"><div class="chip">отчётов: <b>{len(months)}</b></div>
-<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Месячные отчёты<br>отчётов: {len(months)}
+<div class="mast-actions">{THEME_BTN}</div></div>
 </div></header>
 {nav_html}
 <div class="wrap1200" style="padding-top:20px;">
@@ -2904,13 +2839,11 @@ def render_weekly_full(cfg, trends, store, status, start, end, rail=None):
 .wk-stamp{{font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;background:#e0f4ea;color:#1d7a4d;}}
 .wk-stamp.wip{{background:#fdf3dd;color:#96690a;}}
 @media (max-width:980px){{.wk-grid{{grid-template-columns:1fr;}}}}</style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · НЕДЕЛЯ</div>
-<div class="brand-sub">Сюжетные дуги недели {start:%d.%m}–{end:%d.%m}.{end:%y} · без повтора дневной ленты</div>
-</div></div>
-<div class="top-meta"><div class="chip">сюжетов: <b>{len(arcs)}</b></div>
-<button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button></div>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Недельник {start:%d.%m}–{end:%d.%m}.{end:%y}<br>сюжетных дуг: {len(arcs)}
+<div class="mast-actions">{THEME_BTN}</div></div>
 </div></header>
 {nav_html}
 <div class="page" style="max-width:1280px;">
@@ -2983,12 +2916,11 @@ def render_archive(cfg, trends, store, status):
 <style>{CSS}{INDEX_CSS}
 table.matrix{{border-collapse:collapse;width:100%;}}
 </style></head><body>
-<header class="topbar"><div class="topbar-inner">
-<div class="brand"><div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · АРХИВ</div>
-<div class="brand-sub">Матрица периодов: месяцы строками, недели колонками, дни точками</div>
-</div></div>
-<div class="top-meta"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button></div>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Архив-матрица<br>месяцы · недели · дни
+<div class="mast-actions">{THEME_BTN}</div></div>
 </div></header>
 {nav_html}
 <div class="wrap1200" style="padding-top:20px;">
@@ -3138,7 +3070,8 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <header class="masthead"><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
-<div class="mast-side mast-side--right">Выпуск № {dnum}{' · тест' if dtest else ''}<br>выходит с 11.09.2026</div>
+<div class="mast-side mast-side--right">Выпуск № {dnum}{' · тест' if dtest else ''}<br>выходит с 11.09.2026
+<div class="mast-actions">{THEME_BTN}</div></div>
 </div></header>
 {nav_html}
 <main>
@@ -3298,15 +3231,6 @@ def main():
         if "</main>" not in html:
             html = html.replace("</body>", "</main></body>", 1)
         return html.replace("</body>", THEME_FOOT + "</body>", 1)
-
-    manifest = []
-    for it in sorted([x for x in store if x.get("published")], key=lambda x: x["published"], reverse=True)[:120]:
-        dt = local_dt(it["published"])
-        manifest.append({"t": nice_title(it,110), "u": it.get("url") or "#",
-                         "d": dt.strftime("%d.%m") if dt else "",
-                         "c": (cats_all.get(it.get("category"), {}) or {}).get("name", "") if False else str(it.get("source", ""))[:18]})
-    import json as _json
-    render_nav.search_manifest = _json.dumps(manifest, ensure_ascii=False)
 
     def with_utilbar(html, prefix=""):
         return html.replace("</body>", render_utilbar(prefix) + "</body>", 1)
