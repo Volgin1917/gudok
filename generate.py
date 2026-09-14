@@ -2372,8 +2372,115 @@ def render_infospace(cfg, trends, store, status, info):
 <div style="flex:1;background:#edf2f8;border-radius:6px;height:14px;overflow:hidden;"><div style="width:{max(3,int(t['this']/max(1,max(x['this'] for x in info.get('topic_wow',[]) or [{'this':1}]))*100))}%;height:100%;background:#1d4066;border-radius:6px;"></div></div>
 <div style="width:86px;font-size:11.5px;color:var(--muted);">{t['prev']} → <b style="color:var(--navy);">{t['this']}</b> {arrow}</div></div>"""
 
+    # ── Волна 1 (предложение v0.9 → infospace-plan.html): новые метрики ──
+    w1 = info.get("w1") or {}
+    w1_html = ""
+    if w1.get("matrix") or w1.get("tli"):
+        def _pct(x):
+            return "—" if x is None else f"{round(x * 100)}%"
+        mx = w1.get("matrix") or {}
+        cats_w = mx.get("cats") or []
+        thead = "".join(f'<th style="text-align:center;font-size:9px;">{esc(c["name"].split(" и ")[0])}</th>' for c in cats_w)
+        mrows = ""
+        for r in mx.get("rows") or []:
+            tds = ""
+            for c in cats_w:
+                v = (r.get("cats") or {}).get(c["id"], 0)
+                bg = "transparent" if not v else ("#E5C9B6" if v <= 3 else ("#B4795A" if v <= 9 else "var(--accent)"))
+                fg = "#fff" if v > 9 else "var(--ink-2)"
+                tds += f'<td style="text-align:center;background:{bg};color:{fg};font-weight:700;padding:6px 4px;">{v or "·"}</td>'
+            mrows += f'<tr><td><b>{esc(r["muni"])}</b></td><td style="text-align:center;color:var(--muted);">{r["total"]}</td>{tds}</tr>'
+
+        rh = w1.get("rhythm") or {}
+        wd_h = rh.get("weekday") or [0] * 24
+        we_h = rh.get("weekend") or [0] * 24
+        rmax = max(wd_h + we_h + [1])
+        bars = ""
+        for hr in range(24):
+            h1 = round(wd_h[hr] / rmax * 100)
+            h2 = round(we_h[hr] / rmax * 100)
+            bars += (f'<span title="{hr}:00 — будни {wd_h[hr]}, выходные {we_h[hr]}" '
+                     f'style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%;">'
+                     f'<i style="display:block;height:{h2}%;background:var(--accent);"></i>'
+                     f'<i style="display:block;height:{h1}%;background:var(--ink-2);"></i></span>')
+        xlab = "".join(f'<span style="flex:1;text-align:center;">{h if h % 4 == 0 else ""}</span>' for h in range(24))
+
+        ct = w1.get("cascade_time") or {}
+        frows = ""
+        for x in ct.get("fastest") or []:
+            spd = f' · {x["speed"]} ист/ч' if x.get("speed") else ""
+            frows += (f'<div style="display:flex;gap:12px;align-items:baseline;padding:5px 0;border-bottom:1px dashed var(--rule);font-size:13px;">'
+                      f'<a href="{esc(x.get("url") or "#")}" target="_blank" rel="noopener" style="flex:1;min-width:0;color:var(--ink);">{esc(x.get("title", ""))}</a>'
+                      f'<span style="font-family:var(--sans);font-size:11px;color:var(--muted);white-space:nowrap;">×{x.get("size", 0)} за {x.get("span_h", 0)} ч{spd}</span></div>')
+
+        tli = w1.get("tli") or {}
+        tbars = ""
+        gmax = max([(g.get("share") or 0) for g in (tli.get("groups") or {}).values()] + [0.05])
+        for gname, g in (tli.get("groups") or {}).items():
+            wdt = max(2, int((g.get("share") or 0) / gmax * 100))
+            hot = "background:var(--accent);" if (g.get("share") or 0) >= 0.3 else "background:var(--ink-2);"
+            tbars += (f'<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-family:var(--sans);font-size:12px;">'
+                      f'<span style="width:170px;text-align:right;font-weight:600;color:var(--ink);flex-shrink:0;">{esc(gname)}</span>'
+                      f'<span style="flex:1;background:var(--paper-2);border:1px solid var(--rule);height:14px;overflow:hidden;display:block;"><i style="display:block;height:100%;width:{wdt}%;{hot}"></i></span>'
+                      f'<span style="width:56px;font-weight:700;font-size:11px;">{g.get("speaks", 0)}/{g.get("mentioned", 0)}</span></div>')
+
+        emo = w1.get("emoji") or {}
+        erows = "".join(
+            f'<tr><td>{esc(k)}</td><td style="text-align:center;">{v.get("total", 0)}</td>'
+            f'<td style="text-align:center;"><b>{_pct(v.get("with_emoji"))}</b></td></tr>'
+            for k, v in emo.items())
+        bv = w1.get("budget_voice") or {}
+
+        w1_html = f"""
+<div class="sec-head"><h2>Волна 1: деньги, труд, время и территория</h2><div class="line"></div>
+<div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план расширения раздела v0.9 →</a> · метрики подключены 15.09</div></div>
+
+<div class="card"><div class="card-pad">
+<div class="side-head">Матрица «территория × рубрика» <span class="sub">неделя · топ-10 территорий по объёму</span></div>
+<div class="side-body"><div style="overflow-x:auto;"><table class="tbl"><tr><th>Территория</th><th style="text-align:center;">всего</th>{thead}</tr>{mrows}</table></div>
+<div class="note">Пустая клетка — рубрика, по которой о территории за неделю не сказано ничего. Чем выше в строке доля «Безопасности», тем сильнее район существует для областного читателя только через происшествия.</div></div>
+</div></div>
+
+<div class="grid2">
+<div class="card"><div class="card-pad">
+<div class="side-head">Ритм суток <span class="sub">будни (тёмные) и выходные (акцент) · сообщений в час</span></div>
+<div class="side-body">
+<div style="display:flex;align-items:flex-end;gap:2px;height:110px;border-bottom:1px solid var(--ink);">{bars}</div>
+<div style="display:flex;gap:2px;font-family:var(--sans);font-size:9px;color:var(--muted);margin-top:4px;">{xlab}</div>
+<div class="note">Ночная доля (00–06): <b>{_pct(rh.get('night_share'))}</b> потока · доля выходных: <b>{_pct(rh.get('weekend_share'))}</b>. Сдвиг поля в ночь — дешёвый индикатор напряжённости: регион живёт в режиме ожидания чрезвычайного, а не развития.</div>
+</div></div></div>
+<div class="card"><div class="card-pad">
+<div class="side-head">Динамика каскадов <span class="sub">полка жизни сюжета · скорость подхватов</span></div>
+<div class="side-body">
+<div style="display:flex;gap:26px;align-items:baseline;margin-bottom:8px;flex-wrap:wrap;">
+<div><span style="font-family:var(--serif-display);font-size:24px;font-weight:700;">{ct.get('median_span_h') if ct.get('median_span_h') is not None else '—'}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">ч — медианная полка сюжета</span></div>
+<div><span style="font-family:var(--serif-display);font-size:24px;font-weight:700;">{ct.get('n', 0)}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">каскадов за неделю</span></div></div>
+{frows}
+<div class="note">Полка — часы от первой публикации до последнего подхвата внутри кластера дедупликации; скорость — источников в час. Выше — пять самых быстрых сюжетов недели.</div>
+</div></div></div>
+</div>
+
+<div class="grid2">
+<div class="card"><div class="card-pad">
+<div class="side-head">Индекс присутствия труда (TLI) <span class="sub">{_pct(tli.get('index'))} — {esc(tli.get('verdict', '—'))}</span></div>
+<div class="side-body">
+{tbars}
+<div class="note">Доля сообщений, где социальная группа не только упомянута, но и говорит сама (глагол речи в пределах ±200 знаков от маркера группы). Всего упоминаний: {tli.get('mentioned', 0)}, с прямой речью: {tli.get('speaks', 0)}. Пороги: &lt;10% — «труд невидим», 10–30% — «труд упоминаем», &gt;30% — «труд говорит». Эвристика оценочная; калибровка ручной разметкой — волна 3.</div>
+</div></div></div>
+<div class="card"><div class="card-pad">
+<div class="side-head">Язык и деньги официоза <span class="sub">эмодзи-профиль · бюджетный голос</span></div>
+<div class="side-body">
+<div style="overflow-x:auto;"><table class="tbl"><tr><th>Уровень источника</th><th style="text-align:center;">сообщений</th><th style="text-align:center;">с эмодзи</th></tr>{erows}</table></div>
+<div style="display:flex;gap:26px;align-items:baseline;margin:12px 0 4px;flex-wrap:wrap;">
+<div><span style="font-family:var(--serif-display);font-size:24px;font-weight:700;">{_pct(bv.get('t1_share_flow'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">потока — tier-1, официальные каналы</span></div>
+<div><span style="font-family:var(--serif-display);font-size:24px;font-weight:700;">{_pct(bv.get('echo_of_t1'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">перепечаток — эхо официальных каналов</span></div></div>
+<div class="note">Эмодзи-профиль — маркер уровня источника: зарегистрированные СМИ эмодзи почти не используют, официальные каналы и агрегаторы — более половины постов. «Бюджетный голос» — доля tier-1 в потоке и в первоисточниках каскадов; полная версия метрики («цена слова» по контрактам ЕИС) — волна 3.</div>
+</div></div></div>
+</div>
+"""
+
     ts = info.get("tone_series") or []
-    tone_spark = sparkline([ (t.get("score") or 0) for t in ts ], w=300, h=56, color="#9a4d8f") if ts else ""
+    tone_spark = sparkline([(t.get("score") or 0) for t in ts], w=300, h=56, color="#4a7fb5") if ts else ""
     tone_days = "".join(f"<span style='font-size:10px;color:var(--muted);'>{t['date'][8:10]}</span> " for t in ts[-7:])
 
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
@@ -2454,7 +2561,7 @@ def render_infospace(cfg, trends, store, status, info):
 Волатильность тона — разброс дневных значений: всплески соответствуют тревогам или праздникам.<br>
 <b>В очереди на подключение:</b> {planned_metrics}</div>
 </div></div>
-
+{w1_html}
 <div class="sec-head"><h2>Нацпроекты и госпрограммы в повестке</h2><div class="line"></div>
 <div class="badge">метрика подключена 12.09</div></div>
 <div class="card"><div class="card-pad">
@@ -3217,6 +3324,7 @@ def render_archive(cfg, trends, store, status):
     proj = [("projects/elections_2026.html", "Выборы-2026", "спецвыпуск: губернатор, Госдума, довыборы в ЗСО"),
             ("projects/goszakupki.html", "Госзакупки", "аналитика закупок региона"),
             ("infospace.html", "Инфопространство", "сеттеры повестки, каскады, тон, территории"),
+            ("infospace-plan.html", "Инфопространство: план расширения", "предложение v0.9: 6 осей · 32 метрики · 3 волны внедрения"),
             ("afisha.html", "Афиша", "культурные события области, автоизвлечение")]
     proj_cards = "".join(
         f'<a class="proj-card" href="{href}"><b>{esc(name)}</b><span>{esc(desc)}</span></a>'

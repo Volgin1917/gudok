@@ -280,3 +280,69 @@ class TestEndToEndOnStore(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class TestInfospaceW1(unittest.TestCase):
+    """Метрики Волны 1 (build_infospace_ext): матрица, ритм, каскады, TLI, бюджетный голос."""
+
+    CFG_W1 = {"municipalities": {"Тестград": r"тестград"},
+              "categories": [{"id": "society", "name": "Общество"},
+                             {"id": "security", "name": "Безопасность и происшествия"}]}
+
+    def _it(self, id, hours_ago, title="Заголовок", text="", category="society",
+            tier=None, dup_of=None, cluster=0, source_type="tg", channel="test"):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = datetime.now(UTC4) - timedelta(hours=hours_ago)
+        return {"id": id, "title": title, "text": text, "published": dt.isoformat(),
+                "category": category, "tier": tier, "dup_of": dup_of, "cluster": cluster,
+                "source_type": source_type, "channel": channel, "source": channel}
+
+    def test_empty_store(self):
+        r = analytics.build_infospace_ext([], None, self.CFG_W1)
+        self.assertNotIn("matrix", r)
+        self.assertEqual(r.get("week_items"), 0)
+
+    def test_matrix_counts(self):
+        items = [self._it("a", 5, "В Тестграде открыли парк", category="society"),
+                 self._it("b", 6, "Тестград: ДТП на трассе", category="security"),
+                 self._it("c", 7, "Новости без географии")]
+        r = analytics.build_infospace_ext(items, None, self.CFG_W1)
+        row = r["matrix"]["rows"][0]
+        self.assertEqual(row["muni"], "Тестград")
+        self.assertEqual(row["total"], 2)
+        self.assertEqual(row["cats"]["society"], 1)
+        self.assertEqual(row["cats"]["security"], 1)
+
+    def test_rhythm_totals(self):
+        items = [self._it("a", 1), self._it("b", 2)]
+        r = analytics.build_infospace_ext(items, None, self.CFG_W1)
+        self.assertEqual(len(r["rhythm"]["weekday"]), 24)
+        self.assertEqual(sum(r["rhythm"]["weekday"]) + sum(r["rhythm"]["weekend"]), 2)
+        self.assertIsNotNone(r["rhythm"]["night_share"])
+
+    def test_tli_speech(self):
+        items = [self._it("a", 3, "Рабочие УАЗа рассказали о простое",
+                          text="«Нам не объяснили», — говорят рабочие УАЗа."),
+                 self._it("b", 4, "На заводе сократили инженеров",
+                          text="Уволены инженеры цеха №2.")]
+        r = analytics.build_infospace_ext(items, None, self.CFG_W1)
+        g = r["tli"]["groups"]["рабочие и инженеры"]
+        self.assertEqual(g["mentioned"], 2)
+        self.assertGreaterEqual(g["speaks"], 1)
+
+    def test_budget_echo(self):
+        items = [self._it("p", 5, "Официально о ремонте", tier=1, cluster=2),
+                 self._it("d", 4, "Официально о ремонте (копия)", tier=2, dup_of="p")]
+        r = analytics.build_infospace_ext(items, None, self.CFG_W1)
+        bv = r["budget_voice"]
+        self.assertEqual(bv["echo_of_t1"], 1.0)
+        self.assertEqual(bv["echo_n"], 1)
+
+    def test_cascade_span(self):
+        items = [self._it("p", 6, "Сюжет о дороге", cluster=2),
+                 self._it("d", 4, "Сюжет о дороге подхват", dup_of="p")]
+        r = analytics.build_infospace_ext(items, None, self.CFG_W1)
+        ct = r["cascade_time"]
+        self.assertEqual(ct["n"], 1)
+        self.assertAlmostEqual(ct["fastest"][0]["span_h"], 2.0, delta=0.3)

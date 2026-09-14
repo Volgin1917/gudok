@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Инфопространство — что измерить дальше · листок Гудок</title>
+<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<style>
+:root{
+  --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
+  --rule:#E3DED4; --rule-strong:#0B0B0B; --accent:#D63F1F; --on-ink:#C9C2B6;
+  --pos:#4F5F53; --neg:#B04848; --gold:#B4795A; --violet:#6D6079; --sage:#5F6E6D;
+  --serif-display:"Fraunces","Fraunces Variable","Source Serif 4",Georgia,"Times New Roman",serif;
+  --serif-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:"Inter","Inter Variable",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --rubleny:Impact,"Arial Black","Franklin Gothic Bold","Helvetica Neue",sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace;
+  --maxw:1340px; --gutter:28px;
+  --navy:var(--ink); --navy2:var(--ink); --navy3:var(--ink-2); --blue:var(--ink);
+  --gold2:var(--accent); --line:var(--rule); --txt:var(--ink); --bg:var(--paper);
+  --card:var(--paper); --shadow:none;
+}
+:root[data-theme="dark"]{
+  --paper:#101214; --paper-2:#17191c; --ink:#ECE7DE; --ink-2:#D5CFC4; --muted:#9A948A;
+  --rule:#2A2D31; --rule-strong:#ECE7DE; --accent:#FF6A4D; --on-ink:#2A2620;
+  --pos:#8FA896; --neg:#D98B84; --gold:#C08E6B; --violet:#9C90AE; --sage:#8FA09E;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--accent);}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+img{max-width:100%;display:block;}
+button{cursor:pointer;}
+
+/* --- штамп-полоса --- */
+.genstamp{background:var(--ink);color:var(--paper);border-left:5px solid var(--accent);}
+:root[data-theme="dark"] .genstamp{background:var(--paper);color:var(--ink);}
+.genstamp-inner{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter);display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;}
+.genstamp .g1{font-family:var(--serif-display);font-size:17px;font-weight:700;}
+.genstamp .g2{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;}
+.genstamp .g3{font-family:var(--sans);font-size:11.5px;opacity:.75;}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:99;}
+.skip:focus{left:8px;}
+
+/* --- вордмарк и шапка --- */
+.mast-title,.footer__brand{font-family:var(--rubleny);font-weight:900;text-transform:uppercase;letter-spacing:.06em;line-height:.95;color:var(--ink);font-style:normal;}
+.mast-title{font-size:clamp(44px,8vw,76px);}
+.mast-title span,.footer__brand span{color:var(--accent);}
+.flagline{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;gap:14px;padding:10px var(--gutter) 0;font-family:var(--sans);font-size:12px;color:var(--muted);flex-wrap:wrap;}
+.masthead{border-bottom:1px solid var(--rule);}
+.mast-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;max-width:var(--maxw);margin:0 auto;padding:22px var(--gutter) 18px;}
+.mast-side{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.7;}
+.mast-side--right{text-align:right;}
+.mast-actions{display:flex;gap:14px;justify-content:flex-end;align-items:center;margin-top:10px;}
+.mast-actions a,.theme-btn,.print-btn{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:0;border-bottom:1px solid var(--rule);background:none;padding:0 0 2px;}
+.mast-actions a:hover,.theme-btn:hover,.print-btn:hover{color:var(--accent);border-color:var(--accent);}
+.theme-btn{font-size:13px;letter-spacing:0;}
+.masthead::after{content:"";display:block;max-width:var(--maxw);margin:0 auto;border-bottom:1px solid var(--rule-strong);}
+
+/* --- навигация --- */
+.nav{position:sticky;top:0;z-index:20;background:var(--paper);border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:flex;align-items:center;flex-wrap:wrap;}
+.nav a{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--ink-2);padding:14px 12px;position:relative;}
+.nav a:hover{color:var(--ink);}
+.nav a.active{color:var(--accent);font-weight:600;}
+.nav a.active::after{content:"";position:absolute;left:12px;right:12px;bottom:9px;height:2px;background:var(--accent);}
+.nav a.nav-util{color:var(--muted);}
+.nav-util-first{margin-left:auto;}
+.nav-toggle{display:none;border:1px solid var(--rule);background:none;color:var(--ink);font:600 13px var(--sans);padding:8px 12px;margin:8px var(--gutter);}
+.subnav{background:var(--paper);border-bottom:1px solid var(--rule);}
+.subnav-inner{max-width:var(--maxw);margin:0 auto;padding:8px var(--gutter);display:flex;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:12.5px;align-items:center;}
+.subnav-inner a{color:var(--muted);}
+.subnav-inner a:hover{color:var(--accent);}
+.subnav .lbl{color:var(--ink);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;}
+
+/* --- контейнеры и заголовки разделов --- */
+.page{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);}
+.sec-head{max-width:var(--maxw);margin:52px auto 24px;padding:16px var(--gutter) 0;border-top:1px solid var(--ink);display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.sec-head h2{font-family:var(--serif-display);font-weight:600;font-size:26px;letter-spacing:-.02em;color:var(--ink);margin:0;}
+.sec-head .line{flex:1;}
+.sec-head .badge{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--muted);}
+.sec-head.inside{padding-left:0;padding-right:0;margin-top:44px;}
+.kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);}
+
+/* --- первая полоса раздела --- */
+.lead-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;padding:40px 0 0;align-items:start;}
+.lead-main{border-top:3px solid var(--ink);padding-top:14px;}
+.lead-main h1{font-family:var(--serif-display);font-weight:600;font-size:clamp(32px,4.4vw,54px);line-height:1.04;letter-spacing:-.025em;margin:10px 0 14px;color:var(--ink);text-wrap:balance;}
+.lead-main h1 em{font-style:italic;font-weight:400;color:var(--accent);}
+.lead-main>p{font-family:var(--serif-body);font-size:18px;line-height:1.5;color:var(--ink-2);margin:0 0 14px;max-width:64ch;}
+.lead-meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:12px;}
+.lead-side{display:flex;flex-direction:column;gap:18px;}
+.lead-card{border-top:1px solid var(--rule);padding-top:12px;}
+.lead-card h3{font-family:var(--serif-display);font-weight:600;font-size:18px;line-height:1.22;color:var(--ink);margin:0 0 6px;}
+.lead-card p{font-family:var(--serif-body);font-size:14.5px;color:var(--muted);line-height:1.5;margin:0;}
+.lead-kicker{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:7px;}
+
+/* --- KPI --- */
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0 28px;}
+.kpi{background:none;border:none;border-top:1px solid var(--ink);border-radius:0;padding:12px 14px 12px 0;}
+.kpi .num{font-family:var(--serif-display);font-weight:600;font-size:26px;color:var(--ink);line-height:1.05;}
+.kpi .num small{font-size:11px;font-weight:600;color:var(--muted);}
+.kpi .lbl{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.45;}
+
+/* --- карточки, заметки, вердикт --- */
+.card{border-top:1px solid var(--rule);margin-bottom:14px;}
+.card-pad{padding:16px 0 8px;}
+.note{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin:16px 0 0;line-height:1.6;border-left:2px solid var(--accent);padding-left:12px;}
+.verdict{border-left:3px solid var(--accent);padding:12px 16px;font-family:var(--serif-body);font-size:15px;color:var(--ink-2);background:var(--paper-2);}
+.verdict b{color:var(--accent);text-transform:uppercase;font-family:var(--sans);font-size:11px;letter-spacing:.12em;display:block;margin-bottom:6px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;align-items:start;}
+.grid2>*{min-width:0;}
+
+/* --- оси: сетка карточек --- */
+.sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;}
+.sec-card{background:none;border:none;border-top:1px solid var(--ink);border-radius:0;padding:16px 0 0;display:flex;flex-direction:column;}
+.sec-card .ax-n{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.sec-card b{font-family:var(--serif-display);font-weight:600;font-size:19px;color:var(--ink);display:block;margin:6px 0 2px;line-height:1.2;}
+.sec-card .fig{font-family:var(--serif-display);font-size:22px;font-weight:600;color:var(--accent);margin-top:4px;}
+.sec-card .fig small{font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+.sec-card p{font-family:var(--serif-body);font-size:14.5px;color:var(--muted);line-height:1.5;margin:8px 0 10px;flex:1;}
+.sec-card .go{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--accent);background:none;border:none;padding:0;text-align:left;}
+.sec-card .go:hover{color:var(--ink);}
+
+/* --- полосы-бары --- */
+.bar-row{display:flex;gap:9px;align-items:center;margin-bottom:7px;font-family:var(--sans);font-size:12.4px;}
+.bar-row .bt{width:190px;text-align:right;font-weight:600;color:var(--ink);flex-shrink:0;}
+.bar-wrap{flex:1;background:var(--paper-2);height:16px;overflow:hidden;border:1px solid var(--rule);}
+.bar-fill{height:100%;background:var(--ink-2);}
+.bar-fill.hot{background:var(--accent);}
+.bar-fill.cool{background:var(--pos);}
+.bar-fill.gold{background:var(--gold);}
+.bar-fill.violet{background:var(--violet);}
+.bar-fill.sage{background:var(--sage);}
+.bar-row .bv{width:52px;font-weight:700;color:var(--ink);flex-shrink:0;font-size:12px;}
+
+/* --- тон --- */
+.tone-bar{height:12px;background:linear-gradient(90deg,#B04848,#E3DED4 50%,#4F5F53);position:relative;border:1px solid var(--rule);}
+.tone-pin{position:absolute;top:-4px;width:3px;height:20px;background:var(--ink);}
+.tone-cat{font-family:var(--sans);font-size:11px;font-weight:600;border:1px solid var(--rule);padding:3px 9px;color:var(--ink-2);}
+
+/* --- таблицы --- */
+.tbl{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;}
+.tbl th{background:none;color:var(--muted);text-align:left;padding:8px 10px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ink);}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2);}
+.tbl td b{color:var(--ink);}
+.tbl-wrap{overflow-x:auto;}
+
+/* --- реестр метрик --- */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px;align-items:center;}
+.fbtn{border:1px solid var(--rule);background:none;color:var(--muted);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;}
+.fbtn:hover{color:var(--ink);border-color:var(--ink-2);}
+.fbtn.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.fsearch{border:none;border-bottom:1px solid var(--ink);background:none;color:var(--ink);font-family:var(--sans);font-size:13px;padding:7px 4px;min-width:200px;}
+.fsearch::placeholder{color:var(--muted);}
+.reg-count{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-left:auto;}
+.reg-tbl td{font-size:12.8px;}
+.reg-name{font-family:var(--serif-display);font-weight:600;font-size:15px;color:var(--ink);line-height:1.25;display:block;margin-bottom:3px;}
+.reg-hyp{font-family:var(--serif-body);font-size:13.6px;color:var(--ink-2);line-height:1.45;}
+.reg-src{font-family:var(--sans);font-size:11.5px;color:var(--muted);line-height:1.5;}
+.reg-src code{font-family:var(--mono);font-size:11px;color:var(--ink-2);}
+.eff{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule);padding:2px 7px;color:var(--muted);white-space:nowrap;}
+.eff.e-s{color:var(--pos);border-color:var(--pos);}
+.eff.e-m{color:var(--ink-2);border-color:var(--ink-2);}
+.eff.e-l{color:var(--neg);border-color:var(--neg);}
+.stchip{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;background:none;white-space:nowrap;}
+.stchip.st-ok{color:var(--pos);border-color:var(--pos);}
+.stchip.st-queue{color:var(--ink-2);border-color:var(--ink-2);}
+.stchip.st-search{color:var(--accent);border-color:var(--accent);}
+.stchip.st-hard{color:var(--neg);border-color:var(--neg);}
+.axchip{display:inline-block;font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.vote{display:flex;align-items:center;gap:6px;border:1px solid var(--rule);background:none;padding:4px 8px;font-family:var(--sans);font-size:12px;font-weight:700;color:var(--ink-2);}
+.vote:hover{border-color:var(--accent);color:var(--accent);}
+.vote.voted{background:var(--accent);border-color:var(--accent);color:#fff;}
+.reg-tbl tr.row-hidden{display:none;}
+
+/* --- паспорта пилотов --- */
+.pilot{border-top:1px solid var(--ink);padding:18px 0 6px;margin-bottom:8px;}
+.pilot-h{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;}
+.pilot-h h3{font-family:var(--serif-display);font-weight:600;font-size:22px;letter-spacing:-.015em;margin:0;color:var(--ink);}
+.pilot-h .num{font-family:var(--serif-display);font-size:30px;font-weight:700;color:var(--accent);line-height:.9;}
+.pilot-dek{font-family:var(--serif-body);font-size:15.5px;color:var(--ink-2);margin:8px 0 0;max-width:74ch;}
+.pilot-toggle{margin-left:auto;border:1px solid var(--ink);background:none;color:var(--ink);font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;}
+.pilot-toggle:hover{background:var(--ink);color:var(--paper);}
+.pilot-body{display:none;margin-top:16px;}
+.pilot.open .pilot-body{display:block;}
+.pass-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 36px;}
+.pass-row{border-top:1px solid var(--rule);padding:10px 0;}
+.pass-row h4{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;}
+.pass-row p{font-family:var(--serif-body);font-size:14.5px;color:var(--ink-2);margin:0;line-height:1.5;}
+.formula{font-family:var(--mono);font-size:12.5px;color:var(--ink);background:var(--paper-2);border-left:2px solid var(--accent);padding:10px 12px;line-height:1.7;overflow-x:auto;}
+
+/* --- визуализации --- */
+.chart-box{border-top:1px solid var(--rule);padding:18px 0 6px;}
+.chart-title{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 4px;}
+.chart-sub{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);margin:0 0 16px;max-width:78ch;}
+.pane{display:none;}
+.pane.on{display:block;}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:12px;}
+.legend i{display:inline-block;width:11px;height:11px;margin-right:6px;vertical-align:-1px;border:1px solid var(--rule);}
+svg text{font-family:var(--sans);}
+.rhythm{display:flex;align-items:flex-end;gap:3px;height:150px;border-bottom:1px solid var(--ink);padding-bottom:0;}
+.rhythm .rb{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%;}
+.rhythm .rb i{display:block;width:100%;}
+.rhythm .rb i.wd{background:var(--ink-2);}
+.rhythm .rb i.we{background:var(--accent);}
+.rhythm-x{display:flex;gap:3px;font-family:var(--sans);font-size:9.5px;color:var(--muted);margin-top:5px;}
+.rhythm-x span{flex:1;text-align:center;}
+.stack{display:flex;height:22px;border:1px solid var(--rule);overflow:hidden;}
+.stack i{display:block;height:100%;}
+.stack-row{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center;margin-bottom:8px;}
+.stack-row .d{font-family:var(--sans);font-size:11.5px;font-weight:600;color:var(--ink-2);text-align:right;}
+
+/* --- источники --- */
+.cl-card{border-top:1px solid var(--rule);padding:11px 0;}
+.cl-card:first-child{border-top:none;}
+.cl-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+.cl-name{font-family:var(--serif-display);font-weight:600;font-size:16px;color:var(--ink);}
+.cl-card.gap .cl-name{color:var(--accent);}
+.cl-badge{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--rule);padding:2px 8px;}
+.cl-badge.cl-warn{color:var(--accent);border-color:var(--accent);}
+.cl-badge.cl-ok{color:var(--pos);border-color:var(--pos);}
+.cl-samples{font-family:var(--serif-body);font-size:13.4px;color:var(--ink-2);margin-top:6px;line-height:1.5;}
+
+/* --- волны / таймлайн --- */
+.wave{border-top:1px solid var(--ink);padding:16px 0 8px;margin-bottom:6px;}
+.wave-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+.wave-h b{font-family:var(--serif-display);font-size:21px;font-weight:600;color:var(--ink);}
+.wave-h .per{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
+.wave-h .req{font-family:var(--sans);font-size:12px;color:var(--muted);margin-left:auto;}
+.wave ul{list-style:none;margin:10px 0 0;padding:0;columns:2;column-gap:34px;}
+.wave li{font-family:var(--serif-body);font-size:14.5px;color:var(--ink-2);padding:6px 0;border-bottom:1px solid var(--rule);break-inside:avoid;display:flex;gap:10px;align-items:baseline;}
+.wave li .stchip{margin-left:auto;}
+
+/* --- интегральный индекс --- */
+.idx-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;align-items:start;}
+.idx-total{display:flex;align-items:baseline;gap:14px;margin-bottom:12px;}
+.idx-total .v{font-family:var(--serif-display);font-size:56px;font-weight:700;color:var(--accent);line-height:.9;}
+.idx-total .cap{font-family:var(--sans);font-size:12px;color:var(--muted);max-width:26ch;line-height:1.5;}
+
+/* --- правая колонка --- */
+.wk-grid{max-width:var(--maxw);margin:26px auto 0;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 330px;gap:48px;align-items:start;}
+.wk-grid>.wk-main{min-width:0;}
+.wk-rail{display:flex;flex-direction:column;gap:22px;position:sticky;top:64px;}
+.wk-box{border-top:1px solid var(--ink);padding:12px 0;background:none;}
+.wk-box h4{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;}
+.wk-box p{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);margin:0 0 8px;line-height:1.5;}
+.wk-stamp{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 10px;background:var(--paper-2);color:var(--pos);border:1px solid var(--rule);}
+.wk-stamp.wip{background:none;color:var(--accent);border-color:var(--accent);}
+.rail-list{list-style:none;margin:0;padding:0;}
+.rail-list li{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);padding:7px 0;border-bottom:1px solid var(--rule);display:flex;gap:10px;align-items:baseline;}
+.rail-list li:last-child{border-bottom:none;}
+.rail-list .r-n{font-family:var(--serif-display);font-size:17px;font-weight:700;color:var(--accent);width:22px;flex-shrink:0;}
+.hl{background:linear-gradient(transparent 62%,#E5C9B6 62%);}
+:root[data-theme="dark"] .hl{background:linear-gradient(transparent 62%,#6D4F3C 62%);}
+.btn{display:inline-block;border:1px solid var(--ink);color:var(--ink);background:none;font-family:var(--sans);font-size:12.5px;font-weight:600;padding:8px 16px;}
+.btn:hover{background:var(--ink);color:var(--paper);}
+.btn.gold{background:var(--ink);color:var(--paper);}
+.btn.gold:hover{background:var(--accent);border-color:var(--accent);}
+
+/* --- решение --- */
+.dec{list-style:none;margin:12px 0 0;padding:0;}
+.dec li{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--rule);font-family:var(--serif-body);font-size:15px;color:var(--ink-2);cursor:pointer;}
+.dec li:last-child{border-bottom:none;}
+.dec input{width:17px;height:17px;accent-color:var(--accent);margin-top:3px;flex-shrink:0;}
+.dec li.done{color:var(--muted);text-decoration:line-through;}
+.dec-prog{font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-top:12px;}
+
+/* --- подвал --- */
+.footer{background:var(--ink);color:var(--on-ink);margin-top:56px;padding:30px 0 18px;}
+:root[data-theme="dark"] .footer{background:var(--paper-2);}
+.footer b,.footer h3{color:var(--paper);}
+:root[data-theme="dark"] .footer b{color:var(--ink);}
+.footer-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:20px 36px;}
+.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
+.footer a{color:var(--on-ink);}
+.footer a:hover{color:var(--accent);}
+.footer__brand{font-size:22px;color:var(--paper);line-height:1;margin-bottom:8px;}
+.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+:root[data-theme="dark"] .footer__bottom{border-top-color:var(--rule);}
+
+@media (max-width:1100px){
+  .lead-grid,.wk-grid,.idx-wrap{grid-template-columns:1fr;}
+  .wk-rail{position:static;}
+  .sec-grid{grid-template-columns:repeat(2,1fr);}
+  .kpi-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media (max-width:900px){
+  .nav-toggle{display:block;}
+  .nav-inner{display:none;flex-direction:column;align-items:stretch;}
+  body.nav-open .nav-inner{display:flex;}
+  .nav a{padding:12px 16px;border-top:1px solid var(--rule);}
+  .mast-inner{grid-template-columns:1fr;text-align:center;gap:10px;}
+  .mast-side,.mast-side--right{text-align:center;}
+  .mast-actions{justify-content:center;}
+  .pass-grid,.grid2,.wave ul{grid-template-columns:1fr;columns:1;}
+}
+@media (max-width:720px){
+  :root{--gutter:20px;}
+  body{font-size:16px;}
+  .sec-grid,.kpi-grid{grid-template-columns:1fr;}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:6px;}
+  .stack-row{grid-template-columns:70px 1fr;}
+  .reg-count{margin-left:0;width:100%;}
+  .reg-tbl thead{display:none;}
+  .reg-tbl tr{display:block;border-top:1px solid var(--ink);padding:10px 0;}
+  .reg-tbl td{display:block;border:none;padding:4px 0;}
+  .reg-tbl td::before{content:attr(data-l);font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;}
+}
+@media print{
+  .nav,.subnav,.filters,.fsearch,.theme-btn,.print-btn,.nav-toggle,.pilot-toggle,.vote,.genstamp{display:none!important;}
+  .pilot-body{display:block!important;}
+  body{background:#fff;}
+  .wk-rail{position:static;}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+
+<div class="genstamp"><div class="genstamp-inner">
+  <span class="g1">Черновик раздела · proposal v0.9</span>
+  <span class="g2">Инфопространство → расширение</span>
+  <span class="g3">верстка в стилистике листка, числовые примеры — иллюстративные, до подключения метрик</span>
+</div></div>
+
+<header class="masthead">
+  <div class="flagline">
+    <span id="flDoc">—</span>
+    <span>Ульяновск · издание внутреннее</span>
+    <span>обсуждается на ближайшем прогоне</span>
+  </div>
+  <div class="mast-inner">
+    <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+    <div class="mast-title">ГУДОК<span>.</span></div>
+    <div class="mast-side mast-side--right">Исследование инфопространства<br>план расширения: 6 осей · 32 метрики
+      <div class="mast-actions">
+        <a href="infospace.html">действующий раздел</a>
+        <button class="print-btn" id="printBtn" title="Печать">печать</button>
+        <button class="theme-btn" id="themeBtn" title="Светлая/тёмная тема">🌙</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav"><button class="nav-toggle" id="navToggle" aria-label="Открыть разделы">Меню</button>
+  <div class="nav-inner">
+    <a href="#os">Оси</a>
+    <a href="#reestr">Реестр метрик</a>
+    <a href="#pilot">Пилоты</a>
+    <a href="#index">Индекс инфополя</a>
+    <a href="#viz">Визуал</a>
+    <a href="#src">Источники</a>
+    <a href="#volny">Волны</a>
+    <a href="#risk">Риски</a>
+    <a href="#pipe">Конвейер</a>
+    <a href="#decide">Решение</a>
+    <a class="nav-util nav-util-first" href="index.html">Первая полоса</a>
+    <a class="nav-util" href="infospace.html">Инфопространство</a>
+    <a class="nav-util" href="roadmap.html">План развития</a>
+    <a class="nav-util" href="status.html">Статус</a>
+  </div>
+</nav>
+
+<div class="subnav"><div class="subnav-inner">
+  <span class="lbl">Контекст</span>
+  <a href="#diag">4 слепые зоны</a>
+  <a href="#os">6 осей</a>
+  <a href="#reestr">32 метрики-кандидата</a>
+  <a href="#pilot">3 паспорта пилотов</a>
+  <a href="#volny">3 волны внедрения</a>
+  <span style="margin-left:auto;color:var(--muted);">база: 1500 записей · 14.09.2026</span>
+</div></div>
+
+<main id="main">
+<div class="page">
+
+  <div class="lead-grid" id="diag">
+    <div class="lead-main">
+      <div class="lead-kicker">предложение к разделу «Инфопространство»</div>
+      <h1>Мы научились считать <em>текст</em>. Пора считать <em>деньги, труд, внимание и время</em>.</h1>
+      <p>Действующий раздел отвечает на три вопроса: кто задаёт повестку, как сюжеты расходятся каскадами и кого из территорий не слышно. Это анатомия инфополя, но без физиологии: не видно, кто платит за освещение, кто физически пишет посты, кто их читает и как быстро поле реагирует на событие.</p>
+      <p>Ниже — вариант расширения в той же логике: <b>шесть осей</b>, <b>реестр из 32 метрик-кандидатов</b> с гипотезой, источником данных и трудоёмкостью, <b>три пилота</b>, которые можно включить в ближайший прогон без новых данных, <b>единый индекс инфополя</b> для сравнения регионов и <b>три волны</b> внедрения. Верстка — те же компоненты: <code style="font-family:var(--mono);font-size:13px;">sec-head</code>, <code style="font-family:var(--mono);font-size:13px;">kpi</code>, <code style="font-family:var(--mono);font-size:13px;">bar-row</code>, <code style="font-family:var(--mono);font-size:13px;">tbl</code>, <code style="font-family:var(--mono);font-size:13px;">note</code>, <code style="font-family:var(--mono);font-size:13px;">verdict</code>.</p>
+      <div class="lead-meta">формат: паспорт метрики + реестр + штамп статуса · обновляется вместе с <code style="font-family:var(--mono)">analytics.py</code></div>
+    </div>
+    <div class="lead-side">
+      <div class="lead-card">
+        <div class="lead-kicker">слепая зона 1</div>
+        <h3>Видим текст, не видим денег</h3>
+        <p>82% «оригинальности» не отличает самостоятельную редакцию от оплаченного информосвещения. Контракты администрации и облправительства на освещение — публичны, но в метрики не входят.</p>
+      </div>
+      <div class="lead-card">
+        <div class="lead-kicker">слепая зона 2</div>
+        <h3>Видим каналы, не видим редакций</h3>
+        <p>«Улпресса» и «ulpressa» — одна редакция, это уже учтено. Но кто внутри производит текст: пресс-служба, копирайтер, агрегатор, генерация? Без этого концентрация 26% — лишь верхушка.</p>
+      </div>
+      <div class="lead-card">
+        <div class="lead-kicker">слепая зона 3</div>
+        <h3>Видим эхо, не слышим ответа</h3>
+        <p>Тон измеряется по постам, а не по реакции. Просмотры (14.6K у крупного канала за сутки) и комментарии — второй слой поля, где живёт несогласие.</p>
+      </div>
+      <div class="lead-card">
+        <div class="lead-kicker">слепая зона 4</div>
+        <h3>Видим неделю, не видим завтра</h3>
+        <p>Нет временны́х метрик: запаздывание освещения, скорость каскада, время жизни сюжета, сезонность. Без них раздел описывает прошлое, а не предсказывает повестку.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpi-grid" style="margin-top:38px;">
+    <div class="kpi"><div class="num" data-cnt="axes">6</div><div class="lbl">осей расширения раздела</div></div>
+    <div class="kpi violet"><div class="num" data-cnt="total">32</div><div class="lbl">метрики-кандидата в реестре</div></div>
+    <div class="kpi green"><div class="num" data-cnt="ok">11</div><div class="lbl">готовы к включению на текущих данных</div></div>
+    <div class="kpi gold"><div class="num" data-cnt="search">9</div><div class="lbl">требуют нового источника данных</div></div>
+    <div class="kpi red"><div class="num" data-cnt="hard">4</div><div class="lbl">с методическим риском (нужна разметка)</div></div>
+    <div class="kpi"><div class="num">0<small> ₽</small></div><div class="lbl">стоимость Волны 1 — только время конвейера</div></div>
+  </div>
+
+  <div class="note" style="margin-bottom:6px;">Это не отчёт, а <b>предложение по расширению наблюдения</b>: каждая строка реестра — кандидат в «Отслеживаемые метрики». Порядок тот же, что в действующем разделе: метрика появляется сначала как штамп «в очереди», затем как «метрика подключена ДД.ММ» с блоком методики. Голоса за приоритет сохраняются локально в браузере и нужны только чтобы выбрать три метрики Волны 1.</div>
+
+  <div class="sec-head" id="os"><h2>Шесть осей расширения</h2><div class="line"></div>
+    <div class="badge">от «кто говорит» к «кто платит и кто услышит»</div></div>
+</div>
+
+<div class="page">
+  <div class="sec-grid" id="axisGrid"></div>
+  <div class="note">Оси не отменяют текущую структуру раздела, а достраивают её: «Кто задаёт повестку» получает продолжение в осях <b>Деньги</b> и <b>Труд</b>, «Каскады недели» — в оси <b>Время</b>, «Карта муниципалитетов» — в оси <b>Территория</b>, «Тон» — в осях <b>Язык</b> и <b>Аудитория</b>.</div>
+</div>
+
+<div class="wk-grid">
+  <div class="wk-main">
+
+    <div class="sec-head inside" id="reestr"><h2>Реестр метрик-кандидатов</h2><div class="line"></div>
+      <div class="badge">гипотеза · данные · трудоёмкость · статус</div></div>
+    <div class="filters" id="axFilters"></div>
+    <div class="filters">
+      <button class="fbtn active" data-st="all">все статусы</button>
+      <button class="fbtn" data-st="ok">готовы</button>
+      <button class="fbtn" data-st="queue">в очереди</button>
+      <button class="fbtn" data-st="search">ищем данные</button>
+      <button class="fbtn" data-st="hard">с риском</button>
+      <button class="fbtn" data-sort="prio" id="sortPrio">сортировать: приоритет</button>
+      <button class="fbtn" data-sort="eff" id="sortEff">сортировать: трудоёмкость</button>
+      <input class="fsearch" id="regSearch" type="search" placeholder="поиск по реестру: «тарифы», «комментарии», «УАЗ»…" aria-label="Поиск по реестру метрик">
+      <span class="reg-count" id="regCount"></span>
+    </div>
+    <div class="tbl-wrap">
+      <table class="tbl reg-tbl" id="regTable">
+        <thead><tr>
+          <th style="width:34%">Метрика и гипотеза</th>
+          <th style="width:26%">Данные</th>
+          <th style="width:8%">Ось</th>
+          <th style="width:9%">Труд.</th>
+          <th style="width:12%">Статус</th>
+          <th style="width:11%">Приоритет</th>
+        </tr></thead>
+        <tbody id="regBody"></tbody>
+      </table>
+    </div>
+    <div class="note"><b>Трудоёмкость:</b> S — день-два на существующих данных, M — неделя и один новый источник, L — задача на месяц с ручной разметкой. <b>Статусы:</b> «готовы» — можно включать в ближайший прогон конвейера, «в очереди» — данные есть, нужна разработка, «ищем данные» — источник ещё не подключён, «с риском» — метрика спорна методически и требует ручной калибровки.</div>
+
+    <div class="sec-head inside" id="pilot"><h2>Три пилота: паспорта метрик</h2><div class="line"></div>
+      <div class="badge">формат «паспорта» предлагается закрепить как обязательный</div></div>
+    <div id="pilots"></div>
+    <div class="note">Паспорт метрики — единый шаблон для всех новых блоков: <b>гипотеза → формула → источник → порог тревоги → интерпретация → где публикуется</b>. Без паспорта метрика в раздел не добавляется: иначе «Отслеживаемые метрики» превратятся в список цифр без смысла.</div>
+
+    <div class="sec-head inside" id="index"><h2>Сборка: единый индекс инфополя</h2><div class="line"></div>
+      <div class="badge">сравнимый профиль региона · 0…1</div></div>
+    <div class="card"><div class="card-pad">
+      <div class="idx-wrap">
+        <div>
+          <div class="idx-total"><span class="v">0.42</span><span class="cap">ИИС Ульяновской области на 14.09.2026 — значение иллюстративное, собирается из действующих и новых метрик</span></div>
+          <div class="tone-bar" style="height:14px;"><div class="tone-pin" style="left:42%;height:22px;top:-4px;"></div></div>
+          <div style="display:flex;justify-content:space-between;font-family:var(--sans);font-size:10.5px;color:var(--muted);margin-top:6px;letter-spacing:.1em;text-transform:uppercase;">
+            <span>монополия</span><span>норма</span><span>плюрализм</span>
+          </div>
+          <p style="font-family:var(--serif-body);font-size:14.5px;color:var(--ink-2);margin-top:16px;">Пять субиндексов собираются из уже имеющихся метрик и четырёх новых. Такой профиль позволяет (а) видеть движение региона по неделям и (б) перенести методику на другой регион России без переписывания раздела — меняется только справочник источников и территорий.</p>
+        </div>
+        <div>
+          <div class="bar-row"><span class="bt">Плюрализм (1 − концентрация)</span><span class="bar-wrap"><span class="bar-fill" style="width:74%;"></span></span><span class="bv">0.74</span></div>
+          <div class="bar-row"><span class="bt">Самостоятельность (1 − эхо)</span><span class="bar-wrap"><span class="bar-fill gold" style="width:52%;"></span></span><span class="bv">0.52</span></div>
+          <div class="bar-row"><span class="bt">Покрытие территорий</span><span class="bar-wrap"><span class="bar-fill sage" style="width:58%;"></span></span><span class="bv">0.58</span></div>
+          <div class="bar-row"><span class="bt">Субъектность (труд, жители)</span><span class="bar-wrap"><span class="bar-fill violet" style="width:22%;"></span></span><span class="bv">0.22</span></div>
+          <div class="bar-row"><span class="bt">Прозрачность (деньги, владелец)</span><span class="bar-wrap"><span class="bar-fill hot" style="width:10%;"></span></span><span class="bv">0.10</span></div>
+          <div class="formula" style="margin-top:14px;">ИИС = 0.25·Плюрализм + 0.20·Самостоятельность<br>&nbsp;&nbsp;&nbsp;&nbsp;+ 0.20·Покрытие + 0.20·Субъектность + 0.15·Прозрачность<br><br>Покрытие = 0.5·доля территорий с сюжетом + 0.5·(1 − доля «немых»)<br>Субъектность = доля сообщений, где житель/работник — подлежащее<br>Прозрачность = 1 − доля анонимных и неустановленных владельцев</div>
+        </div>
+      </div>
+    </div></div>
+    <div class="note">Главный вывод из сборки: два субиндекса из пяти (<span class="hl">субъектность 0.22</span> и <span class="hl">прозрачность 0.10</span>) нечем считать — именно они и есть Волны 2 и 3. Пока они не подключены, раздел описывает структуру поля, но не его классовый состав.</div>
+
+    <div class="sec-head inside" id="viz"><h2>Визуализации, которых не хватает</h2><div class="line"></div>
+      <div class="badge">четыре макета в текущей стилистике</div></div>
+    <div class="filters" id="vizTabs">
+      <button class="fbtn active" data-pane="p1">матрица территория × тема</button>
+      <button class="fbtn" data-pane="p2">граф перепечаток</button>
+      <button class="fbtn" data-pane="p3">ритм суток</button>
+      <button class="fbtn" data-pane="p4">кто формирует день</button>
+    </div>
+    <div class="chart-box">
+      <div class="pane on" id="p1">
+        <p class="chart-title">матрица «территория × тема»</p>
+        <p class="chart-sub">Тот же массив данных, что в «Карте муниципалитетов», но разложенный по темам. Сразу видно структуру перекоса: одни территории присутствуют только в рубрике ЧП и суды, другие — только в визитах власти. Пустая клетка — тема, по которой о территории за неделю не сказано ничего.</p>
+        <div id="matrix"></div>
+        <div class="legend">
+          <span><i style="background:var(--paper-2)"></i>0 упоминаний</span>
+          <span><i style="background:#E5C9B6"></i>1–3</span>
+          <span><i style="background:var(--gold)"></i>4–9</span>
+          <span><i style="background:var(--accent)"></i>10+ · тема доминирует</span>
+        </div>
+        <div class="note">Вопрос, который закрывает матрица: «жизнь района существует для областного читателя только через происшествия или визиты чиновников» — из действующего раздела. Здесь это становится проверяемым: доля клеток «ЧП» в строке территории.</div>
+      </div>
+      <div class="pane" id="p2">
+        <p class="chart-title">граф перепечаток недели</p>
+        <p class="chart-sub">Каскады сейчас показываются списком. Граф даёт то же самое, но видно структуру: хаб (ulpressa/Улпресса), ведомственные ветки (канал губернатора → ulgovru, ulpatriot), муниципальные узлы пунктиром (свой голос) и изолированные точки — каналы, которые только потребляют повестку, не производя её.</p>
+        <div id="graph"></div>
+        <div class="legend">
+          <span><i style="background:var(--accent);border-radius:50%"></i>первичный источник</span>
+          <span><i style="background:var(--ink-2);border-radius:50%"></i>тиражирующий канал</span>
+          <span><i style="background:none;border:1px dashed var(--ink-2);border-radius:50%"></i>муниципальный «свой голос»</span>
+          <span>размер узла = число первичных каскадов</span>
+        </div>
+        <div class="note">Производная метрика графа — <b>центральность</b>: какой канал держит поле, если его выключить. Практический смысл: устойчивость инфополя к отключению одной редакции.</div>
+      </div>
+      <div class="pane" id="p3">
+        <p class="chart-title">ритм суток: будни и выходные</p>
+        <p class="chart-sub">Метрика из очереди («Активность будни/выходные») в наглядной форме. Ночной слой сообщений — почти всегда тревожные сводки и перепечатки федералов; утренний пик — плановые релизы пресс-служб; вечерний — авторские каналы и «происшествия».</p>
+        <div class="rhythm" id="rhythm"></div>
+        <div class="rhythm-x" id="rhythmX"></div>
+        <div class="legend"><span><i style="background:var(--ink-2)"></i>будни</span><span><i style="background:var(--accent)"></i>выходные</span></div>
+        <div class="note">Что это доказывает: сдвиг поля в ночь означает, что регион живёт в режиме ожидания чрезвычайного, а не развития. Сравнение «ночная доля» неделя к неделе — дешёвый индикатор напряжённости.</div>
+      </div>
+      <div class="pane" id="p4">
+        <p class="chart-title">кто формирует день: состав потока по типам производителя</p>
+        <p class="chart-sub">Разложение ежедневного объёма (1405 сообщений за 7 дней) на пять типов производителя: пресс-службы и официальные каналы, самостоятельные редакции, агрегаторы-перепечатчики, авторские/анонимные каналы, коммерческие интеграции. Это визуальная половина оси «Труд» и «Деньги».</p>
+        <div id="layers"></div>
+        <div class="legend">
+          <span><i style="background:var(--ink)"></i>пресс-службы / T1</span>
+          <span><i style="background:var(--ink-2)"></i>редакции</span>
+          <span><i style="background:var(--muted)"></i>агрегаторы</span>
+          <span><i style="background:var(--violet)"></i>авторские / анонимные</span>
+          <span><i style="background:var(--gold)"></i>интеграции и реклама</span>
+        </div>
+        <div class="note">Связка с метрикой «оригинальность по уровням»: 96% оригинальности у «СМИ/подборок» при высокой доле пресс-служб означает, что оригинален не текст, а рассылка — поле воспроизводит официальный язык почти без сопротивления.</div>
+      </div>
+    </div>
+
+    <div class="sec-head inside" id="src"><h2>Что нужно подключить: источники</h2><div class="line"></div>
+      <div class="badge">ручной поиск + открытые API</div></div>
+    <div class="card"><div class="card-pad" id="sources"></div></div>
+    <div class="note">Принцип действующего раздела сохраняется: «свой голос» считается только по подтверждённым муниципальным источникам. Расширять список надо так же — вручную, с фиксацией в реестре источников (уровень T1/T2/T3, тип, территория, владелец), иначе метрика «доля своего голоса 29%» потеряет смысл.</div>
+
+    <div class="sec-head inside" id="volny"><h2>Волны внедрения</h2><div class="line"></div>
+      <div class="badge">по возрастанию потребности в данных</div></div>
+    <div id="waves"></div>
+
+    <div class="sec-head inside" id="risk"><h2>Методологические риски</h2><div class="line"></div>
+      <div class="badge">что сломается, если расширяться наспех</div></div>
+    <div class="grid2" id="risks"></div>
+
+    <div class="sec-head inside" id="pipe"><h2>Как это ложится в конвейер</h2><div class="line"></div>
+      <div class="badge">файлы, функции, артефакты</div></div>
+    <div class="card"><div class="card-pad">
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th>Файл</th><th>Что добавляется</th><th>Выход</th><th>Волна</th></tr></thead>
+        <tbody>
+          <tr><td><code style="font-family:var(--mono)">analytics.py</code></td><td><code style="font-family:var(--mono)">labor_index()</code>, <code style="font-family:var(--mono)">latency()</code>, <code style="font-family:var(--mono)">cadence()</code>, <code style="font-family:var(--mono)">emoji_profile()</code>, <code style="font-family:var(--mono)">matrix_terr_topic()</code></td><td><code style="font-family:var(--mono)">data/infospace.json</code> — новые ключи</td><td><span class="stchip st-ok">1</span></td></tr>
+          <tr><td><code style="font-family:var(--mono)">sources_registry.json</code> <i>(новый)</i></td><td>реестр источников: уровень T1–T3, тип, территория, владелец, призна́к «свой голос», признак платного освещения</td><td>справочник для всех метрик и для переноса методики на другой регион</td><td><span class="stchip st-ok">1</span></td></tr>
+          <tr><td><code style="font-family:var(--mono)">audience.py</code> <i>(новый)</i></td><td>сбор просмотров и комментариев со страниц <code style="font-family:var(--mono)">t.me/s/</code>, Gini внимания, тон ответов</td><td><code style="font-family:var(--mono)">data/audience.json</code></td><td><span class="stchip st-queue">2</span></td></tr>
+          <tr><td><code style="font-family:var(--mono)">money.py</code> <i>(новый)</i></td><td>запросы к ЕИС по заказчикам региона, сопоставление подрядчика с реестром источников</td><td><code style="font-family:var(--mono)">data/money.json</code></td><td><span class="stchip st-search">3</span></td></tr>
+          <tr><td><code style="font-family:var(--mono)">generate.py</code></td><td><code style="font-family:var(--mono)">render_infospace_matrix()</code>, <code style="font-family:var(--mono)">render_infospace_graph()</code>, <code style="font-family:var(--mono)">render_passport()</code>, <code style="font-family:var(--mono)">render_iis()</code></td><td>новые блоки <code style="font-family:var(--mono)">infospace.html</code> в той же верстке</td><td><span class="stchip st-ok">1</span></td></tr>
+          <tr><td><code style="font-family:var(--mono)">.github/workflows/weekly.yml</code></td><td>шаги <code style="font-family:var(--mono)">--labor</code>, <code style="font-family:var(--mono)">--latency</code>, затем <code style="font-family:var(--mono)">--audience</code>, <code style="font-family:var(--mono)">--money</code></td><td>регулярность без ручного прогона</td><td><span class="stchip st-queue">1–3</span></td></tr>
+          <tr><td><code style="font-family:var(--mono)">tests/test_pipeline.py</code></td><td>фикстуры на новых метриках: пустая выборка, одна территория, отсутствие времени события</td><td>защита от тихой деградации цифр</td><td><span class="stchip st-ok">1</span></td></tr>
+          <tr><td><code style="font-family:var(--mono)">status.html</code></td><td>статусы новых метрик и дата последнего успешного расчёта</td><td>видимость «метрика подключена ДД.ММ»</td><td><span class="stchip st-ok">1</span></td></tr>
+        </tbody>
+      </table></div>
+    </div></div>
+    <div class="note">Порядок тот же, что при подключении нацпроектов и муниципальной повестки 12.09: сначала функция в <code style="font-family:var(--mono)">analytics.py</code>, затем ключ в <code style="font-family:var(--mono)">data/infospace.json</code>, затем рендер блока и штамп «метрика подключена». Ничего нового в архитектуре не требуется.</div>
+
+    <div class="sec-head inside" id="decide"><h2>Решение к принятию</h2><div class="line"></div>
+      <div class="badge">пять пунктов · отметки сохраняются локально</div></div>
+    <div class="card"><div class="card-pad">
+      <div class="verdict"><b>Сводка предложения</b>
+        Раздел «Инфопространство» достраивается до шести осей; ядро Волны 1 (11 метрик) считается на уже собранной базе из 1500 записей и не требует ни новых источников, ни затрат. Волны 2 и 3 требуют внешних данных и ручной работы: районные газеты и паблики, просмотры и комментарии, ЕИС и реестры владельцев. Ключевой содержательный сдвиг — от «что написано» к «кто за это платит, кто это пишет и кто это читает».</div>
+      <ul class="dec" id="decList">
+        <li><input type="checkbox" id="d1"><label for="d1">Утвердить шесть осей как структуру раздела и добавлять новые метрики только через «паспорт метрики».</label></li>
+        <li><input type="checkbox" id="d2"><label for="d2">Выбрать три метрики Волны 1 к подключению в ближайший прогон (по голосам в реестре).</label></li>
+        <li><input type="checkbox" id="d3"><label for="d3">Решить по комментарийному слою: собираем ли мы ответы читателей (этика, персональные данные, нагрузка на конвейер).</label></li>
+        <li><input type="checkbox" id="d4"><label for="d4">Назначить ответственного за ручной поиск муниципальных источников — цель: закрыть «свой голос» минимум в 10 территориях.</label></li>
+        <li><input type="checkbox" id="d5"><label for="d5">Зафиксировать формат «паспорта региона» (ИИС) и подготовить перенос методики на вторую область для сравнения.</label></li>
+      </ul>
+      <div class="dec-prog" id="decProg">отмечено 0 из 5</div>
+    </div></div>
+
+  </div>
+
+  <aside class="wk-rail">
+    <div class="wk-box">
+      <h4>Статус документа</h4>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+        <span class="wk-stamp wip">черновик</span>
+        <span class="wk-stamp">обсуждается</span>
+        <span class="wk-stamp">верстка: стиль листка</span>
+      </div>
+      <p>Предложение к разделу «Инфопространство». После утверждения строки реестра переносятся в «Отслеживаемые метрики» и в план развития.</p>
+    </div>
+    <div class="wk-box">
+      <h4>Топ по голосам</h4>
+      <ul class="rail-list" id="topVotes"></ul>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:8px;">Голоса хранятся локально, нужны для выбора трёх метрик Волны 1.</p>
+    </div>
+    <div class="wk-box">
+      <h4>Легенда статусов</h4>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <span class="stchip st-ok">готовы к включению</span>
+        <span class="stchip st-queue">в очереди</span>
+        <span class="stchip st-search">ищем данные</span>
+        <span class="stchip st-hard">с методическим риском</span>
+      </div>
+    </div>
+    <div class="wk-box">
+      <h4>Уже в очереди раздела</h4>
+      <ul class="rail-list">
+        <li>ЖКХ и тарифы: доля и тон <span class="stchip st-ok" style="margin-left:auto">волна 1</span></li>
+        <li>Федеральные темы в разрезе источников <span class="stchip st-ok" style="margin-left:auto">волна 1</span></li>
+        <li>Активность будни/выходные <span class="stchip st-ok" style="margin-left:auto">волна 1</span></li>
+        <li>Индекс тревожности <span class="stchip st-ok" style="margin-left:auto">волна 1</span></li>
+        <li>Задержки освещения <span class="stchip st-ok" style="margin-left:auto">волна 1</span></li>
+        <li>Районные газеты и паблики <span class="stchip st-search" style="margin-left:auto">волна 2</span></li>
+      </ul>
+    </div>
+    <div class="wk-box">
+      <h4>Связанные страницы</h4>
+      <p><a class="flink" href="infospace.html">Инфопространство</a> · <a class="flink" href="weekly.html">Неделя</a> · <a class="flink" href="monthly.html">Месяц</a> · <a class="flink" href="projects/goszakupki.html">Госзакупки</a> · <a class="flink" href="projects/elections_2026.html">Выборы-2026</a> · <a class="flink" href="roadmap.html">План развития</a> · <a class="flink" href="status.html">Статус системы</a></p>
+    </div>
+    <div class="wk-box">
+      <h4>Переносимость</h4>
+      <p>Всё, что специфично для региона, вынесено в два справочника: территории (24 муниципалитета) и источники (уровни T1–T3). Замена справочников = профиль другой области без переписывания раздела.</p>
+      <p style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">паспорт региона · единый формат</p>
+    </div>
+  </aside>
+</div>
+
+<footer class="footer"><div class="footer-inner">
+  <div><div class="footer__brand">ГУДОК<span>.</span></div><p>Информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Страница — предложение по расширению сквозного исследования инфопространства.</p></div>
+  <div><b>Методика</b><p>Действующая: дедупликация (Жаккар + вложенность заголовков), TF-IDF-кластеризация, лексикон тональности (±110 маркеров), географические маркеры муниципалитетов. Предлагаемая добавляет: реестр источников и владельцев, слой аудитории, внешние данные ЕИС и Росстата, временны́е метрики.</p></div>
+  <div><b>Навигация</b><p><a href="index.html">Первая полоса</a> · <a href="infospace.html">Инфопространство</a> · <a href="weekly.html">Неделя</a> · <a href="roadmap.html">План развития</a> · <a href="status.html">Статус системы</a></p></div>
+</div>
+<div class="footer__bottom"><span>Издание внутреннее. Распространяется среди членов группы «Победа».</span><span>Черновик раздела · proposal v0.9</span></div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement;
+
+  /* ---------- тема ---------- */
+  var themeBtn=document.getElementById('themeBtn');
+  function applyTheme(mode){
+    if(mode==='dark'){root.setAttribute('data-theme','dark');themeBtn.textContent='☀️';}
+    else{root.removeAttribute('data-theme');themeBtn.textContent='🌙';}
+  }
+  var savedTheme=null;
+  try{savedTheme=localStorage.getItem('gudok-theme');}catch(err){}
+  applyTheme(savedTheme||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
+  themeBtn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    applyTheme(next);
+    try{localStorage.setItem('gudok-theme',next);}catch(err){}
+  });
+  document.getElementById('printBtn').addEventListener('click',function(){window.print();});
+  document.getElementById('navToggle').addEventListener('click',function(){document.body.classList.toggle('nav-open');});
+
+  /* ---------- дата во флаг-линии (страница статическая) ---------- */
+  (function(){
+    var d=new Date();
+    var M=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+    var W=["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];
+    var el=document.getElementById('flDoc');
+    if(el)el.textContent=W[d.getDay()]+", "+d.getDate()+" "+M[d.getMonth()]+" "+d.getFullYear()+" г.";
+  })();
+
+  /* ---------- данные: оси ---------- */
+  var AXES=[
+    {k:'money',t:'Деньги и собственность',n:'Собственность',d:'Кто владеет каналами и редакциями, кто платит за освещение, сколько стоит слово в региональной повестке. Связывает госзакупки с тоном и объёмом сообщений.',q:'кто платит'},
+    {k:'labor',t:'Труд и производство контента',n:'Труд',d:'Кто физически пишет: пресс-служба, редактор, копирайтер, агрегатор, генерация. Производительность, вакансии, зарплаты в медиасфере региона.',q:'кто пишет'},
+    {k:'lang',t:'Язык и фреймы',n:'Язык',d:'Как называется одно и то же событие в разных каналах: канцелярит, эвфемизмы, субъект и объект действия, эмодзи как маркер уровня источника.',q:'как называют'},
+    {k:'audience',t:'Аудитория и внимание',n:'Аудитория',d:'Просмотры, концентрация внимания, слой комментариев, поля вне Telegram: VK, Одноклассники, районные сайты и форумы.',q:'кто читает'},
+    {k:'territory',t:'Территория и немые группы',n:'Территория',d:'Кого не слышно: рабочие, учителя, медики, селяне, пенсионеры, мигранты. Расширение «своего голоса» на все 24 муниципалитета.',q:'кого нет'},
+    {k:'time',t:'Время и прогноз',n:'Время',d:'Запаздывание освещения, скорость каскада, время жизни сюжета, ритмы недели и сезона, опережающие индикаторы повестки.',q:'когда и как быстро'},
+    {k:'method',t:'Методика и качество данных',n:'Методика',d:'Аудит выборки, калибровка тональности, устойчивость дедупликации. Без этого любая новая цифра спорна.',q:'насколько точно'}
+  ];
+  var AXMAP={};
+  AXES.forEach(function(ax){AXMAP[ax.k]=ax;});
+
+  var ST={ok:'готовы',queue:'в очереди',search:'ищем данные',hard:'с риском'};
+  var STCLS={ok:'st-ok',queue:'st-queue',search:'st-search',hard:'st-hard'};
+
+  /* ---------- данные: реестр ---------- */
+  var REG=[
+    {n:'Цена слова',ax:'money',st:'search',ef:'M',p:9,h:'Сколько бюджет платит за освещение и кому: заказчик, подрядчик, сумма, период. Прямая связь денег и доли повестки.',s:'ЕИС zakupki.gov.ru (открытый API), контракты администрации Ульяновска, облправительства, МУПов, больниц'},
+    {n:'Доля бюджетного голоса',ax:'money',st:'ok',ef:'S',p:8,h:'Какая часть «оригинальных» сообщений фактически произведена пресс-службами и опубликована без изменения.',s:'store.jsonl + маркеры «пресс-служба», «администрация информирует», совпадающие абзацы между T1 и T2'},
+    {n:'Концентрация собственности (HHI)',ax:'money',st:'search',ef:'L',p:5,h:'Насколько поле принадлежит узкой группе владельцев: индекс Херфиндаля по учредителям источников.',s:'реестр СМИ РКН, ЕГРЮЛ/ФНС (открытые данные), ручной реестр владельцев'},
+    {n:'Рекламная нагрузка',ax:'money',st:'queue',ef:'M',p:4,h:'Доля коммерческих интеграций и «посевов» в потоке и их тон: реклама вытесняет социальную повестку.',s:'store.jsonl + классификатор рекламных сообщений, маркировка «реклама»'},
+    {n:'Тон за деньги',ax:'money',st:'hard',ef:'M',p:6,h:'Отличается ли тон оплаченных сообщений от тона независимых при той же теме: проверяет гипотезу «позитив покупается».',s:'результат «Цены слова» + тональность по сообщениям подрядчика; нужна ручная разметка 150–200 пар'},
+    {n:'Индекс присутствия труда (TLI)',ax:'labor',st:'ok',ef:'S',p:10,h:'Рабочие и трудовые коллективы — субъект речи или объект сводки? Сейчас о труде говорят, но труд не говорит.',s:'store.jsonl: маркеры профессий + роль в предложении (подлежащее/дополнение), прямая речь'},
+    {n:'Кто пишет: тип производителя',ax:'labor',st:'queue',ef:'M',p:7,h:'Разложение потока на пресс-службы, редакции, агрегаторы, авторские каналы, генерацию. Показывает реальный уровень концентрации.',s:'sources_registry.json (новый) + эвристики шаблонности текста'},
+    {n:'ИИ-след',ax:'labor',st:'search',ef:'M',p:3,h:'Доля текстов с признаками машинной генерации: шаблонные концовки «Мы в Telegram | Мы в MAX», однородные эмодзи-блоки.',s:'store.jsonl + классификатор шаблонов; сверка с редакциями вручную'},
+    {n:'Конвейер редакции',ax:'labor',st:'ok',ef:'S',p:5,h:'Производительность канала: сообщений в час по времени суток, «ночные» всплески как признак автоматической публикации.',s:'store.jsonl (timestamp источника), уже собирается'},
+    {n:'Зарплата и вакансии медиа',ax:'labor',st:'search',ef:'M',p:4,h:'Сколько в регионе платят за производство контента: медиана по вакансиям SMM/журналист, число вакансий пресс-служб.',s:'hh.ru, avito, zarplata.ru — парсинг, возможен блок; альтернатива — ручной срез раз в месяц'},
+    {n:'Словарь власти',ax:'lang',st:'ok',ef:'S',p:6,h:'Частотность канцелярита и эвфемизмов («оптимизация», «временные неудобства», «благоустройство») по уровням источников.',s:'store.jsonl + список маркеров, расширяемый; лексикон уже есть в тональности'},
+    {n:'Индекс агентности (субъект/объект)',ax:'lang',st:'hard',ef:'L',p:5,h:'Кто подлежащее в сообщении: чиновник, «жители», «силовики», «неизвестные». Мера того, кому поле отдаёт действие.',s:'NER + синтаксический разбор (natasha/syntax), разметка 200 сообщений для калибровки'},
+    {n:'Фрейм-карта события',ax:'lang',st:'queue',ef:'M',p:7,h:'Как один и тот же сюжет назван в разных каналах: «ЧП», «плановые работы», «провокация». Расхождение фреймов = конфликт интересов.',s:'кластеры каскадов (уже есть) + сравнение заголовков внутри кластера'},
+    {n:'Эмодзи-профиль',ax:'lang',st:'ok',ef:'S',p:3,h:'Доля постов с эмодзи и их набор как маркер уровня источника и коммерческого характера сообщения.',s:'store.jsonl, подсчёт символов Unicode-эмодзи'},
+    {n:'Язык меньшинств',ax:'lang',st:'search',ef:'M',p:2,h:'Присентствие татарского и чувашского в повестке Старокулаткинского, Новомалыклинского и других районов.',s:'районные издания и паблики (нужны источники) + определение языка текста'},
+    {n:'Внимание как ресурс',ax:'audience',st:'queue',ef:'M',p:8,h:'Просмотры и ER по источникам, Gini концентрации внимания: 14.6K просмотров за сутки у одного канала против десятков у районных.',s:'страницы t.me/s/ (просмотры видны), snapshot раз в сутки'},
+    {n:'Комментарийный слой',ax:'audience',st:'search',ef:'L',p:6,h:'Разрыв «витрина и реакция»: тон комментариев против тона поста, темы несогласия, скорость появления первых ответов.',s:'t.me/s/ с комментариями частично доступны; нужна этико-правовая оценка и обезличивание'},
+    {n:'Полка жизни сюжета',ax:'audience',st:'ok',ef:'S',p:4,h:'Сколько часов сюжет держится в поле: время от первой публикации до последнего подхвата.',s:'store.jsonl + кластеры каскадов (уже считаются)'},
+    {n:'Второй этаж: VK, ОК, сайты',ax:'audience',st:'search',ef:'L',p:7,h:'Значимая часть районной аудитории живёт вне Telegram. Без VK/ОК картина поля неполна и смещена в сторону города.',s:'публичные страницы VK и ОК районов, сайты райгазет, форумы; ручной отбор источников'},
+    {n:'Карта немых групп',ax:'territory',st:'queue',ef:'M',p:8,h:'Кто ни разу за неделю не получил прямой речи: рабочие, учителя, медики, студенты, пенсионеры, мигранты, инвалиды.',s:'store.jsonl + классификатор социальных групп, разметка спикеров'},
+    {n:'Матрица территория × тема',ax:'territory',st:'ok',ef:'S',p:6,h:'Чем именно известна каждая территория: только ЧП и суды или ещё развитием, культурой, экономикой.',s:'store.jsonl (геомаркеры + темы уже классифицированы)'},
+    {n:'Индекс присутствия села',ax:'territory',st:'ok',ef:'S',p:5,h:'Доля сельских территорий в повестке против их доли в населении области: мера символического исключения.',s:'store.jsonl + данные Ульяновскстата по населению (открытые)'},
+    {n:'Соотношение прямой речи',ax:'territory',st:'queue',ef:'M',p:6,h:'Сколько цитат жителей приходится на одну цитату чиновника. Мера того, кто в поле обладает голосом.',s:'store.jsonl: детекция кавычек + атрибуция спикера по должностям-маркерам'},
+    {n:'Голос района: расширение',ax:'territory',st:'search',ef:'M',p:7,h:'Довести «свой голос» с 3 до 10+ муниципалитетов, иначе 29% доли своего голоса нерепрезентативны.',s:'ручной поиск районных газет и пабликов (tgstat закрыт для ботов), фиксация в реестре источников'},
+    {n:'Латентность освещения',ax:'time',st:'ok',ef:'S',p:9,h:'Часы от события до первой публикации: насколько поле догоняет реальность и по каким темам догоняет медленнее.',s:'store.jsonl (timestamp) + извлечение даты события из текста, fallback — время поста'},
+    {n:'Скорость каскада',ax:'time',st:'ok',ef:'S',p:7,h:'Источников в час до ×5: тревожные сюжеты расходятся быстрее позитивных — проверяемая гипотеза.',s:'store.jsonl + кластеры каскадов'},
+    {n:'Ритм недели',ax:'time',st:'ok',ef:'S',p:4,h:'Будни против выходных, ночная доля потока, пики пресс-релизов по часам.',s:'store.jsonl (timestamp) — данные уже есть'},
+    {n:'Опережающие индикаторы',ax:'time',st:'hard',ef:'L',p:5,h:'Рост частоты слов-предвестников за 3–7 дней до события (анонс → реализация): попытка прогноза повестки.',s:'история наблюдений (накапливается с 03.09), нужна база минимум 8–10 недель'},
+    {n:'Память инфополя',ax:'time',st:'queue',ef:'M',p:4,h:'Возвраты тем и сезонность: отопление, дороги, ЕГЭ, уборочная. Сколько поле помнит сюжет после затухания.',s:'недельные и месячные снапшоты metrics, тема-кластеры'},
+    {n:'Аудит выборки',ax:'method',st:'queue',ef:'S',p:6,h:'Какую долю реального инфополя мы видим: число известных источников против числа охваченных мониторингом.',s:'data/audit_sample_ids.json (уже существует), ручной список источников области'},
+    {n:'Калибровка тональности',ax:'method',st:'queue',ef:'M',p:5,h:'Точность лексикона на иронии, сарказме и эмодзи: ручная разметка 200 сообщений и поправка весов.',s:'store.jsonl + ручная разметка, ±110 маркеров как база'},
+    {n:'Устойчивость дедупликации',ax:'method',st:'hard',ef:'S',p:3,h:'Доля ложных склеек и пропусков в дедупликации: 82% оригинальности может быть завышен или занижен.',s:'dedup.py: пороговые эксперименты на Жаккар + контрольная выборка 100 пар'}
+  ];
+
+  var votes={};
+  try{votes=JSON.parse(localStorage.getItem('gudok_reg_votes')||'{}');}catch(err){votes={};}
+  function saveVotes(){try{localStorage.setItem('gudok_reg_votes',JSON.stringify(votes));}catch(err){}}
+  function prio(item,idx){return item.p+(votes[idx]?1:0);}
+
+  /* ---------- KPI-счётчики ---------- */
+  var cnt={axes:AXES.length-1,total:REG.length,ok:0,queue:0,search:0,hard:0};
+  REG.forEach(function(item){cnt[item.st]=(cnt[item.st]||0)+1;});
+  document.querySelectorAll('[data-cnt]').forEach(function(el){
+    var key=el.getAttribute('data-cnt');
+    if(typeof cnt[key]==='number')el.textContent=cnt[key];
+  });
+
+  /* ---------- оси ---------- */
+  var axisGrid=document.getElementById('axisGrid');
+  AXES.slice(0,6).forEach(function(ax){
+    var total=REG.filter(function(it){return it.ax===ax.k;}).length;
+    var ready=REG.filter(function(it){return it.ax===ax.k&&it.st==='ok';}).length;
+    var card=document.createElement('div');
+    card.className='sec-card';
+    card.innerHTML='<span class="ax-n">ось · '+ax.q+'</span><b>'+ax.t+'</b>'+
+      '<span class="fig">'+total+' <small>метрик · '+ready+' готовы</small></span>'+
+      '<p>'+ax.d+'</p>'+
+      '<button class="go" type="button" data-axis="'+ax.k+'">смотреть метрики оси →</button>';
+    axisGrid.appendChild(card);
+  });
+
+  /* ---------- фильтры осей ---------- */
+  var axFilters=document.getElementById('axFilters');
+  var filterAxis='all',filterSt='all',sortMode='prio',query='';
+  var chipAll=document.createElement('button');
+  chipAll.className='fbtn active';chipAll.type='button';chipAll.textContent='все оси';chipAll.dataset.ax='all';
+  axFilters.appendChild(chipAll);
+  AXES.forEach(function(ax){
+    var btn=document.createElement('button');
+    btn.className='fbtn';btn.type='button';btn.dataset.ax=ax.k;
+    btn.textContent=ax.n+' · '+REG.filter(function(it){return it.ax===ax.k;}).length;
+    axFilters.appendChild(btn);
+  });
+
+  /* ---------- рендер реестра ---------- */
+  var regBody=document.getElementById('regBody');
+  var regCount=document.getElementById('regCount');
+  var rows=[];
+  REG.forEach(function(item,idx){
+    var tr=document.createElement('tr');
+    tr.dataset.idx=idx;
+    tr.innerHTML=
+      '<td data-l="Метрика"><span class="reg-name">'+item.n+'</span><span class="reg-hyp">'+item.h+'</span></td>'+
+      '<td data-l="Данные"><span class="reg-src">'+item.s+'</span></td>'+
+      '<td data-l="Ось"><span class="axchip">'+AXMAP[item.ax].n+'</span></td>'+
+      '<td data-l="Трудоёмкость"><span class="eff e-'+item.ef.toLowerCase()+'">'+item.ef+'</span></td>'+
+      '<td data-l="Статус"><span class="stchip '+STCLS[item.st]+'">'+ST[item.st]+'</span></td>'+
+      '<td data-l="Приоритет"><button class="vote" type="button" data-vote="'+idx+'" aria-label="Голосовать за приоритет">▲ <span>'+prio(item,idx)+'</span></button></td>';
+    regBody.appendChild(tr);
+    rows.push({tr:tr,item:item,idx:idx});
+  });
+
+  function applyFilters(){
+    var shown=0;
+    rows.forEach(function(row){
+      var it=row.item;
+      var okAx=(filterAxis==='all'||it.ax===filterAxis);
+      var okSt=(filterSt==='all'||it.st===filterSt);
+      var hay=(it.n+' '+it.h+' '+it.s+' '+AXMAP[it.ax].t).toLowerCase();
+      var okQ=(query===''||hay.indexOf(query)>-1);
+      var vis=okAx&&okSt&&okQ;
+      row.tr.classList.toggle('row-hidden',!vis);
+      if(vis)shown++;
+    });
+    regCount.textContent='показано '+shown+' из '+REG.length;
+    sortRows();
+  }
+  function sortRows(){
+    var effRank={S:0,M:1,L:2};
+    var list=rows.filter(function(row){return !row.tr.classList.contains('row-hidden');});
+    list.sort(function(a,b){
+      if(sortMode==='eff'){
+        var diff=effRank[a.item.ef]-effRank[b.item.ef];
+        if(diff!==0)return diff;
+        return prio(b.item,b.idx)-prio(a.item,a.idx);
+      }
+      if(sortMode==='ax'){
+        if(a.item.ax===b.item.ax)return prio(b.item,b.idx)-prio(a.item,a.idx);
+        return a.item.ax<b.item.ax?-1:1;
+      }
+      return prio(b.item,b.idx)-prio(a.item,a.idx);
+    });
+    list.forEach(function(row){regBody.appendChild(row.tr);});
+  }
+
+  axFilters.addEventListener('click',function(ev){
+    var btn=ev.target.closest('.fbtn');
+    if(!btn||!btn.dataset.ax)return;
+    filterAxis=btn.dataset.ax;
+    axFilters.querySelectorAll('.fbtn').forEach(function(other){other.classList.toggle('active',other===btn);});
+    applyFilters();
+  });
+  var stFilters=document.querySelectorAll('.filters .fbtn[data-st]');
+  stFilters.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      filterSt=btn.dataset.st;
+      stFilters.forEach(function(other){other.classList.toggle('active',other===btn);});
+      applyFilters();
+    });
+  });
+  document.getElementById('sortPrio').addEventListener('click',function(){sortMode='prio';markSort(this);applyFilters();});
+  document.getElementById('sortEff').addEventListener('click',function(){sortMode='eff';markSort(this);applyFilters();});
+  function markSort(active){
+    document.querySelectorAll('.fbtn[data-sort]').forEach(function(btn){
+      btn.classList.toggle('active',btn===active);
+    });
+  }
+  markSort(document.getElementById('sortPrio'));
+  document.getElementById('regSearch').addEventListener('input',function(ev){
+    query=ev.target.value.trim().toLowerCase();
+    applyFilters();
+  });
+
+  /* ---------- голоса ---------- */
+  var topVotes=document.getElementById('topVotes');
+  function renderTop(){
+    var list=REG.map(function(item,idx){return {n:item.n,v:prio(item,idx)};});
+    list.sort(function(a,b){return b.v-a.v;});
+    topVotes.innerHTML=list.slice(0,5).map(function(row,i){
+      return '<li><span class="r-n">'+(i+1)+'</span>'+row.n+'<span style="margin-left:auto;font-family:var(--sans);font-size:12px;font-weight:700;color:var(--accent);">'+row.v+'</span></li>';
+    }).join('');
+  }
+  regBody.addEventListener('click',function(ev){
+    var btn=ev.target.closest('.vote');
+    if(!btn)return;
+    var key=btn.dataset.vote;
+    if(votes[key]){delete votes[key];btn.classList.remove('voted');}
+    else{votes[key]=1;btn.classList.add('voted');}
+    saveVotes();
+    btn.querySelector('span').textContent=prio(REG[key],key);
+    renderTop();
+    if(sortMode==='prio')sortRows();
+  });
+  Object.keys(votes).forEach(function(key){
+    var btn=regBody.querySelector('.vote[data-vote="'+key+'"]');
+    if(btn)btn.classList.add('voted');
+  });
+  renderTop();
+  applyFilters();
+
+  axisGrid.addEventListener('click',function(ev){
+    var go=ev.target.closest('.go');
+    if(!go)return;
+    filterAxis=go.dataset.axis;
+    axFilters.querySelectorAll('.fbtn').forEach(function(other){
+      other.classList.toggle('active',other.dataset.ax===filterAxis);
+    });
+    applyFilters();
+    document.getElementById('reestr').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  /* ---------- паспорта пилотов ---------- */
+  var PILOTS=[
+    {n:'Индекс присутствия труда (TLI)',ax:'labor',ef:'S–M',st:'ok',
+     dek:'Проверяет гипотезу: в региональном инфополе труд существует как объект — в сводках ЧП, отчётах о посещении завода, поздравлениях с праздником — и почти никогда как субъект речи.',
+     hyp:'Рабочие УАЗа, Авиастара, УМЗ, учителя и медики области присутствуют в повестке, но не говорят от своего имени. Если это так, доля «оригинальных» сообщений ничего не говорит о реальном плюрализме поля.',
+     formula:'TLI = (S_субъект − S_объект) / S_всего, где S — сообщения с маркерами шести групп:<br>рабочие и инженеры · учителя · медики · водители и транспортники · селяне · студенты<br><br>TLI &lt; 0.15 → «труд невидим»; 0.15–0.35 → «труд упоминаем»; &gt; 0.35 → «труд говорит»',
+     src:'store.jsonl (уже собрано: 1405 сообщений за 7 дней). Дополнительно: маркер-словарь профессий и детекция прямой речи (кавычки + атрибуция).',
+     thr:'Порог тревоги: TLI &lt; 0.10 неделю подряд — фиксируется как структурный перекос, а не случайность недели.',
+     out:'Блок в разделе «Инфопространство» рядом с «Оригинальностью по уровням»: шесть полос bar-row по группам + значение индекса. В недельнике — сравнение с прошлой неделей.',
+     first:'Иллюстративный расчёт на текущей базе: из 1405 сообщений профессиональные группы упомянуты в ~90; в роли подлежащего — в ~12. TLI ≈ 0.03.'},
+    {n:'Деньги повестки',ax:'money',ef:'M–L',st:'search',
+     dek:'Связывает публичные госконтракты на информационное освещение с реальным содержанием поля: кто заказчик, кто подрядчик, какая сумма и какой тон сообщений подрядчика.',
+     hyp:'Значимая доля сообщений, которые дедупликатор считает оригинальными, производится по контракту или из пресс-служб. Без этого метрика «82% оригинальных» описывает форму, а не самостоятельность редакций.',
+     formula:'MoneyShare = Σ(сообщения подрядчика за период) / Σ(все сообщения)<br>TonePaid − ToneIndep = разница лексиконной тональности<br>Rub/Msg = сумма контракта / число сообщений подрядчика за период',
+     src:'ЕИС zakupki.gov.ru (открытый API по заказчикам региона), реестр СМИ Роскомнадзора, ЕГРЮЛ для учредителей; сопоставление подрядчика с sources_registry.json.',
+     thr:'Порог: MoneyShare &gt; 25% или TonePaid − ToneIndep &gt; 0.20 — повод для разбора в недельнике.',
+     out:'Таблица tbl: заказчик → исполнитель → сумма → сообщений/нед → тон → доля в повестке. Рядом bar-row «кто оплачивает освещение» и примечание о неполноте данных (не все контракты публичны).',
+     first:'Первый шаг без ЕИС: помечать сообщения пресс-служб (ulgovru, администрация, министерства) как «официально-оплаченный слой» и считать его долю — это уже Волна 1.'},
+    {n:'Латентность и скорость каскада',ax:'time',ef:'S',st:'ok',
+     dek:'Превращает «Каскады недели» из статичного списка в процесс с временем: сколько часов поле догоняет событие и как быстро сюжет доходит до ×5 источников.',
+     hyp:'Инфополе региона запаздывает на 2–6 часов, причём тревожные сюжеты (режим «Беспилотная опасность», ДТП, суды) расходятся втрое быстрее позитивных. Это проверяемо на уже собранных timestamp.',
+     formula:'Δt = t_первой публикации − t_события (из текста; fallback — время поста)<br>v = число источников / часы до ×5<br>Decay = часов от пика каскада до последнего подхвата',
+     src:'store.jsonl (timestamp каждого сообщения), кластеры каскадов из dedup.py, темы из классификатора.',
+     thr:'Порог: медианная Δt &gt; 6 ч по тревожным темам — признак того, что поле не выполняет функцию оперативного оповещения.',
+     out:'Блок из трёх полос: медиана Δt по темам (ЧП, ЖКХ, власть, культура), скорость каскада по дням, «полка жизни сюжета». Плюс метка времени на каждом каскаде: «×16 за 3 ч 20 мин».',
+     first:'Реализуется одним проходом по store.jsonl; метрика уже значится в очереди как «Задержки освещения» — остаётся добавить формулу и пороги.'}
+  ];
+  var pilotsBox=document.getElementById('pilots');
+  PILOTS.forEach(function(pl,pi){
+    var box=document.createElement('div');
+    box.className='pilot'+(pi===0?' open':'');
+    box.innerHTML=
+      '<div class="pilot-h"><span class="num">0'+(pi+1)+'</span><h3>'+pl.n+'</h3>'+
+      '<span class="axchip" style="margin-left:6px;">ось: '+AXMAP[pl.ax].n+'</span>'+
+      '<span class="eff e-'+pl.ef.charAt(0).toLowerCase()+'">'+pl.ef+'</span>'+
+      '<span class="stchip '+STCLS[pl.st]+'">'+ST[pl.st]+'</span>'+
+      '<button class="pilot-toggle" type="button">'+(pi===0?'свернуть':'развернуть паспорт')+'</button></div>'+
+      '<p class="pilot-dek">'+pl.dek+'</p>'+
+      '<div class="pilot-body"><div class="pass-grid">'+
+        '<div class="pass-row"><h4>Гипотеза</h4><p>'+pl.hyp+'</p></div>'+
+        '<div class="pass-row"><h4>Формула</h4><div class="formula">'+pl.formula+'</div></div>'+
+        '<div class="pass-row"><h4>Источник данных</h4><p>'+pl.src+'</p></div>'+
+        '<div class="pass-row"><h4>Порог тревоги</h4><p>'+pl.thr+'</p></div>'+
+        '<div class="pass-row"><h4>Где публикуется</h4><p>'+pl.out+'</p></div>'+
+        '<div class="pass-row"><h4>Первый расчёт</h4><p>'+pl.first+'</p></div>'+
+      '</div></div>';
+    pilotsBox.appendChild(box);
+  });
+  pilotsBox.addEventListener('click',function(ev){
+    var tgl=ev.target.closest('.pilot-toggle');
+    if(!tgl)return;
+    var card=tgl.closest('.pilot');
+    var opened=card.classList.toggle('open');
+    tgl.textContent=opened?'свернуть':'развернуть паспорт';
+  });
+
+  /* ---------- визуализация 1: матрица ---------- */
+  var TERR=[
+    ['Димитровград',[14,6,9,18,7,15]],
+    ['Инзенский р-н',[7,2,3,3,1,1]],
+    ['Радищевский р-н',[6,1,2,4,2,1]],
+    ['Барышский р-н',[5,2,1,3,1,0]],
+    ['Карсунский р-н',[4,1,2,3,2,0]],
+    ['Чердаклинский р-н',[3,1,0,1,1,0]],
+    ['Майнский р-н',[2,0,1,0,0,0]],
+    ['Старокулаткинский р-н',[1,0,0,1,0,0]]
+  ];
+  var THEMES=['ЧП и суды','ЖКХ и тарифы','Дороги','Власть и визиты','Школы и вузы','Культура и спорт'];
+  function heatColor(val){
+    if(val<=0)return 'var(--paper-2)';
+    if(val<=3)return '#E5C9B6';
+    if(val<=9)return 'var(--gold)';
+    return 'var(--accent)';
+  }
+  (function buildMatrix(){
+    var cw=64,ch=26,labelW=170,headH=52;
+    var width=labelW+THEMES.length*cw+10;
+    var height=headH+TERR.length*ch+8;
+    var svg='<svg viewBox="0 0 '+width+' '+height+'" width="100%" style="max-width:'+width+'px" role="img" aria-label="Матрица территория × тема">';
+    THEMES.forEach(function(th,ti){
+      var cx=labelW+ti*cw+cw/2;
+      svg+='<text x="'+cx+'" y="'+(headH-14)+'" font-size="9.5" fill="var(--muted)" text-anchor="middle" letter-spacing="0.6">'+th.toUpperCase()+'</text>';
+    });
+    svg+='<line x1="0" y1="'+headH+'" x2="'+width+'" y2="'+headH+'" stroke="var(--ink)" stroke-width="1"/>';
+    TERR.forEach(function(row,ri){
+      var yy=headH+ri*ch;
+      svg+='<text x="0" y="'+(yy+ch/2+4)+'" font-size="11.5" fill="var(--ink)" font-weight="600">'+row[0]+'</text>';
+      row[1].forEach(function(val,ci){
+        var xx=labelW+ci*cw;
+        svg+='<rect x="'+(xx+1)+'" y="'+(yy+2)+'" width="'+(cw-3)+'" height="'+(ch-4)+'" fill="'+heatColor(val)+'" stroke="var(--rule)" stroke-width="0.5"/>';
+        svg+='<text x="'+(xx+cw/2)+'" y="'+(yy+ch/2+4)+'" font-size="10" fill="'+(val>9?'#fff':'var(--ink-2)')+'" text-anchor="middle" font-weight="700">'+(val||'·')+'</text>';
+      });
+    });
+    svg+='</svg>';
+    document.getElementById('matrix').innerHTML=svg;
+  })();
+
+  /* ---------- визуализация 2: граф ---------- */
+  (function buildGraph(){
+    var nodes=[
+      {id:'ulpressa',x:380,y:220,r:22,kind:'hub',lbl:'ulpressa · 20'},
+      {id:'Ulpressa',x:250,y:104,r:25,kind:'hub',lbl:'Улпресса · 27'},
+      {id:'tresh',x:520,y:112,r:20,kind:'hub',lbl:'tresh_ulyan · 20'},
+      {id:'russkih',x:392,y:364,r:15,kind:'node',lbl:'Russkih_Aleksey · 10'},
+      {id:'chpul',x:622,y:214,r:13,kind:'node',lbl:'chpul · 9'},
+      {id:'insaid',x:548,y:332,r:12,kind:'node',lbl:'insaid173 · 7'},
+      {id:'ulkompr',x:238,y:334,r:12,kind:'node',lbl:'ulkompr · 7'},
+      {id:'pronov',x:298,y:56,r:11,kind:'node',lbl:'ProNovosty73 · 5'},
+      {id:'ulpravda',x:112,y:112,r:11,kind:'node',lbl:'ulpravda'},
+      {id:'reporter',x:132,y:236,r:10,kind:'node',lbl:'reporter73'},
+      {id:'dimitrov',x:688,y:126,r:10,kind:'muni',lbl:'dimitrovgradd'},
+      {id:'culturnik',x:678,y:322,r:9,kind:'muni',lbl:'culturnik'},
+      {id:'ulgovru',x:388,y:436,r:9,kind:'node',lbl:'ulgovru'}
+    ];
+    var edges=[
+      ['Ulpressa','ulpressa'],['ulpressa','tresh'],['ulpressa','chpul'],['ulpressa','insaid'],
+      ['ulpressa','ulkompr'],['ulpressa','reporter'],['ulpressa','dimitrov'],['ulpravda','Ulpressa'],
+      ['pronov','culturnik'],['russkih','chpul'],['russkih','insaid'],['russkih','ulgovru'],
+      ['russkih','dimitrov'],['tresh','culturnik'],['ulkompr','reporter'],['ulpressa','pronov']
+    ];
+    var byId={};nodes.forEach(function(nd){byId[nd.id]=nd;});
+    var svg='<svg viewBox="0 0 780 480" width="100%" role="img" aria-label="Граф перепечаток недели">';
+    edges.forEach(function(pair){
+      var a=byId[pair[0]],b=byId[pair[1]];
+      if(!a||!b)return;
+      var dashed=(a.kind==='muni'||b.kind==='muni')?' stroke-dasharray="4 4"':'';
+      svg+='<line x1="'+a.x+'" y1="'+a.y+'" x2="'+b.x+'" y2="'+b.y+'" stroke="var(--rule)" stroke-width="1.4"'+dashed+'/>';
+    });
+    nodes.forEach(function(nd){
+      var fill=nd.kind==='hub'?'var(--accent)':'var(--ink-2)';
+      var dash=nd.kind==='muni'?' stroke="var(--ink-2)" stroke-width="1.4" stroke-dasharray="4 3" fill="var(--paper)"':'';
+      svg+='<circle cx="'+nd.x+'" cy="'+nd.y+'" r="'+nd.r+'" fill="'+(nd.kind==='muni'?'var(--paper)':fill)+'"'+dash+'/>';
+      svg+='<text x="'+nd.x+'" y="'+(nd.y+nd.r+13)+'" font-size="10.5" fill="var(--muted)" text-anchor="middle">'+nd.lbl+'</text>';
+    });
+    svg+='</svg>';
+    document.getElementById('graph').innerHTML=svg;
+  })();
+
+  /* ---------- визуализация 3: ритм ---------- */
+  (function buildRhythm(){
+    var wd=[2,1,1,1,1,2,4,9,14,18,21,19,16,15,17,20,22,24,21,17,13,9,6,4];
+    var we=[4,3,2,2,1,2,3,6,9,12,15,17,16,14,13,14,16,18,17,15,13,11,8,6];
+    var maxV=24;
+    var rhythm=document.getElementById('rhythm');
+    var xLine=document.getElementById('rhythmX');
+    var html='';
+    for(var hr=0;hr<24;hr++){
+      var h1=Math.round(wd[hr]/maxV*100);
+      var h2=Math.round(we[hr]/maxV*100);
+      html+='<span class="rb" title="'+hr+':00 — будни '+wd[hr]+', выходные '+we[hr]+'"><i class="we" style="height:'+h2+'%"></i><i class="wd" style="height:'+h1+'%"></i></span>';
+    }
+    rhythm.innerHTML=html;
+    var xl='';
+    for(var hh=0;hh<24;hh+=2){xl+='<span>'+hh+'</span>';}
+    xLine.innerHTML=xl;
+  })();
+
+  /* ---------- визуализация 4: слои дня ---------- */
+  (function buildLayers(){
+    var days=[
+      ['08.09 пн',[26,22,24,18,10]],
+      ['09.09 вт',[24,20,26,20,10]],
+      ['10.09 ср',[22,18,28,20,12]],
+      ['11.09 чт',[30,20,22,18,10]],
+      ['12.09 пт',[28,18,24,20,10]],
+      ['13.09 сб',[12,14,30,32,12]],
+      ['14.09 вс',[14,16,28,30,12]]
+    ];
+    var colors=['var(--ink)','var(--ink-2)','var(--muted)','var(--violet)','var(--gold)'];
+    var html='';
+    days.forEach(function(day){
+      html+='<div class="stack-row"><span class="d">'+day[0]+'</span><span class="stack">';
+      day[1].forEach(function(part,pi){
+        html+='<i style="width:'+part+'%;background:'+colors[pi]+'" title="'+part+'%"></i>';
+      });
+      html+='</span></div>';
+    });
+    document.getElementById('layers').innerHTML=html;
+  })();
+
+  /* ---------- табы визуализаций ---------- */
+  var vizTabs=document.getElementById('vizTabs');
+  vizTabs.addEventListener('click',function(ev){
+    var btn=ev.target.closest('.fbtn');
+    if(!btn||!btn.dataset.pane)return;
+    vizTabs.querySelectorAll('.fbtn').forEach(function(other){other.classList.toggle('active',other===btn);});
+    document.querySelectorAll('.pane').forEach(function(pane){
+      pane.classList.toggle('on',pane.id===btn.dataset.pane);
+    });
+  });
+
+  /* ---------- источники ---------- */
+  var SOURCES=[
+    {n:'Районные газеты',st:'search',tag:'ищем вручную',d:'Инзенский, Барышский, Карсунский, Радищевский, Старокулаткинский, Новомалыклинский, Кузоватовский, Майнский районы. Сайты и PDF-выпуски: закрывают «немые» территории и дают язык местных редакций.',note:'tgstat закрыт для ботов — отбор вручную, фиксация в sources_registry.json'},
+    {n:'Паблики районов в VK и Одноклассниках',st:'search',tag:'новый канал сбора',d:'Основная среда для аудитории 40+ и для села. Без неё «второй этаж» поля невидим, а покрытие муниципалитетов 100% — техническая, а не содержательная величина.',note:'парсер публичных стен + ограничения по частоте запросов'},
+    {n:'ЕИС «Госзакупки»',st:'search',tag:'открытый API',d:'Контракты на информационное освещение деятельности органов власти региона: заказчик, исполнитель, сумма, срок. Ядро оси «Деньги».',note:'нужен кэш и повторный запрос раз в неделю'},
+    {n:'Реестр СМИ РКН и ЕГРЮЛ',st:'search',tag:'открытые данные',d:'Учредители и владельцы изданий: позволяет считать HHI концентрации собственности и отличать независимую редакцию от аффилированной.',note:'сопоставление по ИНН и названию, ручная верификация спорных случаев'},
+    {n:'Ульяновскстат и Росстат',st:'ok',tag:'данные открыты',d:'Население муниципалитетов, занятость, отраслевая структура. Знаменатель для «индекса присутствия села» и для сравнения повестки с реальным весом территорий.',note:'подключается сразу, без парсинга'},
+    {n:'Предприятия и профсоюзы',st:'search',tag:'ручной отбор',d:'УАЗ, Авиастар (ОАК), Ульяновский моторный завод, димитровградские производства, облсовпроф. Их пресс-релизы — единственный источник о труде; их отсутствие в поле тоже метрика.',note:'сайты + страницы в соцсетях'},
+    {n:'Страницы t.me/s/ (просмотры и комментарии)',st:'queue',tag:'частично доступно',d:'Охваты и слой реакции аудитории. Требует решения по этике: цитируем обезличенно, персональные данные не храним.',note:'снапшот раз в сутки, хранение только агрегатов'},
+    {n:'hh.ru и региональные вакансии',st:'search',tag:'возможен блок',d:'Число вакансий и медиана зарплат в медиа и пресс-службах: косвенная оценка того, сколько в регионе стоит производство контента.',note:'альтернатива — ручной срез раз в месяц в таблицу'},
+    {n:'Каналы в MAX',st:'queue',tag:'новый источник',d:'Часть редакций дублирует контент в MAX (метка «Мы в MAX» уже встречается в каскадах). Игнорирование площадки занижает объём поля.',note:'проверить доступность выгрузки'},
+    {n:'Местные форумы и домовые чаты',st:'hard',tag:'закрытые среды',d:'Слой неформальной повестки: жалобы на ЖКХ, дороги, медицину. Формально закрыты, но дают ранние сигналы тем, что станет сюжетом.',note:'только агрегированные наблюдения, без цитирования'}
+  ];
+  var srcBox=document.getElementById('sources');
+  SOURCES.forEach(function(src){
+    var card=document.createElement('div');
+    card.className='cl-card'+(src.st==='hard'?' gap':'');
+    card.innerHTML='<div class="cl-head"><span class="cl-name">'+src.n+'</span>'+
+      '<span class="cl-badge '+(src.st==='ok'?'cl-ok':(src.st==='hard'?'cl-warn':''))+'">'+src.tag+'</span>'+
+      '<span class="stchip '+STCLS[src.st]+'" style="margin-left:auto">'+ST[src.st]+'</span></div>'+
+      '<div class="cl-samples">'+src.d+' <i style="color:var(--muted)">'+src.note+'</i></div>';
+    srcBox.appendChild(card);
+  });
+
+  /* ---------- волны ---------- */
+  var WAVES=[
+    {t:'Волна 1',per:'1–2 недели',req:'только store.jsonl, новых данных не нужно',items:[
+      ['Матрица территория × тема','ok'],['Латентность освещения','ok'],['Скорость каскада','ok'],
+      ['Ритм недели (будни/выходные, ночь)','ok'],['Индекс тревожности','ok'],['Индекс присутствия труда (TLI)','ok'],
+      ['Словарь власти: канцелярит','ok'],['Эмодзи-профиль','ok'],['Полка жизни сюжета','ok'],
+      ['Индекс присутствия села','ok'],['Доля бюджетного голоса','ok'],['Аудит выборки','queue']
+    ]},
+    {t:'Волна 2',per:'3–6 недель',req:'один-два новых источника, парсинг',items:[
+      ['Внимание как ресурс (охваты, Gini)','queue'],['Комментарийный слой','search'],
+      ['Второй этаж: VK, ОК, сайты районов','search'],['Голос района: 10+ муниципалитетов','search'],
+      ['Карта немых групп','queue'],['Соотношение прямой речи','queue'],['Кто пишет: тип производителя','queue'],
+      ['Рекламная нагрузка','queue'],['Ульяновскстат как знаменатель','ok']
+    ]},
+    {t:'Волна 3',per:'2–3 месяца',req:'внешние реестры и ручная разметка',items:[
+      ['Цена слова (ЕИС)','search'],['Концентрация собственности (HHI)','search'],['Тон за деньги','hard'],
+      ['Индекс агентности (субъект/объект)','hard'],['Фрейм-карта события','queue'],['ИИ-след','search'],
+      ['Зарплата и вакансии медиа','search'],['Язык меньшинств','search'],['Опережающие индикаторы','hard'],
+      ['Память инфополя: сезонность','queue'],['Калибровка тональности','queue'],['Устойчивость дедупликации','hard']
+    ]}
+  ];
+  var wavesBox=document.getElementById('waves');
+  WAVES.forEach(function(wave){
+    var box=document.createElement('div');
+    box.className='wave';
+    box.innerHTML='<div class="wave-h"><b>'+wave.t+'</b><span class="per">'+wave.per+'</span><span class="req">'+wave.req+'</span></div>'+
+      '<ul>'+wave.items.map(function(pair){
+        return '<li>'+pair[0]+'<span class="stchip '+STCLS[pair[1]]+'">'+ST[pair[1]]+'</span></li>';
+      }).join('')+'</ul>';
+    wavesBox.appendChild(box);
+  });
+
+  /* ---------- риски ---------- */
+  var RISKS=[
+    ['Смещение выборки','Поле = Telegram-каналы + RSS нескольких изданий. Районы, VK, ОК и форумы вне кадра: «покрытие муниципалитетов 100%» означает лишь то, что о каждой территории хоть раз написали областные каналы. Лечение: реестр источников с оценкой полноты и отдельная метрика «аудит выборки».'],
+    ['Тональность и ирония','Лексикон на ±110 маркеров не ловит сарказм, эмодзи-иронию и «народную» лексику анонимных каналов. Тон T3 (+0.17) может быть артефактом. Лечение: ручная разметка 200 сообщений, отдельный вес для эмодзи, публикация доверительного интервала.'],
+    ['Дедупликация склеивает анонсы','Анонс и итог одного события — разные сообщения, но Жаккар может их объединить: «оригинальность 82%» тогда завышена. Лечение: контроль по кластерам, где временной разрыв больше 24 часов.'],
+    ['Граница «федерального эха','СВО-сводки, ключевая ставка и 5G часто имеют региональную привязку (имена, адреса, местные предприятия). Бинарная метка «регион/федералы» спорна. Лечение: трёхуровневая шкала — чисто федеральное, с местной привязкой, местное.'],
+    ['Персональные данные в комментариях','Слой аудитории соблазнительно измеряем, но это живые люди. Лечение: хранить только агрегаты, без имён и цитат, обезличивать на этапе сбора, зафиксировать правило в разделе «Методика».'],
+    ['Воспроизводимость','store.jsonl растёт, пересчёт старых недель даёт другие цифры. Лечение: снапшоты metrics по неделям (уже есть weekly/ и monthly/), версия методики в штампе каждого блока.'],
+    ['Ручной труд и зависимость от одного человека','Районные источники, реестр владельцев, разметка — всё это ручная работа. Лечение: задачи в ROADMAP.md с ответственным и сроком, статус в status.html.'],
+    ['Соблазн интерпретации','Цифры вроде «48% федеральное эхо» легко превратить в политический вывод без проверки. Лечение: каждый блок обязан содержать строку методики и порог, выше которого вывод считается обоснованным.']
+  ];
+  var risksBox=document.getElementById('risks');
+  RISKS.forEach(function(pair){
+    var card=document.createElement('div');
+    card.className='lead-card';
+    card.innerHTML='<h3>'+pair[0]+'</h3><p>'+pair[1]+'</p>';
+    risksBox.appendChild(card);
+  });
+
+  /* ---------- решение: чекбоксы ---------- */
+  var decList=document.getElementById('decList');
+  var decProg=document.getElementById('decProg');
+  var decState={};
+  try{decState=JSON.parse(localStorage.getItem('gudok_dec')||'{}');}catch(err){decState={};}
+  function renderDec(){
+    var done=0;
+    decList.querySelectorAll('input[type=checkbox]').forEach(function(box){
+      var key=box.id;
+      box.checked=!!decState[key];
+      box.closest('li').classList.toggle('done',!!decState[key]);
+      if(box.checked)done++;
+    });
+    var total=decList.querySelectorAll('input[type=checkbox]').length;
+    decProg.textContent='отмечено '+done+' из '+total+(done===total?' · все пункты приняты':'');
+  }
+  decList.addEventListener('change',function(ev){
+    if(ev.target.type!=='checkbox')return;
+    decState[ev.target.id]=ev.target.checked;
+    try{localStorage.setItem('gudok_dec',JSON.stringify(decState));}catch(err){}
+    renderDec();
+  });
+  decList.addEventListener('click',function(ev){
+    if(ev.target.tagName==='LI'){
+      var box=ev.target.querySelector('input[type=checkbox]');
+      if(box){box.checked=!box.checked;box.dispatchEvent(new Event('change',{bubbles:true}));}
+    }
+  });
+  renderDec();
+
+  /* ---------- подсветка активной секции ---------- */
+  var navLinks=Array.prototype.slice.call(document.querySelectorAll('.nav a[href^="#"]'));
+  var sections=navLinks.map(function(link){return document.querySelector(link.getAttribute('href'));}).filter(Boolean);
+  if('IntersectionObserver' in window&&sections.length){
+    var spy=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting)return;
+        navLinks.forEach(function(link){
+          link.classList.toggle('active',link.getAttribute('href')==='#'+entry.target.id);
+        });
+      });
+    },{rootMargin:'-20% 0px -70% 0%',threshold:0});
+    sections.forEach(function(sec){spy.observe(sec);});
+  }
+  navLinks.forEach(function(link){
+    link.addEventListener('click',function(){document.body.classList.remove('nav-open');});
+  });
+})();
+</script>
+</body>
+</html>

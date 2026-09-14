@@ -1,7 +1,8 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Афиша культурных событий · Ульяновская область — листок Гудок</title>
-<link rel="icon" type="image/png" href="assets/logo_gudok.png"><style>
+<title>Гудок № 4 от 15.09.2026 — печатная полоса</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
+<style>
 :root{
   --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
   --rule:#E3DED4; --rule-strong:#0B0B0B; --accent:#D63F1F; --on-ink:#C9C2B6;
@@ -474,173 +475,158 @@ img{max-width:100%;display:block;}
   body{background:#fff;}
 }
 
-.af-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
-.af-chip{border:1px solid var(--line);background:var(--card);color:var(--muted);font-size:12.5px;font-weight:700;padding:7px 15px;border-radius:999px;cursor:pointer;}
-.af-chip:hover{border-color:var(--blue);color:var(--blue);}
-.af-chip.on{background:var(--navy3);border-color:var(--navy3);color:#fff;}
-:root[data-theme="dark"] .af-chip.on{background:#2f80ed;border-color:#2f80ed;}
-.af-event{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
-.af-event:last-child{border-bottom:none;}
-.af-body{flex:1;}
-.af-body a b{font-size:13.6px;color:var(--navy);line-height:1.35;display:inline-block;}
-.af-body a:hover b{color:var(--blue);}
-.af-meta{font-size:11.8px;color:var(--muted);margin-top:3px;}
-.af-time{display:inline-block;background:#e8f4ff;color:#1d4f9c;border-radius:7px;padding:1px 8px;font-weight:800;font-size:11px;margin-right:6px;}
-:root[data-theme="dark"] .af-time{background:#16283c;color:#8ab4e8;}
-.dist-badge{display:inline-block;background:#fdf3dd;color:#96690a;border-radius:7px;padding:1px 8px;font-weight:800;font-size:10.5px;margin-left:6px;}
-.af-sec{margin-bottom:20px;}
-.af-empty{padding:26px;text-align:center;color:var(--muted);font-size:13px;}
-.af-daybar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
-.af-day{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 11px;text-align:center;min-width:64px;}
-.af-day b{display:block;font-size:15px;color:var(--navy);}
-.af-day span{font-size:10px;color:var(--muted);text-transform:uppercase;}
-.af-day i{display:block;font-style:normal;font-size:11px;font-weight:800;color:var(--blue);margin-top:2px;}
-.af-day.we{border-color:var(--gold);}
-</style><script>
-(function(){try{var t=localStorage.getItem("gudok-theme");
-if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
-document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
-</script></head><body>
-<header class="masthead"><div class="flagline"><span>вторник, 15 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 00:32</span></div><div class="mast-inner">
-<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
-<div class="mast-title">ГУДОК<span>.</span></div>
-<div class="mast-side mast-side--right">Афиша культурных событий<br>всего 17 · сегодня 4 · выходные 4
-<div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div></div>
-</div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="active" href="afisha.html">Афиша</a><a class="" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-14.html">Руководителю</a></div></nav><main id="main">
-<div class="page">
-
-<div class="af-chips">
-<button class="af-chip on" onclick="afFilter('all',this)">Все (17)</button>
-<button class="af-chip" onclick="afFilter('today',this)">Сегодня</button>
-<button class="af-chip" onclick="afFilter('tomorrow',this)">Завтра</button>
-<button class="af-chip" onclick="afFilter('weekend',this)">Выходные 19.09–20.09</button>
-<button class="af-chip" onclick="afFilter('week',this)">7 дней</button>
-</div>
-
-<div class="af-daybar"><div class="af-day"><b>15</b><span>вт 09</span><i>4 соб.</i></div><div class="af-day"><b>16</b><span>ср 09</span><i>0 соб.</i></div><div class="af-day"><b>17</b><span>чт 09</span><i>2 соб.</i></div><div class="af-day"><b>18</b><span>пт 09</span><i>0 соб.</i></div><div class="af-day we"><b>19</b><span>сб 09</span><i>0 соб.</i></div><div class="af-day we"><b>20</b><span>вс 09</span><i>4 соб.</i></div><div class="af-day"><b>21</b><span>пн 09</span><i>1 соб.</i></div><div class="af-day"><b>22</b><span>вт 09</span><i>0 соб.</i></div><div class="af-day"><b>23</b><span>ср 09</span><i>0 соб.</i></div><div class="af-day"><b>24</b><span>чт 09</span><i>0 соб.</i></div></div>
-
-<div class="af-sec" id="et-festival"><div class="sec-head" style="margin:16px 0 8px;"><h2>🎪 Фестивали и праздники</h2><div class="line"></div>
-<div class="badge">1</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-25" data-weekend="0">
-<div class="cal-badge"><b>25</b><span>пт 09</span></div>
-<div class="af-body"><a href="https://t.me/ulgovru/23642" target="_blank" rel="noopener"><b>✅ 11 сентября ▶️ Куда сходить ульяновцам: афиша событий на 12 и 13 сентября ▶️ Безопасность, современность, те…</b></a>
-<div class="af-meta">t.me/ulgovru</div></div></div></div></div></div><div class="af-sec" id="et-theatre"><div class="sec-head" style="margin:16px 0 8px;"><h2>🎭 Театр и спектакли</h2><div class="line"></div>
-<div class="badge">1</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpromo/17992" target="_blank" rel="noopener"><b>ВЕЧЕР ПРОЗЫ 20 СЕНТЯБРЯ Ульяновские авторы читают свои произведения на публику. Короткие и не очень рассказы р…</b></a>
-<div class="af-meta"><span class="af-time">16:30</span>t.me/ulpromo</div></div></div></div></div></div><div class="af-sec" id="et-concert"><div class="sec-head" style="margin:16px 0 8px;"><h2>🎵 Концерты и музыка</h2><div class="line"></div>
-<div class="badge">2</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-17" data-weekend="0">
-<div class="cal-badge"><b>17</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener"><b>Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли мама. 10 участников, 3 раунда, …</b></a>
-<div class="af-meta"><span class="af-time">23:00</span>t.me/ProNovosty73 · 📍 Где: «Matrëshki»</div></div></div><div class="af-event" data-date="2026-10-22" data-weekend="0">
-<div class="cal-badge"><b>22</b><span>чт 10</span></div>
-<div class="af-body"><a href="https://t.me/ProNovosty73/5899" target="_blank" rel="noopener"><b>Концерт группы «Мураками» 🎵 Презентация альбома «Невеста хочет домой» — первой полноформатной работы за послед…</b></a>
-<div class="af-meta"><span class="af-time">19:00</span>t.me/ProNovosty73 · 📍 Где: «Шипр» (ул. Карла Маркса</div></div></div></div></div></div><div class="af-sec" id="et-sport"><div class="sec-head" style="margin:16px 0 8px;"><h2>🏃 Спорт и ЗОЖ</h2><div class="line"></div>
-<div class="badge">3</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-15" data-weekend="0">
-<div class="cal-badge"><b>15</b><span>вт 09</span></div>
-<div class="af-body"><a href="https://t.me/Russkih_Aleksey/12390" target="_blank" rel="noopener"><b>Коротко по итогам еженедельного штаба: ✅ 15 сентября откроем новую взрослую поликлинику в Дальнем Засвияжье. А…</b></a>
-<div class="af-meta">t.me/Russkih_Aleksey</div></div></div><div class="af-event" data-date="2026-09-21" data-weekend="0">
-<div class="cal-badge"><b>21</b><span>пн 09</span></div>
-<div class="af-body"><a href="https://media73.ru/2026/ulgu-zapustil-sdachu-normativov-tekhnogto" target="_blank" rel="noopener"><b>УлГУ запустил сдачу нормативов ТехноГТО</b></a> — 24.09
-<div class="af-meta"><span class="af-time">14:00</span>Media73</div></div></div><div class="af-event" data-date="2026-10-14" data-weekend="0">
-<div class="cal-badge"><b>14</b><span>ср 10</span></div>
-<div class="af-body"><a href="https://t.me/fcvolga/12497" target="_blank" rel="noopener"><b>🔚 🔚 🔚 🔚 Выигрываем в серии пенальти! В пятом раунде встретимся с "Муромом". Матч пройдет в Ульяновске в период…</b></a> — 16.10
-<div class="af-meta">t.me/fcvolga</div></div></div></div></div></div><div class="af-sec" id="et-other"><div class="sec-head" style="margin:16px 0 8px;"><h2>📌 Прочее и официальное</h2><div class="line"></div>
-<div class="badge">10</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-15" data-weekend="0">
-<div class="cal-badge"><b>15</b><span>вт 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpravda/41044" target="_blank" rel="noopener"><b>🏥 15 сентября в Ульяновске откроют новое подразделение городской поликлиники № 4 на улице Героя РФ Колпакова П…</b></a>
-<div class="af-meta">t.me/ulpravda</div></div></div><div class="af-event" data-date="2026-09-15" data-weekend="0">
-<div class="cal-badge"><b>15</b><span>вт 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpressa/74430" target="_blank" rel="noopener"><b>Новый мост через Свиягу планируется открыть 15-17 сентября, сообщил глава Ульяновска Мы в Telegram | Мы в MAX</b></a> — 17.09
-<div class="af-meta">t.me/ulpressa</div></div></div><div class="af-event" data-date="2026-09-15" data-weekend="0">
-<div class="cal-badge"><b>15</b><span>вт 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpressa/74623" target="_blank" rel="noopener"><b>Три отдельных входа и автобус до дверей. Новая поликлиника в Дальнем Засвияжье откроется 15 сентября. Мы в Tel…</b></a>
-<div class="af-meta">t.me/ulpressa</div></div></div><div class="af-event" data-date="2026-09-17" data-weekend="0">
-<div class="cal-badge"><b>17</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://media73.ru/2026/ulgu-priglashaet-na-proforientatsionnye-ekskursii" target="_blank" rel="noopener"><b>УлГУ приглашает на профориентационные экскурсии</b></a>
-<div class="af-meta">Media73</div></div></div><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpravda/41047" target="_blank" rel="noopener"><b>С 18 по 20 сентября в Ульяновской области пройдут выборы губернатора и депутатов Госдумы . Безопасность на уча…</b></a>
-<div class="af-meta">t.me/ulpravda</div></div></div><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://t.me/dimitrovgradd/31654" target="_blank" rel="noopener"><b>В Димитровграде готовятся к трёхдневному голосованию В администрации прошло заседание оперативного штаба по по…</b></a>
-<div class="af-meta">t.me/dimitrovgradd<span class="dist-badge">район/область</span></div></div></div><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/12/v-ulyanovskoj-oblasti-k-vyboram-podgotovili-poryadka-25-tysyachi-obshhestvennyh-nablyudatelej/" target="_blank" rel="noopener"><b>В Ульяновской области к выборам подготовили порядка 2,5 тысячи общественных наблюдателей</b></a>
-<div class="af-meta">Улпресса</div></div></div><div class="af-event" data-date="2026-09-28" data-weekend="0">
-<div class="cal-badge"><b>28</b><span>пн 09</span></div>
-<div class="af-body"><a href="https://t.me/chpulsk/50653" target="_blank" rel="noopener"><b>🌡 Отопительный сезон в Ульяновске начнется 28 сентября . Первыми тепло получат детские сады, школы и больницы.…</b></a>
-<div class="af-meta">t.me/chpulsk</div></div></div><div class="af-event" data-date="2026-09-30" data-weekend="0">
-<div class="cal-badge"><b>30</b><span>ср 09</span></div>
-<div class="af-body"><a href="https://media73.ru/2026/ulyanovsk-eto-po-lyubvi-zhiteli-regiona-poboryutsya-za-100-tysyach-rubley" target="_blank" rel="noopener"><b>«Ульяновск — это по любви»: жители региона поборются за 100 тысяч рублей</b></a>
-<div class="af-meta">Media73</div></div></div><div class="af-event" data-date="2026-10-01" data-weekend="0">
-<div class="cal-badge"><b>01</b><span>чт 10</span></div>
-<div class="af-body"><a href="https://t.me/chpul/34393" target="_blank" rel="noopener"><b>С 1 октября 2026 года маркетплейсы не смогут включать товар продавца в распродажу без его согласия, а за отказ…</b></a>
-<div class="af-meta">t.me/chpul</div></div></div></div></div></div>
-
-<div class="sec-head"><h2>Анонсы культурных каналов</h2><div class="line"></div>
-<div class="badge">Telegram, последние посты</div></div>
-<div class="grid2"><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
-<a href="https://t.me/culturnik" target="_blank" rel="noopener" style="color:#fff;">@culturnik</a>
-<span class="sub">Культура Ульяновск</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9292" target="_blank" rel="noopener">«Осенний вальс» 🍁 🗓️ 18 сентября 19:00 📍 творческое пространстве «Пушкин» Концерт Ульяновской филармонии, в пр…</a></div>
-<div class="m">14.09 21:00 · 👁 47</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9291" target="_blank" rel="noopener">Спектакль/терапия «Буллинг» от театра «Другое место» 🗓️ 19 сентября 19:00 📍 Аксаковка (Минаева, 48) ️ Часто же…</a></div>
-<div class="m">14.09 15:33 · 👁 279</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9290" target="_blank" rel="noopener">Экскурсия «Усадьба купца Мельникова» 🗓️ 16 сентября 18:00 📍 МЦСИ Вас ждёт живая прогулка по улице Ленина, двор…</a></div>
-<div class="m">14.09 10:12 · 👁 394</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
-<a href="https://t.me/ulpromo" target="_blank" rel="noopener" style="color:#fff;">@ulpromo</a>
-<span class="sub">Движ в любимом У</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/ulpromo/18014" target="_blank" rel="noopener">В Ульяновске запустили классный конкурс видеороликов «Ульяновск — это по любви» 💃 Условия простые: снимите рол…</a></div>
-<div class="m">13.09 07:55 · 👁 979</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ulpromo/18013" target="_blank" rel="noopener">ТРИ КЛАССНЫХ КОМИКА 20 СЕНТЯБРЯ Возвращение стендапа в нашем баре! Новый сезон, новый состав. Три комика, одна…</a></div>
-<div class="m">12.09 18:49 · 👁 1K</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ulpromo/18011" target="_blank" rel="noopener">прямо сейчас подготовка на Гончарова к показам «Мода улиц» 💃</a></div>
-<div class="m">12.09 15:24 · 👁 1.1K</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
-<a href="https://t.me/ProNovosty73" target="_blank" rel="noopener" style="color:#fff;">@ProNovosty73</a>
-<span class="sub">Что-то на ульяновском</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/ProNovosty73/5916" target="_blank" rel="noopener">Концерт Ислама Итляшева 🎵 Концерт в рамках тура «Громко играй аппаратура». Яркие хиты, которые держатся на вер…</a></div>
-<div class="m">14.09 17:03 · 👁 72</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ProNovosty73/5915" target="_blank" rel="noopener">Оркестр CAGMO — Симфония «Король и Шут». Двойной концерт ✨ Новая объединённая программа — уникальная возможнос…</a></div>
-<div class="m">14.09 14:02 · 👁 110</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ProNovosty73/5914" target="_blank" rel="noopener">Концерт Хора Сретенского монастыря «Россия у нас одна» 🎼 Музыкальное посвящение великой истории, духовной силе…</a></div>
-<div class="m">14.09 10:00 · 👁 132</div></div></div></div></div></div>
-
-<div class="note" style="margin-top:16px;">Афиша собирается автоматически (analytics.py → extract_calendar) из текстов всех
-мониторируемых источников: даты, время, площадки. Типы событий определяются по ключевым словам; районные мероприятия
-помечены бейджем. Культурных событий в выборке: 4. <b>Перед визитом сверяйте время и билеты у организаторов</b> —
-данные извлечены из публикаций автоматически и могут содержать неточности.</div>
-
-</div>
-</main>
-<footer class="footer"><div class="footer-inner">
-<div><b>листок Гудок · Афиша</b><p>Автономная страница, обновляется каждым прогоном run.sh. Источники: Telegram-каналы (@culturnik, @ulpromo, @ProNovosty73 и др.) и RSS СМИ региона.</p></div>
-<div><b>Навигация</b><p><a href="index.html" class="flink">Первая полоса</a> · <a href="digests/digest_2026-09-15.html" class="flink">Свежий дайджест</a> · <a href="status.html" class="flink">Статус системы</a></p></div>
-</div></footer>
-<script>
-function afFilter(mode,btn){
-  document.querySelectorAll('.af-chip').forEach(function(c){c.classList.remove('on');});
-  btn.classList.add('on');
-  var today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());
-  var iso=today.toISOString().slice(0,10);
-  var tom=new Date(today.getTime()+86400000)).toISOString().slice(0,10);
-  document.querySelectorAll('.af-event').forEach(function(ev){
-    var d=ev.getAttribute('data-date');var show=true;
-    if(mode==='today')show=(d===iso);
-    else if(mode==='tomorrow')show=(d===tom);
-    else if(mode==='weekend')show=ev.getAttribute('data-weekend')==='1';
-    else if(mode==='week'){var t=new Date(iso);var x=new Date(d);show=((x-t)/86400000)<=7;}
-    ev.style.display=show?'':'none';
-  });
-  document.querySelectorAll('.af-sec').forEach(function(sec){
-    var vis=sec.querySelectorAll('.af-event[style=""], .af-event:not([style])');
-    var any=Array.prototype.some.call(sec.querySelectorAll('.af-event'),function(e){return e.style.display!=='none';});
-    sec.style.display=any?'':'none';
-  });
+body.print-mode{background:#8b939c;margin:0;font-family:Georgia,'Times New Roman',serif;}
+.sheet{width:186mm;min-height:266mm;margin:10mm auto;background:#fdfcf8;color:#141414;
+padding:11mm 13mm 9mm;box-shadow:0 4px 24px rgba(0,0,0,.45);position:relative;box-sizing:border-box;}
+.pm-mast{text-align:center;border-bottom:3px double #141414;padding-bottom:4mm;}
+.pm-title{font-size:44pt;font-weight:900;letter-spacing:10px;line-height:1;margin:0;}
+.pm-line{font-size:8.5pt;letter-spacing:1.2px;text-transform:uppercase;margin-top:2.5mm;color:#333;}
+.pm-line b{color:#141414;}
+.pm-kicker{font-size:8pt;letter-spacing:2px;text-transform:uppercase;color:#7a1f1f;font-weight:700;margin:3mm 0 1.5mm;}
+.pm-lead-h{font-size:21pt;font-weight:900;line-height:1.15;margin:0 0 2.5mm;}
+.pm-deck{font-size:10.5pt;font-style:italic;color:#3a3a3a;line-height:1.45;margin:0 0 3mm;}
+.cols{column-count:3;column-gap:6mm;column-rule:.6pt solid #b9b2a6;}
+.cols p{font-size:9.3pt;line-height:1.42;margin:0 0 2.2mm;text-align:justify;hyphens:auto;}
+.pm-h3{font-size:10pt;font-weight:900;text-transform:uppercase;letter-spacing:1px;border-top:1.6pt solid #141414;
+padding-top:1.4mm;margin:3mm 0 1.8mm;break-after:avoid;}
+.pm-item{margin-bottom:2.4mm;break-inside:avoid;}
+.pm-item b{font-size:9.6pt;line-height:1.25;display:block;}
+.pm-item span{font-size:8.6pt;color:#4a4a4a;line-height:1.35;display:block;}
+.pm-item i{font-size:7.6pt;color:#8a8378;font-style:normal;}
+.pm-box{border:1.2pt solid #141414;padding:3mm;margin:3mm 0;break-inside:avoid;}
+.pm-box h4{font-size:9pt;text-transform:uppercase;letter-spacing:1.4px;margin:0 0 2mm;border-bottom:.8pt solid #141414;padding-bottom:1.2mm;}
+.pm-box ul{list-style:none;margin:0;padding:0;}
+.pm-box li{font-size:8.8pt;line-height:1.4;margin-bottom:1.4mm;}
+.pm-box li b{color:#7a1f1f;}
+.pm-stats{display:flex;gap:4mm;justify-content:space-between;margin:3mm 0;break-inside:avoid;}
+.pm-stat{flex:1;text-align:center;border:.8pt solid #141414;padding:2mm 1mm;}
+.pm-stat b{display:block;font-size:15pt;font-weight:900;}
+.pm-stat span{font-size:7.4pt;text-transform:uppercase;letter-spacing:.8px;color:#4a4a4a;}
+.pm-colophon{border-top:3px double #141414;margin-top:4mm;padding-top:2mm;font-size:7.6pt;color:#5a5a5a;line-height:1.5;
+display:flex;justify-content:space-between;gap:6mm;}
+.pm-page{position:absolute;bottom:4mm;right:13mm;font-size:8pt;color:#7a7a7a;}
+.pm-ed{font-size:9.3pt;line-height:1.5;text-align:justify;}
+.pm-ed p{margin:0 0 2.2mm;}
+.pm-toolbar{position:fixed;top:10px;right:14px;z-index:9;display:flex;gap:8px;}
+.pm-toolbar a,.pm-toolbar button{background:#141414;color:#fff;border:none;border-radius:8px;padding:8px 14px;
+font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;font-family:Segoe UI,Arial,sans-serif;}
+@media print{
+  body.print-mode{background:#fff;}
+  .sheet{margin:0;box-shadow:none;width:auto;min-height:auto;page-break-after:always;}
+  .sheet:last-of-type{page-break-after:auto;}
+  .pm-toolbar{display:none;}
+  @page{size:A4;margin:0;}
 }
-</script>
-<script>
-function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
-document.documentElement.setAttribute("data-theme",c);
-try{localStorage.setItem("gudok-theme",c);}catch(e){}
-syncThemeBtn();}
-function syncThemeBtn(){var b=document.getElementById("themeBtn");
-if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
-syncThemeBtn();
-</script><div class="util-bar-wrap"><div class="util-bar">
-<span class="util-lbl">Служебное</span>
-<a href="roadmap.html">План развития</a>
-<a href="status.html">Статус системы</a>
-<a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
-</div></div></body></html>
+</style></head>
+<body class="print-mode">
+<div class="pm-toolbar">
+<a href="digest_2026-09-15.html">← Электронный выпуск</a>
+<button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<div class="sheet">
+<div class="pm-mast">
+<div class="pm-title">ГУДОК</div>
+<div class="pm-line">информационно-аналитическое издание · выпуск № <b>4</b> · вторник, 15 сентября 2026 · Ульяновск</div>
+<div class="pm-line">марксистская группа «Победа» · для внутреннего распространения · выходит с 11.09.2026</div>
+</div>
+
+<div class="pm-kicker">⟡ Сюжет дня</div>
+<div class="pm-lead-h">🐇 Памятник зайцу во фраке, который изменил маршрут Пушкина, установили в Ульяновске На улице Спасской возле «Д…</div>
+<div class="pm-deck">В неё вошли бронзовый заяц во фраке и котелке, верстовой столб и медальон со следом сапога поэта. Скульптура отсылает к эпизоду сентября 1833 года: дорогу ехавшему в Оренбург Пушкину перебежал заяц, и поэт счёл это дурной приметой и вернулся в Симбирск.…</div>
+
+<div class="pm-stats">
+<div class="pm-stat"><b>316</b><span>публикаций за сутки</span></div>
+<div class="pm-stat"><b>0</b><span>тема дня: Суды и криминал</span></div>
+<div class="pm-stat"><b>+0.00</b><span>тон повестки</span></div>
+<div class="pm-stat"><b>3</b><span>дн. до голосования</span></div>
+<div class="pm-stat"><b>16</b><span>каскад недели, источников</span></div>
+</div>
+
+<div class="cols">
+<p>В неё вошли бронзовый заяц во фраке и котелке, верстовой столб и медальон со следом сапога поэта. Скульптура отсылает к эпизоду сентября 1833 года: дорогу ехавшему в Оренбург Пушкину перебежал заяц, и поэт счёл это дурной приметой и вернулся в Симбирск. На фигуре есть барельефы с отрывком из письма Пушкина к жене, а также перчатки и трость.…</p>
+<div class="pm-item"><b>Коротко по итогам еженедельного штаба: ✅ 15 сентября откроем новую взрослую поликлинику в Дальнем Засвияжье. А…</b>
+<span>Адрес: улица Героя России Колпакова, 1. Новое учреждение серьезно разгрузит поликлинику №4, к которой сейчас прикреплено 140 тысяч горожан.…</span>
+<i>Агропром · 14.09 17:50 · t.me/Russkih_Aleksey</i></div><div class="pm-item"><b>Жители 3-го Амурского переулка десять лет добиваются паспорта для дороги и её ремонта</b>
+<span>Жители 3-го Амурского переулка десять лет добиваются паспорта для дороги и её…</span>
+<i>Общество и городская среда · 14.09 16:48 · t.me/ulpressa</i></div>
+<div class="pm-h3">🏛 Политика и выборы</div><div class="pm-item"><b>Трамп потребовал от Зеленского прекратить удары по российскому дизелю Президент США заявил, что Киев должен…</b>
+<span>По словам американского лидера, он уже лично обсуждал этот вопрос с Зеленским.…</span>
+<i>22:12 · t.me/ulyanovsk_smi</i></div><div class="pm-item"><b>«Справедливая Россия» поддержала проведение в Ульяновске выставки о героях операций «Поток»</b>
+<span>С 9 по 11 сентября в Ульяновске прошла фотодокументальная выставка «Герои операции «Поток: Фотографии. Артефакты. Воспоминания».…</span>
+<i>10:52 · Улпресса</i></div><div class="pm-item"><b>«Волга» определилась с главным тренером: им станет Александр Грищенко из «Оренбурга»</b>
+<span>Ульяновский ФК «Волга» определился с новым главным тренером — им станет Александр Грищенко.…</span>
+<i>10:00 · Улпресса</i></div><div class="pm-item"><b>От диалога к действию: молодёжь ПФО формирует механизмы межнационального согласия на муниципальном уровне</b>
+<span>Круглый стол «Роль местного самоуправления в укреплении межнационального согласия», прошедший в рамках Молодёжного парламентского форума ПФО «Сила единства: роль молодёжи в формировании гражданской идентичности», собрал в стенах Ульяновской Городской Думы экспертов разных сфер и самых активных представителей молодёжи Приволжского федерального округа, чтобы обсудить поддержание культурного, этнического разнообразия и формирование общероссийской гражданской идентичности.…</span>
+<i>19:01 · Улпресса</i></div><div class="pm-h3">🛡 Безопасность и происшествия</div><div class="pm-item"><b>Мужчина купил китайский кроссовер за ₽2,4 миллиона , а через несколько лет отсудил за него больше ₽9…</b>
+<span>У владельца FAW Bestune T55 мультимедийная система начала зависать буквально в первые дни .…</span>
+<i>19:34 · t.me/ulsk_driver73</i></div><div class="pm-item"><b>😱 Россиян начали массово обворовывать в самолётах, пока они спят Так, у жителя Казани украли из рюкзака…</b>
+<span>О том, что его обокрали, пассажир узнал только после приземления: на телефон посыпались уведомления о транзакциях сразу по трём картам.…</span>
+<i>20:09 · t.me/topor_ul</i></div><div class="pm-item"><b>📦 В Димитровграде сотрудница ПВЗ украла товары на 321 тысячу рублей. 19-летняя девушка вскрывала посылки…</b>
+<span>19-летняя девушка вскрывала посылки, забирала товары себе, а пустые упаковки запечатывала обратно.…</span>
+<i>22:02 · t.me/chpulsk</i></div><div class="pm-item"><b>😱 Неадекватная женщина орет на сотрудников полиции на Шолмова Как сообщают очевидцы, начались какие-то…</b>
+<span>😱 Неадекватная женщина орет на сотрудников полиции на Шолмова Как сообщают очевидцы, начались какие-то разборки, приехали спецслужбы и скорая помощь.…</span>
+<i>23:08 · t.me/tresh_ulyan</i></div><div class="pm-h3">💼 Экономика и промышленность</div><div class="pm-item"><b>«Зеленский должен перестать выводить из строя производство дизельного топлива в России», заявил Трамп. По его…</b>
+<span>По его словам, такие удары создают дефицит дизтоплива в мире и вредят другим странам.</span>
+<i>20:00 · t.me/ulsk_driver73</i></div><div class="pm-item"><b>😡 «Цены на площади в День города просто ужас! Чай целых 350 рублей, а порция шашлыка обходится примерно в 700…</b>
+<span>Чай целых 350 рублей, а порция шашлыка обходится примерно в 700 руб... За что такие деньги, спрашивается?», — негодует подписчик.…</span>
+<i>20:29 · t.me/tresh_ulyan</i></div><div class="pm-item"><b>Максимальная пенсия по старости в России может превысить 77 тыс. рублей в 2027 году, заявил профессор…</b>
+<span>рублей в 2027 году, заявил профессор Финансового университета Сафонов.…</span>
+<i>20:44 · t.me/chpul</i></div><div class="pm-item"><b>✉️ Ульяновск вошёл в новую серию марок «Города трудовой доблести». На марке — памятник володарцам, героям…</b>
+<span>На марке — памятник володарцам, героям трудового фронта, в память о работниках патронного завода. Номинал — 70 рублей, тираж — 15 тысяч экземпляров.…</span>
+<i>06:53 · t.me/chpulsk</i></div><div class="pm-h3">🌾 Агропром</div><div class="pm-item"><b>Ульяновские аграрии намолотили почти два миллиона тонн зерна</b>
+<span>Уборочная кампания в Ульяновской области близится к концу.…</span>
+<i>15:43 · Улпресса</i></div><div class="pm-h3">🏙 Общество и городская среда</div><div class="pm-item"><b>🤟 Шура выступил в парке на День города в Ульяновске В Молодёжном парке на Дне города выступает певец Шура.…</b>
+<span>Артист вышел к зрителям с хитами. Чтобы не пропустить самые яркие и интересные события, обязательно смотрите наш дайджест . А вы на мероприятиях?…</span>
+<i>18:29 · t.me/ulyanovsk_smi</i></div><div class="pm-item"><b>❄️ Россиян ждёт необычная зима из-за Эль-Ниньо. По прогнозам синоптиков, зима может оказаться более влажной и…</b>
+<span>По прогнозам синоптиков, зима может оказаться более влажной и с частыми перепадами температуры.…</span>
+<i>18:33 · t.me/ulkoroche</i></div><div class="pm-item"><b>😱 В центре Ульяновска заметили удава Необычного гостя заметили прямо в центре Ульяновска. Змея ползала среди…</b>
+<span>Змея ползала среди травы. Откуда взялась змея её поймать, пока неизвестно.…</span>
+<i>19:20 · t.me/ulyanovsk_smi</i></div><div class="pm-item"><b>Боевая ничья в гостях Молодцы!</b>
+<span>Боевая ничья в гостях Молодцы!</span>
+<i>19:31 · t.me/ulsk_on</i></div><div class="pm-h3">⚕️ Здравоохранение</div><div class="pm-item"><b>💉 Российская вакцина от туберкулёза проходит третью фазу клинических испытаний. Препарат будет полностью…</b>
+<span>Препарат будет полностью защищать от заражения.…</span>
+<i>21:34 · t.me/chpul</i></div><div class="pm-item"><b>«Первая линия в центре Ульяновска». Помещения студенческой поликлиники предлагали арендаторам с разных сторон</b>
+<span>На сайте объявлений "Авито" дважды появлялась информация о сдаче в аренду площадей бывшей студенческой поликлиники на улице Гончарова.…</span>
+<i>06:00 · Улпресса</i></div><div class="pm-item"><b>На Гая «Лада Гранта» проехала на красный и врезалась во встречную «Весту»</b>
+<span>13 сентября в 9:00 на проспекте Гая у дома №57/2А в Железнодорожном районе «Лада Гранта» проехала перекрёсток на запрещающий сигнал светофора и столкнулась со встречной «Ладой Вестой».…</span>
+<i>17:48 · Улпресса</i></div><div class="pm-item"><b>Три отдельных входа и маршрут №28 до дверей. Новая поликлиника на Колпакова открывается 15 сентября</b>
+<span>15 сентября в Ульяновске открывается новое подразделение городской поликлиники №4 на улице Героя РФ Колпакова.…</span>
+<i>15:18 · Улпресса</i></div><div class="pm-h3">🎓 Образование и наука</div><div class="pm-item"><b>❗ В российских школах стало больше начальной военной подготовки, заявил глава Минпросвещения Сергей Кравцов…</b>
+<span>❗ В российских школах стало больше начальной военной подготовки, заявил глава Минпросвещения Сергей Кравцов Теперь на неё приходится половина курса «Основы безопасности и защиты Родины» — 68 часов за четыре учебных года.…</span>
+<i>19:03 · t.me/tresh_ulyan</i></div><div class="pm-item"><b>«Будем молиться о возрождении»: на месте уничтоженного Троицкого собора впервые за 100 лет прошло богослужение</b>
+<span>13 сентября отмечается день празднования в честь Собора Симбирских святых.…</span>
+<i>19:21 · Улпресса</i></div><div class="pm-item"><b>🪖 В российских школах увеличили количество часов на начальную военную подготовку. С 1 сентября на неё…</b>
+<span>С 1 сентября на неё отводится 50% курса «Основы безопасности и защиты Родины» — всего 68 часов за четыре учебных года, сообщил глава Минпросвещения.…</span>
+<i>21:49 · t.me/chpulsk</i></div><div class="pm-item"><b>❗ Минпросвещения направило школам рекомендации по использованию ИИ в образовательном процессе Педагогам…</b>
+<span>Ответственность за результат остается на учителе.…</span>
+<i>12:23 · t.me/topor_ul</i></div><div class="pm-h3">🏆 Спорт</div><div class="pm-item"><b>⚽ Футбольная «Волга» сыграла вничью с «Уфой» Счет выездного матча — 2:2. 🪓 Подписаться на канал</b>
+<span>⚽ Футбольная «Волга» сыграла вничью с «Уфой» Счет выездного матча — 2:2.…</span>
+<i>18:02 · t.me/topor_ul</i></div><div class="pm-item"><b>«Юные грации»: Ульяновск принимает всероссийский турнир под эгидой «Динамо»</b>
+<span>С 12 по 15 сентября во Дворце художественной гимнастики «Татьяна-Арена» проходят всероссийские спортивные соревнования «Юные грации» по художественной гимнастике.…</span>
+<i>18:54 · Улпресса</i></div><div class="pm-item"><b>Футбольная «Волга» ушла от поражения благодаря голу в концовке</b>
+<span>Завершился матч 11-го тура Лиги Pari сезона-2026/2027, в котором встречались «Уфа» и ульяновская «Волга». Игра прошла на стадионе «Нефтяник» в Уфе.…</span>
+<i>19:02 · Улпресса</i></div><div class="pm-item"><b>Чемпион мира Сергей Жуков провел для ульяновцев зарядку</b>
+<span>13 сентября, в День города, на Соборной площади прошла спортивная зарядка под руководством чемпиона мира и Европы по кикбоксингу Сергея Жукова.…</span>
+<i>19:07 · Улпресса</i></div><div class="pm-h3">🎭 Культура и афиша</div><div class="pm-item"><b>🔥 Сейчас на Соборной площади выступает группа «Катюши» Как вам? 😱</b>
+<span>🔥 Сейчас на Соборной площади выступает группа «Катюши» Как вам?…</span>
+<i>20:06 · t.me/tresh_ulyan</i></div><div class="pm-item"><b>🔥 Александр Иванов и группа «Рондо» выступают прямо сейчас на площади 😱</b>
+<span>🔥 Александр Иванов и группа «Рондо» выступают прямо сейчас на площади…</span>
+<i>21:24 · t.me/tresh_ulyan</i></div><div class="pm-item"><b>🤩 Группа «Рондо» выступает на Соборной площади — хэдлайнеры сегодняшнего концерта в честь Дня города 🪓…</b>
+<span>🤩 Группа «Рондо» выступает на Соборной площади — хэдлайнеры сегодняшнего концерта в честь Дня города 🪓 Подписаться на…</span>
+<i>21:44 · t.me/topor_ul</i></div><div class="pm-item"><b>"Дом хрустальный" звучит на площади Соборной в честь дня города</b>
+<span>"Дом хрустальный" звучит на площади Соборной в честь дня…</span>
+<i>22:04 · t.me/chpul</i></div>
+</div>
+
+<div class="pm-box"><h4>Афиша: сегодня и завтра</h4><ul><li><b>15.09 —</b> — Коротко по итогам еженедельного штаба: ✅ 15 сентября откроем новую взрослую поликлинику в…</li><li><b>15.09 —</b> — 🏥 15 сентября в Ульяновске откроют новое подразделение городской поликлиники № 4 на улице…</li><li><b>15.09 —</b> — Новый мост через Свиягу планируется открыть 15-17 сентября, сообщил глава Ульяновска Мы в…</li><li><b>15.09 —</b> — Три отдельных входа и автобус до дверей. Новая поликлиника в Дальнем Засвияжье откроется 15…</li></ul></div>
+
+
+
+<div class="pm-colophon">
+<div>Набрано и выпущено автоматически: мониторинг 32 Telegram-каналов и 2 RSS-лент; колонку редактора готовит ассистент.</div>
+<div>Материалы принадлежат их изданиям. Листок не является агитацией.</div>
+</div>
+<div class="pm-page">стр. 1</div>
+</div>
+</body></html>

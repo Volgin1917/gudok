@@ -674,6 +674,153 @@ def build_infospace(items, trends, cfg):
     }
 
 
+
+# ─────────────────────────────────────────────────────────────────────
+# Волна 1 предложения v0.9 (infospace-plan.html): метрики на текущих данных
+# ─────────────────────────────────────────────────────────────────────
+EMOJI_X_RE = re.compile("[\U0001F000-\U0001FAFF\U00002600-\U000027BF\U0001F1E6-\U0001F1FF\u2B50\u2705\u274C\u2764]")
+
+LABOR_GROUPS = {
+    "рабочие и инженеры": r"рабоч\w+|инженер\w+|завод\w+|\bуаз\b|авиастар\w*|моторн\w+ завод|станочник\w*|слесар\w*|токарь|сварщик\w*|монтажник\w*|строител\w+",
+    "учителя": r"учител\w+|педагог\w+|преподавател\w+",
+    "медики": r"врач\w*|медик\w+|медсестр\w+|фельдшер\w*|санитар\w+|хирург\w*",
+    "водители и транспортники": r"водител\w+|шофёр|шофер|дальнобойщик\w*|кондуктор\w*|машинист\w+",
+    "селяне и фермеры": r"селян\w+|крестьян\w+|фермер\w+|колхоз\w+|аграрий\w*",
+    "студенты": r"студент\w+|курсант\w+|аспирант\w+",
+}
+SPEECH_X_RE = re.compile(
+    r"рассказал\w*|сообщил\w*|говорит|говорят|пояснил\w*|заявил\w*|добавил\w*|поделился|"
+    r"отметил\w*|написал\w*|прокомментировал\w*|жалуется|жалуются|обратился|обращаются|"
+    r"просит|просят|требует|требуют|возмущается|возмущены|объяснил\w*|уточнил\w*", re.I)
+
+
+def build_infospace_ext(items, trends, cfg):
+    """Волна 1 предложения v0.9: матрица территория×рубрика, ритм суток,
+    динамика каскадов (полка жизни и скорость), индекс присутствия труда (TLI),
+    эмодзи-профиль по уровням, доля бюджетного голоса. Только store.jsonl."""
+    now = datetime.now(UTC4)
+    week_ago = now - timedelta(days=7)
+    live = [it for it in items if _local_dt(it.get("published"))]
+    week = [it for it in live if _local_dt(it["published"]) >= week_ago]
+    primaries = [it for it in week if not it.get("dup_of")]
+    out = {"generated_local": now.strftime("%d.%m.%Y %H:%M"), "week_items": len(week)}
+    if not week:
+        return out
+
+    # 1) матрица территория × рубрика (топ-10 территорий по объёму)
+    cats = cfg.get("categories") or []
+    rows = []
+    for name, pat in (cfg.get("municipalities") or {}).items():
+        rx = re.compile(pat, re.I)
+        hits = {c["id"]: 0 for c in cats}
+        tot = 0
+        for it in week:
+            if rx.search(f"{it.get('title', '')} {(it.get('text') or '')[:400]}"):
+                tot += 1
+                cid = it.get("category") or "society"
+                if cid in hits:
+                    hits[cid] += 1
+        rows.append({"muni": name, "total": tot, "cats": hits})
+    rows.sort(key=lambda r: -r["total"])
+    out["matrix"] = {"cats": [{"id": c["id"], "name": c.get("name", c["id"])} for c in cats],
+                     "rows": rows[:10]}
+
+    # 2) ритм суток: будни/выходные по часам + ночная доля
+    wd = [0] * 24
+    we = [0] * 24
+    for it in week:
+        dt = _local_dt(it["published"])
+        (we if dt.weekday() >= 5 else wd)[dt.hour] += 1
+    tot_w = sum(wd) + sum(we)
+    out["rhythm"] = {"weekday": wd, "weekend": we,
+                     "night_share": round((sum(wd[:6]) + sum(we[:6])) / tot_w, 3) if tot_w else None,
+                     "weekend_share": round(sum(we) / tot_w, 3) if tot_w else None}
+
+    # 3) динамика каскадов: полка жизни сюжета и скорость подхватов
+    by_id = {it.get("id"): it for it in week}
+    spans = []
+    for it in primaries:
+        cl = it.get("cluster") or 0
+        if cl < 2:
+            continue
+        times = []
+        t0 = _local_dt(it.get("published"))
+        if t0:
+            times.append(t0)
+        for d in week:
+            if d.get("dup_of") == it.get("id"):
+                td = _local_dt(d.get("published"))
+                if td:
+                    times.append(td)
+        if len(times) >= 2:
+            span_h = (max(times) - min(times)).total_seconds() / 3600.0
+            spans.append({"title": (it.get("title") or "")[:90], "size": cl,
+                          "span_h": round(span_h, 1),
+                          "speed": round(cl / span_h, 1) if span_h > 0.05 else None,
+                          "url": it.get("url") or ""})
+    med = None
+    if spans:
+        s = sorted(x["span_h"] for x in spans)
+        med = round(s[len(s) // 2], 1)
+    spans.sort(key=lambda x: -(x["speed"] or 0))
+    out["cascade_time"] = {"n": len(spans), "median_span_h": med, "fastest": spans[:5]}
+
+    # 4) TLI — индекс присутствия труда (эвристика: маркер группы + глагол речи рядом)
+    groups = {}
+    tot_m = tot_s = 0
+    for gname, gpat in LABOR_GROUPS.items():
+        grx = re.compile(gpat, re.I)
+        mentioned = speaks = 0
+        for it in week:
+            blob = f"{it.get('title', '')} {(it.get('text') or '')[:500]}"
+            m = grx.search(blob)
+            if not m:
+                continue
+            mentioned += 1
+            ctx = blob[max(0, m.start() - 160):m.end() + 200]
+            if SPEECH_X_RE.search(ctx):
+                speaks += 1
+        groups[gname] = {"mentioned": mentioned, "speaks": speaks,
+                         "share": round(speaks / mentioned, 3) if mentioned else None}
+        tot_m += mentioned
+        tot_s += speaks
+    tli = round(tot_s / tot_m, 3) if tot_m else None
+    verdict = ("—" if tli is None else
+               "труд невидим" if tli < 0.10 else
+               "труд упоминаем" if tli < 0.30 else "труд говорит")
+    out["tli"] = {"groups": groups, "mentioned": tot_m, "speaks": tot_s,
+                  "index": tli, "verdict": verdict}
+
+    # 5) эмодзи-профиль по уровням источников
+    emo = {}
+    for key in ("T1", "T2", "T3", "СМИ/подборка"):
+        sel = [it for it in week
+               if (f"T{it['tier']}" if it.get("tier") else "СМИ/подборка") == key]
+        if not sel:
+            continue
+        e = sum(1 for it in sel
+                if EMOJI_X_RE.search((it.get("title") or "") + (it.get("text") or "")[:300]))
+        emo[key] = {"total": len(sel), "with_emoji": round(e / len(sel), 3)}
+    out["emoji"] = emo
+
+    # 6) доля бюджетного голоса: T1 в потоке, T1 среди первичных, эхо T1 в перепечатках
+    t1_flow = sum(1 for it in week if it.get("tier") == 1)
+    t1_prim = sum(1 for it in primaries if it.get("tier") == 1)
+    dups_n = echo_n = 0
+    for it in week:
+        if it.get("dup_of"):
+            dups_n += 1
+            pr = by_id.get(it["dup_of"])
+            if pr is not None and pr.get("tier") == 1:
+                echo_n += 1
+    out["budget_voice"] = {
+        "t1_share_flow": round(t1_flow / len(week), 3),
+        "t1_share_primaries": round(t1_prim / len(primaries), 3) if primaries else None,
+        "echo_of_t1": round(echo_n / dups_n, 3) if dups_n else None,
+        "echo_n": echo_n, "dups_n": dups_n}
+    return out
+
+
 def esc_(v):
     return str(v)
 
@@ -683,6 +830,10 @@ def esc_(v):
 def build_all(items, trends, cfg=None):
     now = datetime.now(UTC4)
     infospace = build_infospace(items, trends, cfg)
+    try:
+        infospace["w1"] = build_infospace_ext(items, trends, cfg)
+    except Exception:
+        infospace["w1"] = {}
     os.makedirs(DATA, exist_ok=True)
     with open(os.path.join(DATA, "infospace.json"), "w", encoding="utf-8") as f:
         json.dump(infospace, f, ensure_ascii=False, indent=1)
