@@ -242,7 +242,7 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 
 </div><div class="util-bar-wrap"><div class="util-bar">
 <span class="util-lbl">Служебное</span>
-<a href="roadmap.html">Роадмап издания</a>
+<a href="roadmap.html">План развития</a>
 <a href="status.html">Статус системы</a>
 <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
 </div></div>

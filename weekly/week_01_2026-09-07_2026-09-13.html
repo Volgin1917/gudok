@@ -341,17 +341,20 @@ img{max-width:100%;display:block;}
 .more-heads a:hover{color:var(--accent);}
 .more-heads a span{font-family:var(--sans);color:var(--muted);font-weight:400;font-size:11.5px;display:block;}
 
-/* подвал */
-.footer{background:var(--ink);color:var(--on-ink);margin-top:80px;padding:64px 0 32px;}
+/* подвал — компактный */
+.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
 .footer b,.footer h3{color:var(--paper);}
-.footer h3{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin:0 0 16px;}
+.footer h3{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
 .footer a{color:var(--on-ink);}
 .footer a:hover{color:var(--accent);}
-.footer-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:56px;}
-.footer p{font-family:var(--serif-body);font-size:14px;line-height:1.6;max-width:440px;}
-.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:34px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:14px;}
+.footer-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:20px 36px;}
+.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
+.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
+.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
+.footer li{margin:4px 0;}
+.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
 .footer__brand span{color:var(--accent);}
-.footer__bottom{max-width:var(--maxw);margin:48px auto 0;padding:18px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:12px;color:var(--on-ink);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
 :root[data-theme="dark"] .footer__bottom{border-top-color:rgba(11,11,11,.2);}
 
 /* печать */
@@ -393,7 +396,7 @@ img{max-width:100%;display:block;}
   .feature__text{padding:48px 0;}
   .feature__media{min-height:360px;}
   .opinion__grid{grid-template-columns:1fr 1fr;}
-  .footer__inner{grid-template-columns:1fr 1fr;gap:40px;}
+  .footer__inner{grid-template-columns:1fr 1fr;gap:26px;}
   .now-grid{grid-template-columns:1fr;}
   .now-col{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:12px;}
   .kpi-grid{grid-template-columns:repeat(3,1fr);}
@@ -411,7 +414,7 @@ img{max-width:100%;display:block;}
   .mostread__list li{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:14px;}
   .mostread__list li:first-child{border-top:0;padding-top:0;}
   .sec-head{flex-direction:column;align-items:flex-start;gap:6px;}
-  .footer__inner{grid-template-columns:1fr;gap:32px;}
+  .footer__inner{grid-template-columns:1fr;gap:22px;}
   .footer__bottom{flex-direction:column;}
   .kpi-grid{grid-template-columns:repeat(2,1fr);}
 }
@@ -476,7 +479,7 @@ img{max-width:100%;display:block;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="topbar"><div class="flagline"><span>понедельник, 14 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 14:27</span></div><div class="topbar-inner">
+<header class="topbar"><div class="flagline"><span>понедельник, 14 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 21:28</span></div><div class="topbar-inner">
 <div class="brand"><div>
 <div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · НЕДЕЛЯ</div>
 <div class="brand-sub">Сюжетные дуги недели 07.09–13.09.26 · без повтора дневной ленты</div>
@@ -487,7 +490,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="active" href="../weekly.html">Неделя</a><a class="" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-14.html">Руководителю</a></div></nav><main id="main">
 <div class="page" style="max-width:1280px;">
 <div class="wk-passport"><b>Неделя № 1</b>
-<span style="font-size:12.5px;color:var(--muted);">период: 07.09–13.09.26 (пн–вс) · объём потока: 1069 сообщений · дуг: 7</span><span class="wk-stamp">завершён</span></div>
+<span style="font-size:12.5px;color:var(--muted);">период: 07.09–13.09.26 (пн–вс) · объём потока: 1107 сообщений · дуг: 7</span><span class="wk-stamp">завершён</span></div>
 <div style="display:flex;justify-content:space-between;gap:12px;font-size:12.5px;font-weight:700;margin:10px 0 0;"><a href="../weekly/week_00_2026-09-04_2026-09-11.html">← нед. 00 (04.09)</a><b style="color:var(--navy);">неделя № 1 · 07.09–13.09</b><span style="color:var(--muted);">далее выйдет</span></div>
 <div class="wk-grid"><div class="wk-main">
 <div class="sec-head" style="margin-top:14px;"><h2>Сюжетные дуги недели</h2><div class="line"></div>
@@ -495,6 +498,16 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="card" style="margin-bottom:12px;"><div class="card-pad">
 <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
 <span style="font-size:15px;font-weight:900;color:var(--gold);">01</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">🤍 Нашему любимому Симбирску-Ульяновску исполнилось 378 лет! 🇷🇺 Мой канал в MAX</b>
+<span class="wk-stamp wip">в развитии</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 13.09 (Russkih_Aleksey), пик 13.09 — сюжет держали 4 источника одновременно,
+всего источников дуги: 4. Тон дуги: +0.00 → +0.00.
+К 13.09 — в развитии.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-13.html" style="font-weight:700;">13.09</a> · охват 👁 26.2K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">02</span>
 <b style="font-size:14.5px;color:var(--navy);flex:1;">Бесплатному питанию для школьников</b>
 <span class="wk-stamp">затух</span></div>
 <p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
@@ -504,7 +517,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div style="font-size:11.8px;color:var(--muted);">Освещение по дням: — · охват 👁 31.6K</div>
 </div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
 <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
-<span style="font-size:15px;font-weight:900;color:var(--gold);">02</span>
+<span style="font-size:15px;font-weight:900;color:var(--gold);">03</span>
 <b style="font-size:14.5px;color:var(--navy);flex:1;">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновской области</b>
 <span class="wk-stamp">затух</span></div>
 <p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
@@ -514,7 +527,17 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-10.html" style="font-weight:700;">10.09</a> <a href="../digests/digest_2026-09-11.html" style="font-weight:700;">11.09</a> · охват 👁 20.1K</div>
 </div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
 <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
-<span style="font-size:15px;font-weight:900;color:var(--gold);">03</span>
+<span style="font-size:15px;font-weight:900;color:var(--gold);">04</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">#ФотоВыходногоДня</b>
+<span class="wk-stamp wip">в развитии</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 13.09 (uac_ru), пик 13.09 — сюжет держали 1 источника одновременно,
+всего источников дуги: 1. Тон дуги: +0.00 → +0.00.
+К 13.09 — в развитии.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-13.html" style="font-weight:700;">13.09</a> · охват 👁 28.7K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">05</span>
 <b style="font-size:14.5px;color:var(--navy);flex:1;">Друзья, сегодня провел совещание с главами администраций муниципальных образований</b>
 <span class="wk-stamp">затух</span></div>
 <p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
@@ -524,7 +547,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div style="font-size:11.8px;color:var(--muted);">Освещение по дням: — · охват 👁 25.5K</div>
 </div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
 <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
-<span style="font-size:15px;font-weight:900;color:var(--gold);">04</span>
+<span style="font-size:15px;font-weight:900;color:var(--gold);">06</span>
 <b style="font-size:14.5px;color:var(--navy);flex:1;">🚧 Завтра в центре Ульяновска ограничат движение из-за праздничных мероприятий Ограничения затронут площадь…</b>
 <span class="wk-stamp wip">пик пройден</span></div>
 <p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
@@ -534,7 +557,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-12.html" style="font-weight:700;">12.09</a> · охват 👁 15.2K</div>
 </div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
 <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
-<span style="font-size:15px;font-weight:900;color:var(--gold);">05</span>
+<span style="font-size:15px;font-weight:900;color:var(--gold);">07</span>
 <b style="font-size:14.5px;color:var(--navy);flex:1;">Geely Monjaro загорелся на Юго-западной</b>
 <span class="wk-stamp">затух</span></div>
 <p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
@@ -542,39 +565,19 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 всего источников дуги: 4. Тон дуги: +0.00 → +0.00.
 К 10.09 — затух.</p>
 <div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-10.html" style="font-weight:700;">10.09</a> · охват 👁 5K</div>
-</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
-<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
-<span style="font-size:15px;font-weight:900;color:var(--gold);">06</span>
-<b style="font-size:14.5px;color:var(--navy);flex:1;">❗ Улицу Гончарова начали перекрывать из-за показа мод Теперь только в объезд 😱</b>
-<span class="wk-stamp wip">пик пройден</span></div>
-<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
-Возник 12.09 (tresh_ulyan), пик 12.09 — сюжет держали 2 источника одновременно,
-всего источников дуги: 1. Тон дуги: +0.00 → +0.00.
-К 12.09 — пик пройден.</p>
-<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-12.html" style="font-weight:700;">12.09</a> · охват 👁 15K</div>
-</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
-<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
-<span style="font-size:15px;font-weight:900;color:var(--gold);">07</span>
-<b style="font-size:14.5px;color:var(--navy);flex:1;">Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября</b>
-<span class="wk-stamp">затух</span></div>
-<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
-Возник 10.09 (insaid173), пик 11.09 — сюжет держали 4 источника одновременно,
-всего источников дуги: 4. Тон дуги: +0.00 → +1.00.
-К 11.09 — затух.</p>
-<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-10.html" style="font-weight:700;">10.09</a> <a href="../digests/digest_2026-09-11.html" style="font-weight:700;">11.09</a> · охват 👁 10.6K</div>
 </div></div>
 <div class="note">Дуга = сюжет, который держали ≥2 источника одновременно или который собрал большой охват.
 Формула дуги: возникновение → пик → развязка, со ссылками на дневные выпуски. Редакционная доводка (оценки, колонка)
 вносится ассистентом по понедельникам, после чего штамп меняется на «завершён».</div>
 </div><aside class="wk-rail">
 <div class="wk-box"><h4>Погода</h4>
-<div style="font-size:13px;font-weight:700;color:var(--navy);">сейчас 17° (ощущается 15°), днём до 18°</div>
+<div style="font-size:13px;font-weight:700;color:var(--navy);">сейчас 16° (ощущается 14°), днём до 17°</div>
 <div class="now-line">Прогноз на выходные — в афише и на первой полосе.</div></div>
 <div class="wk-box"><h4>Курсы валют</h4><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Доллар США</span><b style="color:var(--navy);">84.26 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Евро</span><b style="color:var(--navy);">97.87 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Юань</span><b style="color:var(--navy);">12.55 ₽ / 1</b></div><div class="now-line">ЦБ РФ, 12.09.2026</div></div>
 <div class="wk-box"><h4>События региона за период</h4><div class="now-line">Нет событий.</div>
 <h4 style="margin-top:10px;">Впереди</h4><div class="now-line">Нет событий.</div></div>
-<div class="wk-box"><h4>Промышленность и бизнес: новости → события</h4><div class="tl-row"><div class="tl-time">17.09 23:00</div><div class="tl-txt"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener">Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли…</a></div></div><div class="tl-row"><div class="tl-time">30.09</div><div class="tl-txt"><a href="https://media73.ru/2026/ulyanovsk-eto-po-lyubvi-zhiteli-regiona-poboryutsya-za-100-tysyach-rubley" target="_blank" rel="noopener">«Ульяновск — это по любви»: жители региона поборются за 100 тысяч рублей</a></div></div>
-<h4 style="margin-top:10px;">Корпоративные каналы</h4><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3826" target="_blank" rel="noopener">223 года — одна семья, один завод ❤️ В областном конкурсе «Семейные трудовые…</a></div></div><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3825" target="_blank" rel="noopener">Выставка «УАЗ - природа движения», приуроченная к 85-летию УАЗ открылась в…</a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5043" target="_blank" rel="noopener">Перед пленарным заседанием Делового форума БРИКС Владимир Путин и Нарендра Моди…</a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5042" target="_blank" rel="noopener">От кульмана и 3D-моделирования к цифровому аватару гражданского самолета ✈️…</a></div></div>
+<div class="wk-box"><h4>Промышленность и бизнес: новости → события</h4><div class="tl-row"><div class="tl-time">15.09</div><div class="tl-txt"><a href="https://t.me/Russkih_Aleksey/12390" target="_blank" rel="noopener">Коротко по итогам еженедельного штаба: ✅ 15 сентября откроем новую взрослую…</a></div></div><div class="tl-row"><div class="tl-time">17.09 23:00</div><div class="tl-txt"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener">Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли…</a></div></div><div class="tl-row"><div class="tl-time">30.09</div><div class="tl-txt"><a href="https://media73.ru/2026/ulyanovsk-eto-po-lyubvi-zhiteli-regiona-poboryutsya-za-100-tysyach-rubley" target="_blank" rel="noopener">«Ульяновск — это по любви»: жители региона поборются за 100 тысяч рублей</a></div></div>
+<h4 style="margin-top:10px;">Корпоративные каналы</h4><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3826" target="_blank" rel="noopener">223 года — одна семья, один завод ❤️ В областном конкурсе «Семейные трудовые…</a></div></div><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3825" target="_blank" rel="noopener">Выставка «УАЗ - природа движения», приуроченная к 85-летию УАЗ открылась в…</a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5048" target="_blank" rel="noopener">✈️ Про МС-21 «Яковлева» - в каждой школе России 🇷🇺 Сегодня МС-21 стал главным…</a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5046" target="_blank" rel="noopener">#ФотоВыходногоДня</a></div></div>
 <div class="now-line">Публичные TG-каналы предприятий региона (проверка 12.09.2026): УАЗ (@UAZ_Today), ОАК (@uac_ru, включает «Авиастар-СП»). УКБП, НИИАР, «Волга-Днепр», «Контактор», «Ульяновскцемент», Т-плюс публичных каналов не имеют — их…</div></div>
 </aside></div>
 </div>

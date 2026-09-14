@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🧭 Роадмап — издание Гудок · информационно-аналитическое издание Ульяновской области</title>
+<title>План развития — издание Гудок · информационно-аналитическое издание Ульяновской области</title>
 <link rel="icon" type="image/png" href="assets/logo_gudok.png">
 <style>
 :root{--paper:#FAF7F2;--paper-2:#F3EFE7;--ink:#0B0B0B;--ink-2:#2A2620;--muted:#6B655C;--rule:#E3DED4;--rule-strong:#0B0B0B;--accent:#D63F1F;--on-ink:#C9C2B6;
@@ -88,10 +88,12 @@ a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
 .sprint h3{color:#ffd47e;font-size:17px;margin-bottom:10px;}
 .sprint ol{padding-left:20px;font-size:13.5px;line-height:1.7;}
 .sprint b{color:#fff;}
-.footer{background:var(--navy);color:#9db6cf;margin-top:38px;padding:24px 22px;font-size:12px;}
-.footer-inner{max-width:1180px;margin:0 auto;display:flex;gap:30px;flex-wrap:wrap;}
-.footer b{color:#fff;display:block;font-size:13px;margin-bottom:6px;}
-.footer p{line-height:1.6;max-width:480px;}
+.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 22px 18px;font-size:12.5px;}
+.footer-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:20px 36px;}
+.footer b{color:var(--paper);display:block;font-size:12.5px;margin-bottom:6px;}
+.footer p{line-height:1.55;max-width:430px;margin:0;}
+.footer a{color:var(--on-ink);}
+.footer a:hover{color:var(--accent);}
 
 .nav a.active{color:#fff;border-bottom-color:#f2b134;}
 .nav a.nav-util{color:#8fa9c4;font-weight:600;}
@@ -128,7 +130,7 @@ a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
 :root[data-theme="dark"] .bar-wrap,:root[data-theme="dark"] .bar-row .bt{background:#1c3049;}
 :root[data-theme="dark"] .btn{background:#1d4066;color:#fff;}
 :root[data-theme="dark"] .btn:hover{background:#2a5580;}
-:root[data-theme="dark"] .footer{background:#0a1826;}
+:root[data-theme="dark"] 
 :root[data-theme="dark"] .fbtn{background:#12202f;border-color:#24384e;color:var(--muted);}
 :root[data-theme="dark"] .fbtn.active{background:#2f80ed;border-color:#2f80ed;color:#fff;}
 :root[data-theme="dark"] .wx{background:linear-gradient(160deg,#15263a,#101e2d);border-color:#24384e;}
@@ -201,7 +203,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <header class="topbar"><div class="topbar-inner">
 <div class="brand">
 <div>
-<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · РОАДМАП</div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · ПЛАН РАЗВИТИЯ</div>
 <div class="brand-sub">Информационно-аналитическое издание · куда оно движется</div>
 </div></div>
 <div class="top-meta">
@@ -212,7 +214,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
 </div></div></header>
 
-<nav class="nav"><div class="nav-inner"><a href="index.html">Первая полоса</a><a href="digests/digest_2026-09-11.html">Выпуск № 0 (тест)</a><a href="digests/exec_2026-09-11.html">Руководителю</a><a href="afisha.html">Афиша</a><a href="projects.html">Выборы-2026</a><a href="infospace.html">Инфопространство</a><a href="index.html#archive">Архив</a><a class="nav-util nav-util-first" href="weekly.html">Аналитика недели</a></div></nav><main id="main"><div class="subnav"><div class="subnav-inner"><span class="lbl">В роадмапе:</span><a href="#v1">v1.0 готово</a><a href="#p1">Фаза 1 · Контент</a><a href="#p2">Фаза 2 · Аналитика</a><a href="#p3">Фаза 3 · Доставка</a><a href="#p4">Фаза 4 · Масштаб</a><a href="#infra">Инфраструктура</a><a href="#risks">Риски и KPI</a><a href="#sprint">Спринт</a></div></div>
+<nav class="nav"><div class="nav-inner"><a href="index.html">Первая полоса</a><a href="digests/digest_2026-09-11.html">Выпуск № 0 (тест)</a><a href="digests/exec_2026-09-11.html">Руководителю</a><a href="afisha.html">Афиша</a><a href="projects.html">Выборы-2026</a><a href="infospace.html">Инфопространство</a><a href="index.html#archive">Архив</a><a class="nav-util nav-util-first" href="weekly.html">Аналитика недели</a></div></nav><main id="main"><div class="subnav"><div class="subnav-inner"><span class="lbl">В плане:</span><a href="#v1">v1.0 готово</a><a href="#p1">Фаза 1 · Контент</a><a href="#p2">Фаза 2 · Аналитика</a><a href="#p3">Фаза 3 · Доставка</a><a href="#p4">Фаза 4 · Масштаб</a><a href="#infra">Инфраструктура</a><a href="#risks">Риски и KPI</a><a href="#sprint">Спринт</a></div></div>
 
 <div class="page">
 
@@ -389,9 +391,9 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 
 </main>
 <footer class="footer"><div class="footer-inner">
-<div><b>издание Гудок</b><p>Роадмап v1.0 от 11.09.2026. Каноническая текстовая версия — ROADMAP.md в репозитории; эта страница — визуальное представление.</p></div>
-<div><b>Управление роадмапом</b><p>Правки — через issues репозитория или в чате с ассистентом: «предложи правку роадмапа: …». Пересмотр приоритетов — ежемесячно, по итогам спринтов.</p></div>
-<div><b>Навигация</b><p><a href="index.html" style="color:#ffd47e;">Витрина центра</a> · <a href="digests/digest_2026-09-11.html" style="color:#ffd47e;">Свежий дайджест</a> · <a href="weekly.html" style="color:#ffd47e;">Спецвыпуск «Аналитика недели»</a></p></div>
+<div><b>издание Гудок</b><p>План развития · версия 2.8 от 14.09.2026. Каноническая текстовая версия — ROADMAP.md в репозитории; эта страница — визуальное представление.</p></div>
+<div><b>Управление планом</b><p>Правки — через issues репозитория или в чате с ассистентом: «предложи правку плана: …». Пересмотр приоритетов — ежемесячно, по итогам спринтов.</p></div>
+<div><b>Навигация</b><p><a href="index.html">Витрина центра</a> · <a href="digests/digest_2026-09-11.html">Свежий дайджест</a> · <a href="weekly.html">Спецвыпуск «Аналитика недели»</a></p></div>
 </div></footer>
 
 <script>
@@ -404,7 +406,7 @@ if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"
 syncThemeBtn();
 </script><div class="util-bar-wrap"><div class="util-bar">
 <span class="util-lbl">Служебное</span>
-<a href="roadmap.html">Роадмап издания</a>
+<a href="roadmap.html">План развития</a>
 <a href="status.html">Статус системы</a>
 <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
 </div></div>

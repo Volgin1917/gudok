@@ -341,17 +341,20 @@ img{max-width:100%;display:block;}
 .more-heads a:hover{color:var(--accent);}
 .more-heads a span{font-family:var(--sans);color:var(--muted);font-weight:400;font-size:11.5px;display:block;}
 
-/* подвал */
-.footer{background:var(--ink);color:var(--on-ink);margin-top:80px;padding:64px 0 32px;}
+/* подвал — компактный */
+.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
 .footer b,.footer h3{color:var(--paper);}
-.footer h3{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin:0 0 16px;}
+.footer h3{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
 .footer a{color:var(--on-ink);}
 .footer a:hover{color:var(--accent);}
-.footer-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:56px;}
-.footer p{font-family:var(--serif-body);font-size:14px;line-height:1.6;max-width:440px;}
-.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:34px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:14px;}
+.footer-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:20px 36px;}
+.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
+.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
+.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
+.footer li{margin:4px 0;}
+.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
 .footer__brand span{color:var(--accent);}
-.footer__bottom{max-width:var(--maxw);margin:48px auto 0;padding:18px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:12px;color:var(--on-ink);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
 :root[data-theme="dark"] .footer__bottom{border-top-color:rgba(11,11,11,.2);}
 
 /* печать */
@@ -393,7 +396,7 @@ img{max-width:100%;display:block;}
   .feature__text{padding:48px 0;}
   .feature__media{min-height:360px;}
   .opinion__grid{grid-template-columns:1fr 1fr;}
-  .footer__inner{grid-template-columns:1fr 1fr;gap:40px;}
+  .footer__inner{grid-template-columns:1fr 1fr;gap:26px;}
   .now-grid{grid-template-columns:1fr;}
   .now-col{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:12px;}
   .kpi-grid{grid-template-columns:repeat(3,1fr);}
@@ -411,7 +414,7 @@ img{max-width:100%;display:block;}
   .mostread__list li{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:14px;}
   .mostread__list li:first-child{border-top:0;padding-top:0;}
   .sec-head{flex-direction:column;align-items:flex-start;gap:6px;}
-  .footer__inner{grid-template-columns:1fr;gap:32px;}
+  .footer__inner{grid-template-columns:1fr;gap:22px;}
   .footer__bottom{flex-direction:column;}
   .kpi-grid{grid-template-columns:repeat(2,1fr);}
 }
@@ -467,7 +470,7 @@ img{max-width:100%;display:block;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="topbar"><div class="flagline"><span>понедельник, 14 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 21:14</span></div><div class="topbar-inner">
+<header class="topbar"><div class="flagline"><span>понедельник, 14 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 21:35</span></div><div class="topbar-inner">
 <div class="brand"><div>
 <div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · АНАЛИТИКА НЕДЕЛИ</div>
 <div class="brand-sub">Завершённые недельные страницы: период, паспорт, правая колонка справочных данных</div>
