@@ -1,5 +1,5 @@
 {
- "generated_local": "14.09.2026 08:10",
+ "generated_local": "14.09.2026 08:15",
  "calendar": [
   {
    "etype": "other",
@@ -413,11 +413,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.333,
-  "today_items": 9,
+  "today_score": 0.3,
+  "today_items": 10,
   "today_pos": 317,
   "today_neg": 196,
-  "today_neu": 435,
+  "today_neu": 436,
   "series": [
    {
     "date": "2026-09-01",
@@ -473,7 +473,7 @@
    },
    {
     "date": "2026-09-14",
-    "score": 0.333
+    "score": 0.3
    }
   ],
   "by_category": {
@@ -495,6 +495,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "tresh_ulyan",
+   "tier": 2,
+   "type": "tg",
+   "total": 82,
+   "primary": 62,
+   "dup": 20,
+   "repost_rate": 0.24,
+   "views_median": 10800,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "ulpressa",
    "tier": 1,
    "type": "tg",
@@ -504,18 +516,6 @@
    "repost_rate": 0.28,
    "views_median": 1190,
    "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "tresh_ulyan",
-   "tier": 2,
-   "type": "tg",
-   "total": 81,
-   "primary": 61,
-   "dup": 20,
-   "repost_rate": 0.25,
-   "views_median": 10800,
-   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -787,9 +787,9 @@
    "tier": 1,
    "type": "tg",
    "total": 19,
-   "primary": 13,
-   "dup": 6,
-   "repost_rate": 0.32,
+   "primary": 14,
+   "dup": 5,
+   "repost_rate": 0.26,
    "views_median": 54,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -799,11 +799,11 @@
    "tier": 1,
    "type": "tg",
    "total": 17,
-   "primary": 13,
-   "dup": 4,
-   "repost_rate": 0.24,
-   "views_median": 2490,
-   "label": "первоисточник",
+   "primary": 12,
+   "dup": 5,
+   "repost_rate": 0.29,
+   "views_median": 3650,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -915,8 +915,8 @@
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 3.9,
-   "slope": -1.71,
+   "expected": 4.6,
+   "slope": -1.61,
    "direction": "спад",
    "confidence": "средняя"
   },

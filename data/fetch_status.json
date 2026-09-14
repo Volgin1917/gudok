@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Улпресса": {
   "ok": true,
@@ -71,7 +71,7 @@
  },
  "tg:tresh_ulyan": {
   "ok": true,
-  "items": 18,
+  "items": 16,
   "error": null,
   "title": "Треш Ульяновск"
  },
@@ -202,11 +202,11 @@
   "title": "ПАО «ОАК»"
  },
  "_meta": {
-  "last_run_utc": "2026-09-14T04:08:44.010886+00:00",
-  "last_run_local": "14.09.2026 08:08",
-  "fetched": 183,
+  "last_run_utc": "2026-09-14T04:12:08.735156+00:00",
+  "last_run_local": "14.09.2026 08:12",
+  "fetched": 171,
   "new": 1,
-  "total_store": 1150
+  "total_store": 1151
  },
  "rss:Улград": {
   "ok": true,
