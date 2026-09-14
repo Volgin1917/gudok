@@ -190,10 +190,32 @@ img{max-width:100%;display:block;}
 
 /* ленты и прочие старые компоненты в новой оптике */
 .main-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:start;}
-.cat-block{border-top:1px solid var(--ink);margin-bottom:36px;padding-top:14px;}
-.cat-head{display:flex;align-items:baseline;gap:12px;padding:0 0 10px;border-bottom:1px solid var(--rule);}
-.cat-head h3{font-family:var(--serif-display);font-weight:600;font-size:22px;color:var(--ink);}
-.cat-head .count{margin-left:auto;font-family:var(--sans);font-size:12px;color:var(--muted);}
+.cat-block{border-top:2px solid var(--ink);margin:0 0 30px;padding-top:10px;break-inside:avoid;}
+.cat-head{display:flex;align-items:baseline;gap:12px;padding:0 0 4px;}
+.cat-head h3{font-family:var(--serif-display);font-weight:600;font-size:20px;color:var(--ink);margin:0;}
+.cat-head .count{margin-left:auto;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.feed-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;align-items:start;margin-top:6px;}
+.feed-cols>div{min-width:0;}
+.fi{padding:13px 0;border-bottom:1px solid var(--rule);}
+.fi:last-child{border-bottom:none;}
+.fi h4{font-family:var(--serif-body);font-weight:600;font-size:15.5px;line-height:1.32;margin:0;}
+.fi h4 a{color:var(--ink);}
+.fi h4 a:hover{color:var(--accent);}
+.fi .dek{font-family:var(--serif-body);font-size:13.5px;color:var(--ink-2);line-height:1.45;margin:4px 0 0;}
+.fi .meta{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:5px;}
+.fi .meta time{font-weight:700;color:var(--ink-2);}
+.fi .also{font-family:var(--serif-body);font-size:12px;font-style:italic;color:var(--muted);margin-top:3px;}
+.fi .topics{font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+.fi-lead{padding-top:8px;}
+.fi-lead h4{font-family:var(--serif-display);font-size:19px;line-height:1.22;}
+.fi-lead .dek{font-size:14.5px;}
+.fi.with-photo{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:0 14px;}
+.fi.with-photo .fi-body{min-width:0;}
+.fi-thumb{width:104px;height:70px;overflow:hidden;align-self:start;margin-top:2px;}
+.cat-more{font-family:var(--sans);font-size:11px;color:var(--muted);padding:8px 0 2px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;align-items:start;}
+.grid2>*{min-width:0;}
+@media (max-width:1000px){.feed-cols,.grid2{grid-template-columns:1fr;gap:0;}}
 .news-item{padding:14px 0;border-bottom:1px solid var(--rule);}
 .news-item:last-child{border-bottom:none;}
 .news-item h4{font-family:var(--serif-display);font-weight:600;font-size:18px;line-height:1.25;margin-bottom:6px;color:var(--ink);}
@@ -203,7 +225,19 @@ img{max-width:100%;display:block;}
 .news-item .meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:6px;}
 .news-item .meta .tg{color:var(--muted);}
 .tchip{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;margin:6px 4px 0 0;}
-.stchip{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:2px 9px;}
+.cl-card{border-top:1px solid var(--rule);padding:10px 0;}
+.cl-card:first-child{border-top:none;padding-top:2px;}
+.cl-head{display:flex;align-items:baseline;gap:4px;flex-wrap:wrap;}
+.cl-name{font-family:var(--serif-display);font-weight:600;font-size:16px;color:var(--ink);}
+.cl-card.gap .cl-name{color:var(--accent);}
+.cl-samples{font-family:var(--serif-body);font-size:13px;color:var(--ink-2);margin-top:5px;line-height:1.5;}
+.cl-samples a{color:var(--ink);}
+.cl-samples a:hover{color:var(--accent);}
+.cl-badge{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--rule);padding:2px 8px;margin-left:6px;background:none;}
+.cl-badge.cl-warn{color:var(--accent);border-color:var(--accent);}
+.stchip{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;background:none;white-space:nowrap;}
+.stchip.st-rise{color:var(--accent);border-color:var(--accent);}
+.stchip.st-new{color:var(--ink);border-color:var(--ink);}
 .side-head{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:none;border-bottom:1px solid var(--ink);padding:0 0 8px;}
 .side-head .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
 .side-body{padding:12px 0;}
@@ -453,7 +487,7 @@ img{max-width:100%;display:block;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>понедельник, 14 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 22:58</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>понедельник, 14 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 23:21</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Аналитика недели<br>выпусков: 2

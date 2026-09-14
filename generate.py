@@ -221,10 +221,32 @@ img{max-width:100%;display:block;}
 
 /* ленты и прочие старые компоненты в новой оптике */
 .main-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:start;}
-.cat-block{border-top:1px solid var(--ink);margin-bottom:36px;padding-top:14px;}
-.cat-head{display:flex;align-items:baseline;gap:12px;padding:0 0 10px;border-bottom:1px solid var(--rule);}
-.cat-head h3{font-family:var(--serif-display);font-weight:600;font-size:22px;color:var(--ink);}
-.cat-head .count{margin-left:auto;font-family:var(--sans);font-size:12px;color:var(--muted);}
+.cat-block{border-top:2px solid var(--ink);margin:0 0 30px;padding-top:10px;break-inside:avoid;}
+.cat-head{display:flex;align-items:baseline;gap:12px;padding:0 0 4px;}
+.cat-head h3{font-family:var(--serif-display);font-weight:600;font-size:20px;color:var(--ink);margin:0;}
+.cat-head .count{margin-left:auto;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.feed-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;align-items:start;margin-top:6px;}
+.feed-cols>div{min-width:0;}
+.fi{padding:13px 0;border-bottom:1px solid var(--rule);}
+.fi:last-child{border-bottom:none;}
+.fi h4{font-family:var(--serif-body);font-weight:600;font-size:15.5px;line-height:1.32;margin:0;}
+.fi h4 a{color:var(--ink);}
+.fi h4 a:hover{color:var(--accent);}
+.fi .dek{font-family:var(--serif-body);font-size:13.5px;color:var(--ink-2);line-height:1.45;margin:4px 0 0;}
+.fi .meta{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:5px;}
+.fi .meta time{font-weight:700;color:var(--ink-2);}
+.fi .also{font-family:var(--serif-body);font-size:12px;font-style:italic;color:var(--muted);margin-top:3px;}
+.fi .topics{font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+.fi-lead{padding-top:8px;}
+.fi-lead h4{font-family:var(--serif-display);font-size:19px;line-height:1.22;}
+.fi-lead .dek{font-size:14.5px;}
+.fi.with-photo{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:0 14px;}
+.fi.with-photo .fi-body{min-width:0;}
+.fi-thumb{width:104px;height:70px;overflow:hidden;align-self:start;margin-top:2px;}
+.cat-more{font-family:var(--sans);font-size:11px;color:var(--muted);padding:8px 0 2px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;align-items:start;}
+.grid2>*{min-width:0;}
+@media (max-width:1000px){.feed-cols,.grid2{grid-template-columns:1fr;gap:0;}}
 .news-item{padding:14px 0;border-bottom:1px solid var(--rule);}
 .news-item:last-child{border-bottom:none;}
 .news-item h4{font-family:var(--serif-display);font-weight:600;font-size:18px;line-height:1.25;margin-bottom:6px;color:var(--ink);}
@@ -234,7 +256,19 @@ img{max-width:100%;display:block;}
 .news-item .meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:6px;}
 .news-item .meta .tg{color:var(--muted);}
 .tchip{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;margin:6px 4px 0 0;}
-.stchip{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:2px 9px;}
+.cl-card{border-top:1px solid var(--rule);padding:10px 0;}
+.cl-card:first-child{border-top:none;padding-top:2px;}
+.cl-head{display:flex;align-items:baseline;gap:4px;flex-wrap:wrap;}
+.cl-name{font-family:var(--serif-display);font-weight:600;font-size:16px;color:var(--ink);}
+.cl-card.gap .cl-name{color:var(--accent);}
+.cl-samples{font-family:var(--serif-body);font-size:13px;color:var(--ink-2);margin-top:5px;line-height:1.5;}
+.cl-samples a{color:var(--ink);}
+.cl-samples a:hover{color:var(--accent);}
+.cl-badge{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--rule);padding:2px 8px;margin-left:6px;background:none;}
+.cl-badge.cl-warn{color:var(--accent);border-color:var(--accent);}
+.stchip{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;background:none;white-space:nowrap;}
+.stchip.st-rise{color:var(--accent);border-color:var(--accent);}
+.stchip.st-new{color:var(--ink);border-color:var(--ink);}
 .side-head{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:none;border-bottom:1px solid var(--ink);padding:0 0 8px;}
 .side-head .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
 .side-body{padding:12px 0;}
@@ -752,6 +786,39 @@ def dek_p(it, limit, cls=""):
     return f"<p{cls_attr}>{esc(d)}</p>" if len(d) >= 40 else ""
 
 
+def feed_title(it, limit):
+    """Заголовок для ленты: достройка оборванных без точки заголовков по тексту поста."""
+    t = (it.get("title") or "").strip()
+    txt = (it.get("text") or "").strip()
+    nt = nice_title(it, limit)
+    if (txt and len(txt) > len(t) + 12
+            and not re.search(r'[.!?…]["»\']?$', t)
+            and norm_sq(txt).startswith(norm_sq(t)[:40])):
+        ext = clip_sentences(txt, max(limit, 120))
+        if ext and not ext.endswith("…") and len(ext) > len(nt):
+            return ext
+    return nt
+
+
+def feed_dek_p(it, limit, title=None):
+    """Дек ленты без повтора заголовка: нормализованное вхождение + лексический оверлап.
+    title — уже отрендеренный заголовок (feed_title может достраивать его из текста)."""
+    ttl = title if title is not None else (it.get("title") or "")
+    body = strip_title_lead(it.get("text") or "", ttl)
+    d = clip_sentences(body, limit)
+    if len(d) < 40:
+        return ""
+    tn = norm_sq(ttl)
+    dn = norm_sq(d)
+    if tn and dn and (dn in tn or tn in dn):
+        return ""
+    tw = set(re.findall(r"[а-яёa-z0-9]{4,}", ttl.lower()))
+    dw = set(re.findall(r"[а-яёa-z0-9]{4,}", d.lower()))
+    if dw and tw and len(tw & dw) / len(dw) > 0.7:
+        return ""
+    return f'<p class="dek">{esc(d)}</p>'
+
+
 def plural_ru(n, one, few, many):
     n10, n100 = n % 10, n % 100
     if n10 == 1 and n100 != 11:
@@ -1051,7 +1118,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
             dt = local_dt(it.get("published"))
             views = f" · 👁 {fmt_views(it['views'])}" if it.get("views") else ""
             link = esc(it.get("url") or "#")
-            img = photo_img(it, "../", "width:100%;height:150px;object-fit:cover;border-radius:9px;margin-bottom:9px;")
+            img = photo_img(it, "../", "width:100%;height:150px;object-fit:cover;margin-bottom:9px;")
             hero_html.append(f"""<div class="hero-card" style="border-top-color:{color};">
 {img}<div class="hk" style="color:{color};">{cat.get('icon','📌')} {esc(cat.get('name','Главное'))}<span class="w">событие №{rank}</span></div>
 <h3><a href="{link}" target="_blank" rel="noopener">{esc(nice_title(it,110))}</a></h3>
@@ -1084,15 +1151,17 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
         for tid, t in order[:12]:
             if t["week"] == 0 and t["today"] == 0:
                 continue
-            label, bgc, fgc = STATUS_META.get(t["status"], STATUS_META["stable"])
-            st_color = "#d5494e" if t["status"] == "rising" else ("#218a58" if t["status"] == "new" else "#2f80ed")
+            label = STATUS_META.get(t["status"], STATUS_META["stable"])[0]
+            st_color = {"rising": "#D63F1F", "new": "#0B0B0B", "fading": "#9A948A",
+                        "silent": "#C9C2B6"}.get(t["status"], "#6B655C")
+            chip_cls = {"rising": " st-rise", "new": " st-new"}.get(t["status"], "")
             width = max(4, int(t["week"] / mx * 100))
             fill_cls = "hot" if t["status"] == "rising" else ("cool" if t["status"] == "new" else "")
             rows.append(f"""<div class="topic-row">
 <div class="topic-name">{esc(t['name'])}<small>за 7 дней: {t['week']} · сегодня: {t['today']}</small></div>
 <div class="bar-wrap"><div class="bar-fill {fill_cls}" style="width:{width}%"></div></div>
 <div class="sparkcell">{sparkline(t['series'], color=st_color)}</div>
-<div><span class="stchip" style="background:{bgc};color:{fgc};">{label}</span></div>
+<div><span class="stchip{chip_cls}">{label}</span></div>
 </div>""")
         parts.append(f"""<div class="sec-head" id="pulse"><h2>Пульс информационной повестки</h2><div class="line"></div>
 <div class="badge">динамика {trends['days'][0][8:10]}.{trends['days'][0][5:7]}–{trends['days'][-1][8:10]}.{trends['days'][-1][5:7]}</div></div>
@@ -1133,43 +1202,72 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
 <div class="card"><div class="card-pad">{''.join(rows)}
 <div class="note">Даты извлекаются из текстов автоматически (analytics.py): одиночные дни, диапазоны, время и площадки 📍. Погода и исторические даты отсеиваются. Перед визитом сверяйтесь с первоисточником.</div></div></div>""")
 
-    # ---- Лента дня
+    # ---- Лента дня: рубрикатор в газетной оптике (лид + компактные строки)
     parts.append(f"""<div class="sec-head" id="feed"><h2>Лента дня</h2><div class="line"></div>
 <div class="badge">{len(window)} материалов</div></div>""")
     if not window:
         parts.append('<div class="card"><div class="card-pad">За выбранный период материалов нет. Запустите <code>python3 collector.py</code>.</div></div>')
     else:
         ordered_cats = [c["id"] for c in cfg["categories"] if by_cat.get(c["id"])]
-        cols = [[], []]
-        for i, cid in enumerate(ordered_cats):
-            c = cats[cid]
-            items_html = []
-            for it in by_cat[cid][:10]:
-                dt = local_dt(it.get("published"))
-                link = esc(it.get("url") or "#")
-                tg_badge = ""
-                if it.get("source_type") == "tg":
-                    tg_badge = f' · <span class="tg">Telegram @{esc(it.get("channel") or "")}</span>'
-                    if it.get("views"):
-                        tg_badge += f' · 👁 {fmt_views(it["views"])}'
-                chips = "".join(f'<span class="tchip">#{esc(topic_names[t])}</span>'
-                                for t in it.get("topics", [])[:3] if t in topic_names)
-                also = it.get("also_in") or []
-                if also:
-                    more = f" +{len(also)-3}" if len(also) > 3 else ""
-                    chips += f'<span class="tchip" style="background:#fdf3dd;border-color:#ecd9a8;color:#96690a;">🔁 также: {esc(", ".join(also[:3]))}{more}</span>'
-                thumb = photo_img(it, "../", "float:right;width:118px;height:78px;object-fit:cover;border-radius:9px;margin:2px 0 8px 12px;")
-                items_html.append(f"""<article class="news-item">
-{thumb}<h4><a href="{link}" target="_blank" rel="noopener">{esc(nice_title(it,100))}</a></h4>
-{dek_p(it, 340)}
-<div class="meta"><time datetime="{dt.isoformat() if dt else ''}">{dt.strftime('%d.%m %H:%M') if dt else ''}</time> · {esc(it.get('source',''))}{tg_badge}</div>
-{chips}</article>""")
-            block = (f"""<div class="card cat-block"><div class="cat-head">
 
-<h3>{esc(c['name'])}</h3><div class="count">{len(by_cat[cid])}</div></div>
-{''.join(items_html)}</div>""")
-            cols[i % 2].append(block)
-        parts.append(f"""<div class="grid2">
+        def src_label(it):
+            if it.get("source_type") == "tg":
+                return "@" + str(it.get("channel") or it.get("source") or "")
+            return str(it.get("source", ""))
+
+        def meta_line(it):
+            dt = local_dt(it.get("published"))
+            views = f' · 👁 {fmt_views(it["views"])}' if it.get("views") else ""
+            t = f'<time datetime="{dt.isoformat()}">{dt.strftime("%d.%m %H:%M")}</time>' if dt else ""
+            return f'<div class="meta">{t} · {esc(src_label(it))}{views}</div>'
+
+        def also_line(it):
+            also = it.get("also_in") or []
+            if not also:
+                return ""
+            more = f" +{len(also) - 3}" if len(also) > 3 else ""
+            return f'<div class="also">🔁 также сообщили: {esc(", ".join(also[:3]))}{more}</div>'
+
+        def topics_line(it):
+            ts = [topic_names[t] for t in (it.get("topics") or [])[:3] if t in topic_names]
+            return f'<div class="topics">{esc(" · ".join(ts))}</div>' if ts else ""
+
+        def feed_item(it, lead=False):
+            link = esc(it.get("url") or "#")
+            if lead:
+                ph = photo_img(it, "../", "width:100%;aspect-ratio:16/9;object-fit:cover;display:block;margin-bottom:9px;")
+                ttl = feed_title(it, 130)
+                return (f'<article class="fi fi-lead">{ph}'
+                        f'<h4><a href="{link}" target="_blank" rel="noopener">{esc(ttl)}</a></h4>'
+                        f'{feed_dek_p(it, 220, ttl)}{meta_line(it)}{also_line(it)}{topics_line(it)}</article>')
+            ph = photo_img(it, "../", "width:104px;height:70px;object-fit:cover;display:block;")
+            thumb = f'<div class="fi-thumb">{ph}</div>' if ph else ""
+            cls = "fi with-photo" if ph else "fi"
+            ttl = feed_title(it, 105)
+            return (f'<article class="{cls}">'
+                    f'<div class="fi-body"><h4><a href="{link}" target="_blank" rel="noopener">{esc(ttl)}</a></h4>'
+                    f'{feed_dek_p(it, 130, ttl)}{meta_line(it)}{also_line(it)}</div>{thumb}</article>')
+
+        blocks = []
+        for cid in ordered_cats:
+            c = cats[cid]
+            items = by_cat[cid][:10]
+            n_all = len(by_cat[cid])
+            items_html = feed_item(items[0], lead=True) + "".join(feed_item(it) for it in items[1:])
+            more = (f'<div class="cat-more">и ещё {n_all - len(items)} '
+                    f'{plural_ru(n_all - len(items), "материал", "материала", "материалов")} за сутки в базе</div>'
+                    if n_all > len(items) else "")
+            blocks.append((len(items), f"""<section class="cat-block">
+<div class="cat-head"><h3>{esc(c['name'])}</h3><div class="count">{n_all} {plural_ru(n_all, 'материал', 'материала', 'материалов')}</div></div>
+{items_html}{more}</section>"""))
+        # раскладка по двум колонкам: порядок рубрик сохраняется, баланс по числу материалов
+        cols = [[], []]
+        load = [0, 0]
+        for w, html in blocks:
+            j = 0 if load[0] <= load[1] else 1
+            cols[j].append(html)
+            load[j] += w
+        parts.append(f"""<div class="feed-cols">
 <div>{''.join(cols[0])}</div><div>{''.join(cols[1])}</div></div>""")
 
     # ---- Telegram monitor: tier1 карточками, tier2/3 компактной таблицей
@@ -1203,8 +1301,9 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
 <span class="sub">{esc(ch.get('title',''))}</span></div><div class="side-body">{rows}</div></div>""")
         parts.append('</div>')
 
-    tier_badge = {2: ('<span class="stchip" style="background:#e8eef5;color:#3d5a7a;">агрегатор</span>'),
-                  3: ('<span class="stchip" style="background:#f3edfa;color:#5f418f;">мнения</span>')}
+    tier_badge = {1: '<span class="stchip st-new">официальный</span>',
+                  2: '<span class="stchip">агрегатор</span>',
+                  3: '<span class="stchip">мнение</span>'}
     trows = []
     for username, ch in t23:
         last = ch_posts(username, 1)
@@ -1232,16 +1331,16 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
     if clusters:
         cl_html = []
         for c in clusters:
-            gap_badge = ('<span class="cl-badge" style="background:#fdf3dd;color:#96690a;">⚠️ вне словаря тем</span>'
+            gap_badge = ('<span class="cl-badge cl-warn">⚠️ вне словаря тем</span>'
                          if c.get("gap") else
-                         f'<span class="cl-badge" style="background:#e0f4ea;color:#1d7a4d;">словарь: {int(c["coverage"]*100)}%</span>')
+                         f'<span class="cl-badge">словарь: {int(c["coverage"] * 100)}%</span>')
             samples = "".join(
                 f'<div>• <a href="{esc(smp["url"]) or "#"}" target="_blank" rel="noopener">{esc(smp["title"])}</a> '
-                f'<span style="color:#8a99aa;">({esc(smp["source"])}{" · 👁 " + fmt_views(smp["views"]) if smp.get("views") else ""})</span></div>'
+                f'<span style="color:var(--muted);">({esc(smp["source"])}{" · 👁 " + fmt_views(smp["views"]) if smp.get("views") else ""})</span></div>'
                 for smp in c.get("samples", [])[:2])
             cl_html.append(f"""<div class="cl-card{' gap' if c.get('gap') else ''}">
 <div class="cl-head"><span class="cl-name">«{esc(c['name'])}»</span>
-<span class="cl-badge" style="background:#e8eef5;color:#3d5a7a;">×{c['size']} материалов за 72 ч</span>{gap_badge}</div>
+<span class="cl-badge">×{c['size']} {plural_ru(c['size'], 'материал', 'материала', 'материалов')} за 72 ч</span>{gap_badge}</div>
 <div class="cl-samples">{samples}</div></div>""")
         parts.append(f"""<div class="sec-head" id="clusters"><h2>Сюжеты последних 72 часов</h2><div class="line"></div>
 <div class="badge">TF-IDF кластеризация без словаря</div></div>
