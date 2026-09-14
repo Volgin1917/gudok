@@ -1,5 +1,5 @@
 {
- "generated_local": "14.09.2026 13:17",
+ "generated_local": "14.09.2026 14:27",
  "calendar": [
   {
    "etype": "other",
@@ -12,6 +12,19 @@
    "url": "https://t.me/ulsk_on/22777",
    "source": "t.me/ulsk_on",
    "tier": 2,
+   "venue": ""
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": true,
+   "date": "2026-09-14",
+   "date_end": null,
+   "time": "17:00",
+   "title": "Обвал грунта затянул ремонт водопровода на Орлова",
+   "url": "https://ulpressa.ru/2026/09/14/obval-grunta-zatyanul-remont-vodoprovoda-na-orlova/",
+   "source": "Улпресса",
+   "tier": null,
    "venue": ""
   },
   {
@@ -225,11 +238,11 @@
  ],
  "clusters": [
   {
-   "name": "гостинице · московском · росгвардейцы",
+   "name": "гостинице · росгвардейцы · московском",
    "terms": [
     "гостинице",
-    "московском",
-    "росгвардейцы"
+    "росгвардейцы",
+    "московском"
    ],
    "size": 5,
    "coverage": 0.4,
@@ -252,37 +265,6 @@
      "url": "https://t.me/topor_ul/11586",
      "source": "t.me/topor_ul",
      "views": 683
-    }
-   ]
-  },
-  {
-   "name": "возложили · стеле · цветы",
-   "terms": [
-    "возложили",
-    "стеле",
-    "цветы"
-   ],
-   "size": 3,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "Ульяновцы возложили цветы к стеле «Город трудовой доблести».",
-     "url": "https://t.me/ulpressa/74495",
-     "source": "t.me/ulpressa",
-     "views": 597
-    },
-    {
-     "title": "В преддверии Дня города отдаём дань уважения всем, кто внёс вклад в развитие Ульяновска и прославил Малую Роди",
-     "url": "https://t.me/Russkih_Aleksey/12317",
-     "source": "t.me/Russkih_Aleksey",
-     "views": 271
-    },
-    {
-     "title": "Ульяновцы возложили цветы к стеле «Город трудовой доблести»: фото",
-     "url": "https://ulpressa.ru/2026/09/12/ulyanovczy-vozlozhili-czvety-k-stele-gorod-trudovoj-doblesti-foto-2/",
-     "source": "Улпресса",
-     "views": null
     }
    ]
   },
@@ -349,37 +331,6 @@
    ]
   },
   {
-   "name": "когда · реальность · домов",
-   "terms": [
-    "когда",
-    "реальность",
-    "домов"
-   ],
-   "size": 3,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "❗️ СВО закончится, когда Украина отведёт войска на позиции, обозначенные Кремлём, — спецпосланник США Джаред К",
-     "url": "https://t.me/tresh_ulyan/56162",
-     "source": "t.me/tresh_ulyan",
-     "views": 12300
-    },
-    {
-     "title": "Что скрывает зелень? Когда за веселой детской площадкой прячется грустная реальность полуразрушенных домов и м",
-     "url": "https://t.me/dimitrovgradd/31718",
-     "source": "t.me/dimitrovgradd",
-     "views": 1310
-    },
-    {
-     "title": "Когда список расходников слегка расширился.",
-     "url": "https://t.me/ulsk_driver73/18505",
-     "source": "t.me/ulsk_driver73",
-     "views": 571
-    }
-   ]
-  },
-  {
    "name": "заметили · центре · ульяновцы",
    "terms": [
     "заметили",
@@ -409,15 +360,75 @@
      "views": 394
     }
    ]
+  },
+  {
+   "name": "заменил",
+   "terms": [
+    "заменил"
+   ],
+   "size": 3,
+   "coverage": 0.0,
+   "gap": true,
+   "samples": [
+    {
+     "title": "♻️ ♻️ ♻️ ♻️ Яковлев заменил Хашкулова",
+     "url": "https://t.me/fcvolga/12522",
+     "source": "t.me/fcvolga",
+     "views": 1240
+    },
+    {
+     "title": "66’ 🔄 Денис Рахманов заменил Багателию Новиков заменил Диму Рахманова ⚫️ 0️⃣ ➖ 1️⃣ 🟡",
+     "url": "https://t.me/fcvolga/12519",
+     "source": "t.me/fcvolga",
+     "views": 1230
+    },
+    {
+     "title": "♻️ ♻️ ♻️ ♻️ 82’ Быкова заменил Гершун",
+     "url": "https://t.me/fcvolga/12523",
+     "source": "t.me/fcvolga",
+     "views": 1220
+    }
+   ]
+  },
+  {
+   "name": "гагарина · двухлетний · балконе",
+   "terms": [
+    "гагарина",
+    "двухлетний",
+    "балконе"
+   ],
+   "size": 3,
+   "coverage": 0.0,
+   "gap": true,
+   "samples": [
+    {
+     "title": "👵 В Ленинском районе бабушка попала в «плен» на собственном балконе. В доме на улице Гагарина двухлетний ребён",
+     "url": "https://t.me/chpulsk/50757",
+     "source": "t.me/chpulsk",
+     "views": 3400
+    },
+    {
+     "title": "😱 Ребёнок запер бабушку на балконе: спасатели пришли на помощь с автолестницей На Гагарина двухлетний внук слу",
+     "url": "https://t.me/topor_ul/11618",
+     "source": "t.me/topor_ul",
+     "views": 575
+    },
+    {
+     "title": "На Гагарина двухлетний малыш запер бабушку на балконе",
+     "url": "https://ulpressa.ru/2026/09/14/na-gagarina-dvuhletnij-malysh-zaper-babushku-na-balkone/",
+     "source": "Улпресса",
+     "views": null
+    }
+   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.0,
-  "today_items": 48,
-  "today_pos": 329,
-  "today_neg": 210,
-  "today_neu": 450,
+  "today_score": 0.01,
+  "today_items": 64,
+  "today_pos": 334,
+  "today_neg": 215,
+  "today_neu": 456,
   "series": [
    {
     "date": "2026-09-01",
@@ -473,16 +484,16 @@
    },
    {
     "date": "2026-09-14",
-    "score": 0.0
+    "score": 0.01
    }
   ],
   "by_category": {
-   "economy": 0.25,
+   "economy": 0.4,
    "education": 0.5,
    "politics": 0.0,
-   "security": -0.444,
-   "society": -0.143,
-   "sport": 0.75
+   "security": -0.429,
+   "society": -0.115,
+   "sport": 0.8
   }
  },
  "credibility": [
@@ -490,10 +501,10 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 127,
-   "primary": 121,
+   "total": 134,
+   "primary": 128,
    "dup": 6,
-   "repost_rate": 0.05,
+   "repost_rate": 0.04,
    "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -538,10 +549,10 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 53,
-   "primary": 32,
+   "total": 55,
+   "primary": 34,
    "dup": 21,
-   "repost_rate": 0.4,
+   "repost_rate": 0.38,
    "views_median": 3430,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -550,12 +561,24 @@
    "source": "topor_ul",
    "tier": 2,
    "type": "tg",
-   "total": 52,
-   "primary": 42,
+   "total": 53,
+   "primary": 43,
    "dup": 10,
    "repost_rate": 0.19,
-   "views_median": 1950,
+   "views_median": 1630,
    "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulsk_on",
+   "tier": 2,
+   "type": "tg",
+   "total": 51,
+   "primary": 37,
+   "dup": 14,
+   "repost_rate": 0.27,
+   "views_median": 376,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -567,18 +590,6 @@
    "dup": 14,
    "repost_rate": 0.28,
    "views_median": 595,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulsk_on",
-   "tier": 2,
-   "type": "tg",
-   "total": 48,
-   "primary": 34,
-   "dup": 14,
-   "repost_rate": 0.29,
-   "views_median": 440,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -598,8 +609,8 @@
    "source": "reporter73",
    "tier": 1,
    "type": "tg",
-   "total": 38,
-   "primary": 33,
+   "total": 39,
+   "primary": 34,
    "dup": 5,
    "repost_rate": 0.13,
    "views_median": 57,
@@ -658,11 +669,11 @@
    "source": "ulsk_driver73",
    "tier": 2,
    "type": "tg",
-   "total": 32,
-   "primary": 26,
+   "total": 33,
+   "primary": 27,
    "dup": 6,
-   "repost_rate": 0.19,
-   "views_median": 478,
+   "repost_rate": 0.18,
+   "views_median": 449,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -670,10 +681,10 @@
    "source": "ulkoroche",
    "tier": 2,
    "type": "tg",
-   "total": 30,
-   "primary": 25,
+   "total": 31,
+   "primary": 26,
    "dup": 5,
-   "repost_rate": 0.17,
+   "repost_rate": 0.16,
    "views_median": 915,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -707,11 +718,11 @@
    "tier": 3,
    "type": "tg",
    "total": 25,
-   "primary": 19,
-   "dup": 6,
-   "repost_rate": 0.24,
-   "views_median": 3110,
-   "label": "первоисточник",
+   "primary": 18,
+   "dup": 7,
+   "repost_rate": 0.28,
+   "views_median": 3220,
+   "label": "смешанный",
    "clickbait_rate": 0.04
   },
   {
@@ -719,10 +730,10 @@
    "tier": 3,
    "type": "tg",
    "total": 23,
-   "primary": 14,
-   "dup": 9,
-   "repost_rate": 0.39,
-   "views_median": 3300,
+   "primary": 15,
+   "dup": 8,
+   "repost_rate": 0.35,
+   "views_median": 3220,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -919,41 +930,33 @@
   {
    "topic": "cityspace",
    "name": "Городская среда",
-   "expected": 14.1,
-   "slope": 1.93,
+   "expected": 17.0,
+   "slope": 2.36,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 6.8,
-   "slope": -1.29,
+   "expected": 8.3,
+   "slope": -1.07,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "culture",
    "name": "Культура и туризм",
-   "expected": 6.4,
-   "slope": -1.07,
+   "expected": 7.9,
+   "slope": -0.86,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "governor",
-   "name": "Губернатор / власть",
-   "expected": 7.0,
-   "slope": -1.04,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "budget",
-   "name": "Бюджет-2027",
-   "expected": 0.1,
-   "slope": -0.89,
-   "direction": "спад",
+   "topic": "transport",
+   "name": "Транспорт и дороги",
+   "expected": 14.6,
+   "slope": 0.82,
+   "direction": "рост",
    "confidence": "средняя"
   },
   {
@@ -965,10 +968,26 @@
    "confidence": "средняя"
   },
   {
+   "topic": "budget",
+   "name": "Бюджет-2027",
+   "expected": 0.8,
+   "slope": -0.79,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
    "topic": "schools",
    "name": "Школы и вузы",
    "expected": 8.1,
    "slope": -0.68,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 9.9,
+   "slope": -0.61,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1005,6 +1024,14 @@
    "confidence": "низкая"
   },
   {
+   "topic": "sport",
+   "name": "Спорт",
+   "expected": 11.3,
+   "slope": 0.21,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
    "topic": "macro",
    "name": "Макроэкономика / ЦБ",
    "expected": 0.0,
@@ -1013,26 +1040,18 @@
    "confidence": "низкая"
   },
   {
-   "topic": "transport",
-   "name": "Транспорт и дороги",
-   "expected": 10.2,
-   "slope": 0.18,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "sport",
-   "name": "Спорт",
-   "expected": 9.1,
-   "slope": -0.11,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
    "topic": "uaz",
    "name": "УАЗ / Соллерс",
-   "expected": 2.3,
-   "slope": 0.04,
+   "expected": 3.0,
+   "slope": 0.14,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "avia",
+   "name": "Авиапром / УКБП / Ил-114",
+   "expected": 3.6,
+   "slope": 0.11,
    "direction": "плато",
    "confidence": "низкая"
   },
@@ -1049,14 +1068,6 @@
    "name": "Медицина",
    "expected": 5.2,
    "slope": -0.04,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "avia",
-   "name": "Авиапром / УКБП / Ил-114",
-   "expected": 2.9,
-   "slope": 0.0,
    "direction": "плато",
    "confidence": "низкая"
   }

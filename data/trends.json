@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-14T09:17:09.010478+00:00",
- "generated_local": "14.09.2026 13:17",
+ "generated_utc": "2026-09-14T10:27:54.819063+00:00",
+ "generated_local": "14.09.2026 14:27",
  "days": [
   "2026-09-01",
   "2026-09-02",
@@ -18,9 +18,9 @@
   "2026-09-14"
  ],
  "counts": {
-  "total": 1195,
-  "last24h": 146,
-  "last7d": 1112
+  "total": 1211,
+  "last24h": 151,
+  "last7d": 1127
  },
  "topics": {
   "elections": {
@@ -62,11 +62,11 @@
     52,
     16,
     14,
-    4
+    8
    ],
-   "today": 4,
-   "week": 147,
-   "total": 158,
+   "today": 8,
+   "week": 151,
+   "total": 162,
    "status": "stable"
   },
   "uav": {
@@ -131,11 +131,11 @@
     11,
     6,
     1,
-    0
+    1
    ],
-   "today": 0,
-   "week": 38,
-   "total": 47,
+   "today": 1,
+   "week": 39,
+   "total": 48,
    "status": "fading"
   },
   "uaz": {
@@ -154,11 +154,11 @@
     9,
     2,
     3,
-    2
+    3
    ],
-   "today": 2,
-   "week": 28,
-   "total": 36,
+   "today": 3,
+   "week": 29,
+   "total": 37,
    "status": "stable"
   },
   "avia": {
@@ -177,11 +177,11 @@
     10,
     10,
     4,
-    1
+    2
    ],
-   "today": 1,
-   "week": 42,
-   "total": 43,
+   "today": 2,
+   "week": 43,
+   "total": 44,
    "status": "stable"
   },
   "harvest": {
@@ -246,11 +246,11 @@
     34,
     11,
     23,
-    8
+    12
    ],
-   "today": 8,
-   "week": 94,
-   "total": 105,
+   "today": 12,
+   "week": 98,
+   "total": 109,
    "status": "stable"
   },
   "transport": {
@@ -269,11 +269,11 @@
     79,
     16,
     7,
-    10
+    16
    ],
-   "today": 10,
-   "week": 152,
-   "total": 162,
+   "today": 16,
+   "week": 158,
+   "total": 168,
    "status": "stable"
   },
   "schools": {
@@ -338,11 +338,11 @@
     76,
     31,
     7,
-    4
+    6
    ],
-   "today": 4,
-   "week": 179,
-   "total": 186,
+   "today": 6,
+   "week": 181,
+   "total": 188,
    "status": "stable"
   },
   "culture": {
@@ -361,11 +361,11 @@
     28,
     7,
     19,
-    3
+    5
    ],
-   "today": 3,
-   "week": 110,
-   "total": 126,
+   "today": 5,
+   "week": 112,
+   "total": 128,
    "status": "stable"
   },
   "sport": {
@@ -384,11 +384,11 @@
     28,
     11,
     14,
-    7
+    10
    ],
-   "today": 7,
-   "week": 106,
-   "total": 114,
+   "today": 10,
+   "week": 109,
+   "total": 117,
    "status": "stable"
   },
   "export": {
@@ -499,10 +499,10 @@
     117,
     38,
     22,
-    9
+    14
    ],
-   "week": 253,
-   "today": 9
+   "week": 258,
+   "today": 14
   },
   "economy": {
    "name": "Экономика и промышленность",
@@ -520,10 +520,10 @@
     31,
     9,
     10,
-    9
+    11
    ],
-   "week": 94,
-   "today": 9
+   "week": 96,
+   "today": 11
   },
   "agro": {
    "name": "Агропром",
@@ -562,10 +562,10 @@
     135,
     66,
     76,
-    22
+    30
    ],
-   "week": 414,
-   "today": 22
+   "week": 422,
+   "today": 30
   },
   "health": {
    "name": "Здравоохранение",
@@ -625,10 +625,10 @@
     10,
     6,
     8,
-    4
+    5
    ],
-   "week": 45,
-   "today": 4
+   "week": 46,
+   "today": 5
   },
   "culture": {
    "name": "Культура и афиша",
