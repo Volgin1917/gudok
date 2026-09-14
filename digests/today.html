@@ -189,6 +189,24 @@ img{max-width:100%;display:block;}
 
 /* ленты и прочие старые компоненты в новой оптике */
 .main-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:start;}
+.hero-grid{display:grid;grid-template-columns:1.65fr 1fr;gap:0 44px;margin-top:10px;align-items:start;}
+.hero-main,.hero-side{border-top:3px solid var(--ink);padding-top:14px;}
+.hero-card .rank{font-family:var(--serif-display);font-weight:700;font-size:30px;line-height:1;color:var(--accent);}
+.hero-main .rank{font-size:54px;line-height:.85;}
+.hero-rank-line{display:flex;align-items:baseline;gap:12px;margin-bottom:7px;}
+.hero-card .hk{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.hero-main .hk{margin:10px 0 6px;}
+.hero-card h3{font-family:var(--serif-display);font-weight:600;font-size:18.5px;line-height:1.24;margin:0 0 6px;}
+.hero-card h3 a{color:var(--ink);}
+.hero-card h3 a:hover{color:var(--accent);}
+.hero-main h3{font-size:27px;line-height:1.16;letter-spacing:-.01em;margin:0 0 10px;}
+.hero-card p{font-family:var(--serif-body);font-size:13.5px;line-height:1.45;color:var(--ink-2);margin:0 0 7px;}
+.hero-main p{font-size:15.5px;line-height:1.5;margin-bottom:10px;}
+.hero-meta{font-family:var(--sans);font-size:11px;color:var(--muted);}
+.hero-meta a{color:var(--accent);}
+.hero-side{display:flex;flex-direction:column;gap:22px;}
+.hero-side .hero-card+.hero-card{border-top:1px solid var(--rule);padding-top:18px;}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:26px;}}
 .cat-block{border-top:2px solid var(--ink);margin:0 0 30px;padding-top:10px;break-inside:avoid;}
 .cat-head{display:flex;align-items:baseline;gap:12px;padding:0 0 4px;}
 .cat-head h3{font-family:var(--serif-display);font-weight:600;font-size:20px;color:var(--ink);margin:0;}
@@ -460,7 +478,7 @@ img{max-width:100%;display:block;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>понедельник, 14 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 23:21</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>понедельник, 14 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 23:34</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">«Сегодня» · живая страница<br>сутки 14.09.2026
@@ -469,7 +487,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="active" href="../digests/today.html">Сегодня</a><a class="" href="../weekly.html">Неделя</a><a class="" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-14.html">Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">В выпуске:</span><a href="#heroes">Главное</a><a href="#pulse">Пульс повестки</a><a href="#afisha">Автоафиша</a><a href="#feed">Лента дня</a><a href="#tg">Telegram-монитор</a><a href="#clusters">Сюжеты 72 ч</a><a href="#tone">Тон дня</a><a href="#forecast">Прогноз</a></div></div><main id="main">
 <div class="genstamp"><div class="genstamp-inner">
 <span class="g1">Живая страница суток</span>
-<span class="g2">сгенерировано 14.09.2026 23:21 UTC+4</span>
+<span class="g2">сгенерировано 14.09.2026 23:34 UTC+4</span>
 <span class="g3">материалы: 14.09.2026 с 00:00 по текущий момент · материалов в выпуске: 275</span>
 </div></div>
 <div class="page"><div class="kpi-grid" style="margin-bottom:8px;">
@@ -480,19 +498,20 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="kpi red"><div class="num">3</div><div class="lbl">сообщений о воздушных угрозах за сутки</div></div>
 </div><div class="sec-head" id="heroes"><h2>Главные события дня</h2><div class="line"></div>
 <div class="badge">авторанжирование: просмотры × темы × свежесть</div></div>
-<div class="hero-grid"><div class="hero-card" style="border-top-color:#9a4d8f;">
-<img src="../assets/photos/a5732bdb121e6ee2.jpg" alt="" loading="lazy" style="width:100%;height:150px;object-fit:cover;margin-bottom:9px;" onerror="this.style.display='none'"><div class="hk" style="color:#9a4d8f;">🎭 Культура и афиша<span class="w">событие №1</span></div>
+<div class="hero-grid"><div><article class="hero-card hero-main"><img src="../assets/photos/a5732bdb121e6ee2.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;margin:0 0 14px;" onerror="this.style.display='none'">
+<div class="rank">01</div>
+<div class="hk">Культура и афиша · событие дня</div>
 <h3><a href="https://t.me/ulyanovsk_smi/29477" target="_blank" rel="noopener">В неё вошли бронзовый заяц во фраке и котелке, верстовой столб и медальон со следом сапога поэта</a></h3>
-<p>В неё вошли бронзовый заяц во фраке и котелке, верстовой столб и медальон со следом сапога поэта. Скульптура отсылает к эпизоду сентября 1833 года: дорогу ехавшему в Оренбург Пушкину перебежал заяц, и поэт счёл это дурной приметой и вернулся в Симбирск.…</p>
-<div class="hero-meta">14.09 11:34 · t.me/ulyanovsk_smi · 👁 14.6K · <a href="https://t.me/ulyanovsk_smi/29477" target="_blank" rel="noopener">источник →</a></div></div><div class="hero-card" style="border-top-color:#d99a1b;">
-<img src="../assets/photos/8f857a418b3f478b.jpg" alt="" loading="lazy" style="width:100%;height:150px;object-fit:cover;margin-bottom:9px;" onerror="this.style.display='none'"><div class="hk" style="color:#d99a1b;">🌾 Агропром<span class="w">событие №2</span></div>
+<p class="dek">Скульптура отсылает к эпизоду сентября 1833 года: дорогу ехавшему в Оренбург Пушкину перебежал заяц, и поэт счёл это дурной приметой и вернулся в Симбирск. На фигуре есть барельефы с отрывком из письма Пушкина к жене, а также перчатки и трость.…</p>
+<div class="hero-meta">14.09 11:34 · @ulyanovsk_smi · 👁 14.6K · <a href="https://t.me/ulyanovsk_smi/29477" target="_blank" rel="noopener">источник →</a></div></article></div><div class="hero-side"><article class="hero-card">
+<div class="hero-rank-line"><span class="rank">02</span><span class="hk">Агропром</span></div>
 <h3><a href="https://t.me/Russkih_Aleksey/12390" target="_blank" rel="noopener">Адрес: улица Героя России Колпакова, 1</a></h3>
-<p>Адрес: улица Героя России Колпакова, 1. Новое учреждение серьезно разгрузит поликлинику №4, к которой сейчас прикреплено 140 тысяч горожан. Для улучшения транспортного обслуживания и по запросам жителей маршрут №28 продлён до новой поликлиники, также закуплены современные автобусы большого класса. ✅ Уборочная кампания на финишной прямой.…</p>
-<div class="hero-meta">14.09 17:50 · t.me/Russkih_Aleksey · 👁 8.2K · <a href="https://t.me/Russkih_Aleksey/12390" target="_blank" rel="noopener">источник →</a></div></div><div class="hero-card" style="border-top-color:#7b5aa6;">
-<img src="../assets/photos/2c9a7fafd40b0d11.jpg" alt="" loading="lazy" style="width:100%;height:150px;object-fit:cover;margin-bottom:9px;" onerror="this.style.display='none'"><div class="hk" style="color:#7b5aa6;">🏙 Общество и городская среда<span class="w">событие №3</span></div>
+<p class="dek">Новое учреждение серьезно разгрузит поликлинику №4, к которой сейчас прикреплено 140 тысяч горожан.…</p>
+<div class="hero-meta">14.09 17:50 · @Russkih_Aleksey · 👁 8.2K · <a href="https://t.me/Russkih_Aleksey/12390" target="_blank" rel="noopener">источник →</a></div></article><article class="hero-card">
+<div class="hero-rank-line"><span class="rank">03</span><span class="hk">Общество и городская среда</span></div>
 <h3><a href="https://t.me/ulpressa/74628" target="_blank" rel="noopener">Жители 3-го Амурского переулка десять лет добиваются паспорта для дороги и её ремонта</a></h3>
 
-<div class="hero-meta">14.09 16:48 · t.me/ulpressa · 👁 1.5K · <a href="https://t.me/ulpressa/74628" target="_blank" rel="noopener">источник →</a></div></div></div><div class="sec-head"><h2>Оперативная хроника: безопасность</h2><div class="line"></div>
+<div class="hero-meta">14.09 16:48 · @ulpressa · 👁 1.5K · <a href="https://t.me/ulpressa/74628" target="_blank" rel="noopener">источник →</a></div></article></div></div><div class="sec-head"><h2>Оперативная хроника: безопасность</h2><div class="line"></div>
 <div class="badge">БПЛА · ракетная опасность · аэропорт</div></div>
 <div class="card"><div class="card-pad"><div class="chrono"><div class="chrono-item"><span class="chrono-time">14.09 10:46</span>
 <a href="https://t.me/insaid173/46956" target="_blank" rel="noopener"><b>😭 Две молодые девушки погибли при атаке БПЛА в Нижнекамске В Нижнекамске почтили минутой молчания память двух …</b></a>

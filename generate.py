@@ -221,6 +221,24 @@ img{max-width:100%;display:block;}
 
 /* ленты и прочие старые компоненты в новой оптике */
 .main-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:start;}
+.hero-grid{display:grid;grid-template-columns:1.65fr 1fr;gap:0 44px;margin-top:10px;align-items:start;}
+.hero-main,.hero-side{border-top:3px solid var(--ink);padding-top:14px;}
+.hero-card .rank{font-family:var(--serif-display);font-weight:700;font-size:30px;line-height:1;color:var(--accent);}
+.hero-main .rank{font-size:54px;line-height:.85;}
+.hero-rank-line{display:flex;align-items:baseline;gap:12px;margin-bottom:7px;}
+.hero-card .hk{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.hero-main .hk{margin:10px 0 6px;}
+.hero-card h3{font-family:var(--serif-display);font-weight:600;font-size:18.5px;line-height:1.24;margin:0 0 6px;}
+.hero-card h3 a{color:var(--ink);}
+.hero-card h3 a:hover{color:var(--accent);}
+.hero-main h3{font-size:27px;line-height:1.16;letter-spacing:-.01em;margin:0 0 10px;}
+.hero-card p{font-family:var(--serif-body);font-size:13.5px;line-height:1.45;color:var(--ink-2);margin:0 0 7px;}
+.hero-main p{font-size:15.5px;line-height:1.5;margin-bottom:10px;}
+.hero-meta{font-family:var(--sans);font-size:11px;color:var(--muted);}
+.hero-meta a{color:var(--accent);}
+.hero-side{display:flex;flex-direction:column;gap:22px;}
+.hero-side .hero-card+.hero-card{border-top:1px solid var(--rule);padding-top:18px;}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:26px;}}
 .cat-block{border-top:2px solid var(--ink);margin:0 0 30px;padding-top:10px;break-inside:avoid;}
 .cat-head{display:flex;align-items:baseline;gap:12px;padding:0 0 4px;}
 .cat-head h3{font-family:var(--serif-display);font-weight:600;font-size:20px;color:var(--ink);margin:0;}
@@ -819,6 +837,13 @@ def feed_dek_p(it, limit, title=None):
     return f'<p class="dek">{esc(d)}</p>'
 
 
+def src_label(it):
+    """Короткая метка источника: TG-каналы — @username, остальные — имя."""
+    if it.get("source_type") == "tg":
+        return "@" + str(it.get("channel") or it.get("source") or "")
+    return str(it.get("source", ""))
+
+
 def plural_ru(n, one, few, many):
     n10, n100 = n % 10, n % 100
     if n10 == 1 and n100 != 11:
@@ -1114,19 +1139,30 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
         hero_html = []
         for rank, it in enumerate(heroes, 1):
             cat = cats.get(it.get("category"), {})
-            color = cat.get("color", "#2f80ed")
             dt = local_dt(it.get("published"))
-            views = f" · 👁 {fmt_views(it['views'])}" if it.get("views") else ""
+            views = f' · 👁 {fmt_views(it["views"])}' if it.get("views") else ""
             link = esc(it.get("url") or "#")
-            img = photo_img(it, "../", "width:100%;height:150px;object-fit:cover;margin-bottom:9px;")
-            hero_html.append(f"""<div class="hero-card" style="border-top-color:{color};">
-{img}<div class="hk" style="color:{color};">{cat.get('icon','📌')} {esc(cat.get('name','Главное'))}<span class="w">событие №{rank}</span></div>
-<h3><a href="{link}" target="_blank" rel="noopener">{esc(nice_title(it,110))}</a></h3>
-{dek_p(it, 340)}
-<div class="hero-meta">{dt.strftime('%d.%m %H:%M') if dt else ''} · {esc(it.get('source',''))}{views} · <a href="{link}" target="_blank" rel="noopener">источник →</a></div></div>""")
+            src_l = esc(src_label(it))
+            tstr = dt.strftime('%d.%m %H:%M') if dt else ''
+            if rank == 1:
+                img = photo_img(it, "../", "width:100%;aspect-ratio:16/9;object-fit:cover;display:block;margin:0 0 14px;")
+                ttl = feed_title(it, 135)
+                hero_html.append(f"""<article class="hero-card hero-main">{img}
+<div class="rank">01</div>
+<div class="hk">{esc(cat.get('name', 'Главное'))} · событие дня</div>
+<h3><a href="{link}" target="_blank" rel="noopener">{esc(ttl)}</a></h3>
+{feed_dek_p(it, 300, ttl)}
+<div class="hero-meta">{tstr} · {src_l}{views} · <a href="{link}" target="_blank" rel="noopener">источник →</a></div></article>""")
+            else:
+                ttl = feed_title(it, 110)
+                hero_html.append(f"""<article class="hero-card">
+<div class="hero-rank-line"><span class="rank">{rank:02d}</span><span class="hk">{esc(cat.get('name', 'Главное'))}</span></div>
+<h3><a href="{link}" target="_blank" rel="noopener">{esc(ttl)}</a></h3>
+{feed_dek_p(it, 150, ttl)}
+<div class="hero-meta">{tstr} · {src_l}{views} · <a href="{link}" target="_blank" rel="noopener">источник →</a></div></article>""")
         parts.append(f"""<div class="sec-head" id="heroes"><h2>Главные события дня</h2><div class="line"></div>
 <div class="badge">авторанжирование: просмотры × темы × свежесть</div></div>
-<div class="hero-grid">{''.join(hero_html)}</div>""")
+<div class="hero-grid"><div>{hero_html[0]}</div><div class="hero-side">{''.join(hero_html[1:])}</div></div>""")
 
     chron = chrono_items(window)
     if chron:
@@ -1209,11 +1245,6 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
         parts.append('<div class="card"><div class="card-pad">За выбранный период материалов нет. Запустите <code>python3 collector.py</code>.</div></div>')
     else:
         ordered_cats = [c["id"] for c in cfg["categories"] if by_cat.get(c["id"])]
-
-        def src_label(it):
-            if it.get("source_type") == "tg":
-                return "@" + str(it.get("channel") or it.get("source") or "")
-            return str(it.get("source", ""))
 
         def meta_line(it):
             dt = local_dt(it.get("published"))

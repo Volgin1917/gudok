@@ -189,6 +189,24 @@ img{max-width:100%;display:block;}
 
 /* ленты и прочие старые компоненты в новой оптике */
 .main-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:start;}
+.hero-grid{display:grid;grid-template-columns:1.65fr 1fr;gap:0 44px;margin-top:10px;align-items:start;}
+.hero-main,.hero-side{border-top:3px solid var(--ink);padding-top:14px;}
+.hero-card .rank{font-family:var(--serif-display);font-weight:700;font-size:30px;line-height:1;color:var(--accent);}
+.hero-main .rank{font-size:54px;line-height:.85;}
+.hero-rank-line{display:flex;align-items:baseline;gap:12px;margin-bottom:7px;}
+.hero-card .hk{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.hero-main .hk{margin:10px 0 6px;}
+.hero-card h3{font-family:var(--serif-display);font-weight:600;font-size:18.5px;line-height:1.24;margin:0 0 6px;}
+.hero-card h3 a{color:var(--ink);}
+.hero-card h3 a:hover{color:var(--accent);}
+.hero-main h3{font-size:27px;line-height:1.16;letter-spacing:-.01em;margin:0 0 10px;}
+.hero-card p{font-family:var(--serif-body);font-size:13.5px;line-height:1.45;color:var(--ink-2);margin:0 0 7px;}
+.hero-main p{font-size:15.5px;line-height:1.5;margin-bottom:10px;}
+.hero-meta{font-family:var(--sans);font-size:11px;color:var(--muted);}
+.hero-meta a{color:var(--accent);}
+.hero-side{display:flex;flex-direction:column;gap:22px;}
+.hero-side .hero-card+.hero-card{border-top:1px solid var(--rule);padding-top:18px;}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:26px;}}
 .cat-block{border-top:2px solid var(--ink);margin:0 0 30px;padding-top:10px;break-inside:avoid;}
 .cat-head{display:flex;align-items:baseline;gap:12px;padding:0 0 4px;}
 .cat-head h3{font-family:var(--serif-display);font-weight:600;font-size:20px;color:var(--ink);margin:0;}
@@ -460,7 +478,7 @@ img{max-width:100%;display:block;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>понедельник, 14 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 23:21</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>понедельник, 14 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 23:34</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Выпуск № 1<br>сутки 12.09.2026
@@ -469,7 +487,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="" href="../weekly.html">Неделя</a><a class="" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="" href="../projects.html">Проекты</a><a class="active" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-14.html">Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">В выпуске:</span><a href="#heroes">Главное</a><a href="#pulse">Пульс повестки</a><a href="#afisha">Автоафиша</a><a href="#feed">Лента дня</a><a href="#tg">Telegram-монитор</a><a href="#clusters">Сюжеты 72 ч</a><a href="#tone">Тон дня</a><a href="#forecast">Прогноз</a></div></div><main id="main">
 <div class="genstamp"><div class="genstamp-inner">
 <span class="g1">Выпуск № 1 · сутки закрыты</span>
-<span class="g2">сгенерировано 14.09.2026 23:21 UTC+4</span>
+<span class="g2">сгенерировано 14.09.2026 23:34 UTC+4</span>
 <span class="g3">материалы: 12.09.2026 00:00–24:00 · материалов в выпуске: 145</span>
 </div></div>
 <div class="page"><div class="kpi-grid" style="margin-bottom:8px;">
@@ -483,19 +501,20 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="card" style="border-left:4px solid var(--gold);"><div class="card-pad"><p style="font-size:13.6px;line-height:1.7;margin-bottom:9px;"><b>Номер первый: между праздником и голосованием.</b> Гудок выходит первым регулярным номером в день, когда область фактически живёт двумя повестками сразу. Первая — праздничная: завтра Симбирску-Ульяновску 378 лет, и город входит в этот день с отремонтированными к сроку улицами (Кирова заасфальтирована за ночь), открытыми скверами «Единство» и «Династия» и готовностью транспорта работать до последнего зрителя «Рондо». Вторая — предвыборная: до единого дня голосования шесть дней, агитация выходит на пик, а наше «Инфопространство» фиксирует, что тему выборов разгоняют не только официальные каналы, но и анонимные телеграм-площадки — признак того, что кампания идёт и в теневом контуре.</p><p style="font-size:13.6px;line-height:1.7;margin-bottom:9px;"><b>Что показывает счётчик недели.</b> 703 сообщения за сутки мониторинга к моменту сборки, 83% оригинальных, крупнейший каскад — отбой беспилотной опасности (×16 источников): инфополе региона по-прежнему живёт в режиме двойной реальности, где праздничные афиши соседствуют с тревожными отбоями. Тон недели умеренно позитивный у официальных каналов и заметно суше у агрегаторов — классический разрыв между картиной «для отчёта» и картиной «как есть». Для марксистского анализа это не курьёз, а материал: расхождение тонов показывает, чьи интересы обслуживает каждый слой инфополя.</p><p style="font-size:13.6px;line-height:1.7;margin-bottom:9px;"><b>Территориальный разрез.</b> Карта муниципалитетов за неделю остаётся главной социальной меткой выпуска: Кузоватовский и Николаевский районы не получили ни одного упоминания, ещё десяток территорий — по одному-два. Область существует в областных СМИ почти исключительно как Ульяновск и, в лучшие дни, Димитровград. Периферия появляется в повестке преимущественно через происшествия или визиты начальства — это устойчивая структура, а не случайность недели, и мы продолнём её измерять.</p><p style="font-size:13.6px;line-height:1.7;margin-bottom:9px;"><b>Практическое на неделю.</b> 13 сентября — День города: дождь вероятен, берите зонты, центр перекрывают с 12-го. 18–20 сентября — голосование: трёхдневное, без электронного голосования, только участки. Мы выпускаем спецразбор кандидатов и округов и готовим итоговый спецвыпуск к 21 сентября. Читайте Гудок — и сверяйте картину дня с картиной недели.</p><p style="font-size:13.6px;line-height:1.7;margin-bottom:9px;">*Колонка подготовлена ассистентом издания для внутреннего чтения членами группы «Победа». Факты — по материалам выпуска № 1 и данных «Инфопространства».*</p>
 <div class="note">Колонка пишется ассистентом в чате (LLM-слой проекта, без внешних API) поверх верифицированных фактов выпуска. При автономной работе конвейера секция опускается.</div></div></div><div class="sec-head" id="heroes"><h2>Главные события дня</h2><div class="line"></div>
 <div class="badge">авторанжирование: просмотры × темы × свежесть</div></div>
-<div class="hero-grid"><div class="hero-card" style="border-top-color:#7b5aa6;">
-<img src="../assets/photos/304a8ba890a0789f.jpg" alt="" loading="lazy" style="width:100%;height:150px;object-fit:cover;margin-bottom:9px;" onerror="this.style.display='none'"><div class="hk" style="color:#7b5aa6;">🏙 Общество и городская среда<span class="w">событие №1</span></div>
-<h3><a href="https://t.me/tresh_ulyan/56155" target="_blank" rel="noopener">🚧 Завтра в центре Ульяновска ограничат движение из-за праздничных мероприятий Ограничения затронут площадь…</a></h3>
-<p>С 12:00 до 22:00 полностью закроют движение по Спасской.…</p>
-<div class="hero-meta">12.09 21:11 · t.me/tresh_ulyan · 👁 15.2K · <a href="https://t.me/tresh_ulyan/56155" target="_blank" rel="noopener">источник →</a></div></div><div class="hero-card" style="border-top-color:#9a4d8f;">
-<div class="hk" style="color:#9a4d8f;">🎭 Культура и афиша<span class="w">событие №2</span></div>
+<div class="hero-grid"><div><article class="hero-card hero-main"><img src="../assets/photos/304a8ba890a0789f.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;margin:0 0 14px;" onerror="this.style.display='none'">
+<div class="rank">01</div>
+<div class="hk">Общество и городская среда · событие дня</div>
+<h3><a href="https://t.me/tresh_ulyan/56155" target="_blank" rel="noopener">🚧 Завтра в центре Ульяновска ограничат движение из-за праздничных мероприятий Ограничения затронут площадь Лен…</a></h3>
+<p class="dek">С 12:00 до 22:00 полностью закроют движение по Спасской.…</p>
+<div class="hero-meta">12.09 21:11 · @tresh_ulyan · 👁 15.2K · <a href="https://t.me/tresh_ulyan/56155" target="_blank" rel="noopener">источник →</a></div></article></div><div class="hero-side"><article class="hero-card">
+<div class="hero-rank-line"><span class="rank">02</span><span class="hk">Культура и афиша</span></div>
 <h3><a href="https://t.me/ulpressa/74487" target="_blank" rel="noopener">«Мода улиц», звон-концерт, фестиваль балетного искусства, «Любовный балаган» и Александр Иванов: программа празднования 378-летия Ульяновска.</a></h3>
 
-<div class="hero-meta">12.09 08:27 · t.me/ulpressa · 👁 1.3K · <a href="https://t.me/ulpressa/74487" target="_blank" rel="noopener">источник →</a></div></div><div class="hero-card" style="border-top-color:#2ea36b;">
-<img src="../assets/photos/7f9b59e186bedd66.jpg" alt="" loading="lazy" style="width:100%;height:150px;object-fit:cover;margin-bottom:9px;" onerror="this.style.display='none'"><div class="hk" style="color:#2ea36b;">💼 Экономика и промышленность<span class="w">событие №3</span></div>
+<div class="hero-meta">12.09 08:27 · @ulpressa · 👁 1.3K · <a href="https://t.me/ulpressa/74487" target="_blank" rel="noopener">источник →</a></div></article><article class="hero-card">
+<div class="hero-rank-line"><span class="rank">03</span><span class="hk">Экономика и промышленность</span></div>
 <h3><a href="https://t.me/UAZ_Today/3826" target="_blank" rel="noopener">223 года — одна семья, один завод ❤️ В областном конкурсе «Семейные трудовые династии» победила старейшая дина</a></h3>
-<p>Мы поздравляем семью с победой. За ней — десятилетия верности родному предприятию. Все началось с Александра Соловьева. Он отдал УАЗу 43 года, воспитал не одно поколение молодых специалистов и передал им свой уникальный опыт. Именно на заводе он нашел свою судьбу - жену Надежду Николаевну.…</p>
-<div class="hero-meta">12.09 10:01 · t.me/UAZ_Today · 👁 170 · <a href="https://t.me/UAZ_Today/3826" target="_blank" rel="noopener">источник →</a></div></div></div><div class="sec-head"><h2>Оперативная хроника: безопасность</h2><div class="line"></div>
+<p class="dek">Мы поздравляем семью с победой. За ней — десятилетия верности родному предприятию. Все началось с Александра Соловьева.…</p>
+<div class="hero-meta">12.09 10:01 · @UAZ_Today · 👁 170 · <a href="https://t.me/UAZ_Today/3826" target="_blank" rel="noopener">источник →</a></div></article></div></div><div class="sec-head"><h2>Оперативная хроника: безопасность</h2><div class="line"></div>
 <div class="badge">БПЛА · ракетная опасность · аэропорт</div></div>
 <div class="card"><div class="card-pad"><div class="chrono"><div class="chrono-item"><span class="chrono-time">12.09 08:10</span>
 <a href="https://t.me/ulyanovsk_smi/29420" target="_blank" rel="noopener"><b>💬 Отбой опасности атаки БПЛА в регионе Об этом сообщает МЧС Ульяновской области. 📲 Читайте нас в МАКС 😉 Подпис…</b></a>
