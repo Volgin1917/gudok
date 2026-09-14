@@ -1,5 +1,5 @@
 {
- "generated_local": "14.09.2026 08:15",
+ "generated_local": "14.09.2026 13:17",
  "calendar": [
   {
    "etype": "other",
@@ -256,53 +256,78 @@
    ]
   },
   {
-   "name": "мрот · справедливым · рублей",
+   "name": "возложили · стеле · цветы",
    "terms": [
-    "мрот",
-    "справедливым",
-    "рублей"
+    "возложили",
+    "стеле",
+    "цветы"
    ],
-   "size": 4,
-   "coverage": 0.0,
+   "size": 3,
+   "coverage": 0.33,
    "gap": true,
    "samples": [
     {
-     "title": "💸 Ульяновцы назвали справедливый МРОТ — 52 300 рублей По мнению жителей Ульяновска, минимальная оплата труда д",
-     "url": "https://t.me/tresh_ulyan/56120",
-     "source": "t.me/tresh_ulyan",
-     "views": 1330
-    },
-    {
-     "title": "💸 Ульяновцы хотят получать минимум 52,3 тысячи рублей Именно такую сумму жители города считают справедливым ми",
-     "url": "https://t.me/ulyanovsk_smi/29407",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 751
-    },
-    {
-     "title": "Официальный - почти вдвое меньше. Ульяновцы считают справедливым МРОТ в 52 300 рублей.",
-     "url": "https://t.me/ulpressa/74457",
+     "title": "Ульяновцы возложили цветы к стеле «Город трудовой доблести».",
+     "url": "https://t.me/ulpressa/74495",
      "source": "t.me/ulpressa",
-     "views": 320
+     "views": 597
+    },
+    {
+     "title": "В преддверии Дня города отдаём дань уважения всем, кто внёс вклад в развитие Ульяновска и прославил Малую Роди",
+     "url": "https://t.me/Russkih_Aleksey/12317",
+     "source": "t.me/Russkih_Aleksey",
+     "views": 271
+    },
+    {
+     "title": "Ульяновцы возложили цветы к стеле «Город трудовой доблести»: фото",
+     "url": "https://ulpressa.ru/2026/09/12/ulyanovczy-vozlozhili-czvety-k-stele-gorod-trudovoj-doblesti-foto-2/",
+     "source": "Улпресса",
+     "views": null
     }
    ]
   },
   {
-   "name": "открываем · начнем · ночной",
+   "name": "мобилизации · медведев · заявил",
    "terms": [
-    "открываем",
-    "начнем",
-    "ночной"
+    "мобилизации",
+    "медведев",
+    "заявил"
    ],
-   "size": 4,
-   "coverage": 0.0,
+   "size": 3,
+   "coverage": 0.33,
    "gap": true,
    "samples": [
     {
-     "title": "🌙 🌙 🌙 Доброй ночи! Открываем ночной чат для тех, кто не спит 🌛 Поиграем в слова? Мы начнем: «Забор» Вам на Р 🔽",
-     "url": "https://t.me/ulyanovsk_smi/29469",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 539
+     "title": "❗ Мобилизации в России не будет, — заявил Медведев в четвёртый раз «Потребности ВС РФ полностью удовлетворяютс",
+     "url": "https://t.me/tresh_ulyan/56129",
+     "source": "t.me/tresh_ulyan",
+     "views": 9840
     },
+    {
+     "title": "❗️ Россия не нуждается в проведении мобилизации , заявил Медведев. Сообщения о подготовке к ней он назвал «пур",
+     "url": "https://t.me/chpulsk/50702",
+     "source": "t.me/chpulsk",
+     "views": 2510
+    },
+    {
+     "title": "Мобилизации в России не будет, контрактников приходит даже больше, чем ожидалось, — заявил Медведев.",
+     "url": "https://t.me/chpul/34378",
+     "source": "t.me/chpul",
+     "views": 521
+    }
+   ]
+  },
+  {
+   "name": "читайте · макс · поделиться",
+   "terms": [
+    "читайте",
+    "макс",
+    "поделиться"
+   ],
+   "size": 3,
+   "coverage": 0.0,
+   "gap": true,
+   "samples": [
     {
      "title": "😁 Без маленьких дегустаторов никуда Доброе утро! 🌞 📲 Читайте нас в МАКС 😉 Подписаться | Поделиться новостью",
      "url": "https://t.me/ulyanovsk_smi/29418",
@@ -310,114 +335,89 @@
      "views": 457
     },
     {
-     "title": "😴 Открываем ночной чат Поиграем в города? Мы начнем: «Мурманск». Вам на К 🔽 📲",
-     "url": "https://t.me/ulyanovsk_smi/29441",
+     "title": "❤️ Облачность обещает синоптики в Ульяновске Признавайтесь, выспались? ❤️ — да! 😭 — нет… 📲 Читайте нас в МАКС ",
+     "url": "https://t.me/ulyanovsk_smi/29419",
      "source": "t.me/ulyanovsk_smi",
-     "views": 304
+     "views": 437
+    },
+    {
+     "title": "Открываем ночной чат! Предлагаем поиграть в слова. Мы начнем: «поезд». Вам на Д 👇 📲 Читайте нас в МАКС 😉 Подпи",
+     "url": "https://t.me/ulyanovsk_smi/29413",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 98
     }
    ]
   },
   {
-   "name": "победы · русской · отключил",
+   "name": "когда · реальность · домов",
    "terms": [
-    "победы",
-    "русской",
-    "отключил"
+    "когда",
+    "реальность",
+    "домов"
    ],
    "size": 3,
    "coverage": 0.33,
    "gap": true,
    "samples": [
     {
-     "title": "Ну что за второй тайм — 🔥 Админ даже будильник отключил! 🏆 — накидаем до победы",
-     "url": "https://t.me/fcvolga/12525",
-     "source": "t.me/fcvolga",
-     "views": 1210
+     "title": "❗️ СВО закончится, когда Украина отведёт войска на позиции, обозначенные Кремлём, — спецпосланник США Джаред К",
+     "url": "https://t.me/tresh_ulyan/56162",
+     "source": "t.me/tresh_ulyan",
+     "views": 12300
     },
     {
-     "title": "🥊 ПРИГЛАШАЕМ ВСЕХ В ПАРК ПОБЕДЫ! 🥊 12 сентября в Парке Победы состоится яркий и зрелищный турнир по кикбоксинг",
-     "url": "https://t.me/volkodav73/30698",
-     "source": "t.me/volkodav73",
-     "views": 239
+     "title": "Что скрывает зелень? Когда за веселой детской площадкой прячется грустная реальность полуразрушенных домов и м",
+     "url": "https://t.me/dimitrovgradd/31718",
+     "source": "t.me/dimitrovgradd",
+     "views": 1310
     },
     {
-     "title": "11 сентября – День победы русской эскадры под командованием Ф.Ф.Ушакова над турецкой эскадрой у мыса Тендра (1",
-     "url": "https://t.me/sergeymorozov73/23278",
-     "source": "t.me/sergeymorozov73",
-     "views": 46
+     "title": "Когда список расходников слегка расширился.",
+     "url": "https://t.me/ulsk_driver73/18505",
+     "source": "t.me/ulsk_driver73",
+     "views": 571
     }
    ]
   },
   {
-   "name": "сеть · городах · мегафон",
+   "name": "заметили · центре · ульяновцы",
    "terms": [
-    "сеть",
-    "городах",
-    "мегафон"
+    "заметили",
+    "центре",
+    "ульяновцы"
    ],
    "size": 3,
    "coverage": 0.0,
    "gap": true,
    "samples": [
     {
-     "title": "⚡️ 5G запустили в России, сообщили в Минцифры С сегодняшнего дня сеть работает в 16 городах страны. Услуги на ",
-     "url": "https://t.me/tresh_ulyan/56111",
+     "title": "😳 Змею заметили ульяновцы в центре города Тоже приползла праздновать? 😅 😱",
+     "url": "https://t.me/tresh_ulyan/56175",
      "source": "t.me/tresh_ulyan",
-     "views": 1750
+     "views": 13200
     },
     {
-     "title": "🛜 В России официально запустили 5G. На первом этапе сеть заработала в 16 городах и охватила около 10 млн челов",
-     "url": "https://t.me/ulkoroche/33702",
-     "source": "t.me/ulkoroche",
-     "views": 120
-    },
-    {
-     "title": "МегаФон запустил в России сеть 5G",
-     "url": "https://ulpressa.ru/2026/09/11/megafon-zapustil-v-rossii-set-5g/",
-     "source": "Улпресса",
-     "views": null
-    }
-   ]
-  },
-  {
-   "name": "контроль · ульяновске · усилят",
-   "terms": [
-    "контроль",
-    "ульяновске",
-    "усилят"
-   ],
-   "size": 3,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "🚌 Отключил ГЛОНАСС — жди проверки: в Ульяновске ужесточат контроль за перевозчиками В Ульяновске хотят усилить",
-     "url": "https://t.me/insaid173/46865",
-     "source": "t.me/insaid173",
-     "views": 7200
-    },
-    {
-     "title": "😳 Контроль за нетрезвыми водителями усилят в Ульяновске С 11 по 13 сентября в регионе проходит профилактическа",
-     "url": "https://t.me/ulyanovsk_smi/29409",
+     "title": "😱 В центре Ульяновска заметили удава Необычного гостя заметили прямо в центре Ульяновска. Змея ползала среди т",
+     "url": "https://t.me/ulyanovsk_smi/29464",
      "source": "t.me/ulyanovsk_smi",
-     "views": 541
+     "views": 767
     },
     {
-     "title": "❗️ ❗️ ❗️ ❗️ Контроль усилят на Дне города в Ульяновске 13 сентября на празднование Дня города в Ульяновске уси",
-     "url": "https://t.me/ulyanovsk_smi/29406",
+     "title": "😜 Плывущего кабана заметили ульяновцы во время рыбалки Необычную встречу устроил рыбакам в Ульяновске дикий ка",
+     "url": "https://t.me/ulyanovsk_smi/29466",
      "source": "t.me/ulyanovsk_smi",
-     "views": 138
+     "views": 394
     }
    ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.3,
-  "today_items": 10,
-  "today_pos": 317,
-  "today_neg": 196,
-  "today_neu": 436,
+  "today_score": 0.0,
+  "today_items": 48,
+  "today_pos": 329,
+  "today_neg": 210,
+  "today_neu": 450,
   "series": [
    {
     "date": "2026-09-01",
@@ -469,16 +469,20 @@
    },
    {
     "date": "2026-09-13",
-    "score": 0.227
+    "score": 0.231
    },
    {
     "date": "2026-09-14",
-    "score": 0.3
+    "score": 0.0
    }
   ],
   "by_category": {
-   "economy": 0.333,
-   "society": 0.4
+   "economy": 0.25,
+   "education": 0.5,
+   "politics": 0.0,
+   "security": -0.444,
+   "society": -0.143,
+   "sport": 0.75
   }
  },
  "credibility": [
@@ -486,9 +490,9 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 107,
-   "primary": 102,
-   "dup": 5,
+   "total": 127,
+   "primary": 121,
+   "dup": 6,
    "repost_rate": 0.05,
    "views_median": null,
    "label": "первоисточник",
@@ -531,6 +535,30 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "chpulsk",
+   "tier": 2,
+   "type": "tg",
+   "total": 53,
+   "primary": 32,
+   "dup": 21,
+   "repost_rate": 0.4,
+   "views_median": 3430,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "topor_ul",
+   "tier": 2,
+   "type": "tg",
+   "total": 52,
+   "primary": 42,
+   "dup": 10,
+   "repost_rate": 0.19,
+   "views_median": 1950,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "chpul",
    "tier": 2,
    "type": "tg",
@@ -543,38 +571,14 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "topor_ul",
-   "tier": 2,
-   "type": "tg",
-   "total": 49,
-   "primary": 39,
-   "dup": 10,
-   "repost_rate": 0.2,
-   "views_median": 1970,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "chpulsk",
-   "tier": 2,
-   "type": "tg",
-   "total": 49,
-   "primary": 31,
-   "dup": 18,
-   "repost_rate": 0.37,
-   "views_median": 4710,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "ulsk_on",
    "tier": 2,
    "type": "tg",
-   "total": 45,
-   "primary": 31,
+   "total": 48,
+   "primary": 34,
    "dup": 14,
-   "repost_rate": 0.31,
-   "views_median": 455,
+   "repost_rate": 0.29,
+   "views_median": 440,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -589,6 +593,18 @@
    "views_median": 1300,
    "label": "первоисточник",
    "clickbait_rate": 0.05
+  },
+  {
+   "source": "reporter73",
+   "tier": 1,
+   "type": "tg",
+   "total": 38,
+   "primary": 33,
+   "dup": 5,
+   "repost_rate": 0.13,
+   "views_median": 57,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
   },
   {
    "source": "ulpravda",
@@ -639,26 +655,26 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "reporter73",
-   "tier": 1,
+   "source": "ulsk_driver73",
+   "tier": 2,
+   "type": "tg",
+   "total": 32,
+   "primary": 26,
+   "dup": 6,
+   "repost_rate": 0.19,
+   "views_median": 478,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulkoroche",
+   "tier": 2,
    "type": "tg",
    "total": 30,
    "primary": 25,
    "dup": 5,
    "repost_rate": 0.17,
-   "views_median": 57,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulsk_driver73",
-   "tier": 2,
-   "type": "tg",
-   "total": 29,
-   "primary": 23,
-   "dup": 6,
-   "repost_rate": 0.21,
-   "views_median": 478,
+   "views_median": 915,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -683,18 +699,6 @@
    "dup": 2,
    "repost_rate": 0.07,
    "views_median": 389,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulkoroche",
-   "tier": 2,
-   "type": "tg",
-   "total": 27,
-   "primary": 22,
-   "dup": 5,
-   "repost_rate": 0.19,
-   "views_median": 1050,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -787,9 +791,9 @@
    "tier": 1,
    "type": "tg",
    "total": 19,
-   "primary": 14,
-   "dup": 5,
-   "repost_rate": 0.26,
+   "primary": 13,
+   "dup": 6,
+   "repost_rate": 0.32,
    "views_median": 54,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -799,11 +803,11 @@
    "tier": 1,
    "type": "tg",
    "total": 17,
-   "primary": 12,
-   "dup": 5,
-   "repost_rate": 0.29,
-   "views_median": 3650,
-   "label": "смешанный",
+   "primary": 13,
+   "dup": 4,
+   "repost_rate": 0.24,
+   "views_median": 2490,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -907,49 +911,41 @@
   {
    "topic": "cityday",
    "name": "День города (378 лет)",
-   "expected": 14.8,
-   "slope": 2.64,
+   "expected": 16.9,
+   "slope": 3.0,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "cityspace",
+   "name": "Городская среда",
+   "expected": 14.1,
+   "slope": 1.93,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 4.6,
-   "slope": -1.61,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "governor",
-   "name": "Губернатор / власть",
-   "expected": 4.0,
-   "slope": -1.46,
+   "expected": 6.8,
+   "slope": -1.29,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "culture",
    "name": "Культура и туризм",
-   "expected": 3.9,
-   "slope": -1.46,
+   "expected": 6.4,
+   "slope": -1.07,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "schools",
-   "name": "Школы и вузы",
-   "expected": 4.8,
-   "slope": -1.18,
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 7.0,
+   "slope": -1.04,
    "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "cityspace",
-   "name": "Городская среда",
-   "expected": 8.2,
-   "slope": 1.07,
-   "direction": "рост",
    "confidence": "средняя"
   },
   {
@@ -957,14 +953,6 @@
    "name": "Бюджет-2027",
    "expected": 0.1,
    "slope": -0.89,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "sport",
-   "name": "Спорт",
-   "expected": 4.0,
-   "slope": -0.86,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -977,42 +965,42 @@
    "confidence": "средняя"
   },
   {
-   "topic": "transport",
-   "name": "Транспорт и дороги",
-   "expected": 4.3,
+   "topic": "schools",
+   "name": "Школы и вузы",
+   "expected": 8.1,
    "slope": -0.68,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "elections",
-   "name": "Выборы-2026",
-   "expected": 0.1,
-   "slope": -0.61,
-   "direction": "спад",
+   "topic": "zhkh",
+   "name": "ЖКХ, газ, тепло",
+   "expected": 3.8,
+   "slope": 0.46,
+   "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "weather",
    "name": "Погода",
-   "expected": 4.8,
-   "slope": 0.39,
+   "expected": 4.9,
+   "slope": 0.43,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "elections",
+   "name": "Выборы-2026",
+   "expected": 1.6,
+   "slope": -0.39,
    "direction": "плато",
    "confidence": "низкая"
   },
   {
-   "topic": "zhkh",
-   "name": "ЖКХ, газ, тепло",
-   "expected": 3.1,
-   "slope": 0.36,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "medicine",
-   "name": "Медицина",
-   "expected": 3.0,
-   "slope": -0.36,
+   "topic": "uav",
+   "name": "БПЛА и воздушные угрозы",
+   "expected": 5.0,
+   "slope": 0.25,
    "direction": "плато",
    "confidence": "низкая"
   },
@@ -1025,17 +1013,17 @@
    "confidence": "низкая"
   },
   {
-   "topic": "uav",
-   "name": "БПЛА и воздушные угрозы",
-   "expected": 4.3,
-   "slope": 0.14,
+   "topic": "transport",
+   "name": "Транспорт и дороги",
+   "expected": 10.2,
+   "slope": 0.18,
    "direction": "плато",
    "confidence": "низкая"
   },
   {
-   "topic": "avia",
-   "name": "Авиапром / УКБП / Ил-114",
-   "expected": 2.1,
+   "topic": "sport",
+   "name": "Спорт",
+   "expected": 9.1,
    "slope": -0.11,
    "direction": "плато",
    "confidence": "низкая"
@@ -1043,8 +1031,8 @@
   {
    "topic": "uaz",
    "name": "УАЗ / Соллерс",
-   "expected": 1.6,
-   "slope": -0.07,
+   "expected": 2.3,
+   "slope": 0.04,
    "direction": "плато",
    "confidence": "низкая"
   },
@@ -1053,6 +1041,22 @@
    "name": "Урожай и АПК",
    "expected": 0.4,
    "slope": 0.04,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 5.2,
+   "slope": -0.04,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "avia",
+   "name": "Авиапром / УКБП / Ил-114",
+   "expected": 2.9,
+   "slope": 0.0,
    "direction": "плато",
    "confidence": "низкая"
   }
