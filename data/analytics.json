@@ -1017,6 +1017,14 @@
    "confidence": "низкая"
   },
   {
+   "topic": "weather",
+   "name": "Погода",
+   "expected": 4.0,
+   "slope": 0.29,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
    "topic": "macro",
    "name": "Макроэкономика / ЦБ",
    "expected": 0.0,
