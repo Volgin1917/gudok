@@ -1,7 +1,8 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Афиша культурных событий · Ульяновская область — листок Гудок</title>
-<link rel="icon" type="image/png" href="assets/logo_gudok.png"><style>
+<title>Неделя № 1 · 07.09–13.09 — листок Гудок</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
+<style>
 :root{
   --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
   --rule:#E3DED4; --rule-strong:#0B0B0B; --accent:#D63F1F; --on-ink:#C9C2B6;
@@ -424,168 +425,164 @@ img{max-width:100%;display:block;}
   body{background:#fff;}
 }
 
-.af-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
-.af-chip{border:1px solid var(--line);background:var(--card);color:var(--muted);font-size:12.5px;font-weight:700;padding:7px 15px;border-radius:999px;cursor:pointer;}
-.af-chip:hover{border-color:var(--blue);color:var(--blue);}
-.af-chip.on{background:var(--navy3);border-color:var(--navy3);color:#fff;}
-:root[data-theme="dark"] .af-chip.on{background:#2f80ed;border-color:#2f80ed;}
-.af-event{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
-.af-event:last-child{border-bottom:none;}
-.af-body{flex:1;}
-.af-body a b{font-size:13.6px;color:var(--navy);line-height:1.35;display:inline-block;}
-.af-body a:hover b{color:var(--blue);}
-.af-meta{font-size:11.8px;color:var(--muted);margin-top:3px;}
-.af-time{display:inline-block;background:#e8f4ff;color:#1d4f9c;border-radius:7px;padding:1px 8px;font-weight:800;font-size:11px;margin-right:6px;}
-:root[data-theme="dark"] .af-time{background:#16283c;color:#8ab4e8;}
-.dist-badge{display:inline-block;background:#fdf3dd;color:#96690a;border-radius:7px;padding:1px 8px;font-weight:800;font-size:10.5px;margin-left:6px;}
-.af-sec{margin-bottom:20px;}
-.af-empty{padding:26px;text-align:center;color:var(--muted);font-size:13px;}
-.af-daybar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
-.af-day{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 11px;text-align:center;min-width:64px;}
-.af-day b{display:block;font-size:15px;color:var(--navy);}
-.af-day span{font-size:10px;color:var(--muted);text-transform:uppercase;}
-.af-day i{display:block;font-style:normal;font-size:11px;font-weight:800;color:var(--blue);margin-top:2px;}
-.af-day.we{border-color:var(--gold);}
-</style><script>
+.masthead{background:linear-gradient(135deg,var(--navy) 0%,#10263d 55%,var(--navy3) 100%);color:#fff;padding:20px 22px 0;border-bottom:4px double var(--gold);}
+:root[data-theme="dark"] .masthead{background:linear-gradient(135deg,#08121e,#0d1f33 55%,#122b45);}
+.mast-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.mast-brand{flex:1;min-width:280px;display:flex;align-items:center;gap:18px;}
+.mast-brand>div{display:flex;flex-direction:column;justify-content:center;}
+.brand>div{display:flex;flex-direction:column;justify-content:center;}
+.mast-title{font-size:44px;font-weight:900;letter-spacing:5px;line-height:1;font-family:Georgia,'Times New Roman',serif;}
+
+.mast-slogan{font-size:12px;color:#a9c1d9;letter-spacing:1.6px;text-transform:uppercase;margin-top:7px;}
+.mast-right{text-align:right;font-size:12.5px;color:#c9d8e8;}
+.mast-right .date{font-size:15px;font-weight:800;color:#fff;}
+.mast-right .wx{margin-top:4px;color:#a9c1d9;}
+.mast-tools{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
+.lead-sec{max-width:1200px;margin:0 auto;padding:22px 18px 0;}
+.lead-kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:6px;}
+.lead-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;}
+.lead-main{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 24px;border-top:5px solid var(--gold);}
+.lead-main h2{font-size:24px;font-weight:900;color:var(--navy);line-height:1.25;margin-bottom:10px;}
+.lead-main h2 a{color:var(--navy);} .lead-main h2 a:hover{color:var(--blue);}
+.lead-main p{font-size:14px;color:var(--muted);line-height:1.6;}
+.lead-side{display:flex;flex-direction:column;gap:14px;}
+.lead-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 18px;flex:1;border-top:4px solid var(--blue);}
+.lead-card h3{font-size:16px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:6px;}
+.lead-card h3 a{color:var(--navy);} .lead-card h3 a:hover{color:var(--blue);}
+.lead-card p{font-size:12.6px;color:var(--muted);line-height:1.5;}
+.lead-meta{margin-top:8px;font-size:11px;color:#8a99aa;font-weight:600;}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;max-width:1200px;margin:20px auto 0;padding:0 18px;}
+.tile{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px 16px;border-left:4px solid var(--blue);transition:transform .12s;}
+.tile:hover{transform:translateY(-2px);text-decoration:none;}
+.tile .ic{font-size:21px;}
+.tile b{display:block;font-size:13.5px;color:var(--navy);margin-top:5px;}
+.tile span{display:block;font-size:11.3px;color:var(--muted);margin-top:2px;line-height:1.35;}
+.tile .n{font-size:19px;font-weight:800;color:var(--blue);}
+.wrap1200{max-width:1200px;margin:0 auto;padding:0 18px;}
+.af-mini{display:flex;gap:11px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
+.af-mini:last-child{border-bottom:none;}
+@media (max-width:900px){.lead-grid{grid-template-columns:1fr;}.tiles{grid-template-columns:repeat(2,1fr);}.mast-title{font-size:34px;}}
+
+.wk-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:start;margin-top:14px;}
+.wk-rail{display:flex;flex-direction:column;gap:12px;}
+.wk-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
+.wk-box h4{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:800;}
+.wk-passport{background:var(--card);border-left:5px solid var(--gold);border-radius:12px;padding:12px 16px;margin-top:14px;display:flex;gap:16px;flex-wrap:wrap;align-items:baseline;}
+.wk-passport b{font-size:15px;color:var(--navy);}
+.wk-stamp{font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;background:#e0f4ea;color:#1d7a4d;}
+.wk-stamp.wip{background:#fdf3dd;color:#96690a;}
+@media (max-width:980px){.wk-grid{grid-template-columns:1fr;}}</style><script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
 <header class="topbar"><div class="flagline"><span>понедельник, 14 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 07:41</span></div><div class="topbar-inner">
 <div class="brand"><div>
-<div class="brand-title">🎭 АФИША <span>ГУДОК</span></div>
-<div class="brand-sub">Информационно-аналитическое издание · культурные события Ульяновской области</div>
+<div class="brand-title">ИЗДАНИЕ <span>ГУДОК</span> · НЕДЕЛЯ</div>
+<div class="brand-sub">Сюжетные дуги недели 07.09–13.09.26 · без повтора дневной ленты</div>
 </div></div>
-<div class="top-meta">
-<div class="chip">📅 событий: <b>17</b></div>
-<div class="chip">сегодня: <b>1</b> · выходные: <b>3</b></div>
-<div class="chip">обновлено <b>14.09 07:41</b></div>
-<button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
-<a class="chip" href="index.html">← Первая полоса</a>
-</div></div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="active" href="afisha.html">Афиша</a><a class="" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-14.html">Руководителю</a></div></nav><main id="main">
-<div class="page">
-
-<div class="af-chips">
-<button class="af-chip on" onclick="afFilter('all',this)">Все (17)</button>
-<button class="af-chip" onclick="afFilter('today',this)">Сегодня</button>
-<button class="af-chip" onclick="afFilter('tomorrow',this)">Завтра</button>
-<button class="af-chip" onclick="afFilter('weekend',this)">Выходные 19.09–20.09</button>
-<button class="af-chip" onclick="afFilter('week',this)">7 дней</button>
-</div>
-
-<div class="af-daybar"><div class="af-day"><b>14</b><span>пн 09</span><i>1 соб.</i></div><div class="af-day"><b>15</b><span>вт 09</span><i>4 соб.</i></div><div class="af-day"><b>16</b><span>ср 09</span><i>0 соб.</i></div><div class="af-day"><b>17</b><span>чт 09</span><i>2 соб.</i></div><div class="af-day"><b>18</b><span>пт 09</span><i>0 соб.</i></div><div class="af-day we"><b>19</b><span>сб 09</span><i>0 соб.</i></div><div class="af-day we"><b>20</b><span>вс 09</span><i>3 соб.</i></div><div class="af-day"><b>21</b><span>пн 09</span><i>1 соб.</i></div><div class="af-day"><b>22</b><span>вт 09</span><i>0 соб.</i></div><div class="af-day"><b>23</b><span>ср 09</span><i>0 соб.</i></div></div>
-
-<div class="af-sec" id="et-festival"><div class="sec-head" style="margin:16px 0 8px;"><h2>🎪 Фестивали и праздники</h2><div class="line"></div>
-<div class="badge">1</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-25" data-weekend="0">
-<div class="cal-badge"><b>25</b><span>пт 09</span></div>
-<div class="af-body"><a href="https://t.me/ulgovru/23642" target="_blank" rel="noopener"><b>✅ 11 сентября ▶️ Куда сходить ульяновцам: афиша событий на 12 и 13 сентября ▶️ Безопасность, современность, те…</b></a>
-<div class="af-meta">t.me/ulgovru</div></div></div></div></div></div><div class="af-sec" id="et-theatre"><div class="sec-head" style="margin:16px 0 8px;"><h2>🎭 Театр и спектакли</h2><div class="line"></div>
-<div class="badge">1</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpromo/17992" target="_blank" rel="noopener"><b>ВЕЧЕР ПРОЗЫ 20 СЕНТЯБРЯ Ульяновские авторы читают свои произведения на публику. Короткие и не очень рассказы р…</b></a>
-<div class="af-meta"><span class="af-time">16:30</span>t.me/ulpromo</div></div></div></div></div></div><div class="af-sec" id="et-concert"><div class="sec-head" style="margin:16px 0 8px;"><h2>🎵 Концерты и музыка</h2><div class="line"></div>
-<div class="badge">2</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-17" data-weekend="0">
-<div class="cal-badge"><b>17</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener"><b>Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли мама. 10 участников, 3 раунда, …</b></a>
-<div class="af-meta"><span class="af-time">23:00</span>t.me/ProNovosty73 · 📍 Где: «Matrëshki»</div></div></div><div class="af-event" data-date="2026-10-22" data-weekend="0">
-<div class="cal-badge"><b>22</b><span>чт 10</span></div>
-<div class="af-body"><a href="https://t.me/ProNovosty73/5899" target="_blank" rel="noopener"><b>Концерт группы «Мураками» 🎵 Презентация альбома «Невеста хочет домой» — первой полноформатной работы за послед…</b></a>
-<div class="af-meta"><span class="af-time">19:00</span>t.me/ProNovosty73 · 📍 Где: «Шипр» (ул. Карла Маркса</div></div></div></div></div></div><div class="af-sec" id="et-sport"><div class="sec-head" style="margin:16px 0 8px;"><h2>🏃 Спорт и ЗОЖ</h2><div class="line"></div>
-<div class="badge">3</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-15" data-weekend="0">
-<div class="cal-badge"><b>15</b><span>вт 09</span></div>
-<div class="af-body"><a href="https://media73.ru/2026/v-bolnitse-andreya-pervozvannogo-proydyet-den-donora" target="_blank" rel="noopener"><b>В больнице Андрея Первозванного пройдёт День донора</b></a>
-<div class="af-meta"><span class="af-time">09:00</span>Media73<span class="dist-badge">район/область</span></div></div></div><div class="af-event" data-date="2026-09-21" data-weekend="0">
-<div class="cal-badge"><b>21</b><span>пн 09</span></div>
-<div class="af-body"><a href="https://media73.ru/2026/ulgu-zapustil-sdachu-normativov-tekhnogto" target="_blank" rel="noopener"><b>УлГУ запустил сдачу нормативов ТехноГТО</b></a> — 24.09
-<div class="af-meta"><span class="af-time">14:00</span>Media73</div></div></div><div class="af-event" data-date="2026-10-14" data-weekend="0">
-<div class="cal-badge"><b>14</b><span>ср 10</span></div>
-<div class="af-body"><a href="https://t.me/fcvolga/12497" target="_blank" rel="noopener"><b>🔚 🔚 🔚 🔚 Выигрываем в серии пенальти! В пятом раунде встретимся с "Муромом". Матч пройдет в Ульяновске в период…</b></a> — 16.10
-<div class="af-meta">t.me/fcvolga</div></div></div></div></div></div><div class="af-sec" id="et-other"><div class="sec-head" style="margin:16px 0 8px;"><h2>📌 Прочее и официальное</h2><div class="line"></div>
-<div class="badge">10</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-14" data-weekend="0">
-<div class="cal-badge"><b>14</b><span>пн 09</span></div>
-<div class="af-body"><a href="https://t.me/ulsk_on/22777" target="_blank" rel="noopener"><b>Айфоны россиян превратятся в «кирпичи» 14 сентября, когда выйдет iOS 27, пишет Baza. Есть риск, что обновление…</b></a>
-<div class="af-meta">t.me/ulsk_on</div></div></div><div class="af-event" data-date="2026-09-15" data-weekend="0">
-<div class="cal-badge"><b>15</b><span>вт 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpressa/74430" target="_blank" rel="noopener"><b>Новый мост через Свиягу планируется открыть 15-17 сентября, сообщил глава Ульяновска Мы в Telegram | Мы в MAX</b></a> — 17.09
-<div class="af-meta">t.me/ulpressa</div></div></div><div class="af-event" data-date="2026-09-15" data-weekend="0">
-<div class="cal-badge"><b>15</b><span>вт 09</span></div>
-<div class="af-body"><a href="https://t.me/chpulsk/50671" target="_blank" rel="noopener"><b>⚡️ Новый мост в створе улиц Шевченко и Смычки планируют открыть в техническом режиме на следующей неделе , ори…</b></a> — 17.09
-<div class="af-meta">t.me/chpulsk</div></div></div><div class="af-event" data-date="2026-09-15" data-weekend="0">
-<div class="cal-badge"><b>15</b><span>вт 09</span></div>
-<div class="af-body"><a href="https://t.me/insaid173/46860" target="_blank" rel="noopener"><b>Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября . Об этом сообщил мэр Ульяновска Алекс…</b></a> — 17.09
-<div class="af-meta">t.me/insaid173</div></div></div><div class="af-event" data-date="2026-09-17" data-weekend="0">
-<div class="cal-badge"><b>17</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://media73.ru/2026/ulgu-priglashaet-na-proforientatsionnye-ekskursii" target="_blank" rel="noopener"><b>УлГУ приглашает на профориентационные экскурсии</b></a>
-<div class="af-meta">Media73</div></div></div><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://t.me/dimitrovgradd/31654" target="_blank" rel="noopener"><b>В Димитровграде готовятся к трёхдневному голосованию В администрации прошло заседание оперативного штаба по по…</b></a>
-<div class="af-meta">t.me/dimitrovgradd<span class="dist-badge">район/область</span></div></div></div><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/12/v-ulyanovskoj-oblasti-k-vyboram-podgotovili-poryadka-25-tysyachi-obshhestvennyh-nablyudatelej/" target="_blank" rel="noopener"><b>В Ульяновской области к выборам подготовили порядка 2,5 тысячи общественных наблюдателей</b></a>
-<div class="af-meta">Улпресса</div></div></div><div class="af-event" data-date="2026-09-28" data-weekend="0">
-<div class="cal-badge"><b>28</b><span>пн 09</span></div>
-<div class="af-body"><a href="https://t.me/chpulsk/50653" target="_blank" rel="noopener"><b>🌡 Отопительный сезон в Ульяновске начнется 28 сентября . Первыми тепло получат детские сады, школы и больницы.…</b></a>
-<div class="af-meta">t.me/chpulsk</div></div></div><div class="af-event" data-date="2026-09-30" data-weekend="0">
-<div class="cal-badge"><b>30</b><span>ср 09</span></div>
-<div class="af-body"><a href="https://media73.ru/2026/ulyanovsk-eto-po-lyubvi-zhiteli-regiona-poboryutsya-za-100-tysyach-rubley" target="_blank" rel="noopener"><b>«Ульяновск — это по любви»: жители региона поборются за 100 тысяч рублей</b></a>
-<div class="af-meta">Media73</div></div></div><div class="af-event" data-date="2026-10-01" data-weekend="0">
-<div class="cal-badge"><b>01</b><span>чт 10</span></div>
-<div class="af-body"><a href="https://t.me/chpul/34393" target="_blank" rel="noopener"><b>С 1 октября 2026 года маркетплейсы не смогут включать товар продавца в распродажу без его согласия, а за отказ…</b></a>
-<div class="af-meta">t.me/chpul</div></div></div></div></div></div>
-
-<div class="sec-head"><h2>Анонсы культурных каналов</h2><div class="line"></div>
-<div class="badge">Telegram, последние посты</div></div>
-<div class="grid2"><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
-<a href="https://t.me/culturnik" target="_blank" rel="noopener" style="color:#fff;">@culturnik</a>
-<span class="sub">Культура Ульяновск</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9289" target="_blank" rel="noopener">Турнир по шахматам ♟️ 🗓️ 13 сентября 12:00 📍 Театральный сквер, около входа Драмтеатр ♟ сыграем турнир с контр…</a></div>
-<div class="m">11.09 20:22 · 👁 228</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9288" target="_blank" rel="noopener">Открытие осеннего сезона в «Квартале» 🗓️ 11 сентября 16:00-20:00 📍 Ленина 78 В программе: • 16:00 - живое джаз…</a></div>
-<div class="m">11.09 16:01 · 👁 83</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9287" target="_blank" rel="noopener">Открытие новой фотовыставки в Музее наличников 🗓️ 13 сентября 11:00 📍 «Владимирский сад», центральный вход Осн…</a></div>
-<div class="m">11.09 14:29 · 👁 75</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
-<a href="https://t.me/ulpromo" target="_blank" rel="noopener" style="color:#fff;">@ulpromo</a>
-<span class="sub">Движ в любимом У</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/ulpromo/18003" target="_blank" rel="noopener">Приглашаем на выставку-продажу саженцев напрямую от питомников! 🌿 ✨ Из Ульяновска, Ижевска, Самара, Сызрань и …</a></div>
-<div class="m">12.09 08:45 · 👁 310</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ulpromo/18002" target="_blank" rel="noopener">12 СЕНТЯБРЯ | ЗАКРЫТОЕ ОТКРЫТИЕ Собираем всех, кто соскучился по ночам в А5: музыка, танцы, знакомые лица и то…</a></div>
-<div class="m">11.09 21:00 · 👁 466</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ulpromo/18001" target="_blank" rel="noopener">ПОВОЛЖСКАЯ БОЧКА: КАРДИО завтра. 8 часов техно в спортивном зале. Ульяновск / Димитровград / Казань / Самара д…</a></div>
-<div class="m">11.09 19:24 · 👁 541</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
-<a href="https://t.me/ProNovosty73" target="_blank" rel="noopener" style="color:#fff;">@ProNovosty73</a>
-<span class="sub">Что-то на ульяновском</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/ProNovosty73/5908" target="_blank" rel="noopener">День города и фестиваль «Русское лето» 🎉 Ульяновску — 378 лет. Праздник пройдёт на Соборной площади, вход своб…</a></div>
-<div class="m">12.09 10:04 · 👁 36</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ProNovosty73/5907" target="_blank" rel="noopener">Открытие осеннего сезона в «Квартале» 🍁 В программе: в 16:00 — живое джазовое выступление, в 18:00 — мастер-кл…</a></div>
-<div class="m">11.09 16:04 · 👁 12</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ProNovosty73/5906" target="_blank" rel="noopener">День города в парке «Молодёжный» ✨ Праздничная программа с участием специального гостя — ШУРЫ с трибьют-шоу. Т…</a></div>
-<div class="m">11.09 14:00 · 👁 42</div></div></div></div></div></div>
-
-<div class="note" style="margin-top:16px;">Афиша собирается автоматически (analytics.py → extract_calendar) из текстов всех
-мониторируемых источников: даты, время, площадки. Типы событий определяются по ключевым словам; районные мероприятия
-помечены бейджем. Культурных событий в выборке: 4. <b>Перед визитом сверяйте время и билеты у организаторов</b> —
-данные извлечены из публикаций автоматически и могут содержать неточности.</div>
-
+<div class="top-meta"><div class="chip">сюжетов: <b>7</b></div>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button></div>
+</div></header>
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="active" href="../weekly.html">Неделя</a><a class="" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-14.html">Руководителю</a></div></nav><main id="main">
+<div class="page" style="max-width:1280px;">
+<div class="wk-passport"><b>Неделя № 1</b>
+<span style="font-size:12.5px;color:var(--muted);">период: 07.09–13.09.26 (пн–вс) · объём потока: 1064 сообщений · дуг: 7</span><span class="wk-stamp">завершён</span></div>
+<div style="display:flex;justify-content:space-between;gap:12px;font-size:12.5px;font-weight:700;margin:10px 0 0;"><span style="color:var(--muted);">← начало</span><b style="color:var(--navy);">неделя № 1 · 07.09–13.09</b><span style="color:var(--muted);">далее выйдет</span></div>
+<div class="wk-grid"><div class="wk-main">
+<div class="sec-head" style="margin-top:14px;"><h2>Сюжетные дуги недели</h2><div class="line"></div>
+<div class="badge">7 дуг</div></div>
+<div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">01</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">В Ульяновской области снят режим "Беспилотная опасность" Мы в Telegram | Мы в MAX</b>
+<span class="wk-stamp">затух</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 10.09 (ulpressa), пик 11.09 — сюжет держали 16 источника одновременно,
+всего источников дуги: 9. Тон дуги: -1.00 → -1.00.
+К 11.09 — затух.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-10.html" style="font-weight:700;">10.09</a> <a href="../digests/digest_2026-09-11.html" style="font-weight:700;">11.09</a> · охват 👁 286</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">02</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">Geely Monjaro загорелся на Юго-западной</b>
+<span class="wk-stamp">затух</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 10.09 (ulpressa), пик 10.09 — сюжет держали 7 источника одновременно,
+всего источников дуги: 4. Тон дуги: +0.00 → +0.00.
+К 10.09 — затух.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-10.html" style="font-weight:700;">10.09</a> · охват 👁 5K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">03</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновской…</b>
+<span class="wk-stamp">затух</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 10.09 (Russkih_Aleksey), пик 10.09 — сюжет держали 6 источника одновременно,
+всего источников дуги: 6. Тон дуги: +1.00 → +1.00.
+К 11.09 — затух.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-10.html" style="font-weight:700;">10.09</a> <a href="../digests/digest_2026-09-11.html" style="font-weight:700;">11.09</a> · охват 👁 20.1K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">04</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">🌿 «Экосфера Фест 2026» Приглашаем вас на экофестиваль от благотворительного фонда «Экосфера»! 📅 1 2 сентября…</b>
+<span class="wk-stamp wip">пик пройден</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 10.09 (tresh_ulyan), пик 10.09 — сюжет держали 6 источника одновременно,
+всего источников дуги: 2. Тон дуги: +1.00 → +1.00.
+К 12.09 — пик пройден.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-10.html" style="font-weight:700;">10.09</a> <a href="../digests/digest_2026-09-11.html" style="font-weight:700;">11.09</a> <a href="../digests/digest_2026-09-12.html" style="font-weight:700;">12.09</a> · охват 👁 3K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">05</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">⚡️ В Ульяновской области действует режим «Беспилотная опасность» . 🛬 Временные ограничения на прием и выпуск…</b>
+<span class="wk-stamp wip">в развитии</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 11.09 (chpulsk), пик 11.09 — сюжет держали 5 источника одновременно,
+всего источников дуги: 1. Тон дуги: -1.00 → -1.00.
+К 13.09 — в развитии.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-11.html" style="font-weight:700;">11.09</a> <a href="../digests/digest_2026-09-12.html" style="font-weight:700;">12.09</a> <a href="../digests/digest_2026-09-13.html" style="font-weight:700;">13.09</a> · охват 👁 3.2K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">06</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">❗️ План «Ковер» ввели в аэропорту Ульяновска Прием и выпуск самолетов временно ограничен. Об этом сообщили в…</b>
+<span class="wk-stamp wip">в развитии</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 10.09 (ulyanovsk_smi), пик 11.09 — сюжет держали 5 источника одновременно,
+всего источников дуги: 1. Тон дуги: +0.00 → +0.00.
+К 13.09 — в развитии.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-10.html" style="font-weight:700;">10.09</a> <a href="../digests/digest_2026-09-11.html" style="font-weight:700;">11.09</a> <a href="../digests/digest_2026-09-12.html" style="font-weight:700;">12.09</a> <a href="../digests/digest_2026-09-13.html" style="font-weight:700;">13.09</a> · охват 👁 426</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">07</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">Открытие осеннего сезона в «Квартале» 🍁 В программе: в 16:00 — живое джазовое выступление, в 18:00…</b>
+<span class="wk-stamp">затух</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 07.09 (ProNovosty73), пик 07.09 — сюжет держали 5 источника одновременно,
+всего источников дуги: 2. Тон дуги: +1.00 → +1.00.
+К 11.09 — затух.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-10.html" style="font-weight:700;">10.09</a> <a href="../digests/digest_2026-09-11.html" style="font-weight:700;">11.09</a> · охват 👁 181</div>
+</div></div>
+<div class="note">Дуга = сюжет, который держали ≥2 источника одновременно или который собрал большой охват.
+Формула дуги: возникновение → пик → развязка, со ссылками на дневные выпуски. Редакционная доводка (оценки, колонка)
+вносится ассистентом по понедельникам, после чего штамп меняется на «завершён».</div>
+</div><aside class="wk-rail">
+<div class="wk-box"><h4>Погода</h4>
+<div style="font-size:13px;font-weight:700;color:var(--navy);">сейчас 13° (ощущается 11°), днём до 17°</div>
+<div class="now-line">Прогноз на выходные — в афише и на первой полосе.</div></div>
+<div class="wk-box"><h4>Курсы валют</h4><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Доллар США</span><b style="color:var(--navy);">84.26 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Евро</span><b style="color:var(--navy);">97.87 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Юань</span><b style="color:var(--navy);">12.55 ₽ / 1</b></div><div class="now-line">ЦБ РФ, 12.09.2026</div></div>
+<div class="wk-box"><h4>События региона за период</h4><div class="now-line">Нет событий.</div>
+<h4 style="margin-top:10px;">Впереди</h4><div class="now-line">Нет событий.</div></div>
+<div class="wk-box"><h4>Промышленность и бизнес: новости → события</h4><div class="tl-row"><div class="tl-time">17.09 23:00</div><div class="tl-txt"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener">Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли…</a></div></div><div class="tl-row"><div class="tl-time">30.09</div><div class="tl-txt"><a href="https://media73.ru/2026/ulyanovsk-eto-po-lyubvi-zhiteli-regiona-poboryutsya-za-100-tysyach-rubley" target="_blank" rel="noopener">«Ульяновск — это по любви»: жители региона поборются за 100 тысяч рублей</a></div></div>
+<h4 style="margin-top:10px;">Корпоративные каналы</h4><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3826" target="_blank" rel="noopener">223 года — одна семья, один завод ❤️ В областном конкурсе «Семейные трудовые…</a></div></div><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3825" target="_blank" rel="noopener">Выставка «УАЗ - природа движения», приуроченная к 85-летию УАЗ открылась в…</a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5043" target="_blank" rel="noopener">Перед пленарным заседанием Делового форума БРИКС Владимир Путин и Нарендра Моди…</a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5042" target="_blank" rel="noopener">От кульмана и 3D-моделирования к цифровому аватару гражданского самолета ✈️…</a></div></div>
+<div class="now-line">Публичные TG-каналы предприятий региона (проверка 12.09.2026): УАЗ (@UAZ_Today), ОАК (@uac_ru, включает «Авиастар-СП»). УКБП, НИИАР, «Волга-Днепр», «Контактор», «Ульяновскцемент», Т-плюс публичных каналов не имеют — их…</div></div>
+</aside></div>
 </div>
 </main>
 <footer class="footer"><div class="footer-inner">
-<div><b>листок Гудок · Афиша</b><p>Автономная страница, обновляется каждым прогоном run.sh. Источники: Telegram-каналы (@culturnik, @ulpromo, @ProNovosty73 и др.) и RSS СМИ региона.</p></div>
-<div><b>Навигация</b><p><a href="index.html" class="flink">Первая полоса</a> · <a href="digests/digest_2026-09-14.html" class="flink">Свежий дайджест</a> · <a href="status.html" class="flink">Статус системы</a></p></div>
+<div><b>Гудок</b><p>Гудок — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года.</p></div>
+<div><b>Периоды</b><p><a href="../weekly.html" class="flink">Все недели</a> · <a href="../archive.html" class="flink">Архив-матрица</a> · <a href="../index.html" class="flink">Первая полоса</a></p></div>
 </div></footer>
-<script>
-function afFilter(mode,btn){
-  document.querySelectorAll('.af-chip').forEach(function(c){c.classList.remove('on');});
-  btn.classList.add('on');
-  var today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());
-  var iso=today.toISOString().slice(0,10);
-  var tom=new Date(today.getTime()+86400000)).toISOString().slice(0,10);
-  document.querySelectorAll('.af-event').forEach(function(ev){
-    var d=ev.getAttribute('data-date');var show=true;
-    if(mode==='today')show=(d===iso);
-    else if(mode==='tomorrow')show=(d===tom);
-    else if(mode==='weekend')show=ev.getAttribute('data-weekend')==='1';
-    else if(mode==='week'){var t=new Date(iso);var x=new Date(d);show=((x-t)/86400000)<=7;}
-    ev.style.display=show?'':'none';
-  });
-  document.querySelectorAll('.af-sec').forEach(function(sec){
-    var vis=sec.querySelectorAll('.af-event[style=""], .af-event:not([style])');
-    var any=Array.prototype.some.call(sec.querySelectorAll('.af-event'),function(e){return e.style.display!=='none';});
-    sec.style.display=any?'':'none';
-  });
-}
-</script>
 <script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
 document.documentElement.setAttribute("data-theme",c);
@@ -594,9 +591,4 @@ syncThemeBtn();}
 function syncThemeBtn(){var b=document.getElementById("themeBtn");
 if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
 syncThemeBtn();
-</script><div class="util-bar-wrap"><div class="util-bar">
-<span class="util-lbl">Служебное</span>
-<a href="roadmap.html">Роадмап издания</a>
-<a href="status.html">Статус системы</a>
-<a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
-</div></div></body></html>
+</script></body></html>

@@ -3253,6 +3253,7 @@ def main():
     # (выборы-2026 теперь живут в projects/elections_2026.html — см. выше)
 
     if args.weekly_new:
+        now = datetime.now(UTC4)
         this_monday = now.date() - timedelta(days=now.weekday())
         start = this_monday - timedelta(days=7)
         end = this_monday - timedelta(days=1)
