@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-14T18:58:27.243746+00:00",
- "generated_local": "14.09.2026 22:58",
+ "generated_utc": "2026-09-14T19:24:27.871574+00:00",
+ "generated_local": "14.09.2026 23:24",
  "days": [
   "2026-09-01",
   "2026-09-02",
@@ -18,9 +18,9 @@
   "2026-09-14"
  ],
  "counts": {
-  "total": 1499,
-  "last24h": 320,
-  "last7d": 1404
+  "total": 1500,
+  "last24h": 317,
+  "last7d": 1405
  },
  "topics": {
   "elections": {
@@ -292,11 +292,11 @@
     58,
     20,
     18,
-    27
+    28
    ],
-   "today": 27,
-   "week": 182,
-   "total": 193,
+   "today": 28,
+   "week": 183,
+   "total": 194,
    "status": "stable"
   },
   "medicine": {
@@ -315,11 +315,11 @@
     17,
     13,
     9,
-    18
+    19
    ],
-   "today": 18,
-   "week": 90,
-   "total": 93,
+   "today": 19,
+   "week": 91,
+   "total": 94,
    "status": "stable"
   },
   "crime": {
@@ -583,10 +583,10 @@
     5,
     7,
     3,
-    15
+    16
    ],
-   "week": 44,
-   "today": 15
+   "week": 45,
+   "today": 16
   },
   "education": {
    "name": "Образование и наука",
