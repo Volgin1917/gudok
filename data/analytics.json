@@ -1,5 +1,5 @@
 {
- "generated_local": "14.09.2026 22:58",
+ "generated_local": "14.09.2026 23:24",
  "calendar": [
   {
    "etype": "sport",
@@ -450,11 +450,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.095,
-  "today_items": 275,
+  "today_score": 0.094,
+  "today_items": 276,
   "today_pos": 414,
   "today_neg": 263,
-  "today_neu": 567,
+  "today_neu": 568,
   "series": [
    {
     "date": "2026-09-01",
@@ -510,7 +510,7 @@
    },
    {
     "date": "2026-09-14",
-    "score": 0.095
+    "score": 0.094
    }
   ],
   "by_category": {
@@ -518,7 +518,7 @@
    "culture": 0.648,
    "economy": 0.525,
    "education": 0.364,
-   "health": 0.417,
+   "health": 0.385,
    "politics": 0.098,
    "security": -0.42,
    "society": 0.033,
@@ -626,8 +626,8 @@
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 55,
-   "primary": 39,
+   "total": 56,
+   "primary": 40,
    "dup": 16,
    "repost_rate": 0.29,
    "views_median": 7230,
@@ -675,9 +675,9 @@
    "tier": 2,
    "type": "tg",
    "total": 43,
-   "primary": 36,
-   "dup": 7,
-   "repost_rate": 0.16,
+   "primary": 35,
+   "dup": 8,
+   "repost_rate": 0.19,
    "views_median": 1260,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -699,10 +699,10 @@
    "tier": 3,
    "type": "tg",
    "total": 41,
-   "primary": 35,
-   "dup": 6,
-   "repost_rate": 0.15,
-   "views_median": 542,
+   "primary": 34,
+   "dup": 7,
+   "repost_rate": 0.17,
+   "views_median": 576,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -735,9 +735,9 @@
    "tier": 3,
    "type": "tg",
    "total": 35,
-   "primary": 24,
-   "dup": 11,
-   "repost_rate": 0.31,
+   "primary": 25,
+   "dup": 10,
+   "repost_rate": 0.29,
    "views_median": 3270,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -807,11 +807,11 @@
    "tier": 2,
    "type": "tg",
    "total": 27,
-   "primary": 20,
-   "dup": 7,
-   "repost_rate": 0.26,
+   "primary": 21,
+   "dup": 6,
+   "repost_rate": 0.22,
    "views_median": 424,
-   "label": "смешанный",
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -991,16 +991,16 @@
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 25.9,
-   "slope": 2.0,
+   "expected": 26.6,
+   "slope": 2.11,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "medicine",
    "name": "Медицина",
-   "expected": 16.8,
-   "slope": 1.71,
+   "expected": 17.6,
+   "slope": 1.82,
    "direction": "рост",
    "confidence": "средняя"
   },
