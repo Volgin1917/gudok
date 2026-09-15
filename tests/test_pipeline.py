@@ -7,6 +7,7 @@ tests/test_pipeline.py — unit-тесты парсеров и ядра изда
 Только стандартная библиотека. Фикстуры — реальные страницы источников
 (tests/fixtures/), сохранены 11.09.2026.
 """
+import ast
 import json
 import os
 import sys
@@ -1418,6 +1419,55 @@ class TestCiPush(unittest.TestCase):
         with open(os.path.join(BASE, ".github", "workflows", "daily.yml"), encoding="utf-8") as f:
             daily = f.read()
         self.assertIn("bash run.sh", daily)
+
+    def test_pages_artifact_built_after_push(self):
+        """Артефакт Pages собирается в build-джобе ПОСЛЕ ci_push.sh, а publish только деплоит.
+
+        Кейс 15.09.2026: publish-джоба делала собственный `actions/checkout@v4` без ref —
+        это github.sha, то есть состояние репозитория ДО run.sh. Свежие страницы коммитил
+        ci_push.sh, но в артефакт попадал предыдущий выпуск: сайт отставал на один прогон
+        (выпуск дня появлялся только на следующее утро), а внешне всё было зелёным."""
+        wf_dir = os.path.join(BASE, ".github", "workflows")
+        checked = 0
+        for name in sorted(os.listdir(wf_dir)):
+            if not name.endswith((".yml", ".yaml")):
+                continue
+            with open(os.path.join(wf_dir, name), encoding="utf-8") as f:
+                text = f.read()
+            if "deploy-pages" not in text:
+                continue
+            checked += 1
+            build, _, publish = text.partition("\n  publish:")
+            self.assertTrue(publish, f"{name}: нет джобы publish")
+            self.assertIn("upload-pages-artifact", build,
+                          f"{name}: артефакт не собирается в build — на Pages уедет прошлый выпуск")
+            self.assertNotIn("upload-pages-artifact", publish,
+                             f"{name}: артефакт снова в publish (checkout вернёт github.sha)")
+            self.assertNotIn("actions/checkout", publish,
+                             f"{name}: checkout в publish — это триггерный коммит, а не собранные страницы")
+            self.assertLess(build.index("ci_push.sh"), build.index("upload-pages-artifact"),
+                            f"{name}: артефакт загружается до коммита/пуша")
+        self.assertGreaterEqual(checked, 3, f"проверено только {checked} воркфлоу с публикацией")
+
+    def test_tests_run_whole_file(self):
+        """Точка входа unittest — в конце файла.
+
+        До 16.09.2026 `if __name__ == "__main__": unittest.main()` стоял на строке 282,
+        в середине файла: запуск `python3 tests/test_pipeline.py` выполнял 39 тестов из 203
+        и печатал «OK», то есть 164 проверки (Волны 1–4, outlets.py, реестр) молча не гонялись."""
+        path = os.path.join(BASE, "tests", "test_pipeline.py")
+        with open(path, encoding="utf-8") as f:
+            tree = ast.parse(f.read(), filename=path)
+        classes = [n.lineno for n in tree.body if isinstance(n, ast.ClassDef)]
+        entries = [n.lineno for n in tree.body
+                   if isinstance(n, ast.If) and isinstance(n.test, ast.Compare)
+                   and getattr(n.test.left, "id", None) == "__name__"]
+        self.assertEqual(len(entries), 1, f"точек входа unittest: {entries} (нужна одна, в конце)")
+        self.assertGreater(entries[0], max(classes),
+                           "блок __main__ стоит выше последнего тест-класса — "
+                           "unittest.main() завершит процесс и классы ниже не выполнятся")
+        self.assertTrue(os.path.exists(os.path.join(BASE, "tests", "__init__.py")),
+                        "без tests/__init__.py «unittest discover -s tests -t .» и pytest падают")
 
     def test_stages_everything_by_default(self):
         """Без явных путей коммитится всё. Дефолт «только сгенерированное» однажды

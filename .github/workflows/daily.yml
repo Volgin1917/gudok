@@ -32,12 +32,17 @@ jobs:
             data digests index.html afisha.html infospace.html status.html \
             weekly.html monthly.html projects.html projects archive.html \
             assets weekly monthly
+      - name: Артефакт сайта (свежие страницы, а не триггерный коммит)
+        # upload-pages-artifact выполняется ЗДЕСЬ, в build-джобе, сразу после ci_push.sh:
+        # рабочий каталог содержит ровно те страницы, которые только что собраны и
+        # закоммичены. Раньше артефакт собирала publish-джоба отдельным checkout@v4
+        # без ref — это github.sha, состояние ДО run.sh, из-за чего на Pages уезжал
+        # прошлый выпуск, а сегодняшний pojawлялся только на следующий прогон.
+        uses: actions/upload-pages-artifact@v3
+        with: {path: .}
   publish:
     needs: build
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/upload-pages-artifact@v3
-        with: {path: .}
       - uses: actions/deploy-pages@v4
