@@ -1281,3 +1281,61 @@ class TestInfospaceW4(unittest.TestCase):
     def test_w4_survives_bad_items(self):
         w4 = analytics.build_infospace_w4([{"id": "x"}], None)
         self.assertIn("agency", w4)
+
+
+class TestPageStructure(unittest.TestCase):
+    """Регрессия на вёрстку: незакрытый .sec-head в «Волне 3» (15.09) превращал все
+    следующие разделы во flex-потомки заголовка — страница «съезжала» вниз, а
+    оборванный тег «<» в «Выводах наблюдения» проглатывал закрытие .page.
+    Проверяем сгенерированные страницы: баланс div, единая глубина разделов,
+    отсутствие оборванных тегов."""
+
+    PAGES = ("infospace.html", "index.html", "digests/today.html")
+
+    @staticmethod
+    def _read(path):
+        with open(path, encoding="utf-8") as f:
+            return f.read()
+
+    @staticmethod
+    def _depths(html):
+        import re
+        depth, heads = 0, []
+        for m in re.finditer(r"<div\b|</div>|<h2[^>]*>([^<]{3,70})</h2>", html):
+            t = m.group(0)
+            if t.startswith("<h2"):
+                heads.append((m.group(1).strip(), depth))
+            elif t.startswith("<div"):
+                depth += 1
+            else:
+                depth -= 1
+        return depth, heads
+
+    def test_pages_balanced_and_no_broken_tags(self):
+        import os
+        import re
+        checked = 0
+        for rel in self.PAGES:
+            path = os.path.join(BASE, rel)
+            if not os.path.exists(path):
+                continue
+            html = self._read(path)
+            checked += 1
+            depth, _heads = self._depths(html)
+            self.assertEqual(depth, 0, f"{rel}: баланс <div> не нулевой ({depth:+d})")
+            self.assertNotRegex(html, r"<\s*\n", f"{rel}: оборванный тег «<»")
+            self.assertNotRegex(html, r"</div>\s*/div>", f"{rel}: битый закрывающий тег")
+        self.assertGreaterEqual(checked, 1, "нет ни одной сгенерированной страницы для проверки")
+
+    def test_infospace_sections_are_siblings(self):
+        """Все разделы «Инфопространства», включая Волны 1–4, — соседи одного уровня."""
+        import os
+        path = os.path.join(BASE, "infospace.html")
+        if not os.path.exists(path):
+            self.skipTest("infospace.html не собран")
+        _depth, heads = self._depths(self._read(path))
+        self.assertTrue(heads, "не найдено ни одного <h2>")
+        deep = [h for h, d in heads if d != heads[0][1]]
+        self.assertEqual(deep, [], f"разделы на разной глубине: {deep[:4]}")
+        waves = {h: d for h, d in heads if h.startswith("Волна ")}
+        self.assertGreaterEqual(len(waves), 4, f"ожидались Волны 1–4, найдено: {list(waves)}")

@@ -2783,7 +2783,7 @@ def render_infospace(cfg, trends, store, status, info):
                             for a in w3.get("affiliates") or []) or '<div class="note">Гипотез аффилированности пока нет.</div>'
         w3_html = f"""
 <div class="sec-head"><h2>Волна 3: деньги и собственность</h2><div class="line"></div>
-<div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план v0.9 →</a> · <a href="owner_verification.md" style="color:var(--accent);">верификация владельцев 15.09</a> · реестр: {w3.get('registry_sources', 0)}</div>
+<div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план v0.9 →</a> · <a href="owner_verification.md" style="color:var(--accent);">верификация владельцев 15.09</a> · реестр: {w3.get('registry_sources', 0)}</div></div>
 <div class="grid2">
 <div class="card"><div class="card-pad">
 <div class="side-head">Концентрация собственности <span class="sub">HHI по учредителям, взвешенный потоком недели</span></div>
