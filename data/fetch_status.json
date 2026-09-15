@@ -29,7 +29,7 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 24,
+  "items": 25,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -41,7 +41,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 11,
+  "items": 8,
   "error": null,
   "title": "Репортёр73"
  },
@@ -89,7 +89,7 @@
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 11,
+  "items": 10,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -131,7 +131,7 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 13,
+  "items": 14,
   "error": null,
   "title": "73online"
  },
@@ -207,11 +207,11 @@
   "error": "нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk_token (vk.com/editapp → Сервисный ключ доступа)"
  },
  "_meta": {
-  "last_run_utc": "2026-09-15T10:00:13.276090+00:00",
-  "last_run_local": "15.09.2026 14:00",
-  "fetched": 416,
-  "new": 26,
-  "total_store": 1704
+  "last_run_utc": "2026-09-15T10:16:31.292592+00:00",
+  "last_run_local": "15.09.2026 14:16",
+  "fetched": 414,
+  "new": 10,
+  "total_store": 1714
  },
  "rss:Улград": {
   "ok": true,
