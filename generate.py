@@ -2571,6 +2571,92 @@ def render_infospace(cfg, trends, store, status, info):
 </div></div></div>
 """
 
+    # ── Волна 2 (sources_registry.json): кто пишет и кто читает ──
+    w2 = info.get("w2") or {}
+    w2_html = ""
+    if w2.get("producer_mix"):
+        def _pct2(x):
+            return "—" if x is None else f"{round(x * 100)}%"
+        TYPE_COLORS = {"пресс-служба": "var(--ink)", "редакция": "var(--ink-2)",
+                       "агрегатор": "var(--muted)", "авторский канал": "#6D6079",
+                       "промо/коммерция": "#B4795A", "не атрибутирован": "var(--rule)"}
+        pm = w2["producer_mix"]
+        wn = pm.get("week_n") or 1
+        order = sorted((pm.get("week") or {}).items(), key=lambda kv: -kv[1])
+        type_bars = ""
+        for t, n in order:
+            col = TYPE_COLORS.get(t, "var(--muted)")
+            type_bars += (f'<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-family:var(--sans);font-size:12px;">'
+                          f'<span style="width:150px;text-align:right;font-weight:600;color:var(--ink);flex-shrink:0;">{esc(t)}</span>'
+                          f'<span style="flex:1;background:var(--paper-2);border:1px solid var(--rule);height:14px;overflow:hidden;display:block;"><i style="display:block;height:100%;width:{max(2, round(n / wn * 100))}%;background:{col};"></i></span>'
+                          f'<span style="width:96px;font-size:11px;color:var(--muted);">{n} · {round(n / wn * 100)}%</span></div>')
+        stack_rows = ""
+        for d in pm.get("daily") or []:
+            segs = ""
+            for t, sh in sorted((d.get("mix") or {}).items(), key=lambda kv: -kv[1]):
+                col = TYPE_COLORS.get(t, "var(--muted)")
+                segs += f'<i style="width:{max(1, round(sh * 100))}%;background:{col};" title="{esc(t)}: {round(sh * 100)}%"></i>'
+            stack_rows += (f'<div style="display:grid;grid-template-columns:84px 1fr;gap:10px;align-items:center;margin-bottom:5px;">'
+                           f'<span style="font-family:var(--sans);font-size:11px;color:var(--muted);text-align:right;">{esc(d.get("date", "")[5:])} · {d.get("n", 0)}</span>'
+                           f'<span style="display:flex;height:16px;border:1px solid var(--rule);overflow:hidden;">{segs}</span></div>')
+        legend = "".join(f'<span style="display:inline-flex;align-items:center;gap:5px;margin-right:14px;"><i style="width:10px;height:10px;background:{TYPE_COLORS.get(t, "var(--muted)")};display:inline-block;"></i>{esc(t)}</span>' for t, _ in order)
+
+        at = w2.get("attention") or {}
+        at_rows = ""
+        amax = max([x.get("share") or 0 for x in at.get("top") or []] + [0.01])
+        for x in at.get("top") or []:
+            at_rows += (f'<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-family:var(--sans);font-size:12px;">'
+                        f'<span style="width:150px;text-align:right;font-weight:600;color:var(--ink);flex-shrink:0;">@{esc(str(x.get("source", "")))}</span>'
+                        f'<span style="flex:1;background:var(--paper-2);border:1px solid var(--rule);height:14px;overflow:hidden;display:block;"><i style="display:block;height:100%;width:{max(2, int((x.get("share") or 0) / amax * 100))}%;background:var(--accent);"></i></span>'
+                        f'<span style="width:110px;font-size:11px;color:var(--muted);">{round((x.get("share") or 0) * 100)}% · {fmt_views(x.get("views", 0))}</span></div>')
+
+        sp = w2.get("speech") or {}
+        pl = w2.get("promo_load") or {}
+        sg = w2.get("silent_groups") or []
+        sg_chips = "".join(
+            f'<span style="display:inline-block;border:1px solid var(--accent);color:var(--accent);font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;margin:0 6px 6px 0;">{esc(g["group"])} · упомянуты {g["mentioned"]}×, речи 0</span>'
+            for g in sg) or '<span style="font-family:var(--sans);font-size:12px;color:var(--muted);">на этой неделе все группы получили прямую речь</span>'
+
+        w2_html = f"""
+<div class="sec-head"><h2>Волна 2: кто пишет и кто читает</h2><div class="line"></div>
+<div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план v0.9 →</a> · реестр источников: {w2.get('registry_sources', 0)} · подключено 15.09</div></div>
+
+<div class="card"><div class="card-pad">
+<div class="side-head">Кто пишет: состав потока по типу производителя <span class="sub">неделя · {wn} сообщений</span></div>
+<div class="side-body">
+{type_bars}
+<div style="margin:14px 0 8px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Кто формирует день · состав потока по дням</div>
+{stack_rows}
+<div style="font-family:var(--sans);font-size:11px;color:var(--muted);margin:8px 0 4px;">{legend}</div>
+<div class="note">Типы — из реестра <code>sources_registry.json</code> (ручной справочник: пресс-служба / редакция / агрегатор / авторский канал / промо). Неатрибутированные RSS принимаются редакцией. Доля агрегаторов — мера конвейерности поля: оно воспроизводит повестку, а не производит её.</div>
+</div></div></div>
+
+<div class="grid2">
+<div class="card"><div class="card-pad">
+<div class="side-head">Внимание как ресурс <span class="sub">просмотры {at.get('n_sources', 0)} TG-источников за неделю</span></div>
+<div class="side-body">
+<div style="display:flex;gap:26px;align-items:baseline;margin-bottom:10px;flex-wrap:wrap;">
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;color:var(--accent);">{at.get('gini') if at.get('gini') is not None else '—'}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">Gini концентрации внимания (0 — равенство, 1 — монополия)</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_pct2(at.get('top3_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">всех просмотров — у топ-3 каналов</span></div>
+</div>
+{at_rows}
+<div class="note">Всего {fmt_views(at.get('total_views', 0))} просмотров за неделю. Концентрация внимания означает: повестку региона видят через два-три «окна»; районные источники в топ не попадают — их повестка для области почти не существует.</div>
+</div></div></div>
+<div class="card"><div class="card-pad">
+<div class="side-head">Голос и деньги <span class="sub">прямая речь · рекламная нагрузка · немые группы</span></div>
+<div class="side-body">
+<div style="display:flex;gap:26px;align-items:baseline;margin-bottom:8px;flex-wrap:wrap;">
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{sp.get('official', '—')}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">цитат должностных лиц</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{sp.get('citizen', '—')}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">цитат жителей</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_pct2(pl.get('share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">потока — промо и интеграции ({pl.get('n', 0)})</span></div>
+</div>
+<div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Немые группы — упомянуты, но не процитированы</div>
+{sg_chips}
+<div class="note">Прямая речь — атрибуция цитат «в кавычках» по маркерам в ±150 знаках («губернатор/министерство/администрация…» против «житель/рабочий/врач…»), оценка ориентировочная. Немые группы — этическое ядро раздела: о них пишут, но их речь в поле не попадает. Реклама — грубый классификатор (промокод/интеграция/посев/кросс-промо в MAX), калибровка — Волна 3.</div>
+</div></div></div>
+</div>
+"""
+
     ts = info.get("tone_series") or []
     tone_spark = sparkline([(t.get("score") or 0) for t in ts], w=300, h=56, color="#4a7fb5") if ts else ""
     tone_days = "".join(f"<span style='font-size:10px;color:var(--muted);'>{t['date'][8:10]}</span> " for t in ts[-7:])
@@ -2653,7 +2739,7 @@ def render_infospace(cfg, trends, store, status, info):
 Волатильность тона — разброс дневных значений: всплески соответствуют тревогам или праздникам.<br>
 <b>В очереди на подключение:</b> {planned_metrics}</div>
 </div></div>
-{w1_html}
+{w1_html}{w2_html}
 <div class="sec-head"><h2>Нацпроекты и госпрограммы в повестке</h2><div class="line"></div>
 <div class="badge">метрика подключена 12.09</div></div>
 <div class="card"><div class="card-pad">

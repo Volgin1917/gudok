@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 08:01",
+ "generated_local": "15.09.2026 08:12",
  "calendar": [
   {
    "etype": "sport",
@@ -344,37 +344,6 @@
    ]
   },
   {
-   "name": "аэропорту · задержаны · авиарейса",
-   "terms": [
-    "аэропорту",
-    "задержаны",
-    "авиарейса"
-   ],
-   "size": 3,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "Из-за ограничений в ульяновском аэропорту задержаны четыре авиарейса.",
-     "url": "https://t.me/ulpressa/74491",
-     "source": "t.me/ulpressa",
-     "views": 1060
-    },
-    {
-     "title": "✅ Ограничения в аэропорту Ульяновска сняты Росавиация сообщила, что в аэропорту «Баратаевка» сняты ограничения",
-     "url": "https://t.me/ulyanovsk_smi/29421",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 421
-    },
-    {
-     "title": "Из-за ограничений в ульяновском аэропорту задержаны четыре авиарейса",
-     "url": "https://ulpressa.ru/2026/09/12/iz-za-ogranichenij-v-ulyanovskom-aeroportu-zaderzhany-chetyre-aviarejsa-4/",
-     "source": "Улпресса",
-     "views": null
-    }
-   ]
-  },
-  {
    "name": "открываем · начнем · ночной",
    "terms": [
     "открываем",
@@ -433,6 +402,35 @@
      "url": "https://t.me/ulyanovsk_smi/29466",
      "source": "t.me/ulyanovsk_smi",
      "views": 394
+    }
+   ]
+  },
+  {
+   "name": "заменил",
+   "terms": [
+    "заменил"
+   ],
+   "size": 3,
+   "coverage": 0.0,
+   "gap": true,
+   "samples": [
+    {
+     "title": "♻️ ♻️ ♻️ ♻️ Яковлев заменил Хашкулова",
+     "url": "https://t.me/fcvolga/12522",
+     "source": "t.me/fcvolga",
+     "views": 1240
+    },
+    {
+     "title": "66’ 🔄 Денис Рахманов заменил Багателию Новиков заменил Диму Рахманова ⚫️ 0️⃣ ➖ 1️⃣ 🟡",
+     "url": "https://t.me/fcvolga/12519",
+     "source": "t.me/fcvolga",
+     "views": 1230
+    },
+    {
+     "title": "♻️ ♻️ ♻️ ♻️ 82’ Быкова заменил Гершун",
+     "url": "https://t.me/fcvolga/12523",
+     "source": "t.me/fcvolga",
+     "views": 1220
     }
    ]
   }

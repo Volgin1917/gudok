@@ -928,6 +928,156 @@ def build_infospace_ext(items, trends, cfg):
     return out
 
 
+
+# ─────────────────────────────────────────────────────────────────────
+# Волна 2 (предложение v0.9): кто пишет и кто читает — на базе
+# sources_registry.json и уже собираемых просмотров
+# ─────────────────────────────────────────────────────────────────────
+QUOTE_X_RE = re.compile(r"«[^»]{15,300}»")
+OFFICIAL_X_RE = re.compile(
+    r"губернатор|министр|глава\b|мэр|депутат|администрац|пресс-служб|правительств|"
+    r"руководител|директор|начальник|сенатор|мэрия|министерств", re.I)
+CITIZEN_X_RE = re.compile(
+    r"жител|горожан|селян|рабоч\w+|пенсионер|учител|врач|медик|студент|водитель|"
+    r"многодетн|очевидц|местн\w+ жител", re.I)
+PROMO_AD_X_RE = re.compile(
+    r"промокод|скидк\w+ по промо|на правах рекламы|рекламн\w+ интеграц|посев|"
+    r"плохо грузит|читай в max|подпишись в max|наш канал в max", re.I)
+SOCIAL_GROUPS_EXT = dict(LABOR_GROUPS)
+SOCIAL_GROUPS_EXT.update({
+    "пенсионеры": r"пенсионер\w+",
+    "мигранты": r"мигрант\w+|переселен\w+",
+    "люди с инвалидностью": r"инвалид\w+|ограниченн\w+ возможност\w+",
+})
+
+
+def load_registry(base=None):
+    path = os.path.join(base or BASE, "sources_registry.json")
+    reg = {}
+    try:
+        data = json.load(open(path, encoding="utf-8"))
+        for e in data.get("sources", []):
+            reg[e.get("id")] = e
+    except Exception:
+        pass
+    return reg
+
+
+def _gini(values):
+    xs = sorted(v for v in values if v and v > 0)
+    n = len(xs)
+    if n < 2:
+        return None
+    total = sum(xs)
+    if not total:
+        return None
+    cum = sum((2 * i - n - 1) * x for i, x in enumerate(xs, 1))
+    return round(cum / (n * total), 3)
+
+
+def build_infospace_w2(items, trends, cfg, registry=None):
+    """Волна 2: тип производителя («кто пишет»), концентрация внимания (Gini
+    просмотров), прямая речь чиновников и жителей, рекламная нагрузка,
+    немые социальные группы. Данные: store.jsonl + sources_registry.json."""
+    now = datetime.now(UTC4)
+    week_ago = now - timedelta(days=7)
+    live = [it for it in items if _local_dt(it.get("published"))]
+    week = [it for it in live if _local_dt(it["published"]) >= week_ago]
+    reg = load_registry() if registry is None else registry
+    out = {"generated_local": now.strftime("%d.%m.%Y %H:%M"), "week_items": len(week),
+           "registry_sources": len(reg)}
+    if not week:
+        return out
+
+    def reg_entry(it):
+        if it.get("source_type") == "tg":
+            return reg.get(f"tg:{it.get('channel')}")
+        for sid, e in reg.items():
+            if sid.startswith("rss:") and sid[4:].lower() == str(it.get("source", "")).lower():
+                return e
+        return None
+
+    def ptype(it):
+        e = reg_entry(it)
+        if e and e.get("producer_type"):
+            return e["producer_type"]
+        return "редакция" if it.get("source_type") == "rss" else "не атрибутирован"
+
+    # 1) кто пишет: состав потока по типам производителя (неделя + 7 дней)
+    week_mix = Counter(ptype(it) for it in week)
+    days = [(now - timedelta(days=i)).astimezone(UTC4).date() for i in range(6, -1, -1)]
+    daily = []
+    for d in days:
+        d_items = [it for it in week if _local_dt(it["published"]).astimezone(UTC4).date() == d]
+        mix = Counter(ptype(it) for it in d_items)
+        daily.append({"date": d.isoformat(), "n": len(d_items),
+                      "mix": {k: round(v / len(d_items), 3) for k, v in mix.items()} if d_items else {}})
+    out["producer_mix"] = {"week": dict(week_mix.most_common()),
+                           "week_n": len(week),
+                           "daily": daily}
+
+    # 2) внимание как ресурс: просмотры TG по источникам, Gini, доля топ-3
+    views_by_src = Counter()
+    for it in week:
+        if it.get("views") and it.get("source_type") == "tg":
+            views_by_src[it.get("channel") or it.get("source") or "?"] += it["views"]
+    total_views = sum(views_by_src.values())
+    top5 = views_by_src.most_common(5)
+    out["attention"] = {
+        "total_views": total_views,
+        "gini": _gini(list(views_by_src.values())),
+        "top3_share": round(sum(v for _, v in views_by_src.most_common(3)) / total_views, 3) if total_views else None,
+        "top": [{"source": str(s), "views": v,
+                 "share": round(v / total_views, 3) if total_views else 0} for s, v in top5],
+        "n_sources": len(views_by_src),
+    }
+
+    # 3) прямая речь: цитаты чиновников против цитат жителей
+    official = citizen = 0
+    for it in week:
+        if it.get("dup_of"):
+            continue
+        text = (it.get("text") or "")[:2200]
+        for m in QUOTE_X_RE.finditer(text):
+            ctx = text[max(0, m.start() - 150):m.end() + 150]
+            if CITIZEN_X_RE.search(ctx):
+                citizen += 1
+            elif OFFICIAL_X_RE.search(ctx):
+                official += 1
+    out["speech"] = {"official": official, "citizen": citizen,
+                     "ratio": round(citizen / official, 2) if official else None}
+
+    # 4) рекламная нагрузка: коммерческие интеграции и кросс-промо
+    promo_n = 0
+    promo_by_tier = Counter()
+    for it in week:
+        blob = (it.get("title") or "") + " " + (it.get("text") or "")[:400]
+        if PROMO_AD_X_RE.search(blob):
+            promo_n += 1
+            promo_by_tier[f"T{it['tier']}" if it.get("tier") else "СМИ/подборка"] += 1
+    out["promo_load"] = {"n": promo_n, "share": round(promo_n / len(week), 4),
+                         "by_tier": dict(promo_by_tier)}
+
+    # 5) немые группы: кого за неделю ни разу не процитировали
+    silent = []
+    for gname, gpat in SOCIAL_GROUPS_EXT.items():
+        grx = re.compile(gpat, re.I)
+        mentioned = speaks = 0
+        for it in week:
+            blob = f"{it.get('title', '')} {(it.get('text') or '')[:500]}"
+            m = grx.search(blob)
+            if not m:
+                continue
+            mentioned += 1
+            ctx = blob[max(0, m.start() - 160):m.end() + 200]
+            if SPEECH_X_RE.search(ctx):
+                speaks += 1
+        if speaks == 0:
+            silent.append({"group": gname, "mentioned": mentioned})
+    out["silent_groups"] = silent
+    return out
+
+
 def esc_(v):
     return str(v)
 
@@ -941,6 +1091,10 @@ def build_all(items, trends, cfg=None):
         infospace["w1"] = build_infospace_ext(items, trends, cfg)
     except Exception:
         infospace["w1"] = {}
+    try:
+        infospace["w2"] = build_infospace_w2(items, trends, cfg)
+    except Exception:
+        infospace["w2"] = {}
     os.makedirs(DATA, exist_ok=True)
     with open(os.path.join(DATA, "infospace.json"), "w", encoding="utf-8") as f:
         json.dump(infospace, f, ensure_ascii=False, indent=1)

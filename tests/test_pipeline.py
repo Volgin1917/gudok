@@ -413,3 +413,64 @@ class TestInfospaceW1Part2(unittest.TestCase):
         r = analytics.build_infospace_ext([self._it("a", 2, "В Тестграде праздник")],
                                           None, self.CFG_W1)
         self.assertEqual(r["rural_index"], {})
+
+
+class TestInfospaceW2(unittest.TestCase):
+    """Волна 2: кто пишет, внимание, прямая речь, промо, немые группы."""
+
+    CFG_W2 = {"municipalities": {}, "categories": [{"id": "society", "name": "Общество"}]}
+    REG_W2 = {"tg:press": {"id": "tg:press", "producer_type": "пресс-служба"},
+              "tg:agg": {"id": "tg:agg", "producer_type": "агрегатор"}}
+
+    def _it(self, id, hours_ago, title="Новость", text="", channel="press",
+            source_type="tg", views=None):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = datetime.now(UTC4) - timedelta(hours=hours_ago)
+        it = {"id": id, "title": title, "text": text, "published": dt.isoformat(),
+              "category": "society", "source_type": source_type,
+              "channel": channel, "source": channel if source_type == "tg" else "Ulnovosti.ru"}
+        if views is not None:
+            it["views"] = views
+        return it
+
+    def test_producer_mix(self):
+        items = [self._it("a", 2, channel="press"), self._it("b", 3, channel="agg"),
+                 self._it("c", 4, channel="agg"), self._it("d", 5, source_type="rss")]
+        r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
+        mix = r["producer_mix"]["week"]
+        self.assertEqual(mix["пресс-служба"], 1)
+        self.assertEqual(mix["агрегатор"], 2)
+        self.assertEqual(mix["редакция"], 1)
+        self.assertEqual(len(r["producer_mix"]["daily"]), 7)
+
+    def test_attention_gini(self):
+        items = [self._it("a", 2, views=100), self._it("b", 3, channel="agg", views=100)]
+        r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
+        at = r["attention"]
+        self.assertEqual(at["gini"], 0.0)
+        self.assertEqual(at["top3_share"], 1.0)
+        self.assertEqual(at["total_views"], 200)
+
+    def test_speech_attribution(self):
+        t1 = "«Мы держим ситуацию на контроле», — сообщил губернатор области."
+        t2 = "«Дорогу не чинили десять лет», — рассказали жители переулка."
+        items = [self._it("a", 2, text=t1), self._it("b", 3, text=t2)]
+        r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
+        self.assertEqual(r["speech"]["official"], 1)
+        self.assertEqual(r["speech"]["citizen"], 1)
+
+    def test_promo_load(self):
+        items = [self._it("a", 2, text="Скидка по промокоду ГУДОК до конца недели"),
+                 self._it("b", 3, text="Обычная новость без коммерции")]
+        r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
+        self.assertEqual(r["promo_load"]["n"], 1)
+        self.assertAlmostEqual(r["promo_load"]["share"], 0.5, places=2)
+
+    def test_silent_groups(self):
+        items = [self._it("a", 2, text="Врачи поликлиники №4 получили новое оборудование."),
+                 self._it("b", 3, text="«Условия тяжёлые», — рассказали рабочие завода.")]
+        r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
+        names = [g["group"] for g in r["silent_groups"]]
+        self.assertIn("медики", names)          # упомянуты, но не процитированы
+        self.assertNotIn("рабочие и инженеры", names)  # получили прямую речь
