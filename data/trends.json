@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-15T10:19:03.036238+00:00",
- "generated_local": "15.09.2026 14:19",
+ "generated_utc": "2026-09-15T14:03:39.725588+00:00",
+ "generated_local": "15.09.2026 18:03",
  "days": [
   "2026-09-02",
   "2026-09-03",
@@ -19,8 +19,8 @@
  ],
  "counts": {
   "total": 1714,
-  "last24h": 385,
-  "last7d": 1602
+  "last24h": 285,
+  "last7d": 1591
  },
  "topics": {
   "elections": {
@@ -678,14 +678,6 @@
    "category": "culture"
   },
   {
-   "title": "Друзья, сегодня провел совещание с главами администраций муниципальных образований. Поводом стало решение отде…",
-   "channel": "Russkih_Aleksey",
-   "url": "https://t.me/Russkih_Aleksey/12293",
-   "views": 25500,
-   "published": "2026-09-08T13:38:50+00:00",
-   "category": "society"
-  },
-  {
    "title": "🏡 Новые городские общественные пространства и социальные объекты. 🤝 Обсудили развитие инфраструктуры в Засвияж…",
    "channel": "Russkih_Aleksey",
    "url": "https://t.me/Russkih_Aleksey/12352",
@@ -716,6 +708,14 @@
    "views": 17100,
    "published": "2026-09-12T18:41:19+00:00",
    "category": "society"
+  },
+  {
+   "title": "🚨 Ракетная опасность в Ульяновской области. Сирены завыли по городу. 😱 Подписаться | Прислать новость",
+   "channel": "tresh_ulyan",
+   "url": "https://t.me/tresh_ulyan/56101",
+   "views": 16300,
+   "published": "2026-09-10T18:58:39+00:00",
+   "category": "security"
   }
  ]
 }

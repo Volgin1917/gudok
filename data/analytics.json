@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 14:19",
+ "generated_local": "15.09.2026 18:03",
  "calendar": [
   {
    "etype": "sport",
@@ -347,6 +347,37 @@
    ]
   },
   {
+   "name": "заметили · кабана · центре",
+   "terms": [
+    "заметили",
+    "кабана",
+    "центре"
+   ],
+   "size": 4,
+   "coverage": 0.0,
+   "gap": true,
+   "samples": [
+    {
+     "title": "😳 Змею заметили ульяновцы в центре города Тоже приползла праздновать? 😅 😱",
+     "url": "https://t.me/tresh_ulyan/56175",
+     "source": "t.me/tresh_ulyan",
+     "views": 13200
+    },
+    {
+     "title": "😱 В центре Ульяновска заметили удава Необычного гостя заметили прямо в центре Ульяновска. Змея ползала среди т",
+     "url": "https://t.me/ulyanovsk_smi/29464",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 767
+    },
+    {
+     "title": "😜 Плывущего кабана заметили ульяновцы во время рыбалки Необычную встречу устроил рыбакам в Ульяновске дикий ка",
+     "url": "https://t.me/ulyanovsk_smi/29466",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 394
+    }
+   ]
+  },
+  {
    "name": "недель · осталось · рабочих",
    "terms": [
     "недель",
@@ -465,37 +496,6 @@
      "url": "https://t.me/fcvolga/12523",
      "source": "t.me/fcvolga",
      "views": 1220
-    }
-   ]
-  },
-  {
-   "name": "начали · готовиться · весеннему",
-   "terms": [
-    "начали",
-    "готовиться",
-    "весеннему"
-   ],
-   "size": 3,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "7️⃣ В Ульяновске заблаговременно начали готовиться к весеннему паводку 2027 года Уже с этой недели городские п",
-     "url": "https://t.me/topor_ul/11619",
-     "source": "t.me/topor_ul",
-     "views": 2000
-    },
-    {
-     "title": "🌊 В Ульяновске уже сейчас начали готовиться к весеннему паводку 2027 года. Профильные службы города с этой нед",
-     "url": "https://t.me/ulsk_on/22798",
-     "source": "t.me/ulsk_on",
-     "views": 114
-    },
-    {
-     "title": "В Ульяновске до наступления осенних дождей начали чистить водоотводные канавы и трубы",
-     "url": "https://ulpressa.ru/2026/09/14/v-ulyanovske-do-nastupleniya-osennih-dozhdej-nachali-chistit-vodootvodnye-kanavy-i-truby/",
-     "source": "Улпресса",
-     "views": null
     }
    ]
   }
@@ -666,10 +666,10 @@
    "tier": 1,
    "type": "tg",
    "total": 66,
-   "primary": 54,
-   "dup": 12,
-   "repost_rate": 0.18,
-   "views_median": 218,
+   "primary": 55,
+   "dup": 11,
+   "repost_rate": 0.17,
+   "views_median": 143,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -870,9 +870,9 @@
    "tier": 1,
    "type": "tg",
    "total": 26,
-   "primary": 18,
-   "dup": 8,
-   "repost_rate": 0.31,
+   "primary": 17,
+   "dup": 9,
+   "repost_rate": 0.35,
    "views_median": 2490,
    "label": "смешанный",
    "clickbait_rate": 0.0
