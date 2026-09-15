@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 10:08",
+ "generated_local": "15.09.2026 10:12",
  "calendar": [
   {
    "etype": "sport",
@@ -119,16 +119,16 @@
    "venue": ""
   },
   {
-   "etype": "theatre",
-   "is_culture": true,
+   "etype": "other",
+   "is_culture": false,
    "district": false,
    "date": "2026-09-20",
    "date_end": null,
-   "time": "16:30",
-   "title": "ВЕЧЕР ПРОЗЫ 20 СЕНТЯБРЯ Ульяновские авторы читают свои произведения на публику. Короткие и не очень рассказы р…",
-   "url": "https://t.me/ulpromo/17992",
-   "source": "t.me/ulpromo",
-   "tier": 3,
+   "time": "",
+   "title": "Ульяновцев зовут на трехдневные выборы губернатора и депутатов",
+   "url": "https://ulpressa.ru/2026/09/15/ulyanovczev-zovut-na-trehdnevnye-vybory-gubernatora-i-deputatov/",
+   "source": "Улпресса",
+   "tier": null,
    "venue": ""
   },
   {
@@ -277,11 +277,11 @@
  ],
  "clusters": [
   {
-   "name": "недель · осталось · рабочих",
+   "name": "недель · рабочих · осталось",
    "terms": [
     "недель",
-    "осталось",
-    "рабочих"
+    "рабочих",
+    "осталось"
    ],
    "size": 4,
    "coverage": 0.0,
@@ -370,11 +370,11 @@
    ]
   },
   {
-   "name": "маркса · карла · сидит",
+   "name": "маркса · карла · разборки",
    "terms": [
     "маркса",
     "карла",
-    "сидит"
+    "разборки"
    ],
    "size": 3,
    "coverage": 0.33,
@@ -463,11 +463,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": -0.129,
-  "today_items": 49,
-  "today_pos": 424,
-  "today_neg": 278,
-  "today_neu": 586,
+  "today_score": -0.042,
+  "today_items": 71,
+  "today_pos": 431,
+  "today_neg": 282,
+  "today_neu": 596,
   "series": [
    {
     "date": "2026-09-02",
@@ -491,7 +491,7 @@
    },
    {
     "date": "2026-09-07",
-    "score": 0.333
+    "score": 0.375
    },
    {
     "date": "2026-09-08",
@@ -523,16 +523,17 @@
    },
    {
     "date": "2026-09-15",
-    "score": -0.129
+    "score": -0.042
    }
   ],
   "by_category": {
-   "culture": 0.5,
-   "economy": -0.333,
-   "health": -0.5,
-   "politics": 0.0,
-   "security": -0.4,
-   "society": 0.0
+   "culture": 0.667,
+   "economy": -0.267,
+   "health": -0.667,
+   "politics": 0.143,
+   "security": -0.348,
+   "society": 0.107,
+   "sport": 1.0
   }
  },
  "credibility": [
@@ -540,9 +541,9 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 163,
-   "primary": 155,
-   "dup": 8,
+   "total": 172,
+   "primary": 163,
+   "dup": 9,
    "repost_rate": 0.05,
    "views_median": null,
    "label": "первоисточник",
@@ -552,11 +553,11 @@
    "source": "ulpressa",
    "tier": 1,
    "type": "tg",
-   "total": 119,
-   "primary": 92,
-   "dup": 27,
+   "total": 122,
+   "primary": 94,
+   "dup": 28,
    "repost_rate": 0.23,
-   "views_median": 1470,
+   "views_median": 1450,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -564,11 +565,11 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 106,
-   "primary": 82,
-   "dup": 24,
+   "total": 108,
+   "primary": 83,
+   "dup": 25,
    "repost_rate": 0.23,
-   "views_median": 9710,
+   "views_median": 9510,
    "label": "первоисточник",
    "clickbait_rate": 0.01
   },
@@ -588,9 +589,9 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 67,
-   "primary": 39,
-   "dup": 28,
+   "total": 69,
+   "primary": 40,
+   "dup": 29,
    "repost_rate": 0.42,
    "views_median": 3400,
    "label": "смешанный",
@@ -600,10 +601,10 @@
    "source": "chpul",
    "tier": 2,
    "type": "tg",
-   "total": 67,
-   "primary": 45,
-   "dup": 22,
-   "repost_rate": 0.33,
+   "total": 68,
+   "primary": 47,
+   "dup": 21,
+   "repost_rate": 0.31,
    "views_median": 521,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -624,10 +625,10 @@
    "source": "topor_ul",
    "tier": 2,
    "type": "tg",
-   "total": 60,
-   "primary": 47,
+   "total": 61,
+   "primary": 48,
    "dup": 13,
-   "repost_rate": 0.22,
+   "repost_rate": 0.21,
    "views_median": 1530,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -636,12 +637,12 @@
    "source": "ulsk_on",
    "tier": 2,
    "type": "tg",
-   "total": 57,
+   "total": 58,
    "primary": 43,
-   "dup": 14,
-   "repost_rate": 0.25,
-   "views_median": 342,
-   "label": "первоисточник",
+   "dup": 15,
+   "repost_rate": 0.26,
+   "views_median": 339,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -660,11 +661,35 @@
    "source": "reporter73",
    "tier": 1,
    "type": "tg",
-   "total": 46,
+   "total": 47,
    "primary": 39,
-   "dup": 7,
-   "repost_rate": 0.15,
+   "dup": 8,
+   "repost_rate": 0.17,
    "views_median": 56,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulsk_73online",
+   "tier": 2,
+   "type": "tg",
+   "total": 47,
+   "primary": 44,
+   "dup": 3,
+   "repost_rate": 0.06,
+   "views_median": 499,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "dimitrovgradd",
+   "tier": 2,
+   "type": "tg",
+   "total": 45,
+   "primary": 37,
+   "dup": 8,
+   "repost_rate": 0.18,
+   "views_median": 1210,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -681,26 +706,14 @@
    "clickbait_rate": 0.05
   },
   {
-   "source": "dimitrovgradd",
-   "tier": 2,
+   "source": "ulkompr",
+   "tier": 3,
    "type": "tg",
    "total": 44,
    "primary": 37,
    "dup": 7,
    "repost_rate": 0.16,
-   "views_median": 1210,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulsk_73online",
-   "tier": 2,
-   "type": "tg",
-   "total": 44,
-   "primary": 42,
-   "dup": 2,
-   "repost_rate": 0.05,
-   "views_median": 531,
+   "views_median": 512,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -717,27 +730,27 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "ulkompr",
-   "tier": 3,
-   "type": "tg",
-   "total": 43,
-   "primary": 36,
-   "dup": 7,
-   "repost_rate": 0.16,
-   "views_median": 542,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "ulkoroche",
    "tier": 2,
    "type": "tg",
-   "total": 36,
-   "primary": 29,
+   "total": 37,
+   "primary": 30,
    "dup": 7,
    "repost_rate": 0.19,
    "views_median": 831,
    "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "shugozhor73",
+   "tier": 3,
+   "type": "tg",
+   "total": 36,
+   "primary": 24,
+   "dup": 12,
+   "repost_rate": 0.33,
+   "views_median": 3270,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -750,18 +763,6 @@
    "repost_rate": 0.0,
    "views_median": null,
    "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "shugozhor73",
-   "tier": 3,
-   "type": "tg",
-   "total": 35,
-   "primary": 25,
-   "dup": 10,
-   "repost_rate": 0.29,
-   "views_median": 3270,
-   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -780,10 +781,10 @@
    "source": "ProNovosty73",
    "tier": 2,
    "type": "tg",
-   "total": 30,
-   "primary": 25,
+   "total": 31,
+   "primary": 26,
    "dup": 5,
-   "repost_rate": 0.17,
+   "repost_rate": 0.16,
    "views_median": 208,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -793,9 +794,9 @@
    "tier": 2,
    "type": "tg",
    "total": 29,
-   "primary": 22,
-   "dup": 7,
-   "repost_rate": 0.24,
+   "primary": 23,
+   "dup": 6,
+   "repost_rate": 0.21,
    "views_median": 392,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -816,12 +817,24 @@
    "source": "ulgovru",
    "tier": 1,
    "type": "tg",
-   "total": 27,
+   "total": 28,
    "primary": 18,
-   "dup": 9,
-   "repost_rate": 0.33,
+   "dup": 10,
+   "repost_rate": 0.36,
    "views_median": 81,
    "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "Russkih_Aleksey",
+   "tier": 1,
+   "type": "tg",
+   "total": 25,
+   "primary": 19,
+   "dup": 6,
+   "repost_rate": 0.24,
+   "views_median": 2430,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -833,18 +846,6 @@
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 142,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "Russkih_Aleksey",
-   "tier": 1,
-   "type": "tg",
-   "total": 24,
-   "primary": 19,
-   "dup": 5,
-   "repost_rate": 0.21,
-   "views_median": 2490,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -873,6 +874,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "culturnik",
+   "tier": 3,
+   "type": "tg",
+   "total": 18,
+   "primary": 15,
+   "dup": 3,
+   "repost_rate": 0.17,
+   "views_median": 527,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "Ulnovosti.ru",
    "tier": null,
    "type": "rss",
@@ -881,18 +894,6 @@
    "dup": 1,
    "repost_rate": 0.06,
    "views_median": null,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "culturnik",
-   "tier": 3,
-   "type": "tg",
-   "total": 17,
-   "primary": 14,
-   "dup": 3,
-   "repost_rate": 0.18,
-   "views_median": 573,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -961,57 +962,49 @@
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 7.1,
-   "slope": -3.36,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "governor",
-   "name": "Губернатор / власть",
-   "expected": 10.6,
-   "slope": -2.54,
+   "expected": 8.6,
+   "slope": -3.14,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "culture",
    "name": "Культура и туризм",
-   "expected": 7.0,
-   "slope": -2.36,
+   "expected": 7.8,
+   "slope": -2.25,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 15.9,
-   "slope": -2.25,
+   "expected": 16.6,
+   "slope": -2.14,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "sport",
-   "name": "Спорт",
-   "expected": 9.1,
-   "slope": -1.5,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "uav",
-   "name": "БПЛА и воздушные угрозы",
-   "expected": 7.7,
-   "slope": -1.39,
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 15.0,
+   "slope": -1.89,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 28.4,
-   "slope": 1.36,
+   "expected": 31.3,
+   "slope": 1.79,
    "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "sport",
+   "name": "Спорт",
+   "expected": 9.9,
+   "slope": -1.39,
+   "direction": "спад",
    "confidence": "средняя"
   },
   {
@@ -1033,17 +1026,17 @@
   {
    "topic": "elections",
    "name": "Выборы-2026",
-   "expected": 2.5,
-   "slope": -1.11,
+   "expected": 3.2,
+   "slope": -1.0,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "medicine",
-   "name": "Медицина",
-   "expected": 7.5,
-   "slope": -0.86,
-   "direction": "спад",
+   "topic": "cityspace",
+   "name": "Городская среда",
+   "expected": 13.6,
+   "slope": 0.93,
+   "direction": "рост",
    "confidence": "средняя"
   },
   {
@@ -1063,17 +1056,17 @@
    "confidence": "средняя"
   },
   {
-   "topic": "cityday",
-   "name": "День города (378 лет)",
-   "expected": 10.1,
-   "slope": 0.71,
-   "direction": "рост",
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 8.2,
+   "slope": -0.75,
+   "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "cityspace",
-   "name": "Городская среда",
-   "expected": 12.1,
+   "topic": "cityday",
+   "name": "День города (378 лет)",
+   "expected": 10.1,
    "slope": 0.71,
    "direction": "рост",
    "confidence": "средняя"
@@ -1095,6 +1088,14 @@
    "confidence": "средняя"
   },
   {
+   "topic": "budget",
+   "name": "Бюджет-2027",
+   "expected": 9.5,
+   "slope": 0.29,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
    "topic": "harvest",
    "name": "Урожай и АПК",
    "expected": 1.7,
@@ -1103,10 +1104,10 @@
    "confidence": "низкая"
   },
   {
-   "topic": "budget",
-   "name": "Бюджет-2027",
-   "expected": 8.1,
-   "slope": 0.07,
+   "topic": "uav",
+   "name": "БПЛА и воздушные угрозы",
+   "expected": 18.0,
+   "slope": 0.11,
    "direction": "плато",
    "confidence": "низкая"
   }
