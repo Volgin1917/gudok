@@ -279,10 +279,6 @@ class TestEndToEndOnStore(unittest.TestCase):
         self.assertEqual(len(bad), 0, f"промо-хвосты остались в {len(bad)} записях")
 
 
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
-
-
 class TestInfospaceW1(unittest.TestCase):
     """Метрики Волны 1 (build_infospace_ext): матрица, ритм, каскады, TLI, бюджетный голос."""
 
@@ -2127,3 +2123,7 @@ class TestOutlets(unittest.TestCase):
         with open(os.path.join(BASE, "dedup.py"), encoding="utf-8") as f:
             dd = f.read()
         self.assertIn("outlet_key", dd)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
