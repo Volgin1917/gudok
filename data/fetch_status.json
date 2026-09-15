@@ -29,7 +29,7 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 23,
+  "items": 24,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -71,13 +71,13 @@
  },
  "tg:tresh_ulyan": {
   "ok": true,
-  "items": 17,
+  "items": 18,
   "error": null,
   "title": "Треш Ульяновск"
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 12,
+  "items": 14,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
@@ -119,13 +119,13 @@
  },
  "tg:chpul": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
  "tg:ulsk_on": {
   "ok": true,
-  "items": 20,
+  "items": 11,
   "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
@@ -137,7 +137,7 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 9,
+  "items": 10,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -167,7 +167,7 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 6,
+  "items": 5,
   "error": null,
   "title": "Компромат Ульяновск"
  },
@@ -207,11 +207,11 @@
   "error": "нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk_token (vk.com/editapp → Сервисный ключ доступа)"
  },
  "_meta": {
-  "last_run_utc": "2026-09-15T09:15:52.779888+00:00",
-  "last_run_local": "15.09.2026 13:15",
-  "fetched": 420,
-  "new": 13,
-  "total_store": 1678
+  "last_run_utc": "2026-09-15T10:00:13.276090+00:00",
+  "last_run_local": "15.09.2026 14:00",
+  "fetched": 416,
+  "new": 26,
+  "total_store": 1704
  },
  "rss:Улград": {
   "ok": true,
