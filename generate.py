@@ -1974,17 +1974,57 @@ def render_goszakupki(cfg, trends, store, status, an):
 <div style="flex:1;"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(clip_words(it['title'],110))}</a>
 <div style="font-size:11.3px;color:var(--muted);">{esc(it.get('source',''))} · 👁 {fmt_views(it.get('views')) if it.get('views') else '—'}</div></div></div>"""
         for it in sorted(gz_week, key=lambda x: x.get("views") or 0, reverse=True)[:8])
-    eis_metrics = [
-        ("Число извещений 44-ФЗ заказчиков Ульяновской области", "неделя / месяц", "ожидает подключения"),
-        ("Суммарная НМЦК и цена заключённых контрактов", "млн ₽", "ожидает подключения"),
-        ("Доля закупки у единственного поставщика", "%", "ожидает подключения"),
-        ("Среднее снижение цены на конкурентных процедурах", "%", "ожидает подключения"),
-        ("Топ-10 заказчиков региона по объёму", "рейтинг", "ожидает подключения"),
-        ("Топ-10 поставщиков и концентрация рынка", "HHI", "ожидает подключения"),
-    ]
+    # выгрузка ЕИС (ручной экспорт в data/goszakupki_eis.csv) — метрики считаются автоматически
+    eis = None
+    try:
+        from analytics import load_eis_csv, compute_eis_metrics
+        _eis_rows = load_eis_csv()
+        if _eis_rows:
+            eis = compute_eis_metrics(_eis_rows)
+    except Exception:
+        eis = None
+
+    def _mln(x):
+        return f"{round((x or 0) / 1e6, 1):,.1f}".replace(",", " ")
+
+    if eis:
+        eis_metrics = [
+            ("Извещения в выгрузке", "неделя / месяц / всего", f"{eis['week_n']} / {eis['month_n']} / {eis['n_rows']}"),
+            ("Суммарная НМЦК · цена заключённых контрактов", "млн ₽", f"{_mln(eis['total_nmck'])} · {_mln(eis['total_price'])}"),
+            ("Доля закупки у единственного поставщика", "% (штук · суммы)",
+             f"{round((eis['sole_share_n'] or 0) * 100)}% · {round((eis['sole_share_sum'] or 0) * 100)}%"),
+            ("Среднее снижение цены на конкурентных процедурах", "%",
+             "нет данных" if eis['avg_savings'] is None else f"{round(eis['avg_savings'] * 100, 1)}%"),
+            ("Топ заказчиков региона по объёму", "позиций", str(len(eis['top_customers']))),
+            ("Концентрация рынка поставщиков", "HHI",
+             "нет данных" if eis['supplier_hhi'] is None else str(eis['supplier_hhi'])),
+        ]
+        chip = '<span class="stchip" style="background:#e0f4ea;color:#1d7a4d;">{}</span>'
+    else:
+        eis_metrics = [
+            ("Число извещений 44-ФЗ заказчиков Ульяновской области", "неделя / месяц", "ожидает подключения"),
+            ("Суммарная НМЦК и цена заключённых контрактов", "млн ₽", "ожидает подключения"),
+            ("Доля закупки у единственного поставщика", "%", "ожидает подключения"),
+            ("Среднее снижение цены на конкурентных процедурах", "%", "ожидает подключения"),
+            ("Топ-10 заказчиков региона по объёму", "рейтинг", "ожидает подключения"),
+            ("Топ-10 поставщиков и концентрация рынка", "HHI", "ожидает подключения"),
+        ]
+        chip = '<span class="stchip" style="background:#fdf3dd;color:#96690a;">{}</span>'
     eis_rows = "".join(
-        f'<tr><td>{esc(n)}</td><td>{esc(u)}</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">{esc(st)}</span></td></tr>'
+        f'<tr><td>{esc(n)}</td><td>{esc(u)}</td><td>{chip.format(esc(str(st)))}</td></tr>'
         for n, u, st in eis_metrics)
+
+    eis_extra = ""
+    if eis and (eis["top_customers"] or eis["top_suppliers"]):
+        def _tbl(title, rows_):
+            tr = "".join(f'<tr><td>{esc(x["name"])}</td><td style="text-align:right;white-space:nowrap;">{_mln(x["sum"])} млн ₽</td></tr>'
+                         for x in rows_)
+            return (f'<div><div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:6px;">{title}</div>'
+                    f'<table class="tbl">{tr}</table></div>') if tr else ""
+        eis_extra = ('<div class="grid2" style="margin-top:12px;">'
+                     + _tbl("Топ-10 заказчиков по НМЦК", eis["top_customers"])
+                     + _tbl("Топ-10 поставщиков по суммам контрактов", eis["top_suppliers"])
+                     + '</div>')
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Проект «Госзакупки» — {cfg['brand']}</title>
@@ -2022,9 +2062,10 @@ csv/json со полями заказчик, НМЦК, способ, дата, �
 <div class="badge">подключение</div></div>
 <div class="card"><div class="card-pad" style="padding:10px 14px;">
 <table class="tbl"><tr><th>Метрика</th><th>Ед.</th><th>Статус</th></tr>{eis_rows}</table>
-<div class="note">Как подключить: выгрузка ЕИС (личный кабинет / открытые данные) кладётся в <code>data/goszakupki_eis.csv</code>
-со столбцами date, customer, method, nmck, supplier — страница начнёт считать метрики автоматически (следующая итерация).
-До подключения проект ведёт повесточную часть и готовит разборы вручную.</div>
+{eis_extra}
+<div class="note">Как подключить: выгрузка ЕИС (личный кабинет / открытые данные, из контура РФ) кладётся в <code>data/goszakupki_eis.csv</code>
+со столбцами <code>date,customer,method,nmck[,supplier[,price]]</code> (даты YYYY-MM-DD или ДД.ММ.ГГГГ; числа с запятой или точкой) —
+метрики и топы на этой странице считаются автоматически при каждом прогоне конвейера. Статус: {"выгрузка загружена — метрики считаются" if eis else "файл не загружен — проект ведёт повесточную часть и готовит разборы вручную"}.</div>
 </div></div>
 </div>
 </div>
@@ -2714,6 +2755,57 @@ def render_infospace(cfg, trends, store, status, info):
 </div>
 """
 
+    def _pct2w(x):
+        return "—" if x is None else f"{round(x * 100, 1)}%"
+
+    # ── Волна 3 (owner_verification.md): деньги и собственность ──
+    w3 = info.get("w3") or {}
+    w3_html = ""
+    if w3.get("hhi") is not None:
+        FORM_COLORS = {"аноним": "var(--muted)", "частный бизнес": "#B4795A",
+                       "государство": "var(--ink)", "официальные": "var(--ink-2)",
+                       "не установлен": "var(--rule)", "вне реестра": "var(--accent)"}
+        grp_bars = ""
+        for gname, g in (w3.get("groups") or {}).items():
+            wdt = max(2, round((g.get("share") or 0) * 100))
+            col = FORM_COLORS.get(gname, "var(--muted)")
+            grp_bars += (f'<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-family:var(--sans);font-size:12px;">'
+                         f'<span style="width:150px;text-align:right;font-weight:600;color:var(--ink);flex-shrink:0;">{esc(gname)}</span>'
+                         f'<span style="flex:1;background:var(--paper-2);border:1px solid var(--rule);height:14px;overflow:hidden;display:block;"><i style="display:block;height:100%;width:{wdt}%;background:{col};"></i></span>'
+                         f'<span style="width:130px;font-size:11px;color:var(--muted);">{round((g.get("share") or 0) * 100, 1)}% · ист. {g.get("n", 0)}</span></div>')
+        own_rows = ""
+        for o in w3.get("top_owners") or []:
+            own_rows += (f'<div style="display:flex;gap:12px;align-items:baseline;padding:5px 0;border-bottom:1px dashed var(--rule);font-size:13px;">'
+                         f'<span style="flex:1;min-width:0;color:var(--ink);">{esc(o.get("name", ""))}</span>'
+                         f'<span style="font-family:var(--sans);font-size:10.5px;color:var(--muted);white-space:nowrap;">{esc(o.get("form", ""))} · ист. {o.get("n_sources", 0)}</span>'
+                         f'<span style="font-family:var(--sans);font-size:12px;font-weight:700;white-space:nowrap;">{round((o.get("share") or 0) * 100, 1)}%</span></div>')
+        aff_lines = "".join(f'<div style="font-size:12.5px;padding:4px 0;border-bottom:1px dashed var(--rule);"><code>{esc(a.get("id", ""))}</code> — {esc(a.get("group", ""))}</div>'
+                            for a in w3.get("affiliates") or []) or '<div class="note">Гипотез аффилированности пока нет.</div>'
+        w3_html = f"""
+<div class="sec-head"><h2>Волна 3: деньги и собственность</h2><div class="line"></div>
+<div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план v0.9 →</a> · <a href="owner_verification.md" style="color:var(--accent);">верификация владельцев 15.09</a> · реестр: {w3.get('registry_sources', 0)}</div>
+<div class="grid2">
+<div class="card"><div class="card-pad">
+<div class="side-head">Концентрация собственности <span class="sub">HHI по учредителям, взвешенный потоком недели</span></div>
+<div class="side-body">
+<div style="display:flex;gap:26px;align-items:baseline;margin-bottom:10px;flex-wrap:wrap;">
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;color:var(--accent);">{w3.get('hhi_confirmed') if w3.get('hhi_confirmed') is not None else '—'}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">HHI атрибутируемой части — {esc(w3.get('verdict', '—'))} ({_pct2w(w3.get('confirmed_flow_share'))} потока)</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{w3.get('hhi') if w3.get('hhi') is not None else '—'}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">HHI всего поля — {esc(w3.get('verdict_all', '—'))} (с анонимами как отдельными владельцами — занижен)</span></div>
+</div>
+{grp_bars}
+<div class="note">Индекс Херфиндаля–Хиршмана (0–10000, пороги: &lt;1500 низкая, 1500–2500 умеренная, &gt;2500 высокая) по учредителям источников; доля владельца = доля его источников в потоке недели, источники одного юрлица сливаются по ИНН. Анонимные каналы считаются отдельными неизвестными владельцами — общий HHI из-за этого занижен; честная картина — по атрибутируемой части (подтверждённые владельцы: {_pct2w(w3.get('confirmed_flow_share'))} потока). Государство и должностные лица: {_pct2w(w3.get('state_official_share'))} потока; юридически непрозрачные источники: {_pct2w(w3.get('anon_share'))}.</div>
+</div></div></div>
+<div class="card"><div class="card-pad">
+<div class="side-head">Кто владеет полем <span class="sub">топ-6 владельцев по доле потока</span></div>
+<div class="side-body">
+{own_rows}
+<div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Гипотезы аффилированности</div>
+{aff_lines}
+<div class="note">Доказательства владельцев — <code>owner_verification.md</code> (imprint-ы СМИ, реестр РКН, ЕГРЮЛ). «Платное освещение» (контракты ЕИС на информосвещение органов власти) — плейсхолдер: ЕИС из облачного контура недоступна, подключение через ручной экспорт в <code>data/goszakupki_eis.csv</code> (проект «Госзакупки»).</div>
+</div></div></div>
+</div>
+"""
+
     ts = info.get("tone_series") or []
     tone_spark = sparkline([(t.get("score") or 0) for t in ts], w=300, h=56, color="#4a7fb5") if ts else ""
     tone_days = "".join(f"<span style='font-size:10px;color:var(--muted);'>{t['date'][8:10]}</span> " for t in ts[-7:])
@@ -2796,7 +2888,7 @@ def render_infospace(cfg, trends, store, status, info):
 Волатильность тона — разброс дневных значений: всплески соответствуют тревогам или праздникам.<br>
 <b>В очереди на подключение:</b> {planned_metrics}</div>
 </div></div>
-{w1_html}{w2_html}
+{w1_html}{w2_html}{w3_html}
 <div class="sec-head"><h2>Нацпроекты и госпрограммы в повестке</h2><div class="line"></div>
 <div class="badge">метрика подключена 12.09</div></div>
 <div class="card"><div class="card-pad">

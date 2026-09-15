@@ -776,3 +776,121 @@ class TestInfospaceW1Latency(unittest.TestCase):
         items = [self._it("a", 3, text="Новость без маркеров времени.")]
         r = analytics.build_infospace_ext(items, None, self.CFG)
         self.assertEqual(r["latency"], {})
+
+
+class TestInfospaceW3(unittest.TestCase):
+    """Волна 3: HHI концентрации собственности по учредителям."""
+
+    CFG_W3 = {"municipalities": {}, "categories": [{"id": "society", "name": "Общество"}]}
+    REG_W3 = {
+        # два источника одного юрлица (слияние по ИНН)
+        "tg:press1": {"id": "tg:press1", "producer_type": "редакция",
+                      "owner": "ООО «Ромашка» (ИНН 7325000001)", "owner_status": "подтверждён",
+                      "owner_form": "частный бизнес"},
+        "rss:Ромашка": {"id": "rss:Ромашка", "producer_type": "редакция",
+                        "owner": "ООО «Ромашка» (ИНН 7325000001)", "owner_status": "подтверждён",
+                        "owner_form": "частный бизнес"},
+        "tg:gov": {"id": "tg:gov", "producer_type": "пресс-служба",
+                   "owner": "Правительство области", "owner_status": "подтверждён",
+                   "owner_form": "официальные"},
+        "tg:anon1": {"id": "tg:anon1", "producer_type": "агрегатор", "owner": None,
+                     "owner_status": "уточнить", "owner_form": "аноним"},
+        "tg:anon2": {"id": "tg:anon2", "producer_type": "агрегатор", "owner": None,
+                     "owner_status": "уточнить", "owner_form": "аноним"},
+    }
+
+    def _it(self, id, sid_channel, hours_ago=2, source_type="tg"):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = datetime.now(UTC4) - timedelta(hours=hours_ago)
+        return {"id": id, "title": "Новость", "text": "", "published": dt.isoformat(),
+                "category": "society", "source_type": source_type,
+                "channel": sid_channel if source_type == "tg" else None,
+                "source": sid_channel if source_type == "rss" else f"t.me/{sid_channel}"}
+
+    def test_hhi_merges_same_inn(self):
+        items = [self._it("a", "press1"), self._it("b", "press1"),
+                 self._it("c", "Ромашка", source_type="rss"),
+                 self._it("d", "gov"), self._it("e", "anon1"), self._it("f", "anon2")]
+        r = analytics.build_infospace_w3(items, self.CFG_W3, registry=self.REG_W3)
+        # 6 сообщений: Ромашка 3 (50%), gov 1, anon1 1, anon2 1 → HHI = 2500+3×(1/6)²×10000
+        self.assertEqual(r["week_items"], 6)
+        top = r["top_owners"][0]
+        self.assertIn("Ромашка", top["name"])
+        self.assertEqual(top["n_sources"], 2)
+        self.assertAlmostEqual(top["share"], 0.5, places=2)
+        expected = round((0.5 ** 2 + 3 * (1 / 6) ** 2) * 10000)
+        self.assertEqual(r["hhi"], expected)
+        # подтверждённые: Ромашка 3/4 + gov 1/4 → (0.75²+0.25²)*1e4 = 6250
+        self.assertEqual(r["hhi_confirmed"], 6250)
+        self.assertEqual(r["verdict"], "высокая концентрация")
+
+    def test_groups_and_shares(self):
+        items = [self._it("a", "press1"), self._it("b", "gov"),
+                 self._it("c", "anon1"), self._it("d", "anon2")]
+        r = analytics.build_infospace_w3(items, self.CFG_W3, registry=self.REG_W3)
+        g = r["groups"]
+        self.assertAlmostEqual(g["аноним"]["share"], 0.5, places=2)
+        self.assertAlmostEqual(r["state_official_share"], 0.25, places=2)
+        self.assertAlmostEqual(r["anon_share"], 0.5, places=2)
+
+    def test_empty_when_no_week(self):
+        r = analytics.build_infospace_w3([], self.CFG_W3, registry=self.REG_W3)
+        self.assertNotIn("hhi", r)
+
+
+class TestEisMetrics(unittest.TestCase):
+    """ЕИС «Госзакупки»: CSV-выгрузка → метрики проекта."""
+
+    ROWS = [
+        {"date": "2026-09-14", "_dt": None, "customer": "Минздрав области",
+         "method": "Электронный аукцион", "nmck": 5_000_000.0, "supplier": "ООО «Медиа»",
+         "price": 4_500_000.0},
+        {"date": "2026-09-10", "_dt": None, "customer": "Мэрия",
+         "method": "Закупка у единственного поставщика", "nmck": 2_000_000.0,
+         "supplier": "ООО «Ромашка»", "price": 2_000_000.0},
+        {"date": "2026-08-01", "_dt": None, "customer": "Минздрав области",
+         "method": "Открытый конкурс", "nmck": 3_000_000.0, "supplier": "ИП Иванов",
+         "price": 2_400_000.0},
+    ]
+
+    def setUp(self):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        now = datetime.now(UTC4)
+        for r, back in zip(self.ROWS, (1, 5, 45)):
+            r = r
+        # проставляем _dt относительно «сейчас»: 1 день, 5 дней, 45 дней назад
+        for r, back in zip(self.ROWS, (1, 5, 45)):
+            r["_dt"] = now - timedelta(days=back)
+        self.now = now
+
+    def test_compute(self):
+        m = analytics.compute_eis_metrics(self.ROWS, now=self.now)
+        self.assertEqual(m["n_rows"], 3)
+        self.assertEqual(m["week_n"], 2)          # 1 и 5 дней назад
+        self.assertEqual(m["month_n"], 2)         # 45 дней — вне месяца
+        self.assertAlmostEqual(m["total_nmck"], 10_000_000.0)
+        self.assertAlmostEqual(m["sole_share_n"], round(1 / 3, 4))
+        self.assertAlmostEqual(m["avg_savings"], round((0.10 + 0.20) / 2, 4))  # 10% и 20%, ед. поставщик исключён
+        self.assertEqual(m["top_customers"][0]["name"], "Минздрав области")
+        self.assertIsNotNone(m["supplier_hhi"])
+
+    def test_load_csv_roundtrip(self):
+        import tempfile
+        csv_text = ("date,customer,method,nmck,supplier,price\n"
+                    "14.09.2026,Мэрия,Аукцион,\"1 500 000,50\",ООО «Вектор»,\"1 200 000,00\"\n")
+        with tempfile.NamedTemporaryFile("w", suffix=".csv", delete=False, encoding="utf-8") as f:
+            f.write(csv_text)
+            path = f.name
+        try:
+            rows = analytics.load_eis_csv(path)
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows[0]["nmck"], 1500000.5)
+            self.assertEqual(rows[0]["price"], 1200000.0)
+            self.assertEqual(rows[0]["_dt"].day, 14)
+        finally:
+            os.unlink(path)
+
+    def test_load_missing_file(self):
+        self.assertIsNone(analytics.load_eis_csv("/nonexistent/path.csv"))

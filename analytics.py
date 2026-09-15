@@ -17,6 +17,7 @@ analytics.py — Фаза 2: интеллектуальная аналитика
 
 Выход: data/analytics.json (пишется из trends.py или прямым запуском).
 """
+import csv
 import json
 import math
 import os
@@ -1342,6 +1343,217 @@ def esc_(v):
 
 
 # ---------------------------------------------------------------- build all
+
+# ─────────────────────────────────────────────────────────────────────
+# Волна 3 (предложение v0.9): деньги и собственность — концентрация
+# владения (HHI по учредителям) на базе sources_registry.json и ЕИС-выгрузки
+# ─────────────────────────────────────────────────────────────────────
+OWNER_STATE_X = re.compile(r"ОГАУ|ОАУ|ОГБУ|ПАО «ОАК»|УлГТУ|государствен", re.I)
+OWNER_OFFICIAL_X = re.compile(r"Губернатор|Правительств|Администрац|Депутат|Глава|глава|мэрия", re.I)
+OWNER_PRIVATE_X = re.compile(r"ООО|ИП |ПАО «УАЗ»|Соллерс|АО «", re.I)
+OWNER_INN_X = re.compile(r"ИНН[:\s]*(\d{10}|\d{12})")
+
+
+def owner_form_of(e):
+    """Форма владения из реестра (owner_form) или по юрлицу — для старых/тестовых записей."""
+    f = (e or {}).get("owner_form")
+    if f:
+        return f
+    o = (e or {}).get("owner") or ""
+    if not o:
+        return "не установлен" if (e or {}).get("producer_type") == "редакция" else "аноним"
+    if OWNER_STATE_X.search(o):
+        return "государство"
+    if OWNER_OFFICIAL_X.search(o):
+        return "официальные"
+    if OWNER_PRIVATE_X.search(o):
+        return "частный бизнес"
+    return "не установлен"
+
+
+def build_infospace_w3(items, cfg, registry=None):
+    """Концентрация собственности: HHI по учредителям, взвешенный недельным потоком.
+    Паспорт метрики (план v0.9, ось «деньги»): «Насколько поле принадлежит узкой группе
+    владельцев: индекс Херфиндаля по учредителям источников».
+    Метод: владелец = юрлицо (слияние по ИНН) или должностное лицо; источник без
+    раскрытого владельца считается отдельным неизвестным владельцем (концентрация
+    занижается). HHI_confirmed — только по подтверждённым владельцам (перенормировка).
+    Шкала 0–10000: <1500 низкая, 1500–2500 умеренная, >2500 высокая (пороги DOJ)."""
+    now = datetime.now(UTC4)
+    week_ago = now - timedelta(days=7)
+    reg = load_registry() if registry is None else registry
+    out = {"generated_local": now.strftime("%d.%m.%Y %H:%M"), "registry_sources": len(reg)}
+    live = [it for it in items if _local_dt(it.get("published"))]
+    week = [it for it in live if _local_dt(it["published"]) >= week_ago]
+    if not reg or not week:
+        return out
+
+    def src_id(it):
+        st = it.get("source_type")
+        if st == "tg":
+            return f"tg:{it.get('channel')}"
+        if st == "vk":
+            return f"vk:{it.get('channel')}"
+        return f"rss:{it.get('source')}"
+
+    flow = Counter(src_id(it) for it in week)
+    total = sum(flow.values())
+    if not total:
+        return out
+
+    owners = {}
+    for sid, n in flow.items():
+        e = reg.get(sid)
+        if e and e.get("owner"):
+            m = OWNER_INN_X.search(e["owner"])
+            key = m.group(1) if m else e["owner"]
+            name = e["owner"]
+            confirmed = e.get("owner_status") == "подтверждён"
+        else:
+            form0 = owner_form_of(e) if e else "не установлен"
+            key = f"?{sid}"                      # каждый нераскрытый — отдельный неизвестный
+            name = (e or {}).get("name") or sid
+            confirmed = False
+        o = owners.setdefault(key, {"name": name, "flow": 0, "sources": [],
+                                    "form": owner_form_of(e) if e else "не установлен",
+                                    "confirmed": confirmed})
+        o["flow"] += n
+        o["sources"].append(sid)
+
+    def _hhi(pairs, base):
+        return round(sum((v / base) ** 2 for _, v in pairs) * 10000) if base else None
+
+    all_pairs = [(k, o["flow"]) for k, o in owners.items()]
+    conf_pairs = [(k, o["flow"]) for k, o in owners.items() if o["confirmed"]]
+    conf_total = sum(v for _, v in conf_pairs)
+    hhi = _hhi(all_pairs, total)
+    hhi_conf = _hhi(conf_pairs, conf_total)
+
+    groups = defaultdict(lambda: {"flow": 0, "n": 0})
+    for sid, n in flow.items():
+        e = reg.get(sid)
+        if e is None or not e.get("owner"):
+            form = "вне реестра" if e is None else owner_form_of(e)
+        else:
+            form = owner_form_of(e)
+        groups[form]["flow"] += n
+        groups[form]["n"] += 1
+    groups_out = {g: {"flow": v["flow"], "share": round(v["flow"] / total, 4), "n": v["n"]}
+                  for g, v in sorted(groups.items(), key=lambda kv: -kv[1]["flow"])}
+
+    top = sorted(owners.values(), key=lambda o: -o["flow"])[:6]
+    affiliates = [{"id": sid, "group": e.get("affiliate")} for sid, e in reg.items()
+                  if e.get("affiliate") and flow.get(sid)]
+
+    state_official = round(sum(v["flow"] for g, v in groups.items()
+                               if g in ("государство", "официальные")) / total, 4)
+    anon = round(sum(v["flow"] for g, v in groups.items()
+                     if g in ("аноним", "вне реестра")) / total, 4)
+
+    def _verdict(x):
+        return ("—" if x is None else
+                "высокая концентрация" if x > 2500 else
+                "умеренная концентрация" if x >= 1500 else "низкая концентрация")
+
+    out.update({
+        "week_items": total,
+        "hhi": hhi, "hhi_confirmed": hhi_conf,
+        "confirmed_flow_share": round(conf_total / total, 4),
+        "verdict": _verdict(hhi_conf),          # вердикт — по атрибутируемой части (честнее)
+        "verdict_all": _verdict(hhi),           # с анонимами как отдельными владельцами — занижен
+        "groups": groups_out,
+        "state_official_share": state_official,
+        "anon_share": anon,
+        "top_owners": [{"name": o["name"], "form": o["form"], "n_sources": len(o["sources"]),
+                        "share": round(o["flow"] / total, 4)} for o in top],
+        "affiliates": affiliates,
+    })
+    return out
+
+
+# ── ЕИС «Госзакупки»: метрики по ручной выгрузке data/goszakupki_eis.csv ──
+EIS_COLUMNS = ("date", "customer", "method", "nmck", "supplier", "price")
+
+
+def load_eis_csv(path=None):
+    """Выгрузка ЕИС (44-ФЗ/223-ФЗ): date,customer,method,nmck[,supplier[,price]].
+    Форматы дат: YYYY-MM-DD или DD.MM.YYYY. Числа допускают пробелы и запятую-разделитель.
+    Возвращает список dict с нормализованными _dt/_nmck/_price или None (нет файла/пуст)."""
+    path = path or os.path.join(DATA, "goszakupki_eis.csv")
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, encoding="utf-8-sig", newline="") as f:
+            raw = list(csv.DictReader(f))
+    except OSError:
+        return None
+    rows = []
+    for r in raw:
+        if not r.get("customer"):
+            continue
+        d = (r.get("date") or "").strip()
+        dt = None
+        for fmt in ("%Y-%m-%d", "%d.%m.%Y"):
+            try:
+                dt = datetime.strptime(d, fmt).replace(tzinfo=UTC4)
+                break
+            except ValueError:
+                continue
+
+        def _num(x):
+            try:
+                return float(str(x).replace("\xa0", "").replace(" ", "").replace(",", "."))
+            except (TypeError, ValueError):
+                return None
+        rows.append({"date": d, "_dt": dt, "customer": r["customer"].strip(),
+                     "method": (r.get("method") or "").strip(),
+                     "nmck": _num(r.get("nmck")) or 0.0,
+                     "supplier": (r.get("supplier") or "").strip(),
+                     "price": _num(r.get("price"))})
+    return rows or None
+
+
+def compute_eis_metrics(rows, now=None):
+    """Метрики паспорта проекта «Госзакупки»: извещения за неделю/месяц, суммы НМЦК,
+    доля единственного поставщика, среднее снижение, топ заказчиков/поставщиков, HHI поставщиков."""
+    now = now or datetime.now(UTC4)
+    dated = [r for r in rows if r["_dt"]]
+    week = [r for r in dated if timedelta(0) <= now - r["_dt"] <= timedelta(days=7)]
+    month = [r for r in dated if timedelta(0) <= now - r["_dt"] <= timedelta(days=30)]
+
+    def _sole(r):
+        return "единств" in r["method"].lower()
+
+    sole = [r for r in rows if _sole(r)]
+    comp = [r for r in rows if not _sole(r) and r.get("price") and r["nmck"] > 0]
+    savings = [ (r["nmck"] - r["price"]) / r["nmck"] for r in comp if r["price"] <= r["nmck"]]
+    cust = defaultdict(float)
+    for r in rows:
+        cust[r["customer"]] += r["nmck"]
+    sup = defaultdict(float)
+    for r in rows:
+        if r.get("supplier"):
+            sup[r["supplier"]] += (r.get("price") if r.get("price") is not None else r["nmck"])
+    sup_total = sum(sup.values())
+    sup_hhi = round(sum((v / sup_total) ** 2 for v in sup.values()) * 10000) if sup_total else None
+    total_nmck = sum(r["nmck"] for r in rows)
+    total_sole = sum(r["nmck"] for r in sole)
+    return {
+        "n_rows": len(rows),
+        "week_n": len(week), "month_n": len(month),
+        "total_nmck": round(total_nmck, 2),
+        "total_price": round(sum(r["price"] for r in rows if r.get("price") is not None), 2),
+        "sole_share_n": round(len(sole) / len(rows), 4) if rows else None,
+        "sole_share_sum": round(total_sole / total_nmck, 4) if total_nmck else None,
+        "avg_savings": round(sum(savings) / len(savings), 4) if savings else None,
+        "top_customers": [{"name": k, "sum": round(v, 2)} for k, v in
+                          sorted(cust.items(), key=lambda kv: -kv[1])[:10]],
+        "top_suppliers": [{"name": k, "sum": round(v, 2)} for k, v in
+                          sorted(sup.items(), key=lambda kv: -kv[1])[:10]],
+        "supplier_hhi": sup_hhi,
+    }
+
+
 def build_all(items, trends, cfg=None):
     now = datetime.now(UTC4)
     infospace = build_infospace(items, trends, cfg)
@@ -1353,6 +1565,10 @@ def build_all(items, trends, cfg=None):
         infospace["w2"] = build_infospace_w2(items, trends, cfg)
     except Exception:
         infospace["w2"] = {}
+    try:
+        infospace["w3"] = build_infospace_w3(items, cfg)
+    except Exception:
+        infospace["w3"] = {}
     os.makedirs(DATA, exist_ok=True)
     with open(os.path.join(DATA, "infospace.json"), "w", encoding="utf-8") as f:
         json.dump(infospace, f, ensure_ascii=False, indent=1)

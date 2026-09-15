@@ -83,6 +83,26 @@ VOICE_OF = {"tg:dimitrovgradonline": "Димитровград", "tg:dimitrovgra
             "tg:dimgrad24": "Димитровград",
             "vk:cherdaklinskyrayon": "Чердаклинский р-н"}
 
+# форма владения (верификация 15.09.2026 — owner_verification.md):
+# государство | официальные | частный бизнес | аноним | не установлен
+OWNER_FORM = {
+    "tg:Russkih_Aleksey": "официальные", "tg:ulgovru": "официальные",
+    "tg:A_Boldakin": "официальные", "tg:ulmeria": "официальные",
+    "tg:sergeymorozov73": "официальные", "tg:vmkononov": "официальные",
+    "vk:cherdaklinskyrayon": "официальные",
+    "tg:ulpravda": "государство", "rss:Media73": "государство",
+    "tg:ulstu73": "государство", "tg:uac_ru": "государство",
+    "tg:ulpressa": "частный бизнес", "rss:Улпресса": "частный бизнес",
+    "tg:reporter73": "частный бизнес", "tg:UAZ_Today": "частный бизнес",
+    "rss:Ulnovosti.ru": "не установлен", "rss:Улград": "не установлен",
+}
+
+# гипотезы аффилированности (не юрфакт — для разреза HHI и ручного разбора)
+AFFILIATE = {
+    "tg:ulpravda": "гос-медиа кластер «Ульяновская правда»",
+    "rss:Media73": "гос-медиа кластер «Ульяновская правда» (email директора ОАУ «Медиа 73» — @ulpravda.ru)",
+}
+
 
 def main():
     cfg = json.load(open(os.path.join(BASE, "config.json"), encoding="utf-8"))
@@ -146,6 +166,9 @@ def _entry(sid, kind, name, tier, enabled, old):
         "owner": (old or {}).get("owner") or owner,
         "owner_status": (old or {}).get("owner_status") or ostatus,
         "voice_of": (old or {}).get("voice_of") or VOICE_OF.get(sid),
+        "owner_form": (old or {}).get("owner_form") or OWNER_FORM.get(sid)
+                      or ("аноним" if not ((old or {}).get("owner") or owner) else "не установлен"),
+        "affiliate": (old or {}).get("affiliate") or AFFILIATE.get(sid),
         "paid_coverage": (old or {}).get("paid_coverage"),
         "notes": (old or {}).get("notes") if old else notes,
     }

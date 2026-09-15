@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 10:37",
+ "generated_local": "15.09.2026 10:54",
  "week_items": 1505,
  "week_primaries": 1227,
  "week_dups": 278,
@@ -512,7 +512,7 @@
   "На грани видимости (1–2 упоминания): Новоульяновск, Николаевский р-н, Старокулаткинский р-н, Старомайнский р-н, Тереньгульский р-н, Ульяновский р-н."
  ],
  "w1": {
-  "generated_local": "15.09.2026 10:37",
+  "generated_local": "15.09.2026 10:54",
   "week_items": 1505,
   "matrix": {
    "cats": [
@@ -1130,7 +1130,7 @@
   }
  },
  "w2": {
-  "generated_local": "15.09.2026 10:37",
+  "generated_local": "15.09.2026 10:54",
   "week_items": 1505,
   "registry_sources": 45,
   "producer_mix": {
@@ -1306,6 +1306,98 @@
    {
     "group": "мигранты",
     "mentioned": 1
+   }
+  ]
+ },
+ "w3": {
+  "generated_local": "15.09.2026 10:54",
+  "registry_sources": 45,
+  "week_items": 1505,
+  "hhi": 679,
+  "hhi_confirmed": 3005,
+  "confirmed_flow_share": 0.3827,
+  "verdict": "высокая концентрация",
+  "verdict_all": "низкая концентрация",
+  "groups": {
+   "аноним": {
+    "flow": 912,
+    "share": 0.606,
+    "n": 21
+   },
+   "частный бизнес": {
+    "flow": 350,
+    "share": 0.2326,
+    "n": 4
+   },
+   "государство": {
+    "flow": 94,
+    "share": 0.0625,
+    "n": 3
+   },
+   "официальные": {
+    "flow": 88,
+    "share": 0.0585,
+    "n": 5
+   },
+   "не установлен": {
+    "flow": 56,
+    "share": 0.0372,
+    "n": 2
+   },
+   "вне реестра": {
+    "flow": 5,
+    "share": 0.0033,
+    "n": 5
+   }
+  },
+  "state_official_share": 0.1209,
+  "anon_share": 0.6093,
+  "top_owners": [
+   {
+    "name": "ООО «Симбирск-Паблисити» (ИНН 7325027230)",
+    "form": "частный бизнес",
+    "n_sources": 2,
+    "share": 0.1993
+   },
+   {
+    "name": "@tresh_ulyan",
+    "form": "аноним",
+    "n_sources": 1,
+    "share": 0.0718
+   },
+   {
+    "name": "@ulyanovsk_smi",
+    "form": "аноним",
+    "n_sources": 1,
+    "share": 0.0565
+   },
+   {
+    "name": "@chpul",
+    "form": "аноним",
+    "n_sources": 1,
+    "share": 0.0472
+   },
+   {
+    "name": "@chpulsk",
+    "form": "аноним",
+    "n_sources": 1,
+    "share": 0.0458
+   },
+   {
+    "name": "@insaid173",
+    "form": "аноним",
+    "n_sources": 1,
+    "share": 0.0412
+   }
+  ],
+  "affiliates": [
+   {
+    "id": "tg:ulpravda",
+    "group": "гос-медиа кластер «Ульяновская правда»"
+   },
+   {
+    "id": "rss:Media73",
+    "group": "гос-медиа кластер «Ульяновская правда» (email директора ОАУ «Медиа 73» — @ulpravda.ru)"
    }
   ]
  }
