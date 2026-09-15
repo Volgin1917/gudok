@@ -9,6 +9,26 @@
   "items": 20,
   "error": null
  },
+ "rss:Карсунский вестник": {
+  "ok": true,
+  "items": 10,
+  "error": null
+ },
+ "rss:Кумәк көч": {
+  "ok": true,
+  "items": 7,
+  "error": null
+ },
+ "rss:Звезда (Новомалыклинский р-н)": {
+  "ok": true,
+  "items": 20,
+  "error": null
+ },
+ "rss:Кузоватовские вести": {
+  "ok": true,
+  "items": 10,
+  "error": null
+ },
  "tg:Russkih_Aleksey": {
   "ok": true,
   "items": 9,
@@ -131,7 +151,7 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 11,
+  "items": 10,
   "error": null,
   "title": "73online"
  },
@@ -143,7 +163,7 @@
  },
  "tg:ulpatriot": {
   "ok": true,
-  "items": 7,
+  "items": 8,
   "error": null,
   "title": "Ульяновский патриот"
  },
@@ -201,17 +221,23 @@
   "error": null,
   "title": "ПАО «ОАК»"
  },
+ "tg:gazetazvezda73": {
+  "ok": true,
+  "items": 13,
+  "error": null,
+  "title": "Газета «Звезда» (Новомалыклинский р-н)"
+ },
  "vk:cherdaklinskyrayon": {
   "ok": false,
   "items": 0,
   "error": "нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk_token (vk.com/editapp → Сервисный ключ доступа)"
  },
  "_meta": {
-  "last_run_utc": "2026-09-15T14:08:02.082651+00:00",
-  "last_run_local": "15.09.2026 18:08",
-  "fetched": 385,
-  "new": 89,
-  "total_store": 1803
+  "last_run_utc": "2026-09-15T14:28:54.664560+00:00",
+  "last_run_local": "15.09.2026 18:28",
+  "fetched": 445,
+  "new": 95,
+  "total_store": 1869
  },
  "rss:Улград": {
   "ok": true,

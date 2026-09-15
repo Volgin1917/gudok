@@ -18,5 +18,15 @@
   "code": 404,
   "date": "2026-09-15",
   "error": "HTTP Error 404: Not Found"
+ },
+ "karsvest.ru": {
+  "code": "blocked",
+  "date": "2026-09-15",
+  "error": "'ascii' codec can't encode characters in position 10-12: ordinal not in range(128)"
+ },
+ "кузоватовскиевести.рф": {
+  "code": "blocked",
+  "date": "2026-09-15",
+  "error": "'latin-1' codec can't encode characters in position 0-17: ordinal not in range(256)"
  }
 }
