@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 08:12",
+ "generated_local": "15.09.2026 08:17",
  "calendar": [
   {
    "etype": "sport",
@@ -223,6 +223,19 @@
    "venue": ""
   },
   {
+   "etype": "other",
+   "is_culture": false,
+   "district": true,
+   "date": "2026-10-09",
+   "date_end": null,
+   "time": "",
+   "title": "По 27 тысяч за «квадрат»: на Московском шоссе пустят с молотка арестованное здание",
+   "url": "https://ulpressa.ru/2026/09/15/po-27-tysyach-za-kvadrat-na-moskovskom-shosse-pustyat-s-molotka-arestovannoe-zdanie/",
+   "source": "Улпресса",
+   "tier": null,
+   "venue": ""
+  },
+  {
    "etype": "sport",
    "is_culture": false,
    "district": false,
@@ -344,6 +357,37 @@
    ]
   },
   {
+   "name": "аэропорту · задержаны · авиарейса",
+   "terms": [
+    "аэропорту",
+    "задержаны",
+    "авиарейса"
+   ],
+   "size": 3,
+   "coverage": 0.33,
+   "gap": true,
+   "samples": [
+    {
+     "title": "Из-за ограничений в ульяновском аэропорту задержаны четыре авиарейса.",
+     "url": "https://t.me/ulpressa/74491",
+     "source": "t.me/ulpressa",
+     "views": 1060
+    },
+    {
+     "title": "✅ Ограничения в аэропорту Ульяновска сняты Росавиация сообщила, что в аэропорту «Баратаевка» сняты ограничения",
+     "url": "https://t.me/ulyanovsk_smi/29421",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 421
+    },
+    {
+     "title": "Из-за ограничений в ульяновском аэропорту задержаны четыре авиарейса",
+     "url": "https://ulpressa.ru/2026/09/12/iz-za-ogranichenij-v-ulyanovskom-aeroportu-zaderzhany-chetyre-aviarejsa-4/",
+     "source": "Улпресса",
+     "views": null
+    }
+   ]
+  },
+  {
    "name": "открываем · начнем · ночной",
    "terms": [
     "открываем",
@@ -404,44 +448,15 @@
      "views": 394
     }
    ]
-  },
-  {
-   "name": "заменил",
-   "terms": [
-    "заменил"
-   ],
-   "size": 3,
-   "coverage": 0.0,
-   "gap": true,
-   "samples": [
-    {
-     "title": "♻️ ♻️ ♻️ ♻️ Яковлев заменил Хашкулова",
-     "url": "https://t.me/fcvolga/12522",
-     "source": "t.me/fcvolga",
-     "views": 1240
-    },
-    {
-     "title": "66’ 🔄 Денис Рахманов заменил Багателию Новиков заменил Диму Рахманова ⚫️ 0️⃣ ➖ 1️⃣ 🟡",
-     "url": "https://t.me/fcvolga/12519",
-     "source": "t.me/fcvolga",
-     "views": 1230
-    },
-    {
-     "title": "♻️ ♻️ ♻️ ♻️ 82’ Быкова заменил Гершун",
-     "url": "https://t.me/fcvolga/12523",
-     "source": "t.me/fcvolga",
-     "views": 1220
-    }
-   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.228,
-  "today_items": 19,
-  "today_pos": 421,
-  "today_neg": 263,
-  "today_neu": 575,
+  "today_score": 0.12,
+  "today_items": 25,
+  "today_pos": 422,
+  "today_neg": 266,
+  "today_neu": 576,
   "series": [
    {
     "date": "2026-09-02",
@@ -497,13 +512,14 @@
    },
    {
     "date": "2026-09-15",
-    "score": 0.228
+    "score": 0.12
    }
   ],
   "by_category": {
+   "economy": 0.333,
    "politics": 0.667,
-   "security": -0.238,
-   "society": 0.286
+   "security": -0.296,
+   "society": 0.2
   }
  },
  "credibility": [
@@ -511,10 +527,10 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 157,
-   "primary": 150,
-   "dup": 7,
-   "repost_rate": 0.04,
+   "total": 159,
+   "primary": 151,
+   "dup": 8,
+   "repost_rate": 0.05,
    "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -523,10 +539,10 @@
    "source": "ulpressa",
    "tier": 1,
    "type": "tg",
-   "total": 114,
-   "primary": 88,
+   "total": 116,
+   "primary": 90,
    "dup": 26,
-   "repost_rate": 0.23,
+   "repost_rate": 0.22,
    "views_median": 1510,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -547,8 +563,8 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 81,
-   "primary": 67,
+   "total": 82,
+   "primary": 68,
    "dup": 14,
    "repost_rate": 0.17,
    "views_median": 465,
@@ -595,8 +611,8 @@
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 59,
-   "primary": 43,
+   "total": 60,
+   "primary": 44,
    "dup": 16,
    "repost_rate": 0.27,
    "views_median": 6910,
@@ -656,9 +672,9 @@
    "tier": 2,
    "type": "tg",
    "total": 43,
-   "primary": 36,
-   "dup": 7,
-   "repost_rate": 0.16,
+   "primary": 35,
+   "dup": 8,
+   "repost_rate": 0.19,
    "views_median": 1260,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -788,11 +804,11 @@
    "tier": 2,
    "type": "tg",
    "total": 27,
-   "primary": 20,
-   "dup": 7,
-   "repost_rate": 0.26,
+   "primary": 21,
+   "dup": 6,
+   "repost_rate": 0.22,
    "views_median": 424,
-   "label": "смешанный",
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -948,8 +964,8 @@
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 11.5,
-   "slope": -2.89,
+   "expected": 12.2,
+   "slope": -2.79,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1026,6 +1042,14 @@
    "confidence": "средняя"
   },
   {
+   "topic": "transport",
+   "name": "Транспорт и дороги",
+   "expected": 24.7,
+   "slope": 0.82,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
    "topic": "cityday",
    "name": "День города (378 лет)",
    "expected": 10.1,
@@ -1038,14 +1062,6 @@
    "name": "Городская среда",
    "expected": 12.1,
    "slope": 0.71,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "transport",
-   "name": "Транспорт и дороги",
-   "expected": 23.2,
-   "slope": 0.61,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1068,8 +1084,8 @@
   {
    "topic": "budget",
    "name": "Бюджет-2027",
-   "expected": 5.1,
-   "slope": -0.36,
+   "expected": 5.9,
+   "slope": -0.25,
    "direction": "плато",
    "confidence": "низкая"
   },
