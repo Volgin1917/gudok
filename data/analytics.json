@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 08:53",
+ "generated_local": "15.09.2026 09:01",
  "calendar": [
   {
    "etype": "sport",
@@ -190,6 +190,19 @@
    "date": "2026-09-30",
    "date_end": null,
    "time": "",
+   "title": "Мэрия Ульяновска подала в суд на ООО «Ленинские горки» с требованием снести канатную дорогу с нижней и верхней…",
+   "url": "https://t.me/chpul/34439",
+   "source": "t.me/chpul",
+   "tier": 2,
+   "venue": ""
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-30",
+   "date_end": null,
+   "time": "",
    "title": "Мэрия Ульяновска подала иск в Арбитражный суд с требованием полностью снести заброшенный горнолыжный комплекс …",
    "url": "https://t.me/ulsk_73online/35968",
    "source": "t.me/ulsk_73online",
@@ -264,11 +277,11 @@
  ],
  "clusters": [
   {
-   "name": "недель · рабочих · осталось",
+   "name": "недель · осталось · рабочих",
    "terms": [
     "недель",
-    "рабочих",
-    "осталось"
+    "осталось",
+    "рабочих"
    ],
    "size": 4,
    "coverage": 0.0,
@@ -388,37 +401,6 @@
    ]
   },
   {
-   "name": "заметили · центре · ульяновцы",
-   "terms": [
-    "заметили",
-    "центре",
-    "ульяновцы"
-   ],
-   "size": 3,
-   "coverage": 0.0,
-   "gap": true,
-   "samples": [
-    {
-     "title": "😳 Змею заметили ульяновцы в центре города Тоже приползла праздновать? 😅 😱",
-     "url": "https://t.me/tresh_ulyan/56175",
-     "source": "t.me/tresh_ulyan",
-     "views": 13200
-    },
-    {
-     "title": "😱 В центре Ульяновска заметили удава Необычного гостя заметили прямо в центре Ульяновска. Змея ползала среди т",
-     "url": "https://t.me/ulyanovsk_smi/29464",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 767
-    },
-    {
-     "title": "😜 Плывущего кабана заметили ульяновцы во время рыбалки Необычную встречу устроил рыбакам в Ульяновске дикий ка",
-     "url": "https://t.me/ulyanovsk_smi/29466",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 394
-    }
-   ]
-  },
-  {
    "name": "заменил",
    "terms": [
     "заменил"
@@ -446,15 +428,46 @@
      "views": 1220
     }
    ]
+  },
+  {
+   "name": "начали · готовиться · весеннему",
+   "terms": [
+    "начали",
+    "готовиться",
+    "весеннему"
+   ],
+   "size": 3,
+   "coverage": 0.33,
+   "gap": true,
+   "samples": [
+    {
+     "title": "7️⃣ В Ульяновске заблаговременно начали готовиться к весеннему паводку 2027 года Уже с этой недели городские п",
+     "url": "https://t.me/topor_ul/11619",
+     "source": "t.me/topor_ul",
+     "views": 2000
+    },
+    {
+     "title": "🌊 В Ульяновске уже сейчас начали готовиться к весеннему паводку 2027 года. Профильные службы города с этой нед",
+     "url": "https://t.me/ulsk_on/22798",
+     "source": "t.me/ulsk_on",
+     "views": 114
+    },
+    {
+     "title": "В Ульяновске до наступления осенних дождей начали чистить водоотводные канавы и трубы",
+     "url": "https://ulpressa.ru/2026/09/14/v-ulyanovske-do-nastupleniya-osennih-dozhdej-nachali-chistit-vodootvodnye-kanavy-i-truby/",
+     "source": "Улпресса",
+     "views": null
+    }
+   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.12,
-  "today_items": 25,
+  "today_score": -0.125,
+  "today_items": 40,
   "today_pos": 422,
-  "today_neg": 266,
-  "today_neu": 576,
+  "today_neg": 274,
+  "today_neu": 583,
   "series": [
    {
     "date": "2026-09-02",
@@ -510,14 +523,15 @@
    },
    {
     "date": "2026-09-15",
-    "score": 0.12
+    "score": -0.125
    }
   ],
   "by_category": {
-   "economy": 0.333,
-   "politics": 0.667,
-   "security": -0.296,
-   "society": 0.2
+   "culture": 0.5,
+   "economy": -0.083,
+   "politics": 0.0,
+   "security": -0.472,
+   "society": 0.071
   }
  },
  "credibility": [
@@ -525,8 +539,8 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 159,
-   "primary": 151,
+   "total": 163,
+   "primary": 155,
    "dup": 8,
    "repost_rate": 0.05,
    "views_median": null,
@@ -537,11 +551,11 @@
    "source": "ulpressa",
    "tier": 1,
    "type": "tg",
-   "total": 116,
-   "primary": 90,
-   "dup": 26,
-   "repost_rate": 0.22,
-   "views_median": 1510,
+   "total": 118,
+   "primary": 91,
+   "dup": 27,
+   "repost_rate": 0.23,
+   "views_median": 1470,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -549,10 +563,10 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 105,
+   "total": 106,
    "primary": 82,
-   "dup": 23,
-   "repost_rate": 0.22,
+   "dup": 24,
+   "repost_rate": 0.23,
    "views_median": 9710,
    "label": "первоисточник",
    "clickbait_rate": 0.01
@@ -573,10 +587,10 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 66,
-   "primary": 39,
+   "total": 67,
+   "primary": 40,
    "dup": 27,
-   "repost_rate": 0.41,
+   "repost_rate": 0.4,
    "views_median": 3400,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -585,11 +599,23 @@
    "source": "chpul",
    "tier": 2,
    "type": "tg",
-   "total": 63,
-   "primary": 42,
+   "total": 65,
+   "primary": 44,
    "dup": 21,
-   "repost_rate": 0.33,
-   "views_median": 629,
+   "repost_rate": 0.32,
+   "views_median": 595,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "insaid173",
+   "tier": 2,
+   "type": "tg",
+   "total": 61,
+   "primary": 45,
+   "dup": 16,
+   "repost_rate": 0.26,
+   "views_median": 6310,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -606,25 +632,13 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "insaid173",
-   "tier": 2,
-   "type": "tg",
-   "total": 60,
-   "primary": 44,
-   "dup": 16,
-   "repost_rate": 0.27,
-   "views_median": 6910,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "ulsk_on",
    "tier": 2,
    "type": "tg",
-   "total": 56,
-   "primary": 41,
+   "total": 57,
+   "primary": 42,
    "dup": 15,
-   "repost_rate": 0.27,
+   "repost_rate": 0.26,
    "views_median": 342,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -633,11 +647,11 @@
    "source": "ulpravda",
    "tier": 1,
    "type": "tg",
-   "total": 50,
-   "primary": 39,
+   "total": 52,
+   "primary": 41,
    "dup": 11,
-   "repost_rate": 0.22,
-   "views_median": 287,
+   "repost_rate": 0.21,
+   "views_median": 283,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -666,26 +680,38 @@
    "clickbait_rate": 0.05
   },
   {
+   "source": "ulsk_73online",
+   "tier": 2,
+   "type": "tg",
+   "total": 44,
+   "primary": 42,
+   "dup": 2,
+   "repost_rate": 0.05,
+   "views_median": 531,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "dimitrovgradd",
    "tier": 2,
    "type": "tg",
    "total": 43,
-   "primary": 35,
-   "dup": 8,
-   "repost_rate": 0.19,
+   "primary": 36,
+   "dup": 7,
+   "repost_rate": 0.16,
    "views_median": 1260,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
-   "source": "ulsk_73online",
-   "tier": 2,
+   "source": "ulkompr",
+   "tier": 3,
    "type": "tg",
    "total": 43,
-   "primary": 41,
-   "dup": 2,
-   "repost_rate": 0.05,
-   "views_median": 531,
+   "primary": 37,
+   "dup": 6,
+   "repost_rate": 0.14,
+   "views_median": 512,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -698,18 +724,6 @@
    "dup": 8,
    "repost_rate": 0.19,
    "views_median": 480,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulkompr",
-   "tier": 3,
-   "type": "tg",
-   "total": 42,
-   "primary": 36,
-   "dup": 6,
-   "repost_rate": 0.14,
-   "views_median": 542,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -786,6 +800,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "dimitrovgradonline",
+   "tier": 2,
+   "type": "tg",
+   "total": 28,
+   "primary": 21,
+   "dup": 7,
+   "repost_rate": 0.25,
+   "views_median": 392,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "ulgovru",
    "tier": 1,
    "type": "tg",
@@ -795,18 +821,6 @@
    "repost_rate": 0.33,
    "views_median": 81,
    "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "dimitrovgradonline",
-   "tier": 2,
-   "type": "tg",
-   "total": 27,
-   "primary": 21,
-   "dup": 6,
-   "repost_rate": 0.22,
-   "views_median": 424,
-   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -946,40 +960,32 @@
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 5.7,
-   "slope": -3.57,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "governor",
-   "name": "Губернатор / власть",
-   "expected": 5.5,
-   "slope": -3.29,
+   "expected": 6.4,
+   "slope": -3.46,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 12.2,
-   "slope": -2.79,
+   "expected": 13.7,
+   "slope": -2.57,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 10.6,
+   "slope": -2.54,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "culture",
    "name": "Культура и туризм",
-   "expected": 6.3,
-   "slope": -2.46,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "uav",
-   "name": "БПЛА и воздушные угрозы",
-   "expected": 3.3,
-   "slope": -2.04,
+   "expected": 7.0,
+   "slope": -2.36,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -992,18 +998,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "export",
-   "name": "Экспорт и кооперация",
-   "expected": 0.9,
-   "slope": -1.32,
+   "topic": "uav",
+   "name": "БПЛА и воздушные угрозы",
+   "expected": 7.7,
+   "slope": -1.39,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "elections",
-   "name": "Выборы-2026",
-   "expected": 1.8,
-   "slope": -1.21,
+   "topic": "export",
+   "name": "Экспорт и кооперация",
+   "expected": 0.9,
+   "slope": -1.32,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1016,11 +1022,27 @@
    "confidence": "средняя"
   },
   {
+   "topic": "elections",
+   "name": "Выборы-2026",
+   "expected": 2.5,
+   "slope": -1.11,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
    "topic": "medicine",
    "name": "Медицина",
-   "expected": 6.1,
-   "slope": -1.07,
+   "expected": 6.8,
+   "slope": -0.96,
    "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "transport",
+   "name": "Транспорт и дороги",
+   "expected": 25.4,
+   "slope": 0.93,
+   "direction": "рост",
    "confidence": "средняя"
   },
   {
@@ -1037,14 +1059,6 @@
    "expected": 0.6,
    "slope": -0.82,
    "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "transport",
-   "name": "Транспорт и дороги",
-   "expected": 24.7,
-   "slope": 0.82,
-   "direction": "рост",
    "confidence": "средняя"
   },
   {
@@ -1080,18 +1094,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "budget",
-   "name": "Бюджет-2027",
-   "expected": 5.9,
-   "slope": -0.25,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
    "topic": "harvest",
    "name": "Урожай и АПК",
    "expected": 1.7,
    "slope": 0.21,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "budget",
+   "name": "Бюджет-2027",
+   "expected": 7.3,
+   "slope": -0.04,
    "direction": "плато",
    "confidence": "низкая"
   }
