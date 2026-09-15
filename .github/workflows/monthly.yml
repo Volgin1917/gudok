@@ -32,7 +32,7 @@ jobs:
       - name: Коммит и push (защищено от гонок)
         env:
           REBUILD_CMD: bash run.sh && python3 generate.py --monthly "${YM:-$(date -d 'last month' +%Y-%m)}"
-        run: bash ci_push.sh "Месячный отчёт $(date -u +%F)" data monthly monthly.html
+        run: bash ci_push.sh "Месячный отчёт $(date -u +%F)" data monthly monthly.html assets archive.html
   publish:
     needs: build
     runs-on: ubuntu-latest

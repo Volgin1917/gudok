@@ -30,7 +30,8 @@ jobs:
         run: |
           bash ci_push.sh "Ежедневный выпуск $(date -u +%F)" \
             data digests index.html afisha.html infospace.html status.html \
-            weekly.html monthly.html projects.html projects
+            weekly.html monthly.html projects.html projects archive.html \
+            assets weekly monthly
   publish:
     needs: build
     runs-on: ubuntu-latest

@@ -15,6 +15,7 @@ import json
 import os
 import sys
 import time
+import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
@@ -24,6 +25,22 @@ from collector import http_get, parse_tg_page  # noqa: E402
 BASE = os.path.dirname(os.path.abspath(__file__))
 PH = os.path.join(BASE, "assets", "photos")
 UTC4 = timezone(timedelta(hours=4))
+
+
+def safe_url(url):
+    """Процент-кодирование не-ASCII в URL: у районных СМИ встречаются кириллические
+    имена файлов фото (kumiakk.ru/…/Без-названия-4), на них urllib падал с
+    «'ascii' codec can't encode characters»."""
+    try:
+        url.encode("ascii")
+        return url
+    except UnicodeEncodeError:
+        p = urllib.parse.urlsplit(url)
+        return urllib.parse.urlunsplit((
+            p.scheme, p.netloc,
+            urllib.parse.quote(p.path, safe="/%~"),
+            urllib.parse.quote(p.query, safe="=&%"),
+            urllib.parse.quote(p.fragment)))
 
 
 def magic_ext(b):
@@ -115,6 +132,17 @@ def main():
         if not args.quiet:
             print(f"[photos] добивка из фидов: {n_fb}")
 
+    # 1c) самоочистка: photo_local без файла на диске — ссылка в никуда (404 на Pages).
+    # Сбрасываем её, чтобы кадр можно было перекачать, а генератор вернулся к удалённому URL.
+    stale = 0
+    for it in items:
+        pl = it.get("photo_local")
+        if pl and not os.path.exists(os.path.join(BASE, pl)):
+            it["photo_local"] = ""
+            stale += 1
+    if stale and not args.quiet:
+        print(f"  [photos] сброшено битых ссылок на зеркала: {stale}")
+
     # 2) скачивание fehlende фото
     downloaded = 0
     for it in items:
@@ -125,7 +153,7 @@ def main():
             continue
         if not (pdate(it) and pdate(it) >= cutoff):
             continue
-        url = ph if ph.startswith("http") else "https:" + ph
+        url = safe_url(ph if ph.startswith("http") else "https:" + ph)
         if not url.startswith("http"):
             continue
         try:

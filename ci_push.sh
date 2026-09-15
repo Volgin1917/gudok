@@ -72,7 +72,9 @@ for i in $(seq 1 "$ATTEMPTS"); do
   fi
 
   if [ "$(git rev-parse HEAD)" != "$(git rev-parse "origin/$BRANCH")" ]; then
-    if git rebase "origin/$BRANCH" >/dev/null 2>&1; then
+    # --autostash: незакоммиченное/неотслеживаемое (новые фото, archive.html) не должно
+    # ронять rebase и отправлять прогон в дорогую пересборку
+    if git rebase --autostash "origin/$BRANCH" >/dev/null 2>&1; then
       echo "[ci_push] rebase поверх origin/$BRANCH — ок"
     else
       git rebase --abort >/dev/null 2>&1 || true

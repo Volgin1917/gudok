@@ -792,11 +792,32 @@ def clip_sentences(text, limit):
     return out + "…"
 
 
-def photo_img(it, prefix, style):
+def photo_src(it):
+    """Годный src изображения: локальное зеркало — только если файл действительно
+    лежит в репозитории (иначе на Pages будет 404 и картинка молча исчезнет);
+    запасной вариант — исходный удалённый URL. Возвращает None, если ничего нет.
+
+    Историческая причина: CI скачивал фото в assets/photos и генерировал ссылки
+    на них, но список `git add` в воркфлоу не включал assets — 635 из 835 зеркал
+    не доехали до репозитория (найдено 15.09.2026)."""
     pl = it.get("photo_local")
-    if not pl:
+    if pl and os.path.exists(os.path.join(BASE, pl)):
+        return pl                       # относительный путь — prefix добавит вызывающий
+    ph = it.get("photo") or ""
+    if ph.startswith("http"):
+        return ph
+    if ph.startswith("//"):
+        return "https:" + ph
+    return None
+
+
+def photo_img(it, prefix, style):
+    src = photo_src(it)
+    if not src:
         return ""
-    return (f'<img src="{prefix}{pl}" alt="" loading="lazy" style="{style}" '
+    if not src.startswith("http"):
+        src = prefix + src
+    return (f'<img src="{esc(src)}" alt="" loading="lazy" style="{style}" '
             f'onerror="this.style.display=\'none\'">')
 
 
@@ -4098,8 +4119,8 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
     pool_cards = [it for it in window if (not leads or it["id"] != lead["id"])
                   and not is_alert(it)]
     rec = lambda x: x.get("published") or ""
-    with_photo = sorted([it for it in pool_cards if it.get("photo_local")], key=rec, reverse=True)[:4]
-    rest = sorted([it for it in pool_cards if not it.get("photo_local")], key=rec, reverse=True)
+    with_photo = sorted([it for it in pool_cards if photo_src(it)], key=rec, reverse=True)[:4]
+    rest = sorted([it for it in pool_cards if not photo_src(it)], key=rec, reverse=True)
     cards_src = (with_photo + rest)[:8]
     cards = ""
     for i, it in enumerate(cards_src):

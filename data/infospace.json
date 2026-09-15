@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 22:16",
+ "generated_local": "15.09.2026 22:41",
  "week_items": 1780,
  "week_primaries": 1496,
  "week_dups": 284,
@@ -530,7 +530,7 @@
   "На грани видимости (1–2 упоминания): Николаевский р-н, Старомайнский р-н, Тереньгульский р-н, Ульяновский р-н."
  ],
  "w1": {
-  "generated_local": "15.09.2026 22:16",
+  "generated_local": "15.09.2026 22:41",
   "week_items": 1780,
   "matrix": {
    "cats": [
@@ -1153,7 +1153,7 @@
   }
  },
  "w2": {
-  "generated_local": "15.09.2026 22:16",
+  "generated_local": "15.09.2026 22:41",
   "week_items": 1780,
   "registry_sources": 51,
   "producer_mix": {
@@ -1331,7 +1331,7 @@
   ]
  },
  "w3": {
-  "generated_local": "15.09.2026 22:16",
+  "generated_local": "15.09.2026 22:41",
   "registry_sources": 51,
   "week_items": 1780,
   "hhi": 653,
@@ -1423,7 +1423,7 @@
   ]
  },
  "w4": {
-  "generated_local": "15.09.2026 22:16",
+  "generated_local": "15.09.2026 22:41",
   "agency": {
    "week_items": 1780,
    "excluded_service": {

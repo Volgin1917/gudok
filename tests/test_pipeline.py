@@ -1808,3 +1808,86 @@ class TestWebSourceInRegistry(unittest.TestCase):
         self.assertEqual(e["owner_form"], "официальные")
         self.assertEqual(e["owner_status"], "подтверждён")
         self.assertEqual(e["voice_of"], "Ульяновск")
+
+
+class TestPhotoMirrors(unittest.TestCase):
+    """Зеркала фото: 15.09.2026 найдено — CI скачивал фото в assets/photos и
+    генерировал ссылки на них, но `git add` в воркфлоу не включал assets:
+    635 из 835 зеркал не доехали до репозитория и на Pages отдавали 404
+    (onerror прятал картинку, поэтому поломка была невидимой)."""
+
+    PAGES = ("digests/today.html", "index.html", "infospace.html", "afisha.html")
+
+    def test_referenced_photos_exist(self):
+        import re
+        missing = {}
+        checked = 0
+        for rel in self.PAGES:
+            path = os.path.join(BASE, rel)
+            if not os.path.exists(path):
+                continue
+            with open(path, encoding="utf-8") as f:
+                html = f.read()
+            refs = {m.split("assets/")[-1] for m in
+                    re.findall(r"(?:\.\./)?assets/photos/[\w.-]+\.(?:jpg|jpeg|png|webp)", html)}
+            checked += len(refs)
+            gone = [r for r in refs if not os.path.exists(os.path.join(BASE, "assets", r))]
+            if gone:
+                missing[rel] = gone[:5]
+        self.assertGreater(checked, 0, "страницы не ссылаются на локальные фото — нечего проверять")
+        self.assertEqual(missing, {}, f"страницы ссылаются на отсутствующие зеркала: {missing}")
+
+    def test_photo_src_prefers_existing_local(self):
+        import generate
+        it = {"photo_local": "assets/logo_gudok.png", "photo": "https://example.invalid/x.jpg"}
+        if os.path.exists(os.path.join(BASE, "assets", "logo_gudok.png")):
+            self.assertEqual(generate.photo_src(it), "assets/logo_gudok.png")
+
+    def test_photo_src_falls_back_to_remote(self):
+        import generate
+        it = {"photo_local": "assets/photos/несуществующее-зеркало.jpg",
+              "photo": "https://cdn4.telesco.pe/file/abcdef"}
+        self.assertEqual(generate.photo_src(it), "https://cdn4.telesco.pe/file/abcdef")
+        self.assertIsNone(generate.photo_src({"photo_local": "", "photo": None}))
+        self.assertEqual(generate.photo_src({"photo": "//cdn.example/p.jpg"}),
+                         "https://cdn.example/p.jpg")
+
+    def test_photo_img_renders_fallback(self):
+        import generate
+        html = generate.photo_img({"photo": "https://cdn4.telesco.pe/file/xyz"}, "../", "width:100%")
+        self.assertIn('src="https://cdn4.telesco.pe/file/xyz"', html)
+        self.assertEqual(generate.photo_img({"photo_local": "assets/photos/нет.jpg"}, "../", ""), "")
+
+    def test_safe_url_encodes_cyrillic(self):
+        import photos
+        self.assertEqual(photos.safe_url("https://kumiakk.ru/wp-content/uploads/2026/09/Без-названия-4"),
+                         "https://kumiakk.ru/wp-content/uploads/2026/09/"
+                         "%D0%91%D0%B5%D0%B7-%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-4")
+        self.assertEqual(photos.safe_url("https://cdn4.telesco.pe/file/abc"),
+                         "https://cdn4.telesco.pe/file/abc")
+
+    def test_workflows_commit_assets(self):
+        wf = os.path.join(BASE, ".github", "workflows")
+        for name in os.listdir(wf):
+            if not name.endswith((".yml", ".yaml")):
+                continue
+            with open(os.path.join(wf, name), encoding="utf-8") as f:
+                text = f.read()
+            if "ci_push.sh" in text:
+                self.assertIn("assets", text, f"{name}: assets не попадает в коммит — фото теряются")
+
+    def test_no_stale_photo_local_in_store(self):
+        """photo_local без файла на диске — ссылка в никуда; photos.py их сбрасывает."""
+        path = os.path.join(BASE, "data", "store.jsonl")
+        if not os.path.exists(path):
+            self.skipTest("нет базы")
+        stale = 0
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                it = json.loads(line)
+                pl = it.get("photo_local")
+                if pl and not os.path.exists(os.path.join(BASE, pl)):
+                    stale += 1
+        self.assertEqual(stale, 0, f"{stale} записей ссылаются на отсутствующие зеркала")
