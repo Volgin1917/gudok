@@ -1,21 +1,8 @@
 {
- "web:Администрация Ульяновска": {
-  "ok": true,
-  "items": 10,
-  "error": null,
-  "title": "Администрация города Ульяновска — новости и репортажи"
- },
- "_meta": {
-  "last_run_utc": "2026-09-15T17:58:55.375962+00:00",
-  "last_run_local": "15.09.2026 21:58",
-  "fetched": 10,
-  "new": 10,
-  "total_store": 1879
- },
  "rss:Ulnovosti.ru": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Улпресса": {
   "ok": true,
@@ -74,7 +61,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 7,
+  "items": 8,
   "error": null,
   "title": "Репортёр73"
  },
@@ -98,13 +85,13 @@
  },
  "tg:fcvolga": {
   "ok": true,
-  "items": 17,
+  "items": 7,
   "error": null,
   "title": "ФК «Волга»"
  },
  "tg:tresh_ulyan": {
   "ok": true,
-  "items": 14,
+  "items": 11,
   "error": null,
   "title": "Треш Ульяновск"
  },
@@ -116,13 +103,13 @@
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 7,
+  "items": 8,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 7,
+  "items": 5,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -134,7 +121,7 @@
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 11,
+  "items": 13,
   "error": null,
   "title": "Короче, Ульяновск"
  },
@@ -146,13 +133,13 @@
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 15,
+  "items": 14,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
  "tg:chpul": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
@@ -170,7 +157,7 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -200,7 +187,7 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 7,
+  "items": 9,
   "error": null,
   "title": "Компромат Ульяновск"
  },
@@ -244,6 +231,19 @@
   "ok": false,
   "items": 0,
   "error": "нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk_token (vk.com/editapp → Сервисный ключ доступа)"
+ },
+ "web:Администрация Ульяновска": {
+  "ok": true,
+  "items": 10,
+  "error": null,
+  "title": "Администрация города Ульяновска — новости и репортажи"
+ },
+ "_meta": {
+  "last_run_utc": "2026-09-15T18:11:04.596028+00:00",
+  "last_run_local": "15.09.2026 22:11",
+  "fetched": 437,
+  "new": 45,
+  "total_store": 1924
  },
  "rss:Улград": {
   "ok": true,
