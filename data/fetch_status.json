@@ -17,7 +17,7 @@
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 8,
+  "items": 6,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
@@ -29,7 +29,7 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 25,
+  "items": 23,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -41,19 +41,19 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 8,
+  "items": 7,
   "error": null,
   "title": "Репортёр73"
  },
  "tg:sergeymorozov73": {
   "ok": true,
-  "items": 10,
+  "items": 12,
   "error": null,
   "title": "Сергей Морозов (депутат Госдумы)"
  },
  "tg:vmkononov": {
   "ok": true,
-  "items": 4,
+  "items": 5,
   "error": null,
   "title": "Владимир Кононов (депутат Госдумы)"
  },
@@ -71,31 +71,31 @@
  },
  "tg:tresh_ulyan": {
   "ok": true,
-  "items": 18,
+  "items": 14,
   "error": null,
   "title": "Треш Ульяновск"
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 14,
+  "items": 10,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 14,
+  "items": 7,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 10,
+  "items": 7,
   "error": null,
   "title": "Информационный Димитровград"
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 11,
+  "items": 9,
   "error": null,
   "title": "Топор Ульяновск"
  },
@@ -107,7 +107,7 @@
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 11,
+  "items": 9,
   "error": null,
   "title": "Типичный Димитровград"
  },
@@ -119,19 +119,19 @@
  },
  "tg:chpul": {
   "ok": true,
-  "items": 11,
+  "items": 12,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
  "tg:ulsk_on": {
   "ok": true,
-  "items": 11,
+  "items": 8,
   "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 14,
+  "items": 11,
   "error": null,
   "title": "73online"
  },
@@ -149,7 +149,7 @@
  },
  "tg:shugozhor73": {
   "ok": true,
-  "items": 12,
+  "items": 10,
   "error": null,
   "title": "Симбирский шугожор"
  },
@@ -161,13 +161,13 @@
  },
  "tg:volkodav73": {
   "ok": true,
-  "items": 12,
+  "items": 8,
   "error": null,
   "title": "Волкодав73"
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 5,
+  "items": 7,
   "error": null,
   "title": "Компромат Ульяновск"
  },
@@ -207,11 +207,11 @@
   "error": "нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk_token (vk.com/editapp → Сервисный ключ доступа)"
  },
  "_meta": {
-  "last_run_utc": "2026-09-15T10:16:31.292592+00:00",
-  "last_run_local": "15.09.2026 14:16",
-  "fetched": 414,
-  "new": 10,
-  "total_store": 1714
+  "last_run_utc": "2026-09-15T14:08:02.082651+00:00",
+  "last_run_local": "15.09.2026 18:08",
+  "fetched": 385,
+  "new": 89,
+  "total_store": 1803
  },
  "rss:Улград": {
   "ok": true,

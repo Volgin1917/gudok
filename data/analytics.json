@@ -342,6 +342,37 @@
  ],
  "clusters": [
   {
+   "name": "спасатели · козлёнок · академика",
+   "terms": [
+    "спасатели",
+    "козлёнок",
+    "академика"
+   ],
+   "size": 6,
+   "coverage": 0.33,
+   "gap": true,
+   "samples": [
+    {
+     "title": "😨 В Заволжье спасатели достали козленка из подвала заброшенного дома Вызов поступил с улицы Академика Павлова.",
+     "url": "https://t.me/topor_ul/11637",
+     "source": "t.me/topor_ul",
+     "views": 1160
+    },
+    {
+     "title": "⚡ В Заволжском районе козлёнок провалился в открытый подвал заброшенного здания на Академика Павлова. Спасател",
+     "url": "https://t.me/ulpressa/74649",
+     "source": "t.me/ulpressa",
+     "views": 523
+    },
+    {
+     "title": "🐐 В Заволжье спасатели достали козлёнка из открытого подвала. Животное провалилось в подземные помещения забро",
+     "url": "https://t.me/chpul/34446",
+     "source": "t.me/chpul",
+     "views": 142
+    }
+   ]
+  },
+  {
    "name": "новое · поликлиники · героя",
    "terms": [
     "новое",
@@ -369,6 +400,37 @@
      "url": "https://t.me/ulkoroche/33768",
      "source": "t.me/ulkoroche",
      "views": 146
+    }
+   ]
+  },
+  {
+   "name": "заметили · кабана · центре",
+   "terms": [
+    "заметили",
+    "кабана",
+    "центре"
+   ],
+   "size": 4,
+   "coverage": 0.0,
+   "gap": true,
+   "samples": [
+    {
+     "title": "😳 Змею заметили ульяновцы в центре города Тоже приползла праздновать? 😅 😱",
+     "url": "https://t.me/tresh_ulyan/56175",
+     "source": "t.me/tresh_ulyan",
+     "views": 13200
+    },
+    {
+     "title": "😱 В центре Ульяновска заметили удава Необычного гостя заметили прямо в центре Ульяновска. Змея ползала среди т",
+     "url": "https://t.me/ulyanovsk_smi/29464",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 767
+    },
+    {
+     "title": "😜 Плывущего кабана заметили ульяновцы во время рыбалки Необычную встречу устроил рыбакам в Ульяновске дикий ка",
+     "url": "https://t.me/ulyanovsk_smi/29466",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 394
     }
    ]
   },
@@ -435,21 +497,27 @@
    ]
   },
   {
-   "name": "открываем · начнем · ночной",
+   "name": "лавров · россия · переговоров",
    "terms": [
-    "открываем",
-    "начнем",
-    "ночной"
+    "лавров",
+    "россия",
+    "переговоров"
    ],
-   "size": 3,
+   "size": 4,
    "coverage": 0.0,
    "gap": true,
    "samples": [
     {
-     "title": "🌙 🌙 🌙 Доброй ночи! Открываем ночной чат для тех, кто не спит 🌛 Поиграем в слова? Мы начнем: «Забор» Вам на Р 🔽",
-     "url": "https://t.me/ulyanovsk_smi/29469",
+     "title": "❗️ Россия готова к новому раунду переговоров по Украине, \"нам есть что сказать\", сообщил Сергей Лавров. Москва",
+     "url": "https://t.me/insaid173/46996",
+     "source": "t.me/insaid173",
+     "views": 1090
+    },
+    {
+     "title": "Россия готова к новому раунду переговоров по Украине, заявил Лавров Глава МИД РФ подчеркнул, что российской ст",
+     "url": "https://t.me/ulyanovsk_smi/29511",
      "source": "t.me/ulyanovsk_smi",
-     "views": 539
+     "views": 602
     },
     {
      "title": "😴 Открываем ночной чат Поиграем в города? Мы начнем: «Мурманск». Вам на К 🔽 📲",
@@ -679,11 +747,23 @@
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 68,
-   "primary": 50,
-   "dup": 18,
-   "repost_rate": 0.26,
-   "views_median": 5990,
+   "total": 75,
+   "primary": 56,
+   "dup": 19,
+   "repost_rate": 0.25,
+   "views_median": 5520,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "chpulsk",
+   "tier": 2,
+   "type": "tg",
+   "total": 74,
+   "primary": 43,
+   "dup": 31,
+   "repost_rate": 0.42,
+   "views_median": 2970,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -715,11 +795,23 @@
    "source": "ulsk_on",
    "tier": 2,
    "type": "tg",
-   "total": 61,
-   "primary": 46,
-   "dup": 15,
+   "total": 65,
+   "primary": 49,
+   "dup": 16,
    "repost_rate": 0.25,
-   "views_median": 330,
+   "views_median": 286,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "topor_ul",
+   "tier": 2,
+   "type": "tg",
+   "total": 63,
+   "primary": 49,
+   "dup": 14,
+   "repost_rate": 0.22,
+   "views_median": 1450,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -727,11 +819,11 @@
    "source": "ulsk_73online",
    "tier": 2,
    "type": "tg",
-   "total": 53,
-   "primary": 50,
+   "total": 60,
+   "primary": 57,
    "dup": 3,
-   "repost_rate": 0.06,
-   "views_median": 489,
+   "repost_rate": 0.05,
+   "views_median": 499,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -751,10 +843,10 @@
    "source": "ulkompr",
    "tier": 3,
    "type": "tg",
-   "total": 49,
-   "primary": 41,
-   "dup": 8,
-   "repost_rate": 0.16,
+   "total": 53,
+   "primary": 44,
+   "dup": 9,
+   "repost_rate": 0.17,
    "views_median": 462,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -775,11 +867,11 @@
    "source": "ulsk_driver73",
    "tier": 2,
    "type": "tg",
-   "total": 47,
-   "primary": 36,
+   "total": 52,
+   "primary": 41,
    "dup": 11,
-   "repost_rate": 0.23,
-   "views_median": 478,
+   "repost_rate": 0.21,
+   "views_median": 447,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -823,13 +915,25 @@
    "source": "volkodav73",
    "tier": 3,
    "type": "tg",
-   "total": 36,
-   "primary": 30,
-   "dup": 6,
-   "repost_rate": 0.17,
-   "views_median": 3140,
+   "total": 38,
+   "primary": 31,
+   "dup": 7,
+   "repost_rate": 0.18,
+   "views_median": 3110,
    "label": "первоисточник",
    "clickbait_rate": 0.03
+  },
+  {
+   "source": "dimitrovgradonline",
+   "tier": 2,
+   "type": "tg",
+   "total": 38,
+   "primary": 29,
+   "dup": 9,
+   "repost_rate": 0.24,
+   "views_median": 366,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
   },
   {
    "source": "Media73",
@@ -844,15 +948,15 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "dimitrovgradonline",
-   "tier": 2,
+   "source": "ulgovru",
+   "tier": 1,
    "type": "tg",
    "total": 34,
-   "primary": 27,
-   "dup": 7,
-   "repost_rate": 0.21,
-   "views_median": 366,
-   "label": "первоисточник",
+   "primary": 23,
+   "dup": 11,
+   "repost_rate": 0.32,
+   "views_median": 47,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -892,6 +996,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "sergeymorozov73",
+   "tier": 1,
+   "type": "tg",
+   "total": 28,
+   "primary": 28,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": 134,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "Russkih_Aleksey",
    "tier": 1,
    "type": "tg",
@@ -900,18 +1016,6 @@
    "dup": 6,
    "repost_rate": 0.23,
    "views_median": 2490,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "sergeymorozov73",
-   "tier": 1,
-   "type": "tg",
-   "total": 25,
-   "primary": 25,
-   "dup": 0,
-   "repost_rate": 0.0,
-   "views_median": 142,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -979,11 +1083,11 @@
    "source": "terr73",
    "tier": 3,
    "type": "tg",
-   "total": 16,
-   "primary": 16,
+   "total": 17,
+   "primary": 17,
    "dup": 0,
    "repost_rate": 0.0,
-   "views_median": 2660,
+   "views_median": 2550,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -1063,8 +1167,8 @@
    "source": "vmkononov",
    "tier": 1,
    "type": "tg",
-   "total": 9,
-   "primary": 9,
+   "total": 10,
+   "primary": 10,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 39,
@@ -1088,8 +1192,8 @@
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 48.9,
-   "slope": 4.36,
+   "expected": 56.9,
+   "slope": 5.54,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1136,8 +1240,8 @@
   {
    "topic": "cityday",
    "name": "День города (378 лет)",
-   "expected": 11.6,
-   "slope": 0.93,
+   "expected": 12.3,
+   "slope": 1.04,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1160,7 +1264,23 @@
   {
    "topic": "budget",
    "name": "Бюджет-2027",
-   "expected": 12.5,
+   "expected": 13.9,
+   "slope": 0.93,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "export",
+   "name": "Экспорт и кооперация",
+   "expected": 4.6,
+   "slope": -0.79,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "zhkh",
+   "name": "ЖКХ, газ, тепло",
+   "expected": 10.3,
    "slope": 0.71,
    "direction": "рост",
    "confidence": "средняя"

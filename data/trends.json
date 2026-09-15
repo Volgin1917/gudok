@@ -108,11 +108,11 @@
     12,
     51,
     12,
-    2
+    3
    ],
-   "today": 2,
-   "week": 112,
-   "total": 116,
+   "today": 3,
+   "week": 113,
+   "total": 117,
    "status": "rising"
   },
   "budget": {
@@ -131,11 +131,11 @@
     8,
     1,
     14,
-    13
+    15
    ],
-   "today": 13,
-   "week": 63,
-   "total": 75,
+   "today": 15,
+   "week": 65,
+   "total": 77,
    "status": "stable"
   },
   "uaz": {
@@ -177,11 +177,11 @@
     11,
     4,
     6,
-    0
+    1
    ],
-   "today": 0,
-   "week": 48,
-   "total": 48,
+   "today": 1,
+   "week": 49,
+   "total": 49,
    "status": "stable"
   },
   "harvest": {
@@ -200,11 +200,11 @@
     3,
     0,
     6,
-    1
+    2
    ],
-   "today": 1,
-   "week": 14,
-   "total": 17,
+   "today": 2,
+   "week": 15,
+   "total": 18,
    "status": "rising"
   },
   "zhkh": {
@@ -269,12 +269,12 @@
     16,
     8,
     69,
-    42
+    53
    ],
-   "today": 42,
-   "week": 248,
-   "total": 263,
-   "status": "stable"
+   "today": 53,
+   "week": 259,
+   "total": 274,
+   "status": "rising"
   },
   "schools": {
    "name": "Школы и вузы",
@@ -541,10 +541,10 @@
     2,
     0,
     6,
-    1
+    3
    ],
-   "week": 12,
-   "today": 1
+   "week": 14,
+   "today": 3
   },
   "society": {
    "name": "Общество и городская среда",
