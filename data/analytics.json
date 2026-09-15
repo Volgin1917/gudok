@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 10:54",
+ "generated_local": "15.09.2026 10:58",
  "calendar": [
   {
    "etype": "sport",
@@ -203,9 +203,9 @@
    "date": "2026-09-30",
    "date_end": null,
    "time": "",
-   "title": "🏔 Мэрия Ульяновска через суд требует снести «Ленинские горки». Городские власти подали иск в Арбитражный суд о…",
-   "url": "https://t.me/ulkoroche/33772",
-   "source": "t.me/ulkoroche",
+   "title": "👩🏻‍⚖️ Аварийную канатную дорогу в Ульяновске планируют снести по решению суда Администрация Ульяновска подала …",
+   "url": "https://t.me/chpulsk/50785",
+   "source": "t.me/chpulsk",
    "tier": 2,
    "venue": ""
   },
@@ -216,9 +216,9 @@
    "date": "2026-09-30",
    "date_end": null,
    "time": "",
-   "title": "Мэрия Ульяновска подала иск в Арбитражный суд с требованием полностью снести заброшенный горнолыжный комплекс …",
-   "url": "https://t.me/ulsk_73online/35968",
-   "source": "t.me/ulsk_73online",
+   "title": "🏔 Мэрия Ульяновска через суд требует снести «Ленинские горки». Городские власти подали иск в Арбитражный суд о…",
+   "url": "https://t.me/ulkoroche/33772",
+   "source": "t.me/ulkoroche",
    "tier": 2,
    "venue": ""
   },
@@ -277,11 +277,11 @@
  ],
  "clusters": [
   {
-   "name": "недель · рабочих · осталось",
+   "name": "недель · осталось · рабочих",
    "terms": [
     "недель",
-    "рабочих",
-    "осталось"
+    "осталось",
+    "рабочих"
    ],
    "size": 4,
    "coverage": 0.0,
@@ -370,11 +370,11 @@
    ]
   },
   {
-   "name": "маркса · карла · разборки",
+   "name": "маркса · карла · сидит",
    "terms": [
     "маркса",
     "карла",
-    "разборки"
+    "сидит"
    ],
    "size": 3,
    "coverage": 0.33,
@@ -464,10 +464,10 @@
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
   "today_score": 0.0,
-  "today_items": 81,
-  "today_pos": 436,
-  "today_neg": 284,
-  "today_neu": 599,
+  "today_items": 87,
+  "today_pos": 438,
+  "today_neg": 286,
+  "today_neu": 601,
   "series": [
    {
     "date": "2026-09-02",
@@ -529,11 +529,12 @@
   "by_category": {
    "culture": 0.667,
    "economy": -0.222,
+   "education": 0.5,
    "health": -0.667,
    "politics": 0.25,
-   "security": -0.387,
-   "society": 0.188,
-   "sport": 1.0
+   "security": -0.395,
+   "society": 0.152,
+   "sport": 0.8
   }
  },
  "credibility": [
@@ -541,8 +542,8 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 174,
-   "primary": 165,
+   "total": 177,
+   "primary": 168,
    "dup": 9,
    "repost_rate": 0.05,
    "views_median": null,
@@ -553,11 +554,11 @@
    "source": "ulpressa",
    "tier": 1,
    "type": "tg",
-   "total": 126,
-   "primary": 98,
+   "total": 127,
+   "primary": 99,
    "dup": 28,
    "repost_rate": 0.22,
-   "views_median": 1390,
+   "views_median": 1350,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -590,9 +591,9 @@
    "tier": 2,
    "type": "tg",
    "total": 71,
-   "primary": 47,
-   "dup": 24,
-   "repost_rate": 0.34,
+   "primary": 48,
+   "dup": 23,
+   "repost_rate": 0.32,
    "views_median": 521,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -601,10 +602,10 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 69,
-   "primary": 40,
+   "total": 70,
+   "primary": 41,
    "dup": 29,
-   "repost_rate": 0.42,
+   "repost_rate": 0.41,
    "views_median": 3400,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -613,10 +614,10 @@
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 62,
+   "total": 63,
    "primary": 45,
-   "dup": 17,
-   "repost_rate": 0.27,
+   "dup": 18,
+   "repost_rate": 0.29,
    "views_median": 6310,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -638,11 +639,11 @@
    "tier": 2,
    "type": "tg",
    "total": 58,
-   "primary": 44,
-   "dup": 14,
-   "repost_rate": 0.24,
-   "views_median": 342,
-   "label": "первоисточник",
+   "primary": 43,
+   "dup": 15,
+   "repost_rate": 0.26,
+   "views_median": 339,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -722,10 +723,10 @@
    "tier": 3,
    "type": "tg",
    "total": 44,
-   "primary": 36,
-   "dup": 8,
-   "repost_rate": 0.18,
-   "views_median": 542,
+   "primary": 37,
+   "dup": 7,
+   "repost_rate": 0.16,
+   "views_median": 512,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -746,9 +747,9 @@
    "tier": 3,
    "type": "tg",
    "total": 36,
-   "primary": 25,
-   "dup": 11,
-   "repost_rate": 0.31,
+   "primary": 24,
+   "dup": 12,
+   "repost_rate": 0.33,
    "views_median": 3270,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -793,11 +794,11 @@
    "source": "dimitrovgradonline",
    "tier": 2,
    "type": "tg",
-   "total": 30,
-   "primary": 22,
+   "total": 31,
+   "primary": 23,
    "dup": 8,
-   "repost_rate": 0.27,
-   "views_median": 392,
+   "repost_rate": 0.26,
+   "views_median": 369,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -962,16 +963,8 @@
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 8.6,
-   "slope": -3.14,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "crime",
-   "name": "Суды и криминал",
-   "expected": 16.6,
-   "slope": -2.14,
+   "expected": 9.3,
+   "slope": -3.04,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -984,26 +977,26 @@
    "confidence": "средняя"
   },
   {
+   "topic": "crime",
+   "name": "Суды и криминал",
+   "expected": 17.3,
+   "slope": -2.04,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 32.0,
-   "slope": 1.89,
+   "expected": 32.8,
+   "slope": 2.0,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "governor",
    "name": "Губернатор / власть",
-   "expected": 16.4,
-   "slope": -1.68,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "sport",
-   "name": "Спорт",
-   "expected": 10.6,
-   "slope": -1.29,
+   "expected": 17.2,
+   "slope": -1.57,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1024,6 +1017,14 @@
    "confidence": "средняя"
   },
   {
+   "topic": "sport",
+   "name": "Спорт",
+   "expected": 12.1,
+   "slope": -1.07,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
    "topic": "cityspace",
    "name": "Городская среда",
    "expected": 14.3,
@@ -1036,14 +1037,6 @@
    "name": "Выборы-2026",
    "expected": 4.0,
    "slope": -0.89,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "weather",
-   "name": "Погода",
-   "expected": 3.5,
-   "slope": -0.86,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1064,6 +1057,14 @@
    "confidence": "средняя"
   },
   {
+   "topic": "weather",
+   "name": "Погода",
+   "expected": 4.2,
+   "slope": -0.75,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
    "topic": "cityday",
    "name": "День города (378 лет)",
    "expected": 10.1,
@@ -1072,18 +1073,10 @@
    "confidence": "средняя"
   },
   {
-   "topic": "zhkh",
-   "name": "ЖКХ, газ, тепло",
-   "expected": 2.3,
-   "slope": -0.46,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
    "topic": "uav",
    "name": "БПЛА и воздушные угрозы",
-   "expected": 20.2,
-   "slope": 0.43,
+   "expected": 20.9,
+   "slope": 0.54,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1100,6 +1093,14 @@
    "name": "Бюджет-2027",
    "expected": 10.3,
    "slope": 0.39,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "zhkh",
+   "name": "ЖКХ, газ, тепло",
+   "expected": 3.0,
+   "slope": -0.36,
    "direction": "плато",
    "confidence": "низкая"
   },

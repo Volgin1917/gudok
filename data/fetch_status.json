@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Улпресса": {
   "ok": true,
@@ -77,7 +77,7 @@
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 16,
+  "items": 17,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
@@ -89,7 +89,7 @@
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 8,
+  "items": 9,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -207,11 +207,11 @@
   "error": "нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk_token (vk.com/editapp → Сервисный ключ доступа)"
  },
  "_meta": {
-  "last_run_utc": "2026-09-15T06:34:47.686233+00:00",
-  "last_run_local": "15.09.2026 10:34",
-  "fetched": 444,
-  "new": 15,
-  "total_store": 1605
+  "last_run_utc": "2026-09-15T06:54:40.497735+00:00",
+  "last_run_local": "15.09.2026 10:54",
+  "fetched": 436,
+  "new": 7,
+  "total_store": 1612
  },
  "rss:Улград": {
   "ok": true,
