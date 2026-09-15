@@ -464,8 +464,65 @@ class TestInfospaceW2(unittest.TestCase):
         items = [self._it("a", 2, text="Скидка по промокоду ГУДОК до конца недели"),
                  self._it("b", 3, text="Обычная новость без коммерции")]
         r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
-        self.assertEqual(r["promo_load"]["n"], 1)
-        self.assertAlmostEqual(r["promo_load"]["share"], 0.5, places=2)
+        pl = r["promo_load"]
+        self.assertEqual(pl["n"], 1)
+        self.assertAlmostEqual(pl["share"], 0.5, places=2)
+        self.assertEqual(pl["commercial"]["n"], 1)
+        self.assertEqual(pl["crosspromo"]["n"], 0)
+
+    def test_promo_legal_marking(self):
+        # erid и раскрытие «Реклама.» + ИНН — безусловный коммерческий сигнал (маркировка по 38-ФЗ)
+        items = [self._it("a", 2, text="В городе открыли экстрим-парк. erid: 2VfnxwLt8Yp"),
+                 self._it("b", 3, text="Роллы топ. Реклама. ООО «Меркурий». ИНН: 9729109919.")]
+        r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
+        plc = r["promo_load"]["commercial"]
+        self.assertEqual(plc["n"], 2)
+        self.assertEqual(plc["marked"], 2)
+
+    def test_promo_offer_frame(self):
+        # офертная рамка без легальной маркировки: «успей купить … от N ₽»
+        items = [self._it("a", 2, text="Только в сентябре успей купить по специальной цене от 3 290 000 ₽!")]
+        r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
+        plc = r["promo_load"]["commercial"]
+        self.assertEqual(plc["n"], 1)
+        self.assertEqual(plc["marked"], 0)
+
+    def test_promo_false_positives_gone(self):
+        # калибровка 15.09: сельхоз-«посевы» и новостной «персональный промокод» — не реклама
+        items = [self._it("a", 2, text="Хлопковая совка уничтожает посевы: до 20 гусениц на растение"),
+                 self._it("b", 3, text="Маркетплейс позволит запросить скидку до 35%: клиенту придёт "
+                                       "персональный промокод, который будет действовать 24 часа")]
+        r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
+        self.assertEqual(r["promo_load"]["n"], 0)
+
+    def test_promo_crosspromo_separate(self):
+        # приписка канала про MAX — кросс-промо, а не коммерческая интеграция
+        items = [self._it("a", 2, title="Звуки сирены в Ульяновске Плохо грузит? Читай в MAX max.ru/chpulsk")]
+        r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
+        pl = r["promo_load"]
+        self.assertEqual(pl["commercial"]["n"], 0)
+        self.assertEqual(pl["crosspromo"]["n"], 1)
+        self.assertEqual(pl["n"], 1)
+
+    def test_promo_xtail_flag(self):
+        # коллектор срезал приписку из текста — флаг xtail на записи сохраняет сигнал
+        it = self._it("a", 2, text="Чистый текст новости без хвоста")
+        it["xtail"] = True
+        r = analytics.build_infospace_w2([it], None, self.CFG_W2, registry=self.REG_W2)
+        pl = r["promo_load"]
+        self.assertEqual(pl["crosspromo"]["n"], 1)
+        self.assertEqual(pl["crosspromo"]["by_source"], {"press": 1})
+
+    def test_promo_native_channel_redirect(self):
+        # сторителл-нативка «берёт … в канале «BaggyBags»» — реклама;
+        # цитирование канала («жалуются…», «как сообщают пассажиры…») — новость
+        items = [self._it("a", 2, text="Оказалось, она берёт премиальные копии в канале «BaggyBags». Шьют из той же кожи."),
+                 self._it("b", 3, title="Ульяновцы массово жалуются на транспорт в канале «Инсайд Ульяновска»",
+                          text="После 20:00 транспорта практически нет."),
+                 self._it("c", 4, title="Водители, как сообщают пассажиры в канале «Инсайд Ульян…», хамят",
+                          text="Пассажиры недовольны.")]
+        r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
+        self.assertEqual(r["promo_load"]["commercial"]["n"], 1)
 
     def test_silent_groups(self):
         items = [self._it("a", 2, text="Врачи поликлиники №4 получили новое оборудование."),
@@ -474,3 +531,55 @@ class TestInfospaceW2(unittest.TestCase):
         names = [g["group"] for g in r["silent_groups"]]
         self.assertIn("медики", names)          # упомянуты, но не процитированы
         self.assertNotIn("рабочие и инженеры", names)  # получили прямую речь
+
+
+class TestPromoTailFlag(unittest.TestCase):
+    """Коллектор: флаг xtail сохраняет сигнал кросс-промо после срезания приписок."""
+
+    def _raw(self, **kw):
+        base = {"title": "Новость дня", "text": "В городе открыли новый парк.",
+                "url": "https://example.com/1", "published": "2026-09-14T10:00:00+00:00"}
+        base.update(kw)
+        return base
+
+    def test_xtail_passthrough_from_tg(self):
+        it = collector.normalize_item(CFG, self._raw(xtail=True))
+        self.assertTrue(it["xtail"])
+
+    def test_xtail_detected_in_rss_raw(self):
+        it = collector.normalize_item(CFG, self._raw(
+            text="В городе открыли новый парк. Читайте нас в МАКС max.ru/news73"))
+        self.assertTrue(it.get("xtail"))
+        self.assertNotIn("макс", it["text"].lower())   # хвост срезан
+        self.assertNotIn("max.ru", it["text"].lower())
+
+    def test_no_xtail_for_clean_item(self):
+        it = collector.normalize_item(CFG, self._raw())
+        self.assertNotIn("xtail", it)
+
+
+class TestPromoFilter(unittest.TestCase):
+    """Редакторский фильтр is_promo(): калибровка «в программе» и розыгрышей."""
+
+    def setUp(self):
+        import generate
+        self.generate = generate
+
+    def test_announce_with_colon_is_promo(self):
+        self.assertTrue(self.generate.is_promo(
+            {"title": "Открытие осеннего сезона в «Квартале»", "text": "В программе: в 16:00 — живая музыка"}))
+
+    def test_news_with_program_space_is_not_promo(self):
+        for t in ("Бизнес-делегация региона отправится в Беларусь. В программе посещение промышленных объектов Минска",
+                  "Начался рабочий визит Президента в Индию, в программе – беседа с Премьер-министром",
+                  "Двор выбрали по Программе поддержки местных инициатив-2027",
+                  "Мэр ответил на вопросы ульяновцев в программе «Первые лица» на ГТРК «Волга»"):
+            self.assertFalse(self.generate.is_promo({"title": t, "text": ""}), msg=t)
+
+    def test_ticket_raffle_is_promo(self):
+        self.assertTrue(self.generate.is_promo(
+            {"title": "РОЗЫГРЫШ БИЛЕТА на концерт Мураками в Ульяновске", "text": ""}))
+
+    def test_invitation_is_promo(self):
+        self.assertTrue(self.generate.is_promo(
+            {"title": "Приглашаем на выставку-продажу саженцев", "text": ""}))

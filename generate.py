@@ -722,7 +722,10 @@ ALERT_RE = re.compile(
 
 
 CASUALTY_RE = re.compile(r"погиб|пострада|ранен|убит|разруш|поврежд|сбит|упал|обломк", re.I)
-PROMO_RE = re.compile(r"(приглашаем|жд[её]м вас|приходите|в программе[:—\s]|анонс|открытие сезона)", re.I)
+# «в программе» — только с двоеточием/тиром (афишный формат «В программе: в 16:00 — …»);
+# вариант с пробелом давал ложняки на новостях: «в программе посещения Минска», «в программе
+# Президента», «в Программе поддержки местных инициатив», «в программе „Первые лица“ на ГТРК».
+PROMO_RE = re.compile(r"(приглашаем|жд[её]м вас|приходите|в программе\s*[:—]|анонс|открытие сезона|розыгрыш\w*\s+(?:билет\w*|приз\w*|подарк\w*|мест\w*))", re.I)
 
 
 def is_alert(it):
@@ -2612,6 +2615,8 @@ def render_infospace(cfg, trends, store, status, info):
 
         sp = w2.get("speech") or {}
         pl = w2.get("promo_load") or {}
+        plc = pl.get("commercial") or {}
+        plx = pl.get("crosspromo") or {}
         sg = w2.get("silent_groups") or []
         sg_chips = "".join(
             f'<span style="display:inline-block;border:1px solid var(--accent);color:var(--accent);font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;margin:0 6px 6px 0;">{esc(g["group"])} · упомянуты {g["mentioned"]}×, речи 0</span>'
@@ -2648,11 +2653,12 @@ def render_infospace(cfg, trends, store, status, info):
 <div style="display:flex;gap:26px;align-items:baseline;margin-bottom:8px;flex-wrap:wrap;">
 <div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{sp.get('official', '—')}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">цитат должностных лиц</span></div>
 <div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{sp.get('citizen', '—')}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">цитат жителей</span></div>
-<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_pct2(pl.get('share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">потока — промо и интеграции ({pl.get('n', 0)})</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_pct2(plc.get('share') if plc else pl.get('share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">потока — коммерческая реклама ({plc.get('n', pl.get('n', 0))}{f", с маркировкой {plc.get('marked', 0)}" if plc else ""})</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_pct2(plx.get('share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">потока — кросс-промо в MAX ({plx.get('n', 0)})</span></div>
 </div>
 <div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Немые группы — упомянуты, но не процитированы</div>
 {sg_chips}
-<div class="note">Прямая речь — атрибуция цитат «в кавычках» по маркерам в ±150 знаках («губернатор/министерство/администрация…» против «житель/рабочий/врач…»), оценка ориентировочная. Немые группы — этическое ядро раздела: о них пишут, но их речь в поле не попадает. Реклама — грубый классификатор (промокод/интеграция/посев/кросс-промо в MAX), калибровка — Волна 3.</div>
+<div class="note">Прямая речь — атрибуция цитат «в кавычках» по маркерам в ±150 знаках («губернатор/министерство/администрация…» против «житель/рабочий/врач…»), оценка ориентировочная. Немые группы — этическое ядро раздела: о них пишут, но их речь в поле не попадает. Реклама — классификатор, калиброванный по реальной базе (15.09): коммерческий класс = легальная маркировка (erid, «Реклама.» + ИНН, «на правах рекламы») или офертная рамка (промокод с кодом, «успей купить по … цене», «от N ₽», скидка N%, рекламные сокращатели ссылок); кросс-промо считается отдельно — это приписки каналов, уводящие аудиторию в MAX. Нативные интеграции без маркировки ловятся частично — оценка является нижней границей.</div>
 </div></div></div>
 </div>
 """

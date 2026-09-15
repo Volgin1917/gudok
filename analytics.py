@@ -940,9 +940,46 @@ OFFICIAL_X_RE = re.compile(
 CITIZEN_X_RE = re.compile(
     r"жител|горожан|селян|рабоч\w+|пенсионер|учител|врач|медик|студент|водитель|"
     r"многодетн|очевидц|местн\w+ жител", re.I)
-PROMO_AD_X_RE = re.compile(
-    r"промокод|скидк\w+ по промо|на правах рекламы|рекламн\w+ интеграц|посев|"
-    r"плохо грузит|читай в max|подпишись в max|наш канал в max", re.I)
+# Рекламная нагрузка — калибровка по реальной базе 15.09.2026 (вместо грубого PROMO_AD_X_RE).
+# Два независимых класса:
+# 1) Коммерческая реклама: (а) легальная маркировка по 38-ФЗ — erid, «Реклама.» + ИНН,
+#    «на правах рекламы», «рекламная интеграция»; (б) офертные рамки — промокод с кодом,
+#    «успей купить по … цене», цена «от N ₽», «скидкой N%», рассрочка в ₽, рекламные
+#    сокращатели ссылок (clck.ru/bit.ly/vk.cc). Сигнал «посев» исключён: сталкивается
+#    с сельскохозяйственной лексикой («совка уничтожает посевы»).
+# 2) Кросс-промо: приписки канала, уводящие в MAX/на второй канал («плохо грузит? читай в MAX»,
+#    «мы в МАКС», «наш канал в MAX»). Коллектор срезает такие хвосты из текста — сигнал
+#    сохраняется флагом xtail на записи (collector.normalize_item).
+# Известные границы: сторителл-нативка без маркировки ловится частично (сигнал «в канале «…»»
+# с оговоркой на цитирование) — оценка рекламной нагрузки является нижней границей.
+AD_MARK_X_RE = re.compile(
+    r"erid[:=\s]|на правах рекламы|рекламн\w+ интеграц|реклама\s*[.·]|инн[:\s]*\d{6,}", re.I)
+AD_OFFER_X_RE = re.compile(
+    r"по промокод\w+|промокод\w*\s*[—–:\-]?\s*[A-Za-z0-9]{4,}|"
+    r"clck\.ru|bit\.ly|vk\.cc/|"
+    r"успей\w*\s+(?:купить|забрать|заказать|оформить|подключить|перейти)|"
+    r"по (?:специальной|старой|выгодной|минимальной|низкой) цене|по минимальн\w+ цена\w+|"
+    r"всего (?:за|с|от)\s*\d+[\d\s.,]*(?:₽|руб)|от\s*\d[\d\s]{4,}(?:₽|руб)|"
+    r"рассрочк\w*\s*\d[\d\s]*(?:₽|руб)|скидкой\s*\d+\s*%|скидк\w+ по промо", re.I)
+AD_CROSSPROMO_X_RE = re.compile(
+    r"плохо грузит|max\.ru/\w+|"
+    r"(?:читай|читайте|подпишись|подписывайся|мы)\s*(?:нас\s*)?(?:теперь\s*)?в\s*(?:max|макс)\b|"
+    r"наш канал в\s*(?:max|макс)", re.I)
+# Нативный «посев»: перенаправление «в канале «Brand»» без журналистского цитирования.
+AD_CHANNEL_X_RE = re.compile(r"в\s+(?:телеграм[- ]?)?канале\s*«?\s*([A-Za-z@А-Яа-яЁё][\w \-]{1,40})")
+AD_CITED_X_RE = re.compile(
+    r"жалу\w+|сообщ\w+|написал\w*|рассказал\w*|появилось|опубликовал\w*|заявил\w*|"
+    r"говорят|обсужда\w+|читаем|увидели|узнали|по данным|опрос|объявил\w+|уточнил\w+", re.I)
+
+
+def ad_channel_promo(blob):
+    """Нативная реклама-перенаправление: «она берёт … в канале «BaggyBags»».
+    Не считается, если перед упоминанием канала — глагол цитирования («жалуются в канале …»)."""
+    for m in AD_CHANNEL_X_RE.finditer(blob):
+        ctx = blob[max(0, m.start() - 60):m.start()]
+        if not AD_CITED_X_RE.search(ctx):
+            return True
+    return False
 SOCIAL_GROUPS_EXT = dict(LABOR_GROUPS)
 SOCIAL_GROUPS_EXT.update({
     "пенсионеры": r"пенсионер\w+",
@@ -1047,16 +1084,38 @@ def build_infospace_w2(items, trends, cfg, registry=None):
     out["speech"] = {"official": official, "citizen": citizen,
                      "ratio": round(citizen / official, 2) if official else None}
 
-    # 4) рекламная нагрузка: коммерческие интеграции и кросс-промо
-    promo_n = 0
-    promo_by_tier = Counter()
+    # 4) рекламная нагрузка: коммерческая реклама против кросс-промо (калибровка 15.09)
+    com_n = cross_n = marked_n = total_n = 0
+    com_by_tier = Counter()
+    cross_by_tier = Counter()
+    total_by_tier = Counter()
+    cross_by_src = Counter()
     for it in week:
-        blob = (it.get("title") or "") + " " + (it.get("text") or "")[:400]
-        if PROMO_AD_X_RE.search(blob):
-            promo_n += 1
-            promo_by_tier[f"T{it['tier']}" if it.get("tier") else "СМИ/подборка"] += 1
-    out["promo_load"] = {"n": promo_n, "share": round(promo_n / len(week), 4),
-                         "by_tier": dict(promo_by_tier)}
+        blob = (it.get("title") or "") + " " + (it.get("text") or "")[:1200]
+        tier = f"T{it['tier']}" if it.get("tier") else "СМИ/подборка"
+        marked = bool(AD_MARK_X_RE.search(blob))
+        commercial = marked or bool(AD_OFFER_X_RE.search(blob)) or ad_channel_promo(blob)
+        cross = bool(it.get("xtail")) or bool(AD_CROSSPROMO_X_RE.search(blob))
+        if commercial:
+            com_n += 1
+            com_by_tier[tier] += 1
+            marked_n += marked
+        if cross:
+            cross_n += 1
+            cross_by_tier[tier] += 1
+            cross_by_src[str(it.get("channel") or it.get("source") or "?")] += 1
+        if commercial or cross:
+            total_n += 1
+            total_by_tier[tier] += 1
+    out["promo_load"] = {
+        "n": total_n, "share": round(total_n / len(week), 4),
+        "by_tier": dict(total_by_tier),
+        "commercial": {"n": com_n, "share": round(com_n / len(week), 4),
+                       "marked": marked_n, "by_tier": dict(com_by_tier)},
+        "crosspromo": {"n": cross_n, "share": round(cross_n / len(week), 4),
+                       "by_tier": dict(cross_by_tier),
+                       "by_source": dict(cross_by_src.most_common(5))},
+    }
 
     # 5) немые группы: кого за неделю ни разу не процитировали
     silent = []

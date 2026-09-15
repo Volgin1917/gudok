@@ -67,6 +67,8 @@ TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")
 CHANNEL_TAIL_X = ""
 PROMO_TAIL_RE = re.compile(r"(?is)\s*(плохо грузит|читай в max|подпишись в max|max\.ru/|наш канал в max|👍 [^|]{0,40}\| наш канал).*$")
+# приписки «мы в МАКС / читайте нас в МАКС / подпишись» — тоже кросс-промо-хвост (срезается)
+SELF_PROMO_TAIL_RE = re.compile(r"(?is)\s*(подписаться\s*\|\s*прислать|прислать новость|мы в макс|читайте нас в макс|подпишись).*$")
 EMOJI_STRIP_RE = re.compile("[\U0001F000-\U0001FAFF\U00002600-\U000027BF\U0001F1E6-\U0001F1FF\uFE0F\u200D\u203C\u2049\u2B50\u2705\u274C\u2764]+")
 
 
@@ -127,7 +129,7 @@ def clean_text(s, maxlen=600):
     s = htmlmod.unescape(s)
     s = TAG_RE.sub(" ", s)
     s = PROMO_TAIL_RE.sub("", s)
-    s = re.sub(r"(?is)\s*(подписаться\s*\|\s*прислать|прислать новость|мы в макс|читайте нас в макс|подпишись).*$", "", s)
+    s = SELF_PROMO_TAIL_RE.sub("", s)
     s = WS_RE.sub(" ", s).strip()
     if len(s) > maxlen:
         s = clip_sentences(s, maxlen)
@@ -180,6 +182,11 @@ def classify(cfg, title, text):
 
 def normalize_item(cfg, raw):
     """Сырая запись -> нормализованный элемент базы (или None, если это мусор)."""
+    # кросс-промо-хвост (MAX/«подпишись») будет срезан clean_text — фиксируем флагом:
+    # для TG он приходит из parse_tg_page, для RSS ищем в сыром title/text
+    raw_blob = f"{raw.get('title') or ''} {raw.get('text') or ''}"[:4000]
+    xtail = bool(raw.get("xtail")) or bool(PROMO_TAIL_RE.search(raw_blob)) \
+        or bool(SELF_PROMO_TAIL_RE.search(raw_blob))
     title = clean_text(raw.get("title", ""), 220) or "(без заголовка)"
     text = clean_text(raw.get("text", ""), cfg["settings"]["max_text_len"])
     text = strip_title_lead(text, title)
@@ -193,7 +200,7 @@ def normalize_item(cfg, raw):
     key = url if url else f"{title}|{pub}"
     item_id = hashlib.sha1(key.encode("utf-8")).hexdigest()[:16]
     category, topics = classify(cfg, title, text)
-    return {
+    item = {
         "id": item_id,
         "source_type": raw.get("source_type", "rss"),   # rss | tg | seed
         "source": raw.get("source", "?"),
@@ -209,6 +216,9 @@ def normalize_item(cfg, raw):
         "tier": raw.get("tier"),
         "photo": raw.get("photo"),
     }
+    if xtail:
+        item["xtail"] = True
+    return item
 
 
 # ---------------------------------------------------------------- store
@@ -339,6 +349,8 @@ def parse_tg_page(page_html, username):
             continue  # сервисные сообщения ("Channel created" и т.п.)
         raw_txt = m_txt.group(1)
         raw_txt = re.sub(r"<br\s*/?>", "\n", raw_txt)
+        # кросс-промо-хвост будет срезан clean_text — фиксируем флагом для метрики «рекламная нагрузка»
+        xtail = bool(PROMO_TAIL_RE.search(raw_txt) or SELF_PROMO_TAIL_RE.search(raw_txt))
         m_dt = re.search(r'tgme_widget_message_date[^>]*>\s*<time[^>]*datetime="([^"]+)"', chunk) \
             or re.search(r'<time[^>]*datetime="([^"]+)"', chunk)
         m_views = re.search(r'tgme_widget_message_views[^>]*>([^<]+)<', chunk)
@@ -355,6 +367,7 @@ def parse_tg_page(page_html, username):
             "published": m_dt.group(1) if m_dt else None,
             "views": parse_views(m_views.group(1) if m_views else None),
             "photo": (m_ph.group(1) if m_ph else None),
+            "xtail": xtail,
         })
     return posts
 
@@ -393,7 +406,7 @@ def collect_telegram(cfg, status, pages=None, quiet=False):
                     "source_type": "tg", "source": f"t.me/{username}",
                     "channel": username, "url": p["url"], "title": p["title"],
                     "text": p["text"], "published": p["published"], "views": p["views"],
-                    "tier": ch.get("tier", 2),
+                    "tier": ch.get("tier", 2), "xtail": p.get("xtail"),
                 })
                 if item:
                     added.append(item)
