@@ -29,7 +29,7 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 30,
+  "items": 32,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -41,7 +41,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Репортёр73"
  },
@@ -77,13 +77,13 @@
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 17,
+  "items": 16,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 13,
+  "items": 14,
   "error": null,
   "title": "ЧП Ульяновск"
  },
@@ -95,7 +95,7 @@
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 16,
+  "items": 15,
   "error": null,
   "title": "Топор Ульяновск"
  },
@@ -107,19 +107,19 @@
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 8,
+  "items": 9,
   "error": null,
   "title": "Типичный Димитровград"
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 16,
+  "items": 15,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
  "tg:chpul": {
   "ok": true,
-  "items": 14,
+  "items": 13,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
@@ -137,7 +137,7 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 10,
+  "items": 9,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -167,7 +167,7 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 13,
+  "items": 12,
   "error": null,
   "title": "Компромат Ульяновск"
  },
@@ -179,7 +179,7 @@
  },
  "tg:ulpromo": {
   "ok": true,
-  "items": 9,
+  "items": 10,
   "error": null,
   "title": "Движ в любимом У"
  },
@@ -202,11 +202,11 @@
   "title": "ПАО «ОАК»"
  },
  "_meta": {
-  "last_run_utc": "2026-09-14T20:34:06.653468+00:00",
-  "last_run_local": "15.09.2026 00:34",
-  "fetched": 443,
-  "new": 6,
-  "total_store": 1506
+  "last_run_utc": "2026-09-15T03:58:45.607901+00:00",
+  "last_run_local": "15.09.2026 07:58",
+  "fetched": 438,
+  "new": 19,
+  "total_store": 1525
  },
  "rss:Улград": {
   "ok": true,

@@ -1,14 +1,14 @@
 {
- "generated_local": "15.09.2026 07:57",
- "week_items": 1409,
- "week_primaries": 1156,
- "week_dups": 253,
+ "generated_local": "15.09.2026 08:01",
+ "week_items": 1428,
+ "week_primaries": 1169,
+ "week_dups": 259,
  "metrics": {
   "original_share": 82,
   "concentration_top3": 26,
-  "avg_cascade": 2.6,
+  "avg_cascade": 2.7,
   "muni_coverage": 100,
-  "tone_volatility": 0.1,
+  "tone_volatility": 0.07,
   "alert_share": 22
  },
  "natproj": {
@@ -169,31 +169,31 @@
   ]
  },
  "by_type": {
-  "tg": 1203,
+  "tg": 1220,
   "seed": 45,
-  "rss": 161
+  "rss": 163
  },
  "by_tier": {
-  "T1": 345,
-  "T2": 691,
-  "T3": 167,
-  "СМИ/подборка": 206
+  "T1": 349,
+  "T2": 702,
+  "T3": 169,
+  "СМИ/подборка": 208
  },
  "orig_by_tier": {
   "T1": {
-   "total": 345,
+   "total": 349,
    "original": 0.84
   },
   "T2": {
-   "total": 691,
+   "total": 702,
    "original": 0.77
   },
   "T3": {
-   "total": 167,
-   "original": 0.81
+   "total": 169,
+   "original": 0.82
   },
   "СМИ/подборка": {
-   "total": 206,
+   "total": 208,
    "original": 0.96
   }
  },
@@ -204,7 +204,7 @@
   ],
   [
    "ulpressa",
-   20
+   21
   ],
   [
    "tresh_ulyan",
@@ -216,15 +216,15 @@
   ],
   [
    "insaid173",
-   7
+   8
   ],
   [
    "ulkompr",
-   7
+   8
   ],
   [
    "chpul",
-   7
+   8
   ],
   [
    "topor_ul",
@@ -233,7 +233,7 @@
  ],
  "cascades": [
   {
-   "size": 19,
+   "size": 20,
    "title": "В Ульяновской области снят режим \"Беспилотная опасность\" Мы в Telegram | Мы в MAX",
    "source": "ulpressa",
    "also": [
@@ -243,6 +243,18 @@
     "t.me/dimitrovgradd"
    ],
    "url": "https://t.me/ulpressa/74455"
+  },
+  {
+   "size": 9,
+   "title": "В аэропорту Ульяновска введены временные ограничения на прием и выпуск воздушных судов.",
+   "source": "ulpressa",
+   "also": [
+    "t.me/chpul",
+    "t.me/chpulsk",
+    "t.me/reporter73",
+    "t.me/ulkoroche"
+   ],
+   "url": "https://t.me/ulpressa/74638"
   },
   {
    "size": 7,
@@ -287,23 +299,13 @@
     "t.me/tresh_ulyan"
    ],
    "url": "https://t.me/tresh_ulyan/56139"
-  },
-  {
-   "size": 5,
-   "title": "Открытие осеннего сезона в «Квартале» 🍁 В программе: в 16:00 — живое джазовое выступление, в 18:00 —",
-   "source": "ProNovosty73",
-   "also": [
-    "t.me/ProNovosty73",
-    "t.me/culturnik"
-   ],
-   "url": "https://t.me/ProNovosty73/5904"
   }
  ],
  "tone_by_tier": {
-  "T1": 0.195,
-  "T2": 0.059,
-  "T3": 0.165,
-  "СМИ/подборка": 0.054
+  "T1": 0.2,
+  "T2": 0.058,
+  "T3": 0.173,
+  "СМИ/подборка": 0.064
  },
  "federal_share": 0.48,
  "municipal": {
@@ -353,7 +355,7 @@
   173,
   195,
   320,
-  3
+  22
  ],
  "days": [
   "2026-09-02",
@@ -419,13 +421,13 @@
   },
   {
    "date": "2026-09-11",
-   "score": 0.03,
-   "n": 295
+   "score": 0.034,
+   "n": 293
   },
   {
    "date": "2026-09-12",
-   "score": 0.066,
-   "n": 143
+   "score": 0.074,
+   "n": 142
   },
   {
    "date": "2026-09-13",
@@ -439,27 +441,27 @@
   },
   {
    "date": "2026-09-15",
-   "score": 0.333,
-   "n": 3
+   "score": 0.228,
+   "n": 19
   }
  ],
  "wow": {
-  "this": 1409,
+  "this": 1428,
   "prev": 56,
-  "delta": 2416
+  "delta": 2450
  },
  "topic_wow": [
   {
    "name": "Суды и криминал",
-   "this": 212,
+   "this": 216,
    "prev": 17,
-   "delta": 1147
+   "delta": 1171
   },
   {
    "name": "Транспорт и дороги",
-   "this": 207,
+   "this": 213,
    "prev": 15,
-   "delta": 1280
+   "delta": 1320
   },
   {
    "name": "Школы и вузы",
@@ -481,9 +483,9 @@
   },
   {
    "name": "Культура и туризм",
-   "this": 126,
+   "this": 127,
    "prev": 23,
-   "delta": 448
+   "delta": 452
   },
   {
    "name": "Городская среда",
@@ -499,16 +501,16 @@
   }
  ],
  "conclusions": [
-  "Резко усилились темы: «Суды и криминал» (+1147%), «Транспорт и дороги» (+1280%), «Школы и вузы» (+1262%).",
-  "За 7 дней поток составил 1409 сообщений, из них оригинальных (не перепечаток) — 82%.",
-  "Повестку задают: Улпресса (первичен в 27 каскадах), ulpressa (первичен в 20 каскадах), tresh_ulyan (первичен в 20 каскадах).",
-  "Крупнейший каскад недели — «В Ульяновской области снят режим \"Беспилотная опасность\" Мы в Telegram» (×19 источников).",
+  "Резко усилились темы: «Суды и криминал» (+1171%), «Транспорт и дороги» (+1320%), «Школы и вузы» (+1262%).",
+  "За 7 дней поток составил 1428 сообщений, из них оригинальных (не перепечаток) — 82%.",
+  "Повестку задают: Улпресса (первичен в 27 каскадах), ulpressa (первичен в 21 каскадах), tresh_ulyan (первичен в 20 каскадах).",
+  "Крупнейший каскад недели — «В Ульяновской области снят режим \"Беспилотная опасность\" Мы в Telegram» (×20 источников).",
   "Федеральное эхо: 48% оригинальных сообщений не про регион напрямую.",
   "На грани видимости (1–2 упоминания): Новоульяновск, Николаевский р-н, Старокулаткинский р-н, Старомайнский р-н, Тереньгульский р-н, Ульяновский р-н."
  ],
  "w1": {
-  "generated_local": "15.09.2026 07:57",
-  "week_items": 1409,
+  "generated_local": "15.09.2026 08:01",
+  "week_items": 1428,
   "matrix": {
    "cats": [
     {
@@ -703,14 +705,14 @@
   },
   "rhythm": {
    "weekday": [
-    18,
-    3,
+    20,
+    6,
     0,
     1,
     1,
-    8,
-    8,
-    18,
+    11,
+    11,
+    26,
     36,
     73,
     86,
@@ -754,8 +756,8 @@
     10,
     6
    ],
-   "night_share": 0.033,
-   "weekend_share": 0.261
+   "night_share": 0.039,
+   "weekend_share": 0.258
   },
   "cascade_time": {
    "n": 157,
@@ -801,7 +803,7 @@
   "tli": {
    "groups": {
     "рабочие и инженеры": {
-     "mentioned": 92,
+     "mentioned": 93,
      "speaks": 6,
      "share": 0.065
     },
@@ -811,14 +813,14 @@
      "share": 0.174
     },
     "медики": {
-     "mentioned": 37,
+     "mentioned": 38,
      "speaks": 0,
      "share": 0.0
     },
     "водители и транспортники": {
-     "mentioned": 104,
+     "mentioned": 106,
      "speaks": 12,
-     "share": 0.115
+     "share": 0.113
     },
     "селяне и фермеры": {
      "mentioned": 8,
@@ -831,57 +833,57 @@
      "share": 0.158
     }
    },
-   "mentioned": 283,
+   "mentioned": 287,
    "speaks": 26,
-   "index": 0.092,
+   "index": 0.091,
    "verdict": "труд невидим"
   },
   "emoji": {
    "T1": {
-    "total": 345,
-    "with_emoji": 0.545
+    "total": 349,
+    "with_emoji": 0.539
    },
    "T2": {
-    "total": 691,
+    "total": 702,
     "with_emoji": 0.625
    },
    "T3": {
-    "total": 167,
-    "with_emoji": 0.323
+    "total": 169,
+    "with_emoji": 0.331
    },
    "СМИ/подборка": {
-    "total": 206,
+    "total": 208,
     "with_emoji": 0.0
    }
   },
   "budget_voice": {
-   "t1_share_flow": 0.245,
+   "t1_share_flow": 0.244,
    "t1_share_primaries": 0.25,
-   "echo_of_t1": 0.364,
-   "echo_n": 92,
-   "dups_n": 253
+   "echo_of_t1": 0.386,
+   "echo_n": 100,
+   "dups_n": 259
   },
   "bureaucratese": {
    "by_tier": {
     "T1": {
-     "total": 345,
+     "total": 349,
      "with_marker": 16,
      "share": 0.046
     },
     "T2": {
-     "total": 691,
+     "total": 702,
      "with_marker": 14,
      "share": 0.02
     },
     "T3": {
-     "total": 167,
+     "total": 169,
      "with_marker": 2,
      "share": 0.012
     },
     "СМИ/подборка": {
-     "total": 206,
+     "total": 208,
      "with_marker": 20,
-     "share": 0.097
+     "share": 0.096
     }
    },
    "top_markers": [
@@ -951,17 +953,17 @@
     },
     {
      "date": "2026-09-15",
-     "share": 0.0,
-     "n": 3,
-     "sec": 0
+     "share": 0.364,
+     "n": 22,
+     "sec": 8
     }
    ],
-   "avg": 0.175,
-   "verdict": "повышенный фон"
+   "avg": 0.227,
+   "verdict": "высокая тревожность"
   },
   "zhkh": {
    "n": 42,
-   "share": 0.03,
+   "share": 0.029,
    "tone": 0.112,
    "top_sources": [
     [
@@ -981,28 +983,28 @@
   "federal_by_source": [
    {
     "source": "Улпресса",
-    "n": 148,
+    "n": 150,
     "fed_share": 0.29
    },
    {
     "source": "ulpressa",
-    "n": 85,
-    "fed_share": 0.55
+    "n": 88,
+    "fed_share": 0.53
    },
    {
     "source": "tresh_ulyan",
-    "n": 81,
-    "fed_share": 0.79
+    "n": 82,
+    "fed_share": 0.78
    },
    {
     "source": "ulyanovsk_smi",
-    "n": 66,
-    "fed_share": 0.44
+    "n": 67,
+    "fed_share": 0.45
    },
    {
     "source": "topor_ul",
-    "n": 46,
-    "fed_share": 0.61
+    "n": 47,
+    "fed_share": 0.6
    },
    {
     "source": "fcvolga",
@@ -1010,18 +1012,18 @@
     "fed_share": 0.82
    },
    {
-    "source": "ulsk_on",
-    "n": 42,
-    "fed_share": 0.62
+    "source": "insaid173",
+    "n": 43,
+    "fed_share": 0.51
    },
    {
     "source": "chpul",
-    "n": 41,
-    "fed_share": 0.68
+    "n": 42,
+    "fed_share": 0.67
    }
   ],
   "rural_index": {
-   "agenda_share": 0.073,
+   "agenda_share": 0.072,
    "pop_share": 0.349,
    "index": 0.21,
    "hits": 103,
