@@ -3079,20 +3079,20 @@ def render_infospace(cfg, trends, store, status, info):
 <div style="display:flex;gap:26px;align-items:baseline;margin-bottom:10px;flex-wrap:wrap;">
 <div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_p4(dd.get('original_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">оригинальность недели при пороге Жаккара {dd.get('threshold')} (пересчёт, {dd.get('n_items', 0)} сообщ.)</span></div>
 <div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;color:var(--accent);">±{dd.get('spread_pp', 0) / 2:.1f} п.п.</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">чувствительность к порогу: {_p4(rng[0])}…{_p4(rng[1])} на порогах 0.30–0.60</span></div>
-<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_p4(dd.get('suspicious_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">дублей — сомнительные склейки ({dd.get('suspicious_dups', 0)} из {dd_dups})</span></div>
-<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_p4(dd.get('corrected_original_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">оригинальность без сомнительных склеек</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{sum((dd.get('blocked_by_guards') or {}).values())}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">склеек заблокировано охранными правилами; остаточных дефектов {dd.get('suspicious_dups', 0)} из {dd_dups} дублей</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_p4(dd.get('corrected_original_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">оригинальность, если не склеивать и повторы своего канала</span></div>
 </div>
 <div class="grid2">
 <div><div style="margin:0 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Пороговый эксперимент</div>
 <div style="overflow-x:auto;"><table class="tbl"><tr><th>Порог</th><th style="text-align:right;">кластеров</th><th style="text-align:right;">дублей</th><th style="text-align:right;">оригинальность</th><th style="text-align:right;">макс. кластер</th></tr>{sw_rows}</table></div></div>
-<div><div style="margin:0 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Из чего складываются сомнительные склейки</div>
-{_bars4([('кластеры-«эпизоды» (>24 ч)', dd.get('episode_dups', 0), f"{dd.get('episode_dups', 0)} дублей · {dd.get('episode_clusters', 0)} класт."), ('режим введён ↔ режим снят', dd.get('antagonistic_dups', 0), f"{dd.get('antagonistic_dups', 0)} дублей · антагонизм"), ('повтор внутри одного источника', dd.get('same_source_dups', 0), f"{dd.get('same_source_dups', 0)} дублей · каскада нет"), ('служебные формуляры', dd.get('service_dups', 0), f"{dd.get('service_dups', 0)} дублей · погода, оповещения")], color='#B4795A')}
+<div><div style="margin:0 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Охранные правила dedup.py: что заблокировано на этой неделе</div>
+{_bars4([('заблокировано охранными правилами', sum((dd.get('blocked_by_guards') or {}).values()), ' · '.join(f'{k} {v}' for k, v in (dd.get('blocked_by_guards') or {}).items()) or 'нет'), ('остаточный брак (длинные кластеры)', dd.get('suspicious_dups', 0), f"{dd.get('suspicious_dups', 0)} дублей · дословных повторов {dd.get('episode_verbatim_dups', 0)}"), ('остаточный антагонизм', dd.get('antagonistic_dups', 0), f"{dd.get('antagonistic_dups', 0)} дублей"), ('повтор своего канала (склеен намеренно)', dd.get('same_source_dups', 0), f"{dd.get('same_source_dups', 0)} дублей · вне каскадов")], color='#B4795A')}
 <div style="font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:6px;">Медианная жизнь кластера — {dd.get('median_span_h')} ч; пограничных пар (±0.07 от порога) — {dd.get('borderline_pairs', 0)}.</div>
 {ant_ex}</div>
 </div>
 <div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Контрольная выборка пограничных пар — на ручную верификацию</div>
 {dd_smp or '<div class="note">Пограничных пар нет.</div>'}
-<div class="note"><b>Метод.</b> Одни и те же пары недели пересчитаны при порогах Жаккара 0.30–0.60 (в конвейере — {dd.get('threshold')} из config.json): виден размах доли оригинальности, то есть цена выбора порога. Сомнительные склейки ищутся тремя независимыми признаками: кластер растянут более чем на 24 ч (склеены разные эпизоды одного формуляра), пара антагонистична («Ракетная опасность» ↔ «Снят режим»), дубль принадлежит тому же источнику, что и первичный материал (повтор, а не перепечатка — каскада нет). Признаки пересекаются, поэтому их сумма больше итога. <b>Вывод недели.</b> {esc(dd.get('verdict', '—'))}. <b>Что делать.</b> Три правки dedup.py устраняют большую часть брака без потери настоящих каскадов: не склеивать публикации с разбросом больше 24 ч, запретить склейку антагонистичных формуляров (введено/снято), не считать дубли внутри одного источника каскадом перепечаток. Правки подготовлены как предложение редакции — до включения цифра «оригинальности» публикуется с оговоркой о диапазоне.</div>
+<div class="note"><b>Метод.</b> Одни и те же пары недели пересчитаны при порогах Жаккара 0.30–0.60 (в конвейере — {dd.get('threshold')} из config.json), в двух режимах: с охранными правилами dedup.py и без них — видна и цена выбора порога, и эффект правил. <b>Охранные правила (включены 15.09 по итогам этой метрики).</b> (1) Антагонистичные формуляры не склеиваются никогда: «Ракетная опасность» и «Снят режим „Ракетная опасность“» — противоположные сообщения, а не перепечатки. (2) Служебные формуляры (оповещения о режимах, прогноз погоды) склеиваются только в пределах {(dd.get('policy') or {}).get('dedup_service_span_h', 6)} ч — текст у них идентичен сутки за сутками. (3) Обычные материалы — в пределах {(dd.get('policy') or {}).get('dedup_max_span_h', 24)} ч (медианная жизнь каскада — часы), кроме дословных повторов с Жаккаром ≥ {(dd.get('policy') or {}).get('dedup_verbatim_jaccard', 0.85)}. (4) Повтор внутри собственного канала остаётся склеенным ради чистоты ленты, но помечается <code>same_source</code> и не попадает ни в «🔁 также сообщили», ни в каскады: в метриках считается <code>cluster_src</code> — число независимых источников. <b>Вывод недели.</b> {esc(dd.get('verdict', '—'))}. Остаточные дефекты (длинные кластеры, антагонизм) после включения правил должны держаться около нуля — блок теперь работает как контроль качества, а не как описание брака. Контрольная выборка пограничных пар (±0.07 от порога) — для ручной верификации редакцией.</div>
 </div></div></div>
 """
 
@@ -3558,8 +3558,11 @@ def render_monthly(cfg, trends, store, status, ym):
     src_c = Counter(it.get("channel") or it.get("source") or "?" for it in all_m)
     top3 = sum(n for _, n in src_c.most_common(3))
     conc = round(top3 / volume * 100) if volume else 0
-    casc = sorted([it for it in prim if it.get("cluster") and it["cluster"] >= 2],
-                  key=lambda x: -x["cluster"])[:6]
+    def csrc(it):
+        """Независимых источников в каскаде (cluster_src после правок dedup 15.09)."""
+        return it.get("cluster_src") or it.get("cluster") or 0
+
+    casc = sorted([it for it in prim if csrc(it) >= 2], key=lambda x: -csrc(x))[:6]
     # тон: по дням и по неделям
     day_tone = {}
     for it in prim:
@@ -3629,7 +3632,7 @@ def render_monthly(cfg, trends, store, status, ym):
         f'<div style="width:90px;font-size:11.5px;color:var(--muted);">{w["n"]} · тон {w["tone"] if w["tone"] is not None else "—"}</div></div>'
         for w in weeks)
     casc_rows = "".join(
-        f'<div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×{c["cluster"]}</b><span>ист.</span></div>'
+        f'<div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×{csrc(c)}</b><span>ист.</span></div>'
         f'<div style="flex:1;"><a href="{esc(c.get("url") or "#")}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">{esc(clip_words(c["title"],100))}</a>'
         f'<div style="font-size:11.3px;color:var(--muted);">{(pdate(c) or now):%d.%m} · {esc(c.get("source",""))}</div></div></div>'
         for c in casc) or '<div class="now-line">Каскадов за месяц не зафиксировано.</div>'
@@ -3648,7 +3651,7 @@ def render_monthly(cfg, trends, store, status, ym):
         f"Объём инфопотока за месяц: {volume} сообщений, оригинальных {orig}%.",
         f"Концентрация источников: топ-3 дают {conc}% потока.",
         f"Средний тон месяца: {tone_avg:+.2f}." + (" Повестка эмоционально умеренная." if abs(tone_avg) < 0.2 else ""),
-        f"Крупнейший каскад: ×{casc[0]['cluster']} («{casc[0]['title'][:60]}»)." if casc else "Каскадов нет.",
+        f"Крупнейший каскад: ×{csrc(casc[0])} независимых источников («{casc[0]['title'][:60]}»)." if casc else "Каскадов нет.",
         f"Территорий с упоминаниями: {len(muni_rows)} из {len(cfg.get('municipalities') or {})}; "
         f"свой голос — у {sum(1 for _, _, o in muni_rows if o)}.",
     ]
@@ -3675,7 +3678,7 @@ def render_monthly(cfg, trends, store, status, ym):
 <div class="kpi green"><div class="num">{orig}<small>%</small></div><div class="lbl">оригинальных</div></div>
 <div class="kpi"><div class="num">{conc}<small>%</small></div><div class="lbl">концентрация топ-3</div></div>
 <div class="kpi violet"><div class="num">{tone_avg:+.2f}</div><div class="lbl">средний тон</div></div>
-<div class="kpi red"><div class="num">{casc[0]['cluster'] if casc else 0}</div><div class="lbl">макс. каскад</div></div>
+<div class="kpi red"><div class="num">{csrc(casc[0]) if casc else 0}</div><div class="lbl">макс. каскад (независимых источников)</div></div>
 <div class="kpi gold"><div class="num">{len(muni_rows)}</div><div class="lbl">территорий в повестке</div></div>
 </div>
 

@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 18:02",
+ "generated_local": "15.09.2026 18:19",
  "calendar": [
   {
    "etype": "sport",
@@ -623,7 +623,7 @@
    "primary": 110,
    "dup": 27,
    "repost_rate": 0.2,
-   "views_median": 1210,
+   "views_median": 1200,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -692,9 +692,9 @@
    "tier": 1,
    "type": "tg",
    "total": 66,
-   "primary": 55,
-   "dup": 11,
-   "repost_rate": 0.17,
+   "primary": 56,
+   "dup": 10,
+   "repost_rate": 0.15,
    "views_median": 220,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -764,9 +764,9 @@
    "tier": 2,
    "type": "tg",
    "total": 48,
-   "primary": 42,
-   "dup": 6,
-   "repost_rate": 0.12,
+   "primary": 41,
+   "dup": 7,
+   "repost_rate": 0.15,
    "views_median": 1210,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -848,9 +848,9 @@
    "tier": 2,
    "type": "tg",
    "total": 34,
-   "primary": 26,
-   "dup": 8,
-   "repost_rate": 0.24,
+   "primary": 27,
+   "dup": 7,
+   "repost_rate": 0.21,
    "views_median": 366,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -896,10 +896,10 @@
    "tier": 1,
    "type": "tg",
    "total": 26,
-   "primary": 21,
-   "dup": 5,
-   "repost_rate": 0.19,
-   "views_median": 2430,
+   "primary": 20,
+   "dup": 6,
+   "repost_rate": 0.23,
+   "views_median": 2490,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },

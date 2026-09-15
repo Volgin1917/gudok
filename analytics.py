@@ -95,6 +95,14 @@ POS = ("откр", "запуск", "запустил", "побед", "выигр
        "сертификат", "первых", "передов", "качествен")
 
 
+def cascade_sources(it):
+    """Число НЕЗАВИСИМЫХ источников в каскаде перепечаток.
+    После правок dedup.py (15.09, Волна 4) первичный материал несёт cluster_src —
+    сколько разных источников сообщили о сюжете; повторы внутри собственного канала
+    в каскад не засчитываются. Для старых записей без поля — общее число участников."""
+    return it.get("cluster_src") or it.get("cluster") or 0
+
+
 def _local_dt(iso):
     try:
         return datetime.fromisoformat(iso).astimezone(UTC4)
@@ -454,12 +462,13 @@ def build_infospace(items, trends, cfg):
     setters = Counter()
     cascades = []
     for it in primaries:
-        if it.get("cluster") and it["cluster"] >= 2:
+        if cascade_sources(it) >= 2:
             setters[it.get("channel") or it.get("source") or "?"] += 1
-            cascades.append({"size": it["cluster"], "title": it["title"][:100],
+            cascades.append({"size": it["cluster"], "sources": cascade_sources(it),
+                             "title": it["title"][:100],
                              "source": it.get("channel") or it.get("source"),
                              "also": it.get("also_in", [])[:4], "url": it.get("url") or ""})
-    cascades.sort(key=lambda c: -c["size"])
+    cascades.sort(key=lambda c: (-c.get("sources", c["size"]), -c["size"]))
 
     # --- оригинальность по уровням
     orig_by_tier = {}
@@ -605,7 +614,7 @@ def build_infospace(items, trends, cfg):
     src_counter_all = Counter(it.get("channel") or it.get("source") or "?" for it in week)
     top3 = sum(n for _, n in src_counter_all.most_common(3))
     concentration = round(top3 / len(week) * 100) if week else 0
-    casc_sizes = [it["cluster"] for it in primaries if it.get("cluster") and it["cluster"] >= 2]
+    casc_sizes = [cascade_sources(it) for it in primaries if cascade_sources(it) >= 2]
     avg_cascade = round(sum(casc_sizes) / len(casc_sizes), 1) if casc_sizes else 0
     muni_total = len(cfg.get("municipalities") or {})
     muni_cov = round((muni_total - len(silent)) / muni_total * 100) if muni_total else 0
@@ -885,7 +894,7 @@ def build_infospace_ext(items, trends, cfg):
     by_id = {it.get("id"): it for it in week}
     spans = []
     for it in primaries:
-        cl = it.get("cluster") or 0
+        cl = cascade_sources(it)
         if cl < 2:
             continue
         times = []
@@ -2056,7 +2065,7 @@ def frame_map(items):
 
     clusters = []
     for it in week:
-        if not it.get("cluster") or it["cluster"] < 2 or it.get("dup_of"):
+        if cascade_sources(it) < 2 or it.get("dup_of"):
             continue
         members = [it] + [d for d in week if d.get("dup_of") == it.get("id")]
         if len(members) < 2:
@@ -2259,6 +2268,12 @@ def _src_key(it):
     return str(it.get("channel") or it.get("source") or "?")
 
 
+def span_h(a, b):
+    """Расстояние между публикациями в часах — делегируем dedup.py (единые правила)."""
+    import dedup as _dedup
+    return _dedup.span_h(a, b)
+
+
 def _antagonistic(a, b):
     """True, если одно сообщение вводит режим/ограничение, а второе его снимает.
     Текст отмены сам содержит слово «опасность», поэтому признак ввода гасится
@@ -2290,8 +2305,13 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
     since = now - timedelta(days=days)
     live = [it for it in items if _local_dt(it.get("published"))]
     week = [it for it in live if _local_dt(it["published"]) >= since]
-    thr_cfg = ((cfg or {}).get("settings") or {}).get("dedup_threshold", 0.45)
-    out = {"n_items": len(week), "threshold": thr_cfg, "days": days}
+    settings = (cfg or {}).get("settings") or {}
+    dcfg = dict(_dedup.DEFAULTS)
+    dcfg.update({k: settings[k] for k in _dedup.DEFAULTS if k in settings})
+    thr_cfg = dcfg["dedup_threshold"]
+    out = {"n_items": len(week), "threshold": thr_cfg, "days": days,
+           "policy": {k: dcfg[k] for k in ("dedup_max_span_h", "dedup_service_span_h",
+                                           "dedup_verbatim_jaccard")}}
     if len(week) < 5:
         return out
 
@@ -2300,7 +2320,8 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
         toks, _raw = _dedup.tokens(it)
         feats.append((toks, None, _dedup.title_core(it)))
     n = len(week)
-    edges = []            # (i, j, jaccard)
+    edges = []            # (i, j, jaccard, разрешено_охранными_правилами)
+    blocked = Counter()
     for i in range(n):
         ti = feats[i][0]
         if not ti:
@@ -2313,13 +2334,18 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
             if not inter:
                 continue
             jacc = inter / len(ti | tj)
-            if jacc >= min_jaccard:
-                edges.append((i, j, jacc))
+            if jacc < min_jaccard:
+                continue
+            ok, why = _dedup.mergeable(feats[i], feats[j], week[i], week[j],
+                                       min_jaccard, dcfg)
+            if not ok and why:
+                blocked[why] += 1
+            edges.append((i, j, jacc, ok or not why))
 
-    def clusters_at(thr):
+    def clusters_at(thr, guards=True):
         dsu = _dedup.DSU(n)
-        for i, j, jacc in edges:
-            if jacc >= thr:
+        for i, j, jacc, allowed in edges:
+            if jacc >= thr and (allowed or not guards):
                 dsu.union(i, j)
         groups = {}
         for i in range(n):
@@ -2330,9 +2356,12 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
     for thr in DEDUP_THRESHOLDS:
         groups = clusters_at(thr)
         dup_n = sum(len(g) - 1 for g in groups)
+        raw = clusters_at(thr, guards=False)
+        raw_n = sum(len(g) - 1 for g in raw)
         sweep.append({"threshold": thr, "clusters": len(groups), "dups": dup_n,
                       "dup_share": round(dup_n / n, 4),
                       "original_share": round((n - dup_n) / n, 4),
+                      "original_share_noguards": round((n - raw_n) / n, 4),
                       "max_size": max((len(g) for g in groups), default=0)})
     cur = next((s for s in sweep if abs(s["threshold"] - thr_cfg) < 1e-9), sweep[len(sweep) // 2])
     lo = min(s["original_share"] for s in sweep)
@@ -2344,16 +2373,18 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
     # (в) один источник: повтор внутри канала, а не перепечатка (каскада нет).
     groups = clusters_at(thr_cfg)
     episode_clusters = episode_dups = service_dups = 0
+    episode_verbatim = 0
     antagonistic_dups = same_source_dups = 0
     suspicious = 0
     spans = []
     ant_examples = []
+    same_source_flagged = 0
     for g in groups:
         times = [_local_dt(week[i]["published"]) for i in g if _local_dt(week[i].get("published"))]
-        span_h = (max(times) - min(times)).total_seconds() / 3600.0 if len(times) >= 2 else 0.0
-        spans.append(round(span_h, 1))
+        span_hours = (max(times) - min(times)).total_seconds() / 3600.0 if len(times) >= 2 else 0.0
+        spans.append(round(span_hours, 1))
         svc = sum(1 for i in g if service_kind(week[i]))
-        long_span = span_h > 24
+        long_span = span_hours > 24
         if long_span:
             episode_clusters += 1
             episode_dups += len(g) - 1
@@ -2362,9 +2393,16 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
         order = sorted(g, key=lambda i: _dedup.primary_score(week[i]), reverse=True)
         head = order[0]
         h_key = _src_key(week[head])
+        verbatim = dcfg["dedup_verbatim_jaccard"]
+        pair_j = {(min(a, b), max(a, b)): j for a, b, j, _ok in edges}
         for i in order[1:]:
-            flag_episode = long_span
-            flag_same = _src_key(week[i]) == h_key
+            # длинный кластер после включения охран возможен только через разрешение
+            # «дословного повтора» — это не брак, а тот же текст сутки спустя
+            j_head = pair_j.get((min(head, i), max(head, i)))
+            flag_episode = long_span and not (j_head is not None and j_head >= verbatim)
+            if long_span:
+                episode_verbatim += 1 if not flag_episode else 0
+            flag_same = week[i].get("same_source") or _src_key(week[i]) == h_key
             flag_ant = _antagonistic(week[head], week[i])
             if flag_same:
                 same_source_dups += 1
@@ -2376,13 +2414,15 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
                         "b": {"source": _src_key(week[i]), "title": (week[i].get("title") or "")[:110]},
                         "jaccard": round(max((j for a, b, j in edges
                                               if {a, b} == {head, i}), default=0.0), 3)})
-            if flag_episode or flag_same or flag_ant:
+            if flag_same:
+                same_source_flagged += 1
+            if flag_episode or flag_ant:
                 suspicious += 1
     orig_now = cur["original_share"]
     corrected = round((n - cur["dups"] + suspicious) / n, 4) if n else None
 
     # контрольная выборка пограничных пар — на ручную верификацию редакцией
-    border = [(i, j, jacc) for i, j, jacc in edges if abs(jacc - thr_cfg) <= 0.07]
+    border = [(i, j, jacc) for i, j, jacc, _a in edges if abs(jacc - thr_cfg) <= 0.07]
     border.sort(key=lambda e: (abs(e[2] - thr_cfg), week[e[0]].get("title") or ""))
     sample = []
     for i, j, jacc in border[:12]:
@@ -2391,6 +2431,9 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
                        "would_merge": jacc >= thr_cfg,
                        "same_source": _src_key(a) == _src_key(b),
                        "antagonistic": _antagonistic(a, b),
+                       "service": bool(service_kind(a) or service_kind(b)),
+                       "span_h": (round(_dedup.span_h(a, b), 1)
+                                  if _dedup.span_h(a, b) is not None else None),
                        "a": {"source": _src_key(a), "title": (a.get("title") or "")[:110]},
                        "b": {"source": _src_key(b), "title": (b.get("title") or "")[:110]}})
     spans.sort()
@@ -2403,9 +2446,12 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
         "clusters": cur["clusters"],
         "episode_clusters": episode_clusters,
         "episode_dups": episode_dups,
+        "episode_verbatim_dups": episode_verbatim,
         "service_dups": service_dups,
         "antagonistic_dups": antagonistic_dups,
         "same_source_dups": same_source_dups,
+        "same_source_flagged": same_source_flagged,
+        "blocked_by_guards": dict(blocked.most_common()),
         "antagonistic_examples": ant_examples,
         "suspicious_dups": suspicious,
         "suspicious_share": round(suspicious / cur["dups"], 3) if cur["dups"] else None,
@@ -2413,11 +2459,14 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
         "median_span_h": spans[len(spans) // 2] if spans else None,
         "borderline_pairs": len(border),
         "sample": sample,
+        "guards_effect_pp": round((sum(s["original_share"] - s["original_share_noguards"]
+                                       for s in sweep) / len(sweep)) * 100, 1) if sweep else None,
         "verdict": (f"оригинальность {round(orig_now * 100, 1)}% при пороге {thr_cfg}; "
                     f"размах на порогах {DEDUP_THRESHOLDS[0]}–{DEDUP_THRESHOLDS[-1]} — "
                     f"{round(lo * 100, 1)}…{round(hi * 100, 1)}% (±{round((hi - lo) * 50, 1)} п.п.); "
-                    f"сомнительных склеек {suspicious} из {cur['dups']} — "
-                    f"скорректированная оригинальность {round((corrected or 0) * 100, 1)}%"),
+                    f"охранные правила dedup.py заблокировали {sum(blocked.values())} склеек "
+                    f"({', '.join(f'{k} {v}' for k, v in blocked.most_common()) or '—'}); "
+                    f"остаточных дефектов {suspicious} из {cur['dups']} дублей"),
     })
     return out
 

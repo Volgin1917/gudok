@@ -1222,31 +1222,64 @@ class TestDedupStability(unittest.TestCase):
         self.assertFalse(analytics._antagonistic(items[4], items[4]))
         self.assertFalse(analytics._antagonistic(items[0], items[2]))
 
-    def test_same_source_and_antagonistic_flagged(self):
-        # порог 0.40: пара «опасность ↔ снят режим» склеивается (Жаккар 0.44) и помечается
-        # и как антагонистичная, и как повтор внутри одного источника
+    def test_guards_block_antagonistic_merge(self):
+        # «Ракетная опасность» ↔ «Снят режим» больше не склеиваются: охрана по антагонизму
         r = analytics.dedup_stability(self._week(), {"settings": {"dedup_threshold": 0.40}})
-        self.assertGreaterEqual(r["antagonistic_dups"], 1)
-        self.assertGreaterEqual(r["same_source_dups"], 1)
-        self.assertGreaterEqual(r["suspicious_dups"], 1)
-        self.assertGreaterEqual(r["corrected_original_share"], r["original_share"])
+        self.assertEqual(r["antagonistic_dups"], 0)
+        self.assertGreaterEqual(r["blocked_by_guards"].get("антагонизм формуляра", 0), 1)
+        self.assertIn("policy", r)
+        self.assertEqual(r["policy"]["dedup_max_span_h"], 24)
 
-    def test_episode_cluster_spanning_days(self):
-        items = [self._it(1, "Прогноз погоды на завтра: облачно и небольшой дождь",
-                          "По информации гидрометцентра ожидается переменная облачность "
-                          "и небольшой дождь", hours_ago=2, channel="w"),
-                 self._it(2, "Прогноз погоды на завтра: облачно и небольшой дождь",
-                          "По информации гидрометцентра ожидается переменная облачность "
-                          "и небольшой дождь", hours_ago=60, channel="v"),
-                 self._it(3, "Открылась новая школа в Засвияжском районе",
-                          "Школа приняла восемьсот учеников", hours_ago=3, channel="c"),
-                 self._it(4, "Фермеры завершили уборочную кампанию",
-                          "Урожайность выше прошлогодней", hours_ago=4, channel="e"),
-                 self._it(5, "Губернатор провёл совещание по развитию района",
-                          "Обсудили строительство дорог", hours_ago=5, channel="g")]
+    def test_guards_block_service_episode_merge(self):
+        # разные сутки служебного формуляра не склеиваются даже на очень низком пороге
+        items = self._five(2, 60)
+        for thr in (0.45, 0.30, 0.20):
+            r = analytics.dedup_stability(items, {"settings": {"dedup_threshold": thr}})
+            self.assertGreaterEqual(
+                r["blocked_by_guards"].get("служебный формуляр вне окна", 0), 1,
+                f"порог {thr}: формуляр разных суток склеился")
+
+    def test_sweep_reports_guards_effect(self):
+        r = analytics.dedup_stability(self._week(), {"settings": {"dedup_threshold": 0.45}})
+        for row in r["sweep"]:
+            self.assertIn("original_share_noguards", row)
+            # с охранными правилами склеек не больше, чем без них
+            # без охранных правил склеек больше → доля оригинального ниже
+            self.assertLessEqual(row["original_share_noguards"], row["original_share"] + 1e-9)
+
+    def _five(self, first_h, second_h, first_ch="w", second_ch="v",
+              title="Прогноз погоды на завтра: облачно и небольшой дождь",
+              text="По информации гидрометцентра ожидается переменная облачность и небольшой дождь"):
+        return [self._it(1, title, text, hours_ago=first_h, channel=first_ch),
+                self._it(2, title, text, hours_ago=second_h, channel=second_ch),
+                self._it(3, "Открылась новая школа в Засвияжском районе",
+                         "Школа приняла восемьсот учеников", hours_ago=3, channel="c"),
+                self._it(4, "Фермеры завершили уборочную кампанию",
+                         "Урожайность выше прошлогодней", hours_ago=4, channel="e"),
+                self._it(5, "Губернатор провёл совещание по развитию района",
+                         "Обсудили строительство дорог", hours_ago=5, channel="g")]
+
+    def test_service_episode_not_merged(self):
+        # одинаковый прогноз погоды с разбросом 58 ч — разные сутки, склейка запрещена
+        r = analytics.dedup_stability(self._five(2, 60), {"settings": {"dedup_threshold": 0.45}})
+        self.assertEqual(r["episode_clusters"], 0)
+        self.assertGreaterEqual(r["blocked_by_guards"].get("служебный формуляр вне окна", 0), 1)
+
+    def test_service_episode_merged_inside_window(self):
+        # тот же формуляр в пределах 6 ч — это одно и то же сообщение, склеиваем
+        r = analytics.dedup_stability(self._five(2, 5), {"settings": {"dedup_threshold": 0.45}})
+        self.assertEqual(r["episode_clusters"], 0)
+        self.assertGreaterEqual(r["clusters"], 1)
+
+    def test_verbatim_reprint_outside_window_still_merges(self):
+        # дословный повтор (Жаккар 1.0) обычного материала через 40 ч — склеиваем
+        items = self._five(2, 42,
+                           title="На улице Гагарина уложили новый асфальт и нанесли разметку",
+                           text="Подрядчик завершил работы по национальному проекту, "
+                                "гарантия на покрытие составляет пять лет")
         r = analytics.dedup_stability(items, {"settings": {"dedup_threshold": 0.45}})
-        self.assertEqual(r["episode_clusters"], 1)
-        self.assertEqual(r["episode_dups"], 1)
+        self.assertGreaterEqual(r["clusters"], 1)
+        self.assertEqual(r["blocked_by_guards"].get("вне окна перепечаток", 0), 0)
 
     def test_sample_marks_flags(self):
         r = analytics.dedup_stability(self._week(), {"settings": {"dedup_threshold": 0.45}})
@@ -1388,3 +1421,233 @@ class TestCiPush(unittest.TestCase):
         with open(os.path.join(BASE, ".github", "workflows", "daily.yml"), encoding="utf-8") as f:
             daily = f.read()
         self.assertIn("bash run.sh", daily)
+
+    def test_stages_everything_by_default(self):
+        """Без явных путей коммитится всё. Дефолт «только сгенерированное» однажды
+        оставил правки кода вне коммита (15.09.2026), и их стёр последующий reset --hard."""
+        self.assertIn("git add -A", self.src)
+
+    def test_hard_reset_only_for_generated(self):
+        """reset --hard допустим, только если в локальных коммитах нет кода:
+        иначе берём merge -X ours (код наш, сгенерированное пересобирается)."""
+        for needle in ("GENERATED_RE", "CODE_FILES", "merge -X ours"):
+            self.assertIn(needle, self.src, f"нет {needle} — защита от потери кода отсутствует")
+        # проверка состава локальных коммитов идёт ДО разрушающей команды
+        # (ищем именно «git reset --hard»: в шапке-комментарии слово тоже упоминается)
+        reset_cmd = self.src.index("git reset --hard")
+        self.assertLess(self.src.index("GENERATED_RE"), reset_cmd)
+        self.assertLess(self.src.index("CODE_FILES"), reset_cmd)
+        # и до слияния, которое приходит на смену reset при наличии кода
+        self.assertLess(self.src.index("CODE_FILES"), self.src.index("git merge -X ours"))
+
+    def test_warns_about_uncommitted_files(self):
+        """Неотданные правки в рабочем дереве — молча потерянная работа; скрипт обязан
+        сообщить о них вслух."""
+        self.assertIn("git status --porcelain", self.src)
+        self.assertIn("незакоммиченные", self.src)
+
+
+class TestDedupGuards(unittest.TestCase):
+    """Правки dedup.py (пункт 7 спринта): окно перепечаток, антагонизм формуляров,
+    внутриканальные повторы не считаются каскадом."""
+
+    def _it(self, i, title, text, hours_ago=2, channel=None, tier=2):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = datetime.now(UTC4) - timedelta(hours=hours_ago)
+        ch = channel or f"ch{i}"
+        return {"id": f"g{i}", "title": title, "text": text, "published": dt.isoformat(),
+                "category": "society", "source_type": "tg", "channel": ch,
+                "source": f"t.me/{ch}", "tier": tier, "views": 100}
+
+    def _run(self, items, threshold=0.45):
+        """Прогон dedup.main() на временной базе."""
+        import json
+        import os
+        import tempfile
+        import dedup
+        tmp = tempfile.mkdtemp()
+        store = os.path.join(tmp, "store.jsonl")
+        cfgp = os.path.join(tmp, "config.json")
+        with open(store, "w", encoding="utf-8") as f:
+            for it in items:
+                f.write(json.dumps(it, ensure_ascii=False) + "\n")
+        with open(cfgp, "w", encoding="utf-8") as f:
+            json.dump({"settings": {"dedup_threshold": threshold, "dedup_max_span_h": 24,
+                                    "dedup_service_span_h": 6, "dedup_verbatim_jaccard": 0.85}}, f)
+        old_store, old_base = dedup.STORE, dedup.BASE
+        old_argv = sys.argv
+        try:
+            dedup.STORE = store
+            dedup.BASE = tmp
+            sys.argv = ["dedup.py", "--quiet"]
+            dedup.main()
+            with open(store, encoding="utf-8") as f:
+                return [json.loads(l) for l in f if l.strip()]
+        finally:
+            dedup.STORE, dedup.BASE, sys.argv = old_store, old_base, old_argv
+
+    def test_antagonistic_pair_not_merged(self):
+        items = [self._it(1, "Внимание! Ракетная опасность на территории Ульяновской области",
+                          "Просим немедленно укрыться в помещениях, соблюдать спокойствие "
+                          "и не выходить на улицу до отбоя", hours_ago=2, channel="gov"),
+                 self._it(2, "Снят режим «Ракетная опасность» на территории Ульяновской области",
+                          "Просим покинуть укрытия, соблюдать спокойствие и не выходить "
+                          "на улицу без необходимости", hours_ago=3, channel="media")]
+        out = self._run(items)
+        self.assertTrue(all(not it.get("dup_of") for it in out),
+                        "режим и его отмена склеились — охрана не сработала")
+
+    def test_same_source_repeat_flagged_and_excluded_from_cascade(self):
+        text = ("На улице Гагарина уложили новый асфальт и нанесли разметку, "
+                "работы приняты комиссией администрации города")
+        items = [self._it(1, "На улице Гагарина уложили новый асфальт", text, hours_ago=2, channel="a"),
+                 self._it(2, "На улице Гагарина уложили новый асфальт", text, hours_ago=3, channel="a"),
+                 self._it(3, "Гагарина: новый асфальт уложили, разметку нанесли", text,
+                          hours_ago=4, channel="b")]
+        out = self._run(items)
+        dups = [it for it in out if it.get("dup_of")]
+        head = [it for it in out if it.get("cluster")][0]
+        self.assertEqual(len(dups), 2)
+        self.assertTrue(any(it.get("same_source") for it in dups), "повтор своего канала не помечен")
+        self.assertNotIn("t.me/a", head["also_in"], "свой же канал попал в «также сообщили»")
+        self.assertEqual(head["also_in"], ["t.me/b"])
+        self.assertEqual(head["cluster"], 3)
+        self.assertEqual(head["cluster_src"], 2)
+
+    def test_old_window_rule_replaced(self):
+        # прежний фильтр «diff > 100 по номеру даты» позволял склеивать разные сутки
+        items = [self._it(1, "Сегодня облачно, небольшой дождь, ветер южный",
+                          "Гидрометцентр сообщает о переменной облачности", hours_ago=2, channel="w"),
+                 self._it(2, "Сегодня облачно, небольшой дождь, ветер южный",
+                          "Гидрометцентр сообщает о переменной облачности", hours_ago=50, channel="v")]
+        out = self._run(items)
+        self.assertTrue(all(not it.get("dup_of") for it in out))
+
+    def test_dedup_and_analytics_dictionaries_agree(self):
+        """Словари намеренно продублированы в dedup.py и analytics.py — проверяем совпадение."""
+        import dedup
+        samples = [
+            ({"title": "Ракетная опасность в регионе", "text": "Укройтесь в помещении"}, "оповещение"),
+            ({"title": "Прогноз погоды на 15 сентября", "text": "Гидрометцентр обещает заморозки"}, "погода"),
+            ({"title": "Ракетная опасность", "text": "ПВО сбили три цели, пострадавших нет"}, None),
+            ({"title": "Открыли новую школу", "text": "Приняла 800 учеников"}, None),
+        ]
+        for it, expected in samples:
+            self.assertEqual(dedup.service_kind(it), expected, it["title"])
+            self.assertEqual(analytics.service_kind(it), expected, it["title"])
+        onset = {"title": "Ракетная опасность объявлена", "text": "Укройтесь"}
+        cancel = {"title": "Снят режим «Ракетная опасность»", "text": "Можно выходить"}
+        self.assertTrue(dedup.antagonistic(onset, cancel))
+        self.assertTrue(analytics._antagonistic(onset, cancel))
+        self.assertFalse(dedup.antagonistic(cancel, cancel))
+        self.assertFalse(analytics._antagonistic(cancel, cancel))
+
+
+class TestCascadeSources(unittest.TestCase):
+    """Каскады считаются по независимым источникам, а не по числу участников."""
+
+    def _it(self, i, title, channel, cluster=None, cluster_src=None, dup_of=None, tier=2):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = datetime.now(UTC4) - timedelta(hours=2)
+        it = {"id": f"c{i}", "title": title, "text": title, "published": dt.isoformat(),
+              "category": "society", "source_type": "tg", "channel": channel,
+              "source": f"t.me/{channel}", "tier": tier}
+        if cluster:
+            it["cluster"] = cluster
+        if cluster_src:
+            it["cluster_src"] = cluster_src
+        if dup_of:
+            it["dup_of"] = dup_of
+        return it
+
+    def test_cascade_sources_helper(self):
+        self.assertEqual(analytics.cascade_sources({"cluster": 7, "cluster_src": 4}), 4)
+        self.assertEqual(analytics.cascade_sources({"cluster": 7}), 7)   # старые записи
+        self.assertEqual(analytics.cascade_sources({}), 0)
+
+    def test_frames_skip_single_source_clusters(self):
+        # 7 участников, но источника два: один канал повторил свой же пост
+        head = self._it(1, "На трассе столкнулись два автомобиля, есть пострадавшие",
+                        "a", cluster=7, cluster_src=2)
+        dups = [self._it(i, "ДТП на трассе: пострадали люди", "a", dup_of="c1") for i in range(2, 8)]
+        r = analytics.frame_map([head] + dups)
+        self.assertEqual(r["clusters"], 1)
+
+    def test_frames_ignore_pure_self_repeats(self):
+        # cluster_src = 1 → каскада нет, в фрейм-карту не попадает
+        head = self._it(1, "Пожар в доме на Гончарова: эвакуированы жители",
+                        "a", cluster=3, cluster_src=1)
+        dups = [self._it(i, "Пожар на Гончарова", "a", dup_of="c1") for i in (2, 3)]
+        r = analytics.frame_map([head] + dups)
+        self.assertEqual(r["clusters"], 0)
+
+
+class TestSourcesRegistry(unittest.TestCase):
+    """Реестр источников и config.json не должны расходиться: подключённый источник
+    без атрибутов реестра молча искажает метрики «кто пишет», HHI и «свой голос»
+    (кейс 15.09.2026 — районные газеты d4)."""
+
+    def setUp(self):
+        self.cfg = CFG
+        with open(os.path.join(BASE, "sources_registry.json"), encoding="utf-8") as f:
+            self.reg = json.load(f)
+        self.entries = {e["id"]: e for e in self.reg.get("sources", [])}
+
+    def _config_ids(self):
+        ids = set()
+        for ch in self.cfg.get("telegram_channels") or []:
+            ids.add(f"tg:{ch['username']}")
+        for s in self.cfg.get("rss_sources") or []:
+            ids.add(f"rss:{s['name']}")
+        for c in self.cfg.get("vk_communities") or []:
+            ids.add(f"vk:{c['domain']}")
+        return ids
+
+    def test_registry_matches_config(self):
+        cfg_ids = self._config_ids()
+        self.assertEqual(set(self.entries), cfg_ids,
+                         f"расхождение: лишние {sorted(set(self.entries) - cfg_ids)[:4]}, "
+                         f"не хватает {sorted(cfg_ids - set(self.entries))[:4]}")
+
+    def test_meta_counts(self):
+        self.assertEqual(self.reg["_meta"]["sources_total"], len(self.reg["sources"]))
+        enabled = sum(1 for e in self.reg["sources"] if e.get("enabled"))
+        self.assertEqual(self.reg["_meta"]["sources_enabled"], enabled)
+
+    def test_enabled_sources_have_producer_type(self):
+        missing = [e["id"] for e in self.reg["sources"]
+                   if e.get("enabled") and not e.get("producer_type")]
+        self.assertEqual(missing, [], f"без типа производителя: {missing}")
+
+    def test_district_sources_connected(self):
+        """Черновик d4 разморожен 15.09.2026: 4 районные газеты + 1 TG."""
+        want = ["rss:Карсунский вестник", "rss:Кумәк көч", "rss:Звезда (Новомалыклинский р-н)",
+                "rss:Кузоватовские вести", "tg:gazetazvezda73"]
+        for sid in want:
+            self.assertIn(sid, self.entries, f"{sid} не подключён")
+            e = self.entries[sid]
+            self.assertTrue(e.get("enabled"), f"{sid} выключен")
+            self.assertEqual(e.get("producer_type"), "редакция", sid)
+            self.assertTrue(e.get("territory", "").endswith("р-н"),
+                            f"{sid}: территория {e.get('territory')}")
+            self.assertTrue(e.get("voice_of"), f"{sid}: не заполнен «свой голос»")
+            self.assertIn(e.get("owner_form"), ("государство", "не установлен"),
+                          f"{sid}: районная газета не может быть «анонимом» ({e.get('owner_form')})")
+
+    def test_municipal_sources_resolve(self):
+        """Каждый ключ «своего голоса» — реальный источник мониторинга."""
+        channels = {ch["username"] for ch in self.cfg.get("telegram_channels") or []}
+        names = {s["name"] for s in self.cfg.get("rss_sources") or []}
+        domains = {c["domain"] for c in self.cfg.get("vk_communities") or []}
+        for key in self.cfg.get("municipal_sources") or []:
+            self.assertTrue(key in channels or key in names or key in domains,
+                            f"«свой голос» ссылается на несуществующий источник: {key}")
+
+    def test_owner_form_anonymous_only_for_anonymous(self):
+        """«аноним» — только агрегаторы/авторские/промо, не редакции и не пресс-службы."""
+        bad = [e["id"] for e in self.reg["sources"]
+               if e.get("owner_form") == "аноним"
+               and e.get("producer_type") in ("редакция", "пресс-служба")]
+        self.assertEqual(bad, [], f"редакции/пресс-службы в «анонимах»: {bad}")

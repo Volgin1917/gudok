@@ -1,14 +1,14 @@
 {
- "generated_local": "15.09.2026 18:02",
- "week_items": 1638,
- "week_primaries": 1370,
+ "generated_local": "15.09.2026 18:19",
+ "week_items": 1637,
+ "week_primaries": 1369,
  "week_dups": 268,
  "metrics": {
   "original_share": 84,
   "concentration_top3": 27,
   "avg_cascade": 2.5,
   "muni_coverage": 100,
-  "tone_volatility": 0.18,
+  "tone_volatility": 0.19,
   "alert_share": 23
  },
  "natproj": {
@@ -181,13 +181,13 @@
   ]
  },
  "by_type": {
-  "tg": 1346,
+  "tg": 1345,
   "seed": 44,
   "rss": 248
  },
  "by_tier": {
-  "T3": 176,
   "T1": 392,
+  "T3": 175,
   "T2": 778,
   "СМИ/подборка": 292
  },
@@ -201,7 +201,7 @@
    "original": 0.79
   },
   "T3": {
-   "total": 176,
+   "total": 175,
    "original": 0.83
   },
   "СМИ/подборка": {
@@ -224,7 +224,7 @@
   ],
   [
    "Russkih_Aleksey",
-   10
+   9
   ],
   [
    "topor_ul",
@@ -248,14 +248,14 @@
    "size": 14,
    "sources": 14,
    "title": "⚡️ Дежурными средствами ПВО над территорией нашего региона перехвачено и уничтожено 3 вражеских БПЛА",
-   "source": "Russkih_Aleksey",
+   "source": "ulpravda",
    "also": [
+    "t.me/Russkih_Aleksey",
     "t.me/chpul",
     "t.me/chpulsk",
-    "t.me/dimitrovgradonline",
-    "t.me/insaid173"
+    "t.me/dimitrovgradonline"
    ],
-   "url": "https://t.me/Russkih_Aleksey/12391"
+   "url": "https://t.me/ulpravda/41052"
   },
   {
    "size": 6,
@@ -324,7 +324,7 @@
  "tone_by_tier": {
   "T1": 0.178,
   "T2": 0.029,
-  "T3": 0.176,
+  "T3": 0.177,
   "СМИ/подборка": 0.07
  },
  "federal_share": 0.49,
@@ -367,7 +367,7 @@
   0,
   0,
   0,
-  10,
+  9,
   69,
   223,
   402,
@@ -425,8 +425,8 @@
   },
   {
    "date": "2026-09-08",
-   "score": -0.4,
-   "n": 10
+   "score": -0.444,
+   "n": 9
   },
   {
    "date": "2026-09-09",
@@ -465,9 +465,9 @@
   }
  ],
  "wow": {
-  "this": 1638,
-  "prev": 79,
-  "delta": 1973
+  "this": 1637,
+  "prev": 80,
+  "delta": 1946
  },
  "topic_wow": [
   {
@@ -521,15 +521,15 @@
  ],
  "conclusions": [
   "Резко усилились темы: «Транспорт и дороги» (+1553%), «Суды и криминал» (+1335%), «Школы и вузы» (+1469%).",
-  "За 7 дней поток составил 1638 сообщений, из них оригинальных (не перепечаток) — 84%.",
+  "За 7 дней поток составил 1637 сообщений, из них оригинальных (не перепечаток) — 84%.",
   "Повестку задают: Улпресса (первичен в 27 каскадах), ulpressa (первичен в 24 каскадах), tresh_ulyan (первичен в 14 каскадах).",
   "Крупнейший каскад недели — «⚡️ Дежурными средствами ПВО над территорией нашего региона перехвачено» (×14 источников).",
   "Федеральное эхо: 49% оригинальных сообщений не про регион напрямую.",
   "На грани видимости (1–2 упоминания): Николаевский р-н, Старокулаткинский р-н, Старомайнский р-н, Тереньгульский р-н, Ульяновский р-н."
  ],
  "w1": {
-  "generated_local": "15.09.2026 18:02",
-  "week_items": 1638,
+  "generated_local": "15.09.2026 18:19",
+  "week_items": 1637,
   "matrix": {
    "cats": [
     {
@@ -742,7 +742,7 @@
     70,
     84,
     76,
-    55,
+    54,
     60,
     52,
     48,
@@ -776,7 +776,7 @@
     6
    ],
    "night_share": 0.034,
-   "weekend_share": 0.226
+   "weekend_share": 0.227
   },
   "cascade_time": {
    "n": 141,
@@ -867,8 +867,8 @@
     "with_emoji": 0.618
    },
    "T3": {
-    "total": 176,
-    "with_emoji": 0.324
+    "total": 175,
+    "with_emoji": 0.326
    },
    "СМИ/подборка": {
     "total": 292,
@@ -895,7 +895,7 @@
      "share": 0.018
     },
     "T3": {
-     "total": 176,
+     "total": 175,
      "with_marker": 2,
      "share": 0.011
     },
@@ -1037,8 +1037,8 @@
    },
    {
     "source": "ulpravda",
-    "n": 47,
-    "fed_share": 0.38
+    "n": 48,
+    "fed_share": 0.4
    }
   ],
   "rural_index": {
@@ -1151,19 +1151,19 @@
   }
  },
  "w2": {
-  "generated_local": "15.09.2026 18:02",
-  "week_items": 1638,
+  "generated_local": "15.09.2026 18:19",
+  "week_items": 1637,
   "registry_sources": 50,
   "producer_mix": {
    "week": {
     "агрегатор": 778,
     "редакция": 530,
-    "авторский канал": 158,
+    "авторский канал": 157,
     "пресс-служба": 149,
     "промо/коммерция": 18,
     "не атрибутирован": 5
    },
-   "week_n": 1638,
+   "week_n": 1637,
    "daily": [
     {
      "date": "2026-09-09",
@@ -1247,14 +1247,14 @@
    ]
   },
   "attention": {
-   "total_views": 2871477,
+   "total_views": 2864017,
    "gini": 0.726,
-   "top3_share": 0.583,
+   "top3_share": 0.585,
    "top": [
     {
      "source": "tresh_ulyan",
      "views": 995461,
-     "share": 0.347
+     "share": 0.348
     },
     {
      "source": "insaid173",
@@ -1273,8 +1273,8 @@
     },
     {
      "source": "ulpatriot",
-     "views": 146902,
-     "share": 0.051
+     "views": 139442,
+     "share": 0.049
     }
    ],
    "n_sources": 32
@@ -1306,7 +1306,7 @@
    },
    "crosspromo": {
     "n": 156,
-    "share": 0.0952,
+    "share": 0.0953,
     "by_tier": {
      "T2": 82,
      "T1": 72,
@@ -1329,23 +1329,23 @@
   ]
  },
  "w3": {
-  "generated_local": "15.09.2026 18:02",
+  "generated_local": "15.09.2026 18:19",
   "registry_sources": 50,
-  "week_items": 1638,
-  "hhi": 671,
+  "week_items": 1637,
+  "hhi": 672,
   "hhi_confirmed": 3137,
-  "confirmed_flow_share": 0.3773,
+  "confirmed_flow_share": 0.3775,
   "verdict": "высокая концентрация",
   "verdict_all": "низкая концентрация",
   "groups": {
    "аноним": {
-    "flow": 954,
-    "share": 0.5824,
+    "flow": 953,
+    "share": 0.5822,
     "n": 21
    },
    "частный бизнес": {
     "flow": 385,
-    "share": 0.235,
+    "share": 0.2352,
     "n": 4
    },
    "государство": {
@@ -1360,7 +1360,7 @@
    },
    "официальные": {
     "flow": 89,
-    "share": 0.0543,
+    "share": 0.0544,
     "n": 5
    },
    "вне реестра": {
@@ -1369,14 +1369,14 @@
     "n": 5
    }
   },
-  "state_official_share": 0.1215,
-  "anon_share": 0.5855,
+  "state_official_share": 0.1216,
+  "anon_share": 0.5852,
   "top_owners": [
    {
     "name": "ООО «Симбирск-Паблисити» (ИНН 7325027230)",
     "form": "частный бизнес",
     "n_sources": 2,
-    "share": 0.2015
+    "share": 0.2016
    },
    {
     "name": "@tresh_ulyan",
@@ -1388,7 +1388,7 @@
     "name": "@ulyanovsk_smi",
     "form": "аноним",
     "n_sources": 1,
-    "share": 0.0537
+    "share": 0.0538
    },
    {
     "name": "@chpul",
@@ -1400,7 +1400,7 @@
     "name": "@chpulsk",
     "form": "аноним",
     "n_sources": 1,
-    "share": 0.0427
+    "share": 0.0428
    },
    {
     "name": "@insaid173",
@@ -1421,16 +1421,16 @@
   ]
  },
  "w4": {
-  "generated_local": "15.09.2026 18:02",
+  "generated_local": "15.09.2026 18:19",
   "agency": {
-   "week_items": 1638,
+   "week_items": 1637,
    "excluded_service": {
     "погода": 9,
     "оповещение": 57
    },
-   "n": 1572,
+   "n": 1571,
    "roles": {
-    "упоминание": 710,
+    "упоминание": 709,
     "без актора": 516,
     "субъект": 190,
     "объект": 89,
@@ -1438,10 +1438,10 @@
     "нет текста": 9
    },
    "role_shares": {
-    "упоминание": 0.4517,
-    "без актора": 0.3282,
+    "без актора": 0.3285,
+    "упоминание": 0.4513,
     "субъект": 0.1209,
-    "объект": 0.0566,
+    "объект": 0.0567,
     "безличный": 0.0369,
     "нет текста": 0.0057
    },
@@ -1479,25 +1479,17 @@
    "institutions_subjects": 28,
    "people_objects": 60,
    "objectification": 0.42,
-   "actor_density": 0.6291,
+   "actor_density": 0.6289,
    "subject_share": 0.1209,
-   "impersonal_share": 0.3651,
+   "impersonal_share": 0.3654,
    "first_person_share": 0.0757,
    "first_person_by_tier": {
-    "T3": 0.091,
     "T1": 0.152,
+    "T3": 0.092,
     "T2": 0.056,
     "СМИ/подборка": 0.017
    },
    "by_tier": {
-    "T3": {
-     "n": 175,
-     "subject_share": 0.08,
-     "people_subjects": 7,
-     "power_subjects": 6,
-     "people_objects": 2,
-     "impersonal_share": 0.4171
-    },
     "T1": {
      "n": 375,
      "subject_share": 0.08,
@@ -1505,6 +1497,14 @@
      "power_subjects": 11,
      "people_objects": 8,
      "impersonal_share": 0.4267
+    },
+    "T3": {
+     "n": 174,
+     "subject_share": 0.0805,
+     "people_subjects": 7,
+     "power_subjects": 6,
+     "people_objects": 2,
+     "impersonal_share": 0.4195
     },
     "T2": {
      "n": 733,
@@ -1667,9 +1667,9 @@
    }
   },
   "frames": {
-   "week_items": 1638,
+   "week_items": 1637,
    "frame_mix": {
-    "прочее": 438,
+    "прочее": 437,
     "достижение": 185,
     "ЧП": 162,
     "работы": 150,
@@ -1684,22 +1684,22 @@
     "интерактив": 7
    },
    "frame_shares": {
-    "прочее": 0.2674,
-    "достижение": 0.1129,
+    "достижение": 0.113,
     "статистика": 0.0385,
     "услуга": 0.0507,
-    "ЧП": 0.0989,
+    "прочее": 0.267,
+    "ЧП": 0.099,
     "погода": 0.0324,
-    "жалоба": 0.0488,
+    "жалоба": 0.0489,
     "работы": 0.0916,
     "надзор": 0.0867,
-    "ритуал": 0.072,
+    "ритуал": 0.0721,
     "лайв": 0.0104,
     "тревога": 0.0855,
     "интерактив": 0.0043
    },
    "frame_mix_primaries": {
-    "прочее": 358,
+    "прочее": 357,
     "достижение": 160,
     "работы": 132,
     "ЧП": 127,
@@ -1714,24 +1714,6 @@
     "интерактив": 7
    },
    "tier_matrix": {
-    "T3": {
-     "n": 146,
-     "frames": {
-      "прочее": 0.356,
-      "достижение": 0.192,
-      "надзор": 0.116,
-      "услуга": 0.062,
-      "ЧП": 0.055,
-      "статистика": 0.048,
-      "ритуал": 0.048,
-      "жалоба": 0.041,
-      "погода": 0.034,
-      "работы": 0.027,
-      "тревога": 0.007,
-      "лайв": 0.007,
-      "интерактив": 0.007
-     }
-    },
     "T1": {
      "n": 335,
      "frames": {
@@ -1747,6 +1729,24 @@
       "погода": 0.033,
       "жалоба": 0.033,
       "статистика": 0.03
+     }
+    },
+    "T3": {
+     "n": 145,
+     "frames": {
+      "прочее": 0.352,
+      "достижение": 0.193,
+      "надзор": 0.117,
+      "услуга": 0.062,
+      "ЧП": 0.055,
+      "статистика": 0.048,
+      "ритуал": 0.048,
+      "жалоба": 0.041,
+      "погода": 0.034,
+      "работы": 0.028,
+      "тревога": 0.007,
+      "лайв": 0.007,
+      "интерактив": 0.007
      }
     },
     "T2": {
@@ -1922,10 +1922,10 @@
    ]
   },
   "ai_trace": {
-   "week_items": 1638,
-   "n": 1638,
+   "week_items": 1637,
+   "n": 1637,
    "any_n": 404,
-   "any_share": 0.2466,
+   "any_share": 0.2468,
    "strong_n": 55,
    "strong_share": 0.0336,
    "signals": {
@@ -1937,15 +1937,15 @@
     "список-шаблон": 15
    },
    "by_tier": {
-    "T3": {
-     "n": 176,
-     "any_share": 0.233,
-     "strong_share": 0.017
-    },
     "T1": {
      "n": 392,
      "any_share": 0.406,
      "strong_share": 0.036
+    },
+    "T3": {
+     "n": 175,
+     "any_share": 0.234,
+     "strong_share": 0.017
     },
     "T2": {
      "n": 778,
@@ -2099,7 +2099,7 @@
    ]
   },
   "dedup": {
-   "n_items": 1638,
+   "n_items": 1637,
    "threshold": 0.45,
    "days": 7,
    "policy": {
@@ -2112,45 +2112,45 @@
      "threshold": 0.3,
      "clusters": 206,
      "dups": 391,
-     "dup_share": 0.2387,
-     "original_share": 0.7613,
-     "original_share_noguards": 0.7387,
+     "dup_share": 0.2389,
+     "original_share": 0.7611,
+     "original_share_noguards": 0.7385,
      "max_size": 15
     },
     {
      "threshold": 0.35,
      "clusters": 188,
      "dups": 322,
-     "dup_share": 0.1966,
-     "original_share": 0.8034,
-     "original_share_noguards": 0.7827,
+     "dup_share": 0.1967,
+     "original_share": 0.8033,
+     "original_share_noguards": 0.7825,
      "max_size": 15
     },
     {
      "threshold": 0.4,
      "clusters": 178,
      "dups": 283,
-     "dup_share": 0.1728,
-     "original_share": 0.8272,
-     "original_share_noguards": 0.8114,
+     "dup_share": 0.1729,
+     "original_share": 0.8271,
+     "original_share_noguards": 0.8112,
      "max_size": 15
     },
     {
      "threshold": 0.45,
      "clusters": 160,
      "dups": 241,
-     "dup_share": 0.1471,
-     "original_share": 0.8529,
-     "original_share_noguards": 0.8388,
+     "dup_share": 0.1472,
+     "original_share": 0.8528,
+     "original_share_noguards": 0.8387,
      "max_size": 14
     },
     {
      "threshold": 0.5,
      "clusters": 150,
      "dups": 221,
-     "dup_share": 0.1349,
-     "original_share": 0.8651,
-     "original_share_noguards": 0.8541,
+     "dup_share": 0.135,
+     "original_share": 0.865,
+     "original_share_noguards": 0.854,
      "max_size": 13
     },
     {
@@ -2159,23 +2159,23 @@
      "dups": 197,
      "dup_share": 0.1203,
      "original_share": 0.8797,
-     "original_share_noguards": 0.8736,
+     "original_share_noguards": 0.8735,
      "max_size": 13
     },
     {
      "threshold": 0.6,
      "clusters": 128,
      "dups": 181,
-     "dup_share": 0.1105,
-     "original_share": 0.8895,
-     "original_share_noguards": 0.884,
+     "dup_share": 0.1106,
+     "original_share": 0.8894,
+     "original_share_noguards": 0.8839,
      "max_size": 11
     }
    ],
-   "original_share": 0.8529,
+   "original_share": 0.8528,
    "original_range": [
-    0.7613,
-    0.8895
+    0.7611,
+    0.8894
    ],
    "spread_pp": 12.8,
    "pairs": 908,
