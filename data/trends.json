@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-15T06:12:58.817834+00:00",
- "generated_local": "15.09.2026 10:12",
+ "generated_utc": "2026-09-15T06:37:14.992855+00:00",
+ "generated_local": "15.09.2026 10:37",
  "days": [
   "2026-09-02",
   "2026-09-03",
@@ -18,9 +18,9 @@
   "2026-09-15"
  ],
  "counts": {
-  "total": 1590,
-  "last24h": 359,
-  "last7d": 1490
+  "total": 1605,
+  "last24h": 363,
+  "last7d": 1505
  },
  "topics": {
   "elections": {
@@ -39,11 +39,11 @@
     5,
     2,
     11,
-    2
+    3
    ],
-   "today": 2,
-   "week": 55,
-   "total": 57,
+   "today": 3,
+   "week": 56,
+   "total": 58,
    "status": "stable"
   },
   "governor": {
@@ -62,11 +62,11 @@
     16,
     16,
     27,
-    13
+    15
    ],
-   "today": 13,
-   "week": 176,
-   "total": 194,
+   "today": 15,
+   "week": 178,
+   "total": 196,
    "status": "stable"
   },
   "uav": {
@@ -85,11 +85,11 @@
     11,
     11,
     6,
-    24
+    27
    ],
-   "today": 24,
-   "week": 118,
-   "total": 123,
+   "today": 27,
+   "week": 121,
+   "total": 126,
    "status": "stable"
   },
   "cityday": {
@@ -131,11 +131,11 @@
     8,
     1,
     14,
-    9
+    10
    ],
-   "today": 9,
-   "week": 59,
-   "total": 71,
+   "today": 10,
+   "week": 60,
+   "total": 72,
    "status": "stable"
   },
   "uaz": {
@@ -246,12 +246,12 @@
     12,
     25,
     33,
-    2
+    3
    ],
-   "today": 2,
-   "week": 122,
-   "total": 135,
-   "status": "stable"
+   "today": 3,
+   "week": 123,
+   "total": 136,
+   "status": "rising"
   },
   "transport": {
    "name": "Транспорт и дороги",
@@ -269,11 +269,11 @@
     16,
     8,
     69,
-    18
+    19
    ],
-   "today": 18,
-   "week": 224,
-   "total": 239,
+   "today": 19,
+   "week": 225,
+   "total": 240,
    "status": "stable"
   },
   "schools": {
@@ -361,11 +361,11 @@
     9,
     21,
     22,
-    3
+    4
    ],
-   "today": 3,
-   "week": 129,
-   "total": 152,
+   "today": 4,
+   "week": 130,
+   "total": 153,
    "status": "stable"
   },
   "sport": {
@@ -384,11 +384,11 @@
     12,
     16,
     32,
-    2
+    3
    ],
-   "today": 2,
-   "week": 133,
-   "total": 144,
+   "today": 3,
+   "week": 134,
+   "total": 145,
    "status": "stable"
   },
   "export": {
@@ -407,11 +407,11 @@
     5,
     1,
     6,
-    1
+    2
    ],
-   "today": 1,
-   "week": 45,
-   "total": 54,
+   "today": 2,
+   "week": 46,
+   "total": 55,
    "status": "fading"
   },
   "weather": {
@@ -478,10 +478,10 @@
     9,
     5,
     18,
-    8
+    9
    ],
-   "week": 99,
-   "today": 8
+   "week": 100,
+   "today": 9
   },
   "security": {
    "name": "Безопасность и происшествия",
@@ -499,10 +499,10 @@
     38,
     22,
     68,
-    33
+    39
    ],
-   "week": 341,
-   "today": 33
+   "week": 347,
+   "today": 39
   },
   "economy": {
    "name": "Экономика и промышленность",
@@ -520,10 +520,10 @@
     10,
     11,
     40,
-    7
+    8
    ],
-   "week": 130,
-   "today": 7
+   "week": 131,
+   "today": 8
   },
   "agro": {
    "name": "Агропром",
@@ -562,10 +562,10 @@
     76,
     89,
     130,
-    30
+    36
    ],
-   "week": 552,
-   "today": 30
+   "week": 558,
+   "today": 36
   },
   "health": {
    "name": "Здравоохранение",
@@ -625,10 +625,10 @@
     7,
     10,
     13,
-    2
+    3
    ],
-   "week": 59,
-   "today": 2
+   "week": 60,
+   "today": 3
   },
   "culture": {
    "name": "Культура и афиша",
