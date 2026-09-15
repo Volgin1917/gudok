@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": false,
-  "items": 0,
-  "error": "<urlopen error [Errno 101] Network is unreachable>"
+  "ok": true,
+  "items": 10,
+  "error": null
  },
  "rss:Улпресса": {
   "ok": true,
@@ -11,13 +11,13 @@
  },
  "tg:Russkih_Aleksey": {
   "ok": true,
-  "items": 8,
+  "items": 9,
   "error": null,
   "title": "Алексей Русских (губернатор)"
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 12,
+  "items": 8,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
@@ -29,7 +29,7 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 24,
+  "items": 23,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -41,7 +41,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 15,
+  "items": 11,
   "error": null,
   "title": "Репортёр73"
  },
@@ -107,7 +107,7 @@
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "Типичный Димитровград"
  },
@@ -119,7 +119,7 @@
  },
  "tg:chpul": {
   "ok": true,
-  "items": 12,
+  "items": 10,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
@@ -137,7 +137,7 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 12,
+  "items": 9,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -149,7 +149,7 @@
  },
  "tg:shugozhor73": {
   "ok": true,
-  "items": 11,
+  "items": 12,
   "error": null,
   "title": "Симбирский шугожор"
  },
@@ -167,7 +167,7 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 11,
+  "items": 6,
   "error": null,
   "title": "Компромат Ульяновск"
  },
@@ -197,7 +197,7 @@
  },
  "tg:uac_ru": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "ПАО «ОАК»"
  },
@@ -207,11 +207,11 @@
   "error": "нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk_token (vk.com/editapp → Сервисный ключ доступа)"
  },
  "_meta": {
-  "last_run_utc": "2026-09-15T08:54:50.617263+00:00",
-  "last_run_local": "15.09.2026 12:54",
-  "fetched": 425,
-  "new": 53,
-  "total_store": 1665
+  "last_run_utc": "2026-09-15T09:15:52.779888+00:00",
+  "last_run_local": "15.09.2026 13:15",
+  "fetched": 420,
+  "new": 13,
+  "total_store": 1678
  },
  "rss:Улград": {
   "ok": true,

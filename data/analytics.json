@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 13:15",
+ "generated_local": "15.09.2026 13:18",
  "calendar": [
   {
    "etype": "sport",
@@ -303,6 +303,37 @@
  ],
  "clusters": [
   {
+   "name": "новое · поликлиники · героя",
+   "terms": [
+    "новое",
+    "поликлиники",
+    "героя"
+   ],
+   "size": 5,
+   "coverage": 0.2,
+   "gap": true,
+   "samples": [
+    {
+     "title": "15 сентября в Ульяновске на улице Героя РФ Колпакова откроется филиал городской поликлиники №4 Отдельные входы",
+     "url": "https://t.me/ulsk_73online/35947",
+     "source": "t.me/ulsk_73online",
+     "views": 937
+    },
+    {
+     "title": "🏥 Новое подразделение городской поликлиники №4 откроют в Засвияжском районе уже завтра, 15 сентября. Современн",
+     "url": "https://t.me/ulsk_on/22800",
+     "source": "t.me/ulsk_on",
+     "views": 247
+    },
+    {
+     "title": "🏥 15 сентября в Ульяновске откроют новое подразделение поликлиники №4. Новое здание на улице Героя РФ Колпаков",
+     "url": "https://t.me/ulkoroche/33768",
+     "source": "t.me/ulkoroche",
+     "views": 146
+    }
+   ]
+  },
+  {
    "name": "недель · осталось · рабочих",
    "terms": [
     "недель",
@@ -361,37 +392,6 @@
      "url": "https://t.me/topor_ul/11618",
      "source": "t.me/topor_ul",
      "views": 575
-    }
-   ]
-  },
-  {
-   "name": "поликлиники · новое · героя",
-   "terms": [
-    "поликлиники",
-    "новое",
-    "героя"
-   ],
-   "size": 4,
-   "coverage": 0.25,
-   "gap": true,
-   "samples": [
-    {
-     "title": "15 сентября в Ульяновске на улице Героя РФ Колпакова откроется филиал городской поликлиники №4 Отдельные входы",
-     "url": "https://t.me/ulsk_73online/35947",
-     "source": "t.me/ulsk_73online",
-     "views": 937
-    },
-    {
-     "title": "🏥 Новое подразделение городской поликлиники №4 откроют в Засвияжском районе уже завтра, 15 сентября. Современн",
-     "url": "https://t.me/ulsk_on/22800",
-     "source": "t.me/ulsk_on",
-     "views": 247
-    },
-    {
-     "title": "🏥 15 сентября в Ульяновске откроют новое подразделение поликлиники №4. Новое здание на улице Героя РФ Колпаков",
-     "url": "https://t.me/ulkoroche/33768",
-     "source": "t.me/ulkoroche",
-     "views": 146
     }
    ]
   },
@@ -489,11 +489,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": -0.007,
-  "today_items": 135,
-  "today_pos": 453,
-  "today_neg": 302,
-  "today_neu": 618,
+  "today_score": 0.014,
+  "today_items": 145,
+  "today_pos": 458,
+  "today_neg": 304,
+  "today_neu": 621,
   "series": [
    {
     "date": "2026-09-02",
@@ -549,17 +549,17 @@
    },
    {
     "date": "2026-09-15",
-    "score": -0.007
+    "score": 0.014
    }
   ],
   "by_category": {
    "culture": 0.8,
-   "economy": 0.083,
+   "economy": 0.185,
    "education": -0.143,
-   "health": -0.375,
-   "politics": 0.0,
-   "security": -0.52,
-   "society": 0.204,
+   "health": -0.091,
+   "politics": 0.067,
+   "security": -0.546,
+   "society": 0.212,
    "sport": 0.667
   }
  },
@@ -568,8 +568,8 @@
    "source": "Улпресса",
    "tier": null,
    "type": "rss",
-   "total": 186,
-   "primary": 177,
+   "total": 188,
+   "primary": 179,
    "dup": 9,
    "repost_rate": 0.05,
    "views_median": null,
@@ -580,11 +580,11 @@
    "source": "ulpressa",
    "tier": 1,
    "type": "tg",
-   "total": 132,
-   "primary": 104,
+   "total": 133,
+   "primary": 105,
    "dup": 28,
    "repost_rate": 0.21,
-   "views_median": 1260,
+   "views_median": 1210,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -616,8 +616,8 @@
    "source": "chpul",
    "tier": 2,
    "type": "tg",
-   "total": 72,
-   "primary": 49,
+   "total": 73,
+   "primary": 50,
    "dup": 23,
    "repost_rate": 0.32,
    "views_median": 521,
@@ -665,9 +665,9 @@
    "tier": 1,
    "type": "tg",
    "total": 60,
-   "primary": 47,
-   "dup": 13,
-   "repost_rate": 0.22,
+   "primary": 48,
+   "dup": 12,
+   "repost_rate": 0.2,
    "views_median": 238,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -700,8 +700,8 @@
    "source": "reporter73",
    "tier": 1,
    "type": "tg",
-   "total": 49,
-   "primary": 41,
+   "total": 50,
+   "primary": 42,
    "dup": 8,
    "repost_rate": 0.16,
    "views_median": 52,
@@ -712,10 +712,10 @@
    "source": "dimitrovgradd",
    "tier": 2,
    "type": "tg",
-   "total": 47,
+   "total": 48,
    "primary": 40,
-   "dup": 7,
-   "repost_rate": 0.15,
+   "dup": 8,
+   "repost_rate": 0.17,
    "views_median": 1210,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -724,10 +724,10 @@
    "source": "ulkompr",
    "tier": 3,
    "type": "tg",
-   "total": 47,
+   "total": 48,
    "primary": 40,
-   "dup": 7,
-   "repost_rate": 0.15,
+   "dup": 8,
+   "repost_rate": 0.17,
    "views_median": 468,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -772,13 +772,25 @@
    "source": "shugozhor73",
    "tier": 3,
    "type": "tg",
-   "total": 36,
+   "total": 37,
    "primary": 24,
-   "dup": 12,
-   "repost_rate": 0.33,
+   "dup": 13,
+   "repost_rate": 0.35,
    "views_median": 3270,
    "label": "смешанный",
    "clickbait_rate": 0.0
+  },
+  {
+   "source": "volkodav73",
+   "tier": 3,
+   "type": "tg",
+   "total": 36,
+   "primary": 30,
+   "dup": 6,
+   "repost_rate": 0.17,
+   "views_median": 3140,
+   "label": "первоисточник",
+   "clickbait_rate": 0.03
   },
   {
    "source": "Media73",
@@ -793,27 +805,27 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "volkodav73",
-   "tier": 3,
-   "type": "tg",
-   "total": 35,
-   "primary": 29,
-   "dup": 6,
-   "repost_rate": 0.17,
-   "views_median": 3140,
-   "label": "первоисточник",
-   "clickbait_rate": 0.03
-  },
-  {
    "source": "dimitrovgradonline",
    "tier": 2,
    "type": "tg",
    "total": 33,
-   "primary": 25,
-   "dup": 8,
-   "repost_rate": 0.24,
-   "views_median": 366,
+   "primary": 26,
+   "dup": 7,
+   "repost_rate": 0.21,
+   "views_median": 369,
    "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulgovru",
+   "tier": 1,
+   "type": "tg",
+   "total": 32,
+   "primary": 21,
+   "dup": 11,
+   "repost_rate": 0.34,
+   "views_median": 53,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -826,18 +838,6 @@
    "repost_rate": 0.16,
    "views_median": 208,
    "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulgovru",
-   "tier": 1,
-   "type": "tg",
-   "total": 31,
-   "primary": 21,
-   "dup": 10,
-   "repost_rate": 0.32,
-   "views_median": 53,
-   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -856,12 +856,12 @@
    "source": "Russkih_Aleksey",
    "tier": 1,
    "type": "tg",
-   "total": 25,
+   "total": 26,
    "primary": 19,
-   "dup": 6,
-   "repost_rate": 0.24,
+   "dup": 7,
+   "repost_rate": 0.27,
    "views_median": 2430,
-   "label": "первоисточник",
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
@@ -901,6 +901,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "Ulnovosti.ru",
+   "tier": null,
+   "type": "rss",
+   "total": 18,
+   "primary": 17,
+   "dup": 1,
+   "repost_rate": 0.06,
+   "views_median": null,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "culturnik",
    "tier": 3,
    "type": "tg",
@@ -909,18 +921,6 @@
    "dup": 3,
    "repost_rate": 0.17,
    "views_median": 527,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "Ulnovosti.ru",
-   "tier": null,
-   "type": "rss",
-   "total": 17,
-   "primary": 16,
-   "dup": 1,
-   "repost_rate": 0.06,
-   "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -964,11 +964,11 @@
    "source": "uac_ru",
    "tier": 1,
    "type": "tg",
-   "total": 12,
-   "primary": 12,
+   "total": 13,
+   "primary": 13,
    "dup": 0,
    "repost_rate": 0.0,
-   "views_median": 5500,
+   "views_median": 5460,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -989,16 +989,16 @@
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 42.3,
-   "slope": 3.39,
+   "expected": 43.0,
+   "slope": 3.5,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 15.9,
-   "slope": -2.07,
+   "expected": 16.7,
+   "slope": -1.96,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1011,27 +1011,27 @@
    "confidence": "средняя"
   },
   {
-   "topic": "crime",
-   "name": "Суды и криминал",
-   "expected": 22.5,
-   "slope": -1.29,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
    "topic": "cityspace",
    "name": "Городская среда",
-   "expected": 15.8,
-   "slope": 1.25,
+   "expected": 17.2,
+   "slope": 1.46,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "uav",
    "name": "БПЛА и воздушные угрозы",
-   "expected": 25.3,
-   "slope": 1.18,
+   "expected": 26.0,
+   "slope": 1.29,
    "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "crime",
+   "name": "Суды и криминал",
+   "expected": 23.2,
+   "slope": -1.18,
+   "direction": "спад",
    "confidence": "средняя"
   },
   {
@@ -1051,22 +1051,6 @@
    "confidence": "средняя"
   },
   {
-   "topic": "elections",
-   "name": "Выборы-2026",
-   "expected": 4.0,
-   "slope": -0.89,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "governor",
-   "name": "Губернатор / власть",
-   "expected": 22.3,
-   "slope": -0.82,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
    "topic": "cityday",
    "name": "День города (378 лет)",
    "expected": 10.8,
@@ -1079,6 +1063,22 @@
    "name": "УАЗ / Соллерс",
    "expected": 0.6,
    "slope": -0.82,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "elections",
+   "name": "Выборы-2026",
+   "expected": 4.7,
+   "slope": -0.79,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 23.8,
+   "slope": -0.61,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1115,10 +1115,10 @@
    "confidence": "средняя"
   },
   {
-   "topic": "medicine",
-   "name": "Медицина",
-   "expected": 11.2,
-   "slope": -0.32,
+   "topic": "zhkh",
+   "name": "ЖКХ, газ, тепло",
+   "expected": 8.1,
+   "slope": 0.39,
    "direction": "плато",
    "confidence": "низкая"
   },
@@ -1131,10 +1131,10 @@
    "confidence": "низкая"
   },
   {
-   "topic": "zhkh",
-   "name": "ЖКХ, газ, тепло",
-   "expected": 6.7,
-   "slope": 0.18,
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 13.4,
+   "slope": 0.0,
    "direction": "плато",
    "confidence": "низкая"
   }
