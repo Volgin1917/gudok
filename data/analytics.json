@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 09:15",
+ "generated_local": "15.09.2026 09:18",
  "calendar": [
   {
    "etype": "sport",
@@ -203,23 +203,23 @@
    "date": "2026-09-30",
    "date_end": null,
    "time": "",
-   "title": "Мэрия Ульяновска подала иск в Арбитражный суд с требованием полностью снести заброшенный горнолыжный комплекс …",
-   "url": "https://t.me/ulsk_73online/35968",
-   "source": "t.me/ulsk_73online",
+   "title": "🏔 Мэрия Ульяновска через суд требует снести «Ленинские горки». Городские власти подали иск в Арбитражный суд о…",
+   "url": "https://t.me/ulkoroche/33772",
+   "source": "t.me/ulkoroche",
    "tier": 2,
    "venue": ""
   },
   {
-   "etype": "concert",
-   "is_culture": true,
-   "district": true,
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
    "date": "2026-09-30",
    "date_end": null,
    "time": "",
-   "title": "Мэрия вышла в суд с требованием снести канатную дорогу на Ленинских горках",
-   "url": "https://ulpressa.ru/2026/09/15/meriya-vyshla-v-sud-s-trebovaniem-snesti-kanatnuyu-dorogu-na-leninskih-gorkah/",
-   "source": "Улпресса",
-   "tier": null,
+   "title": "Мэрия Ульяновска подала иск в Арбитражный суд с требованием полностью снести заброшенный горнолыжный комплекс …",
+   "url": "https://t.me/ulsk_73online/35968",
+   "source": "t.me/ulsk_73online",
+   "tier": 2,
    "venue": ""
   },
   {
@@ -463,11 +463,11 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": -0.125,
-  "today_items": 40,
-  "today_pos": 422,
-  "today_neg": 274,
-  "today_neu": 583,
+  "today_score": -0.092,
+  "today_items": 47,
+  "today_pos": 424,
+  "today_neg": 276,
+  "today_neu": 586,
   "series": [
    {
     "date": "2026-09-02",
@@ -523,15 +523,16 @@
    },
    {
     "date": "2026-09-15",
-    "score": -0.125
+    "score": -0.092
    }
   ],
   "by_category": {
    "culture": 0.5,
-   "economy": -0.083,
+   "economy": -0.333,
+   "health": -0.5,
    "politics": 0.0,
-   "security": -0.472,
-   "society": 0.071
+   "security": -0.357,
+   "society": 0.059
   }
  },
  "credibility": [
@@ -551,8 +552,8 @@
    "source": "ulpressa",
    "tier": 1,
    "type": "tg",
-   "total": 118,
-   "primary": 91,
+   "total": 119,
+   "primary": 92,
    "dup": 27,
    "repost_rate": 0.23,
    "views_median": 1470,
@@ -575,11 +576,11 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 82,
-   "primary": 68,
+   "total": 83,
+   "primary": 69,
    "dup": 14,
    "repost_rate": 0.17,
-   "views_median": 465,
+   "views_median": 457,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -588,9 +589,9 @@
    "tier": 2,
    "type": "tg",
    "total": 67,
-   "primary": 40,
-   "dup": 27,
-   "repost_rate": 0.4,
+   "primary": 39,
+   "dup": 28,
+   "repost_rate": 0.42,
    "views_median": 3400,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -599,11 +600,11 @@
    "source": "chpul",
    "tier": 2,
    "type": "tg",
-   "total": 65,
-   "primary": 44,
+   "total": 67,
+   "primary": 46,
    "dup": 21,
-   "repost_rate": 0.32,
-   "views_median": 595,
+   "repost_rate": 0.31,
+   "views_median": 539,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -659,11 +660,11 @@
    "source": "reporter73",
    "tier": 1,
    "type": "tg",
-   "total": 45,
-   "primary": 38,
+   "total": 46,
+   "primary": 39,
    "dup": 7,
-   "repost_rate": 0.16,
-   "views_median": 57,
+   "repost_rate": 0.15,
+   "views_median": 56,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -680,6 +681,18 @@
    "clickbait_rate": 0.05
   },
   {
+   "source": "dimitrovgradd",
+   "tier": 2,
+   "type": "tg",
+   "total": 44,
+   "primary": 36,
+   "dup": 8,
+   "repost_rate": 0.18,
+   "views_median": 1260,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "ulsk_73online",
    "tier": 2,
    "type": "tg",
@@ -692,14 +705,14 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "dimitrovgradd",
+   "source": "ulsk_driver73",
    "tier": 2,
    "type": "tg",
    "total": 43,
-   "primary": 36,
-   "dup": 7,
-   "repost_rate": 0.16,
-   "views_median": 1260,
+   "primary": 35,
+   "dup": 8,
+   "repost_rate": 0.19,
+   "views_median": 478,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -716,14 +729,14 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "ulsk_driver73",
+   "source": "ulkoroche",
    "tier": 2,
    "type": "tg",
-   "total": 42,
-   "primary": 34,
-   "dup": 8,
+   "total": 36,
+   "primary": 29,
+   "dup": 7,
    "repost_rate": 0.19,
-   "views_median": 480,
+   "views_median": 831,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -749,18 +762,6 @@
    "repost_rate": 0.31,
    "views_median": 3270,
    "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulkoroche",
-   "tier": 2,
-   "type": "tg",
-   "total": 35,
-   "primary": 28,
-   "dup": 7,
-   "repost_rate": 0.2,
-   "views_median": 915,
-   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -804,11 +805,11 @@
    "tier": 2,
    "type": "tg",
    "total": 28,
-   "primary": 21,
-   "dup": 7,
-   "repost_rate": 0.25,
-   "views_median": 392,
-   "label": "смешанный",
+   "primary": 22,
+   "dup": 6,
+   "repost_rate": 0.21,
+   "views_median": 424,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
@@ -966,14 +967,6 @@
    "confidence": "средняя"
   },
   {
-   "topic": "crime",
-   "name": "Суды и криминал",
-   "expected": 13.7,
-   "slope": -2.57,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
    "topic": "governor",
    "name": "Губернатор / власть",
    "expected": 10.6,
@@ -990,10 +983,18 @@
    "confidence": "средняя"
   },
   {
+   "topic": "crime",
+   "name": "Суды и криминал",
+   "expected": 15.9,
+   "slope": -2.25,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
    "topic": "sport",
    "name": "Спорт",
-   "expected": 8.4,
-   "slope": -1.61,
+   "expected": 9.1,
+   "slope": -1.5,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1030,19 +1031,19 @@
    "confidence": "средняя"
   },
   {
+   "topic": "transport",
+   "name": "Транспорт и дороги",
+   "expected": 26.2,
+   "slope": 1.04,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
    "topic": "medicine",
    "name": "Медицина",
    "expected": 6.8,
    "slope": -0.96,
    "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "transport",
-   "name": "Транспорт и дороги",
-   "expected": 25.4,
-   "slope": 0.93,
-   "direction": "рост",
    "confidence": "средняя"
   },
   {
