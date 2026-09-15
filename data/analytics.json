@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 09:18",
+ "generated_local": "15.09.2026 09:36",
  "calendar": [
   {
    "etype": "sport",
@@ -463,10 +463,10 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": -0.092,
-  "today_items": 47,
+  "today_score": -0.129,
+  "today_items": 49,
   "today_pos": 424,
-  "today_neg": 276,
+  "today_neg": 278,
   "today_neu": 586,
   "series": [
    {
@@ -523,7 +523,7 @@
    },
    {
     "date": "2026-09-15",
-    "score": -0.092
+    "score": -0.129
    }
   ],
   "by_category": {
@@ -531,8 +531,8 @@
    "economy": -0.333,
    "health": -0.5,
    "politics": 0.0,
-   "security": -0.357,
-   "society": 0.059
+   "security": -0.4,
+   "society": 0.0
   }
  },
  "credibility": [
@@ -601,10 +601,10 @@
    "tier": 2,
    "type": "tg",
    "total": 67,
-   "primary": 46,
-   "dup": 21,
-   "repost_rate": 0.31,
-   "views_median": 539,
+   "primary": 45,
+   "dup": 22,
+   "repost_rate": 0.33,
+   "views_median": 521,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -612,10 +612,10 @@
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 61,
+   "total": 62,
    "primary": 45,
-   "dup": 16,
-   "repost_rate": 0.26,
+   "dup": 17,
+   "repost_rate": 0.27,
    "views_median": 6310,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -637,19 +637,19 @@
    "tier": 2,
    "type": "tg",
    "total": 57,
-   "primary": 42,
-   "dup": 15,
-   "repost_rate": 0.26,
+   "primary": 43,
+   "dup": 14,
+   "repost_rate": 0.25,
    "views_median": 342,
-   "label": "смешанный",
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
    "source": "ulpravda",
    "tier": 1,
    "type": "tg",
-   "total": 52,
-   "primary": 41,
+   "total": 53,
+   "primary": 42,
    "dup": 11,
    "repost_rate": 0.21,
    "views_median": 283,
@@ -685,10 +685,10 @@
    "tier": 2,
    "type": "tg",
    "total": 44,
-   "primary": 36,
-   "dup": 8,
-   "repost_rate": 0.18,
-   "views_median": 1260,
+   "primary": 37,
+   "dup": 7,
+   "repost_rate": 0.16,
+   "views_median": 1210,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -721,10 +721,10 @@
    "tier": 3,
    "type": "tg",
    "total": 43,
-   "primary": 37,
-   "dup": 6,
-   "repost_rate": 0.14,
-   "views_median": 512,
+   "primary": 36,
+   "dup": 7,
+   "repost_rate": 0.16,
+   "views_median": 542,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -757,9 +757,9 @@
    "tier": 3,
    "type": "tg",
    "total": 35,
-   "primary": 24,
-   "dup": 11,
-   "repost_rate": 0.31,
+   "primary": 25,
+   "dup": 10,
+   "repost_rate": 0.29,
    "views_median": 3270,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -789,6 +789,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "dimitrovgradonline",
+   "tier": 2,
+   "type": "tg",
+   "total": 29,
+   "primary": 22,
+   "dup": 7,
+   "repost_rate": 0.24,
+   "views_median": 392,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "ulpatriot",
    "tier": 3,
    "type": "tg",
@@ -797,18 +809,6 @@
    "dup": 3,
    "repost_rate": 0.11,
    "views_median": 7380,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "dimitrovgradonline",
-   "tier": 2,
-   "type": "tg",
-   "total": 28,
-   "primary": 22,
-   "dup": 6,
-   "repost_rate": 0.21,
-   "views_median": 424,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -961,8 +961,8 @@
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 6.4,
-   "slope": -3.46,
+   "expected": 7.1,
+   "slope": -3.36,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1007,6 +1007,14 @@
    "confidence": "средняя"
   },
   {
+   "topic": "transport",
+   "name": "Транспорт и дороги",
+   "expected": 28.4,
+   "slope": 1.36,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
    "topic": "export",
    "name": "Экспорт и кооперация",
    "expected": 0.9,
@@ -1031,18 +1039,10 @@
    "confidence": "средняя"
   },
   {
-   "topic": "transport",
-   "name": "Транспорт и дороги",
-   "expected": 26.2,
-   "slope": 1.04,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
    "topic": "medicine",
    "name": "Медицина",
-   "expected": 6.8,
-   "slope": -0.96,
+   "expected": 7.5,
+   "slope": -0.86,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1105,8 +1105,8 @@
   {
    "topic": "budget",
    "name": "Бюджет-2027",
-   "expected": 7.3,
-   "slope": -0.04,
+   "expected": 8.1,
+   "slope": 0.07,
    "direction": "плато",
    "confidence": "низкая"
   }

@@ -89,7 +89,7 @@
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 6,
+  "items": 7,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -207,11 +207,11 @@
   "error": "нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk_token (vk.com/editapp → Сервисный ключ доступа)"
  },
  "_meta": {
-  "last_run_utc": "2026-09-15T05:16:14.595001+00:00",
-  "last_run_local": "15.09.2026 09:16",
-  "fetched": 442,
-  "new": 8,
-  "total_store": 1556
+  "last_run_utc": "2026-09-15T05:33:32.836760+00:00",
+  "last_run_local": "15.09.2026 09:33",
+  "fetched": 444,
+  "new": 3,
+  "total_store": 1559
  },
  "rss:Улград": {
   "ok": true,
