@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 10:58",
+ "generated_local": "15.09.2026 13:12",
  "calendar": [
   {
    "etype": "sport",
@@ -277,6 +277,37 @@
  ],
  "clusters": [
   {
+   "name": "заметили · кабана · центре",
+   "terms": [
+    "заметили",
+    "кабана",
+    "центре"
+   ],
+   "size": 4,
+   "coverage": 0.0,
+   "gap": true,
+   "samples": [
+    {
+     "title": "😳 Змею заметили ульяновцы в центре города Тоже приползла праздновать? 😅 😱",
+     "url": "https://t.me/tresh_ulyan/56175",
+     "source": "t.me/tresh_ulyan",
+     "views": 13200
+    },
+    {
+     "title": "😱 В центре Ульяновска заметили удава Необычного гостя заметили прямо в центре Ульяновска. Змея ползала среди т",
+     "url": "https://t.me/ulyanovsk_smi/29464",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 767
+    },
+    {
+     "title": "😜 Плывущего кабана заметили ульяновцы во время рыбалки Необычную встречу устроил рыбакам в Ульяновске дикий ка",
+     "url": "https://t.me/ulyanovsk_smi/29466",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 394
+    }
+   ]
+  },
+  {
    "name": "недель · осталось · рабочих",
    "terms": [
     "недель",
@@ -366,37 +397,6 @@
      "url": "https://t.me/ulkoroche/33768",
      "source": "t.me/ulkoroche",
      "views": 146
-    }
-   ]
-  },
-  {
-   "name": "маркса · карла · сидит",
-   "terms": [
-    "маркса",
-    "карла",
-    "сидит"
-   ],
-   "size": 3,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "😱 Жёсткие разборки пацанов на ул. Карла Маркса 😱",
-     "url": "https://t.me/tresh_ulyan/56170",
-     "source": "t.me/tresh_ulyan",
-     "views": 13000
-    },
-    {
-     "title": "😱 На Карла Маркса сидит лиса",
-     "url": "https://t.me/insaid173/46961",
-     "source": "t.me/insaid173",
-     "views": 10800
-    },
-    {
-     "title": "🤯 Два пожара полностью спалили жилые дома в Ульяновской области На улице Карла Маркса в Инзе пожар уничтожил ж",
-     "url": "https://t.me/topor_ul/11592",
-     "source": "t.me/topor_ul",
-     "views": 2400
     }
    ]
   },

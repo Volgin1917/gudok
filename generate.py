@@ -2806,6 +2806,307 @@ def render_infospace(cfg, trends, store, status, info):
 </div>
 """
 
+    # ── Волна 4 (план v0.9): язык, труд и методика — метрики на собранных данных ──
+    w4 = info.get("w4") or {}
+    w4_html = ""
+    ag = w4.get("agency") or {}
+    fr = w4.get("frames") or {}
+    ait = w4.get("ai_trace") or {}
+    dd = w4.get("dedup") or {}
+    if ag.get("n") or fr.get("clusters") or ait.get("n") or dd.get("n_items"):
+        def _p4(x):
+            return "—" if x is None else f"{round(x * 100, 1)}%"
+
+        def _num4(x, nd=2):
+            return "—" if x is None else (f"{x:.{nd}f}" if isinstance(x, float) else str(x))
+
+        def _seg4(pairs):
+            """Сегмент-полоса: [(подпись, цвет, доля)] → (полоса, легенда)."""
+            bar = legend = ""
+            for lbl, col, val in pairs:
+                if not val:
+                    continue
+                w = max(1, round(val * 100))
+                bar += (f'<span title="{esc(lbl)}: {round(val * 100)}%" '
+                        f'style="width:{w}%;background:{col};display:block;height:100%;"></span>')
+                legend += (f'<span style="display:inline-flex;align-items:center;gap:5px;'
+                           f'margin-right:14px;"><i style="width:10px;height:10px;background:{col};'
+                           f'display:inline-block;"></i>{esc(lbl)} · {round(val * 100)}%</span>')
+            return bar, legend
+
+        def _bars4(rows, mx=None, color="var(--ink)"):
+            """Строки-полосы: [(подпись, значение, подпись справа)] → HTML."""
+            mx = mx or max([r[1] for r in rows] or [1]) or 1
+            html = ""
+            for lbl, val, right in rows:
+                w = max(2, min(100, int(val / mx * 100)))
+                html += (f'<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;'
+                         f'font-family:var(--sans);font-size:12px;">'
+                         f'<span style="width:150px;text-align:right;font-weight:600;color:var(--ink);'
+                         f'flex-shrink:0;">{esc(str(lbl))}</span>'
+                         f'<span style="flex:1;background:var(--paper-2);border:1px solid var(--rule);'
+                         f'height:14px;overflow:hidden;display:block;"><i style="display:block;'
+                         f'height:100%;width:{w}%;background:{color};"></i></span>'
+                         f'<span style="width:110px;font-size:11px;color:var(--muted);'
+                         f'white-space:nowrap;">{esc(str(right))}</span></div>')
+            return html
+
+        # ── 1) индекс агентности
+        ag_html = ""
+        if ag.get("n"):
+            rs = ag.get("role_shares") or {}
+            role_pairs = [("субъект действия", "var(--ink)", rs.get("субъект") or 0),
+                          ("объект действия", "#B4795A", rs.get("объект") or 0),
+                          ("актор назван, роль не ясна", "var(--ink-2)", rs.get("упоминание") or 0),
+                          ("безличная конструкция", "#6D6079", rs.get("безличный") or 0),
+                          ("актор не назван", "var(--rule)", rs.get("без актора") or 0)]
+            ag_bar, ag_legend = _seg4(role_pairs)
+            amix = ag.get("actor_mix") or {}
+            asum = sum(amix.values()) or 1
+            ACTOR_LABEL = {"власть": "власть и должностные лица", "контроль": "силовики и надзор",
+                           "жители": "жители", "работники": "работники и профессии",
+                           "военные": "военные", "бизнес": "бизнес", "учреждения": "учреждения",
+                           "неизвестные": "неизвестные"}
+            ag_rows = _bars4([(ACTOR_LABEL.get(k, k), v, f"{round(v / asum * 100)}% · n={v}")
+                              for k, v in amix.items()], color="var(--accent)")
+            omix = ag.get("object_mix") or {}
+            osum = sum(omix.values()) or 1
+            ag_obj_rows = _bars4([(ACTOR_LABEL.get(k, k), v, f"{round(v / osum * 100)}% · n={v}")
+                                  for k, v in list(omix.items())[:5]], color="#B4795A")
+            ag_tier_rows = ""
+            for t in ("T1", "T2", "T3", "СМИ/подборка"):
+                v = (ag.get("by_tier") or {}).get(t)
+                if not v:
+                    continue
+                ag_tier_rows += (
+                    f'<tr><td>{esc(t)}</td><td style="text-align:right;">{v.get("n", 0)}</td>'
+                    f'<td style="text-align:right;">{_p4(v.get("subject_share"))}</td>'
+                    f'<td style="text-align:right;">{v.get("people_subjects", 0)}</td>'
+                    f'<td style="text-align:right;">{v.get("power_subjects", 0)}</td>'
+                    f'<td style="text-align:right;">{v.get("people_objects", 0)}</td>'
+                    f'<td style="text-align:right;">{_p4(v.get("impersonal_share"))}</td></tr>')
+            ag_ex = ""
+            for cls, exs in (ag.get("examples") or {}).items():
+                for e in exs[:1]:
+                    ag_ex += (f'<div style="display:flex;gap:12px;align-items:baseline;padding:5px 0;'
+                              f'border-bottom:1px dashed var(--rule);font-size:13px;">'
+                              f'<span style="width:104px;flex-shrink:0;font-family:var(--sans);'
+                              f'font-size:10.5px;color:var(--muted);text-transform:uppercase;'
+                              f'letter-spacing:.06em;">{esc(ACTOR_LABEL.get(cls, cls))}</span>'
+                              f'<a href="{esc(e.get("url") or "#")}" target="_blank" rel="noopener" '
+                              f'style="flex:1;min-width:0;color:var(--ink);">{esc(e.get("title", ""))}</a>'
+                              f'<span style="font-family:var(--sans);font-size:11px;color:var(--muted);'
+                              f'white-space:nowrap;">{esc(str(e.get("source", "")))}</span></div>')
+            excl = ag.get("excluded_service") or {}
+            excl_txt = ", ".join(f"{k} — {v}" for k, v in excl.items()) or "нет"
+            fp = ag.get("first_person_by_tier") or {}
+            fp_txt = " · ".join(f"{esc(k)}: {_p4(v)}" for k, v in sorted(fp.items())) or "—"
+            ag_html = f"""
+<div class="card"><div class="card-pad">
+<div class="side-head">Индекс агентности <span class="sub">кому поле отдаёт действие · ось «язык»</span></div>
+<div class="side-body">
+<div style="display:flex;gap:26px;align-items:baseline;margin-bottom:10px;flex-wrap:wrap;">
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;color:var(--accent);">{_num4(ag.get('agency_index'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">индекс агентности — {esc(ag.get('verdict', '—'))} (люди {ag.get('people_subjects', 0)} против власти и надзора {ag.get('power_subjects', 0)})</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_p4(ag.get('actor_density'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">сообщений называют социального актора в лиде</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_p4(ag.get('objectification'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">людей в поле — объекты действия, а не субъекты</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_p4(ag.get('impersonal_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">сообщений без действующего лица (безлично или «о событии»)</span></div>
+</div>
+<div style="display:flex;height:16px;border:1px solid var(--rule);overflow:hidden;margin-bottom:6px;">{ag_bar}</div>
+<div style="font-family:var(--sans);font-size:10.5px;color:var(--muted);margin-bottom:4px;">{ag_legend}</div>
+<div class="grid2" style="margin-top:12px;">
+<div><div style="margin:0 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Кто действует · субъекты</div>{ag_rows}</div>
+<div><div style="margin:0 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Над кем совершают действие · объекты</div>{ag_obj_rows}
+<div style="font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:8px;">Авторское «я/мы» в лиде: {_p4(ag.get('first_person_share'))} потока ({fp_txt}).</div></div>
+</div>
+<div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">По уровням источников</div>
+<div style="overflow-x:auto;"><table class="tbl"><tr><th>Уровень</th><th style="text-align:right;">сообщ.</th><th style="text-align:right;">субъект</th><th style="text-align:right;">люди-субъекты</th><th style="text-align:right;">власть-субъекты</th><th style="text-align:right;">люди-объекты</th><th style="text-align:right;">безличность</th></tr>{ag_tier_rows}</table></div>
+<div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Примеры разметки</div>
+{ag_ex or '<div class="note">Примеров нет.</div>'}
+<div class="note"><b>Метод.</b> Эвристика без морфологического разбора (внешние NLP-библиотеки отклонены принципом автономности): в первых предложениях лида ищется пара «класс актора ↔ агентивный глагол» в окне ±55 знаков; актор после предлога считается косвенным падежом и в субъекты не попадает; пассивный или виктимный маркер рядом («пострадали», «госпитализированы», «нашли тело») даёт роль объекта; адресатный глагол перед актором («жителей призвали…») — тоже объект. Классы: власть и должностные лица, силовики и надзор, жители, работники и профессии, военные, бизнес, учреждения, неизвестные. Служебные формуляры исключены ({esc(excl_txt)}): в них субъекта нет по определению. <b>Границы.</b> Без парсера омонимия падежей снимается не полностью: ручная проверка 32 сообщений с присвоенной ролью (20 «субъект» + 12 «объект») дала 27 верных — точность ≈85%; типичные ошибки: несклоняемые аббревиатуры («подала иск в Арбитражный суд», «на АЗС»), локативы места и прилагательные вместо существительных. Поэтому доля субъектов — нижняя оценка, а 45% сообщений попадают в «актор назван, роль не ясна»: их метрика не трактует. Калибровка по ручной разметке 200 сообщений — следующий шаг паспорта (пункт «аудит выборки»).</div>
+</div></div></div>
+"""
+
+        # ── 2) фрейм-карта события
+        fr_html = ""
+        if fr.get("frame_mix"):
+            fmix = fr.get("frame_mix") or {}
+            ftot = sum(fmix.values()) or 1
+            FRAME_LABEL = {"тревога": "тревога и режимы", "ЧП": "ЧП и происшествия",
+                           "жалоба": "жалоба и проблема", "надзор": "надзор и наказание",
+                           "работы": "плановые работы", "достижение": "достижение",
+                           "ритуал": "ритуал и визит", "услуга": "услуга и инструкция",
+                           "статистика": "статистика и опрос", "интерактив": "интерактив с аудиторией",
+                           "лайв": "лайв-репортаж", "погода": "погода", "прочее": "нейтральная хроника"}
+            fr_rows = _bars4([(FRAME_LABEL.get(k, k), v, f"{round(v / ftot * 100)}% · n={v}")
+                              for k, v in fmix.items()], color="var(--ink-2)")
+            tm = fr.get("tier_matrix") or {}
+            fr_names = [k for k, _ in (fr.get("frame_mix") or {}).items()][:8]
+            fr_thead = "".join(f'<th style="text-align:right;">{esc(FRAME_LABEL.get(f, f))}</th>' for f in fr_names)
+            fr_trows = ""
+            for t in ("T1", "T2", "T3", "СМИ/подборка"):
+                v = tm.get(t)
+                if not v:
+                    continue
+                cells = "".join(f'<td style="text-align:right;">{_p4((v.get("frames") or {}).get(f))}</td>'
+                                for f in fr_names)
+                fr_trows += f'<tr><td>{esc(t)} <span style="color:var(--muted);font-size:11px;">n={v.get("n")}</span></td>{cells}</tr>'
+            fr_ex = ""
+            for c in (fr.get("examples") or [])[:2]:
+                fr_ex += (f'<div style="padding:8px 0;border-bottom:1px dashed var(--rule);">'
+                          f'<div style="font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:4px;">'
+                          f'×{c.get("size")} · фреймы: {esc(" / ".join(c.get("frames") or []))}'
+                          f'{" · конфликт уровней" if c.get("tier_conflict") else ""}</div>')
+                for m in c.get("members") or []:
+                    tier_lbl = f"T{m.get('tier')}" if m.get("tier") else "СМИ"
+                    fr_ex += (f'<div style="display:flex;gap:10px;align-items:baseline;padding:3px 0;'
+                              f'font-family:var(--sans);font-size:11.5px;">'
+                              f'<span style="width:96px;flex-shrink:0;text-align:right;color:var(--muted);">'
+                              f'{esc(str(m.get("frame", "")))}</span>'
+                              f'<span style="width:34px;flex-shrink:0;color:var(--muted);">{esc(tier_lbl)}</span>'
+                              f'<span style="width:120px;flex-shrink:0;color:var(--ink);overflow:hidden;'
+                              f'text-overflow:ellipsis;white-space:nowrap;">{esc(str(m.get("source", "")))}</span>'
+                              f'<span style="flex:1;min-width:0;color:var(--ink-2);overflow:hidden;'
+                              f'text-overflow:ellipsis;white-space:nowrap;">{esc(str(m.get("title", "")))}</span></div>')
+                fr_ex += '</div>'
+            fr_html = f"""
+<div class="card"><div class="card-pad">
+<div class="side-head">Фрейм-карта события <span class="sub">как поле называет одно и то же · ось «язык»</span></div>
+<div class="side-body">
+<div style="display:flex;gap:26px;align-items:baseline;margin-bottom:10px;flex-wrap:wrap;">
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;color:var(--accent);">{_p4(fr.get('divergence_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">каскадов перепечаток названы в разных фреймах ({fr.get('divergent', 0)} из {fr.get('clusters', 0)})</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{fr.get('tier_conflicts', 0)}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">конфликтов уровней: официальный канал и агрегатор дали сюжету несовместимые фреймы</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{fr.get('chp_vs_works', 0)}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">контрастов «ЧП ↔ плановые работы»</span></div>
+</div>
+<div style="margin:0 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Фреймы недели · все сообщения</div>
+{fr_rows}
+<div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Кто в какой фрейм смотрит · доля внутри уровня</div>
+<div style="overflow-x:auto;"><table class="tbl"><tr><th>Уровень</th>{fr_thead}</tr>{fr_trows}</table></div>
+<div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Расхождения внутри каскадов</div>
+{fr_ex or '<div class="note">Расходящихся каскадов за неделю нет.</div>'}
+<div class="note"><b>Метод.</b> Фрейм — способ назвать событие: лексикон из 12 рамок (тревога, ЧП, жалоба, надзор, плановые работы, достижение, ритуал и визит, услуга и инструкция, статистика, интерактив, лайв, погода) плюс «нейтральная хроника» при отсутствии маркеров; доминанта — по числу совпадений в заголовке и лиде. Кластеры — уже посчитанная дедупликацией связность перепечаток, поэтому расхождение фреймов видно на одном и том же событии. <b>Что это значит.</b> Фреймы распределены по этажам поля: официальные каналы чаще подают сюжет как достижение или ритуал, агрегаторы — как ЧП и жалобу, редакции — как надзор и работы. Расхождение фреймов внутри одного каскада — измеримый след конфликта интересов; контраст «ЧП ↔ плановые работы» — его классическая форма{' (за неделю не зафиксирован)' if not fr.get('chp_vs_works') else f": {fr.get('chp_vs_works')} каскадов"}. <b>Границы.</b> Фрейм определяется лексиконом, а не смыслом: ирония и цитаты чужой рамки не распознаются; «нейтральная хроника» — остаточный класс, его доля показывает, сколько поля вообще не оценивает события.</div>
+</div></div></div>
+"""
+
+        # ── 3) ИИ-след: шаблонность производства
+        ai_html = ""
+        if ait.get("n"):
+            sig = ait.get("signals") or {}
+            sig_rows = _bars4([(k, v, f"{v} сообщ. · {_p4(v / (ait.get('n') or 1))}")
+                               for k, v in sig.items()], color="#6D6079")
+            ai_tier_rows = ""
+            for t in ("T1", "T2", "T3", "СМИ/подборка"):
+                v = (ait.get("by_tier") or {}).get(t)
+                if not v:
+                    continue
+                ai_tier_rows += (f'<tr><td>{esc(t)}</td><td style="text-align:right;">{v.get("n", 0)}</td>'
+                                 f'<td style="text-align:right;">{_p4(v.get("any_share"))}</td>'
+                                 f'<td style="text-align:right;">{_p4(v.get("strong_share"))}</td></tr>')
+            ai_src_rows = "".join(
+                f'<tr><td>{esc(s.get("source", ""))}</td><td style="text-align:right;">{s.get("n", 0)}</td>'
+                f'<td style="text-align:right;">{_p4(s.get("share"))}</td></tr>'
+                for s in (ait.get("by_source") or [])[:6])
+            ai_ex = ""
+            for e in (ait.get("examples") or [])[:3]:
+                ai_ex += (f'<div style="display:flex;gap:12px;align-items:baseline;padding:5px 0;'
+                          f'border-bottom:1px dashed var(--rule);font-size:13px;">'
+                          f'<span style="flex:1;min-width:0;color:var(--ink);">{esc(e.get("title", ""))}</span>'
+                          f'<span style="font-family:var(--sans);font-size:10.5px;color:var(--muted);'
+                          f'white-space:nowrap;">{esc(str(e.get("source", "")))} · {esc(", ".join(e.get("signals") or []))}</span></div>')
+            ai_html = f"""
+<div class="card"><div class="card-pad">
+<div class="side-head">ИИ-след и шаблонность производства <span class="sub">сколько текста собрано, а не написано · ось «труд»</span></div>
+<div class="side-body">
+<div style="display:flex;gap:26px;align-items:baseline;margin-bottom:10px;flex-wrap:wrap;">
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;color:var(--accent);">{_p4(ait.get('any_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">потока несёт хотя бы один признак шаблона ({ait.get('any_n', 0)} из {ait.get('n', 0)}) — {esc(ait.get('share_any_verdict', '—'))}</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_p4(ait.get('strong_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">с выраженным следом (два признака и более)</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{ait.get('verbatim_items', 0)}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">сообщений с дословными повторами чужого текста (общих групп предложений: {ait.get('verbatim_groups', 0)})</span></div>
+</div>
+{sig_rows}
+<div class="grid2" style="margin-top:12px;">
+<div><div style="margin:0 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">По уровням</div>
+<div style="overflow-x:auto;"><table class="tbl"><tr><th>Уровень</th><th style="text-align:right;">сообщ.</th><th style="text-align:right;">со следом</th><th style="text-align:right;">выраженный</th></tr>{ai_tier_rows}</table></div></div>
+<div><div style="margin:0 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Источники с максимальной долей · n≥12</div>
+<div style="overflow-x:auto;"><table class="tbl"><tr><th>Источник</th><th style="text-align:right;">сообщ.</th><th style="text-align:right;">со следом</th></tr>{ai_src_rows}</table></div></div>
+</div>
+<div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Примеры выраженного следа</div>
+{ai_ex or '<div class="note">Примеров нет.</div>'}
+<div class="note"><b>Метод.</b> Шесть независимых признаков: шаблонная концовка («Мы в Telegram | Мы в MAX», «Подписаться», ссылки t.me/max.ru), клише машинного текста («важно отметить», «в современном мире», «играет важную роль»), эмодзи-блок (≥5 эмодзи в лиде или ≥3 одинаковых), капс-заголовок, список-шаблон (≥3 маркера-буллета), дословный повтор (≥2 общих предложения длиной ≥40 знаков с другим источником — ловит копипаст пресс-релизов и синдицированный рерайт ниже порога дедупликации). Сообщение «со следом» — при одном признаке, «с выраженным» — при двух и более. <b>Важно.</b> Это не детектор авторства ИИ, а измерение шаблонности производства: признаки одинаково ловят машинную генерацию, потогонный рерайт и копипаст пресс-релизов. Клише машинного текста в региональном поле почти не встречаются — шаблонность здесь обеспечивает не генерация, а формуляр канала и дословное заимствование. Паспорт метрики требует ручной сверки с редакциями.</div>
+</div></div></div>
+"""
+
+        # ── 4) устойчивость дедупликации
+        dd_html = ""
+        if dd.get("n_items"):
+            sw = dd.get("sweep") or []
+            sw_rows = ""
+            for s in sw:
+                cur = abs(s.get("threshold", 0) - (dd.get("threshold") or 0)) < 1e-9
+                style = ' style="background:var(--paper-2);font-weight:700;"' if cur else ""
+                sw_rows += (f'<tr{style}><td>{s.get("threshold"):.2f}{" ← текущий" if cur else ""}</td>'
+                            f'<td style="text-align:right;">{s.get("clusters", 0)}</td>'
+                            f'<td style="text-align:right;">{s.get("dups", 0)}</td>'
+                            f'<td style="text-align:right;">{_p4(s.get("original_share"))}</td>'
+                            f'<td style="text-align:right;">{s.get("max_size", 0)}</td></tr>')
+            dd_smp = ""
+            for s in (dd.get("sample") or [])[:6]:
+                flags = []
+                if s.get("antagonistic"):
+                    flags.append("режим введён ↔ снят")
+                if s.get("same_source"):
+                    flags.append("один источник")
+                flag_txt = f' <span style="color:var(--accent);">· {esc(", ".join(flags))}</span>' if flags else ""
+                dd_smp += (f'<div style="padding:6px 0;border-bottom:1px dashed var(--rule);font-size:12.5px;">'
+                           f'<div style="font-family:var(--sans);font-size:10.5px;color:var(--muted);margin-bottom:2px;">'
+                           f'Жаккар {s.get("jaccard")}{" · склеены" if s.get("would_merge") else " · не склеены"}{flag_txt}</div>'
+                           f'<div style="color:var(--ink);"><b>{esc((s.get("a") or {}).get("source", ""))}:</b> '
+                           f'{esc((s.get("a") or {}).get("title", ""))}</div>'
+                           f'<div style="color:var(--ink-2);"><b>{esc((s.get("b") or {}).get("source", ""))}:</b> '
+                           f'{esc((s.get("b") or {}).get("title", ""))}</div></div>')
+            ant_ex = ""
+            for e in (dd.get("antagonistic_examples") or [])[:2]:
+                ant_ex += (f'<div style="padding:6px 0;border-bottom:1px dashed var(--rule);font-size:12.5px;">'
+                           f'<div style="color:var(--ink);"><b>{esc((e.get("a") or {}).get("source", ""))}:</b> '
+                           f'{esc((e.get("a") or {}).get("title", ""))}</div>'
+                           f'<div style="color:var(--accent);"><b>{esc((e.get("b") or {}).get("source", ""))}:</b> '
+                           f'{esc((e.get("b") or {}).get("title", ""))}</div></div>')
+            rng = dd.get("original_range") or [None, None]
+            dd_dups = next((s.get("dups", 0) for s in sw
+                            if abs(s.get("threshold", 0) - (dd.get("threshold") or 0)) < 1e-9), 0)
+            dd_html = f"""
+<div class="card"><div class="card-pad">
+<div class="side-head">Устойчивость дедупликации <span class="sub">насколько можно верить цифре «оригинальности» · ось «методика»</span></div>
+<div class="side-body">
+<div style="display:flex;gap:26px;align-items:baseline;margin-bottom:10px;flex-wrap:wrap;">
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_p4(dd.get('original_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">оригинальность недели при пороге Жаккара {dd.get('threshold')} (пересчёт, {dd.get('n_items', 0)} сообщ.)</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;color:var(--accent);">±{dd.get('spread_pp', 0) / 2:.1f} п.п.</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">чувствительность к порогу: {_p4(rng[0])}…{_p4(rng[1])} на порогах 0.30–0.60</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_p4(dd.get('suspicious_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">дублей — сомнительные склейки ({dd.get('suspicious_dups', 0)} из {dd_dups})</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_p4(dd.get('corrected_original_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">оригинальность без сомнительных склеек</span></div>
+</div>
+<div class="grid2">
+<div><div style="margin:0 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Пороговый эксперимент</div>
+<div style="overflow-x:auto;"><table class="tbl"><tr><th>Порог</th><th style="text-align:right;">кластеров</th><th style="text-align:right;">дублей</th><th style="text-align:right;">оригинальность</th><th style="text-align:right;">макс. кластер</th></tr>{sw_rows}</table></div></div>
+<div><div style="margin:0 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Из чего складываются сомнительные склейки</div>
+{_bars4([('кластеры-«эпизоды» (>24 ч)', dd.get('episode_dups', 0), f"{dd.get('episode_dups', 0)} дублей · {dd.get('episode_clusters', 0)} класт."), ('режим введён ↔ режим снят', dd.get('antagonistic_dups', 0), f"{dd.get('antagonistic_dups', 0)} дублей · антагонизм"), ('повтор внутри одного источника', dd.get('same_source_dups', 0), f"{dd.get('same_source_dups', 0)} дублей · каскада нет"), ('служебные формуляры', dd.get('service_dups', 0), f"{dd.get('service_dups', 0)} дублей · погода, оповещения")], color='#B4795A')}
+<div style="font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:6px;">Медианная жизнь кластера — {dd.get('median_span_h')} ч; пограничных пар (±0.07 от порога) — {dd.get('borderline_pairs', 0)}.</div>
+{ant_ex}</div>
+</div>
+<div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Контрольная выборка пограничных пар — на ручную верификацию</div>
+{dd_smp or '<div class="note">Пограничных пар нет.</div>'}
+<div class="note"><b>Метод.</b> Одни и те же пары недели пересчитаны при порогах Жаккара 0.30–0.60 (в конвейере — {dd.get('threshold')} из config.json): виден размах доли оригинальности, то есть цена выбора порога. Сомнительные склейки ищутся тремя независимыми признаками: кластер растянут более чем на 24 ч (склеены разные эпизоды одного формуляра), пара антагонистична («Ракетная опасность» ↔ «Снят режим»), дубль принадлежит тому же источнику, что и первичный материал (повтор, а не перепечатка — каскада нет). Признаки пересекаются, поэтому их сумма больше итога. <b>Вывод недели.</b> {esc(dd.get('verdict', '—'))}. <b>Что делать.</b> Три правки dedup.py устраняют большую часть брака без потери настоящих каскадов: не склеивать публикации с разбросом больше 24 ч, запретить склейку антагонистичных формуляров (введено/снято), не считать дубли внутри одного источника каскадом перепечаток. Правки подготовлены как предложение редакции — до включения цифра «оригинальности» публикуется с оговоркой о диапазоне.</div>
+</div></div></div>
+"""
+
+        w4_html = f"""
+<div class="sec-head"><h2>Волна 4: язык, труд и методика</h2><div class="line"></div>
+<div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план v0.9 →</a> · метрики подключены 15.09 · выборка: {ag.get('n') or ait.get('n') or 0} сообщения недели</div></div>
+{ag_html}
+<div class="grid2">
+{fr_html}
+{ai_html}
+</div>
+{dd_html}
+"""
+
     ts = info.get("tone_series") or []
     tone_spark = sparkline([(t.get("score") or 0) for t in ts], w=300, h=56, color="#4a7fb5") if ts else ""
     tone_days = "".join(f"<span style='font-size:10px;color:var(--muted);'>{t['date'][8:10]}</span> " for t in ts[-7:])
@@ -2888,7 +3189,7 @@ def render_infospace(cfg, trends, store, status, info):
 Волатильность тона — разброс дневных значений: всплески соответствуют тревогам или праздникам.<br>
 <b>В очереди на подключение:</b> {planned_metrics}</div>
 </div></div>
-{w1_html}{w2_html}{w3_html}
+{w1_html}{w2_html}{w3_html}{w4_html}
 <div class="sec-head"><h2>Нацпроекты и госпрограммы в повестке</h2><div class="line"></div>
 <div class="badge">метрика подключена 12.09</div></div>
 <div class="card"><div class="card-pad">

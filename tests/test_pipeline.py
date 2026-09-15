@@ -894,3 +894,390 @@ class TestEisMetrics(unittest.TestCase):
 
     def test_load_missing_file(self):
         self.assertIsNone(analytics.load_eis_csv("/nonexistent/path.csv"))
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Волна 4 «Инфопространства»: язык (агентность, фреймы), труд (ИИ-след),
+# методика (устойчивость дедупликации)
+# ─────────────────────────────────────────────────────────────────────────────
+class TestAgencyRoles(unittest.TestCase):
+    """Разметка ролей: субъект / объект / упоминание / безличный / без актора."""
+
+    def _roles(self, sentence):
+        return {c: (role, word) for c, role, word, _o, _p in analytics.agency_roles(sentence)}
+
+    def _one(self, title, text=""):
+        return analytics.agency_of({"title": title, "text": text})
+
+    def test_official_is_subject(self):
+        r = self._one("Губернатор Алексей Русских заявил о сохранении льготного питания")
+        self.assertEqual(r["role"], "субъект")
+        self.assertEqual(r["actor"], "власть")
+
+    def test_residents_are_subjects(self):
+        r = self._one("Жители улицы Заречной второй год требуют ремонта дороги")
+        self.assertEqual(r["role"], "субъект")
+        self.assertEqual(r["actor"], "жители")
+
+    def test_speech_inversion_keeps_subject(self):
+        # «сообщил мэр» — глагол речи стоит перед актором, это инверсия, а не объект
+        r = self._one("Мост откроют 15–17 сентября — об этом сообщил мэр Ульяновска")
+        self.assertEqual(r["role"], "субъект")
+        self.assertEqual(r["actor"], "власть")
+
+    def test_victim_is_object(self):
+        r = self._one("В результате ДТП пострадали два человека, один госпитализирован")
+        self.assertEqual(r["role"], "объект")
+        self.assertEqual(r["object"], "жители")
+
+    def test_address_verb_makes_object(self):
+        # «жителей призвали» — адресат рекомендации, а не субъект действия
+        r = self._one("Жителей региона призвали быть бдительнее и избегать открытых участков")
+        self.assertEqual(r["role"], "объект")
+        self.assertEqual(r["object"], "жители")
+
+    def test_transitive_verb_makes_object(self):
+        r = self._one("Делегация посетила металлургический завод в Димитровграде")
+        self.assertEqual(r["role"], "объект")
+        self.assertEqual(r["object"], "бизнес")
+
+    def test_oblique_case_not_subject(self):
+        # «в аэропорту» — косвенный падеж: место, а не действующее лицо
+        r = self._one("Ограничения в аэропорту Ульяновска сняты Росавиацией")
+        self.assertNotEqual(r.get("actor"), "учреждения")
+
+    def test_attribution_is_not_object(self):
+        # «по данным полиции» — источник сведений, а не объект действия
+        roles = self._roles("По данным полиции, водитель скрылся с места происшествия")
+        self.assertEqual(roles["контроль"][0], "упоминание")
+
+    def test_clause_boundary_protects_subject(self):
+        # пассив в другом придаточном не должен понижать роль актора
+        r = self._one("Погибли два человека, еще шестеро пострадали, сообщил глава города")
+        self.assertEqual(r["role"], "субъект")
+        self.assertEqual(r["actor"], "власть")
+
+    def test_impersonal_lead(self):
+        r = self._one("Сообщается о перебоях с подачей горячей воды в Засвияжском районе")
+        self.assertEqual(r["role"], "безличный")
+
+    def test_no_actor_in_lead(self):
+        r = self._one("Мост между улицами Смычки и Шевченко откроют 15 сентября")
+        self.assertEqual(r["role"], "без актора")
+
+    def test_word_boundaries_block_false_actors(self):
+        # «улице» ≠ «лицей», «беспилотника» ≠ «пилот», «почти» ≠ «почта»,
+        # «машиностроитель» ≠ «строитель», «Губернаторский» ≠ «губернатор»
+        for sent in ("Работы на улице Кирова продолжились ночью",
+                     "ПВО перехватили 222 украинских беспилотника",
+                     "Интернет может почти опустеть от живых людей",
+                     "Фестиваль «Юный машиностроитель» прошёл в регионе",
+                     "В Ульяновске после благоустройства открыли сквер «Губернаторский»"):
+            roles = self._roles(sent)
+            self.assertNotIn("учреждения", roles, sent)
+            self.assertNotIn("бизнес", roles, sent)
+
+    def test_service_kinds(self):
+        self.assertEqual(analytics.service_kind({"title": "Прогноз погоды на 15 сентября",
+                                                 "text": "Гидрометцентр обещает заморозки"}), "погода")
+        self.assertEqual(analytics.service_kind({"title": "Ракетная опасность в регионе",
+                                                 "text": "Укройтесь в помещении"}), "оповещение")
+        # сообщение о последствиях — новость, а не уведомление
+        self.assertIsNone(analytics.service_kind({"title": "Ракетная опасность в регионе",
+                                                  "text": "ПВО сбили три цели, пострадавших нет"}))
+        self.assertIsNone(analytics.service_kind({"title": "Открылась выставка", "text": ""}))
+
+    def test_first_person_marked(self):
+        self.assertTrue(analytics.AGENCY_FIRST_PERSON_X.search("Мы решили сохранить льготы"))
+        self.assertFalse(analytics.AGENCY_FIRST_PERSON_X.search("Администрация решила сохранить льготы"))
+
+
+class TestAgencyIndex(unittest.TestCase):
+    """Агрегат «Индекс агентности»: кому поле отдаёт действие."""
+
+    CFG = {"municipalities": {}, "categories": [{"id": "society", "name": "Общество"}]}
+
+    def _it(self, i, title, hours_ago=3, tier=2, channel="ch1"):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = datetime.now(UTC4) - timedelta(hours=hours_ago)
+        return {"id": f"x{i}", "title": title, "text": title, "published": dt.isoformat(),
+                "category": "society", "source_type": "tg", "channel": channel,
+                "source": f"t.me/{channel}", "tier": tier}
+
+    def test_index_and_verdict(self):
+        items = [self._it(1, "Жители села Карлинское требуют ремонта дороги"),
+                 self._it(2, "Рабочие завода начали забастовку и требуют зарплату"),
+                 self._it(3, "Губернатор заявил о решении проблемы")]
+        r = analytics.agency_index(items)
+        self.assertEqual(r["n"], 3)
+        self.assertEqual(r["people_subjects"], 2)
+        self.assertEqual(r["power_subjects"], 1)
+        self.assertAlmostEqual(r["agency_index"], 2.0)
+        self.assertEqual(r["verdict"], "действие у людей")
+        self.assertGreater(r["actor_density"], 0)
+
+    def test_service_messages_excluded(self):
+        items = [self._it(1, "Жители требуют ремонта"),
+                 self._it(2, "Ракетная опасность на территории области"),
+                 self._it(3, "Прогноз погоды: гидрометцентр обещает заморозки")]
+        r = analytics.agency_index(items)
+        self.assertEqual(r["n"], 1)
+        self.assertEqual(r["excluded_service"].get("оповещение"), 1)
+        self.assertEqual(r["excluded_service"].get("погода"), 1)
+
+    def test_empty_week(self):
+        r = analytics.agency_index([])
+        self.assertNotIn("agency_index", r)
+        self.assertEqual(r["n"], 0)
+
+
+class TestFrames(unittest.TestCase):
+    """Фрейм-карта: как один сюжет назван в разных каналах."""
+
+    def _it(self, i, title, channel="a", tier=1, cluster=None, dup_of=None, text=""):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = datetime.now(UTC4) - timedelta(hours=2)
+        it = {"id": f"f{i}", "title": title, "text": text or title, "published": dt.isoformat(),
+              "category": "society", "source_type": "tg", "channel": channel,
+              "source": f"t.me/{channel}", "tier": tier}
+        if cluster:
+            it["cluster"] = cluster
+        if dup_of:
+            it["dup_of"] = dup_of
+        return it
+
+    def test_frame_classification(self):
+        cases = [("На трассе столкнулись два автомобиля, есть погибшие", "ЧП"),
+                 ("Прокуратура проверила школы и выписала предписание", "надзор"),
+                 ("Плановый ремонт дороги завершён досрочно", "работы"),
+                 ("Наша команда выиграла кубок и завоевала медаль", "достижение"),
+                 ("Губернатор посетил район с рабочим визитом и провёл совещание", "ритуал"),
+                 ("Как получить льготу: инструкция и список документов", "услуга"),
+                 ("Ракетная опасность объявлена в регионе, звучат сирены", "тревога"),
+                 ("Опрос: две трети россиян не читали программу партий", "статистика"),
+                 ("Открываем ночной чат: поиграем в города, пишите в комментарии", "интерактив"),
+                 ("Гидрометцентр: завтра облачная погода, местами дождь", "погода")]
+        for title, expected in cases:
+            self.assertEqual(analytics.frame_of({"title": title, "text": ""})[0], expected, title)
+
+    def test_default_frame(self):
+        self.assertEqual(analytics.frame_of({"title": "Встреча прошла спокойно", "text": ""})[0],
+                         analytics.FRAME_DEFAULT)
+
+    def test_divergence_within_cluster(self):
+        head = self._it(1, "Отключение воды на три дня: плановые работы на сетях",
+                        channel="gov", tier=1, cluster=2)
+        dup = self._it(2, "😱 Район остался без воды, жители жалуются на аварию",
+                       channel="agg", tier=2, dup_of="f1")
+        r = analytics.frame_map([head, dup])
+        self.assertEqual(r["clusters"], 1)
+        self.assertEqual(r["divergent"], 1)
+        self.assertAlmostEqual(r["divergence_share"], 1.0)
+        self.assertTrue(r["examples"][0]["tier_conflict"])
+        self.assertEqual(r["tier_conflicts"], 1)
+
+    def test_same_frame_no_divergence(self):
+        head = self._it(1, "На трассе столкнулись два автомобиля, есть пострадавшие",
+                        channel="a", tier=2, cluster=2)
+        dup = self._it(2, "ДТП на трассе: столкнулись автомобили, пострадали люди",
+                       channel="b", tier=2, dup_of="f1")
+        r = analytics.frame_map([head, dup])
+        self.assertEqual(r["divergent"], 0)
+        self.assertEqual(r["tier_conflicts"], 0)
+
+    def test_tier_matrix_shares(self):
+        items = [self._it(1, "Пожар в доме: погибли люди", channel="agg", tier=2),
+                 self._it(2, "Открыли новую школу, вручили подарки", channel="gov", tier=1)]
+        r = analytics.frame_map(items)
+        self.assertEqual(r["tier_matrix"]["T2"]["frames"]["ЧП"], 1.0)
+        self.assertEqual(r["tier_matrix"]["T1"]["frames"]["достижение"], 1.0)
+
+
+class TestAiTrace(unittest.TestCase):
+    """ИИ-след: признаки шаблонного и машинного производства текста."""
+
+    def _it(self, i, title, text, channel="a", tier=2):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = datetime.now(UTC4) - timedelta(hours=2)
+        return {"id": f"t{i}", "title": title, "text": text, "published": dt.isoformat(),
+                "category": "society", "source_type": "tg", "channel": channel,
+                "source": f"t.me/{channel}", "tier": tier}
+
+    def test_boilerplate_tail(self):
+        r = analytics.ai_trace([self._it(1, "Новость", "Текст новости. Мы в Telegram | Мы в MAX")])
+        self.assertIn("шаблонная концовка", r["signals"])
+
+    def test_emoji_block(self):
+        r = analytics.ai_trace([self._it(1, "🔥⚡️❗️🚨 Срочно", "🔥 🔥 🔥 Пожар потушен")])
+        self.assertIn("эмодзи-блок", r["signals"])
+
+    def test_caps_title(self):
+        r = analytics.ai_trace([self._it(1, "РОЗЫГРЫШ БИЛЕТА НА КОНЦЕРТ", "Обычный текст")])
+        self.assertIn("капс-заголовок", r["signals"])
+
+    def test_machine_cliche(self):
+        r = analytics.ai_trace([self._it(1, "Открытие завода",
+                                         "Важно отметить, что в современном мире предприятие "
+                                         "играет важную роль и является неотъемлемой частью экономики")])
+        self.assertIn("клише машинного текста", r["signals"])
+
+    def test_verbatim_across_sources(self):
+        sent1 = ("Глава города подчеркнул, что ремонт моста завершится до конца месяца "
+                 "и движение откроют для всех участников.")
+        sent2 = ("Подрядчик обязался уложить верхний слой асфальта и нанести разметку "
+                 "до начала октября текущего года.")
+        items = [self._it(1, "Мост откроют", sent1 + " " + sent2 + " Первое предложение уникальное А.",
+                          channel="a"),
+                 self._it(2, "Мост откроют скоро", sent1 + " " + sent2 + " Второе предложение другое Б.",
+                          channel="b")]
+        r = analytics.ai_trace(items)
+        self.assertEqual(r["verbatim_items"], 2)
+        self.assertGreaterEqual(r["verbatim_groups"], 2)
+        self.assertIn("дословный повтор", r["signals"])
+
+    def test_verbatim_same_source_not_counted(self):
+        long_sent = ("Глава города подчеркнул, что ремонт моста завершится до конца месяца "
+                     "и движение откроют для всех участников. "
+                     "Подрядчик обязался уложить верхний слой асфальта и нанести разметку "
+                     "до начала октября текущего года")
+        items = [self._it(1, "Мост", long_sent, channel="a"),
+                 self._it(2, "Мост 2", long_sent, channel="a")]
+        r = analytics.ai_trace(items)
+        self.assertEqual(r["verbatim_items"], 0)
+
+    def test_clean_news_has_no_trace(self):
+        r = analytics.ai_trace([self._it(1, "В Ульяновске отремонтировали дорогу",
+                                         "Подрядчик завершил работы на улице Гагарина. "
+                                         "Движение открыто, гарантия пять лет.")])
+        self.assertEqual(r["any_n"], 0)
+        self.assertEqual(r["any_share"], 0.0)
+
+    def test_strong_signal_needs_two(self):
+        items = [self._it(1, "🔥⚡️❗️🚨 Срочно", "🔥 🔥 🔥 Мы в Telegram | Мы в MAX")]
+        r = analytics.ai_trace(items)
+        self.assertEqual(r["strong_n"], 1)
+        self.assertEqual(r["strong_share"], 1.0)
+
+    def test_empty_week(self):
+        r = analytics.ai_trace([])
+        self.assertNotIn("any_share", r)
+
+
+class TestDedupStability(unittest.TestCase):
+    """Устойчивость дедупликации: пороговый эксперимент и сомнительные склейки."""
+
+    def _it(self, i, title, text, hours_ago=2, channel=None, tier=2):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = datetime.now(UTC4) - timedelta(hours=hours_ago)
+        ch = channel or f"ch{i}"
+        return {"id": f"d{i}", "title": title, "text": text, "published": dt.isoformat(),
+                "category": "society", "source_type": "tg", "channel": ch,
+                "source": f"t.me/{ch}", "tier": tier, "views": 100}
+
+    def _week(self):
+        return [
+            self._it(1, "На трассе Барыш — Карсун столкнулись два автомобиля",
+                     "По предварительным данным, водитель не справился с управлением, "
+                     "пострадали два человека, движение восстановлено", hours_ago=3, channel="a"),
+            self._it(2, "На трассе Барыш — Карсун столкнулись две легковушки",
+                     "По предварительным данным, водитель не справился с управлением, "
+                     "пострадали два человека, движение восстановлено", hours_ago=4, channel="b"),
+            self._it(3, "Открылась новая школа в Засвияжском районе",
+                     "Школа приняла 800 учеников, построена по национальному проекту",
+                     hours_ago=5, channel="c"),
+            self._it(4, "Внимание! Ракетная опасность на территории Ульяновской области",
+                     "Просим немедленно укрыться в помещениях, соблюдать спокойствие и не выходить "
+                     "на улицу до отбоя", hours_ago=6, channel="d"),
+            self._it(5, "Снят режим «Ракетная опасность» на территории Ульяновской области",
+                     "Просим покинуть укрытия, соблюдать спокойствие и не выходить на улицу "
+                     "без необходимости", hours_ago=7, channel="d"),
+            self._it(6, "Фермеры района завершили уборочную кампанию",
+                     "Урожайность выше прошлогодней, техника отработала без сбоев",
+                     hours_ago=8, channel="e"),
+        ]
+
+    def test_sweep_is_monotonic(self):
+        r = analytics.dedup_stability(self._week(), {"settings": {"dedup_threshold": 0.45}})
+        shares = [s["original_share"] for s in r["sweep"]]
+        # чем выше порог, тем меньше склеек и выше доля оригинального
+        self.assertEqual(shares, sorted(shares))
+        dups = [s["dups"] for s in r["sweep"]]
+        self.assertEqual(dups, sorted(dups, reverse=True))
+        self.assertEqual(r["threshold"], 0.45)
+        self.assertLessEqual(r["original_range"][0], r["original_share"])
+        self.assertGreaterEqual(r["original_range"][1], r["original_share"])
+
+    def test_near_duplicates_are_merged(self):
+        r = analytics.dedup_stability(self._week(), {"settings": {"dedup_threshold": 0.45}})
+        self.assertGreaterEqual(r["clusters"], 1)
+        self.assertGreater(r["pairs"], 0)
+
+    def test_antagonistic_pair_detected(self):
+        items = self._week()
+        self.assertTrue(analytics._antagonistic(items[3], items[4]))
+        self.assertFalse(analytics._antagonistic(items[4], items[4]))
+        self.assertFalse(analytics._antagonistic(items[0], items[2]))
+
+    def test_same_source_and_antagonistic_flagged(self):
+        # порог 0.40: пара «опасность ↔ снят режим» склеивается (Жаккар 0.44) и помечается
+        # и как антагонистичная, и как повтор внутри одного источника
+        r = analytics.dedup_stability(self._week(), {"settings": {"dedup_threshold": 0.40}})
+        self.assertGreaterEqual(r["antagonistic_dups"], 1)
+        self.assertGreaterEqual(r["same_source_dups"], 1)
+        self.assertGreaterEqual(r["suspicious_dups"], 1)
+        self.assertGreaterEqual(r["corrected_original_share"], r["original_share"])
+
+    def test_episode_cluster_spanning_days(self):
+        items = [self._it(1, "Прогноз погоды на завтра: облачно и небольшой дождь",
+                          "По информации гидрометцентра ожидается переменная облачность "
+                          "и небольшой дождь", hours_ago=2, channel="w"),
+                 self._it(2, "Прогноз погоды на завтра: облачно и небольшой дождь",
+                          "По информации гидрометцентра ожидается переменная облачность "
+                          "и небольшой дождь", hours_ago=60, channel="v"),
+                 self._it(3, "Открылась новая школа в Засвияжском районе",
+                          "Школа приняла восемьсот учеников", hours_ago=3, channel="c"),
+                 self._it(4, "Фермеры завершили уборочную кампанию",
+                          "Урожайность выше прошлогодней", hours_ago=4, channel="e"),
+                 self._it(5, "Губернатор провёл совещание по развитию района",
+                          "Обсудили строительство дорог", hours_ago=5, channel="g")]
+        r = analytics.dedup_stability(items, {"settings": {"dedup_threshold": 0.45}})
+        self.assertEqual(r["episode_clusters"], 1)
+        self.assertEqual(r["episode_dups"], 1)
+
+    def test_sample_marks_flags(self):
+        r = analytics.dedup_stability(self._week(), {"settings": {"dedup_threshold": 0.45}})
+        for s in r["sample"]:
+            self.assertIn("same_source", s)
+            self.assertIn("antagonistic", s)
+            self.assertIn("jaccard", s)
+            self.assertIn("a", s)
+            self.assertIn("b", s)
+
+    def test_too_few_items(self):
+        r = analytics.dedup_stability([], {"settings": {"dedup_threshold": 0.45}})
+        self.assertNotIn("sweep", r)
+
+
+class TestInfospaceW4(unittest.TestCase):
+    """Сборка Волны 4 и её появление в infospace.json."""
+
+    def test_w4_has_four_blocks(self):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = (datetime.now(UTC4) - timedelta(hours=3)).isoformat()
+        items = [{"id": "w1", "title": "Жители улицы Заречной требуют ремонта дороги",
+                  "text": "Жители улицы Заречной требуют ремонта дороги уже второй год",
+                  "published": dt, "category": "society", "source_type": "tg",
+                  "channel": "a", "source": "t.me/a", "tier": 2} for _ in range(6)]
+        w4 = analytics.build_infospace_w4(items, {"settings": {"dedup_threshold": 0.45}})
+        self.assertEqual(set(w4), {"generated_local", "agency", "frames", "ai_trace", "dedup"})
+        self.assertEqual(w4["agency"]["n"], 6)
+        self.assertIn("frame_mix", w4["frames"])
+
+    def test_w4_survives_bad_items(self):
+        w4 = analytics.build_infospace_w4([{"id": "x"}], None)
+        self.assertIn("agency", w4)
