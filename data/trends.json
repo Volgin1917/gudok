@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-15T14:19:07.495583+00:00",
- "generated_local": "15.09.2026 18:19",
+ "generated_utc": "2026-09-15T14:22:38.590135+00:00",
+ "generated_local": "15.09.2026 18:22",
  "days": [
   "2026-09-02",
   "2026-09-03",
@@ -19,7 +19,7 @@
  ],
  "counts": {
   "total": 1774,
-  "last24h": 302,
+  "last24h": 301,
   "last7d": 1637
  },
  "topics": {
@@ -108,11 +108,11 @@
     12,
     51,
     12,
-    3
+    2
    ],
-   "today": 3,
-   "week": 113,
-   "total": 117,
+   "today": 2,
+   "week": 112,
+   "total": 116,
    "status": "rising"
   },
   "budget": {
@@ -131,11 +131,11 @@
     8,
     1,
     14,
-    15
+    13
    ],
-   "today": 15,
-   "week": 65,
-   "total": 77,
+   "today": 13,
+   "week": 63,
+   "total": 75,
    "status": "stable"
   },
   "uaz": {
@@ -177,11 +177,11 @@
     11,
     4,
     6,
-    1
+    0
    ],
-   "today": 1,
-   "week": 49,
-   "total": 49,
+   "today": 0,
+   "week": 48,
+   "total": 48,
    "status": "stable"
   },
   "harvest": {
@@ -200,11 +200,11 @@
     3,
     0,
     6,
-    2
+    1
    ],
-   "today": 2,
-   "week": 15,
-   "total": 18,
+   "today": 1,
+   "week": 14,
+   "total": 17,
    "status": "rising"
   },
   "zhkh": {
@@ -269,12 +269,12 @@
     16,
     8,
     69,
-    53
+    42
    ],
-   "today": 53,
-   "week": 259,
-   "total": 274,
-   "status": "rising"
+   "today": 42,
+   "week": 248,
+   "total": 263,
+   "status": "stable"
   },
   "schools": {
    "name": "Школы и вузы",
@@ -541,10 +541,10 @@
     2,
     0,
     6,
-    3
+    1
    ],
-   "week": 14,
-   "today": 3
+   "week": 12,
+   "today": 1
   },
   "society": {
    "name": "Общество и городская среда",
