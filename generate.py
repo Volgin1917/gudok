@@ -17,9 +17,14 @@ import re
 import html as H
 import json
 import os
+import sys
 from datetime import datetime, timedelta, timezone
 
 BASE = os.path.dirname(os.path.abspath(__file__))
+if BASE not in sys.path:
+    sys.path.insert(0, BASE)
+
+import outlets  # канонические издания: каналы одной редакции = один источник
 DATA = os.path.join(BASE, "data")
 DIGESTS = os.path.join(BASE, "digests")
 SPECIAL = os.path.join(BASE, "special")
@@ -1798,7 +1803,7 @@ def render_elections(cfg, trends, store, status):
     for it in elec:
         dt = local_dt(it.get("published"))
         if dt and dt >= week_ago:
-            src_counter[it.get("channel") or it.get("source") or "?"] += 1
+            src_counter[outlets.outlet(it)] += 1   # одна редакция = одна строка
     src_rows = "".join(
         f'<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;">'
         f'<div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">{esc(str(k))}</div>'
@@ -1981,7 +1986,7 @@ def render_goszakupki(cfg, trends, store, status, an):
     tone = round(sum(sc) / len(sc), 2) if sc else 0
     src_c = {}
     for it in gz_week:
-        k = it.get("channel") or it.get("source") or "?"
+        k = outlets.outlet(it)   # RSS и TG одной редакции — один источник
         src_c[k] = src_c.get(k, 0) + 1
     src_rows = "".join(
         f'<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;">'
@@ -3113,7 +3118,7 @@ def render_infospace(cfg, trends, store, status, info):
 </div>
 <div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Контрольная выборка пограничных пар — на ручную верификацию</div>
 {dd_smp or '<div class="note">Пограничных пар нет.</div>'}
-<div class="note"><b>Метод.</b> Одни и те же пары недели пересчитаны при порогах Жаккара 0.30–0.60 (в конвейере — {dd.get('threshold')} из config.json), в двух режимах: с охранными правилами dedup.py и без них — видна и цена выбора порога, и эффект правил. <b>Охранные правила (включены 15.09 по итогам этой метрики).</b> (1) Антагонистичные формуляры не склеиваются никогда: «Ракетная опасность» и «Снят режим „Ракетная опасность“» — противоположные сообщения, а не перепечатки. (2) Служебные формуляры (оповещения о режимах, прогноз погоды) склеиваются только в пределах {(dd.get('policy') or {}).get('dedup_service_span_h', 6)} ч — текст у них идентичен сутки за сутками. (3) Обычные материалы — в пределах {(dd.get('policy') or {}).get('dedup_max_span_h', 24)} ч (медианная жизнь каскада — часы), кроме дословных повторов с Жаккаром ≥ {(dd.get('policy') or {}).get('dedup_verbatim_jaccard', 0.85)}. (4) Повтор внутри собственного канала остаётся склеенным ради чистоты ленты, но помечается <code>same_source</code> и не попадает ни в «🔁 также сообщили», ни в каскады: в метриках считается <code>cluster_src</code> — число независимых источников. <b>Вывод недели.</b> {esc(dd.get('verdict', '—'))}. Остаточные дефекты (длинные кластеры, антагонизм) после включения правил должны держаться около нуля — блок теперь работает как контроль качества, а не как описание брака. Контрольная выборка пограничных пар (±0.07 от порога) — для ручной верификации редакцией.</div>
+<div class="note"><b>Метод.</b> Одни и те же пары недели пересчитаны при порогах Жаккара 0.30–0.60 (в конвейере — {dd.get('threshold')} из config.json), в двух режимах: с охранными правилами dedup.py и без них — видна и цена выбора порога, и эффект правил. <b>Охранные правила (включены 15.09 по итогам этой метрики).</b> (1) Антагонистичные формуляры не склеиваются никогда: «Ракетная опасность» и «Снят режим „Ракетная опасность“» — противоположные сообщения, а не перепечатки. (2) Служебные формуляры (оповещения о режимах, прогноз погоды) склеиваются только в пределах {(dd.get('policy') or {}).get('dedup_service_span_h', 6)} ч — текст у них идентичен сутки за сутками. (3) Обычные материалы — в пределах {(dd.get('policy') or {}).get('dedup_max_span_h', 24)} ч (медианная жизнь каскада — часы), кроме дословных повторов с Жаккаром ≥ {(dd.get('policy') or {}).get('dedup_verbatim_jaccard', 0.85)}. (4) Повтор внутри собственного <b>издания</b> остаётся склеенным ради чистоты ленты, но помечается <code>same_source</code> и не попадает ни в «🔁 также сообщили», ни в каскады: в метриках считается <code>cluster_src</code> — число независимых изданий. Издание — не канал: RSS ulpressa.ru и Telegram @ulpressa (одно юрлицо, ООО «Симбирск-Паблисити»), сайт администрации Ульяновска и @ulmeria (одна пресс-служба), @ulgovru и @Russkih_Aleksey (одна пресс-служба исполнительной власти) считаются одним источником — иначе перепечатка своего же релиза в свой же канал выглядела бы как независимое подтверждение. Карта изданий — поле <code>outlet</code> в <code>sources_registry.json</code> (outlets.py); конкурирующие каналы одного города («Типичный Димитровград» и «Информационный Димитровград» — разные админы) остаются разными источниками. <b>Вывод недели.</b> {esc(dd.get('verdict', '—'))}. Остаточные дефекты (длинные кластеры, антагонизм) после включения правил должны держаться около нуля — блок теперь работает как контроль качества, а не как описание брака. Контрольная выборка пограничных пар (±0.07 от порога) — для ручной верификации редакцией.</div>
 </div></div></div>
 """
 
@@ -3160,7 +3165,7 @@ def render_infospace(cfg, trends, store, status, info):
 <div class="grid2">
 <div class="card"><div class="card-pad">
 {bar_rows(setters, color="#2f80ed")}
-<div class="note">Считаются материалы, ставшие первичными в кластерах из 2+ источников (дедупликация). «ulpressa» — Telegram-канал, «Улпресса» — RSS той же редакции.</div></div></div>
+<div class="note">Считаются материалы, ставшие первичными в кластерах из 2+ <b>изданий</b> (дедупликация). Каналы одной редакции объединены: «Улпресса» — это RSS ulpressa.ru и Telegram @ulpressa (ООО «Симбирск-Паблисити»), «Губернатор и Правительство Ульяновской области» — @ulgovru и @Russkih_Aleksey (одна пресс-служба). Перепечатка своего материала в свой канал сеттером повестки не считается.</div></div></div>
 <div class="card"><div class="card-pad">
 <div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Объём повестки по дням</div>
 {spark}
@@ -3430,7 +3435,7 @@ def week_arcs(store, start, end, trends=None):
         # сюжет = содержательная тема с независимым освещением:
         # ≥3 публикаций из ≥2 источников ИЛИ широкий охват. Репост-каскад
         # одного канала и уведомления о режимах сюжетом не считаются.
-        _srcs = {it.get("source", "")} | {m.get("source", "") for m in mem}
+        _srcs = {outlets.outlet_key(it)} | {outlets.outlet_key(m) for m in mem}
         if (size < 3 or len(_srcs) < 2) and views < 8000:
             continue
         days = sorted([pdate(it)] + [pdate(m) for m in mem])
@@ -3438,13 +3443,13 @@ def week_arcs(store, start, end, trends=None):
         for d in days:
             cnt[d] = cnt.get(d, 0) + 1
         peak = max(cnt, key=lambda d: cnt[d])
-        srcs = {it.get("channel") or it.get("source")} | {m.get("channel") or m.get("source") for m in mem}
+        srcs = {outlets.outlet(it)} | {outlets.outlet(m) for m in mem}
         t_first = sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:200]}")[0]
         last_m = sorted(mem, key=lambda m: pdate(m))[-1] if mem else it
         t_last = sentiment_of(f"{last_m.get('title','')} {(last_m.get('text') or '')[:200]}")[0]
         status = "затух" if days[-1] < end - timedelta(days=1) else ("в развитии" if days[-1] >= end else "пик пройден")
         arcs.append({
-            "title": nice_title(it, 110), "url": it.get("url") or "", "src": it.get("channel") or it.get("source"),
+            "title": nice_title(it, 110), "url": it.get("url") or "", "src": outlets.outlet(it),
             "first": days[0], "peak": peak, "last": days[-1], "size": size, "views": views,
             "srcs": srcs, "t1": t_first, "t2": t_last, "status": status, "days": sorted(set(days)),
         })
@@ -3576,7 +3581,7 @@ def render_monthly(cfg, trends, store, status, ym):
     prim = [it for it in all_m if not it.get("dup_of")]
     volume = len(all_m)
     orig = round(len(prim) / volume * 100) if volume else 0
-    src_c = Counter(it.get("channel") or it.get("source") or "?" for it in all_m)
+    src_c = Counter(outlets.outlet(it) for it in all_m)
     top3 = sum(n for _, n in src_c.most_common(3))
     conc = round(top3 / volume * 100) if volume else 0
     def csrc(it):
@@ -3616,14 +3621,14 @@ def render_monthly(cfg, trends, store, status, ym):
     top_topics = topic_c.most_common(8)
     # муниципалитеты за месяц
     muni_rows = []
-    muni_src = set(cfg.get("municipal_sources") or [])
+    muni_src = {outlets.norm(outlets.resolve_raw(x)) for x in (cfg.get("municipal_sources") or [])}
     for name, pat in (cfg.get("municipalities") or {}).items():
         rx = re.compile(pat, re.I)
         n = own = 0
         for it in all_m:
             if rx.search(it.get("title", "") or ""):
                 n += 1
-                if (it.get("channel") or it.get("source")) in muni_src:
+                if outlets.outlet_key(it) in muni_src:
                     own += 1
             elif rx.search((it.get("text") or "")[:300]):
                 n += 1

@@ -1,14 +1,14 @@
 {
- "generated_local": "15.09.2026 22:48",
- "week_items": 1788,
- "week_primaries": 1502,
+ "generated_local": "16.09.2026 00:29",
+ "week_items": 1787,
+ "week_primaries": 1501,
  "week_dups": 286,
  "metrics": {
   "original_share": 84,
-  "concentration_top3": 26,
-  "avg_cascade": 2.5,
+  "concentration_top3": 32,
+  "avg_cascade": 2.4,
   "muni_coverage": 100,
-  "tone_volatility": 0.37,
+  "tone_volatility": 0.06,
   "alert_share": 22
  },
  "natproj": {
@@ -56,7 +56,7 @@
    "mentions": 87,
    "subject": 65,
    "tone": 0.16,
-   "sources": 17,
+   "sources": 15,
    "own": 47
   },
   {
@@ -64,15 +64,15 @@
    "mentions": 23,
    "subject": 17,
    "tone": -0.54,
-   "sources": 13,
+   "sources": 12,
    "own": 0
   },
   {
    "name": "Новоспасский р-н",
-   "mentions": 21,
-   "subject": 5,
-   "tone": -0.49,
-   "sources": 17,
+   "mentions": 20,
+   "subject": 4,
+   "tone": -0.47,
+   "sources": 14,
    "own": 1
   },
   {
@@ -80,7 +80,7 @@
    "mentions": 16,
    "subject": 10,
    "tone": -0.65,
-   "sources": 11,
+   "sources": 10,
    "own": 0
   },
   {
@@ -88,7 +88,7 @@
    "mentions": 16,
    "subject": 8,
    "tone": -0.38,
-   "sources": 12,
+   "sources": 11,
    "own": 2
   },
   {
@@ -104,7 +104,7 @@
    "mentions": 14,
    "subject": 9,
    "tone": -0.4,
-   "sources": 10,
+   "sources": 9,
    "own": 2
   },
   {
@@ -112,7 +112,7 @@
    "mentions": 12,
    "subject": 4,
    "tone": 0.17,
-   "sources": 7,
+   "sources": 6,
    "own": 4
   },
   {
@@ -120,7 +120,7 @@
    "mentions": 12,
    "subject": 11,
    "tone": 0.03,
-   "sources": 8,
+   "sources": 7,
    "own": 0
   },
   {
@@ -136,7 +136,7 @@
    "mentions": 8,
    "subject": 6,
    "tone": -0.38,
-   "sources": 5,
+   "sources": 4,
    "own": 0
   },
   {
@@ -144,7 +144,7 @@
    "mentions": 7,
    "subject": 2,
    "tone": -0.24,
-   "sources": 5,
+   "sources": 4,
    "own": 0
   }
  ],
@@ -182,16 +182,16 @@
   ]
  },
  "by_type": {
-  "tg": 1467,
+  "tg": 1466,
   "seed": 44,
   "rss": 267,
   "web": 10
  },
  "by_tier": {
-  "T2": 860,
   "T1": 427,
   "T3": 190,
-  "СМИ/подборка": 311
+  "СМИ/подборка": 311,
+  "T2": 859
  },
  "orig_by_tier": {
   "T1": {
@@ -199,7 +199,7 @@
    "original": 0.86
   },
   "T2": {
-   "total": 860,
+   "total": 859,
    "original": 0.8
   },
   "T3": {
@@ -214,19 +214,15 @@
  "setters": [
   [
    "Улпресса",
-   28
-  ],
-  [
-   "ulpressa",
-   26
+   43
   ],
   [
    "tresh_ulyan",
    14
   ],
   [
-   "Russkih_Aleksey",
-   10
+   "Губернатор и Правительство Ульяновской области",
+   11
   ],
   [
    "topor_ul",
@@ -241,92 +237,93 @@
    7
   ],
   [
-   "reporter73",
+   "Репортёр73",
+   6
+  ],
+  [
+   "dimitrovgradonline",
    6
   ]
  ],
  "cascades": [
   {
    "size": 14,
-   "sources": 14,
+   "sources": 12,
    "title": "⚡️ Дежурными средствами ПВО над территорией нашего региона перехвачено и уничтожено 3 вражеских БПЛА",
-   "source": "Russkih_Aleksey",
+   "source": "ulpravda",
    "also": [
     "t.me/chpul",
     "t.me/chpulsk",
     "t.me/dimitrovgradonline",
     "t.me/insaid173"
    ],
-   "url": "https://t.me/Russkih_Aleksey/12391"
+   "url": "https://t.me/ulpravda/41052"
   },
   {
    "size": 6,
-   "sources": 6,
+   "sources": 5,
    "title": "🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновск",
-   "source": "Russkih_Aleksey",
+   "source": "Губернатор и Правительство Ульяновской области",
    "also": [
     "t.me/chpulsk",
     "t.me/insaid173",
-    "t.me/ulgovru",
-    "t.me/ulpatriot"
+    "t.me/ulpatriot",
+    "t.me/ulpravda"
    ],
    "url": "https://t.me/Russkih_Aleksey/12304"
-  },
-  {
-   "size": 6,
-   "sources": 5,
-   "title": "❗️ Снят режим «Ракетная опасность» на территории Ульяновской области. 🇷🇺 Мой канал в MAX",
-   "source": "Russkih_Aleksey",
-   "also": [
-    "t.me/dimitrovgradonline",
-    "t.me/reporter73",
-    "t.me/tresh_ulyan",
-    "t.me/ulgovru"
-   ],
-   "url": "https://t.me/Russkih_Aleksey/12316"
-  },
-  {
-   "size": 5,
-   "sources": 5,
-   "title": "На трассе Барыш — Карсун 19-летний водитель без прав устроил ДТП — один человек погиб, четверо в бол",
-   "source": "Улпресса",
-   "also": [
-    "t.me/chpul",
-    "t.me/insaid173",
-    "t.me/ulpressa",
-    "t.me/ulyanovsk_smi"
-   ],
-   "url": "https://ulpressa.ru/2026/09/14/na-trasse-barysh-karsun-19-letnij-voditel-bez-prav-ustroil-dtp-odin-chelovek-pogib-chetvero-v-bolnicze/"
-  },
-  {
-   "size": 5,
-   "sources": 5,
-   "title": "В дальнем Засвияжье открыли новую взрослую поликлинику Более 15 лет горожане ждали новое медицинское",
-   "source": "ulpravda",
-   "also": [
-    "t.me/Russkih_Aleksey",
-    "t.me/chpulsk",
-    "t.me/insaid173",
-    "t.me/ulgovru"
-   ],
-   "url": "https://t.me/ulpravda/41061"
   },
   {
    "size": 7,
    "sources": 4,
    "title": "Geely Monjaro загорелся на Юго-западной",
-   "source": "ulpressa",
+   "source": "Улпресса",
    "also": [
     "t.me/chpulsk",
     "t.me/shugozhor73",
     "t.me/ulsk_driver73"
    ],
    "url": "https://t.me/ulpressa/74421"
+  },
+  {
+   "size": 6,
+   "sources": 4,
+   "title": "❗️ Снят режим «Ракетная опасность» на территории Ульяновской области. 🇷🇺 Мой канал в MAX",
+   "source": "Губернатор и Правительство Ульяновской области",
+   "also": [
+    "t.me/dimitrovgradonline",
+    "t.me/tresh_ulyan",
+    "Репортёр73"
+   ],
+   "url": "https://t.me/Russkih_Aleksey/12316"
+  },
+  {
+   "size": 5,
+   "sources": 4,
+   "title": "На трассе Барыш — Карсун 19-летний водитель без прав устроил ДТП — один человек погиб, четверо в бол",
+   "source": "Улпресса",
+   "also": [
+    "t.me/chpul",
+    "t.me/insaid173",
+    "t.me/ulyanovsk_smi"
+   ],
+   "url": "https://ulpressa.ru/2026/09/14/na-trasse-barysh-karsun-19-letnij-voditel-bez-prav-ustroil-dtp-odin-chelovek-pogib-chetvero-v-bolnicze/"
+  },
+  {
+   "size": 5,
+   "sources": 4,
+   "title": "В дальнем Засвияжье открыли новую взрослую поликлинику Более 15 лет горожане ждали новое медицинское",
+   "source": "ulpravda",
+   "also": [
+    "t.me/chpulsk",
+    "t.me/insaid173",
+    "Губернатор и Правительство Ульяновской области"
+   ],
+   "url": "https://t.me/ulpravda/41061"
   }
  ],
  "tone_by_tier": {
   "T1": 0.193,
-  "T2": 0.041,
+  "T2": 0.042,
   "T3": 0.204,
   "СМИ/подборка": 0.048
  },
@@ -334,7 +331,7 @@
  "municipal": {
   "Димитровград": 87,
   "Инзенский р-н": 23,
-  "Новоспасский р-н": 21,
+  "Новоспасский р-н": 20,
   "Барышский р-н": 16,
   "Карсунский р-н": 16,
   "Радищевский р-н": 16,
@@ -369,17 +366,16 @@
   0,
   0,
   0,
-  1,
   69,
   223,
   402,
   175,
   196,
   333,
-  389
+  389,
+  0
  ],
  "days": [
-  "2026-09-02",
   "2026-09-03",
   "2026-09-04",
   "2026-09-05",
@@ -392,14 +388,10 @@
   "2026-09-12",
   "2026-09-13",
   "2026-09-14",
-  "2026-09-15"
+  "2026-09-15",
+  "2026-09-16"
  ],
  "tone_series": [
-  {
-   "date": "2026-09-02",
-   "score": null,
-   "n": 0
-  },
   {
    "date": "2026-09-03",
    "score": null,
@@ -427,8 +419,8 @@
   },
   {
    "date": "2026-09-08",
-   "score": -1.0,
-   "n": 1
+   "score": null,
+   "n": 0
   },
   {
    "date": "2026-09-09",
@@ -464,74 +456,79 @@
    "date": "2026-09-15",
    "score": 0.09,
    "n": 336
+  },
+  {
+   "date": "2026-09-16",
+   "score": null,
+   "n": 0
   }
  ],
  "wow": {
-  "this": 1788,
-  "prev": 87,
-  "delta": 1955
+  "this": 1787,
+  "prev": 88,
+  "delta": 1931
  },
  "topic_wow": [
   {
    "name": "Транспорт и дороги",
-   "this": 272,
-   "prev": 15,
-   "delta": 1713
+   "this": 269,
+   "prev": 18,
+   "delta": 1394
   },
   {
    "name": "Суды и криминал",
-   "this": 268,
-   "prev": 17,
-   "delta": 1476
+   "this": 258,
+   "prev": 27,
+   "delta": 856
   },
   {
    "name": "Губернатор / власть",
-   "this": 238,
-   "prev": 18,
-   "delta": 1222
+   "this": 232,
+   "prev": 24,
+   "delta": 867
   },
   {
    "name": "Школы и вузы",
-   "this": 225,
-   "prev": 13,
-   "delta": 1631
+   "this": 215,
+   "prev": 23,
+   "delta": 835
   },
   {
    "name": "Спорт",
-   "this": 162,
-   "prev": 11,
-   "delta": 1373
-  },
-  {
-   "name": "Культура и туризм",
-   "this": 148,
-   "prev": 23,
-   "delta": 543
+   "this": 151,
+   "prev": 22,
+   "delta": 586
   },
   {
    "name": "Городская среда",
-   "this": 144,
-   "prev": 13,
-   "delta": 1008
+   "this": 139,
+   "prev": 18,
+   "delta": 672
   },
   {
    "name": "БПЛА и воздушные угрозы",
-   "this": 136,
-   "prev": 5,
-   "delta": 2620
+   "this": 135,
+   "prev": 6,
+   "delta": 2150
+  },
+  {
+   "name": "Культура и туризм",
+   "this": 131,
+   "prev": 40,
+   "delta": 228
   }
  ],
  "conclusions": [
-  "Резко усилились темы: «Транспорт и дороги» (+1713%), «Суды и криминал» (+1476%), «Губернатор / власть» (+1222%).",
-  "За 7 дней поток составил 1788 сообщений, из них оригинальных (не перепечаток) — 84%.",
-  "Повестку задают: Улпресса (первичен в 28 каскадах), ulpressa (первичен в 26 каскадах), tresh_ulyan (первичен в 14 каскадах).",
+  "Резко усилились темы: «Транспорт и дороги» (+1394%), «Суды и криминал» (+856%), «Губернатор / власть» (+867%).",
+  "За 7 дней поток составил 1787 сообщений, из них оригинальных (не перепечаток) — 84%.",
+  "Повестку задают: Улпресса (первичен в 43 каскадах), tresh_ulyan (первичен в 14 каскадах), Губернатор и Правительство Ульяновской области (первичен в 11 каскадах).",
   "Крупнейший каскад недели — «⚡️ Дежурными средствами ПВО над территорией нашего региона перехвачено» (×14 источников).",
   "Федеральное эхо: 48% оригинальных сообщений не про регион напрямую.",
   "На грани видимости (1–2 упоминания): Николаевский р-н, Старомайнский р-н, Тереньгульский р-н, Ульяновский р-н."
  ],
  "w1": {
-  "generated_local": "15.09.2026 22:48",
-  "week_items": 1788,
+  "generated_local": "16.09.2026 00:29",
+  "week_items": 1787,
   "matrix": {
    "cats": [
     {
@@ -604,10 +601,10 @@
     },
     {
      "muni": "Новоспасский р-н",
-     "total": 21,
+     "total": 20,
      "cats": {
       "politics": 0,
-      "security": 16,
+      "security": 15,
       "economy": 0,
       "agro": 0,
       "society": 3,
@@ -749,7 +746,7 @@
     69,
     60,
     54,
-    27
+    26
    ],
    "weekend": [
     6,
@@ -778,11 +775,11 @@
     6
    ],
    "night_share": 0.031,
-   "weekend_share": 0.207
+   "weekend_share": 0.208
   },
   "cascade_time": {
-   "n": 153,
-   "median_span_h": 1.2,
+   "n": 139,
+   "median_span_h": 1.4,
    "fastest": [
     {
      "title": "⚡️ По поручению президента Владимира Путина впервые в России запущены коммерческие сети св",
@@ -813,11 +810,11 @@
      "url": "https://t.me/chpulsk/50674"
     },
     {
-     "title": "Склад Ozon повреждён при ракетном ударе по Таганрогу",
+     "title": "😨 В Заволжье спасатели достали козленка из подвала заброшенного дома Вызов поступил с улиц",
      "size": 2,
      "span_h": 0.1,
-     "speed": 21.6,
-     "url": "https://ulpressa.ru/2026/09/15/sklad-ozon-povrezhdyon-pri-raketnom-udare-po-taganrogu/"
+     "speed": 21.1,
+     "url": "https://t.me/topor_ul/11637"
     }
    ]
   },
@@ -865,7 +862,7 @@
     "with_emoji": 0.518
    },
    "T2": {
-    "total": 860,
+    "total": 859,
     "with_emoji": 0.607
    },
    "T3": {
@@ -879,7 +876,7 @@
   },
   "budget_voice": {
    "t1_share_flow": 0.239,
-   "t1_share_primaries": 0.244,
+   "t1_share_primaries": 0.245,
    "echo_of_t1": 0.36,
    "echo_n": 103,
    "dups_n": 286
@@ -892,7 +889,7 @@
      "share": 0.044
     },
     "T2": {
-     "total": 860,
+     "total": 859,
      "with_marker": 16,
      "share": 0.019
     },
@@ -937,12 +934,6 @@
   "anxiety": {
    "series": [
     {
-     "date": "2026-09-09",
-     "share": 0.116,
-     "n": 69,
-     "sec": 8
-    },
-    {
      "date": "2026-09-10",
      "share": 0.256,
      "n": 223,
@@ -977,9 +968,15 @@
      "share": 0.221,
      "n": 389,
      "sec": 86
+    },
+    {
+     "date": "2026-09-16",
+     "share": null,
+     "n": 0,
+     "sec": 0
     }
    ],
-   "avg": 0.205,
+   "avg": 0.22,
    "verdict": "высокая тревожность"
   },
   "zhkh": {
@@ -989,14 +986,14 @@
    "top_sources": [
     [
      "Улпресса",
-     8
-    ],
-    [
-     "ulpressa",
-     4
+     12
     ],
     [
      "Media73",
+     3
+    ],
+    [
+     "dimitrovgradonline",
      3
     ]
    ]
@@ -1004,13 +1001,8 @@
   "federal_by_source": [
    {
     "source": "Улпресса",
-    "n": 200,
-    "fed_share": 0.28
-   },
-   {
-    "source": "ulpressa",
-    "n": 114,
-    "fed_share": 0.53
+    "n": 314,
+    "fed_share": 0.37
    },
    {
     "source": "tresh_ulyan",
@@ -1024,8 +1016,8 @@
    },
    {
     "source": "chpul",
-    "n": 60,
-    "fed_share": 0.68
+    "n": 61,
+    "fed_share": 0.67
    },
    {
     "source": "ulsk_73online",
@@ -1039,22 +1031,27 @@
    },
    {
     "source": "ulpravda",
-    "n": 53,
-    "fed_share": 0.42
+    "n": 54,
+    "fed_share": 0.43
+   },
+   {
+    "source": "Репортёр73",
+    "n": 51,
+    "fed_share": 0.18
    }
   ],
   "rural_index": {
-   "agenda_share": 0.08,
+   "agenda_share": 0.079,
    "pop_share": 0.349,
    "index": 0.23,
-   "hits": 143,
+   "hits": 142,
    "pop_sum": 412618,
    "rural_pop_share": 0.23,
    "verdict": "символическое исключение",
    "top": [
     [
      "Новоспасский р-н",
-     21
+     20
     ],
     [
      "Барышский р-н",
@@ -1153,38 +1150,26 @@
   }
  },
  "w2": {
-  "generated_local": "15.09.2026 22:48",
-  "week_items": 1788,
+  "generated_local": "16.09.2026 00:29",
+  "week_items": 1787,
   "registry_sources": 51,
   "producer_mix": {
    "week": {
-    "агрегатор": 860,
-    "редакция": 567,
+    "агрегатор": 859,
+    "редакция": 568,
     "авторский канал": 173,
-    "пресс-служба": 166,
+    "пресс-служба": 167,
     "промо/коммерция": 17,
-    "не атрибутирован": 5
+    "не атрибутирован": 3
    },
-   "week_n": 1788,
+   "week_n": 1787,
    "daily": [
-    {
-     "date": "2026-09-09",
-     "n": 69,
-     "mix": {
-      "редакция": 0.174,
-      "промо/коммерция": 0.072,
-      "не атрибутирован": 0.029,
-      "агрегатор": 0.203,
-      "авторский канал": 0.232,
-      "пресс-служба": 0.29
-     }
-    },
     {
      "date": "2026-09-10",
      "n": 223,
      "mix": {
-      "пресс-служба": 0.117,
-      "не атрибутирован": 0.009,
+      "пресс-служба": 0.121,
+      "не атрибутирован": 0.004,
       "редакция": 0.323,
       "агрегатор": 0.39,
       "авторский канал": 0.148,
@@ -1197,9 +1182,8 @@
      "mix": {
       "агрегатор": 0.5,
       "пресс-служба": 0.072,
-      "редакция": 0.308,
+      "редакция": 0.311,
       "авторский канал": 0.107,
-      "не атрибутирован": 0.002,
       "промо/коммерция": 0.01
      }
     },
@@ -1245,18 +1229,23 @@
       "промо/коммерция": 0.003,
       "пресс-служба": 0.075
      }
+    },
+    {
+     "date": "2026-09-16",
+     "n": 0,
+     "mix": {}
     }
    ]
   },
   "attention": {
-   "total_views": 2996196,
-   "gini": 0.718,
-   "top3_share": 0.595,
+   "total_views": 2992676,
+   "gini": 0.71,
+   "top3_share": 0.596,
    "top": [
     {
      "source": "tresh_ulyan",
      "views": 1037571,
-     "share": 0.346
+     "share": 0.347
     },
     {
      "source": "insaid173",
@@ -1269,7 +1258,7 @@
      "share": 0.083
     },
     {
-     "source": "ulpressa",
+     "source": "Улпресса",
      "views": 170236,
      "share": 0.057
     },
@@ -1279,7 +1268,7 @@
      "share": 0.044
     }
    ],
-   "n_sources": 31
+   "n_sources": 30
   },
   "speech": {
    "official": 77,
@@ -1288,7 +1277,7 @@
   },
   "promo_load": {
    "n": 230,
-   "share": 0.1286,
+   "share": 0.1287,
    "by_tier": {
     "T2": 132,
     "T1": 86,
@@ -1308,18 +1297,18 @@
    },
    "crosspromo": {
     "n": 206,
-    "share": 0.1152,
+    "share": 0.1153,
     "by_tier": {
      "T2": 116,
      "T1": 85,
      "T3": 5
     },
     "by_source": {
-     "ulpressa": 57,
+     "Улпресса": 57,
      "ulyanovsk_smi": 40,
      "ulsk_73online": 36,
      "chpulsk": 18,
-     "reporter73": 15
+     "Репортёр73": 15
     }
    }
   },
@@ -1331,38 +1320,38 @@
   ]
  },
  "w3": {
-  "generated_local": "15.09.2026 22:48",
+  "generated_local": "16.09.2026 00:29",
   "registry_sources": 51,
-  "week_items": 1788,
-  "hhi": 651,
+  "week_items": 1787,
+  "hhi": 652,
   "hhi_confirmed": 3035,
-  "confirmed_flow_share": 0.3736,
+  "confirmed_flow_share": 0.3738,
   "verdict": "высокая концентрация",
   "verdict_all": "низкая концентрация",
   "groups": {
    "аноним": {
-    "flow": 1050,
-    "share": 0.5872,
+    "flow": 1049,
+    "share": 0.587,
     "n": 20
    },
    "частный бизнес": {
     "flow": 411,
-    "share": 0.2299,
+    "share": 0.23,
     "n": 4
    },
    "государство": {
     "flow": 115,
-    "share": 0.0643,
+    "share": 0.0644,
     "n": 4
    },
    "официальные": {
     "flow": 107,
-    "share": 0.0598,
+    "share": 0.0599,
     "n": 6
    },
    "не установлен": {
     "flow": 100,
-    "share": 0.0559,
+    "share": 0.056,
     "n": 5
    },
    "вне реестра": {
@@ -1372,25 +1361,25 @@
    }
   },
   "state_official_share": 0.1242,
-  "anon_share": 0.59,
+  "anon_share": 0.5898,
   "top_owners": [
    {
     "name": "ООО «Симбирск-Паблисити» (ИНН 7325027230)",
     "form": "частный бизнес",
     "n_sources": 2,
-    "share": 0.1957
+    "share": 0.1959
    },
    {
     "name": "@tresh_ulyan",
     "form": "аноним",
     "n_sources": 1,
-    "share": 0.0671
+    "share": 0.0672
    },
    {
     "name": "@ulyanovsk_smi",
     "form": "аноним",
     "n_sources": 1,
-    "share": 0.0531
+    "share": 0.0532
    },
    {
     "name": "@chpul",
@@ -1423,29 +1412,29 @@
   ]
  },
  "w4": {
-  "generated_local": "15.09.2026 22:48",
+  "generated_local": "16.09.2026 00:29",
   "agency": {
-   "week_items": 1788,
+   "week_items": 1787,
    "excluded_service": {
     "погода": 9,
     "оповещение": 57
    },
-   "n": 1722,
+   "n": 1721,
    "roles": {
     "упоминание": 799,
     "без актора": 544,
     "субъект": 208,
-    "объект": 103,
+    "объект": 102,
     "безличный": 59,
     "нет текста": 9
    },
    "role_shares": {
-    "объект": 0.0598,
     "безличный": 0.0343,
-    "без актора": 0.3159,
-    "упоминание": 0.464,
-    "субъект": 0.1208,
-    "нет текста": 0.0052
+    "без актора": 0.3161,
+    "упоминание": 0.4643,
+    "субъект": 0.1209,
+    "нет текста": 0.0052,
+    "объект": 0.0593
    },
    "actor_mix": {
     "власть": 63,
@@ -1466,7 +1455,7 @@
     "неизвестные": 0.0144
    },
    "object_mix": {
-    "жители": 47,
+    "жители": 46,
     "учреждения": 28,
     "работники": 11,
     "бизнес": 8,
@@ -1479,27 +1468,19 @@
    "people_subjects": 89,
    "power_subjects": 86,
    "institutions_subjects": 30,
-   "people_objects": 69,
-   "objectification": 0.437,
-   "actor_density": 0.6446,
-   "subject_share": 0.1208,
-   "impersonal_share": 0.3502,
-   "first_person_share": 0.0749,
+   "people_objects": 68,
+   "objectification": 0.433,
+   "actor_density": 0.6444,
+   "subject_share": 0.1209,
+   "impersonal_share": 0.3504,
+   "first_person_share": 0.075,
    "first_person_by_tier": {
-    "T2": 0.054,
     "T1": 0.154,
     "T3": 0.09,
-    "СМИ/подборка": 0.016
+    "СМИ/подборка": 0.016,
+    "T2": 0.054
    },
    "by_tier": {
-    "T2": {
-     "n": 815,
-     "subject_share": 0.135,
-     "people_subjects": 46,
-     "power_subjects": 39,
-     "people_objects": 35,
-     "impersonal_share": 0.3828
-    },
     "T1": {
      "n": 410,
      "subject_share": 0.0878,
@@ -1523,6 +1504,14 @@
      "power_subjects": 25,
      "people_objects": 11,
      "impersonal_share": 0.1591
+    },
+    "T2": {
+     "n": 814,
+     "subject_share": 0.1351,
+     "people_subjects": 46,
+     "power_subjects": 39,
+     "people_objects": 34,
+     "impersonal_share": 0.3833
     }
    },
    "examples": {
@@ -1669,12 +1658,12 @@
    }
   },
   "frames": {
-   "week_items": 1788,
+   "week_items": 1787,
    "frame_mix": {
     "прочее": 475,
     "достижение": 194,
     "работы": 180,
-    "ЧП": 176,
+    "ЧП": 175,
     "надзор": 165,
     "тревога": 141,
     "ритуал": 127,
@@ -1686,15 +1675,15 @@
     "интерактив": 7
    },
    "frame_shares": {
-    "ЧП": 0.0984,
-    "погода": 0.0296,
-    "прочее": 0.2657,
+    "погода": 0.0297,
+    "прочее": 0.2658,
     "жалоба": 0.0526,
     "работы": 0.1007,
-    "достижение": 0.1085,
+    "достижение": 0.1086,
     "надзор": 0.0923,
     "статистика": 0.0386,
-    "ритуал": 0.071,
+    "ритуал": 0.0711,
+    "ЧП": 0.0979,
     "услуга": 0.0498,
     "лайв": 0.0101,
     "тревога": 0.0789,
@@ -1705,7 +1694,7 @@
     "достижение": 169,
     "работы": 155,
     "надзор": 141,
-    "ЧП": 139,
+    "ЧП": 138,
     "ритуал": 113,
     "тревога": 96,
     "жалоба": 88,
@@ -1716,23 +1705,6 @@
     "интерактив": 7
    },
    "tier_matrix": {
-    "T2": {
-     "n": 685,
-     "frames": {
-      "прочее": 0.269,
-      "работы": 0.112,
-      "ЧП": 0.108,
-      "надзор": 0.091,
-      "тревога": 0.083,
-      "достижение": 0.072,
-      "жалоба": 0.069,
-      "услуга": 0.061,
-      "ритуал": 0.061,
-      "статистика": 0.039,
-      "погода": 0.028,
-      "интерактив": 0.007
-     }
-    },
     "T1": {
      "n": 367,
      "frames": {
@@ -1785,11 +1757,28 @@
       "лайв": 0.007,
       "интерактив": 0.003
      }
+    },
+    "T2": {
+     "n": 684,
+     "frames": {
+      "прочее": 0.269,
+      "работы": 0.113,
+      "ЧП": 0.107,
+      "надзор": 0.091,
+      "тревога": 0.083,
+      "достижение": 0.072,
+      "жалоба": 0.069,
+      "услуга": 0.061,
+      "ритуал": 0.061,
+      "статистика": 0.039,
+      "погода": 0.028,
+      "интерактив": 0.007
+     }
     }
    },
-   "clusters": 153,
-   "divergent": 24,
-   "divergence_share": 0.157,
+   "clusters": 139,
+   "divergent": 23,
+   "divergence_share": 0.165,
    "chp_vs_works": 0,
    "tier_conflicts": 4,
    "examples": [
@@ -1804,7 +1793,8 @@
      "tier_conflict": true,
      "members": [
       {
-       "source": "reporter73",
+       "source": "Репортёр73",
+       "channel": "reporter73",
        "tier": 1,
        "frame": "надзор",
        "score": 1,
@@ -1813,6 +1803,7 @@
       },
       {
        "source": "Улпресса",
+       "channel": "Улпресса",
        "tier": null,
        "frame": "работы",
        "score": 1,
@@ -1821,6 +1812,7 @@
       },
       {
        "source": "topor_ul",
+       "channel": "topor_ul",
        "tier": 2,
        "frame": "работы",
        "score": 1,
@@ -1841,6 +1833,7 @@
      "members": [
       {
        "source": "Улпресса",
+       "channel": "Улпресса",
        "tier": null,
        "frame": "достижение",
        "score": 1,
@@ -1848,7 +1841,8 @@
        "url": "https://ulpressa.ru/2026/09/13/gendirektor-uaz-podaril-vedushhej-pervogo-kanala-rozovyj-patriot/"
       },
       {
-       "source": "ulpressa",
+       "source": "Улпресса",
+       "channel": "ulpressa",
        "tier": 1,
        "frame": "достижение",
        "score": 1,
@@ -1857,6 +1851,7 @@
       },
       {
        "source": "tresh_ulyan",
+       "channel": "tresh_ulyan",
        "tier": 2,
        "frame": "прочее",
        "score": 0,
@@ -1876,7 +1871,8 @@
      "tier_conflict": true,
      "members": [
       {
-       "source": "reporter73",
+       "source": "Репортёр73",
+       "channel": "reporter73",
        "tier": 1,
        "frame": "ЧП",
        "score": 2,
@@ -1885,6 +1881,7 @@
       },
       {
        "source": "chpulsk",
+       "channel": "chpulsk",
        "tier": 2,
        "frame": "прочее",
        "score": 0,
@@ -1904,7 +1901,8 @@
      "tier_conflict": true,
      "members": [
       {
-       "source": "ulpressa",
+       "source": "Улпресса",
+       "channel": "ulpressa",
        "tier": 1,
        "frame": "статистика",
        "score": 1,
@@ -1913,6 +1911,7 @@
       },
       {
        "source": "chpul",
+       "channel": "chpul",
        "tier": 2,
        "frame": "ЧП",
        "score": 1,
@@ -1924,29 +1923,24 @@
    ]
   },
   "ai_trace": {
-   "week_items": 1788,
-   "n": 1788,
-   "any_n": 438,
-   "any_share": 0.245,
+   "week_items": 1787,
+   "n": 1787,
+   "any_n": 432,
+   "any_share": 0.2417,
    "strong_n": 58,
-   "strong_share": 0.0324,
+   "strong_share": 0.0325,
    "signals": {
     "шаблонная концовка": 164,
-    "дословный повтор": 152,
+    "дословный повтор": 144,
     "эмодзи-блок": 120,
     "клише машинного текста": 24,
     "капс-заголовок": 22,
     "список-шаблон": 17
    },
    "by_tier": {
-    "T2": {
-     "n": 860,
-     "any_share": 0.234,
-     "strong_share": 0.047
-    },
     "T1": {
      "n": 427,
-     "any_share": 0.389,
+     "any_share": 0.377,
      "strong_share": 0.033
     },
     "T3": {
@@ -1956,20 +1950,25 @@
     },
     "СМИ/подборка": {
      "n": 311,
-     "any_share": 0.084,
+     "any_share": 0.08,
      "strong_share": 0.003
+    },
+    "T2": {
+     "n": 859,
+     "any_share": 0.234,
+     "strong_share": 0.047
     }
    },
    "by_source": [
     {
-     "source": "Russkih_Aleksey",
-     "n": 18,
-     "share": 0.889
-    },
-    {
      "source": "fcvolga",
      "n": 45,
      "share": 0.6
+    },
+    {
+     "source": "Губернатор и Правительство Ульяновской области",
+     "n": 54,
+     "share": 0.481
     },
     {
      "source": "ulyanovsk_smi",
@@ -1977,19 +1976,9 @@
      "share": 0.474
     },
     {
-     "source": "ulpressa",
-     "n": 142,
-     "share": 0.458
-    },
-    {
      "source": "tresh_ulyan",
      "n": 120,
      "share": 0.45
-    },
-    {
-     "source": "ulgovru",
-     "n": 35,
-     "share": 0.4
     },
     {
      "source": "ulsk_73online",
@@ -2000,10 +1989,20 @@
      "source": "ulpromo",
      "n": 17,
      "share": 0.353
+    },
+    {
+     "source": "volkodav73",
+     "n": 40,
+     "share": 0.35
+    },
+    {
+     "source": "Звезда (Новомалыклинский р-н)",
+     "n": 20,
+     "share": 0.35
     }
    ],
-   "verbatim_items": 152,
-   "verbatim_groups": 240,
+   "verbatim_items": 144,
+   "verbatim_groups": 227,
    "verbatim_examples": [
     {
      "ids": [
@@ -2011,7 +2010,7 @@
       "5375ec3678dd14e4"
      ],
      "sources": [
-      "Ulnovosti.ru",
+      "ulnovosti.ru",
       "volkodav73"
      ],
      "snippet": "ульяновскаогласилиприговорвотношенииодногоизруководителейподразделенийульяновскогоинститутагражданскойавиацииидиректорао"
@@ -2022,7 +2021,7 @@
       "5375ec3678dd14e4"
      ],
      "sources": [
-      "Ulnovosti.ru",
+      "ulnovosti.ru",
       "volkodav73"
      ],
      "snippet": "ульяновскаогласилиприговорвотношенииодногоизруководителейподразделенийульяновскогоинститутагражданскойавиацииидиректорао"
@@ -2033,7 +2032,7 @@
       "5375ec3678dd14e4"
      ],
      "sources": [
-      "Ulnovosti.ru",
+      "ulnovosti.ru",
       "volkodav73"
      ],
      "snippet": "преступнаядеятельностьуказанныхлицбылапресеченауфсброссиипоульяновскойобластисовместносульяновскимломвднатранспортевянва"
@@ -2044,7 +2043,7 @@
       "5375ec3678dd14e4"
      ],
      "sources": [
-      "Ulnovosti.ru",
+      "ulnovosti.ru",
       "volkodav73"
      ],
      "snippet": "преступнаядеятельностьуказанныхлицбылапресеченауфсброссиипоульяновскойобластисовместносульяновскимломвднатранспортевянва"
@@ -2063,7 +2062,7 @@
      "url": "https://t.me/fcvolga/12490"
     },
     {
-     "source": "UAZ_Today",
+     "source": "УАЗ (Соллерс)",
      "title": "Ульяновск встречает новый арт-объект! 🚙 🌟 Сегодня одну из клумб на улице Автозаводской украсил оранжевый «Хант",
      "signals": [
       "клише машинного текста",
@@ -2101,7 +2100,7 @@
    ]
   },
   "dedup": {
-   "n_items": 1788,
+   "n_items": 1787,
    "threshold": 0.45,
    "days": 7,
    "policy": {
@@ -2114,45 +2113,45 @@
      "threshold": 0.3,
      "clusters": 224,
      "dups": 419,
-     "dup_share": 0.2343,
-     "original_share": 0.7657,
-     "original_share_noguards": 0.7433,
+     "dup_share": 0.2345,
+     "original_share": 0.7655,
+     "original_share_noguards": 0.7431,
      "max_size": 15
     },
     {
      "threshold": 0.35,
      "clusters": 203,
      "dups": 346,
-     "dup_share": 0.1935,
-     "original_share": 0.8065,
-     "original_share_noguards": 0.7858,
+     "dup_share": 0.1936,
+     "original_share": 0.8064,
+     "original_share_noguards": 0.7857,
      "max_size": 15
     },
     {
      "threshold": 0.4,
      "clusters": 191,
      "dups": 304,
-     "dup_share": 0.17,
-     "original_share": 0.83,
-     "original_share_noguards": 0.8138,
+     "dup_share": 0.1701,
+     "original_share": 0.8299,
+     "original_share_noguards": 0.8137,
      "max_size": 15
     },
     {
      "threshold": 0.45,
      "clusters": 172,
      "dups": 258,
-     "dup_share": 0.1443,
-     "original_share": 0.8557,
-     "original_share_noguards": 0.8423,
+     "dup_share": 0.1444,
+     "original_share": 0.8556,
+     "original_share_noguards": 0.8422,
      "max_size": 14
     },
     {
      "threshold": 0.5,
      "clusters": 162,
      "dups": 238,
-     "dup_share": 0.1331,
-     "original_share": 0.8669,
-     "original_share_noguards": 0.8563,
+     "dup_share": 0.1332,
+     "original_share": 0.8668,
+     "original_share_noguards": 0.8562,
      "max_size": 13
     },
     {
@@ -2161,23 +2160,23 @@
      "dups": 212,
      "dup_share": 0.1186,
      "original_share": 0.8814,
-     "original_share_noguards": 0.8753,
+     "original_share_noguards": 0.8752,
      "max_size": 13
     },
     {
      "threshold": 0.6,
      "clusters": 139,
      "dups": 196,
-     "dup_share": 0.1096,
-     "original_share": 0.8904,
-     "original_share_noguards": 0.8848,
+     "dup_share": 0.1097,
+     "original_share": 0.8903,
+     "original_share_noguards": 0.8847,
      "max_size": 11
     }
    ],
-   "original_share": 0.8557,
+   "original_share": 0.8556,
    "original_range": [
-    0.7657,
-    0.8904
+    0.7655,
+    0.8903
    ],
    "spread_pp": 12.5,
    "pairs": 960,
@@ -2187,8 +2186,8 @@
    "episode_verbatim_dups": 13,
    "service_dups": 22,
    "antagonistic_dups": 0,
-   "same_source_dups": 56,
-   "same_source_flagged": 56,
+   "same_source_dups": 72,
+   "same_source_flagged": 72,
    "blocked_by_guards": {
     "служебный формуляр вне окна": 73,
     "антагонизм формуляра": 69,
@@ -2197,7 +2196,7 @@
    "antagonistic_examples": [],
    "suspicious_dups": 11,
    "suspicious_share": 0.043,
-   "corrected_original_share": 0.8619,
+   "corrected_original_share": 0.8618,
    "median_span_h": 1.5,
    "borderline_pairs": 221,
    "sample": [
@@ -2205,47 +2204,56 @@
      "jaccard": 0.452,
      "would_merge": true,
      "same_source": false,
+     "same_channel": false,
      "antagonistic": false,
      "service": false,
      "span_h": 11.4,
      "a": {
       "source": "insaid173",
+      "channel": "insaid173",
       "title": "Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября . Об этом сообщил мэр Ульяновска Алекс"
      },
      "b": {
       "source": "tresh_ulyan",
+      "channel": "tresh_ulyan",
       "title": "7️⃣ Мост Шевченко — Смычки планируют открыть 15-17 сентября Мэр Александр Болдакин сообщил, что подрядчик орие"
      }
     },
     {
      "jaccard": 0.455,
      "would_merge": true,
-     "same_source": false,
+     "same_source": true,
+     "same_channel": false,
      "antagonistic": true,
      "service": true,
      "span_h": 3.4,
      "a": {
-      "source": "Алексей Русских (Telegram)",
+      "source": "Губернатор и Правительство Ульяновской области",
+      "channel": "Алексей Русских (Telegram)",
       "title": "Внимание! Ракетная опасность на территории Ульяновской области"
      },
      "b": {
-      "source": "Russkih_Aleksey",
+      "source": "Губернатор и Правительство Ульяновской области",
+      "channel": "Russkih_Aleksey",
       "title": "❗️ Снят режим «Ракетная опасность» на территории Ульяновской области. 🇷🇺 Мой канал в MAX"
      }
     },
     {
      "jaccard": 0.455,
      "would_merge": true,
-     "same_source": false,
+     "same_source": true,
+     "same_channel": false,
      "antagonistic": true,
      "service": true,
      "span_h": 3.5,
      "a": {
-      "source": "Алексей Русских (Telegram)",
+      "source": "Губернатор и Правительство Ульяновской области",
+      "channel": "Алексей Русских (Telegram)",
       "title": "Внимание! Ракетная опасность на территории Ульяновской области"
      },
      "b": {
-      "source": "ulgovru",
+      "source": "Губернатор и Правительство Ульяновской области",
+      "channel": "ulgovru",
       "title": "❗️ Снят режим «Ракетная опасность» на территории Ульяновской области. 🇷🇺 Мой канал в MAX"
      }
     },
@@ -2253,15 +2261,18 @@
      "jaccard": 0.455,
      "would_merge": true,
      "same_source": false,
+     "same_channel": false,
      "antagonistic": false,
      "service": false,
      "span_h": 2.1,
      "a": {
       "source": "ulsk_driver73",
+      "channel": "ulsk_driver73",
       "title": "На перекрёстке Московского шоссе и улицы Автозаводской появился новый арт-объект — оранжевый УАЗ-469 в роли цв"
      },
      "b": {
       "source": "ulkoroche",
+      "channel": "ulkoroche",
       "title": "Новый арт-объект — оранжевый УАЗ-469 в виде цветочной клумбы — появился в Ульяновске. Увидеть его можно на пер"
      }
     },
@@ -2269,15 +2280,18 @@
      "jaccard": 0.455,
      "would_merge": true,
      "same_source": true,
+     "same_channel": true,
      "antagonistic": false,
      "service": false,
      "span_h": 23.1,
      "a": {
       "source": "insaid173",
+      "channel": "insaid173",
       "title": "Сегодня будет переменная облачность. Синоптики прогнозируют после обеда местами небольшой дождь. Южный ветер 6"
      },
      "b": {
       "source": "insaid173",
+      "channel": "insaid173",
       "title": "Сегодня будеи облачная погода с прояснениями. Синоптики прогнозируют местами небольшой дождь. Западный ветер 7"
      }
     },
@@ -2285,15 +2299,18 @@
      "jaccard": 0.455,
      "would_merge": true,
      "same_source": true,
+     "same_channel": true,
      "antagonistic": true,
      "service": true,
      "span_h": 1.5,
      "a": {
       "source": "tresh_ulyan",
+      "channel": "tresh_ulyan",
       "title": "🚨 Ракетная опасность в Ульяновской области. Сирены завыли по городу. 😱 Подписаться | Прислать новость"
      },
      "b": {
       "source": "tresh_ulyan",
+      "channel": "tresh_ulyan",
       "title": "❗️ Снят режим «Ракетная опасность» на территории Ульяновской области. 😱 Подписаться | Прислать новость"
      }
     },
@@ -2301,15 +2318,18 @@
      "jaccard": 0.455,
      "would_merge": true,
      "same_source": true,
+     "same_channel": true,
      "antagonistic": true,
      "service": true,
      "span_h": 1.7,
      "a": {
       "source": "tresh_ulyan",
+      "channel": "tresh_ulyan",
       "title": "🚨 Ракетная опасность в Ульяновской области. Сирены завыли по городу. 😱 Подписаться | Прислать новость"
      },
      "b": {
       "source": "tresh_ulyan",
+      "channel": "tresh_ulyan",
       "title": "❗️ Снят режим «Ракетная опасность» на территории Ульяновской области. 😱 Подписаться | Прислать новость"
      }
     },
@@ -2317,15 +2337,18 @@
      "jaccard": 0.455,
      "would_merge": true,
      "same_source": true,
+     "same_channel": true,
      "antagonistic": true,
      "service": true,
      "span_h": 1.5,
      "a": {
       "source": "tresh_ulyan",
+      "channel": "tresh_ulyan",
       "title": "🚨 Ракетная опасность в Ульяновской области. Сирены завыли по городу. 😱 Подписаться | Прислать новость"
      },
      "b": {
       "source": "tresh_ulyan",
+      "channel": "tresh_ulyan",
       "title": "❗️ Снят режим «Ракетная опасность» на территории Ульяновской области. 😱 Подписаться | Прислать новость"
      }
     },
@@ -2333,15 +2356,18 @@
      "jaccard": 0.455,
      "would_merge": true,
      "same_source": true,
+     "same_channel": true,
      "antagonistic": true,
      "service": true,
      "span_h": 1.7,
      "a": {
       "source": "tresh_ulyan",
+      "channel": "tresh_ulyan",
       "title": "🚨 Ракетная опасность в Ульяновской области. Сирены завыли по городу. 😱 Подписаться | Прислать новость"
      },
      "b": {
       "source": "tresh_ulyan",
+      "channel": "tresh_ulyan",
       "title": "❗️ Снят режим «Ракетная опасность» на территории Ульяновской области. 😱 Подписаться | Прислать новость"
      }
     },
@@ -2349,15 +2375,18 @@
      "jaccard": 0.455,
      "would_merge": true,
      "same_source": false,
+     "same_channel": false,
      "antagonistic": false,
      "service": false,
      "span_h": 0.4,
      "a": {
       "source": "ulkoroche",
+      "channel": "ulkoroche",
       "title": "🥳 Губернатор Алексей Русских поздравляет жителей Ульяновска с праздником. «Нашему любимому Симбирску-Ульяновск"
      },
      "b": {
       "source": "ulyanovsk_smi",
+      "channel": "ulyanovsk_smi",
       "title": "❗️ С Днём города поздравил жителей губернатор Ульяновской области Алексей Русских поделился видео, в котором с"
      }
     },
@@ -2365,37 +2394,43 @@
      "jaccard": 0.444,
      "would_merge": false,
      "same_source": false,
+     "same_channel": false,
      "antagonistic": false,
      "service": false,
      "span_h": 2.8,
      "a": {
       "source": "chpul",
+      "channel": "chpul",
       "title": "Максимальный размер пенсии по старости в 2027 году вырастет до 77 тысяч рублей. Для её получения нужно официал"
      },
      "b": {
       "source": "chpulsk",
+      "channel": "chpulsk",
       "title": "👵🏻 Максимальная пенсия по старости в 2027 году вырастет до 77 тысяч рублей. Чтобы её получить, россияне должны"
      }
     },
     {
      "jaccard": 0.444,
      "would_merge": false,
-     "same_source": false,
+     "same_source": true,
+     "same_channel": false,
      "antagonistic": false,
      "service": false,
      "span_h": 0.0,
      "a": {
       "source": "Улпресса",
+      "channel": "Улпресса",
       "title": "На трассе Барыш — Карсун 19-летний водитель без прав устроил ДТП — один человек погиб, четверо в больнице"
      },
      "b": {
-      "source": "ulpressa",
+      "source": "Улпресса",
+      "channel": "ulpressa",
       "title": "⚡ На трассе Барыш — Карсун в Инзенском районе столкнулись два автомобиля — один человек погиб, четверо в больн"
      }
     }
    ],
    "guards_effect_pp": 1.4,
-   "verdict": "оригинальность 85.6% при пороге 0.45; размах на порогах 0.3–0.6 — 76.6…89.0% (±6.2 п.п.); охранные правила dedup.py заблокировали 200 склеек (служебный формуляр вне окна 73, антагонизм формуляра 69, вне окна перепечаток 58); остаточных дефектов 11 из 258 дублей"
+   "verdict": "оригинальность 85.6% при пороге 0.45; размах на порогах 0.3–0.6 — 76.5…89.0% (±6.2 п.п.); охранные правила dedup.py заблокировали 200 склеек (служебный формуляр вне окна 73, антагонизм формуляра 69, вне окна перепечаток 58); остаточных дефектов 11 из 258 дублей"
   }
  }
 }

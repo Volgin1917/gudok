@@ -18,6 +18,7 @@ sys.path.insert(0, BASE)
 import collector  # noqa: E402
 import dedup  # noqa: E402
 import analytics  # noqa: E402
+import outlets  # noqa: E402
 
 FIX = os.path.join(BASE, "tests", "fixtures")
 CFG = json.load(open(os.path.join(BASE, "config.json"), encoding="utf-8"))
@@ -1891,3 +1892,238 @@ class TestPhotoMirrors(unittest.TestCase):
                 if pl and not os.path.exists(os.path.join(BASE, pl)):
                     stale += 1
         self.assertEqual(stale, 0, f"{stale} записей ссылаются на отсутствующие зеркала")
+
+
+class TestOutlets(unittest.TestCase):
+    """Канонические издания (15.09.2026): «Улпресса» и «ulpressa» — одна редакция
+    (ООО «Симбирск-Паблисити»), просто RSS сайта и Telegram-канал. Пока источники
+    считались по каналам, перепечатка своего же материала в свой же канал выглядела
+    каскадом из «двух независимых источников»: 19 пар Улпресса↔ulpressa и 11 пар
+    @ulgovru↔@Russkih_Aleksey за неделю (30 из 226 пар «также сообщили», 13%).
+    Карта изданий — поле outlet/aka в sources_registry.json, резолвинг — outlets.py."""
+
+    REG = json.load(open(os.path.join(BASE, "sources_registry.json"), encoding="utf-8"))
+
+    def _rss(self, name, title="Заголовок", text="Текст материала", hours_ago=2):
+        from datetime import datetime, timedelta, timezone
+        dt = datetime.now(timezone(timedelta(hours=4))) - timedelta(hours=hours_ago)
+        return {"id": f"r-{name}-{hours_ago}", "title": title, "text": text,
+                "published": dt.isoformat(), "category": "society",
+                "source_type": "rss", "source": name, "tier": 1}
+
+    def _tg(self, ch, title="Заголовок", text="Текст материала", hours_ago=3):
+        from datetime import datetime, timedelta, timezone
+        dt = datetime.now(timezone(timedelta(hours=4))) - timedelta(hours=hours_ago)
+        return {"id": f"t-{ch}-{hours_ago}", "title": title, "text": text,
+                "published": dt.isoformat(), "category": "society",
+                "source_type": "tg", "source": f"t.me/{ch}", "channel": ch,
+                "tier": 2, "views": 500}
+
+    # ── карта изданий ────────────────────────────────────────────────────────
+    def test_registry_declares_merged_outlets(self):
+        groups = outlets.merged_groups()
+        for name, kinds in (("Улпресса", {"tg:ulpressa", "rss:Улпресса"}),
+                            ("Администрация г. Ульяновска", {"web:Администрация Ульяновска", "tg:ulmeria"}),
+                            ("Губернатор и Правительство Ульяновской области",
+                             {"tg:ulgovru", "tg:Russkih_Aleksey"}),
+                            ("Звезда (Новомалыклинский р-н)",
+                             {"rss:Звезда (Новомалыклинский р-н)", "tg:gazetazvezda73"})):
+            self.assertIn(name, groups, f"реестр не объявил издание «{name}»")
+            self.assertTrue(kinds <= set(groups[name]),
+                            f"«{name}»: не хватает каналов {kinds - set(groups[name])}")
+
+    def test_ulpressa_channels_are_one_outlet(self):
+        rss = self._rss("Улпресса")
+        tg = self._tg("ulpressa")
+        seed = {"source_type": "seed", "source": "Улпресса", "url": "https://ulpressa.ru/"}
+        self.assertEqual(outlets.outlet(rss), "Улпресса")
+        self.assertEqual(outlets.outlet(tg), "Улпресса")
+        self.assertEqual(outlets.outlet(seed), "Улпресса")
+        self.assertTrue(outlets.same_outlet(rss, tg))
+        self.assertTrue(outlets.same_outlet(rss, seed))
+
+    def test_government_and_governor_are_one_press_service(self):
+        gov = self._tg("ulgovru")
+        gubernator = self._tg("Russkih_Aleksey")
+        seed_gov = {"source_type": "seed", "source": "Правительство Ульяновской области",
+                    "url": "https://ulgov.gosuslugi.ru/news/"}
+        seed_gub = {"source_type": "seed", "source": "Алексей Русских (Telegram)",
+                    "url": "https://t.me/Russkih_Aleksey"}
+        for it in (gov, gubernator, seed_gov, seed_gub):
+            self.assertEqual(outlets.outlet(it),
+                             "Губернатор и Правительство Ульяновской области")
+        self.assertTrue(outlets.same_outlet(gov, gubernator))
+        self.assertTrue(outlets.same_outlet(seed_gov, seed_gub))
+
+    def test_city_administration_site_and_tg_are_one_outlet(self):
+        web = {"source_type": "web", "source": "Администрация Ульяновска",
+               "url": "https://ulmeria.gosuslugi.ru/dlya-zhiteley/novosti-i-reportazhi/x/"}
+        tg = self._tg("ulmeria")
+        self.assertTrue(outlets.same_outlet(web, tg))
+        self.assertEqual(outlets.outlet(web), "Администрация г. Ульяновска")
+
+    def test_seed_aliases_of_registered_outlets(self):
+        """Подборки seed_data.py подписаны по-другому — резолвятся в то же издание."""
+        cases = [("Репортёр73", "https://t.me/reporter73", "Репортёр73"),
+                 ("Sollers / УАЗ", "https://life.uaz.ru/about/", "УАЗ (Соллерс)"),
+                 ("Ulnovosti.ru", "https://ulnovosti.ru/x/", "Ulnovosti.ru"),
+                 ("Media73", "https://media73.ru/x/", "Media73")]
+        for src, url, want in cases:
+            got = outlets.outlet({"source_type": "seed", "source": src, "url": url})
+            self.assertEqual(got, want, f"seed «{src}» → «{got}», ожидалось «{want}»")
+
+    def test_competing_and_unrelated_channels_stay_distinct(self):
+        """Разные юрлица и конкурирующие каналы одного города не объединяются."""
+        ulpressa = self._tg("ulpressa")
+        ulpravda = self._tg("ulpravda")          # ОГАУ ИД «Ульяновская правда» — другое юрлицо
+        dd1 = self._tg("dimitrovgradd")          # «Типичный Димитровград», админ @melekessovm
+        dd2 = self._tg("dimitrovgradonline")     # «Информационный Димитровград», админ @adm_dim_73
+        boldakin = self._tg("A_Boldakin")        # личный канал главы города
+        meria = self._tg("ulmeria")              # пресс-служба администрации
+        self.assertFalse(outlets.same_outlet(ulpressa, ulpravda))
+        self.assertFalse(outlets.same_outlet(dd1, dd2))
+        self.assertFalse(outlets.same_outlet(boldakin, meria))
+        self.assertFalse(outlets.same_outlet(ulpressa, dd1))
+
+    def test_unknown_channel_fallback(self):
+        """Канала нет в реестре — метрика считает его отдельным изданием,
+        подпись в «также сообщили» сохраняет формат «t.me/канал»."""
+        it = self._tg("novyj_kanal")
+        self.assertEqual(outlets.outlet(it), "novyj_kanal")
+        self.assertEqual(outlets.outlet_label(it), "t.me/novyj_kanal")
+        self.assertEqual(outlets.outlet_key(it), "novyj_kanal")
+
+    def test_norm_ignores_case_yo_and_prefixes(self):
+        for a, b in (("Улпресса", "улпресса"), ("Улпресса", "УлПресса"),
+                     ("t.me/ulpressa", "@ulpressa"), ("https://www.ulpressa.ru/", "ulpressa.ru"),
+                     ("Кумәк көч", "Кумак коч")):   # татарская кириллица складывается
+            self.assertEqual(outlets.norm(a), outlets.norm(b), f"{a!r} != {b!r}")
+
+    def test_no_aka_conflicts_between_outlets(self):
+        """Одно написание не может принадлежать двум изданиям (иначе карта неоднозначна)."""
+        seen = {}
+        for e in self.REG.get("sources", []):
+            canon = e.get("outlet") or e.get("name", "").lstrip("@")
+            keys = {e.get("name", "").lstrip("@"), e["id"], e["id"].split(":", 1)[-1]}
+            keys |= set(e.get("aka") or [])
+            for k in keys:
+                nk = outlets.norm(k)
+                if not nk:
+                    continue
+                prev = seen.setdefault(nk, canon)
+                self.assertEqual(prev, canon,
+                                 f"написание {k!r} отдают и «{prev}», и «{canon}»")
+
+    # ── влияние на дедупликацию ──────────────────────────────────────────────
+    def _run_dedup(self, items, threshold=0.45):
+        import tempfile
+        import dedup
+        tmp = tempfile.mkdtemp()
+        store = os.path.join(tmp, "store.jsonl")
+        with open(store, "w", encoding="utf-8") as f:
+            for it in items:
+                f.write(json.dumps(it, ensure_ascii=False) + "\n")
+        with open(os.path.join(tmp, "config.json"), "w", encoding="utf-8") as f:
+            json.dump({"settings": {"dedup_threshold": threshold, "dedup_max_span_h": 24,
+                                    "dedup_service_span_h": 6,
+                                    "dedup_verbatim_jaccard": 0.85}}, f)
+        old_store, old_base, old_argv = dedup.STORE, dedup.BASE, sys.argv
+        try:
+            dedup.STORE, dedup.BASE = store, tmp
+            sys.argv = ["dedup.py", "--quiet"]
+            dedup.main()
+            with open(store, encoding="utf-8") as f:
+                return [json.loads(l) for l in f if l.strip()]
+        finally:
+            dedup.STORE, dedup.BASE, sys.argv = old_store, old_base, old_argv
+
+    def test_dedup_counts_outlets_not_channels(self):
+        """RSS и TG одной редакции + один агрегатор = каскад из ДВУХ изданий, а не трёх."""
+        text = ("На улице Спасской уложили новый асфальт и нанесли разметку, "
+                "работы приняты комиссией администрации города Ульяновска")
+        items = [self._rss("Улпресса", "На Спасской уложили новый асфальт", text, 2),
+                 self._tg("ulpressa", "На Спасской уложили новый асфальт", text, 3),
+                 self._tg("tresh_ulyan", "Спасская: новый асфальт и разметка", text, 4)]
+        out = self._run_dedup(items)
+        head = [it for it in out if it.get("cluster")][0]
+        dups = [it for it in out if it.get("dup_of")]
+        self.assertEqual(len(dups), 2)
+        self.assertEqual(head["cluster"], 3)
+        self.assertEqual(head["cluster_src"], 2, "каналы одной редакции посчитаны независимыми")
+        self.assertEqual(head["also_in"], ["t.me/tresh_ulyan"])
+        own = [it for it in dups if it.get("same_source")]
+        self.assertEqual(len(own), 1, "повтор своего издания должен быть помечен same_source")
+        self.assertEqual(outlets.outlet(own[0]), "Улпресса")
+
+    def test_dedup_two_outlets_still_a_cascade(self):
+        text = ("В Заволжском районе открыли новый сквер, на благоустройство "
+                "направлено 12 миллионов рублей по программе местных инициатив")
+        items = [self._tg("ulpressa", "Открыли новый сквер в Заволжье", text, 2),
+                 self._tg("ulpravda", "Новый сквер открыли в Заволжском районе", text, 3)]
+        out = self._run_dedup(items)
+        head = [it for it in out if it.get("cluster")][0]
+        self.assertEqual(head["cluster_src"], 2)
+        self.assertEqual(head["also_in"], ["t.me/ulpravda"])
+        self.assertFalse(any(it.get("same_source") for it in out if it.get("dup_of")))
+
+    # ── реальная база и витрина ──────────────────────────────────────────────
+    def test_store_also_in_has_no_own_outlet(self):
+        path = os.path.join(BASE, "data", "store.jsonl")
+        if not os.path.exists(path):
+            self.skipTest("нет базы")
+        bad = []
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                it = json.loads(line)
+                also = it.get("also_in") or []
+                if not also:
+                    continue
+                own = outlets.outlet(it)
+                if any(outlets.resolve_raw(a) == own for a in also):
+                    bad.append((own, also))
+        self.assertEqual(bad, [], "в «также сообщили» осталось собственное издание")
+
+    def test_store_cluster_src_equals_distinct_outlets(self):
+        path = os.path.join(BASE, "data", "store.jsonl")
+        if not os.path.exists(path):
+            self.skipTest("нет базы")
+        recs = {}
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    it = json.loads(line)
+                    recs[it["id"]] = it
+        wrong = []
+        for it in recs.values():
+            if not it.get("cluster"):
+                continue
+            members = [it] + [m for m in recs.values() if m.get("dup_of") == it["id"]]
+            n_out = len({outlets.outlet_key(m) for m in members})
+            if it.get("cluster_src") != n_out:
+                wrong.append((it.get("id"), it.get("cluster_src"), n_out))
+        self.assertEqual(wrong, [], "cluster_src не равен числу независимых изданий")
+
+    def test_infospace_setters_are_canonical_outlets(self):
+        path = os.path.join(BASE, "data", "infospace.json")
+        if not os.path.exists(path):
+            self.skipTest("нет infospace.json")
+        info = json.load(open(path, encoding="utf-8"))
+        names = [s[0] for s in (info.get("setters") or [])]
+        self.assertNotIn("ulpressa", names, "сеттеры всё ещё дробятся по каналам")
+        self.assertNotIn("t.me/ulpressa", names)
+        self.assertNotIn("Russkih_Aleksey", names)
+        self.assertNotIn("ulgovru", names)
+        if "Улпресса" in names:
+            self.assertEqual(names.count("Улпресса"), 1, "одно издание — одна строка рейтинга")
+
+    def test_dedup_and_generate_talk_about_outlets(self):
+        """Методика на страницах объясняет объединение каналов одной редакции."""
+        with open(os.path.join(BASE, "generate.py"), encoding="utf-8") as f:
+            gen = f.read()
+        self.assertIn("outlets.outlet", gen)
+        self.assertIn("Симбирск-Паблисити", gen)
+        with open(os.path.join(BASE, "dedup.py"), encoding="utf-8") as f:
+            dd = f.read()
+        self.assertIn("outlet_key", dd)

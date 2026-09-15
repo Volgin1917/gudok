@@ -2,11 +2,21 @@
  "_meta": {
   "purpose": "Реестр источников издания «Гудок»: атрибуты для метрик «Инфопространства» (тип производителя, территория, владелец, свой голос, платное освещение). Канонический список и tier — config.json; реестр дополняет его.",
   "created": "15.09.2026",
-  "updated": "15.09.2026 21:57",
+  "updated": "16.09.2026 00:14",
   "maintenance": "python3 seed_sources_registry.py (структурные поля из config, ручные сохраняются); верификация владельцев по ЕГРЮЛ/реестру СМИ РКН — Волна 3",
   "sources_total": 51,
   "sources_enabled": 41,
-  "owners_confirmed": 16
+  "owners_confirmed": 16,
+  "outlets_note": "Поле outlet объединяет каналы одной редакции/пресс-службы в одно издание: для метрик независимости (сеттеры повестки, каскады перепечаток, cluster_src, концентрация внимания) RSS сайта и Telegram той же редакции — ОДИН источник. Поле aka — написания того же издания, встречающиеся в store.jsonl.",
+  "outlets_total": 47,
+  "outlets_merged": [
+   "Администрация г. Ульяновска",
+   "Губернатор и Правительство Ульяновской области",
+   "Звезда (Новомалыклинский р-н)",
+   "Репортёр73",
+   "УАЗ (Соллерс)",
+   "Улпресса"
+  ]
  },
  "sources": [
   {
@@ -22,6 +32,14 @@
    "voice_of": null,
    "owner_form": "официальные",
    "affiliate": null,
+   "outlet": "Губернатор и Правительство Ульяновской области",
+   "aka": [
+    "Russkih_Aleksey",
+    "t.me/Russkih_Aleksey",
+    "Алексей Русских",
+    "Алексей Русских (Telegram)",
+    "Русских Алексей Юрьевич"
+   ],
    "paid_coverage": null,
    "notes": ""
   },
@@ -38,6 +56,14 @@
    "voice_of": null,
    "owner_form": "официальные",
    "affiliate": null,
+   "outlet": "Губернатор и Правительство Ульяновской области",
+   "aka": [
+    "t.me/ulgovru",
+    "ulgov.gosuslugi.ru",
+    "ulgovru",
+    "Правительство Ульяновской области",
+    "Ульяновская область"
+   ],
    "paid_coverage": null,
    "notes": ""
   },
@@ -54,6 +80,8 @@
    "voice_of": null,
    "owner_form": "официальные",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": ""
   },
@@ -70,6 +98,13 @@
    "voice_of": null,
    "owner_form": "частный бизнес",
    "affiliate": null,
+   "outlet": "Улпресса",
+   "aka": [
+    "t.me/ulpressa",
+    "ulpressa",
+    "ulpressa.ru",
+    "Улпресса"
+   ],
    "paid_coverage": null,
    "notes": "TG редакции ulpressa.ru; учредитель ИА № ФС77-84971 (17.04.2023); директор и гл. ред. — О.С. Турковская; верифицировано 15.09.2026 (imprint + ЕГРЮЛ) — owner_verification.md"
   },
@@ -86,6 +121,8 @@
    "voice_of": null,
    "owner_form": "государство",
    "affiliate": "гос-медиа кластер «Ульяновская правда»",
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "государственное автономное учреждение Ульяновской области (ОГРН 1037300995082, создан 13.10.2003, 391 чел.); не одно юрлицо с ООО «Симбирск-Паблисити» (ulpressa.ru) — оценка Волны 2 «единый холдинг» не подтвердилась; аффилированность по персоналиям уточнить"
   },
@@ -102,6 +139,15 @@
    "voice_of": null,
    "owner_form": "частный бизнес",
    "affiliate": null,
+   "outlet": "Репортёр73",
+   "aka": [
+    "reporter73",
+    "reporter73.tv",
+    "t.me/reporter73",
+    "Репортер 73",
+    "Репортер73",
+    "Репортёр73"
+   ],
    "paid_coverage": null,
    "notes": "региональный телеканал (21-я кнопка, первый мультиплекс); ОГРН 1157325006486, с 10.2015; верифицировано 15.09.2026 (imprint reporter73.tv + ЕГРЮЛ)"
   },
@@ -118,6 +164,8 @@
    "voice_of": null,
    "owner_form": "официальные",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": ""
   },
@@ -134,6 +182,8 @@
    "voice_of": null,
    "owner_form": "официальные",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": ""
   },
@@ -150,6 +200,16 @@
    "voice_of": null,
    "owner_form": "частный бизнес",
    "affiliate": null,
+   "outlet": "УАЗ (Соллерс)",
+   "aka": [
+    "Sollers / УАЗ",
+    "UAZ_Today",
+    "life.uaz.ru",
+    "uaz.ru",
+    "ПАО «УАЗ»",
+    "Соллерс / УАЗ",
+    "УАЗ Сегодня"
+   ],
    "paid_coverage": null,
    "notes": ""
   },
@@ -166,6 +226,8 @@
    "voice_of": null,
    "owner_form": "не установлен",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": ""
   },
@@ -182,6 +244,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "крупнейший агрегатор (~145K)"
   },
@@ -198,6 +262,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "~139K"
   },
@@ -214,6 +280,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "ЧП-тематика, ~83K"
   },
@@ -230,6 +298,8 @@
    "voice_of": "Димитровград",
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "муниципальный фокус"
   },
@@ -246,6 +316,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": ""
   },
@@ -262,6 +334,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": ""
   },
@@ -278,6 +352,8 @@
    "voice_of": "Димитровград",
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "муниципальный фокус"
   },
@@ -294,6 +370,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "подборки по СМИ"
   },
@@ -310,6 +388,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "ЧП-тематика"
   },
@@ -326,6 +406,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": ""
   },
@@ -342,6 +424,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": ""
   },
@@ -358,6 +442,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "автомобильная тематика"
   },
@@ -374,6 +460,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "авторская аналитика"
   },
@@ -390,6 +478,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "сатира"
   },
@@ -406,6 +496,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": ""
   },
@@ -422,6 +514,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": ""
   },
@@ -438,6 +532,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "критика городской власти"
   },
@@ -454,6 +550,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "культура"
   },
@@ -470,6 +568,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "анонсы и промо"
   },
@@ -486,6 +586,14 @@
    "voice_of": null,
    "owner_form": "официальные",
    "affiliate": null,
+   "outlet": "Администрация г. Ульяновска",
+   "aka": [
+    "ulmeria",
+    "ulmeria.gosuslugi.ru",
+    "ulmeria.ru",
+    "Администрация Ульяновска",
+    "Администрация города Ульяновска"
+   ],
    "paid_coverage": null,
    "notes": "отключён как источник"
   },
@@ -502,6 +610,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "отключён как источник"
   },
@@ -518,6 +628,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "общественный транспорт"
   },
@@ -534,6 +646,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "отключён как источник"
   },
@@ -550,6 +664,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "отключён как источник"
   },
@@ -566,6 +682,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "событийный канал (афиша)"
   },
@@ -582,6 +700,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "отключён как источник"
   },
@@ -598,6 +718,8 @@
    "voice_of": null,
    "owner_form": "государство",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "отключён как источник"
   },
@@ -614,6 +736,8 @@
    "voice_of": null,
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": ""
   },
@@ -630,6 +754,8 @@
    "voice_of": "Димитровград",
    "owner_form": "аноним",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "отключён как источник"
   },
@@ -646,6 +772,8 @@
    "voice_of": null,
    "owner_form": "государство",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "«Авиастар-СП» — производственная площадка в структуре ПАО «ОАК»; ОГРН 1067759884598; верифицировано 15.09.2026 по открытым данным ЕГРЮЛ"
   },
@@ -662,6 +790,13 @@
    "voice_of": "Новомалыклинский р-н",
    "owner_form": "не установлен",
    "affiliate": null,
+   "outlet": "Звезда (Новомалыклинский р-н)",
+   "aka": [
+    "gazetazvezda73",
+    "Газета «Звезда» Новомалыклинского района",
+    "Звезда (Новомалыклинский р-н)",
+    "Звезда 73 регион"
+   ],
    "paid_coverage": null,
    "notes": "TG-канал газеты «Звезда»; tier 1 (зарегистрированное СМИ), не T3 — в иерархии проекта T3 = авторские/анонимные каналы. Не публикует с 16.03.2026 (13 сообщений в архиве) — резерв; живой источник района — RSS"
   },
@@ -678,6 +813,8 @@
    "voice_of": null,
    "owner_form": "не установлен",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "гл. ред. И. Казакова (imprint сайта); юрлицо-учредитель не раскрывается: на сайте не указано, в реестре РКН поиском не найдено (15.09.2026)"
   },
@@ -694,6 +831,12 @@
    "voice_of": null,
    "owner_form": "частный бизнес",
    "affiliate": null,
+   "outlet": "Улпресса",
+   "aka": [
+    "ulpressa",
+    "ulpressa.ru",
+    "Улпресса"
+   ],
    "paid_coverage": null,
    "notes": "сетевое издание ulpressa.ru: ИА № ФС77-84971 (17.04.2023); директор/гл. ред. О.С. Турковская; верифицировано 15.09.2026 (imprint + ЕГРЮЛ)"
   },
@@ -710,6 +853,8 @@
    "voice_of": null,
    "owner_form": "не установлен",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "исключён: превратился в краеведческий проект; реестр СМИ РКН (карточка id=333881): регистрация 11.06.2010, действие свидетельства прекращено 15.02.2023 по решению учредителей; сайт работает без регистрации СМИ; юрлицо не установлено"
   },
@@ -726,6 +871,8 @@
    "voice_of": null,
    "owner_form": "государство",
    "affiliate": "гос-медиа кластер «Ульяновская правда» (email директора ОАУ «Медиа 73» — @ulpravda.ru)",
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "отключён как источник; TG-юзернейм @media73 занят посторонним каналом; государственная корпорация СМИ Ульяновской области (ОГРН 1097326000309, с 18.02.2009), директор А.В. Шишов (с 17.07.2020); верифицировано 15.09.2026 (ulgov.gosuslugi.ru + ЕГРЮЛ)"
   },
@@ -742,6 +889,8 @@
    "voice_of": "Карсунский р-н",
    "owner_form": "не установлен",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "районная газета, пятница, тираж 3910 (каталог smi.ulgov.ru, сверить); гл. ред. Е.А. Беляева; подключена 15.09.2026; VK club174957497"
   },
@@ -758,6 +907,8 @@
    "voice_of": "Старокулаткинский р-н",
    "owner_form": "не установлен",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "газета Старокулаткинского р-на (татароязычная в печати); лента сайта преимущественно русскоязычная — первый источник оси «язык меньшинств»; kumiakk85@mail.ru, р.п. Старая Кулатка, ул. Куйбышева 22"
   },
@@ -774,6 +925,11 @@
    "voice_of": "Новомалыклинский р-н",
    "owner_form": "не установлен",
    "affiliate": null,
+   "outlet": "Звезда (Новомалыклинский р-н)",
+   "aka": [
+    "gazetazvezda73",
+    "Звезда (Новомалыклинский р-н)"
+   ],
    "paid_coverage": null,
    "notes": "«Звезда. 73 регион», пятница, тираж 1775; гл. ред. О.А. Дергачёва (каталог); единственный район с живым TG (@gazetazvezda73) и RSS одновременно"
   },
@@ -790,6 +946,8 @@
    "voice_of": "Кузоватовский р-н",
    "owner_form": "государство",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "среда, тираж 2750; и.о. директора/гл. ред. С.И. Белов (каталог) — сверить с В.М. Трофимовым (сайт); старый домен kuzvesti.ru — заглушка"
   },
@@ -806,6 +964,8 @@
    "voice_of": "Чердаклинский р-н",
    "owner_form": "официальные",
    "affiliate": null,
+   "outlet": null,
+   "aka": [],
    "paid_coverage": null,
    "notes": "пилот VK «второго этажа»; тип сообщества и владельца подтвердить после первого сбора"
   },
@@ -822,6 +982,14 @@
    "voice_of": "Ульяновск",
    "owner_form": "официальные",
    "affiliate": null,
+   "outlet": "Администрация г. Ульяновска",
+   "aka": [
+    "ulmeria",
+    "ulmeria.gosuslugi.ru",
+    "ulmeria.ru",
+    "Администрация Ульяновска",
+    "Администрация города Ульяновска"
+   ],
    "paid_coverage": null,
    "notes": "ulmeria.gosuslugi.ru — официальный сайт ОМСУ на платформе Госвеб (домен gosuslugi.ru, robots.txt открыт, sitemap указан). Полнее TG-канала @ulmeria (тот отключён): дата публикации до секунды, рубрики сайта, фото. Пагинация только JS — за запрос ~10 свежих материалов, истории вглубь нет. Подключён 15.09.2026"
   }

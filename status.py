@@ -11,9 +11,14 @@ status.py — status-page конвейера издание Гудок (status.h
 """
 import json
 import os
+import sys
 from datetime import datetime, timedelta, timezone
 
 BASE = os.path.dirname(os.path.abspath(__file__))
+if BASE not in sys.path:
+    sys.path.insert(0, BASE)
+
+import outlets  # канонические издания: какие каналы считаются одним источником
 DATA = os.path.join(BASE, "data")
 UTC4 = timezone(timedelta(hours=4))
 
@@ -81,37 +86,53 @@ def main():
     health = ("🟢 в норме" if health_ok else
               ("🟡 давно не собирали" if run_age_h is not None else "🔴 сбор не запускался"))
 
-    # таблица источников
+    # таблица источников; каналы одной редакции помечаются общим изданием (outlets.py)
+    merged = {sid: (canon, len(ids))
+              for canon, ids in outlets.merged_groups().items() for sid in ids}
+
+    def outlet_note(sid):
+        """Пометка «этот канал — часть одного издания с другим каналом»."""
+        hit = merged.get(sid)
+        if not hit:
+            return ""
+        canon, n = hit
+        ch = "канала" if 2 <= n <= 4 else "каналов"
+        return (f' <span style="color:var(--muted);font-size:11px;">→ издание «{esc_(canon)}»: '
+                f'{n} {ch} = один источник</span>')
+
     rows = []
     for src in cfg.get("rss_sources", []):
         if not src.get("enabled", True):
             continue
         st = status.get(f"rss:{src['name']}", {})
-        rows.append(("RSS", src["name"], src.get("url", ""), st))
+        rows.append(("RSS", src["name"], src.get("url", ""), st,
+                     outlet_note(f"rss:{src['name']}")))
     for ch in sorted(cfg.get("telegram_channels", []), key=lambda c: (c.get("tier", 2), -(c.get("subs") or 0))):
         if not ch.get("enabled", True):
             continue
         st = status.get(f"tg:{ch['username']}", {})
-        rows.append((f"TG T{ch.get('tier', '?')}", ch["username"], f"https://t.me/{ch['username']}", st))
+        rows.append((f"TG T{ch.get('tier', '?')}", ch["username"], f"https://t.me/{ch['username']}", st,
+                     outlet_note(f"tg:{ch['username']}")))
     for cm in cfg.get("vk_communities", []) or []:
         if not cm.get("enabled", True):
             continue
         st = status.get(f"vk:{cm['domain']}", {})
         rows.append((f"VK T{cm.get('tier', '?')}", cm.get("title") or cm["domain"],
-                     f"https://vk.ru/{cm['domain']}", st))
+                     f"https://vk.ru/{cm['domain']}", st, outlet_note(f"vk:{cm['domain']}")))
     for ws in cfg.get("web_sources", []) or []:
         if not ws.get("enabled", True):
             continue
         st = status.get(f"web:{ws['name']}", {})
-        rows.append((f"САЙТ T{ws.get('tier', '?')}", ws["name"], ws.get("url", ""), st))
+        rows.append((f"САЙТ T{ws.get('tier', '?')}", ws["name"], ws.get("url", ""), st,
+                     outlet_note(f"web:{ws['name']}")))
 
     ok_n = sum(1 for r in rows if r[3].get("ok"))
     tr_html = "".join(
         f"""<tr><td><span class="badge-t">{kind}</span></td>
-<td><a href="{url}" target="_blank" rel="noopener">{name}</a></td>
+<td><a href="{url}" target="_blank" rel="noopener">{name}</a>{note}</td>
 <td>{'<span class="ok">в сети</span>' if st.get('ok') else '<span class="fail">ошибка: ' + esc_((st.get('error') or 'нет данных')[:60]) + '</span>'}</td>
 <td>{st.get('items', '—')}</td></tr>"""
-        for kind, name, url, st in rows)
+        for kind, name, url, st, note in rows)
 
     active_html = "".join(
         f'<div class="alert-line red">🚨 {a["title"][:110]} <span>(@{a["channel"]}, <a href="{a["url"]}">ссылка</a>)</span></div>'

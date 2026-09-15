@@ -22,10 +22,16 @@ import json
 import math
 import os
 import re
+import sys
 from collections import Counter, OrderedDict, defaultdict
 from datetime import datetime, timedelta, timezone
 
 BASE = os.path.dirname(os.path.abspath(__file__))
+if BASE not in sys.path:
+    sys.path.insert(0, BASE)
+
+import outlets as _outlets  # канонические издания: каналы одной редакции = один источник
+
 DATA = os.path.join(BASE, "data")
 UTC4 = timezone(timedelta(hours=4))
 
@@ -375,7 +381,7 @@ def source_credibility(items):
     """Доля первичных материалов vs перепечатки + медиана просмотров TG + кликбейт-индекс."""
     stats = defaultdict(lambda: {"total": 0, "primary": 0, "dup": 0, "views": [], "tier": None, "type": "", "cb": 0})
     for it in items:
-        src = it.get("channel") or it.get("source") or "?"
+        src = _outlet(it)   # одна редакция = одна строка, даже если у неё RSS и TG
         st = stats[src]
         st["total"] += 1
         if is_clickbait(it.get("title", "")):
@@ -463,10 +469,10 @@ def build_infospace(items, trends, cfg):
     cascades = []
     for it in primaries:
         if cascade_sources(it) >= 2:
-            setters[it.get("channel") or it.get("source") or "?"] += 1
+            setters[_outlet(it)] += 1
             cascades.append({"size": it["cluster"], "sources": cascade_sources(it),
                              "title": it["title"][:100],
-                             "source": it.get("channel") or it.get("source"),
+                             "source": _outlet(it),
                              "also": it.get("also_in", [])[:4], "url": it.get("url") or ""})
     cascades.sort(key=lambda c: (-c.get("sources", c["size"]), -c["size"]))
 
@@ -540,6 +546,8 @@ def build_infospace(items, trends, cfg):
 
     # --- муниципальная повестка: свой и областной голос (метрика из очереди, 12.09)
     muni_src = set(cfg.get("municipal_sources") or [])
+    # ключи изданий муниципальных источников (в config — имена каналов/лент)
+    muni_src_keys = {_outlets.norm(_outlets.resolve_raw(x)) for x in muni_src}
     muni_agenda = []
     own_total = 0
     ment_total = 0
@@ -558,9 +566,9 @@ def build_infospace(items, trends, cfg):
             t_n += 1
             if in_title:
                 ment_total += 1
-            src = it.get("channel") or it.get("source") or "?"
+            src = _outlet(it)
             srcs.add(src)
-            if src in muni_src:
+            if _outlet_key(it) in muni_src_keys:
                 own_n += 1
                 own_total += 1
             sc = sentiment_of(f"{title} {body[:250]}")[0]
@@ -611,7 +619,7 @@ def build_infospace(items, trends, cfg):
         concl.append(f"На грани видимости (1–2 упоминания): {', '.join(low[:8])}.")
 
     # --- отслеживаемые метрики инфопространства
-    src_counter_all = Counter(it.get("channel") or it.get("source") or "?" for it in week)
+    src_counter_all = Counter(_outlet(it) for it in week)
     top3 = sum(n for _, n in src_counter_all.most_common(3))
     concentration = round(top3 / len(week) * 100) if week else 0
     casc_sizes = [cascade_sources(it) for it in primaries if cascade_sources(it) >= 2]
@@ -1017,7 +1025,7 @@ def build_infospace_ext(items, trends, cfg):
     zh = [it for it in week if "zhkh" in (it.get("topics") or [])]
     zh_prim = [it for it in zh if not it.get("dup_of")]
     zh_tones = [sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:300]}")[0] for it in zh_prim]
-    zh_src = Counter((it.get("channel") or it.get("source") or "?") for it in zh_prim)
+    zh_src = Counter(_outlet(it) for it in zh_prim)
     out["zhkh"] = {"n": len(zh), "share": round(len(zh) / len(week), 3),
                    "tone": round(sum(zh_tones) / len(zh_tones), 3) if zh_tones else None,
                    "top_sources": zh_src.most_common(3)}
@@ -1026,7 +1034,7 @@ def build_infospace_ext(items, trends, cfg):
     src_prim = Counter()
     src_fed = Counter()
     for it in primaries:
-        s = it.get("channel") or it.get("source") or "?"
+        s = _outlet(it)
         src_prim[s] += 1
         if not REGION_MARK.search(f"{it.get('title','')} {(it.get('text') or '')[:300]}"):
             src_fed[s] += 1
@@ -1231,18 +1239,30 @@ def build_infospace_w2(items, trends, cfg, registry=None):
     if not week:
         return out
 
+    # издание → первая запись реестра (для подборок seed_data и «чужих» подписей:
+    # «Алексей Русских (Telegram)», «Sollers / УАЗ», «Правительство Ульяновской области»)
+    by_outlet = {}
+    for sid, e in reg.items():
+        by_outlet.setdefault(_outlets.norm(e.get("outlet") or e.get("name") or sid), e)
+
     def reg_entry(it):
         st = it.get("source_type")
         if st == "tg":
-            return reg.get(f"tg:{it.get('channel')}")
+            hit = reg.get(f"tg:{it.get('channel')}")
+            if hit:
+                return hit
         if st == "vk":
-            return reg.get(f"vk:{it.get('channel')}")
+            hit = reg.get(f"vk:{it.get('channel')}")
+            if hit:
+                return hit
         if st == "web":
-            return reg.get(f"web:{it.get('source')}")
+            hit = reg.get(f"web:{it.get('source')}")
+            if hit:
+                return hit
         for sid, e in reg.items():
             if sid.startswith("rss:") and sid[4:].lower() == str(it.get("source", "")).lower():
                 return e
-        return None
+        return by_outlet.get(_outlet_key(it))
 
     def ptype(it):
         e = reg_entry(it)
@@ -1269,7 +1289,7 @@ def build_infospace_w2(items, trends, cfg, registry=None):
     views_by_src = Counter()
     for it in week:
         if it.get("views") and it.get("source_type") == "tg":
-            views_by_src[it.get("channel") or it.get("source") or "?"] += it["views"]
+            views_by_src[_outlet(it)] += it["views"]
     total_views = sum(views_by_src.values())
     top5 = views_by_src.most_common(5)
     out["attention"] = {
@@ -1316,7 +1336,7 @@ def build_infospace_w2(items, trends, cfg, registry=None):
         if cross:
             cross_n += 1
             cross_by_tier[tier] += 1
-            cross_by_src[str(it.get("channel") or it.get("source") or "?")] += 1
+            cross_by_src[_outlet(it)] += 1
         if commercial or cross:
             total_n += 1
             total_by_tier[tier] += 1
@@ -2079,7 +2099,7 @@ def frame_map(items):
         fr_list = []
         for m in members:
             fr, sc, top2 = frame_of(m)
-            fr_list.append({"source": str(m.get("channel") or m.get("source") or "?"),
+            fr_list.append({"source": _outlet(m), "channel": _src_key(m),
                             "tier": m.get("tier"), "frame": fr, "score": sc,
                             "title": (m.get("title") or "")[:110], "url": m.get("url") or ""})
         uniq = sorted({x["frame"] for x in fr_list})
@@ -2165,7 +2185,7 @@ def ai_trace(items, min_shared_len=40):
     sent_index = {}
     item_sents = {}
     for it in week:
-        key = str(it.get("channel") or it.get("source") or "?")
+        key = _outlet_key(it)   # общий текст RSS и TG одной редакции — не заимствование
         text = (it.get("text") or "")[:1500]
         ss = set()
         for s in AGENCY_SENT_X.split(text):
@@ -2202,7 +2222,7 @@ def ai_trace(items, min_shared_len=40):
         text = it.get("text") or ""
         head = f"{title} {text[:600]}"
         tier = f"T{it['tier']}" if it.get("tier") else "СМИ/подборка"
-        src = str(it.get("channel") or it.get("source") or "?")
+        src = _outlet(it)
         found = []
         if AI_TAIL_X.search(head):
             found.append("шаблонная концовка")
@@ -2271,7 +2291,23 @@ DEDUP_CANCEL_X = re.compile(
 
 
 def _src_key(it):
+    """Ключ КАНАЛА (TG/VK/лента) — для подписей и трассировки примеров."""
     return str(it.get("channel") or it.get("source") or "?")
+
+
+def _outlet(it):
+    """Каноническое издание записи: RSS ulpressa.ru и TG @ulpressa — одна «Улпресса».
+
+    Все метрики независимости (сеттеры повестки, каскады, cluster_src, концентрация
+    внимания, дословные повторы между источниками) считаются по изданиям, а не по
+    каналам: перепечатка своего материала в свой канал — не независимое подтверждение
+    (outlets.py + поле outlet в sources_registry.json, решение редакции 15.09.2026)."""
+    return _outlets.outlet(it)
+
+
+def _outlet_key(it):
+    """Нормализованный ключ издания — для сравнений «один и тот же источник»."""
+    return _outlets.outlet_key(it)
 
 
 def span_h(a, b):
@@ -2398,7 +2434,7 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
             service_dups += len(g) - 1
         order = sorted(g, key=lambda i: _dedup.primary_score(week[i]), reverse=True)
         head = order[0]
-        h_key = _src_key(week[head])
+        h_key = _outlet_key(week[head])   # издание, а не канал: RSS + TG одной редакции
         verbatim = dcfg["dedup_verbatim_jaccard"]
         pair_j = {(min(a, b), max(a, b)): j for a, b, j, _ok in edges}
         for i in order[1:]:
@@ -2408,7 +2444,7 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
             flag_episode = long_span and not (j_head is not None and j_head >= verbatim)
             if long_span:
                 episode_verbatim += 1 if not flag_episode else 0
-            flag_same = week[i].get("same_source") or _src_key(week[i]) == h_key
+            flag_same = week[i].get("same_source") or _outlet_key(week[i]) == h_key
             flag_ant = _antagonistic(week[head], week[i])
             if flag_same:
                 same_source_dups += 1
@@ -2416,8 +2452,10 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
                 antagonistic_dups += 1
                 if len(ant_examples) < 4:
                     ant_examples.append({
-                        "a": {"source": h_key, "title": (week[head].get("title") or "")[:110]},
-                        "b": {"source": _src_key(week[i]), "title": (week[i].get("title") or "")[:110]},
+                        "a": {"source": _outlet(week[head]), "channel": _src_key(week[head]),
+                              "title": (week[head].get("title") or "")[:110]},
+                        "b": {"source": _outlet(week[i]), "channel": _src_key(week[i]),
+                              "title": (week[i].get("title") or "")[:110]},
                         "jaccard": round(max((j for a, b, j in edges
                                               if {a, b} == {head, i}), default=0.0), 3)})
             if flag_same:
@@ -2435,13 +2473,16 @@ def dedup_stability(items, cfg=None, days=7, min_jaccard=0.28):
         a, b = week[i], week[j]
         sample.append({"jaccard": round(jacc, 3),
                        "would_merge": jacc >= thr_cfg,
-                       "same_source": _src_key(a) == _src_key(b),
+                       "same_source": _outlet_key(a) == _outlet_key(b),
+                       "same_channel": _src_key(a) == _src_key(b),
                        "antagonistic": _antagonistic(a, b),
                        "service": bool(service_kind(a) or service_kind(b)),
                        "span_h": (round(_dedup.span_h(a, b), 1)
                                   if _dedup.span_h(a, b) is not None else None),
-                       "a": {"source": _src_key(a), "title": (a.get("title") or "")[:110]},
-                       "b": {"source": _src_key(b), "title": (b.get("title") or "")[:110]}})
+                       "a": {"source": _outlet(a), "channel": _src_key(a),
+                             "title": (a.get("title") or "")[:110]},
+                       "b": {"source": _outlet(b), "channel": _src_key(b),
+                             "title": (b.get("title") or "")[:110]}})
     spans.sort()
     out.update({
         "sweep": sweep,

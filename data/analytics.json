@@ -1,51 +1,12 @@
 {
- "generated_local": "15.09.2026 22:48",
+ "generated_local": "16.09.2026 00:29",
  "calendar": [
   {
-   "etype": "sport",
-   "is_culture": false,
-   "district": false,
-   "date": "2026-09-15",
-   "date_end": null,
-   "time": "",
-   "title": "Коротко по итогам еженедельного штаба: ✅ 15 сентября откроем новую взрослую поликлинику в Дальнем Засвияжье. А…",
-   "url": "https://t.me/Russkih_Aleksey/12390",
-   "source": "t.me/Russkih_Aleksey",
-   "tier": 1,
-   "venue": ""
-  },
-  {
    "etype": "other",
    "is_culture": false,
    "district": false,
-   "date": "2026-09-15",
+   "date": "2026-09-17",
    "date_end": null,
-   "time": "",
-   "title": "📰 Подборка дня — 15 сентября: 🕷 223 человека пострадало от укусов клещей за прошлую неделю. ⚡️ Дежурными средс…",
-   "url": "https://t.me/reporter73/52222",
-   "source": "t.me/reporter73",
-   "tier": 1,
-   "venue": ""
-  },
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": false,
-   "date": "2026-09-15",
-   "date_end": null,
-   "time": "",
-   "title": "🏥 15 сентября в Ульяновске откроют новое подразделение городской поликлиники № 4 на улице Героя РФ Колпакова П…",
-   "url": "https://t.me/ulpravda/41044",
-   "source": "t.me/ulpravda",
-   "tier": 1,
-   "venue": ""
-  },
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": false,
-   "date": "2026-09-15",
-   "date_end": "2026-09-17",
    "time": "",
    "title": "Новый мост через Свиягу планируется открыть 15-17 сентября, сообщил глава Ульяновска Мы в Telegram | Мы в MAX",
    "url": "https://t.me/ulpressa/74430",
@@ -86,10 +47,10 @@
    "date": "2026-09-17",
    "date_end": null,
    "time": "",
-   "title": "Рустам Набиев: «Невозможное существует ровно до того момента, пока кто-то не докажет обратное»",
-   "url": "http://gazeta-zvezda73.ru/index.php/novosti/vlast/17281-rustam-nabiev-nevozmozhnoe-sushchestvuet-rovno-do-togo-momenta-poka-kto-to-ne-dokazhet-obratnoe",
-   "source": "Звезда (Новомалыклинский р-н)",
-   "tier": null,
+   "title": "⚡️ Новый мост в створе улиц Шевченко и Смычки планируют открыть в техническом режиме на следующей неделе , ори…",
+   "url": "https://t.me/chpulsk/50671",
+   "source": "t.me/chpulsk",
+   "tier": 2,
    "venue": ""
   },
   {
@@ -102,6 +63,19 @@
    "title": "В программе также выставка техники, технозона, концерт, мастер-классы, аниматоры, фудкорт и запуск воздушного …",
    "url": "https://t.me/ulpressa/74667",
    "source": "t.me/ulpressa",
+   "tier": 1,
+   "venue": ""
+  },
+  {
+   "etype": "kids",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-19",
+   "date_end": null,
+   "time": "14:00",
+   "title": "Концерты, фотоконкурс, экскурсии и футбол: афиша Ульяновска на эту неделю",
+   "url": "https://ulmeria.gosuslugi.ru/dlya-zhiteley/novosti-i-reportazhi/novosti-193_6946.html",
+   "source": "Администрация Ульяновска",
    "tier": 1,
    "venue": ""
   },
@@ -323,6 +297,19 @@
    "title": "Вместе — сильнее, вместе — бодрее!",
    "url": "http://gazeta-zvezda73.ru/index.php/novosti/obshchestvo/17256-vmeste-silnee-vmeste-bodree",
    "source": "Звезда (Новомалыклинский р-н)",
+   "tier": null,
+   "venue": ""
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-10-05",
+   "date_end": null,
+   "time": "13:00",
+   "title": "Ульяновцы могут выбрать проекты благоустройства площади Ленина и улицы Гончарова",
+   "url": "https://ulpressa.ru/2026/09/13/ulyanovczy-mogut-vybrat-proekty-blagoustrojstva-ploshhadi-lenina-i-uliczy-goncharova/",
+   "source": "Улпресса",
    "tier": null,
    "venue": ""
   },
@@ -556,16 +543,12 @@
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.09,
-  "today_items": 336,
+  "today_score": null,
+  "today_items": 0,
   "today_pos": 548,
   "today_neg": 366,
   "today_neu": 723,
   "series": [
-   {
-    "date": "2026-09-02",
-    "score": null
-   },
    {
     "date": "2026-09-03",
     "score": 0.571
@@ -617,41 +600,23 @@
    {
     "date": "2026-09-15",
     "score": 0.09
+   },
+   {
+    "date": "2026-09-16",
+    "score": null
    }
   ],
-  "by_category": {
-   "agro": 0.333,
-   "culture": 0.714,
-   "economy": 0.381,
-   "education": 0.08,
-   "health": 0.207,
-   "politics": 0.137,
-   "security": -0.578,
-   "society": 0.241,
-   "sport": 0.615
-  }
+  "by_category": {}
  },
  "credibility": [
   {
    "source": "Улпресса",
-   "tier": null,
-   "type": "rss",
-   "total": 208,
-   "primary": 200,
-   "dup": 8,
-   "repost_rate": 0.04,
-   "views_median": null,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulpressa",
    "tier": 1,
-   "type": "tg",
-   "total": 142,
-   "primary": 114,
-   "dup": 28,
-   "repost_rate": 0.2,
+   "type": "rss",
+   "total": 350,
+   "primary": 314,
+   "dup": 36,
+   "repost_rate": 0.1,
    "views_median": 1210,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -685,9 +650,9 @@
    "tier": 2,
    "type": "tg",
    "total": 83,
-   "primary": 60,
-   "dup": 23,
-   "repost_rate": 0.28,
+   "primary": 61,
+   "dup": 22,
+   "repost_rate": 0.27,
    "views_median": 503,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -721,10 +686,10 @@
    "tier": 1,
    "type": "tg",
    "total": 74,
-   "primary": 62,
-   "dup": 12,
-   "repost_rate": 0.16,
-   "views_median": 133,
+   "primary": 63,
+   "dup": 11,
+   "repost_rate": 0.15,
+   "views_median": 132,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -733,9 +698,9 @@
    "tier": 2,
    "type": "tg",
    "total": 66,
-   "primary": 51,
-   "dup": 15,
-   "repost_rate": 0.23,
+   "primary": 50,
+   "dup": 16,
+   "repost_rate": 0.24,
    "views_median": 290,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -753,6 +718,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "Губернатор и Правительство Ульяновской области",
+   "tier": 1,
+   "type": "tg",
+   "total": 63,
+   "primary": 47,
+   "dup": 16,
+   "repost_rate": 0.25,
+   "views_median": 91,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "ulsk_73online",
    "tier": 2,
    "type": "tg",
@@ -765,11 +742,11 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "reporter73",
+   "source": "Репортёр73",
    "tier": 1,
    "type": "tg",
-   "total": 58,
-   "primary": 50,
+   "total": 59,
+   "primary": 51,
    "dup": 8,
    "repost_rate": 0.14,
    "views_median": 36,
@@ -781,10 +758,10 @@
    "tier": 2,
    "type": "tg",
    "total": 56,
-   "primary": 49,
-   "dup": 7,
-   "repost_rate": 0.12,
-   "views_median": 1130,
+   "primary": 48,
+   "dup": 8,
+   "repost_rate": 0.14,
+   "views_median": 1140,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -841,9 +818,9 @@
    "tier": 2,
    "type": "tg",
    "total": 42,
-   "primary": 32,
-   "dup": 10,
-   "repost_rate": 0.24,
+   "primary": 33,
+   "dup": 9,
+   "repost_rate": 0.21,
    "views_median": 353,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -853,9 +830,9 @@
    "tier": 3,
    "type": "tg",
    "total": 40,
-   "primary": 32,
-   "dup": 8,
-   "repost_rate": 0.2,
+   "primary": 31,
+   "dup": 9,
+   "repost_rate": 0.23,
    "views_median": 3110,
    "label": "первоисточник",
    "clickbait_rate": 0.03
@@ -865,10 +842,10 @@
    "tier": 3,
    "type": "tg",
    "total": 40,
-   "primary": 28,
-   "dup": 12,
-   "repost_rate": 0.3,
-   "views_median": 3220,
+   "primary": 29,
+   "dup": 11,
+   "repost_rate": 0.28,
+   "views_median": 3070,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -885,18 +862,6 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "ulgovru",
-   "tier": 1,
-   "type": "tg",
-   "total": 35,
-   "primary": 25,
-   "dup": 10,
-   "repost_rate": 0.29,
-   "views_median": 51,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "ProNovosty73",
    "tier": 2,
    "type": "tg",
@@ -905,6 +870,18 @@
    "dup": 3,
    "repost_rate": 0.09,
    "views_median": 208,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "Звезда (Новомалыклинский р-н)",
+   "tier": 1,
+   "type": "tg",
+   "total": 33,
+   "primary": 31,
+   "dup": 2,
+   "repost_rate": 0.06,
+   "views_median": 53,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -933,18 +910,6 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "Russkih_Aleksey",
-   "tier": 1,
-   "type": "tg",
-   "total": 26,
-   "primary": 21,
-   "dup": 5,
-   "repost_rate": 0.19,
-   "views_median": 2430,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "Ulnovosti.ru",
    "tier": null,
    "type": "rss",
@@ -965,18 +930,6 @@
    "dup": 2,
    "repost_rate": 0.08,
    "views_median": 1140,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "Звезда (Новомалыклинский р-н)",
-   "tier": null,
-   "type": "rss",
-   "total": 20,
-   "primary": 18,
-   "dup": 2,
-   "repost_rate": 0.1,
-   "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -1017,11 +970,11 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "UAZ_Today",
+   "source": "УАЗ (Соллерс)",
    "tier": 1,
    "type": "tg",
-   "total": 15,
-   "primary": 15,
+   "total": 16,
+   "primary": 16,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 2040,
@@ -1049,18 +1002,6 @@
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 5460,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "gazetazvezda73",
-   "tier": 1,
-   "type": "tg",
-   "total": 13,
-   "primary": 13,
-   "dup": 0,
-   "repost_rate": 0.0,
-   "views_median": 53,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -1101,7 +1042,7 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "Администрация Ульяновска",
+   "source": "Администрация г. Ульяновска",
    "tier": 1,
    "type": "web",
    "total": 10,
@@ -1127,154 +1068,154 @@
  ],
  "forecast": [
   {
-   "topic": "transport",
-   "name": "Транспорт и дороги",
-   "expected": 66.4,
-   "slope": 6.93,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "governor",
-   "name": "Губернатор / власть",
-   "expected": 58.2,
-   "slope": 4.54,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "cityspace",
-   "name": "Городская среда",
-   "expected": 29.2,
-   "slope": 3.25,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "medicine",
-   "name": "Медицина",
-   "expected": 30.4,
-   "slope": 2.57,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 47.2,
-   "slope": 2.32,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "uav",
-   "name": "БПЛА и воздушные угрозы",
-   "expected": 30.3,
-   "slope": 1.96,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "sport",
-   "name": "Спорт",
-   "expected": 31.1,
-   "slope": 1.71,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "cityday",
-   "name": "День города (378 лет)",
-   "expected": 13.0,
-   "slope": 1.14,
-   "direction": "рост",
+   "expected": 12.8,
+   "slope": -5.82,
+   "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 38.1,
-   "slope": 1.07,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "budget",
-   "name": "Бюджет-2027",
-   "expected": 14.7,
-   "slope": 1.04,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "avia",
-   "name": "Авиапром / УКБП / Ил-114",
-   "expected": 1.6,
-   "slope": -1.04,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "zhkh",
-   "name": "ЖКХ, газ, тепло",
-   "expected": 12.5,
-   "slope": 1.04,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "uaz",
-   "name": "УАЗ / Соллерс",
-   "expected": 2.0,
-   "slope": -0.61,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "harvest",
-   "name": "Урожай и АПК",
-   "expected": 3.9,
-   "slope": 0.54,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "macro",
-   "name": "Макроэкономика / ЦБ",
-   "expected": 0.1,
-   "slope": -0.43,
+   "expected": 9.1,
+   "slope": -5.54,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "culture",
    "name": "Культура и туризм",
-   "expected": 20.5,
+   "expected": 4.6,
+   "slope": -3.25,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 18.3,
+   "slope": -3.11,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "uav",
+   "name": "БПЛА и воздушные угрозы",
+   "expected": 8.2,
+   "slope": -2.75,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "cityday",
+   "name": "День города (378 лет)",
+   "expected": 0.0,
+   "slope": -2.5,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "sport",
+   "name": "Спорт",
+   "expected": 9.2,
+   "slope": -2.5,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "transport",
+   "name": "Транспорт и дороги",
+   "expected": 22.8,
+   "slope": -2.36,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "weather",
+   "name": "Погода",
+   "expected": 1.6,
+   "slope": -2.36,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "avia",
+   "name": "Авиапром / УКБП / Ил-114",
+   "expected": 0.0,
+   "slope": -2.21,
+   "direction": "спад",
+   "confidence": "высокая"
+  },
+  {
+   "topic": "elections",
+   "name": "Выборы-2026",
+   "expected": 2.9,
+   "slope": -1.82,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 9.6,
+   "slope": -1.68,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "uaz",
+   "name": "УАЗ / Соллерс",
+   "expected": 0.0,
+   "slope": -1.61,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "export",
+   "name": "Экспорт и кооперация",
+   "expected": 1.6,
+   "slope": -1.61,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "cityspace",
+   "name": "Городская среда",
+   "expected": 8.8,
+   "slope": -1.18,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "macro",
+   "name": "Макроэкономика / ЦБ",
+   "expected": 0.0,
+   "slope": -1.07,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "budget",
+   "name": "Бюджет-2027",
+   "expected": 5.1,
+   "slope": -0.61,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "zhkh",
+   "name": "ЖКХ, газ, тепло",
+   "expected": 4.0,
    "slope": -0.39,
    "direction": "плато",
    "confidence": "низкая"
   },
   {
-   "topic": "export",
-   "name": "Экспорт и кооперация",
-   "expected": 7.4,
-   "slope": -0.32,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "weather",
-   "name": "Погода",
-   "expected": 11.2,
-   "slope": 0.29,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
-   "topic": "elections",
-   "name": "Выборы-2026",
-   "expected": 11.6,
-   "slope": 0.14,
+   "topic": "harvest",
+   "name": "Урожай и АПК",
+   "expected": 1.5,
+   "slope": -0.04,
    "direction": "плато",
    "confidence": "низкая"
   }

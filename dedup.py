@@ -24,6 +24,11 @@ from collections import Counter
 from datetime import datetime
 
 BASE = os.path.dirname(os.path.abspath(__file__))
+if BASE not in sys.path:
+    sys.path.insert(0, BASE)
+
+import outlets as _outlets  # канонические издания: каналы одной редакции = один источник
+
 STORE = os.path.join(BASE, "data", "store.jsonl")
 
 STOP = set("""
@@ -78,6 +83,11 @@ def title_core(item):
 #      1,6 ч, перепечатка через двое суток — это уже другое событие или промо-повтор.
 # Повтор внутри одного источника остаётся склеенным (чистота ленты), но помечается
 # same_source=True и не попадает ни в «также сообщили», ни в каскады перепечаток.
+# «Источник» здесь — ИЗДАНИЕ, а не канал (outlets.py, 15.09.2026): RSS ulpressa.ru
+# и Telegram @ulpressa — одна редакция ООО «Симбирск-Паблисити», @ulgovru и
+# @Russkih_Aleksey — одна пресс-служба исполнительной власти области. Повтор своего
+# же материала в свой же канал независимым подтверждением не считается, поэтому
+# cluster_src и «также сообщили» строятся по каноническим изданиям.
 # Регулярки намеренно продублированы из analytics.py: dedup не импортирует аналитику
 # (обратная зависимость), а совпадение словарей покрыто тестом.
 # ─────────────────────────────────────────────────────────────────────────────
@@ -101,8 +111,22 @@ DEFAULTS = {"dedup_threshold": 0.45, "dedup_max_span_h": 24,
 
 
 def src_key(it):
-    """Ключ источника: канал TG/VK или имя RSS-источника."""
+    """Ключ КАНАЛА: канал TG/VK или имя RSS-источника (для подписей карточек)."""
     return str(it.get("channel") or it.get("source") or "?")
+
+
+def outlet_key(it):
+    """Ключ ИЗДАНИЯ: каналы одной редакции (RSS + TG + сайт) дают один ключ.
+
+    Именно он определяет независимость источника в метриках: cluster_src,
+    «также сообщили», каскады перепечаток (outlets.py, sources_registry.json)."""
+    return _outlets.outlet_key(it)
+
+
+def outlet_name(it):
+    """Подпись издания («Улпресса», а не «t.me/ulpressa»); для канала вне реестра —
+    прежнее «t.me/канал», чтобы список «также сообщили» не терял тип источника."""
+    return _outlets.outlet_label(it)
 
 
 def service_kind(it):
@@ -285,19 +309,19 @@ def main():
             continue
         members.sort(key=lambda i: primary_score(items[i]), reverse=True)
         head = members[0]
-        head_src = src_key(items[head])
+        head_out = outlet_key(items[head])
         items[head]["cluster"] = len(members)
-        # «также сообщили» — только ДРУГИЕ источники: повтор своего же канала
-        # перепечаткой не является и в каскад не засчитывается
-        others = {src_key(items[m]) for m in members[1:]} - {head_src}
-        # «также сообщили» — отображаемые имена ДРУГИХ источников (формат поля source,
-        # как раньше: «t.me/канал» для TG и имя ленты для RSS)
-        items[head]["also_in"] = sorted({items[m].get("source", "?") for m in members[1:]
-                                         if src_key(items[m]) != head_src})
+        # «также сообщили» — только ДРУГИЕ ИЗДАНИЯ: повтор своего же материала
+        # (в своём канале или в TG той же редакции) перепечаткой не считается
+        others = {outlet_key(items[m]) for m in members[1:]} - {head_out}
+        # подписи — канонические имена изданий («Улпресса», «Репортёр73»), а не
+        # «t.me/канал»: одна редакция в списке «также сообщили» — одна строка
+        items[head]["also_in"] = sorted({outlet_name(items[m]) for m in members[1:]
+                                         if outlet_key(items[m]) != head_out})
         items[head]["cluster_src"] = len(others) + 1
         for m in members[1:]:
             items[m]["dup_of"] = items[head]["id"]
-            items[m]["same_source"] = src_key(items[m]) == head_src
+            items[m]["same_source"] = outlet_key(items[m]) == head_out
             n_dup += 1
             n_same += items[m]["same_source"]
 
@@ -310,7 +334,7 @@ def main():
         print(f"[dedup] кластеров перепечаток: {len(mult)}, скрыто дублей: {n_dup} из {n} "
               f"(порог {threshold}, окно {dcfg['dedup_max_span_h']} ч, "
               f"служебные {dcfg['dedup_service_span_h']} ч, дословные {dcfg['dedup_verbatim_jaccard']})")
-        print(f"[dedup] из дублей повторов своего же канала: {n_same} — в каскады не засчитаны")
+        print(f"[dedup] из дублей повторов своего же издания (канал той же редакции): {n_same} — в каскады не засчитаны")
         if blocked:
             print("[dedup] заблокировано склеек: "
                   + ", ".join(f"{k} — {v}" for k, v in blocked.most_common()))
