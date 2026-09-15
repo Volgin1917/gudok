@@ -346,3 +346,70 @@ class TestInfospaceW1(unittest.TestCase):
         ct = r["cascade_time"]
         self.assertEqual(ct["n"], 1)
         self.assertAlmostEqual(ct["fastest"][0]["span_h"], 2.0, delta=0.3)
+
+
+class TestInfospaceW1Part2(unittest.TestCase):
+    """Волна 1, вторая пачка: канцелярит, тревожность, ЖКХ, фед-эхо, индекс села."""
+
+    CFG_W1 = {"municipalities": {"Тестград": r"тестград"},
+              "categories": [{"id": "society", "name": "Общество"},
+                             {"id": "security", "name": "Безопасность и происшествия"}]}
+
+    def _it(self, id, hours_ago, title="Заголовок", text="", category="society",
+            tier=None, topics=None):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = datetime.now(UTC4) - timedelta(hours=hours_ago)
+        return {"id": id, "title": title, "text": text, "published": dt.isoformat(),
+                "category": category, "tier": tier, "topics": topics or [],
+                "source_type": "tg", "channel": f"ch_{id}", "source": f"ch_{id}"}
+
+    def test_bureaucratese_by_tier(self):
+        items = [self._it("a", 2, "Благоустройство парка завершено по поручению губернатора", tier=1),
+                 self._it("b", 3, "Во дворе отремонтировали качели", tier=2)]
+        r = analytics.build_infospace_ext(items, None, self.CFG_W1)
+        b = r["bureaucratese"]["by_tier"]
+        self.assertEqual(b["T1"]["share"], 1.0)
+        self.assertEqual(b["T2"]["share"], 0.0)
+        self.assertTrue(r["bureaucratese"]["top_markers"])
+
+    def test_anxiety_series(self):
+        items = [self._it("a", 2, "ДТП на трассе", category="security"),
+                 self._it("b", 3, "Праздник в парке")]
+        r = analytics.build_infospace_ext(items, None, self.CFG_W1)
+        self.assertEqual(len(r["anxiety"]["series"]), 7)
+        self.assertIsNotNone(r["anxiety"]["avg"])
+        self.assertIn(r["anxiety"]["verdict"], ("спокойный фон", "повышенный фон", "высокая тревожность"))
+
+    def test_zhkh_share_and_tone(self):
+        items = [self._it("a", 2, "Тарифы на тепло вырастут", topics=["zhkh"]),
+                 self._it("b", 3, "Фестиваль прошёл")]
+        r = analytics.build_infospace_ext(items, None, self.CFG_W1)
+        self.assertEqual(r["zhkh"]["n"], 1)
+        self.assertAlmostEqual(r["zhkh"]["share"], 0.5, places=2)
+
+    def test_federal_by_source(self):
+        items = [self._it("a", 2, "В Москве открыли выставку достижений"),
+                 self._it("b", 3, "В Ульяновске отремонтировали дорогу")]
+        r = analytics.build_infospace_ext(items, None, self.CFG_W1)
+        fed = {x["source"]: x["fed_share"] for x in r["federal_by_source"]}
+        self.assertEqual(fed.get("ch_a"), 1.0)
+        self.assertEqual(fed.get("ch_b"), 0.0)
+
+    def test_rural_index(self):
+        cfg = dict(self.CFG_W1)
+        cfg["muni_population"] = {"_meta": {"oblast_total": 1000, "oblast_rural": 300,
+                                            "source": "тест"},
+                                  "Тестград": 300}
+        items = [self._it("a", 2, "В Тестграде открыли клуб"),
+                 self._it("b", 3, "Новости областного центра")]
+        r = analytics.build_infospace_ext(items, None, cfg)
+        ri = r["rural_index"]
+        self.assertAlmostEqual(ri["agenda_share"], 0.5, places=2)
+        self.assertAlmostEqual(ri["pop_share"], 0.3, places=2)
+        self.assertEqual(ri["verdict"], "паритет")
+
+    def test_rural_index_no_population(self):
+        r = analytics.build_infospace_ext([self._it("a", 2, "В Тестграде праздник")],
+                                          None, self.CFG_W1)
+        self.assertEqual(r["rural_index"], {})

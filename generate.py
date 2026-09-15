@@ -2431,6 +2431,54 @@ def render_infospace(cfg, trends, store, status, info):
             for k, v in emo.items())
         bv = w1.get("budget_voice") or {}
 
+        # словарь власти
+        bu = w1.get("bureaucratese") or {}
+        buro_bars = ""
+        for k, v in (bu.get("by_tier") or {}).items():
+            sh = v.get("share") or 0
+            buro_bars += (f'<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-family:var(--sans);font-size:12px;">'
+                          f'<span style="width:120px;text-align:right;font-weight:600;color:var(--ink);flex-shrink:0;">{esc(k)}</span>'
+                          f'<span style="flex:1;background:var(--paper-2);border:1px solid var(--rule);height:14px;overflow:hidden;display:block;"><i style="display:block;height:100%;width:{max(2, int(sh * 100 * 4))}%;background:var(--ink-2);"></i></span>'
+                          f'<span style="width:46px;font-weight:700;font-size:11px;">{round(sh * 100)}%</span></div>')
+        top_marks = " · ".join(f'<span style="white-space:nowrap;">«{esc(m)}» ×{n}</span>' for m, n in (bu.get("top_markers") or []))
+
+        # тревожность: 7 столбцов
+        ax = w1.get("anxiety") or {}
+        anx_bars = ""
+        axmax = max([(x.get("share") or 0) for x in (ax.get("series") or [])] + [0.1])
+        for x in ax.get("series") or []:
+            sh = x.get("share") or 0
+            h_pct = max(2, int(sh / axmax * 100))
+            col = "var(--accent)" if sh >= 0.20 else "var(--ink-2)"
+            anx_bars += (f'<span title="{esc(x.get("date","")[5:])}: {round(sh*100)}% ({x.get("sec",0)} из {x.get("n",0)})" '
+                         f'style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;">'
+                         f'<i style="display:block;height:{h_pct}%;background:{col};"></i></span>')
+        anx_days = "".join(f'<span style="flex:1;text-align:center;">{esc(x.get("date","")[8:])}</span>' for x in ax.get("series") or [])
+
+        # ЖКХ
+        zh = w1.get("zhkh") or {}
+        zh_srcs = " · ".join(f'{esc(str(s))} ×{n}' for s, n in (zh.get("top_sources") or []))
+
+        # село
+        ri = w1.get("rural_index") or {}
+        ri_bars = ""
+        if ri:
+            for lbl, val, col in (("в повестке недели", ri.get("agenda_share") or 0, "var(--accent)"),
+                                  ("в населении области", ri.get("pop_share") or 0, "var(--ink-2)"),
+                                  ("сельское население", ri.get("rural_pop_share") or 0, "var(--muted)")):
+                ri_bars += (f'<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-family:var(--sans);font-size:12px;">'
+                            f'<span style="width:160px;text-align:right;font-weight:600;color:var(--ink);flex-shrink:0;">{lbl}</span>'
+                            f'<span style="flex:1;background:var(--paper-2);border:1px solid var(--rule);height:14px;overflow:hidden;display:block;"><i style="display:block;height:100%;width:{max(2,int(val*100*2.4))}%;background:{col};"></i></span>'
+                            f'<span style="width:52px;font-weight:700;font-size:11px;">{round(val*100,1)}%</span></div>')
+
+        # федеральное эхо по источникам
+        fed_rows = ""
+        for x in w1.get("federal_by_source") or []:
+            fed_rows += (f'<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-family:var(--sans);font-size:12px;">'
+                         f'<span style="width:150px;text-align:right;font-weight:600;color:var(--ink);flex-shrink:0;">{esc(str(x.get("source","")))}</span>'
+                         f'<span style="flex:1;background:var(--paper-2);border:1px solid var(--rule);height:14px;overflow:hidden;display:block;"><i style="display:block;height:100%;width:{max(2,int((x.get("fed_share") or 0)*100))}%;background:var(--ink-2);"></i></span>'
+                         f'<span style="width:120px;font-size:11px;color:var(--muted);white-space:nowrap;">{round((x.get("fed_share") or 0)*100)}% · {x.get("n",0)} перв.</span></div>')
+
         w1_html = f"""
 <div class="sec-head"><h2>Волна 1: деньги, труд, время и территория</h2><div class="line"></div>
 <div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план расширения раздела v0.9 →</a> · метрики подключены 15.09</div></div>
@@ -2477,6 +2525,50 @@ def render_infospace(cfg, trends, store, status, info):
 <div class="note">Эмодзи-профиль — маркер уровня источника: зарегистрированные СМИ эмодзи почти не используют, официальные каналы и агрегаторы — более половины постов. «Бюджетный голос» — доля tier-1 в потоке и в первоисточниках каскадов; полная версия метрики («цена слова» по контрактам ЕИС) — волна 3.</div>
 </div></div></div>
 </div>
+
+<div class="grid2">
+<div class="card"><div class="card-pad">
+<div class="side-head">Словарь власти <span class="sub">канцелярит и эвфемизмы по уровням источников</span></div>
+<div class="side-body">
+{buro_bars}
+<div style="font-family:var(--serif-body);font-size:13px;color:var(--ink-2);margin-top:8px;">Частотные маркеры: {top_marks or "—"}</div>
+<div class="note">Доля сообщений с маркерами официального языка («оптимизация», «по поручению», «в штатном режиме», «нацпроект»…). Чем выше у уровня — тем ближе источник к пресс-релизной модели речи. Список маркеров расширяемый (config → BUROKRAT_MARKERS в analytics.py).</div>
+</div></div></div>
+<div class="card"><div class="card-pad">
+<div class="side-head">Индекс тревожности <span class="sub">{_pct(ax.get('avg'))} за неделю — {esc(ax.get('verdict', '—'))}</span></div>
+<div class="side-body">
+<div style="display:flex;align-items:flex-end;gap:3px;height:80px;border-bottom:1px solid var(--ink);">{anx_bars}</div>
+<div style="display:flex;gap:3px;font-family:var(--sans);font-size:9px;color:var(--muted);margin-top:4px;">{anx_days}</div>
+<div class="note">Доля сообщений безопасности и воздушных угроз (security + topic «БПЛА») в дневном потоке, 7 дней. Пороги: &lt;8% — спокойный фон, 8–20% — повышенный, &gt;20% — высокая тревожность (столбец акцентного цвета). Динамика важнее уровня: рост неделю к неделе — сигнал напряжённости.</div>
+</div></div></div>
+</div>
+
+<div class="grid2">
+<div class="card"><div class="card-pad">
+<div class="side-head">ЖКХ и тарифы <span class="sub">доля и тон повестки</span></div>
+<div class="side-body">
+<div style="display:flex;gap:26px;align-items:baseline;margin-bottom:6px;flex-wrap:wrap;">
+<div><span style="font-family:var(--serif-display);font-size:24px;font-weight:700;">{zh.get('n', 0)}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">сообщений за неделю</span></div>
+<div><span style="font-family:var(--serif-display);font-size:24px;font-weight:700;">{_pct(zh.get('share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">потока</span></div>
+<div><span style="font-family:var(--serif-display);font-size:24px;font-weight:700;color:{'var(--accent)' if (zh.get('tone') or 0) < 0 else 'var(--ink)'};">{zh.get('tone') if zh.get('tone') is not None else '—'}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">тон (−1…+1)</span></div>
+</div>
+<div style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">Больше всех пишут: {zh_srcs or "—"}</div>
+<div class="note">Тема «ЖКХ, газ, тепло» из словаря config.json. Позитивный тон при высокой доле темы обычно означает отчётность о ремонтах и подключениях; негативный — аварийные и тарифные сюжеты. Тон — лексиконная оценка, ориентировочно.</div>
+</div></div></div>
+<div class="card"><div class="card-pad">
+<div class="side-head">Индекс присутствия села <span class="sub">{ri.get('index', '—')} — {esc(ri.get('verdict', '—'))}</span></div>
+<div class="side-body">
+{ri_bars or '<div class="note">Справочник населения не подключён (config → muni_population).</div>'}
+<div class="note">Доля 20 муниципальных районов (без Димитровграда и Новоульяновска) в повестке недели против их доли в населении области. Индекс = повестка / население; 1.0 — паритет, &lt;0.4 — символическое исключение. Население: {esc(ri.get('source', 'Ульяновскстат'))}. Чаще других на неделе: {esc(", ".join(f"{n} ×{c}" for n, c in (ri.get('top') or [])[:3])) or "—"}.</div>
+</div></div></div>
+</div>
+
+<div class="card"><div class="card-pad">
+<div class="side-head">Федеральное эхо в разрезе источников <span class="sub">топ-8 по объёму первичных сообщений</span></div>
+<div class="side-body">
+{fed_rows}
+<div class="note">Доля первичных сообщений источника без региональных маркеров (топонимы, фамилии руководителей, местные предприятия): чем выше, тем больше канал ретранслирует федеральную повестку вместо своей. Высокая доля у агрегаторов — признак конвейерного копирования; у официальных каналов норма ниже.</div>
+</div></div></div>
 """
 
     ts = info.get("tone_series") or []

@@ -694,6 +694,16 @@ SPEECH_X_RE = re.compile(
     r"просит|просят|требует|требуют|возмущается|возмущены|объяснил\w*|уточнил\w*", re.I)
 
 
+BUROKRAT_MARKERS = [
+    "оптимизац", "благоустройств", "временные неудобства", "в рабочем порядке",
+    "на контроле", "держим на контроле", "модернизаци", "капитальный ремонт",
+    "капремонт", "отчитал", "рабочая поездка", "рабочее совещание", "плановые работы",
+    "нацпроект", "национальный проект", "региональный проект", "муниципальный контракт",
+    "субсиди", "грант", "в приоритете", "по поручению", "инвестицион", "точка роста",
+    "комфортная городская среда", "введение в эксплуатацию", "в штатном режиме",
+]
+
+
 def build_infospace_ext(items, trends, cfg):
     """Волна 1 предложения v0.9: матрица территория×рубрика, ритм суток,
     динамика каскадов (полка жизни и скорость), индекс присутствия труда (TLI),
@@ -818,6 +828,103 @@ def build_infospace_ext(items, trends, cfg):
         "t1_share_primaries": round(t1_prim / len(primaries), 3) if primaries else None,
         "echo_of_t1": round(echo_n / dups_n, 3) if dups_n else None,
         "echo_n": echo_n, "dups_n": dups_n}
+
+    # 7) словарь власти: канцелярит и эвфемизмы по уровням источников
+    tier_keys = ("T1", "T2", "T3", "СМИ/подборка")
+    def _tier_key(it):
+        return f"T{it['tier']}" if it.get("tier") else "СМИ/подборка"
+    buro = {k: {"total": 0, "with_marker": 0} for k in tier_keys}
+    marker_hits = Counter()
+    for it in week:
+        blob = (it.get("title") or "") + " " + (it.get("text") or "")[:400]
+        low = blob.lower()
+        k = _tier_key(it)
+        buro[k]["total"] += 1
+        found = [m for m in BUROKRAT_MARKERS if m in low]
+        if found:
+            buro[k]["with_marker"] += 1
+            marker_hits[found[0]] += 1
+    for k in list(buro):
+        t = buro[k]["total"]
+        buro[k]["share"] = round(buro[k]["with_marker"] / t, 3) if t else None
+        if not t:
+            del buro[k]
+    out["bureaucratese"] = {"by_tier": buro,
+                            "top_markers": marker_hits.most_common(6)}
+
+    # 8) индекс тревожности: дневная доля security/uav + вердикт
+    anx_series = []
+    for i in range(6, -1, -1):
+        d0 = (now - timedelta(days=i)).astimezone(UTC4).date()
+        day_items = [it for it in week if _local_dt(it["published"]).astimezone(UTC4).date() == d0]
+        sec = sum(1 for it in day_items
+                  if it.get("category") == "security" or "uav" in (it.get("topics") or []))
+        anx_series.append({"date": d0.isoformat(),
+                           "share": round(sec / len(day_items), 3) if day_items else None,
+                           "n": len(day_items), "sec": sec})
+    vals = [x["share"] for x in anx_series if x["share"] is not None]
+    anx_avg = round(sum(vals) / len(vals), 3) if vals else None
+    out["anxiety"] = {"series": anx_series, "avg": anx_avg,
+                      "verdict": ("—" if anx_avg is None else
+                                  "спокойный фон" if anx_avg < 0.08 else
+                                  "повышенный фон" if anx_avg < 0.20 else "высокая тревожность")}
+
+    # 9) ЖКХ и тарифы: доля и тон
+    zh = [it for it in week if "zhkh" in (it.get("topics") or [])]
+    zh_prim = [it for it in zh if not it.get("dup_of")]
+    zh_tones = [sentiment_of(f"{it.get('title','')} {(it.get('text') or '')[:300]}")[0] for it in zh_prim]
+    zh_src = Counter((it.get("channel") or it.get("source") or "?") for it in zh_prim)
+    out["zhkh"] = {"n": len(zh), "share": round(len(zh) / len(week), 3),
+                   "tone": round(sum(zh_tones) / len(zh_tones), 3) if zh_tones else None,
+                   "top_sources": zh_src.most_common(3)}
+
+    # 10) федеральное эхо в разрезе источников (топ-8 по объёму первичных)
+    src_prim = Counter()
+    src_fed = Counter()
+    for it in primaries:
+        s = it.get("channel") or it.get("source") or "?"
+        src_prim[s] += 1
+        if not REGION_MARK.search(f"{it.get('title','')} {(it.get('text') or '')[:300]}"):
+            src_fed[s] += 1
+    fed_by_src = []
+    for s, n in src_prim.most_common(8):
+        fed_by_src.append({"source": str(s), "n": n,
+                           "fed_share": round(src_fed.get(s, 0) / n, 2)})
+    out["federal_by_source"] = fed_by_src
+
+    # 11) индекс присутствия села: доля районов в повестке против доли в населении
+    pops = cfg.get("muni_population") or {}
+    meta_p = pops.get("_meta") or {}
+    oblast_total = meta_p.get("oblast_total") or 0
+    city_keys = {"Димитровград", "Новоульяновск"}
+    districts = {k: v for k, v in pops.items() if not k.startswith("_") and k not in city_keys}
+    rural = {}
+    if districts and oblast_total:
+        rx_map = {name: re.compile((cfg.get("municipalities") or {}).get(name, ""), re.I)
+                  for name in districts if (cfg.get("municipalities") or {}).get(name)}
+        pop_sum = sum(v for k, v in districts.items() if k in rx_map)
+        hits = 0
+        per = Counter()
+        for it in week:
+            blob = f"{it.get('title','')} {(it.get('text') or '')[:400]}"
+            for name, rx in rx_map.items():
+                if rx.search(blob):
+                    hits += 1
+                    per[name] += 1
+                    break
+        agenda_share = round(hits / len(week), 3)
+        pop_share = round(pop_sum / oblast_total, 3)
+        idx = round(agenda_share / pop_share, 2) if pop_share else None
+        rural = {"agenda_share": agenda_share, "pop_share": pop_share, "index": idx,
+                 "hits": hits, "pop_sum": pop_sum,
+                 "rural_pop_share": round((meta_p.get("oblast_rural") or 0) / oblast_total, 3),
+                 "verdict": ("—" if idx is None else
+                             "паритет" if idx >= 0.8 else
+                             "недопредставлены" if idx >= 0.4 else "символическое исключение"),
+                 "top": per.most_common(5),
+                 "source": meta_p.get("source", "")}
+    out["rural_index"] = rural
+
     return out
 
 
