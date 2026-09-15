@@ -1339,3 +1339,52 @@ class TestPageStructure(unittest.TestCase):
         self.assertEqual(deep, [], f"разделы на разной глубине: {deep[:4]}")
         waves = {h: d for h, d in heads if h.startswith("Волна ")}
         self.assertGreaterEqual(len(waves), 4, f"ожидались Волны 1–4, найдено: {list(waves)}")
+
+
+class TestCiPush(unittest.TestCase):
+    """ci_push.sh: защита публикации выпуска от гонки с ручным push.
+    Кейс 15.09.2026 — прогон на 7a50309 упал на «git push» (rejected, fetch first),
+    Pages не опубликовался. Проверены синтаксис, стратегия (rebase → пересборка → retry)
+    и то, что все три workflow переведены на скрипт."""
+
+    def setUp(self):
+        self.path = os.path.join(BASE, "ci_push.sh")
+        if not os.path.exists(self.path):
+            self.skipTest("ci_push.sh отсутствует")
+        with open(self.path, encoding="utf-8") as f:
+            self.src = f.read()
+
+    def test_bash_syntax(self):
+        import subprocess
+        r = subprocess.run(["bash", "-n", self.path], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, f"bash -n: {r.stderr}")
+
+    def test_strategy_present(self):
+        for needle in ("git fetch -q origin", "git rebase", "git rebase --abort",
+                       'git reset --hard -q "origin/$BRANCH"', "REBUILD", "git push origin",
+                       "CI_PUSH_ATTEMPTS", "sleep 15"):
+            self.assertIn(needle, self.src, f"в ci_push.sh нет «{needle}»")
+
+    def test_no_set_e(self):
+        # set -e оборвал бы скрипт на первом же отклонённом push — нужен мягкий режим
+        first = [l for l in self.src.split("\n") if l.startswith("set ")][:1]
+        self.assertTrue(first, "нет строки set …")
+        self.assertNotIn("-e", first[0], "set -e сломает повторные попытки push")
+
+    def test_workflows_use_script(self):
+        wf_dir = os.path.join(BASE, ".github", "workflows")
+        names = [f for f in os.listdir(wf_dir) if f.endswith((".yml", ".yaml"))]
+        self.assertGreaterEqual(len(names), 3)
+        for name in names:
+            with open(os.path.join(wf_dir, name), encoding="utf-8") as f:
+                text = f.read()
+            self.assertIn("ci_push.sh", text, f"{name}: не использует ci_push.sh")
+            self.assertIn("REBUILD_CMD", text, f"{name}: не задана команда пересборки")
+            self.assertNotRegex(text, r"^\s*git push\s*$",
+                                f"{name}: остался голый «git push» — гонка не защищена")
+
+    def test_rebuild_command_is_pipeline(self):
+        # пересборка при конфликте должна гонять настоящий конвейер, а не только генератор
+        with open(os.path.join(BASE, ".github", "workflows", "daily.yml"), encoding="utf-8") as f:
+            daily = f.read()
+        self.assertIn("bash run.sh", daily)

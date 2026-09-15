@@ -23,13 +23,10 @@ jobs:
         run: |
           bash run.sh
           python3 generate.py --weekly-new
-      - name: Коммит
-        run: |
-          git config user.name "gudok-bot"
-          git config user.email "gudok-bot@users.noreply.github.com"
-          git add data weekly weekly.html 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "Скелет недельника $(date -u +%F)"
-          git push
+      - name: Коммит и push (защищено от гонок)
+        env:
+          REBUILD_CMD: bash run.sh && python3 generate.py --weekly-new
+        run: bash ci_push.sh "Скелет недельника $(date -u +%F)" data weekly weekly.html
   publish:
     needs: build
     runs-on: ubuntu-latest

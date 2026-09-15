@@ -24,13 +24,13 @@ jobs:
         with: {python-version: "3.11"}
       - name: Конвейер дня
         run: bash run.sh
-      - name: Коммит
+      - name: Коммит и push (защищено от гонок)
+        env:
+          REBUILD_CMD: bash run.sh          # пересборка, если rebase упёрся в конфликт
         run: |
-          git config user.name "gudok-bot"
-          git config user.email "gudok-bot@users.noreply.github.com"
-          git add data digests index.html afisha.html infospace.html status.html weekly.html monthly.html projects.html projects 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "Ежедневный выпуск $(date -u +%F)"
-          git push
+          bash ci_push.sh "Ежедневный выпуск $(date -u +%F)" \
+            data digests index.html afisha.html infospace.html status.html \
+            weekly.html monthly.html projects.html projects
   publish:
     needs: build
     runs-on: ubuntu-latest
