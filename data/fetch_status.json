@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": false,
-  "items": 0,
-  "error": "<urlopen error [Errno 101] Network is unreachable>"
+  "ok": true,
+  "items": 10,
+  "error": null
  },
  "rss:Улпресса": {
   "ok": true,
@@ -109,7 +109,7 @@
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 5,
+  "items": 6,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -181,7 +181,7 @@
  },
  "tg:volkodav73": {
   "ok": true,
-  "items": 8,
+  "items": 6,
   "error": null,
   "title": "Волкодав73"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-09-15T18:11:04.596028+00:00",
-  "last_run_local": "15.09.2026 22:11",
-  "fetched": 437,
-  "new": 45,
-  "total_store": 1924
+  "last_run_utc": "2026-09-15T18:43:35.059241+00:00",
+  "last_run_local": "15.09.2026 22:43",
+  "fetched": 447,
+  "new": 9,
+  "total_store": 1933
  },
  "rss:Улград": {
   "ok": true,
