@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: "0 5 * * 1"   # понедельник 08:00 UTC+4: скелет недели за завершённый период
   workflow_dispatch: {}
+env:
+  GUDOK_VK_TOKEN: ${{ secrets.VK_TOKEN }}   # пуст, пока секрет не задан — коллектор мягко пропускает VK
 permissions:
   contents: write
   pages: write

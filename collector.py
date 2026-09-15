@@ -26,6 +26,7 @@ import socket
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
@@ -202,9 +203,9 @@ def normalize_item(cfg, raw):
     category, topics = classify(cfg, title, text)
     item = {
         "id": item_id,
-        "source_type": raw.get("source_type", "rss"),   # rss | tg | seed
+        "source_type": raw.get("source_type", "rss"),   # rss | tg | vk | seed
         "source": raw.get("source", "?"),
-        "channel": raw.get("channel"),                   # только для tg
+        "channel": raw.get("channel"),                   # только для tg/vk
         "url": url,
         "title": title,
         "text": text,
@@ -218,6 +219,10 @@ def normalize_item(cfg, raw):
     }
     if xtail:
         item["xtail"] = True
+    # платформенные агрегаты (VK): маркировка рекламы и счётчики — без текстов комментариев
+    for opt in ("vk_ads", "comments", "likes"):
+        if raw.get(opt):
+            item[opt] = raw[opt]
     return item
 
 
@@ -423,6 +428,112 @@ def collect_telegram(cfg, status, pages=None, quiet=False):
     return added
 
 
+# ---------------------------------------------------------------- VK («второй этаж»)
+VK_API = "https://api.vk.com/method/"
+VK_API_VERSION = "5.131"
+
+
+def vk_token():
+    """Сервисный ключ VK: env GUDOK_VK_TOKEN или файл data/vk_token (в .gitignore).
+    Ключ приложения получается на vk.com/editapp → настройки → «Сервисный ключ доступа»;
+    авторизации пользователя не требует, работает только с публичными данными."""
+    tok = (os.environ.get("GUDOK_VK_TOKEN") or "").strip()
+    if tok:
+        return tok
+    try:
+        with open(os.path.join(DATA, "vk_token"), encoding="utf-8") as f:
+            return f.read().strip()
+    except OSError:
+        return ""
+
+
+def parse_vk_wall(data, domain):
+    """Ответ wall.get -> список постов. Только агрегаты: текст поста, просмотры,
+    счётчики лайков/комментариев (без текстов комментариев — этика, пункт d3),
+    флаг официальной маркировки рекламы marked_as_ads."""
+    items = ((data or {}).get("response") or {}).get("items") or []
+    posts = []
+    for p in items:
+        if not isinstance(p, dict) or not p.get("id"):
+            continue
+        owner = p.get("owner_id")
+        text = (p.get("text") or "").replace("<br>", "\n")
+        # репост помечаем первоисточником: каскадирование — сам по себе сигнал
+        for cp in (p.get("copy_history") or []):
+            if cp.get("id"):
+                text = f"[репост: wall{cp.get('owner_id')}_{cp.get('id')}] {text}"
+                break
+        date = p.get("date")
+        posts.append({
+            "id": p["id"],
+            "url": f"https://vk.ru/{domain}?w=wall{owner}_{p['id']}",
+            "text": text,
+            "published": datetime.fromtimestamp(date, timezone.utc).isoformat() if date else None,
+            "views": ((p.get("views") or {}).get("count")) or None,
+            "comments": ((p.get("comments") or {}).get("count")) or None,
+            "likes": ((p.get("likes") or {}).get("count")) or None,
+            "vk_ads": 1 if p.get("marked_as_ads") else None,
+        })
+    return posts
+
+
+def collect_vk(cfg, status, quiet=False):
+    """Сбор стен публичных сообществ VK через wall.get (сервисный ключ, rate-limit
+    настройками http_delay_sec). Без ключа — мягкий пропуск с пояснением в статусе."""
+    comms = [c for c in (cfg.get("vk_communities") or []) if c.get("enabled", True)]
+    if not comms:
+        return []
+    token = vk_token()
+    if not token:
+        err = ("нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk_token "
+               "(vk.com/editapp → Сервисный ключ доступа)")
+        for c in comms:
+            status[f"vk:{c['domain']}"] = {"ok": False, "items": 0, "error": err}
+        if not quiet:
+            print(f"[vk] {err}")
+        return []
+    added = []
+    count = int(cfg["settings"].get("vk_history_count", 50))
+    delay = cfg["settings"]["http_delay_sec"]
+    for c in comms:
+        dom = c["domain"]
+        key = f"vk:{dom}"
+        try:
+            url = VK_API + "wall.get?" + urllib.parse.urlencode(
+                {"domain": dom, "count": count, "v": VK_API_VERSION, "access_token": token})
+            data = json.loads(http_get(url, cfg) or "{}")
+            if data.get("error"):
+                e = data["error"]
+                status[key] = {"ok": False, "items": 0,
+                               "error": f"VK API {e.get('error_code')}: {e.get('error_msg')}"}
+                if not quiet:
+                    print(f"[vk] {dom}: {status[key]['error']}")
+                time.sleep(delay)
+                continue
+            posts = parse_vk_wall(data, dom)
+            for p in posts:
+                text = clean_text(p["text"], 700)
+                title = text[:110] + ("…" if len(text) > 110 else "")
+                item = normalize_item(cfg, {
+                    "source_type": "vk", "source": f"vk.ru/{dom}", "channel": dom,
+                    "url": p["url"], "title": title, "text": text,
+                    "published": p["published"], "views": p["views"],
+                    "tier": c.get("tier", 3), "vk_ads": p.get("vk_ads"),
+                    "comments": p.get("comments"), "likes": p.get("likes"),
+                })
+                if item:
+                    added.append(item)
+            status[key] = {"ok": True, "items": len(posts), "error": None}
+            if not quiet:
+                print(f"[vk] {dom}: {len(posts)} постов")
+        except Exception as e:  # noqa: BLE001
+            status[key] = {"ok": False, "items": 0, "error": str(e)[:200]}
+            if not quiet:
+                print(f"[vk] {dom}: ошибка {e}")
+        time.sleep(delay)
+    return added
+
+
 # ---------------------------------------------------------------- main
 def main():
     ap = argparse.ArgumentParser(description="Сбор новостей издание «Гудок»")
@@ -448,6 +559,7 @@ def main():
         raw_items += collect_rss(cfg, status, args.quiet)
     if not args.rss_only:
         raw_items += collect_telegram(cfg, status, args.tg_pages, args.quiet)
+        raw_items += collect_vk(cfg, status, args.quiet)
 
     # дедупликация: с базой и внутри пакета
     existing = load_store_ids(BASE)

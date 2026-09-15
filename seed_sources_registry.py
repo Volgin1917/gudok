@@ -51,6 +51,10 @@ KNOWN = {
     "tg:ulyanovsk_smi":     ("агрегатор",    "область",      None, "уточнить", "подборки по СМИ"),
     "tg:ulsk_on":           ("агрегатор",    "Ульяновск",    None, "уточнить", ""),
     "tg:ulsk_73online":     ("агрегатор",    "Ульяновск",    None, "уточнить", ""),
+    # ── VK: «второй этаж» (публичные сообщества; wall.get через сервисный ключ) ──
+    "vk:cherdaklinskyrayon": ("пресс-служба", "Чердаклинский р-н",
+                              "Администрация Чердаклинского района (проверить)", "уточнить",
+                              "пилот VK «второго этажа»; тип сообщества и владельца подтвердить после первого сбора"),
     "tg:ulsk_driver73":     ("агрегатор",    "Ульяновск",    None, "уточнить", "автомобильная тематика"),
     "tg:ulyanovsknews":     ("агрегатор",    "Ульяновск",    None, "уточнить", "отключён как источник"),
     "tg:ulyanovsk_ktt":     ("агрегатор",    "Ульяновск",    None, "уточнить", "общественный транспорт"),
@@ -76,7 +80,8 @@ KNOWN = {
 
 # территории «своего голоса» (муниципальные источники вне облцентра)
 VOICE_OF = {"tg:dimitrovgradonline": "Димитровград", "tg:dimitrovgradd": "Димитровград",
-            "tg:dimgrad24": "Димитровград"}
+            "tg:dimgrad24": "Димитровград",
+            "vk:cherdaklinskyrayon": "Чердаклинский р-н"}
 
 
 def main():
@@ -99,6 +104,10 @@ def main():
         sid = f"rss:{s['name']}"
         entries.append(_entry(sid, "rss", s["name"], None,
                               s.get("enabled", True), existing.get(sid)))
+    for c in cfg.get("vk_communities") or []:
+        sid = f"vk:{c['domain']}"
+        entries.append(_entry(sid, "vk", c.get("title") or f"vk.ru/{c['domain']}",
+                              c.get("tier"), c.get("enabled", True), existing.get(sid)))
 
     registry = {
         "_meta": {

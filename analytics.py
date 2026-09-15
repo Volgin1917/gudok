@@ -1027,8 +1027,11 @@ def build_infospace_w2(items, trends, cfg, registry=None):
         return out
 
     def reg_entry(it):
-        if it.get("source_type") == "tg":
+        st = it.get("source_type")
+        if st == "tg":
             return reg.get(f"tg:{it.get('channel')}")
+        if st == "vk":
+            return reg.get(f"vk:{it.get('channel')}")
         for sid, e in reg.items():
             if sid.startswith("rss:") and sid[4:].lower() == str(it.get("source", "")).lower():
                 return e
@@ -1093,7 +1096,8 @@ def build_infospace_w2(items, trends, cfg, registry=None):
     for it in week:
         blob = (it.get("title") or "") + " " + (it.get("text") or "")[:1200]
         tier = f"T{it['tier']}" if it.get("tier") else "СМИ/подборка"
-        marked = bool(AD_MARK_X_RE.search(blob))
+        # marked_as_ads от VK — та же легальная маркировка, что erid/«Реклама.» в тексте
+        marked = bool(AD_MARK_X_RE.search(blob)) or bool(it.get("vk_ads"))
         commercial = marked or bool(AD_OFFER_X_RE.search(blob)) or ad_channel_promo(blob)
         cross = bool(it.get("xtail")) or bool(AD_CROSSPROMO_X_RE.search(blob))
         if commercial:

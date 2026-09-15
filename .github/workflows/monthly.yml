@@ -7,6 +7,8 @@ on:
       month:
         description: "Период отчёта YYYY-MM (по умолчанию прошедший месяц)"
         required: false
+env:
+  GUDOK_VK_TOKEN: ${{ secrets.VK_TOKEN }}   # пуст, пока секрет не задан — коллектор мягко пропускает VK
 permissions:
   contents: write
   pages: write

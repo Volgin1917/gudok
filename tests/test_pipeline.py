@@ -583,3 +583,85 @@ class TestPromoFilter(unittest.TestCase):
     def test_invitation_is_promo(self):
         self.assertTrue(self.generate.is_promo(
             {"title": "Приглашаем на выставку-продажу саженцев", "text": ""}))
+
+
+class TestVkCollector(unittest.TestCase):
+    """VK «второй этаж»: wall.get через сервисный ключ, только агрегаты."""
+
+    def setUp(self):
+        with open(os.path.join(FIX, "vk_wall_sample.json"), encoding="utf-8") as f:
+            self.data = json.load(f)
+
+    def test_parse_vk_wall(self):
+        posts = collector.parse_vk_wall(self.data, "cherdaklinskyrayon")
+        self.assertEqual(len(posts), 4)
+        p = posts[0]
+        self.assertEqual(p["url"], "https://vk.ru/cherdaklinskyrayon?w=wall-62043407_5001")
+        self.assertEqual(p["views"], 1200)
+        self.assertEqual(p["comments"], 7)
+        self.assertTrue(p["published"].startswith("2026-09-10"))
+        self.assertIsNone(p["vk_ads"])
+        self.assertIn("котельной", p["text"])
+        self.assertNotIn("<br>", p["text"])
+
+    def test_parse_vk_ads_flag_and_repost(self):
+        posts = collector.parse_vk_wall(self.data, "cherdaklinskyrayon")
+        self.assertEqual(posts[1]["vk_ads"], 1)                      # marked_as_ads
+        self.assertTrue(posts[2]["text"].startswith("[репост: wall-99999123_777]"))
+
+    def test_parse_vk_bad_response(self):
+        self.assertEqual(collector.parse_vk_wall({"error": {"error_code": 15}}, "x"), [])
+        self.assertEqual(collector.parse_vk_wall(None, "x"), [])
+
+    def test_normalize_vk_item(self):
+        raw = {"source_type": "vk", "source": "vk.ru/cherdaklinskyrayon",
+               "channel": "cherdaklinskyrayon",
+               "url": "https://vk.ru/cherdaklinskyrayon?w=wall-62043407_5000",
+               "title": "Ремонт кровли под ключ", "text": "Ремонт кровли под ключ. Скидкой 15%",
+               "published": "2026-09-10T10:00:00+00:00", "views": 800, "tier": 1,
+               "vk_ads": 1, "comments": 3, "likes": 2}
+        it = collector.normalize_item(CFG, raw)
+        self.assertEqual(it["source_type"], "vk")
+        self.assertEqual(it["vk_ads"], 1)
+        self.assertEqual(it["comments"], 3)
+        self.assertEqual(it["views"], 800)
+
+    def test_collect_vk_skips_without_token(self):
+        os.environ.pop("GUDOK_VK_TOKEN", None)
+        token_path = os.path.join(BASE, "data", "vk_token")
+        self.assertFalse(os.path.exists(token_path))   # файл ключа не должен попадать в репозиторий
+        cfg = {"settings": CFG["settings"], "vk_communities": [{"domain": "test_dom", "tier": 1}]}
+        status = {}
+        self.assertEqual(collector.collect_vk(cfg, status, quiet=True), [])
+        self.assertFalse(status["vk:test_dom"]["ok"])
+        self.assertIn("сервисного ключа", status["vk:test_dom"]["error"])
+
+    def test_collect_vk_no_communities(self):
+        self.assertEqual(collector.collect_vk({"settings": CFG["settings"]}, {}, quiet=True), [])
+
+
+class TestInfospaceW2Vk(unittest.TestCase):
+    """Волна 2 на VK-записях: атрибуция по реестру и платформенная маркировка рекламы."""
+
+    CFG_W2 = TestInfospaceW2.CFG_W2
+    REG_W2 = {"vk:raion": {"id": "vk:raion", "producer_type": "пресс-служба",
+                           "territory": "Чердаклинский р-н"}}
+
+    def _it(self, id, text="Новость района", **kw):
+        it = TestInfospaceW2._it(self, id, 2, text=text, channel="raion", source_type="vk")
+        it.update(kw)
+        return it
+
+    def test_vk_producer_type_from_registry(self):
+        r = analytics.build_infospace_w2([self._it("a")], None, self.CFG_W2, registry=self.REG_W2)
+        self.assertEqual(r["producer_mix"]["week"]["пресс-служба"], 1)
+
+    def test_vk_marked_as_ads_counts(self):
+        # vk_ads=1 — платформенная маркировка: коммерческий класс + зачёт в «с маркировкой»
+        items = [self._it("a", text="Обычный пост без промо-признаков", vk_ads=1),
+                 self._it("b", text="Пост главы района о совещании")]
+        r = analytics.build_infospace_w2(items, None, self.CFG_W2, registry=self.REG_W2)
+        pl = r["promo_load"]
+        self.assertEqual(pl["commercial"]["n"], 1)
+        self.assertEqual(pl["commercial"]["marked"], 1)
+        self.assertEqual(pl["crosspromo"]["n"], 0)

@@ -31,7 +31,8 @@
       "^хорошего дня",
       "^как сейчас обстановка"
     ],
-    "catalog_source": "https://tgstat.ru/tag/ulyanovsk-region (каталог TGStat, проверен 11.09.2026: 33/33 канала доступны через t.me/s)"
+    "catalog_source": "https://tgstat.ru/tag/ulyanovsk-region (каталог TGStat, проверен 11.09.2026: 33/33 канала доступны через t.me/s)",
+    "vk_history_count": 50
   },
   "rss_sources": [
     {
@@ -407,6 +408,15 @@
       "subs": null,
       "note": "Объединённая авиастроительная корпорация: филиал «Авиастар-СП» (Ульяновск) и Ил-76МД-90А",
       "enabled": true
+    }
+  ],
+  "vk_communities": [
+    {
+      "domain": "cherdaklinskyrayon",
+      "title": "Чердаклинский район (ВК)",
+      "tier": 1,
+      "enabled": true,
+      "note": "пилот VK «второго этажа»; тип сообщества (официальное/новостное) и tier уточнить после первого сбора"
     }
   ],
   "categories": [

@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 09:01",
+ "generated_local": "15.09.2026 09:15",
  "week_items": 1450,
  "week_primaries": 1188,
  "week_dups": 262,
@@ -509,7 +509,7 @@
   "На грани видимости (1–2 упоминания): Новоульяновск, Николаевский р-н, Старокулаткинский р-н, Старомайнский р-н, Тереньгульский р-н, Ульяновский р-н."
  ],
  "w1": {
-  "generated_local": "15.09.2026 09:01",
+  "generated_local": "15.09.2026 09:15",
   "week_items": 1450,
   "matrix": {
    "cats": [
@@ -1056,9 +1056,9 @@
   }
  },
  "w2": {
-  "generated_local": "15.09.2026 09:01",
+  "generated_local": "15.09.2026 09:15",
   "week_items": 1450,
-  "registry_sources": 44,
+  "registry_sources": 45,
   "producer_mix": {
    "week": {
     "агрегатор": 712,

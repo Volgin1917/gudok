@@ -5,3 +5,4 @@ data/alerts.log
 data/tg_catalog_probe.json
 .DS_Store
 Thumbs.db
+data/vk_token

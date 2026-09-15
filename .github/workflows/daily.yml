@@ -5,6 +5,8 @@ on:
   schedule:
     - cron: "30 3 * * *"   # 07:30 UTC+4 ежедневно
   workflow_dispatch: {}
+env:
+  GUDOK_VK_TOKEN: ${{ secrets.VK_TOKEN }}   # пуст, пока секрет не задан — коллектор мягко пропускает VK
 permissions:
   contents: write
   pages: write
