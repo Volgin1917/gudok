@@ -1603,6 +1603,8 @@ class TestSourcesRegistry(unittest.TestCase):
             ids.add(f"rss:{s['name']}")
         for c in self.cfg.get("vk_communities") or []:
             ids.add(f"vk:{c['domain']}")
+        for w in self.cfg.get("web_sources") or []:
+            ids.add(f"web:{w['name']}")
         return ids
 
     def test_registry_matches_config(self):
@@ -1651,3 +1653,158 @@ class TestSourcesRegistry(unittest.TestCase):
                if e.get("owner_form") == "аноним"
                and e.get("producer_type") in ("редакция", "пресс-служба")]
         self.assertEqual(bad, [], f"редакции/пресс-службы в «анонимах»: {bad}")
+
+class TestGosWebCollector(unittest.TestCase):
+    """Сайты ОМСУ на платформе Госвеб (ulmeria.gosuslugi.ru): RSS нет, список новостей
+    рендерится на сервере с микроформатом schema.org/NewsArticle. Фикстура — реальная
+    страница, сохранена 15.09.2026 (первые 3 карточки из 10)."""
+
+    URL = "https://ulmeria.gosuslugi.ru/dlya-zhiteley/novosti-i-reportazhi/"
+
+    def setUp(self):
+        self.html = read_fixture("gosweb_news.html")
+
+    def test_parse_cards(self):
+        items = collector.parse_gosweb_news(self.html, self.URL)
+        self.assertEqual(len(items), 3)
+        self.assertIn("афиша Ульяновска", items[0]["title"])
+        self.assertEqual(items[0]["url"],
+                         self.URL + "novosti-193_6946.html")
+        self.assertTrue(items[0]["text"].startswith("По поручению главы города"))
+
+    def test_date_local_to_utc(self):
+        # 16:04:27 по Ульяновску (UTC+4) → 12:04:27 UTC
+        items = collector.parse_gosweb_news(self.html, self.URL)
+        self.assertEqual(items[0]["published"], "2026-09-15T12:04:27+00:00")
+
+    def test_date_formats(self):
+        self.assertEqual(collector.gosweb_to_utc("2026-09-15 16:04:27"),
+                         "2026-09-15T12:04:27+00:00")
+        self.assertTrue(collector.gosweb_to_utc("2026-09-15 07:30").startswith("2026-09-15T03:30"))
+        self.assertTrue(collector.gosweb_to_utc("2026-09-15").startswith("2026-09-14T20:00"))
+        self.assertTrue(collector.gosweb_to_utc("15.09.2026 16:04").startswith("2026-09-15T12:04"))
+        self.assertIsNone(collector.gosweb_to_utc(""))
+        self.assertIsNone(collector.gosweb_to_utc(None))
+
+    def test_categories_and_photo_absolute(self):
+        items = collector.parse_gosweb_news(self.html, self.URL)
+        self.assertEqual(items[0]["categories"], ["Культура", "Физическая культура и спорт"])
+        self.assertEqual(items[1]["categories"][0], "Образование")
+        self.assertTrue(items[0]["photo"].startswith("https://ulmeria.gosuslugi.ru/netcat_files/"),
+                        "фото должно быть абсолютным URL")
+
+    def test_empty_and_garbage(self):
+        self.assertEqual(collector.parse_gosweb_news("", self.URL), [])
+        self.assertEqual(collector.parse_gosweb_news(None, self.URL), [])
+        self.assertEqual(collector.parse_gosweb_news("<html><body>нет новостей</body></html>", self.URL), [])
+
+    def test_card_without_headline_skipped(self):
+        broken = self.html.replace("itemprop='url'", "itemprop='url-broken'", 1)
+        items = collector.parse_gosweb_news(broken, self.URL)
+        self.assertLessEqual(len(items), 3)
+
+    def test_normalize_web_item(self):
+        raw = {"source_type": "web", "source": "Администрация Ульяновска",
+               "url": self.URL + "novosti-193_6946.html",
+               "title": "Концерты, фотоконкурс, экскурсии и футбол: афиша Ульяновска на эту неделю",
+               "text": "По поручению главы города учреждения социальной сферы подготовили программу.",
+               "published": "2026-09-15T12:04:27+00:00", "views": None, "channel": None,
+               "tier": 1, "photo": "https://ulmeria.gosuslugi.ru/netcat_files/x.jpg",
+               "web_cats": ["Культура"]}
+        it = collector.normalize_item(CFG, raw)
+        self.assertIsNotNone(it)
+        self.assertEqual(it["source_type"], "web")
+        self.assertEqual(it["tier"], 1)
+        self.assertEqual(it["channel"], None)
+        self.assertEqual(it["web_cats"], ["Культура"])
+        self.assertEqual(it["published"], "2026-09-15T12:04:27+00:00")
+        self.assertTrue(it["id"])
+
+    def test_collect_web_uses_fixture(self):
+        cfg = dict(CFG, settings=dict(CFG["settings"], http_delay_sec=0),
+                   web_sources=[{"name": "Администрация Ульяновска", "url": self.URL,
+                                 "tier": 1, "enabled": True}])
+        orig = collector.http_get
+        collector.http_get = lambda url, c, timeout=None: self.html
+        try:
+            status = {}
+            items = collector.collect_web(cfg, status, quiet=True)
+        finally:
+            collector.http_get = orig
+        self.assertEqual(len(items), 3)
+        self.assertTrue(status["web:Администрация Ульяновска"]["ok"])
+        self.assertEqual(status["web:Администрация Ульяновска"]["items"], 3)
+        self.assertTrue(all(i["source_type"] == "web" for i in items))
+
+    def test_collect_web_disabled_and_empty(self):
+        cfg = {"settings": dict(CFG["settings"], http_delay_sec=0),
+               "web_sources": [{"name": "X", "url": "https://example.invalid/", "enabled": False}]}
+        status = {}
+        self.assertEqual(collector.collect_web(cfg, status, quiet=True), [])
+        self.assertNotIn("web:X", status)                     # отключённый источник не опрашивается
+        self.assertEqual(collector.collect_web({"settings": CFG["settings"]}, {}, quiet=True), [])
+
+    def test_collect_web_error_is_soft(self):
+        cfg = {"settings": dict(CFG["settings"], http_delay_sec=0, http_timeout_sec=1),
+               "web_sources": [{"name": "Недоступный", "url": "https://nonexistent.invalid/",
+                                "tier": 1, "enabled": True}]}
+        status = {}
+        self.assertEqual(collector.collect_web(cfg, status, quiet=True), [])
+        self.assertFalse(status["web:Недоступный"]["ok"])
+        self.assertTrue(status["web:Недоступный"]["error"])
+
+    def test_config_has_web_source(self):
+        ws = CFG.get("web_sources") or []
+        self.assertTrue(ws, "в config.json нет web_sources")
+        src = [w for w in ws if "ulmeria" in w.get("url", "")]
+        self.assertEqual(len(src), 1)
+        self.assertEqual(src[0]["tier"], 1)
+        self.assertTrue(src[0]["enabled"])
+        self.assertEqual(src[0]["platform"], "gosweb")
+
+
+class TestWebSourceInRegistry(unittest.TestCase):
+    """web-источник виден метрикам «Инфопространства» и реестру."""
+
+    REG = {"web:Администрация Ульяновска": {
+        "id": "web:Администрация Ульяновска", "producer_type": "пресс-служба",
+        "territory": "Ульяновск", "owner": "Администрация города Ульяновска",
+        "owner_status": "подтверждён", "owner_form": "официальные", "voice_of": "Ульяновск"}}
+
+    def _it(self, i, source_type="web", source="Администрация Ульяновска", channel=None):
+        from datetime import datetime, timedelta, timezone
+        UTC4 = timezone(timedelta(hours=4))
+        dt = datetime.now(UTC4) - timedelta(hours=2)
+        return {"id": f"r{i}", "title": "Новость", "text": "Текст", "published": dt.isoformat(),
+                "category": "politics", "source_type": source_type, "channel": channel,
+                "source": source, "tier": 1}
+
+    def test_registry_entry_resolved(self):
+        w2 = analytics.build_infospace_w2([self._it(1)], {}, {}, registry=self.REG)
+        self.assertEqual(w2["producer_mix"]["week"].get("пресс-служба"), 1)
+
+    def test_web_counts_into_hhi(self):
+        w3 = analytics.build_infospace_w3([self._it(1), self._it(2)], {}, registry=self.REG)
+        self.assertEqual(w3["week_items"], 2)
+        top = w3["top_owners"][0]
+        self.assertIn("Администрация города Ульяновска", top["name"])
+        self.assertEqual(top["form"], "официальные")
+        self.assertEqual(top["n_sources"], 1)
+        self.assertAlmostEqual(top["share"], 1.0)
+
+    def test_web_without_registry_entry_is_press_office(self):
+        # даже без записи в реестре сайт ОМСУ — пресс-служба, а не «не атрибутирован»
+        w2 = analytics.build_infospace_w2([self._it(1)], {}, {}, registry={})
+        self.assertEqual(w2["producer_mix"]["week"].get("пресс-служба"), 1)
+
+    def test_seed_registry_knows_web_source(self):
+        with open(os.path.join(BASE, "sources_registry.json"), encoding="utf-8") as f:
+            reg = json.load(f)
+        ids = {e["id"] for e in reg["sources"]}
+        self.assertIn("web:Администрация Ульяновска", ids)
+        e = [x for x in reg["sources"] if x["id"] == "web:Администрация Ульяновска"][0]
+        self.assertEqual(e["kind"], "web")
+        self.assertEqual(e["producer_type"], "пресс-служба")
+        self.assertEqual(e["owner_form"], "официальные")
+        self.assertEqual(e["owner_status"], "подтверждён")
+        self.assertEqual(e["voice_of"], "Ульяновск")

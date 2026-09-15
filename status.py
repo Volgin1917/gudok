@@ -93,6 +93,17 @@ def main():
             continue
         st = status.get(f"tg:{ch['username']}", {})
         rows.append((f"TG T{ch.get('tier', '?')}", ch["username"], f"https://t.me/{ch['username']}", st))
+    for cm in cfg.get("vk_communities", []) or []:
+        if not cm.get("enabled", True):
+            continue
+        st = status.get(f"vk:{cm['domain']}", {})
+        rows.append((f"VK T{cm.get('tier', '?')}", cm.get("title") or cm["domain"],
+                     f"https://vk.ru/{cm['domain']}", st))
+    for ws in cfg.get("web_sources", []) or []:
+        if not ws.get("enabled", True):
+            continue
+        st = status.get(f"web:{ws['name']}", {})
+        rows.append((f"САЙТ T{ws.get('tier', '?')}", ws["name"], ws.get("url", ""), st))
 
     ok_n = sum(1 for r in rows if r[3].get("ok"))
     tr_html = "".join(

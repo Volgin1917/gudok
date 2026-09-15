@@ -203,7 +203,7 @@ def normalize_item(cfg, raw):
     category, topics = classify(cfg, title, text)
     item = {
         "id": item_id,
-        "source_type": raw.get("source_type", "rss"),   # rss | tg | vk | seed
+        "source_type": raw.get("source_type", "rss"),   # rss | tg | vk | web | seed
         "source": raw.get("source", "?"),
         "channel": raw.get("channel"),                   # только для tg/vk
         "url": url,
@@ -220,7 +220,7 @@ def normalize_item(cfg, raw):
     if xtail:
         item["xtail"] = True
     # платформенные агрегаты (VK): маркировка рекламы и счётчики — без текстов комментариев
-    for opt in ("vk_ads", "comments", "likes"):
+    for opt in ("vk_ads", "comments", "likes", "web_cats"):
         if raw.get(opt):
             item[opt] = raw[opt]
     return item
@@ -535,12 +535,113 @@ def collect_vk(cfg, status, quiet=False):
 
 
 # ---------------------------------------------------------------- main
+# ---------------------------------------------------------------- Сайты ОМСУ (Госвеб)
+# Официальные сайты муниципалитетов на платформе Госвеб (ulmeria.gosuslugi.ru и др.,
+# CMS NetCat) не отдают RSS, но список новостей рендерится на сервере и размечен
+# микроформатом schema.org/NewsArticle: datePublished (с точностью до секунды),
+# headline, url, description, рубрика и фото. Пагинация — только JS, поэтому за один
+# запрос доступны ~10 свежих материалов (как веб-превью t.me/s): для ежедневного
+# сбора этого достаточно, истории вглубь нет.
+GOSWEB_CARD_MARK = "<div class='object-item'"
+GOSWEB_DATE_RE = re.compile(r"itemprop=['\"]datePublished['\"]\s+content=['\"]([^'\"]+)['\"]")
+GOSWEB_HEAD_RE = re.compile(
+    r"itemprop=['\"]headline['\"][^>]*>\s*<a\s+href=['\"]([^'\"]+)['\"][^>]*>(.*?)</a>", re.S | re.I)
+GOSWEB_DESC_RE = re.compile(r"itemprop=['\"]description['\"][^>]*>(.*?)</div>", re.S | re.I)
+GOSWEB_CAT_RE = re.compile(r"item-category[^>]*>\s*<a[^>]*>(.*?)</a>", re.S | re.I)
+GOSWEB_IMG_RE = re.compile(r"<img[^>]+src=['\"]([^'\"]+)['\"]", re.I)
+GOSWEB_DATE_FORMATS = ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M", "%Y-%m-%d",
+                       "%d.%m.%Y %H:%M:%S", "%d.%m.%Y %H:%M", "%d.%m.%Y")
+
+
+def gosweb_to_utc(value):
+    """Дата Госвеба («2026-09-15 16:04:27») — местное время UTC+4: переводим в UTC ISO."""
+    s = (value or "").strip().replace("T", " ")
+    if not s:
+        return None
+    for fmt in GOSWEB_DATE_FORMATS:
+        try:
+            dt = datetime.strptime(s[:26], fmt)
+        except ValueError:
+            continue
+        return dt.replace(tzinfo=UTC4).astimezone(timezone.utc).isoformat()
+    return to_utc_iso(s)
+
+
+def parse_gosweb_news(page_html, base_url):
+    """Карточки новостей Госвеба → список {title,url,text,published,photo,categories}.
+    Разбивка по маркеру карточки: каждая начинается с <div class='object-item' …NewsArticle>."""
+    if not page_html:
+        return []
+    out = []
+    for chunk in page_html.split(GOSWEB_CARD_MARK)[1:]:
+        chunk = chunk[:6000]
+        head = GOSWEB_HEAD_RE.search(chunk)
+        if not head:
+            continue
+        href = htmlmod.unescape(head.group(1)).strip()
+        title = clean_text(head.group(2), 220)
+        if not title or not href:
+            continue
+        url = urllib.parse.urljoin(base_url, href)
+        desc = GOSWEB_DESC_RE.search(chunk)
+        text = clean_text(desc.group(1) if desc else "", 600)
+        img = GOSWEB_IMG_RE.search(chunk)
+        date = GOSWEB_DATE_RE.search(chunk)
+        cats = [clean_text(c, 60) for c in GOSWEB_CAT_RE.findall(chunk)]
+        out.append({
+            "title": title,
+            "url": url,
+            "text": text,
+            "published": gosweb_to_utc(date.group(1)) if date else None,
+            "photo": urllib.parse.urljoin(base_url, htmlmod.unescape(img.group(1))) if img else None,
+            "categories": [c for c in cats if c],
+        })
+    return out
+
+
+def collect_web(cfg, status, quiet=False):
+    """Сайты муниципалитетов и органов власти (config: web_sources). Тот же rate-limit
+    (http_delay_sec) и честный User-Agent, что для RSS/TG — принцип вежливости к источникам.
+    Полный текст статьи досбирает enrich.py (в карточке — только анонс)."""
+    added = []
+    for src in cfg.get("web_sources", []) or []:
+        if not src.get("enabled", True):
+            continue
+        key = f"web:{src['name']}"
+        try:
+            page = http_get(src["url"], cfg)
+            entries = parse_gosweb_news(page, src["url"])
+            for e in entries:
+                item = normalize_item(cfg, {
+                    "source_type": "web", "source": src["name"], "url": e["url"],
+                    "title": e["title"], "text": e["text"], "published": e["published"],
+                    "views": None, "channel": None, "tier": src.get("tier", 1),
+                    "photo": e.get("photo"),
+                    # собственные рубрики сайта ОМСУ — для сравнения с нашей классификацией
+                    "web_cats": e.get("categories") or None,
+                })
+                if item:
+                    added.append(item)
+            status[key] = {"ok": True, "items": len(entries), "error": None,
+                           "title": src.get("title") or src["name"]}
+            if not quiet:
+                print(f"  [web] {src['name']}: {len(entries)} записей")
+            time.sleep(cfg["settings"]["http_delay_sec"])
+        except Exception as e:  # noqa: BLE001
+            status[key] = {"ok": False, "items": 0, "error": str(e)[:160]}
+            if not quiet:
+                print(f"  [web] {src['name']}: ОШИБКА {e}")
+    return added
+
+
 def main():
     ap = argparse.ArgumentParser(description="Сбор новостей издание «Гудок»")
     ap.add_argument("--tg-pages", type=int, default=None,
                     help="сколько страниц истории читать с каждого Telegram-канала (1 = ~20 сообщений)")
     ap.add_argument("--rss-only", action="store_true")
     ap.add_argument("--tg-only", action="store_true")
+    ap.add_argument("--web-only", action="store_true",
+                    help="собрать только сайты ОМСУ (web_sources)")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
 
@@ -555,11 +656,14 @@ def main():
 
     status = {}
     raw_items = []
-    if not args.tg_only:
+    only_web = args.web_only
+    if not args.tg_only and not only_web:
         raw_items += collect_rss(cfg, status, args.quiet)
-    if not args.rss_only:
+    if not args.rss_only and not only_web:
         raw_items += collect_telegram(cfg, status, args.tg_pages, args.quiet)
         raw_items += collect_vk(cfg, status, args.quiet)
+    if not args.rss_only and not args.tg_only:
+        raw_items += collect_web(cfg, status, args.quiet)
 
     # дедупликация: с базой и внутри пакета
     existing = load_store_ids(BASE)

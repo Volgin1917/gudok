@@ -1237,6 +1237,8 @@ def build_infospace_w2(items, trends, cfg, registry=None):
             return reg.get(f"tg:{it.get('channel')}")
         if st == "vk":
             return reg.get(f"vk:{it.get('channel')}")
+        if st == "web":
+            return reg.get(f"web:{it.get('source')}")
         for sid, e in reg.items():
             if sid.startswith("rss:") and sid[4:].lower() == str(it.get("source", "")).lower():
                 return e
@@ -1246,6 +1248,8 @@ def build_infospace_w2(items, trends, cfg, registry=None):
         e = reg_entry(it)
         if e and e.get("producer_type"):
             return e["producer_type"]
+        if it.get("source_type") == "web":
+            return "пресс-служба"      # сайт органа власти — всегда пресс-служба
         return "редакция" if it.get("source_type") == "rss" else "не атрибутирован"
 
     # 1) кто пишет: состав потока по типам производителя (неделя + 7 дней)
@@ -1403,6 +1407,8 @@ def build_infospace_w3(items, cfg, registry=None):
             return f"tg:{it.get('channel')}"
         if st == "vk":
             return f"vk:{it.get('channel')}"
+        if st == "web":
+            return f"web:{it.get('source')}"
         return f"rss:{it.get('source')}"
 
     flow = Counter(src_id(it) for it in week)

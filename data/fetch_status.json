@@ -1,4 +1,17 @@
 {
+ "web:Администрация Ульяновска": {
+  "ok": true,
+  "items": 10,
+  "error": null,
+  "title": "Администрация города Ульяновска — новости и репортажи"
+ },
+ "_meta": {
+  "last_run_utc": "2026-09-15T17:58:55.375962+00:00",
+  "last_run_local": "15.09.2026 21:58",
+  "fetched": 10,
+  "new": 10,
+  "total_store": 1879
+ },
  "rss:Ulnovosti.ru": {
   "ok": true,
   "items": 10,
@@ -231,13 +244,6 @@
   "ok": false,
   "items": 0,
   "error": "нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk_token (vk.com/editapp → Сервисный ключ доступа)"
- },
- "_meta": {
-  "last_run_utc": "2026-09-15T14:28:54.664560+00:00",
-  "last_run_local": "15.09.2026 18:28",
-  "fetched": 445,
-  "new": 95,
-  "total_store": 1869
  },
  "rss:Улград": {
   "ok": true,

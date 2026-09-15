@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 18:34",
+ "generated_local": "15.09.2026 22:00",
  "calendar": [
   {
    "etype": "sport",
@@ -417,6 +417,37 @@
    ]
   },
   {
+   "name": "удары · трамп · заявил",
+   "terms": [
+    "удары",
+    "трамп",
+    "заявил"
+   ],
+   "size": 4,
+   "coverage": 0.0,
+   "gap": true,
+   "samples": [
+    {
+     "title": "⚡️ Украина согласилась не наносить удары по объектам российской энергетики, Россия взяла на себя аналогичное о",
+     "url": "https://t.me/tresh_ulyan/56210",
+     "source": "t.me/tresh_ulyan",
+     "views": 6840
+    },
+    {
+     "title": "⚡️ Трамп заявил, что Россия и Украина договорились не наносить друг другу удары по объектам энергетики",
+     "url": "https://t.me/ulpressa/74637",
+     "source": "t.me/ulpressa",
+     "views": 1090
+    },
+    {
+     "title": "«Зеленский должен перестать выводить из строя производство дизельного топлива в России», заявил Трамп. По его ",
+     "url": "https://t.me/ulsk_driver73/18519",
+     "source": "t.me/ulsk_driver73",
+     "views": 447
+    }
+   ]
+  },
+  {
    "name": "недель · осталось · рабочих",
    "terms": [
     "недель",
@@ -508,46 +539,15 @@
      "views": 50
     }
    ]
-  },
-  {
-   "name": "открываем · начнем · ночной",
-   "terms": [
-    "открываем",
-    "начнем",
-    "ночной"
-   ],
-   "size": 3,
-   "coverage": 0.0,
-   "gap": true,
-   "samples": [
-    {
-     "title": "🌙 🌙 🌙 Доброй ночи! Открываем ночной чат для тех, кто не спит 🌛 Поиграем в слова? Мы начнем: «Забор» Вам на Р 🔽",
-     "url": "https://t.me/ulyanovsk_smi/29469",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 539
-    },
-    {
-     "title": "😴 Открываем ночной чат Поиграем в города? Мы начнем: «Мурманск». Вам на К 🔽 📲",
-     "url": "https://t.me/ulyanovsk_smi/29441",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 304
-    },
-    {
-     "title": "Открываем ночной чат! Предлагаем поиграть в слова. Мы начнем: «страх». Вам на Х 👇 📲",
-     "url": "https://t.me/ulyanovsk_smi/29496",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 22
-    }
-   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.072,
-  "today_items": 278,
-  "today_pos": 529,
+  "today_score": 0.09,
+  "today_items": 288,
+  "today_pos": 535,
   "today_neg": 358,
-  "today_neu": 693,
+  "today_neu": 697,
   "series": [
    {
     "date": "2026-09-02",
@@ -603,18 +603,18 @@
    },
    {
     "date": "2026-09-15",
-    "score": 0.072
+    "score": 0.09
    }
   ],
   "by_category": {
    "agro": 0.5,
    "culture": 0.714,
    "economy": 0.381,
-   "education": 0.048,
+   "education": 0.087,
    "health": 0.117,
-   "politics": 0.091,
+   "politics": 0.139,
    "security": -0.592,
-   "society": 0.239,
+   "society": 0.257,
    "sport": 0.583
   }
  },
@@ -780,10 +780,10 @@
    "tier": 3,
    "type": "tg",
    "total": 53,
-   "primary": 42,
-   "dup": 11,
-   "repost_rate": 0.21,
-   "views_median": 468,
+   "primary": 43,
+   "dup": 10,
+   "repost_rate": 0.19,
+   "views_median": 462,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -828,10 +828,10 @@
    "tier": 3,
    "type": "tg",
    "total": 40,
-   "primary": 29,
-   "dup": 11,
-   "repost_rate": 0.28,
-   "views_median": 3070,
+   "primary": 28,
+   "dup": 12,
+   "repost_rate": 0.3,
+   "views_median": 3220,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -1088,6 +1088,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "Администрация Ульяновска",
+   "tier": 1,
+   "type": "web",
+   "total": 10,
+   "primary": 10,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": null,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "Кумәк көч",
    "tier": null,
    "type": "rss",
@@ -1104,24 +1116,24 @@
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 58.4,
-   "slope": 5.75,
+   "expected": 59.1,
+   "slope": 5.86,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "governor",
    "name": "Губернатор / власть",
-   "expected": 45.7,
-   "slope": 2.71,
+   "expected": 52.3,
+   "slope": 3.68,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "cityspace",
    "name": "Городская среда",
-   "expected": 23.4,
-   "slope": 2.39,
+   "expected": 27.8,
+   "slope": 3.04,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1152,8 +1164,8 @@
   {
    "topic": "sport",
    "name": "Спорт",
-   "expected": 27.4,
-   "slope": 1.18,
+   "expected": 28.2,
+   "slope": 1.29,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1190,17 +1202,17 @@
    "confidence": "средняя"
   },
   {
-   "topic": "culture",
-   "name": "Культура и туризм",
-   "expected": 18.3,
-   "slope": -0.71,
+   "topic": "uaz",
+   "name": "УАЗ / Соллерс",
+   "expected": 2.0,
+   "slope": -0.61,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "uaz",
-   "name": "УАЗ / Соллерс",
-   "expected": 2.0,
+   "topic": "culture",
+   "name": "Культура и туризм",
+   "expected": 19.0,
    "slope": -0.61,
    "direction": "спад",
    "confidence": "средняя"
@@ -1230,18 +1242,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "weather",
-   "name": "Погода",
-   "expected": 11.2,
-   "slope": 0.29,
+   "topic": "schools",
+   "name": "Школы и вузы",
+   "expected": 32.9,
+   "slope": 0.32,
    "direction": "плато",
    "confidence": "низкая"
   },
   {
-   "topic": "schools",
-   "name": "Школы и вузы",
-   "expected": 31.5,
-   "slope": 0.11,
+   "topic": "weather",
+   "name": "Погода",
+   "expected": 11.2,
+   "slope": 0.29,
    "direction": "плато",
    "confidence": "низкая"
   },

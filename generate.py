@@ -1456,7 +1456,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
     parts.append(f"""</div>
 <footer class="footer"><div class="footer-inner">
 <div><b>{cfg['brand']}</b><p>{esc(cfg['tagline_full'])}</p><p style="margin-top:6px;">Выпуск №{digest_no} от {day:%d.%m.%Y}. Собрано автоматически: {esc(meta.get('last_run_local','—'))} (UTC+4).</p></div>
-<div><b>Методика</b><p>Мониторинг RSS ({', '.join(s['name'] for s in cfg['rss_sources'] if s.get('enabled', True))}) и публичных превью Telegram-каналов (t.me/s/…). Классификация — по словарю config.json; тренды — сравнение 3-дневного окна с недельной базой.</p></div>
+<div><b>Методика</b><p>Мониторинг RSS ({', '.join(s['name'] for s in cfg['rss_sources'] if s.get('enabled', True))}) , публичных превью Telegram-каналов (t.me/s/…) и официальных сайтов органов власти (Госвеб). Классификация — по словарю config.json; тренды — сравнение 3-дневного окна с недельной базой.</p></div>
 <div><b>Навигация</b><p><a href="../index.html" class="flink">← Первая полоса</a> · <a href="../weekly.html" class="flink">Аналитика недели</a></p></div>
 </div></footer></body></html>""")
     return "".join(parts)
@@ -3357,7 +3357,7 @@ def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest
 {'<div class="pm-box"><h4>Колонка редактора</h4><div class="pm-ed">' + editorial + '</div></div>' if editorial else ''}
 
 <div class="pm-colophon">
-<div>Набрано и выпущено автоматически: мониторинг {sum(1 for c in cfg.get('telegram_channels', []) if c.get('enabled'))} Telegram-каналов и {sum(1 for c in cfg.get('rss_sources', []) if c.get('enabled', True))} RSS-лент; колонку редактора готовит ассистент.</div>
+<div>Набрано и выпущено автоматически: мониторинг {sum(1 for c in cfg.get('telegram_channels', []) if c.get('enabled'))} Telegram-каналов и {sum(1 for c in cfg.get('rss_sources', []) if c.get('enabled', True))} RSS-лент, {sum(1 for c in cfg.get('web_sources', []) or [] if c.get('enabled', True))} сайт(ов) органов власти; колонку редактора готовит ассистент.</div>
 <div>Материалы принадлежат их изданиям. Листок не является агитацией.{" Зоны инфотишины: " + ", ".join(silent[:4]) + "." if silent else ""}</div>
 </div>
 <div class="pm-page">стр. 1</div>
