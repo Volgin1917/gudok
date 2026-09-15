@@ -1,5 +1,5 @@
 {
- "generated_local": "15.09.2026 09:36",
+ "generated_local": "15.09.2026 10:08",
  "calendar": [
   {
    "etype": "sport",
@@ -370,6 +370,37 @@
    ]
   },
   {
+   "name": "маркса · карла · сидит",
+   "terms": [
+    "маркса",
+    "карла",
+    "сидит"
+   ],
+   "size": 3,
+   "coverage": 0.33,
+   "gap": true,
+   "samples": [
+    {
+     "title": "😱 Жёсткие разборки пацанов на ул. Карла Маркса 😱",
+     "url": "https://t.me/tresh_ulyan/56170",
+     "source": "t.me/tresh_ulyan",
+     "views": 13000
+    },
+    {
+     "title": "😱 На Карла Маркса сидит лиса",
+     "url": "https://t.me/insaid173/46961",
+     "source": "t.me/insaid173",
+     "views": 10800
+    },
+    {
+     "title": "🤯 Два пожара полностью спалили жилые дома в Ульяновской области На улице Карла Маркса в Инзе пожар уничтожил ж",
+     "url": "https://t.me/topor_ul/11592",
+     "source": "t.me/topor_ul",
+     "views": 2400
+    }
+   ]
+  },
+  {
    "name": "открываем · начнем · ночной",
    "terms": [
     "открываем",
@@ -426,37 +457,6 @@
      "url": "https://t.me/fcvolga/12523",
      "source": "t.me/fcvolga",
      "views": 1220
-    }
-   ]
-  },
-  {
-   "name": "начали · готовиться · весеннему",
-   "terms": [
-    "начали",
-    "готовиться",
-    "весеннему"
-   ],
-   "size": 3,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "7️⃣ В Ульяновске заблаговременно начали готовиться к весеннему паводку 2027 года Уже с этой недели городские п",
-     "url": "https://t.me/topor_ul/11619",
-     "source": "t.me/topor_ul",
-     "views": 2000
-    },
-    {
-     "title": "🌊 В Ульяновске уже сейчас начали готовиться к весеннему паводку 2027 года. Профильные службы города с этой нед",
-     "url": "https://t.me/ulsk_on/22798",
-     "source": "t.me/ulsk_on",
-     "views": 114
-    },
-    {
-     "title": "В Ульяновске до наступления осенних дождей начали чистить водоотводные канавы и трубы",
-     "url": "https://ulpressa.ru/2026/09/14/v-ulyanovske-do-nastupleniya-osennih-dozhdej-nachali-chistit-vodootvodnye-kanavy-i-truby/",
-     "source": "Улпресса",
-     "views": null
     }
    ]
   }

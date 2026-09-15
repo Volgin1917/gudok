@@ -704,6 +704,140 @@ BUROKRAT_MARKERS = [
 ]
 
 
+# ─────────────────────────────────────────────────────────────────────
+# Латентность освещения (ось «время» плана v0.9): время события из текста.
+# Паспорт метрики: «Часы от события до первой публикации: насколько поле
+# догоняет реальность и по каким темам догоняет медленнее».
+# ─────────────────────────────────────────────────────────────────────
+LAT_REL_DAYS = {"сегодня": 0, "вчера": 1, "накануне": 1, "позавчера": 2}
+LAT_WEEKDAY = {"понедельник": 0, "вторник": 1, "среду": 2, "четверг": 3,
+               "пятницу": 4, "субботу": 5, "воскресенье": 6}
+LAT_TOD_HOURS = {"утром": 8, "днём": 14, "днем": 14, "вечером": 20, "ночью": 2}
+LAT_DAY_X = re.compile(
+    rf"(?<![\d.])(\d{{1,2}})\s*(?:({MONTH_STEM})|\.(\d{{1,2}})(?:\.(20\d{{2}}))?(?![\d.]))", re.I)
+LAT_REL_X = re.compile(r"\b(сегодня|вчера|позавчера|накануне)\b", re.I)
+LAT_MIND_X = re.compile(r"\b(?:минувш\w+|прошедш\w+)\s+(ночью|вечером|днём|днем|утром)\b", re.I)
+LAT_WD_X = re.compile(r"\bв(?:о)?\s+(понедельник|вторник|среду|четверг|пятницу|субботу|воскресенье)\b", re.I)
+LAT_TOD_X = re.compile(r"\b(утром|днём|днем|вечером|ночью|в\s*(\d{1,2})[:.](\d{2}))\b", re.I)
+# охраны: анонс будущего события; диапазон/дедлайн перед датой
+LAT_FUTURE_X = re.compile(
+    r"пройд[её]т|пройдут|состо[ия]|ожида[ею]|запланир|начн[её]т|начнут|откро[ею]|откроют|"
+    r"прибуд|приед|старту|намечен|будет|будут|готовит|завершит|продлит|планиру|объявят|вручат", re.I)
+LAT_PREP_X = re.compile(r"(?:до|с|к|по|после|через|за|спустя|на|около)\s+$", re.I)
+# пост-анонс («завлекаловка») не измеряется: событие ещё не случилось
+LAT_ANNOUNCE_X = re.compile(
+    r"приглаша\w+|жд[её]м (?:вас|тебя|всех)|приходи\w*|придите|не пропусти\w*|успей\w*|"
+    r"розыгрыш\w*|вход свободный|регистрац\w+|ты погрузишься|погружайся|"
+    r"могут (?:выбрать|проголосовать|принять участие|подать|записаться)", re.I)
+# день недели («в среду») неоднозначен — прошлая или следующая? принимаем только
+# при подтверждении глаголом прошедшего времени в окне вокруг маркера
+LAT_PAST_X = re.compile(
+    r"произош\w+|случило\w+|прош[её]л|прошла|прошли|состоял\w+|открыли|открылс\w+|запустили|стартовал\w+|"
+    r"сбил[аи]?\b|задержан\w*|задержал\w*|поврежд\w+|возник\w*|начал\w*|обрушил\w+|загорел\w+|упал\w*|"
+    r"приб\w+|приехал\w*|выехал\w*|выявил\w+|зафиксирован\w*|обнаруже\w+|введ[её]н\w*|отключ\w+|включ\w+|"
+    r"подписал\w*|вручил\w*|наградил\w*|завершил\w+|провели|пров[её]л|поступил\w+|скончал\w+|погиб\w*", re.I)
+
+
+def extract_event_time(text, pub):
+    """Время события из текста (datetime в UTC4) или None.
+
+    Маркеры: явные даты («14 сентября», «14.09», «14.09.2026»), относительные
+    («сегодня/вчера/позавчера/накануне»), день недели («в среду» — ближайший
+    прошедший, только при глаголе прошлого времени рядом); уточнение времени
+    суток («вечером»≈20, «в 18:30» — точно) в пределах 40 знаков после маркера.
+    Дата без времени — полдень (конвенция). Охраны: будущее событие (анонс),
+    диапазон («до 20 сентября»), явный год не года публикации (историческая
+    справка), посты-анонсы («приглашаем/ждём вас/розыгрыш…») целиком.
+    Берётся первый по тексту валидный маркер — лид-предложение обычно о событии.
+
+    Возвращает (datetime, kind) или None; kind: "time" — точное «в 18:30»,
+    "tod" — время суток, "day" — только дата. «day» + сегодняшняя дата =
+    «освещено в тот же день» — агрегатор метрики считает такие отдельно."""
+    if not pub or not text:
+        return None
+    blob = text[:900]
+    if LAT_ANNOUNCE_X.search(blob):          # анонс-«завлекаловка»: события ещё не было
+        return None
+
+    def _guarded(m):
+        pre = blob[max(0, m.start() - 14):m.start()]
+        if LAT_PREP_X.search(pre):
+            return True
+        ctx = blob[max(0, m.start() - 90):m.end() + 130]
+        return bool(LAT_FUTURE_X.search(ctx))
+
+    def _tod_after(pos):
+        m = LAT_TOD_X.search(blob[pos:pos + 40])
+        if not m:
+            return None                       # время не уточнено — решение за вызывающим
+        if m.group(2):
+            h = int(m.group(2))
+            return (h if 0 <= h <= 23 else 12), int(m.group(3)), "time"
+        return LAT_TOD_HOURS.get(m.group(1).lower(), 12), 0, "tod"
+
+    def _mk(d, tod):
+        """(datetime, точность): time — «в 18:30», tod — «вечером»≈20, day — только дата.
+        Дата без времени — полдень (конвенция); точность day у сегодняшней даты означает
+        «освещено в тот же день» — внутридневное запаздывание текст не восстанавливает."""
+        if tod:
+            return datetime(d.year, d.month, d.day, tod[0], tod[1], tzinfo=UTC4), tod[2]
+        return datetime(d.year, d.month, d.day, 12, 0, tzinfo=UTC4), "day"
+
+    def _add(pos, mk):
+        cands.append((pos, mk[0], mk[1]))
+
+    cands = []
+    for m in LAT_DAY_X.finditer(blob):
+        if _guarded(m):
+            continue
+        day = int(m.group(1))
+        if m.group(2):                       # «14 сентября»
+            mon = MONTHS.get(m.group(2).lower())
+            year = pub.year
+            ym = re.match(r"\w*\s*((?:19|20)\d{2})", blob[m.end():m.end() + 14])
+            if ym and int(ym.group(1)) != pub.year:
+                continue                     # историческая справка с иным годом
+        else:                                # «14.09[.2026]»
+            mon = int(m.group(3)) if m.group(3) else None
+            if not mon or mon > 12 or day > 31:
+                continue
+            year = int(m.group(4)) if m.group(4) else pub.year
+            if year != pub.year:             # историческая справка/далёкий анонс
+                continue
+        if not mon or not (1 <= day <= 31):
+            continue
+        try:
+            d = datetime(year, mon, day, tzinfo=UTC4).date()
+        except ValueError:
+            continue
+        if d > pub.date() + timedelta(days=1):   # будущая дата — анонс
+            continue
+        _add(m.start(), _mk(d, _tod_after(m.end())))
+    for m in LAT_REL_X.finditer(blob):
+        if _guarded(m):
+            continue
+        d = pub.date() - timedelta(days=LAT_REL_DAYS[m.group(1).lower()])
+        _add(m.start(), _mk(d, _tod_after(m.end())))
+    for m in LAT_MIND_X.finditer(blob):      # «минувшей ночью» ≈ «вчера ночью»
+        if _guarded(m):
+            continue
+        d = pub.date() - timedelta(days=1)
+        _add(m.start(), _mk(d, (LAT_TOD_HOURS.get(m.group(1).lower(), 12), 0, "tod")))
+    for m in LAT_WD_X.finditer(blob):
+        if _guarded(m):
+            continue
+        wctx = blob[max(0, m.start() - 130):m.end() + 170]
+        if not LAT_PAST_X.search(wctx):      # «в среду» без глагола прошлого — пропуск
+            continue
+        back = (pub.weekday() - LAT_WEEKDAY[m.group(1).lower()]) % 7
+        d = pub.date() - timedelta(days=back)
+        _add(m.start(), _mk(d, _tod_after(m.end())))
+    if not cands:
+        return None
+    cands.sort(key=lambda x: x[0])
+    return cands[0][1], cands[0][2]
+
+
 def build_infospace_ext(items, trends, cfg):
     """Волна 1 предложения v0.9: матрица территория×рубрика, ритм суток,
     динамика каскадов (полка жизни и скорость), индекс присутствия труда (TLI),
@@ -924,6 +1058,67 @@ def build_infospace_ext(items, trends, cfg):
                  "top": per.most_common(5),
                  "source": meta_p.get("source", "")}
     out["rural_index"] = rural
+
+    # 12) латентность освещения: часы от события до первой публикации (ось «время»)
+    lat_hours = []
+    lat_topics = defaultdict(list)
+    lat_tiers = defaultdict(list)
+    lat_samples = []
+    sameday_n = 0
+    for it in primaries:
+        pub = _local_dt(it.get("published"))
+        if not pub:
+            continue
+        got = extract_event_time((it.get("title") or "") + ". " + (it.get("text") or ""), pub)
+        if got is None:
+            continue
+        ev, kind = got
+        if kind == "day" and ev.date() == pub.date():
+            sameday_n += 1             # освещено в тот же день: <24 ч, точное значение текст не даёт
+            continue
+        raw_h = (pub - ev).total_seconds() / 3600.0
+        if raw_h < -2 or raw_h > 336:  # артефакты разбора и исторические справки — не латентность
+            continue
+        h = max(0.0, raw_h)            # отрицательные — артефакт допущения «полдень/время суток»
+        lat_hours.append(h)
+        lat_topics[it.get("category") or "?"].append(h)
+        lat_tiers[f"T{it['tier']}" if it.get("tier") else "СМИ/подборка"].append(h)
+        lat_samples.append({"h": round(h, 1), "title": (it.get("title") or "")[:90],
+                            "url": it.get("url") or "#"})
+
+    def _med(xs):
+        xs = sorted(xs)
+        return round(xs[len(xs) // 2], 1) if xs else None
+
+    latency = {}
+    if lat_hours or sameday_n:
+        meas_n = len(lat_hours)
+        tot_n = meas_n + sameday_n
+        cat_names = {c.get("id"): c.get("name") or c.get("id")
+                     for c in (cfg.get("categories") or [])}
+        topics = [(cat_names.get(k, k), _med(v), len(v))
+                  for k, v in lat_topics.items() if len(v) >= 5]
+        topics.sort(key=lambda x: -(x[1] or 0))
+        buckets = {
+            "<6ч": round(sum(1 for h in lat_hours if h < 6) / meas_n, 3) if meas_n else 0,
+            "6-24ч": round(sum(1 for h in lat_hours if 6 <= h < 24) / meas_n, 3) if meas_n else 0,
+            "24-48ч": round(sum(1 for h in lat_hours if 24 <= h < 48) / meas_n, 3) if meas_n else 0,
+            ">48ч": round(sum(1 for h in lat_hours if h >= 48) / meas_n, 3) if meas_n else 0,
+        }
+        latency = {
+            "n": meas_n,
+            "sameday_n": sameday_n,
+            "sameday_share": round(sameday_n / tot_n, 3) if tot_n else None,
+            "coverage": round(tot_n / len(primaries), 3) if primaries else None,
+            "median_h": _med(lat_hours),
+            "buckets": buckets,
+            "slow_topics": topics[:5],
+            "fast_topics": topics[-3:][::-1] if len(topics) > 5 else [],
+            "by_tier": {k: {"median_h": _med(v), "n": len(v)}
+                        for k, v in sorted(lat_tiers.items())},
+            "slowest": sorted(lat_samples, key=lambda x: -x["h"])[:3],
+        }
+    out["latency"] = latency
 
     return out
 

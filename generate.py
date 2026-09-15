@@ -2482,6 +2482,56 @@ def render_infospace(cfg, trends, store, status, info):
                          f'<span style="flex:1;background:var(--paper-2);border:1px solid var(--rule);height:14px;overflow:hidden;display:block;"><i style="display:block;height:100%;width:{max(2,int((x.get("fed_share") or 0)*100))}%;background:var(--ink-2);"></i></span>'
                          f'<span style="width:120px;font-size:11px;color:var(--muted);white-space:nowrap;">{round((x.get("fed_share") or 0)*100)}% · {x.get("n",0)} перв.</span></div>')
 
+        # латентность освещения (ось «время»)
+        lt = w1.get("latency") or {}
+        lt_card = ""
+        if lt.get("n") or lt.get("sameday_n"):
+            tot = (lt.get("n") or 0) + (lt.get("sameday_n") or 0)
+            b = lt.get("buckets") or {}
+            segs = [("в тот же день", "var(--ink)", (lt.get("sameday_n") or 0) / tot if tot else 0)]
+            for lbl, col in (("<6 ч", "var(--ink-2)"), ("6–24 ч", "#6D6079"),
+                             ("24–48 ч", "#B4795A"), (">48 ч", "var(--accent)")):
+                key = lbl.replace("–", "-").replace(" ч", "ч")
+                segs.append((lbl, col, (b.get(key) or 0) * ((lt.get("n") or 0) / tot if tot else 0)))
+            seg = legend = ""
+            for lbl, col, val in segs:
+                seg += f'<span title="{lbl}: {round(val * 100)}%" style="width:{max(1, round(val * 100))}%;background:{col};display:block;height:100%;"></span>'
+                legend += (f'<span style="display:inline-flex;align-items:center;gap:5px;margin-right:14px;">'
+                           f'<i style="width:10px;height:10px;background:{col};display:inline-block;"></i>{lbl} · {round(val * 100)}%</span>')
+            med = lt.get("median_h") or 1
+            lt_rows = "".join(
+                f'<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-family:var(--sans);font-size:12px;">'
+                f'<span style="width:220px;text-align:right;font-weight:600;color:var(--ink);flex-shrink:0;">{esc(str(t[0]))}</span>'
+                f'<span style="flex:1;background:var(--paper-2);border:1px solid var(--rule);height:14px;overflow:hidden;display:block;"><i style="display:block;height:100%;width:{max(2, min(100, int((t[1] or 0) / max(0.1, med) * 50)))}%;background:var(--accent);"></i></span>'
+                f'<span style="width:110px;font-size:11px;color:var(--muted);white-space:nowrap;">{t[1]} ч · n={t[2]}</span></div>'
+                for t in lt.get("slow_topics") or [])
+            tier_line = " · ".join(f"{esc(k)}: {v.get('median_h')} ч (n={v.get('n')})"
+                                   for k, v in (lt.get("by_tier") or {}).items()) or "—"
+            slow_lines = "".join(
+                f'<div style="display:flex;gap:12px;align-items:baseline;padding:5px 0;border-bottom:1px dashed var(--rule);font-size:13px;">'
+                f'<a href="{esc(x.get("url") or "#")}" target="_blank" rel="noopener" style="flex:1;min-width:0;color:var(--ink);">{esc(x.get("title", ""))}</a>'
+                f'<span style="font-family:var(--sans);font-size:11px;color:var(--muted);white-space:nowrap;">+{x.get("h", 0)} ч</span></div>'
+                for x in lt.get("slowest") or []) or '<div class="note">Измеримых задержек за неделю нет.</div>'
+            lt_card = f"""
+<div class="card"><div class="card-pad">
+<div class="side-head">Латентность освещения <span class="sub">сколько поле догоняет реальность · ось «время»</span></div>
+<div class="side-body">
+<div style="display:flex;gap:26px;align-items:baseline;margin-bottom:10px;flex-wrap:wrap;">
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_pct(lt.get('sameday_share'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">измеримых событий — освещены в тот же день</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;color:var(--accent);">{lt.get('median_h') if lt.get('median_h') is not None else '—'}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">ч — медианная задержка остальных ({lt.get('n', 0)} сообщ.)</span></div>
+<div><span style="font-family:var(--serif-display);font-size:26px;font-weight:700;">{_pct(lt.get('coverage'))}</span> <span style="font-family:var(--sans);font-size:11.5px;color:var(--muted);">первоисточников измеримы — у остальных нет маркеров времени</span></div>
+</div>
+<div style="display:flex;height:16px;border:1px solid var(--rule);overflow:hidden;margin-bottom:6px;">{seg}</div>
+<div style="font-family:var(--sans);font-size:10.5px;color:var(--muted);margin-bottom:4px;">{legend}</div>
+<div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Темы, которые догоняют медленнее · медиана, n≥5</div>
+{lt_rows}
+<div style="font-family:var(--sans);font-size:11.5px;color:var(--muted);margin:8px 0 4px;">По уровням источников: {tier_line}</div>
+<div style="margin:12px 0 6px;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Самые долгие задержки недели</div>
+{slow_lines}
+<div class="note">Время события извлекается из текста первоисточника по маркерам: явные даты («14 сентября», «14.09»), относительные слова («вчера», «накануне», «минувшей ночью»), день недели («в среду» — только рядом с глаголом прошлого времени); время суток уточняет час («вечером»≈20:00, «в 18:30» — точно), прошедшая дата без времени — полдень. Охраны отсекают анонсы (глаголы будущего времени, «приглашаем/ждём вас»), диапазоны («до 20 сентября») и исторические справки (иной год). «Сегодня» без времени — отдельный класс «в тот же день»: точное запаздывание текст не восстанавливает. Выборка смещена: точное время чаще указывают у вчерашних событий — медиану читайте как задержку «датированных» событий; разрезы по темам и уровням сопоставимы между собой. Оценка ориентировочная. Считаются только первоисточники: скорость подхватов — в блоке «Динамика каскадов».</div>
+</div></div></div>
+"""
+
         w1_html = f"""
 <div class="sec-head"><h2>Волна 1: деньги, труд, время и территория</h2><div class="line"></div>
 <div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план расширения раздела v0.9 →</a> · метрики подключены 15.09</div></div>
@@ -2572,6 +2622,7 @@ def render_infospace(cfg, trends, store, status, info):
 {fed_rows}
 <div class="note">Доля первичных сообщений источника без региональных маркеров (топонимы, фамилии руководителей, местные предприятия): чем выше, тем больше канал ретранслирует федеральную повестку вместо своей. Высокая доля у агрегаторов — признак конвейерного копирования; у официальных каналов норма ниже.</div>
 </div></div></div>
+{lt_card}
 """
 
     # ── Волна 2 (sources_registry.json): кто пишет и кто читает ──

@@ -665,3 +665,114 @@ class TestInfospaceW2Vk(unittest.TestCase):
         self.assertEqual(pl["commercial"]["n"], 1)
         self.assertEqual(pl["commercial"]["marked"], 1)
         self.assertEqual(pl["crosspromo"]["n"], 0)
+
+
+class TestEventLatency(unittest.TestCase):
+    """Латентность «событие → публикация»: извлечение времени события из текста."""
+
+    from datetime import datetime as _dt, timedelta as _td, timezone as _tz
+    UTC4 = _tz(_td(hours=4))
+    PUB = _dt(2026, 9, 15, 9, 0, tzinfo=UTC4)   # вторник
+
+    def ev(self, text):
+        got = analytics.extract_event_time(text, self.PUB)
+        return got[0] if got else None
+
+    def test_yesterday_with_evening(self):
+        ev = self.ev("Вчера вечером на проспекте сбили пешехода.")
+        self.assertEqual((ev.day, ev.month, ev.hour), (14, 9, 20))
+
+    def test_today_exact_time(self):
+        ev = self.ev("Сегодня в 7:49 произошло ДТП на пересечении.")
+        self.assertEqual((ev.day, ev.hour, ev.minute), (15, 7, 49))
+
+    def test_explicit_date_noon_default(self):
+        ev = self.ev("13 сентября губернатор открыл парк.")
+        self.assertEqual((ev.day, ev.month, ev.hour), (13, 9, 12))
+
+    def test_numeric_date(self):
+        ev = self.ev("09.09.2026г в 7:49 пересечение пр-т Ульяновский.")
+        self.assertEqual((ev.day, ev.month), (9, 9))
+
+    def test_weekday_needs_past_verb(self):
+        # «в среду» + глагол прошлого — принимаем ближайшую прошедшую среду
+        ev = self.ev("В среду на улице Гончарова загорелся гараж.")
+        self.assertEqual(ev.day, 9)          # 09.09 — среда перед вторником 15.09
+        # без глагола прошлого — пропускаем (неоднозначность: прошедшая или следующая)
+        self.assertIsNone(self.ev("В среду состоится приём граждан."))
+
+    def test_future_announce_skipped(self):
+        self.assertIsNone(self.ev("Фестиваль пройдёт 20 сентября, приглашаем всех."))
+        self.assertIsNone(self.ev("Уже 12 сентября в 22:00 ты погрузишься в атмосферу."))
+        self.assertIsNone(self.ev("Приглашаем вас на экофестиваль 2 сентября."))
+
+    def test_range_and_deadline_skipped(self):
+        self.assertIsNone(self.ev("Горячую воду отключат до 20 сентября."))
+        self.assertIsNone(self.ev("Ремонт ведётся с 1 сентября по 30 октября."))
+
+    def test_history_other_year_skipped(self):
+        self.assertIsNone(self.ev("Завод построили 5 сентября 1974 года."))
+
+    def test_minduvshaya_noch(self):
+        ev = self.ev("Минувшей ночью сбили беспилотник над областью.")
+        self.assertEqual((ev.day, ev.hour), (14, 2))
+
+    def test_first_marker_wins(self):
+        ev = self.ev("Сегодня утром коммунальщики вышли на улицу. Напомним, 10 сентября было совещание.")
+        self.assertEqual(ev.day, 15)
+
+    def test_no_marker(self):
+        self.assertIsNone(self.ev("Губернатор провёл совещание по развитию."))
+        self.assertIsNone(self.ev(""))
+
+    def test_sameday_kind_is_day(self):
+        got = analytics.extract_event_time("Сегодня в городе стартовал фестиваль.", self.PUB)
+        self.assertIsNotNone(got)
+        ev, kind = got
+        self.assertEqual(kind, "day")
+        self.assertEqual(ev.date(), self.PUB.date())
+
+    def test_exact_time_kind(self):
+        _, kind = analytics.extract_event_time("Сегодня в 7:49 произошло ДТП.", self.PUB)
+        self.assertEqual(kind, "time")
+
+
+class TestInfospaceW1Latency(unittest.TestCase):
+    """Агрегация латентности в build_infospace_ext."""
+
+    CFG = TestInfospaceW1.CFG_W1
+
+    def _it(self, id, hours_ago, title="Новость", text="", category="society", tier=None):
+        return TestInfospaceW1._it(self, id, hours_ago, title=title, text=text,
+                                   category=category, tier=tier)
+
+    def test_latency_aggregation(self):
+        items = [
+            self._it("a", 3, text="Вчера вечером произошло ДТП на проспекте."),           # raw > 0 при любом часе запуска
+            self._it("b", 2, text="Вчера в 8:00 открыли выставку."),                     # точное время → измеряемо
+            self._it("c", 5, text="Обычная новость без временных маркеров."),             # нет события
+            self._it("d", 4, text="То же событие, перепечатка", category="security"),
+        ]
+        items[3]["dup_of"] = "a"                                                          # не первоисточник
+        r = analytics.build_infospace_ext(items, None, self.CFG)
+        lt = r["latency"]
+        self.assertEqual(lt["n"], 2)                # только первоисточники с извлечённым временем
+        self.assertAlmostEqual(lt["coverage"], 2 / 3, places=2)
+        self.assertIsNotNone(lt["median_h"])
+        self.assertGreaterEqual(lt["median_h"], 0.0)
+        self.assertEqual(sum(lt["buckets"].values()), 1.0)
+
+    def test_sameday_counted_separately(self):
+        # «сегодня» без времени суток: точная задержка неизмерима — отдельный класс, не медиана
+        items = [self._it("a", 1, text="Сегодня в городе стартовал фестиваль.")]
+        r = analytics.build_infospace_ext(items, None, self.CFG)
+        lt = r["latency"]
+        self.assertEqual(lt["sameday_n"], 1)
+        self.assertEqual(lt["n"], 0)
+        self.assertIsNone(lt["median_h"])
+        self.assertEqual(lt["sameday_share"], 1.0)
+
+    def test_latency_empty_when_nothing_extracted(self):
+        items = [self._it("a", 3, text="Новость без маркеров времени.")]
+        r = analytics.build_infospace_ext(items, None, self.CFG)
+        self.assertEqual(r["latency"], {})
