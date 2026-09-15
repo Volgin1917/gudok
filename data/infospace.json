@@ -1,18 +1,18 @@
 {
- "generated_local": "15.09.2026 10:58",
- "week_items": 1512,
- "week_primaries": 1233,
- "week_dups": 279,
+ "generated_local": "15.09.2026 12:59",
+ "week_items": 1558,
+ "week_primaries": 1274,
+ "week_dups": 284,
  "metrics": {
   "original_share": 82,
-  "concentration_top3": 27,
+  "concentration_top3": 28,
   "avg_cascade": 2.7,
   "muni_coverage": 100,
   "tone_volatility": 0.08,
   "alert_share": 23
  },
  "natproj": {
-  "total": 19,
+  "total": 20,
   "share": 1.3,
   "by_project": [
    [
@@ -25,7 +25,7 @@
    ],
    [
     "Семья",
-    2
+    3
    ],
    [
     "Экологическое благополучие",
@@ -42,34 +42,38 @@
    [
     "Молодёжь России",
     1
+   ],
+   [
+    "Здравоохранение",
+    1
    ]
   ],
-  "tone": 0.54
+  "tone": 0.52
  },
  "muni_agenda": [
   {
    "name": "Димитровград",
-   "mentions": 70,
-   "subject": 51,
-   "tone": 0.11,
+   "mentions": 73,
+   "subject": 54,
+   "tone": 0.13,
    "sources": 16,
-   "own": 37
-  },
-  {
-   "name": "Инзенский р-н",
-   "mentions": 18,
-   "subject": 12,
-   "tone": -0.56,
-   "sources": 12,
-   "own": 0
+   "own": 38
   },
   {
    "name": "Новоспасский р-н",
-   "mentions": 18,
+   "mentions": 20,
    "subject": 4,
    "tone": -0.52,
-   "sources": 14,
+   "sources": 16,
    "own": 1
+  },
+  {
+   "name": "Инзенский р-н",
+   "mentions": 19,
+   "subject": 13,
+   "tone": -0.58,
+   "sources": 12,
+   "own": 0
   },
   {
    "name": "Радищевский р-н",
@@ -81,19 +85,27 @@
   },
   {
    "name": "Барышский р-н",
-   "mentions": 12,
-   "subject": 9,
-   "tone": -0.75,
-   "sources": 10,
+   "mentions": 15,
+   "subject": 10,
+   "tone": -0.67,
+   "sources": 11,
    "own": 0
   },
   {
    "name": "Карсунский р-н",
-   "mentions": 12,
+   "mentions": 13,
    "subject": 9,
-   "tone": -0.58,
+   "tone": -0.54,
    "sources": 10,
    "own": 0
+  },
+  {
+   "name": "Мелекесский р-н",
+   "mentions": 12,
+   "subject": 4,
+   "tone": 0.17,
+   "sources": 7,
+   "own": 4
   },
   {
    "name": "Павловский р-н",
@@ -105,10 +117,10 @@
   },
   {
    "name": "Кузоватовский р-н",
-   "mentions": 10,
-   "subject": 7,
-   "tone": -0.47,
-   "sources": 7,
+   "mentions": 11,
+   "subject": 8,
+   "tone": -0.42,
+   "sources": 8,
    "own": 0
   },
   {
@@ -120,14 +132,6 @@
    "own": 0
   },
   {
-   "name": "Мелекесский р-н",
-   "mentions": 8,
-   "subject": 3,
-   "tone": 0.12,
-   "sources": 5,
-   "own": 4
-  },
-  {
    "name": "Цильнинский р-н",
    "mentions": 8,
    "subject": 6,
@@ -137,15 +141,15 @@
   },
   {
    "name": "Сенгилеевский р-н",
-   "mentions": 6,
+   "mentions": 7,
    "subject": 2,
-   "tone": -0.28,
+   "tone": -0.24,
    "sources": 5,
    "own": 0
   }
  ],
  "muni_summary": {
-  "own_share": 30,
+  "own_share": 29,
   "voiced_own": [
    "Димитровград",
    "Новоспасский р-н",
@@ -170,42 +174,42 @@
   ]
  },
  "by_type": {
-  "tg": 1284,
-  "seed": 45,
-  "rss": 183
+  "tg": 1323,
+  "seed": 44,
+  "rss": 191
  },
  "by_tier": {
-  "T3": 173,
-  "СМИ/подборка": 228,
-  "T1": 369,
-  "T2": 742
+  "T1": 383,
+  "T2": 765,
+  "T3": 175,
+  "СМИ/подборка": 235
  },
  "orig_by_tier": {
   "T1": {
-   "total": 369,
-   "original": 0.83
+   "total": 383,
+   "original": 0.84
   },
   "T2": {
-   "total": 742,
+   "total": 765,
    "original": 0.77
   },
   "T3": {
-   "total": 173,
+   "total": 175,
    "original": 0.81
   },
   "СМИ/подборка": {
-   "total": 228,
+   "total": 235,
    "original": 0.95
   }
  },
  "setters": [
   [
    "Улпресса",
-   29
+   30
   ],
   [
    "ulpressa",
-   25
+   26
   ],
   [
    "tresh_ulyan",
@@ -217,7 +221,7 @@
   ],
   [
    "insaid173",
-   8
+   10
   ],
   [
    "ulkompr",
@@ -246,7 +250,7 @@
    "url": "https://t.me/ulpressa/74455"
   },
   {
-   "size": 14,
+   "size": 15,
    "title": "⚡️ Дежурными средствами ПВО над территорией нашего региона перехвачено и уничтожено 3 вражеских БПЛА",
    "source": "Russkih_Aleksey",
    "also": [
@@ -305,29 +309,29 @@
   }
  ],
  "tone_by_tier": {
-  "T1": 0.186,
-  "T2": 0.048,
-  "T3": 0.177,
-  "СМИ/подборка": 0.051
+  "T1": 0.184,
+  "T2": 0.043,
+  "T3": 0.175,
+  "СМИ/подборка": 0.049
  },
- "federal_share": 0.49,
+ "federal_share": 0.48,
  "municipal": {
-  "Димитровград": 70,
-  "Инзенский р-н": 18,
-  "Новоспасский р-н": 18,
+  "Димитровград": 73,
+  "Новоспасский р-н": 20,
+  "Инзенский р-н": 19,
   "Радищевский р-н": 16,
-  "Барышский р-н": 12,
-  "Карсунский р-н": 12,
+  "Барышский р-н": 15,
+  "Карсунский р-н": 13,
+  "Мелекесский р-н": 12,
   "Павловский р-н": 12,
-  "Кузоватовский р-н": 10,
+  "Кузоватовский р-н": 11,
   "Вешкаймский р-н": 8,
-  "Мелекесский р-н": 8,
   "Цильнинский р-н": 8,
-  "Сенгилеевский р-н": 6,
-  "Чердаклинский р-н": 6,
+  "Сенгилеевский р-н": 7,
+  "Чердаклинский р-н": 7,
+  "Майнский р-н": 4,
   "Новомалыклинский р-н": 4,
-  "Майнский р-н": 3,
-  "Сурский р-н": 3,
+  "Сурский р-н": 4,
   "Новоульяновск": 2,
   "Старокулаткинский р-н": 2,
   "Ульяновский р-н": 2,
@@ -351,14 +355,14 @@
   0,
   0,
   0,
-  33,
+  26,
   69,
   221,
   392,
   173,
   195,
   320,
-  109
+  162
  ],
  "days": [
   "2026-09-02",
@@ -409,8 +413,8 @@
   },
   {
    "date": "2026-09-08",
-   "score": 0.0,
-   "n": 29
+   "score": 0.045,
+   "n": 22
   },
   {
    "date": "2026-09-09",
@@ -444,76 +448,76 @@
   },
   {
    "date": "2026-09-15",
-   "score": 0.0,
-   "n": 87
+   "score": -0.007,
+   "n": 135
   }
  ],
  "wow": {
-  "this": 1512,
-  "prev": 59,
-  "delta": 2463
+  "this": 1558,
+  "prev": 65,
+  "delta": 2297
  },
  "topic_wow": [
   {
    "name": "Транспорт и дороги",
-   "this": 226,
+   "this": 239,
    "prev": 15,
-   "delta": 1407
+   "delta": 1493
   },
   {
    "name": "Суды и криминал",
-   "this": 224,
+   "this": 231,
    "prev": 17,
-   "delta": 1218
+   "delta": 1259
   },
   {
    "name": "Школы и вузы",
-   "this": 182,
+   "this": 191,
    "prev": 13,
-   "delta": 1300
+   "delta": 1369
   },
   {
    "name": "Губернатор / власть",
-   "this": 179,
+   "this": 186,
    "prev": 18,
-   "delta": 894
+   "delta": 933
   },
   {
    "name": "Спорт",
-   "this": 136,
+   "this": 142,
    "prev": 11,
-   "delta": 1136
+   "delta": 1191
   },
   {
    "name": "Культура и туризм",
-   "this": 130,
+   "this": 135,
    "prev": 23,
-   "delta": 465
-  },
-  {
-   "name": "Городская среда",
-   "this": 123,
-   "prev": 13,
-   "delta": 846
+   "delta": 487
   },
   {
    "name": "БПЛА и воздушные угрозы",
-   "this": 122,
+   "this": 128,
    "prev": 5,
-   "delta": 2340
+   "delta": 2460
+  },
+  {
+   "name": "Городская среда",
+   "this": 125,
+   "prev": 13,
+   "delta": 862
   }
  ],
  "conclusions": [
-  "Резко усилились темы: «Транспорт и дороги» (+1407%), «Суды и криминал» (+1218%), «Школы и вузы» (+1300%).",
-  "За 7 дней поток составил 1512 сообщений, из них оригинальных (не перепечаток) — 82%.",
-  "Повестку задают: Улпресса (первичен в 29 каскадах), ulpressa (первичен в 25 каскадах), tresh_ulyan (первичен в 20 каскадах).",
+  "Резко усилились темы: «Транспорт и дороги» (+1493%), «Суды и криминал» (+1259%), «Школы и вузы» (+1369%).",
+  "За 7 дней поток составил 1558 сообщений, из них оригинальных (не перепечаток) — 82%.",
+  "Повестку задают: Улпресса (первичен в 30 каскадах), ulpressa (первичен в 26 каскадах), tresh_ulyan (первичен в 20 каскадах).",
   "Крупнейший каскад недели — «В Ульяновской области снят режим \"Беспилотная опасность\" Мы в Telegram» (×20 источников).",
-  "Федеральное эхо: 49% оригинальных сообщений не про регион напрямую.",
+  "Федеральное эхо: 48% оригинальных сообщений не про регион напрямую.",
   "На грани видимости (1–2 упоминания): Новоульяновск, Николаевский р-н, Старокулаткинский р-н, Старомайнский р-н, Тереньгульский р-н, Ульяновский р-н."
  ],
  "w1": {
-  "generated_local": "15.09.2026 10:58",
-  "week_items": 1512,
+  "generated_local": "15.09.2026 12:59",
+  "week_items": 1558,
   "matrix": {
    "cats": [
     {
@@ -556,46 +560,46 @@
    "rows": [
     {
      "muni": "Димитровград",
-     "total": 70,
+     "total": 73,
      "cats": {
       "politics": 9,
       "security": 26,
-      "economy": 4,
+      "economy": 5,
       "agro": 0,
-      "society": 21,
+      "society": 22,
       "health": 2,
       "education": 5,
       "sport": 1,
-      "culture": 2
+      "culture": 3
+     }
+    },
+    {
+     "muni": "Новоспасский р-н",
+     "total": 20,
+     "cats": {
+      "politics": 0,
+      "security": 16,
+      "economy": 0,
+      "agro": 0,
+      "society": 2,
+      "health": 0,
+      "education": 0,
+      "sport": 2,
+      "culture": 0
      }
     },
     {
      "muni": "Инзенский р-н",
-     "total": 18,
+     "total": 19,
      "cats": {
       "politics": 1,
       "security": 10,
       "economy": 0,
       "agro": 0,
       "society": 7,
-      "health": 0,
+      "health": 1,
       "education": 0,
       "sport": 0,
-      "culture": 0
-     }
-    },
-    {
-     "muni": "Новоспасский р-н",
-     "total": 18,
-     "cats": {
-      "politics": 0,
-      "security": 15,
-      "economy": 0,
-      "agro": 0,
-      "society": 2,
-      "health": 0,
-      "education": 0,
-      "sport": 1,
       "culture": 0
      }
     },
@@ -616,14 +620,14 @@
     },
     {
      "muni": "Барышский р-н",
-     "total": 12,
+     "total": 15,
      "cats": {
       "politics": 0,
       "security": 8,
       "economy": 0,
       "agro": 0,
-      "society": 4,
-      "health": 0,
+      "society": 5,
+      "health": 2,
       "education": 0,
       "sport": 0,
       "culture": 0
@@ -631,17 +635,32 @@
     },
     {
      "muni": "Карсунский р-н",
-     "total": 12,
+     "total": 13,
      "cats": {
       "politics": 0,
       "security": 8,
       "economy": 0,
       "agro": 0,
-      "society": 4,
+      "society": 5,
       "health": 0,
       "education": 0,
       "sport": 0,
       "culture": 0
+     }
+    },
+    {
+     "muni": "Мелекесский р-н",
+     "total": 12,
+     "cats": {
+      "politics": 1,
+      "security": 2,
+      "economy": 1,
+      "agro": 0,
+      "society": 4,
+      "health": 0,
+      "education": 1,
+      "sport": 0,
+      "culture": 3
      }
     },
     {
@@ -661,13 +680,13 @@
     },
     {
      "muni": "Кузоватовский р-н",
-     "total": 10,
+     "total": 11,
      "cats": {
       "politics": 0,
       "security": 5,
       "economy": 0,
       "agro": 0,
-      "society": 5,
+      "society": 6,
       "health": 0,
       "education": 0,
       "sport": 0,
@@ -688,21 +707,6 @@
       "sport": 0,
       "culture": 0
      }
-    },
-    {
-     "muni": "Мелекесский р-н",
-     "total": 8,
-     "cats": {
-      "politics": 1,
-      "security": 2,
-      "economy": 1,
-      "agro": 0,
-      "society": 3,
-      "health": 0,
-      "education": 0,
-      "sport": 0,
-      "culture": 1
-     }
     }
    ]
   },
@@ -718,9 +722,9 @@
     27,
     57,
     98,
-    123,
-    57,
-    65,
+    125,
+    81,
+    85,
     76,
     71,
     69,
@@ -759,11 +763,11 @@
     10,
     6
    ],
-   "night_share": 0.036,
-   "weekend_share": 0.243
+   "night_share": 0.035,
+   "weekend_share": 0.236
   },
   "cascade_time": {
-   "n": 166,
+   "n": 170,
    "median_span_h": 1.5,
    "fastest": [
     {
@@ -806,14 +810,14 @@
   "tli": {
    "groups": {
     "рабочие и инженеры": {
-     "mentioned": 97,
+     "mentioned": 99,
      "speaks": 6,
-     "share": 0.062
+     "share": 0.061
     },
     "учителя": {
-     "mentioned": 24,
-     "speaks": 4,
-     "share": 0.167
+     "mentioned": 25,
+     "speaks": 5,
+     "share": 0.2
     },
     "медики": {
      "mentioned": 39,
@@ -821,9 +825,9 @@
      "share": 0.0
     },
     "водители и транспортники": {
-     "mentioned": 107,
+     "mentioned": 106,
      "speaks": 12,
-     "share": 0.112
+     "share": 0.113
     },
     "селяне и фермеры": {
      "mentioned": 9,
@@ -831,62 +835,62 @@
      "share": 0.111
     },
     "студенты": {
-     "mentioned": 19,
+     "mentioned": 20,
      "speaks": 3,
-     "share": 0.158
+     "share": 0.15
     }
    },
-   "mentioned": 295,
-   "speaks": 26,
-   "index": 0.088,
+   "mentioned": 298,
+   "speaks": 27,
+   "index": 0.091,
    "verdict": "труд невидим"
   },
   "emoji": {
    "T1": {
-    "total": 369,
-    "with_emoji": 0.542
+    "total": 383,
+    "with_emoji": 0.54
    },
    "T2": {
-    "total": 742,
-    "with_emoji": 0.623
+    "total": 765,
+    "with_emoji": 0.621
    },
    "T3": {
-    "total": 173,
-    "with_emoji": 0.329
+    "total": 175,
+    "with_emoji": 0.32
    },
    "СМИ/подборка": {
-    "total": 228,
+    "total": 235,
     "with_emoji": 0.0
    }
   },
   "budget_voice": {
-   "t1_share_flow": 0.244,
-   "t1_share_primaries": 0.249,
+   "t1_share_flow": 0.246,
+   "t1_share_primaries": 0.251,
    "echo_of_t1": 0.419,
-   "echo_n": 117,
-   "dups_n": 279
+   "echo_n": 119,
+   "dups_n": 284
   },
   "bureaucratese": {
    "by_tier": {
     "T1": {
-     "total": 369,
+     "total": 383,
      "with_marker": 16,
-     "share": 0.043
+     "share": 0.042
     },
     "T2": {
-     "total": 742,
+     "total": 765,
      "with_marker": 14,
-     "share": 0.019
+     "share": 0.018
     },
     "T3": {
-     "total": 173,
+     "total": 175,
      "with_marker": 2,
-     "share": 0.012
+     "share": 0.011
     },
     "СМИ/подборка": {
-     "total": 228,
-     "with_marker": 21,
-     "share": 0.092
+     "total": 235,
+     "with_marker": 22,
+     "share": 0.094
     }
    },
    "top_markers": [
@@ -904,7 +908,7 @@
     ],
     [
      "грант",
-     6
+     7
     ],
     [
      "капитальный ремонт",
@@ -956,29 +960,29 @@
     },
     {
      "date": "2026-09-15",
-     "share": 0.394,
-     "n": 109,
-     "sec": 43
+     "share": 0.333,
+     "n": 162,
+     "sec": 54
     }
    ],
-   "avg": 0.232,
+   "avg": 0.223,
    "verdict": "высокая тревожность"
   },
   "zhkh": {
-   "n": 43,
-   "share": 0.028,
-   "tone": 0.136,
+   "n": 48,
+   "share": 0.031,
+   "tone": 0.172,
    "top_sources": [
     [
      "Улпресса",
-     7
+     8
     ],
     [
      "Media73",
      3
     ],
     [
-     "ulyanovsk_smi",
+     "ulpressa",
      3
     ]
    ]
@@ -986,23 +990,28 @@
   "federal_by_source": [
    {
     "source": "Улпресса",
-    "n": 168,
+    "n": 177,
     "fed_share": 0.29
    },
    {
     "source": "ulpressa",
-    "n": 99,
-    "fed_share": 0.54
+    "n": 104,
+    "fed_share": 0.55
    },
    {
     "source": "tresh_ulyan",
-    "n": 83,
-    "fed_share": 0.78
+    "n": 86,
+    "fed_share": 0.79
    },
    {
     "source": "ulyanovsk_smi",
-    "n": 71,
+    "n": 72,
     "fed_share": 0.46
+   },
+   {
+    "source": "chpul",
+    "n": 49,
+    "fed_share": 0.67
    },
    {
     "source": "topor_ul",
@@ -1010,33 +1019,28 @@
     "fed_share": 0.6
    },
    {
-    "source": "chpul",
-    "n": 48,
-    "fed_share": 0.69
-   },
-   {
     "source": "insaid173",
-    "n": 45,
-    "fed_share": 0.53
+    "n": 48,
+    "fed_share": 0.54
    },
    {
-    "source": "fcvolga",
-    "n": 44,
-    "fed_share": 0.82
+    "source": "ulsk_73online",
+    "n": 48,
+    "fed_share": 0.33
    }
   ],
   "rural_index": {
-   "agenda_share": 0.08,
+   "agenda_share": 0.084,
    "pop_share": 0.349,
-   "index": 0.23,
-   "hits": 121,
+   "index": 0.24,
+   "hits": 131,
    "pop_sum": 412618,
    "rural_pop_share": 0.23,
    "verdict": "символическое исключение",
    "top": [
     [
      "Новоспасский р-н",
-     18
+     20
     ],
     [
      "Радищевский р-н",
@@ -1044,7 +1048,7 @@
     ],
     [
      "Барышский р-н",
-     12
+     15
     ],
     [
      "Павловский р-н",
@@ -1052,22 +1056,22 @@
     ],
     [
      "Кузоватовский р-н",
-     10
+     11
     ]
    ],
    "source": "Ульяновскстат (Росстат), численность постоянного населения МО на 01.01.2023, с учётом итогов ВПН-2020"
   },
   "latency": {
-   "n": 58,
-   "sameday_n": 82,
-   "sameday_share": 0.586,
+   "n": 62,
+   "sameday_n": 83,
+   "sameday_share": 0.572,
    "coverage": 0.114,
-   "median_h": 24.8,
+   "median_h": 24.6,
    "buckets": {
-    "<6ч": 0.138,
-    "6-24ч": 0.31,
-    "24-48ч": 0.397,
-    ">48ч": 0.155
+    "<6ч": 0.129,
+    "6-24ч": 0.323,
+    "24-48ч": 0.403,
+    ">48ч": 0.145
    },
    "slow_topics": [
     [
@@ -1086,28 +1090,33 @@
      17
     ],
     [
+     "Здравоохранение",
+     24.5,
+     6
+    ],
+    [
      "Общество и городская среда",
-     24.9,
-     18
+     24.2,
+     20
     ]
    ],
    "fast_topics": [],
    "by_tier": {
     "T1": {
-     "median_h": 24.5,
-     "n": 5
+     "median_h": 23.4,
+     "n": 7
     },
     "T2": {
-     "median_h": 25.0,
-     "n": 24
+     "median_h": 24.5,
+     "n": 25
     },
     "T3": {
      "median_h": 24.8,
      "n": 1
     },
     "СМИ/подборка": {
-     "median_h": 24.9,
-     "n": 28
+     "median_h": 24.7,
+     "n": 29
     }
    },
    "slowest": [
@@ -1130,19 +1139,19 @@
   }
  },
  "w2": {
-  "generated_local": "15.09.2026 10:58",
-  "week_items": 1512,
+  "generated_local": "15.09.2026 12:59",
+  "week_items": 1558,
   "registry_sources": 45,
   "producer_mix": {
    "week": {
-    "агрегатор": 742,
-    "редакция": 445,
-    "авторский канал": 150,
-    "пресс-служба": 147,
-    "промо/коммерция": 23,
+    "агрегатор": 765,
+    "редакция": 464,
+    "авторский канал": 154,
+    "пресс-служба": 149,
+    "промо/коммерция": 21,
     "не атрибутирован": 5
    },
-   "week_n": 1512,
+   "week_n": 1558,
    "daily": [
     {
      "date": "2026-09-09",
@@ -1214,67 +1223,67 @@
     },
     {
      "date": "2026-09-15",
-     "n": 109,
+     "n": 162,
      "mix": {
-      "агрегатор": 0.505,
-      "редакция": 0.413,
-      "авторский канал": 0.046,
-      "промо/коммерция": 0.009,
-      "пресс-служба": 0.028
+      "агрегатор": 0.481,
+      "редакция": 0.414,
+      "авторский канал": 0.062,
+      "промо/коммерция": 0.006,
+      "пресс-служба": 0.037
      }
     }
    ]
   },
   "attention": {
-   "total_views": 2877914,
-   "gini": 0.721,
-   "top3_share": 0.573,
+   "total_views": 2907778,
+   "gini": 0.723,
+   "top3_share": 0.575,
    "top": [
     {
      "source": "tresh_ulyan",
-     "views": 981869,
-     "share": 0.341
+     "views": 994499,
+     "share": 0.342
     },
     {
      "source": "insaid173",
-     "views": 440101,
-     "share": 0.153
+     "views": 449921,
+     "share": 0.155
     },
     {
      "source": "chpulsk",
      "views": 226923,
-     "share": 0.079
+     "share": 0.078
     },
     {
      "source": "ulpressa",
-     "views": 159594,
-     "share": 0.055
+     "views": 161828,
+     "share": 0.056
     },
     {
      "source": "ulpatriot",
-     "views": 150262,
-     "share": 0.052
+     "views": 152782,
+     "share": 0.053
     }
    ],
    "n_sources": 32
   },
   "speech": {
-   "official": 62,
-   "citizen": 73,
-   "ratio": 1.18
+   "official": 63,
+   "citizen": 76,
+   "ratio": 1.21
   },
   "promo_load": {
-   "n": 142,
-   "share": 0.0939,
+   "n": 163,
+   "share": 0.1046,
    "by_tier": {
-    "T2": 80,
-    "T1": 57,
-    "T3": 4,
+    "T2": 91,
+    "T1": 66,
+    "T3": 5,
     "СМИ/подборка": 1
    },
    "commercial": {
     "n": 19,
-    "share": 0.0126,
+    "share": 0.0122,
     "marked": 10,
     "by_tier": {
      "T3": 4,
@@ -1283,18 +1292,19 @@
     }
    },
    "crosspromo": {
-    "n": 123,
-    "share": 0.0813,
+    "n": 144,
+    "share": 0.0924,
     "by_tier": {
-     "T2": 66,
-     "T1": 57
+     "T2": 77,
+     "T1": 66,
+     "T3": 1
     },
     "by_source": {
-     "ulpressa": 49,
-     "ulyanovsk_smi": 30,
-     "ulsk_73online": 21,
+     "ulpressa": 53,
+     "ulyanovsk_smi": 32,
+     "ulsk_73online": 25,
      "chpulsk": 10,
-     "reporter73": 4
+     "reporter73": 6
     }
    }
   },
@@ -1310,84 +1320,84 @@
   ]
  },
  "w3": {
-  "generated_local": "15.09.2026 10:58",
+  "generated_local": "15.09.2026 12:59",
   "registry_sources": 45,
-  "week_items": 1512,
-  "hhi": 685,
-  "hhi_confirmed": 3035,
-  "confirmed_flow_share": 0.3836,
+  "week_items": 1558,
+  "hhi": 697,
+  "hhi_confirmed": 3078,
+  "confirmed_flow_share": 0.3864,
   "verdict": "высокая концентрация",
   "verdict_all": "низкая концентрация",
   "groups": {
    "аноним": {
-    "flow": 915,
-    "share": 0.6052,
+    "flow": 940,
+    "share": 0.6033,
     "n": 21
    },
    "частный бизнес": {
-    "flow": 354,
-    "share": 0.2341,
+    "flow": 370,
+    "share": 0.2375,
     "n": 4
    },
    "государство": {
-    "flow": 94,
-    "share": 0.0622,
+    "flow": 98,
+    "share": 0.0629,
     "n": 3
    },
    "официальные": {
-    "flow": 88,
-    "share": 0.0582,
+    "flow": 90,
+    "share": 0.0578,
     "n": 5
    },
    "не установлен": {
-    "flow": 56,
-    "share": 0.037,
+    "flow": 55,
+    "share": 0.0353,
     "n": 2
    },
    "вне реестра": {
     "flow": 5,
-    "share": 0.0033,
+    "share": 0.0032,
     "n": 5
    }
   },
-  "state_official_share": 0.1204,
-  "anon_share": 0.6085,
+  "state_official_share": 0.1207,
+  "anon_share": 0.6065,
   "top_owners": [
    {
     "name": "ООО «Симбирск-Паблисити» (ИНН 7325027230)",
     "form": "частный бизнес",
     "n_sources": 2,
-    "share": 0.2011
+    "share": 0.2041
    },
    {
     "name": "@tresh_ulyan",
     "form": "аноним",
     "n_sources": 1,
-    "share": 0.0714
+    "share": 0.0712
    },
    {
     "name": "@ulyanovsk_smi",
     "form": "аноним",
     "n_sources": 1,
-    "share": 0.0562
+    "share": 0.0558
    },
    {
     "name": "@chpul",
     "form": "аноним",
     "n_sources": 1,
-    "share": 0.047
+    "share": 0.0462
    },
    {
     "name": "@chpulsk",
     "form": "аноним",
     "n_sources": 1,
-    "share": 0.0463
+    "share": 0.0449
    },
    {
     "name": "@insaid173",
     "form": "аноним",
     "n_sources": 1,
-    "share": 0.0417
+    "share": 0.0424
    }
   ],
   "affiliates": [
