@@ -117,6 +117,11 @@ img{max-width:100%;display:block;}
 .hero__byline{display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px;color:var(--muted);}
 .hero__byline .avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;letter-spacing:.05em;}
 .hero__byline strong{color:var(--ink);font-weight:600;}
+.hero__why{font-family:var(--sans);font-size:12px;color:var(--muted);letter-spacing:.01em;margin:14px 0 0;}
+.hero__passport{font-family:var(--sans);font-size:12px;color:var(--muted);margin:4px 0 0;}
+.hero__passport strong{color:var(--ink-2);font-weight:600;}
+.hero__also{font-family:var(--sans);font-size:12px;font-style:italic;color:var(--muted);margin:4px 0 0;}
+.hero__timeline{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0 0;letter-spacing:.01em;}
 .dot-sep::before{content:"·";margin:0 8px;color:var(--muted);}
 .hero__media{position:relative;aspect-ratio:4/5;overflow:hidden;margin:0;
   background:radial-gradient(120% 90% at 30% 20%,#4A5A55 0%,#2E3A38 55%,#1C2322 100%);}
@@ -137,6 +142,18 @@ img{max-width:100%;display:block;}
 .mostread__list a{font-family:var(--serif-body);font-size:15px;line-height:1.35;font-weight:600;color:var(--ink);}
 .mostread__list a:hover{color:var(--accent);}
 
+/* «Коротко: 7 строк дня» */
+.brief{border-bottom:1px solid var(--rule);background:var(--paper);}
+.brief__inner{max-width:var(--maxw);margin:0 auto;padding:22px var(--gutter) 24px;}
+.brief__label{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.brief__label::before{content:"";width:22px;height:1px;background:var(--accent);}
+.brief-row{display:grid;grid-template-columns:86px 200px 1fr;gap:16px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule);}
+.brief-row:first-of-type{border-top:0;}
+.brief-t{font-family:var(--sans);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.brief-k{font-family:var(--sans);font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.brief-row a{font-family:var(--serif-body);font-size:15.5px;line-height:1.35;font-weight:600;color:var(--ink);}
+.brief-row a:hover{color:var(--accent);}
+
 /* карточки */
 .grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(4,1fr);gap:36px 28px;}
 .card{display:flex;flex-direction:column;background:none;border:none;border-radius:0;box-shadow:none;}
@@ -151,6 +168,28 @@ img{max-width:100%;display:block;}
 .card__title a:hover{color:var(--accent);}
 .card__dek{font-family:var(--serif-body);font-size:15px;line-height:1.5;color:var(--muted);margin:0 0 12px;}
 .card__meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:auto;}
+.card__badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:3px 8px;border-radius:999px;white-space:nowrap;display:inline-block;}
+.chip--cluster{color:var(--ink-2);background:var(--paper-2);border:1px solid var(--rule);}
+
+/* лента: чипы-рубрики + «Показать ещё» (#19/#20) */
+.feed-chips{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter) 0;display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:52px;z-index:20;background:var(--paper);}
+.chip-f{font:600 12px var(--sans);color:var(--muted);background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer;line-height:1.45;}
+.chip-f:hover{color:var(--ink);border-color:var(--ink);}
+.chip-f.on{color:#fff;background:var(--accent);border-color:var(--accent);}
+.chip-f:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.chip-f-divider{width:1px;height:18px;margin:0 6px;align-self:center;background:var(--rule);}
+.feed-more{display:none;font:600 13px var(--sans);padding:8px 18px;border:1px solid var(--ink);border-radius:999px;background:var(--paper);cursor:pointer;}
+.feed-more:hover{background:var(--ink);color:var(--paper);}
+.feed-bar{max-width:var(--maxw);margin:14px auto 0;padding:0 var(--gutter);display:flex;align-items:center;gap:18px;font:12px var(--sans);color:var(--muted);}
+.feed-bar a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+.feed-empty{max-width:var(--maxw);margin:12px auto 0;padding:0 var(--gutter);font:13px var(--sans);color:var(--muted);}
+.feed-empty a{color:var(--accent);}
+.hidden{display:none!important;}
+.ab-link{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:999px;background:none;padding:4px 12px;cursor:pointer;}
+.ab-link:hover{color:var(--accent);border-color:var(--accent);}
+body[data-ab="v2"] .hero__inner{grid-template-columns:1fr 1.05fr;}
+body[data-ab="v2"] .feature__inner{grid-template-columns:1.05fr 1fr;}
 
 /* фича-полоса (тёмная) */
 .feature{margin-top:72px;background:var(--ink);color:var(--paper);}
@@ -366,6 +405,16 @@ img{max-width:100%;display:block;}
 .tl-src{font-family:var(--sans);color:var(--muted);font-size:11px;}
 .now-line{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);margin-top:4px;line-height:1.5;}
 .now-line b{color:var(--ink);}
+/* v4: алерт-полоса безопасности */
+.alertstrip{background:#5d0f13;color:#fff;}
+.alertstrip__inner{max-width:var(--maxw);margin:0 auto;padding:9px var(--gutter);display:flex;flex-direction:column;gap:5px;}
+body[data-theme="dark"] .alertstrip{background:#7d171d;}
+.alert-row{display:flex;gap:9px;align-items:center;font-family:var(--serif-body);font-size:14.5px;line-height:1.4;}
+.alert-row a{color:#fff;font-weight:600;text-decoration:none;}
+.alert-row a:hover{text-decoration:underline;}
+.alert-dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#ff6b6b;box-shadow:0 0 0 0 rgba(255,107,107,.7);animation:alertpulse 1.6s infinite;}
+@keyframes alertpulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,.6);}70%{box-shadow:0 0 0 7px rgba(255,107,107,0);}100%{box-shadow:0 0 0 0 rgba(255,107,107,0);}}
+.alert-time{margin-left:auto;flex-shrink:0;font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.85);font-weight:700;}
 .now-num{font-family:var(--serif-display);font-size:26px;font-weight:600;color:var(--ink);line-height:1.1;}
 .now-num small{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);}
 .lead-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;}
@@ -435,6 +484,9 @@ img{max-width:100%;display:block;}
 @media (max-width:1100px){
   .hero__inner,.lead-grid,.feature__inner,.wk-grid,.main-grid{grid-template-columns:1fr;}
   .hero__media{aspect-ratio:16/9;}
+  .brief-row{grid-template-columns:1fr;row-gap:3px;}
+  .brief-t,.brief-k{grid-column:1;}
+  .brief-k{white-space:normal;}
   .mostread__inner{grid-template-columns:1fr;gap:18px;}
   .mostread__list{grid-template-columns:repeat(2,1fr);row-gap:18px;}
   .mostread__list li{padding-left:16px;}
@@ -482,94 +534,305 @@ img{max-width:100%;display:block;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>среда, 16 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 01:10</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>среда, 16 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 17:12</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Выпуск № 5<br>выходит с 11.09.2026
 <div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div></div>
 </div></header>
 <nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="active" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="" href="afisha.html">Афиша</a><a class="" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-15.html">Руководителю</a></div></nav><main id="main">
+
 <main>
 <section class="hero"><div class="hero__inner">
 <div>
 <div class="hero__eyebrow"><span class="live" aria-hidden="true"></span>
-<span class="kicker">Спорт</span></div>
-<h1 class="hero__title"><a href="https://t.me/ulpravda/41073" target="_blank" rel="noopener">Владимир Камеко обсудил с Андреем Никитиным обновление общественного транспорта и…</a></h1>
-
+<span class="kicker">Общество и городская среда</span></div>
+<h1 class="hero__title"><a href="https://t.me/ulpressa/74683" target="_blank" rel="noopener" title="Глава ведомства Анна Попова поручила проверить готовность больниц к эпидсезону и усилить информирование о профилактике.…">Глава ведомства Анна Попова поручила проверить готовность больниц к эпидсезону и усилить…</a></h1>
+<p class="hero__dek">Глава ведомства Анна Попова поручила проверить готовность больниц к эпидсезону и усилить информирование о профилактике.…</p>
 <div class="hero__byline"><span class="avatar" aria-hidden="true">Г</span>
-<span><strong>t.me/ulpravda</strong>
-<span class="dot-sep">16.09 00:24</span>
-<span class="dot-sep">397 материалов за сутки</span> · 👁 21</span></div>
+<span><strong>t.me/ulpressa</strong>
+<span class="dot-sep">15.09, 14:44</span>
+<span class="dot-sep">397 материалов за сутки</span> · 👁 1.6K</span></div>
+<div class="hero__why">Почему это главное: значимость — Транспорт и дороги; охват — 1.6 тыс. просмотров</div><div class="hero__passport"><strong>Кто:</strong> Роспотребнадзор · <strong>Где:</strong> Ульяновская область · <strong>Когда:</strong> 15 сентября</div>
 </div>
-<figure class="hero__media"><img src="assets/photos/87528151db744739.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"><figcaption><span>Ульяновская область</span><span>Гудок · 16.09.2026</span></figcaption></figure>
+<figure class="hero__media"><figcaption><span>Ульяновская область</span><span>Гудок · 16.09.2026</span></figcaption></figure>
 </div></section>
 
 <section class="mostread" aria-label="Самое читаемое"><div class="mostread__inner">
 <div class="mostread__label">Самое читаемое</div>
-<ol class="mostread__list"><li><span class="mostread__num" aria-hidden="true">01</span><a href="https://t.me/ulpatriot/6899" target="_blank" rel="noopener">Бесплатному питанию для школьников</a></li><li><span class="mostread__num" aria-hidden="true">02</span><a href="https://t.me/uac_ru/5046" target="_blank" rel="noopener">#ФотоВыходногоДня</a></li><li><span class="mostread__num" aria-hidden="true">03</span><a href="https://t.me/Russkih_Aleksey/12388" target="_blank" rel="noopener">🤍 Нашему любимому Симбирску-Ульяновску исполнилось 378 лет! 🇷🇺 Мой канал в MAX</a></li><li><span class="mostread__num" aria-hidden="true">04</span><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной</a></li><li><span class="mostread__num" aria-hidden="true">05</span><a href="https://t.me/tresh_ulyan/56101" target="_blank" rel="noopener">🚨 Ракетная опасность в Ульяновской области. Сирены завыли по городу. 😱 Подписаться |…</a></li></ol>
+<ol class="mostread__list"><li><span class="mostread__num" aria-hidden="true">01</span><a href="https://t.me/uac_ru/5046" target="_blank" rel="noopener" title="(без заголовка)">(без заголовка)</a></li><li><span class="mostread__num" aria-hidden="true">02</span><a href="https://t.me/Russkih_Aleksey/12388" target="_blank" rel="noopener" title="Нашему любимому Симбирску-Ульяновску исполнилось 378 лет! Мой канал в MAX">Нашему любимому Симбирску-Ульяновску исполнилось 378 лет! Мой канал в MAX</a></li><li><span class="mostread__num" aria-hidden="true">03</span><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener" title="Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной Ульяновской области. 30 имен занесены в Золотую книгу Почёта молодёжи и на доску Почёта молодёжи. Это наши школьники, студенты, молодые работники разных отраслей. Трудолюбие, целеустремленность и талант помогают им добиваться высоких результатов. Например, Анастасия Кувайская — врач-невролог федерального центра медицинской радиологии и онкологии в Димитровграде.…">Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной…</a></li><li><span class="mostread__num" aria-hidden="true">04</span><a href="https://t.me/tresh_ulyan/56101" target="_blank" rel="noopener" title="Ракетная опасность в Ульяновской области. Сирены завыли по городу. Подписаться | Прислать новость">Ракетная опасность в Ульяновской области. Сирены завыли по городу. Подписаться | Прислать…</a></li><li><span class="mostread__num" aria-hidden="true">05</span><a href="https://t.me/tresh_ulyan/56102" target="_blank" rel="noopener" title="Ракетная опасность объявлена в Ульяновской области Внимание! Оперативные каналы Ульяновской области для отслеживания ситуации: Треш Ульяновск — срочные новости; Ульяновск Лайф 73 — эксклюзивная сводка происшествий. Подписывайтесь, чтобы не пропустить…">Ракетная опасность объявлена в Ульяновской области Внимание!…</a></li></ol>
 </div></section>
+
+<section class="brief" aria-labelledby="brief-title"><div class="brief__inner"><div class="brief__label" id="brief-title">Коротко · 7 строк дня</div><div class="brief-row"><span class="brief-t">вчера</span><span class="brief-k">Безопасность и происшествия</span><a href="https://t.me/ulpressa/74685" target="_blank" rel="noopener" title="Штраф в 400 тысяч рублей назначен мужчине, которого Ульяновское управление ФСБ поймало на призывах к террористической деятельности против…">Штраф в 400 тысяч рублей назначен мужчине, которого Ульяновское управление ФСБ поймало на призывах к…</a></div><div class="brief-row"><span class="brief-t">вчера</span><span class="brief-k">Безопасность и происшествия</span><a href="https://t.me/ulpressa/74686" target="_blank" rel="noopener" title="На Полбина обнаружили труп На место прибыли сотрудники полиции для выяснения обстоятельств">На Полбина обнаружили труп На место прибыли сотрудники полиции для выяснения обстоятельств</a></div><div class="brief-row"><span class="brief-t">вчера</span><span class="brief-k">Безопасность и происшествия</span><a href="https://t.me/insaid173/46998" target="_blank" rel="noopener" title="Мэрия подала иск в Арбитражный суд, требуя полностью снести заброшенный горнолыжный комплекс и старую канатную дорогу на Волжском склоне. Предварительное заседание назначено на 30 сентября. Городские власти настаивают: собственник должен зачистить склон в течение трех месяцев после решения суда. Демонтажу подлежит вся аварийная инфраструктура — пассажирская дорога длиной почти 560 метров, две буксировочные трассы и сама горнолыжная зона.…">Мэрия подала иск в Арбитражный суд, требуя полностью снести заброшенный горнолыжный комплекс и старую…</a></div><div class="brief-row"><span class="brief-t">20 ч назад</span><span class="brief-k">Безопасность и происшествия</span><a href="https://t.me/chpulsk/50805" target="_blank" rel="noopener" title="Родитель получает тревожное СМС или сообщение в мессенджере о «подозрительной операции» по счету ребенка. В тексте есть ссылка на сайт для «срочной проверки личности». На фальшивой странице у родителя выманивают паспортные данные, логин и пароль от банковского приложения, а также другую личную информацию.">Родитель получает тревожное СМС или сообщение в мессенджере о «подозрительной операции» по счету ребенка.…</a></div><div class="brief-row"><span class="brief-t">вчера</span><span class="brief-k">Безопасность и происшествия</span><a href="https://t.me/tresh_ulyan/56222" target="_blank" rel="noopener" title="Движение котировок связано с информацией о возможном прекращении атак БПЛА на объекты нефтеперерабатывающей инфраструктуры России. Участники рынка отреагировали на снижение геополитических рисков для энергетического сектора.">Движение котировок связано с информацией о возможном прекращении атак БПЛА на объекты нефтеперерабатывающей…</a></div><div class="brief-row"><span class="brief-t">вчера</span><span class="brief-k">Безопасность и происшествия</span><a href="https://t.me/ulpressa/74638" target="_blank" rel="noopener" title="В аэропорту Ульяновска введены временные ограничения на прием и выпуск воздушных судов.">В аэропорту Ульяновска введены временные ограничения на прием и выпуск воздушных судов.</a></div><div class="brief-row"><span class="brief-t">вчера</span><span class="brief-k">Безопасность и происшествия</span><a href="https://t.me/ulpressa/74645" target="_blank" rel="noopener" title="ПВО сбила более 40 беспилотников, погибших нет, сообщил губернатор Федорищев.…">ПВО сбила более 40 беспилотников, погибших нет, сообщил губернатор Федорищев.…</a></div></div></section>
 
 <section class="now-panel-wrap"><div class="page" style="padding-top:28px;">
 <div class="now-panel"><div class="now-grid">
-<div class="now-col"><div class="now-h">Сейчас</div><div class="tl-row"><div class="tl-time">00:42</div><div class="tl-txt"><a href="https://t.me/ulpravda/41076" target="_blank" rel="noopener">В Ульяновской области подешевели картофель и капуста По итогам августа индекс потребительских цен…</a><div class="tl-src">t.me/ulpravda</div></div></div><div class="tl-row"><div class="tl-time">00:36</div><div class="tl-txt"><a href="https://t.me/ulpravda/41075" target="_blank" rel="noopener">Льготная ипотека, повышение МРОТ. Какие наказы жителей страны включили в новую народную программу</a><div class="tl-src">t.me/ulpravda</div></div></div><div class="tl-row"><div class="tl-time">00:33</div><div class="tl-txt"><a href="https://t.me/ulpravda/41074" target="_blank" rel="noopener">Ульяновская администрация вышла с инициативой о сносе «Ленинских горок» Администрация города…</a><div class="tl-src">t.me/ulpravda</div></div></div><div class="tl-row"><div class="tl-time">00:24</div><div class="tl-txt"><a href="https://t.me/ulpravda/41073" target="_blank" rel="noopener">Владимир Камеко обсудил с Андреем Никитиным обновление общественного транспорта и развитие трассы…</a><div class="tl-src">t.me/ulpravda</div></div></div><div class="tl-row"><div class="tl-time">00:05</div><div class="tl-txt"><a href="https://t.me/ulyanovsk_smi/29523" target="_blank" rel="noopener">🤔 Две трети россиян хотят запретить себе соцсети перед сном 69% опрошенных поддержали самозапрет на…</a><div class="tl-src">t.me/ulyanovsk_smi</div></div></div><div class="tl-row"><div class="tl-time">23:22</div><div class="tl-txt"><a href="https://t.me/tresh_ulyan/56243" target="_blank" rel="noopener">🤯 Первый в мире завод гуманоидных роботов, где «роботы строят роботов», запустили в Китае.…</a><div class="tl-src">t.me/tresh_ulyan</div></div></div></div>
-<div class="now-col"><div class="now-h">Сегодня в области</div><div class="now-line">Событий на сегодня в афише нет — <a href="afisha.html">вся афиша</a>.</div></div>
+<div class="now-col"><div class="now-h">Сейчас</div><div class="tl-row"><div class="tl-time" title="16.09, 00:42">16 ч назад</div><div class="tl-txt"><a href="https://t.me/ulpravda/41076" target="_blank" rel="noopener" title="«Согласно статистическим данным, в августе этого года относительно июля в Ульяновской области наблюдается продовольственная дефляция, то есть индекс потребительских цен на продовольственные товары ниже 100%. Он составил 99,60%. За счёт продовольствия, а также услуг, индекс потребительских цен на все товары и услуги также оказался ниже 100% и составил 99,64%», - сообщают в пресс-службе министерства АПК и развития сельских территорий Ульяновской области.…">«Согласно статистическим данным, в августе этого года относительно июля в Ульяновской области…</a><div class="tl-src">t.me/ulpravda</div></div></div><div class="tl-row"><div class="tl-time" title="16.09, 00:33">16 ч назад</div><div class="tl-txt"><a href="https://t.me/ulpravda/41074" target="_blank" rel="noopener" title="«В Арбитражный суд Ульяновской области поступило исковое заявление администрации города Ульяновска к ООО «Ленинские горки» о понуждении осуществить снос в срок, не превышающий три месяца с даты вступления в законную силу судебного акта, вынесенного по результатам настоящего дела, ряда объектов.…">«В Арбитражный суд Ульяновской области поступило исковое заявление администрации города Ульяновска…</a><div class="tl-src">t.me/ulpravda</div></div></div><div class="tl-row"><div class="tl-time" title="16.09, 00:05">17 ч назад</div><div class="tl-txt"><a href="https://t.me/ulyanovsk_smi/29523" target="_blank" rel="noopener" title="Также 28% готовы ограничить ночные походы к холодильнику, 20% — покупку ненужных фитнес-абонементов, а 18% — ночной шопинг на маркетплейсах.">Также 28% готовы ограничить ночные походы к холодильнику, 20% — покупку ненужных…</a><div class="tl-src">t.me/ulyanovsk_smi</div></div></div><div class="tl-row"><div class="tl-time" title="15.09, 23:09">18 ч назад</div><div class="tl-txt"><a href="https://t.me/ulsk_on/22826" target="_blank" rel="noopener" title="Площадки также обяжут проверять карточки товаров и скрывать те, где обнаружена некорректная информация.">Площадки также обяжут проверять карточки товаров и скрывать те, где обнаружена некорректная…</a><div class="tl-src">t.me/ulsk_on</div></div></div><div class="tl-row"><div class="tl-time" title="15.09, 22:59">18 ч назад</div><div class="tl-txt"><a href="https://t.me/insaid173/47016" target="_blank" rel="noopener" title="На втором месте — походы к холодильнику после десяти вечера, их бы ограничили 28% респондентов. Каждый пятый отказался бы от покупки фитнес-абонементов, которыми потом не пользуется, а 18% желают заблокировать себе ночные покупки на маркетплейсах.">На втором месте — походы к холодильнику после десяти вечера, их бы ограничили 28% респондентов.…</a><div class="tl-src">t.me/insaid173</div></div></div><div class="tl-row"><div class="tl-time" title="15.09, 22:51">18 ч назад</div><div class="tl-txt"><a href="https://t.me/chpulsk/50808" target="_blank" rel="noopener" title="Пособие выплачивается единовременно за весь период декретного отпуска и один раз на каждую беременность, сообщили в Соцфонде.">Пособие выплачивается единовременно за весь период декретного отпуска и один раз на каждую…</a><div class="tl-src">t.me/chpulsk</div></div></div></div>
+<div class="now-col"><div class="now-h">Завтра</div><div class="tl-row"><div class="tl-time">—</div><div class="tl-txt"><a href="https://t.me/ulpressa/74430" target="_blank" rel="noopener">Новый мост через Свиягу планируется открыть 15-17 сентября, сообщил глава Ульяновска Мы в…</a></div></div><div class="tl-row"><div class="tl-time">—</div><div class="tl-txt"><a href="https://media73.ru/2026/ulgu-priglashaet-na-proforientatsionnye-ekskursii" target="_blank" rel="noopener">УлГУ приглашает на профориентационные экскурсии</a></div></div><div class="tl-row"><div class="tl-time">23:00</div><div class="tl-txt"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener">Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли мама. 10…</a></div></div><div class="tl-row"><div class="tl-time">—</div><div class="tl-txt"><a href="https://t.me/chpulsk/50671" target="_blank" rel="noopener">⚡️ Новый мост в створе улиц Шевченко и Смычки планируют открыть в техническом режиме на…</a></div></div></div>
 <div class="now-col"><div class="now-h">Справка</div>
-<div class="now-line">Погода: сейчас 14° (ощущается 12°), днём до 17°. Тон повестки и метрики инфополя —
+<div class="now-line">Погода: сейчас 19° (ощущается 17°), днём до 19°. Тон повестки и метрики инфополя —
 в проекте <a href="infospace.html">«Инфопространство»</a>. Периоды: <a href="weekly.html">неделя</a>, <a href="monthly.html">месяц</a>.</div></div>
 </div></div></div></section>
 
 <section class="section" aria-labelledby="latest-title">
 <div class="sec-head" style="margin-top:0;"><h2 id="latest-title">Последние материалы</h2>
 <a href="digests/digest_2026-09-16.html">Весь выпуск № 5 →</a></div>
-<div class="grid"><article class="card">
-<div class="card__media card__media--a" role="img" aria-label="Экономика и промышленность"><img src="assets/photos/e96245b45837e8c3.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<div class="feed-chips" id="feed-chips" role="group" aria-label="Фильтр ленты"><button class="chip-f" data-group="cat" data-val="*" aria-pressed="false">Все</button><button class="chip-f" data-group="cat" data-val="politics" aria-pressed="false">Политика и выборы</button><button class="chip-f" data-group="cat" data-val="security" aria-pressed="false">Безопасность и происшествия</button><button class="chip-f" data-group="cat" data-val="economy" aria-pressed="false">Экономика и промышленность</button><button class="chip-f" data-group="cat" data-val="agro" aria-pressed="false">Агропром</button><button class="chip-f" data-group="cat" data-val="society" aria-pressed="false">Общество и городская среда</button><button class="chip-f" data-group="cat" data-val="health" aria-pressed="false">Здравоохранение</button><button class="chip-f" data-group="cat" data-val="education" aria-pressed="false">Образование и наука</button><button class="chip-f" data-group="cat" data-val="sport" aria-pressed="false">Спорт</button><span class="chip-f-divider" aria-hidden="true"></span><button class="chip-f" data-group="type" data-val="*" aria-pressed="false">Все типы</button><button class="chip-f" data-group="type" data-val="news" aria-pressed="false">Новость</button><button class="chip-f" data-group="type" data-val="opinion" aria-pressed="false">Мнение</button></div>
+<div class="grid" id="feed-grid"><article class="card feed-card" data-cat="economy" data-type="news">
+<div class="card__media card__media--a" role="img" aria-label="Экономика и промышленность"><img src="assets/photos/e96245b45837e8c3.jpg" alt="Льготная ипотека, повышение МРОТ. Какие наказы жителей страны включили в новую народную программу" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
 <span class="kicker card__kicker">Экономика и промышленность</span>
-<h3 class="card__title"><a href="https://t.me/ulpravda/41075" target="_blank" rel="noopener">Льготная ипотека, повышение МРОТ. Какие наказы жителей страны включили в новую народную программу</a></h3>
+<h3 class="card__title"><a href="https://t.me/ulpravda/41075" target="_blank" rel="noopener" title="Льготная ипотека, повышение МРОТ. Какие наказы жителей страны включили в новую народную программу">Льготная ипотека, повышение МРОТ. Какие наказы жителей страны включили в новую народную программу</a></h3>
 
-<div class="card__meta">t.me/ulpravda · 16.09 00:36</div>
-</article><article class="card">
-<div class="card__media card__media--b" role="img" aria-label="Экономика и промышленность"><img src="assets/photos/0b7181dd8035bdf8.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<div class="card__meta">t.me/ulpravda · 16.09, 00:36</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#14532d;background:#e7f6ec">Факт</span></div>
+</article><article class="card feed-card" data-cat="sport" data-type="news">
+<div class="card__media card__media--b" role="img" aria-label="Спорт"><img src="assets/photos/87528151db744739.jpg" alt="Владимир Камеко обсудил с Андреем Никитиным обновление общественного транспорта и развитие трассы Р-241" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Спорт</span>
+<h3 class="card__title"><a href="https://t.me/ulpravda/41073" target="_blank" rel="noopener" title="Владимир Камеко обсудил с Андреем Никитиным обновление общественного транспорта и развитие трассы Р-241">Владимир Камеко обсудил с Андреем Никитиным обновление общественного транспорта и развитие трассы…</a></h3>
+
+<div class="card__meta">t.me/ulpravda · 16.09, 00:24</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#14532d;background:#e7f6ec">Факт</span></div>
+</article><article class="card feed-card" data-cat="economy" data-type="news">
+<div class="card__media card__media--c" role="img" aria-label="Экономика и промышленность"><img src="assets/photos/0b7181dd8035bdf8.jpg" alt="Производственная линия компании UBTECH рассчитана на сборку одного робота каждые 10 минут.…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
 <span class="kicker card__kicker">Экономика и промышленность</span>
-<h3 class="card__title"><a href="https://t.me/tresh_ulyan/56243" target="_blank" rel="noopener">Производственная линия компании UBTECH рассчитана на сборку одного робота каждые 10 минут</a></h3>
+<h3 class="card__title"><a href="https://t.me/tresh_ulyan/56243" target="_blank" rel="noopener" title="Производственная линия компании UBTECH рассчитана на сборку одного робота каждые 10 минут. В год планируют выпускать до 10,000 гуманоидов. Можно не надо?">Производственная линия компании UBTECH рассчитана на сборку одного робота каждые 10 минут.…</a></h3>
 <p class="card__dek">Производственная линия компании UBTECH рассчитана на сборку одного робота каждые 10 минут. В год планируют выпускать до 10,000 гуманоидов.…</p>
-<div class="card__meta">t.me/tresh_ulyan · 15.09 23:22</div>
-</article><article class="card">
-<div class="card__media card__media--c" role="img" aria-label="Безопасность и происшествия"><img src="assets/photos/5afad9e0188bada1.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<div class="card__meta">t.me/tresh_ulyan · 15.09, 23:22</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="security" data-type="news">
+<div class="card__media card__media--d" role="img" aria-label="Безопасность и происшествия"><img src="assets/photos/5afad9e0188bada1.jpg" alt="Ульяновские приставы взыскали с МФО 100 тысяч рублей за отказ исправить чужую кредитную историю" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
 <span class="kicker card__kicker">Безопасность и происшествия</span>
-<h3 class="card__title"><a href="https://ulpressa.ru/2026/09/15/ulyanovskie-pristavy-vzyskali-s-mfo-100-tysyach-rublej-za-otkaz-ispravit-chuzhuyu-kreditnuyu-istoriyu/" target="_blank" rel="noopener">Ульяновские приставы взыскали с МФО 100 тысяч рублей за отказ исправить чужую кредитную историю</a></h3>
+<h3 class="card__title"><a href="https://ulpressa.ru/2026/09/15/ulyanovskie-pristavy-vzyskali-s-mfo-100-tysyach-rublej-za-otkaz-ispravit-chuzhuyu-kreditnuyu-istoriyu/" target="_blank" rel="noopener" title="Ульяновские приставы взыскали с МФО 100 тысяч рублей за отказ исправить чужую кредитную историю">Ульяновские приставы взыскали с МФО 100 тысяч рублей за отказ исправить чужую кредитную историю</a></h3>
 <p class="card__dek">Житель Ямало-Ненецкого автономного округа годами числился должником по займу 2016 года — хотя никакого договора с микрофинансовой организацией не заключал.…</p>
-<div class="card__meta">Улпресса · 15.09 23:14</div>
-</article><article class="card">
-<div class="card__media card__media--d" role="img" aria-label="Безопасность и происшествия"><img src="assets/photos/d4443f8720b75a94.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
-<span class="kicker card__kicker">Безопасность и происшествия</span>
-<h3 class="card__title"><a href="https://t.me/topor_ul/11642" target="_blank" rel="noopener">На него составили административный протокол за пьяное вождение и возбудили уголовное дело за угон</a></h3>
+<div class="card__meta">Улпресса · 15.09, 23:14</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="security" data-type="news">
+<div class="card__media card__media--a" role="img" aria-label="Безопасность и происшествия"><img src="assets/photos/d4443f8720b75a94.jpg" alt="На него составили административный протокол за пьяное вождение и возбудили уголовное дело за угон.…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Безопасность и происшествия · Инзенский р-н</span>
+<h3 class="card__title"><a href="https://t.me/topor_ul/11642" target="_blank" rel="noopener" title="На него составили административный протокол за пьяное вождение и возбудили уголовное дело за угон.…">На него составили административный протокол за пьяное вождение и возбудили уголовное дело за угон.…</a></h3>
 <p class="card__dek">На него составили административный протокол за пьяное вождение и возбудили уголовное дело за угон.…</p>
-<div class="card__meta">t.me/topor_ul · 15.09 23:10</div>
-</article><article class="card">
-<div class="card__media card__media--a" role="img" aria-label="Экономика и промышленность"></div>
-<span class="kicker card__kicker">Экономика и промышленность</span>
-<h3 class="card__title"><a href="https://t.me/ulpravda/41076" target="_blank" rel="noopener">«Согласно статистическим данным, в августе этого года относительно июля в Ульяновской области наблюд</a></h3>
-<p class="card__dek">«Согласно статистическим данным, в августе этого года относительно июля в Ульяновской области наблюдается продовольственная дефляция, то есть индекс потребительских цен на продовольственные товары ниже 100%.…</p>
-<div class="card__meta">t.me/ulpravda · 16.09 00:42</div>
-</article><article class="card">
-<div class="card__media card__media--b" role="img" aria-label="Безопасность и происшествия"></div>
+<div class="card__meta">t.me/topor_ul · 15.09, 23:10</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="security" data-type="opinion">
+<div class="card__media card__media--b" role="img" aria-label="Безопасность и происшествия"><img src="assets/photos/095b59f85af8330e.jpg" alt="Подобная уверенность имеет под собой давнюю почву.…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
 <span class="kicker card__kicker">Безопасность и происшествия</span>
-<h3 class="card__title"><a href="https://t.me/ulpravda/41074" target="_blank" rel="noopener">«В Арбитражный суд Ульяновской области поступило исковое заявление администрации города Ульяновска к</a></h3>
-<p class="card__dek">«В Арбитражный суд Ульяновской области поступило исковое заявление администрации города Ульяновска к ООО «Ленинские горки» о понуждении осуществить снос в срок, не превышающий три месяца с даты вступления в законную силу судебного акта, вынесенного по результатам настоящего дела, ряда объектов.……</p>
-<div class="card__meta">t.me/ulpravda · 16.09 00:33</div>
-</article><article class="card">
-<div class="card__media card__media--c" role="img" aria-label="Общество и городская среда"></div>
+<h3 class="card__title"><a href="https://t.me/ulkompr/36374" target="_blank" rel="noopener" title="Подобная уверенность имеет под собой давнюю почву.…">Подобная уверенность имеет под собой давнюю почву.…</a></h3>
+<p class="card__dek">Подобная уверенность имеет под собой давнюю почву.…</p>
+<div class="card__meta">t.me/ulkompr · 15.09, 22:47</div>
+<div class="card__badges"><span class="chip" style="color:#4a4137;background:#f2ede4">Мнение</span><span class="chip" style="color:#8a4a00;background:#fdf1de">Не подтверждено</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--c" role="img" aria-label="Общество и городская среда"><img src="https://cdn4.telesco.pe/file/ub4wTeN5ZYvqIGiM1FEwM_1u2niAH5EhJWPwZQtw2Pd3HfV_lhrUZwsz8dMubKZXGo9XWB0yppbDucyr2XC269T3vMx2_Hz_BxQZvU2e551KZbdGZVWPrhsaYZnfc9jECIonsn-DJzZGNxZKWChiFxuolbjreIuQNE_hsNGG4sGH9AvsuTw3EeMbF_DXIAYc9QpkPwzI17pbYQSCHsiTRsWs_23X2_xUANioJVNQTvQcCBDccnGk_GNVo00rC9OYq-k-JmlhvNgnCU2vDCkfEFeYoAbn0aG-o2BLyfOMXbnGTUtONJ30pOwnyfmYUWTaVW6ddVoo9ACJXlaxmbn3Ig" alt="С 01 октября 2026 года в очередной раз будет повышение стоимости за горячую воду. Неужели нельзя поставлять её чистой?" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда · ЖКХ и тарифы · Димитровград</span>
+<h3 class="card__title"><a href="https://t.me/dimitrovgradonline/33681" target="_blank" rel="noopener" title="С 01 октября 2026 года в очередной раз будет повышение стоимости за горячую воду. Неужели нельзя поставлять её чистой?">С 01 октября 2026 года в очередной раз будет повышение стоимости за горячую воду.…</a></h3>
+<p class="card__dek">С 01 октября 2026 года в очередной раз будет повышение стоимости за горячую воду. Неужели нельзя поставлять её чистой?</p>
+<div class="card__meta">t.me/dimitrovgradonline · 15.09, 22:27</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--d" role="img" aria-label="Общество и городская среда"><img src="assets/photos/f8fa160915b40aa2.jpg" alt="Проезда нет? В центре Ульяновска внутриквартальную дорогу превратили в «автодром» с лихачами" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда · Транспорт и дороги</span>
+<h3 class="card__title"><a href="https://ulpressa.ru/2026/09/15/proezda-net-v-czentre-ulyanovska-vnutrikvartalnuyu-dorogu-prevratili-v-avtodrom-s-lihachami/" target="_blank" rel="noopener" title="Проезда нет? В центре Ульяновска внутриквартальную дорогу превратили в «автодром» с лихачами">Проезда нет? В центре Ульяновска внутриквартальную дорогу превратили в «автодром» с лихачами</a></h3>
+<p class="card__dek">Ежедневно автомобилисты устраивают здесь «ралли» – едут с приличной скоростью, лихо объезжают «лежачий полицейский».…</p>
+<div class="card__meta">Улпресса · 15.09, 22:22</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--a" role="img" aria-label="Общество и городская среда"><img src="assets/photos/c7237d93b7379777.jpg" alt="Красота в Новоспасском районе Если и у вас есть что показать или рассказать городу, пишите нам в предложку в Телеграм…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда · Новоспасский р-н</span>
+<h3 class="card__title"><a href="https://t.me/ulkoroche/33784" target="_blank" rel="noopener" title="Красота в Новоспасском районе Если и у вас есть что показать или рассказать городу, пишите нам в предложку в Телеграм или в MAX .">Красота в Новоспасском районе Если и у вас есть что показать или рассказать городу, пишите нам в…</a></h3>
+
+<div class="card__meta">t.me/ulkoroche · 15.09, 22:22</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--b" role="img" aria-label="Общество и городская среда"><img src="assets/photos/0248f0e1dc5e6bb6.jpg" alt="Рубрика «Рецепты»: Сегодня готовим пасту–салат Ингредиенты: макароны — две порции; куриное филе — 400 граммов; черри…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
 <span class="kicker card__kicker">Общество и городская среда</span>
-<h3 class="card__title"><a href="https://t.me/ulyanovsk_smi/29523" target="_blank" rel="noopener">Также 28% готовы ограничить ночные походы к холодильнику, 20%</a></h3>
-<p class="card__dek">Также 28% готовы ограничить ночные походы к холодильнику, 20% — покупку ненужных фитнес-абонементов, а 18% — ночной шопинг на маркетплейсах.…</p>
-<div class="card__meta">t.me/ulyanovsk_smi · 16.09 00:05</div>
-</article><article class="card">
-<div class="card__media card__media--d" role="img" aria-label="Общество и городская среда"></div>
+<h3 class="card__title"><a href="https://t.me/ulyanovsk_smi/29519" target="_blank" rel="noopener" title="Рубрика «Рецепты»: Сегодня готовим пасту–салат Ингредиенты: макароны — две порции; куриное филе — 400 граммов; черри — 250 граммов; шпинат — 70 граммов; авокадо — одна штука; моцарелла — 120 граммов; растительное масло — для заправки; соль, чеснок, специи для курицы, соевый соус — по вкусу.">Рубрика «Рецепты»: Сегодня готовим пасту–салат Ингредиенты: макароны — две порции; куриное филе…</a></h3>
+
+<div class="card__meta">t.me/ulyanovsk_smi · 15.09, 22:20</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="agro" data-type="news">
+<div class="card__media card__media--c" role="img" aria-label="Агропром"><img src="assets/photos/72ac1150336171f0.jpg" alt="Недостоверно задекларировали около 201 тысячи тонн зерна" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Агропром</span>
+<h3 class="card__title"><a href="https://ulnovosti.ru/i-lenta-novostej-i/strong-nedostoverno-zadeklarirovali-okolo-201-tysyachi-tonn-zerna-strong/" target="_blank" rel="noopener" title="Недостоверно задекларировали около 201 тысячи тонн зерна">Недостоверно задекларировали около 201 тысячи тонн зерна</a></h3>
+<p class="card__dek">Основанием стали выявленные факты недостоверного декларирования 200,7 тыс. т зерна.…</p>
+<div class="card__meta">Ulnovosti.ru · 15.09, 22:13</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--d" role="img" aria-label="Общество и городская среда"><img src="assets/photos/e1e2c74afa0d86a1.jpg" alt="1 место — 100 000 ₽ 2 место — 50 000 ₽ 3 место — 25 000 ₽ Узнать подробности и условия конкурса по ссылке — ulskpovubvi…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
 <span class="kicker card__kicker">Общество и городская среда</span>
-<h3 class="card__title"><a href="https://t.me/ulsk_on/22826" target="_blank" rel="noopener">Маркетплейсам запретят брать с российских продавцов больше денег, чем с иностранных, следует из…</a></h3>
-<p class="card__dek">Площадки также обяжут проверять карточки товаров и скрывать те, где обнаружена некорректная информация.</p>
-<div class="card__meta">t.me/ulsk_on · 15.09 23:09</div>
+<h3 class="card__title"><a href="https://t.me/tresh_ulyan/56242" target="_blank" rel="noopener" title="1 место — 100 000 ₽ 2 место — 50 000 ₽ 3 место — 25 000 ₽ Узнать подробности и условия конкурса по ссылке — ulskpovubvi Подать заявку можно на платформе УльскДобро . РФ — вход по Госуслугам или VK ID. Участие бесплатное. Один участник — одна работа.…">1 место — 100 000 ₽ 2 место — 50 000 ₽ 3 место — 25 000 ₽ Узнать подробности и условия конкурса по…</a></h3>
+<p class="card__dek">🥇 1 место — 100 000 ₽ 🥈 2 место — 50 000 ₽ 🥉 3 место — 25 000 ₽ Узнать подробности и условия конкурса по ссылке — ulskpovubvi Подать заявку можно на платформе УльскДобро .…</p>
+<div class="card__meta">t.me/tresh_ulyan · 15.09, 21:58</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--a" role="img" aria-label="Общество и городская среда"><img src="assets/photos/90f89aa995f3b9e4.jpg" alt="Из предложки: Вопрос к Администрации города: на что именно израсходовали 21 млн.?" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда</span>
+<h3 class="card__title"><a href="https://t.me/dimitrovgradd/31806" target="_blank" rel="noopener" title="Из предложки: Вопрос к Администрации города: на что именно израсходовали 21 млн.?">Из предложки: Вопрос к Администрации города: на что именно израсходовали 21 млн.?</a></h3>
+
+<div class="card__meta">t.me/dimitrovgradd · 15.09, 21:45</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="security" data-type="news">
+<div class="card__media card__media--b" role="img" aria-label="Безопасность и происшествия"><img src="assets/photos/02b065660feb494f.jpg" alt="Мужчина взял технику, чтобы покататься, и в состоянии опьянения врезался в легковой автомобиль на трассе «Инза…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Безопасность и происшествия · Инзенский р-н</span>
+<h3 class="card__title"><a href="https://t.me/chpulsk/50806" target="_blank" rel="noopener" title="Мужчина взял технику, чтобы покататься, и в состоянии опьянения врезался в легковой автомобиль на трассе «Инза — Карсун». На него составили административный протокол за вождение в нетрезвом виде, возбуждено уголовное дело за неправомерное завладение транспортным средством.">Мужчина взял технику, чтобы покататься, и в состоянии опьянения врезался в легковой автомобиль на…</a></h3>
+<p class="card__dek">Мужчина взял технику, чтобы покататься, и в состоянии опьянения врезался в легковой автомобиль на трассе «Инза — Карсун».…</p>
+<div class="card__meta">t.me/chpulsk · 15.09, 21:39</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="health" data-type="news">
+<div class="card__media card__media--c" role="img" aria-label="Здравоохранение"><img src="assets/photos/5ab8dc4b15d345e3.jpg" alt="Вмешательство выполнил заведующий отделением из Казани Михаил Володюхин, ульяновские хирурги ассистировали и перенимали…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Здравоохранение</span>
+<h3 class="card__title"><a href="https://t.me/tresh_ulyan/56241" target="_blank" rel="noopener" title="Вмешательство выполнил заведующий отделением из Казани Михаил Володюхин, ульяновские хирурги ассистировали и перенимали опыт. Процедуру транслировали в зал Всероссийского форума «Человекоцентричная медицина». 60-летняя пациентка идёт на поправку и готовится к выписке.">Вмешательство выполнил заведующий отделением из Казани Михаил Володюхин, ульяновские хирурги…</a></h3>
+<p class="card__dek">Вмешательство выполнил заведующий отделением из Казани Михаил Володюхин, ульяновские хирурги ассистировали и перенимали опыт.…</p>
+<div class="card__meta">t.me/tresh_ulyan · 15.09, 21:34</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="education" data-type="news">
+<div class="card__media card__media--d" role="img" aria-label="Образование и наука"><img src="assets/photos/24c34dbc954f0a2e.jpg" alt="25 лет — это целая эпоха. Эпоха верной дружбы, взаимовыручки и неустанной работы.…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Образование и наука</span>
+<h3 class="card__title"><a href="https://t.me/dimitrovgradonline/33675" target="_blank" rel="noopener" title="25 лет — это целая эпоха. Эпоха верной дружбы, взаимовыручки и неустанной работы. Вы объединились не просто как сослуживцы, а как настоящая семья, для которой слова «долг», «честь» и «товарищ» — не пустой звук. Вы прошли через огонь войны, но не сломались, сохранили человечность и стали опорой друг для друга и для всего нашего города.…">25 лет — это целая эпоха. Эпоха верной дружбы, взаимовыручки и неустанной работы.…</a></h3>
+<p class="card__dek">25 лет — это целая эпоха. Эпоха верной дружбы, взаимовыручки и неустанной работы.…</p>
+<div class="card__meta">t.me/dimitrovgradonline · 15.09, 21:30</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="opinion">
+<div class="card__media card__media--a" role="img" aria-label="Общество и городская среда"><img src="assets/photos/abc9f83017009179.jpg" alt="В Ульяновске почти нет топлива по состоянию на вечер 15.09.2026 @simbirskcity" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда</span>
+<h3 class="card__title"><a href="https://t.me/ulkompr/36372" target="_blank" rel="noopener" title="В Ульяновске почти нет топлива по состоянию на вечер 15.09.2026 @simbirskcity">В Ульяновске почти нет топлива по состоянию на вечер 15.09.2026 @simbirskcity</a></h3>
+
+<div class="card__meta">t.me/ulkompr · 15.09, 21:29</div>
+<div class="card__badges"><span class="chip" style="color:#4a4137;background:#f2ede4">Мнение</span><span class="chip" style="color:#8a4a00;background:#fdf1de">Не подтверждено</span></div>
+</article><article class="card feed-card" data-cat="security" data-type="news">
+<div class="card__media card__media--b" role="img" aria-label="Безопасность и происшествия"><img src="assets/photos/fc4d01fcf994d983.jpg" alt="В Инзенском районе рабочий угнал трактор и врезался в легковушку" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Безопасность и происшествия · Инзенский р-н</span>
+<h3 class="card__title"><a href="https://ulpressa.ru/2026/09/15/v-inzenskom-rajone-rabochij-ugnal-traktor-i-vrezalsya-v-legkovushku/" target="_blank" rel="noopener" title="В Инзенском районе рабочий угнал трактор и врезался в легковушку">В Инзенском районе рабочий угнал трактор и врезался в легковушку</a></h3>
+<p class="card__dek">Выехав на дорогу Инза — Карсун, он в состоянии опьянения столкнулся с легковым автомобилем. На место приехали сотрудники ГИБДД.…</p>
+<div class="card__meta">Улпресса · 15.09, 21:21</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--c" role="img" aria-label="Общество и городская среда"><img src="assets/photos/b97a4a6abb0d4c1a.jpg" alt="Неожиданно трогательная история из такси: девушка рисует именные портреты водителей во время поездки" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда</span>
+<h3 class="card__title"><a href="https://t.me/ulsk_driver73/18581" target="_blank" rel="noopener" title="Неожиданно трогательная история из такси: девушка рисует именные портреты водителей во время поездки">Неожиданно трогательная история из такси: девушка рисует именные портреты водителей во время поездки</a></h3>
+
+<div class="card__meta">t.me/ulsk_driver73 · 15.09, 21:04</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="politics" data-type="news">
+<div class="card__media card__media--d" role="img" aria-label="Политика и выборы"><img src="assets/photos/b7158bc815ff88df.jpg" alt="Теперь из центра до 19 микрорайона 10 минут на машине!…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Политика и выборы</span>
+<h3 class="card__title"><a href="https://t.me/ulkoroche/33781" target="_blank" rel="noopener" title="Теперь из центра до 19 микрорайона 10 минут на машине! Губернатору Алексею Русских респект — дожали!» — прокомментировал депутат Законодательного Собрания Ульяновской области Василий Гвоздев.…">Теперь из центра до 19 микрорайона 10 минут на машине!…</a></h3>
+<p class="card__dek">Теперь из центра до 19 микрорайона 10 минут на машине!…</p>
+<div class="card__meta">t.me/ulkoroche · 15.09, 21:01</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="opinion">
+<div class="card__media card__media--a" role="img" aria-label="Общество и городская среда"><img src="assets/photos/06d3c0f37a031d9a.jpg" alt="Все это время жительнице Воронежской области приходилось в буквальном смысле добывать воду самостоятельно – зимой…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда · Соцподдержка</span>
+<h3 class="card__title"><a href="https://t.me/ulkompr/36371" target="_blank" rel="noopener" title="Все это время жительнице Воронежской области приходилось в буквальном смысле добывать воду самостоятельно – зимой растапливать снег, а летом собирать дождевую воду. Ситуация изменилась только после обращения в прокуратуру: в результате дом 74-летней пенсионерки подключен к централизованному водоснабжению.…">Все это время жительнице Воронежской области приходилось в буквальном смысле добывать воду…</a></h3>
+<p class="card__dek">Все это время жительнице Воронежской области приходилось в буквальном смысле добывать воду самостоятельно – зимой растапливать снег, а летом собирать дождевую воду.…</p>
+<div class="card__meta">t.me/ulkompr · 15.09, 20:59</div>
+<div class="card__badges"><span class="chip" style="color:#4a4137;background:#f2ede4">Мнение</span><span class="chip" style="color:#8a4a00;background:#fdf1de">Не подтверждено</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--b" role="img" aria-label="Общество и городская среда"><img src="assets/photos/c734694cba0f8a69.jpg" alt="За этой датой — не просто годы работы организации.…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда · Соцподдержка · Димитровград</span>
+<h3 class="card__title"><a href="https://t.me/sergeymorozov73/23332" target="_blank" rel="noopener" title="За этой датой — не просто годы работы организации. За ней люди, их судьбы, семьи, товарищество и память о тех, кто однажды ушёл выполнять свой воинский долг и не вернулся домой. Особенно важно, что для многих ветеранов служение Родине не закончилось вместе с военной службой. Они продолжают работать, помогать людям, воспитывать молодёжь, сохранять память о своих товарищах.…">За этой датой — не просто годы работы организации.…</a></h3>
+<p class="card__dek">За ней люди, их судьбы, семьи, товарищество и память о тех, кто однажды ушёл выполнять свой воинский долг и не вернулся домой.…</p>
+<div class="card__meta">t.me/sergeymorozov73 · 15.09, 20:53</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#14532d;background:#e7f6ec">Факт</span></div>
+</article><article class="card feed-card" data-cat="security" data-type="news">
+<div class="card__media card__media--c" role="img" aria-label="Безопасность и происшествия"><img src="assets/photos/0ac10dd14a081829.jpg" alt="Лучшие голы недели – уже в этой подборке!…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Безопасность и происшествия</span>
+<h3 class="card__title"><a href="https://t.me/fcvolga/12533" target="_blank" rel="noopener" title="Лучшие голы недели – уже в этой подборке!…">Лучшие голы недели – уже в этой подборке!…</a></h3>
+
+<div class="card__meta">t.me/fcvolga · 15.09, 20:51</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#14532d;background:#e7f6ec">Факт</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--d" role="img" aria-label="Общество и городская среда"><img src="assets/photos/352992cb896b63f0.jpg" alt="Напомним, что это место будет посвящено павшим воинам. На сегодняшний день здесь ведутся работы по возведению стен.…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда · Димитровград</span>
+<h3 class="card__title"><a href="https://t.me/dimitrovgradd/31805" target="_blank" rel="noopener" title="Напомним, что это место будет посвящено павшим воинам. На сегодняшний день здесь ведутся работы по возведению стен. Параллельно идёт черновая заливка пола.…">Напомним, что это место будет посвящено павшим воинам.…</a></h3>
+<p class="card__dek">Напомним, что это место будет посвящено павшим воинам. На сегодняшний день здесь ведутся работы по возведению стен.…</p>
+<div class="card__meta">t.me/dimitrovgradd · 15.09, 20:50</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--a" role="img" aria-label="Общество и городская среда"><img src="assets/photos/331cca34e1eb3510.jpg" alt="Компания поможет вашим знакомым избавиться от долгов официально!…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда</span>
+<h3 class="card__title"><a href="https://t.me/tresh_ulyan/56240" target="_blank" rel="noopener" title="Компания поможет вашим знакомым избавиться от долгов официально! Преимущества работы с ними: Бесплатная консультация онлайн или в офисе. Юридическое сопровождение на всех этапах процесса банкротства. Рассрочка платежа сроком до 13 месяцев. Уже помогли более 10 000 клиентов закрыть кредиты и долги законным путем! Компания готова поделиться прибылью с теми, кто рекомендует их друзьям и коллегам: Вы получаете 10 000 ₽! Чистое удовольствие помогать другим и получать прибыль вместе с компанией!…">Компания поможет вашим знакомым избавиться от долгов официально!…</a></h3>
+<p class="card__dek">✅ Преимущества работы с ними: ✅ Бесплатная консультация онлайн или в офисе. ✅ Юридическое сопровождение на всех этапах процесса банкротства.…</p>
+<div class="card__meta">t.me/tresh_ulyan · 15.09, 20:44</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="health" data-type="news">
+<div class="card__media card__media--b" role="img" aria-label="Здравоохранение"><img src="assets/photos/6e5b34e92659ee08.jpg" alt="Ульяновские хирурги освоили метод TAVI: прорыв в кардиохирургии региона" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Здравоохранение</span>
+<h3 class="card__title"><a href="https://ulnovosti.ru/i-lenta-novostej-i/ulyanovskie-hirurgi-osvoili-metod-tavi-proryv-v-kardiohirurgii-regiona/" target="_blank" rel="noopener" title="Ульяновские хирурги освоили метод TAVI: прорыв в кардиохирургии региона">Ульяновские хирурги освоили метод TAVI: прорыв в кардиохирургии региона</a></h3>
+<p class="card__dek">Во времена всеобщей лжи говорить правду — это экстремизм В Ульяновской области впервые провели замену аортального клапана сердца с помощью минимально инвазивной процедуры через прокол.…</p>
+<div class="card__meta">Ulnovosti.ru · 15.09, 20:41</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="security" data-type="news">
+<div class="card__media card__media--c" role="img" aria-label="Безопасность и происшествия"><img src="assets/photos/1368d01f0becbbb7.jpg" alt="В Ульяновской области мужчину отправили на принудительные работы за неуплату алиментов" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Безопасность и происшествия</span>
+<h3 class="card__title"><a href="https://ulpressa.ru/2026/09/15/v-ulyanovskoj-oblasti-muzhchinu-otpravili-na-prinuditelnye-raboty-za-neuplatu-alimentov/" target="_blank" rel="noopener" title="В Ульяновской области мужчину отправили на принудительные работы за неуплату алиментов">В Ульяновской области мужчину отправили на принудительные работы за неуплату алиментов</a></h3>
+<p class="card__dek">После первого приговора — исправительные работы — мужчина продолжил уклоняться от содержания ребёнка, игнорируя и меры принудительного исполнения судебных приставов.…</p>
+<div class="card__meta">Улпресса · 15.09, 20:40</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="security" data-type="news">
+<div class="card__media card__media--d" role="img" aria-label="Безопасность и происшествия"><img src="assets/photos/34c429b61f0db1fe.jpg" alt="Снести канатную дорогу и горнолыжную трассу" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Безопасность и происшествия</span>
+<h3 class="card__title"><a href="https://ulnovosti.ru/i-lenta-novostej-i/snesti-kanatnuju-dorogu-i-gornolyzhnuju-trassu/" target="_blank" rel="noopener" title="Снести канатную дорогу и горнолыжную трассу">Снести канатную дорогу и горнолыжную трассу</a></h3>
+<p class="card__dek">Причина — якобы конструкции признали аварийными и не подлежащими восстановлению. Кроме того, недействующий курорт портит вид города.…</p>
+<div class="card__meta">Ulnovosti.ru · 15.09, 20:33</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--a" role="img" aria-label="Общество и городская среда"><img src="assets/photos/a092dfe136ef44e0.jpg" alt="Пользователи, установившие обновление, жалуются на целый набор проблем: • У некоторых обновление не ставится: вместо…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда</span>
+<h3 class="card__title"><a href="https://t.me/chpul/34466" target="_blank" rel="noopener" title="Пользователи, установившие обновление, жалуются на целый набор проблем: • У некоторых обновление не ставится: вместо iOS 27 телефон предлагает iOS 26.7 , а затем выдаёт ошибку. После попытки устройство может превратиться в «кирпич». • Российские приложения исчезают и больше не скачиваются; • Siri забыла русский, а Apple Intelligence сбоит при обработке фото; • Индикатор заряда иногда показывает неверный процент.">Пользователи, установившие обновление, жалуются на целый набор проблем: • У некоторых обновление не…</a></h3>
+<p class="card__dek">После попытки устройство может превратиться в «кирпич».…</p>
+<div class="card__meta">t.me/chpul · 15.09, 20:29</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="health" data-type="news">
+<div class="card__media card__media--b" role="img" aria-label="Здравоохранение"><img src="assets/photos/9e271e69973e7a0c.jpg" alt="В Засвияжском районе Ульяновска заработала новая поликлиника" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Здравоохранение</span>
+<h3 class="card__title"><a href="https://ulnovosti.ru/i-lenta-novostej-i/v-zasviyazhskom-rajone-ulyanovska-zarabotala-novaya-poliklinika/" target="_blank" rel="noopener" title="В Засвияжском районе Ульяновска заработала новая поликлиника">В Засвияжском районе Ульяновска заработала новая поликлиника</a></h3>
+<p class="card__dek">Во времена всеобщей лжи говорить правду — это экстремизм С 16 сентября свои двери для пациентов открыл новый филиал городской поликлиники № 4.…</p>
+<div class="card__meta">Ulnovosti.ru · 15.09, 20:22</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="security" data-type="news">
+<div class="card__media card__media--c" role="img" aria-label="Безопасность и происшествия"><img src="assets/photos/dae1de4cf99e7887.jpg" alt="В Ленинском районе сожитель сломал женщине четыре ребра и кисть" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Безопасность и происшествия</span>
+<h3 class="card__title"><a href="https://ulpressa.ru/2026/09/15/v-leninskom-rajone-sozhitel-slomal-zhenshhine-chetyre-rebra-i-kist/" target="_blank" rel="noopener" title="В Ленинском районе сожитель сломал женщине четыре ребра и кисть">В Ленинском районе сожитель сломал женщине четыре ребра и кисть</a></h3>
+<p class="card__dek">В Ленинском районе задержан 60-летний мужчина, избивший сожительницу во время ссоры.…</p>
+<div class="card__meta">Улпресса · 15.09, 20:21</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="health" data-type="news">
+<div class="card__media card__media--d" role="img" aria-label="Здравоохранение"><img src="assets/photos/fd5db89bd778db20.jpg" alt="Работу сердца пациентке восстановили через крошечный прокол в бедренной артерии (метод TAVI).…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Здравоохранение</span>
+<h3 class="card__title"><a href="https://t.me/insaid173/47015" target="_blank" rel="noopener" title="Работу сердца пациентке восстановили через крошечный прокол в бедренной артерии (метод TAVI). Операцию провел завотделением из Казани Михаил Володюхин, а ульяновские хирурги ассистировали ему, перенимая опыт прямо во время вмешательства. Сложную процедуру транслировали на весь зал Всероссийского форума «Человекоцентричная медицина». 60-летняя пациентка уже идет на поправку и готовится к выписке домой.">Работу сердца пациентке восстановили через крошечный прокол в бедренной артерии (метод TAVI).…</a></h3>
+<p class="card__dek">Работу сердца пациентке восстановили через крошечный прокол в бедренной артерии (метод TAVI).…</p>
+<div class="card__meta">t.me/insaid173 · 15.09, 20:11</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--a" role="img" aria-label="Общество и городская среда"><img src="assets/photos/7805f33c32449740.jpg" alt="Ответственные лица ГорВодоканал, УК когда будет порядок наведен между домами по ул. Димитрова, 1-3.…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда · ЖКХ и тарифы</span>
+<h3 class="card__title"><a href="https://t.me/dimitrovgradd/31802" target="_blank" rel="noopener" title="Ответственные лица ГорВодоканал, УК когда будет порядок наведен между домами по ул. Димитрова, 1-3. Ремонт завершился 1,6-2 месяца назад, а пешеходная дорожка до сих пор не уложена. Ждём когда земля полностью просядет и асфальт дорожный за собой потянет? Ждём когда дожди начнут идти не переставая или чего-то другого ожидаем?">Ответственные лица ГорВодоканал, УК когда будет порядок наведен между домами по ул. Димитрова, 1-3.…</a></h3>
+<p class="card__dek">Димитрова, 1-3. Ремонт завершился 1,6-2 месяца назад, а пешеходная дорожка до сих пор не уложена.…</p>
+<div class="card__meta">t.me/dimitrovgradd · 15.09, 20:07</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--b" role="img" aria-label="Общество и городская среда"><img src="assets/photos/39c82656c3b323ab.jpg" alt="Сюжет Татьяны Дамадановой — «Лагерь 50+» — возглавил номинацию «Лучший репортаж в ежедневном выпуске новостей».…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда</span>
+<h3 class="card__title"><a href="https://t.me/reporter73/52219" target="_blank" rel="noopener" title="Сюжет Татьяны Дамадановой — «Лагерь 50+» — возглавил номинацию «Лучший репортаж в ежедневном выпуске новостей». Поздравляем и гордимся!…">Сюжет Татьяны Дамадановой — «Лагерь 50+» — возглавил номинацию «Лучший репортаж в ежедневном…</a></h3>
+<p class="card__dek">Сюжет Татьяны Дамадановой — «Лагерь 50+» — возглавил номинацию «Лучший репортаж в ежедневном выпуске новостей». Поздравляем и гордимся!…</p>
+<div class="card__meta">t.me/reporter73 · 15.09, 20:02</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#14532d;background:#e7f6ec">Факт</span></div>
+</article><article class="card feed-card" data-cat="society" data-type="news">
+<div class="card__media card__media--c" role="img" aria-label="Общество и городская среда"><img src="assets/photos/678e90aacd65842f.jpg" alt="Их торжественная регистрация прошла 28 августа.…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Общество и городская среда · Димитровград</span>
+<h3 class="card__title"><a href="https://t.me/dimitrovgradonline/33666" target="_blank" rel="noopener" title="Их торжественная регистрация прошла 28 августа. Новобрачных поздравили «рубиновые» юбиляры Владимир Иванович и Лариса Владимировна Черевко, которые вручили паре символический подарок. Счастливым молодожёнам пожелали гармонии, взаимопонимания и долгих лет совместной жизни. --- Поздравляем молодых!…">Их торжественная регистрация прошла 28 августа.…</a></h3>
+<p class="card__dek">Их торжественная регистрация прошла 28 августа.…</p>
+<div class="card__meta">t.me/dimitrovgradonline · 15.09, 19:50</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#25435f;background:#e8eef5">По данным источника</span></div>
+</article><article class="card feed-card" data-cat="health" data-type="news">
+<div class="card__media card__media--d" role="img" aria-label="Здравоохранение"><img src="assets/photos/da0e77ee50a6b7c3.jpg" alt="КОЛПАКОВА! Это событие, которого жители Засвияжского района ждали более 15 лет!…" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"></div>
+<span class="kicker card__kicker">Здравоохранение</span>
+<h3 class="card__title"><a href="https://t.me/vmkononov/5293" target="_blank" rel="noopener" title="КОЛПАКОВА! Это событие, которого жители Засвияжского района ждали более 15 лет! Неоднократно на встречах с ними звучали вопросы о доступности медицинской помощи, и теперь этот важный вопрос решён. Поликлиника рассчитана на 250 посещений в смену и сможет принимать более 30 тысяч взрослых пациентов. Здесь установлен современный МРТ, рентген, маммограф, денситометр и аппараты УЗИ.…">КОЛПАКОВА! Это событие, которого жители Засвияжского района ждали более 15 лет!…</a></h3>
+<p class="card__dek">КОЛПАКОВА! Это событие, которого жители Засвияжского района ждали более 15 лет!…</p>
+<div class="card__meta">t.me/vmkononov · 15.09, 19:35</div>
+<div class="card__badges"><span class="chip" style="color:#3a3a3a;background:#eeeeee">Новость</span><span class="chip" style="color:#14532d;background:#e7f6ec">Факт</span></div>
 </article></div>
+<div class="feed-bar"><span id="feed-count">Материалов суток: 36</span><button id="feed-more" class="feed-more" type="button">Показать ещё 12</button><a href="archive.html">Архив-матрица →</a></div>
+<p id="feed-empty" class="feed-empty" hidden>Ничего по этому фильтру в ленте нет — <a href="#feed=*">показать все материалы</a>.</p>
 </section>
 
 <section class="feature" aria-labelledby="feature-title">
@@ -587,17 +850,17 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="sec-head"><h2 id="opinion-title">Мнения повестки</h2>
 <a href="infospace.html">Инфопространство →</a></div>
 <div class="opinion__grid"><article class="op">
-<p class="op__quote"><a href="https://t.me/ulpromo/17986" target="_blank" rel="noopener">«СМОТРИМ КИНО В ДЖИПСИ «ДВОЕ: Я и моя тень» Двое детей. Одна история. Момент, который нельзя забыть.…».</a></p>
+<p class="op__quote"><a href="https://t.me/volkodav73/30676" target="_blank" rel="noopener" title="В Ленинском районном суде г. Ульяновска огласили приговор в отношении одного из руководителей подразделений Ульяновского института гражданской авиации и директора одной из коммерческих организаций, причастных к хищению бюджетных денежных средств при исполнении контрактов в интересах учебного заведения в особо крупном размере (ч. 4 ст. 159 УК РФ).…">«В Ленинском районном суде г.…».</a></p>
 <div class="op__author"><span class="op__avatar" aria-hidden="true">1</span>
-<span><div class="op__name">@ulpromo</div>
-<div class="op__role">телеграм-канал, анонимный источник повестки</div></span></div></article><article class="op">
-<p class="op__quote"><a href="https://t.me/volkodav73/30671" target="_blank" rel="noopener">«🛑 Прокуратура Засвияжского района г. Ульяновска проводит проверку исполнения законодательства о контрактной…».</a></p>
-<div class="op__author"><span class="op__avatar" aria-hidden="true">2</span>
 <span><div class="op__name">@volkodav73</div>
 <div class="op__role">телеграм-канал, анонимный источник повестки</div></span></div></article><article class="op">
-<p class="op__quote"><a href="https://t.me/ulpatriot/6899" target="_blank" rel="noopener">«Бесплатному питанию для школьников - быть Губернатор Алексей Русских в своих соцсетях сделал заявление по…».</a></p>
+<p class="op__quote"><a href="https://t.me/ulpromo/17989" target="_blank" rel="noopener" title="Уже 12 сентября в 22:00 ты погрузишься в атмосферу кайфовой музыки, вкусных напитков и мистики от сеанса таролога Адрес: Дворцовая, 8.…">«Уже 12 сентября в 22:00 ты погрузишься в атмосферу кайфовой музыки, вкусных напитков и мистики от сеанса…».</a></p>
+<div class="op__author"><span class="op__avatar" aria-hidden="true">2</span>
+<span><div class="op__name">@ulpromo</div>
+<div class="op__role">телеграм-канал, анонимный источник повестки</div></span></div></article><article class="op">
+<p class="op__quote"><a href="https://t.me/volkodav73/30677" target="_blank" rel="noopener" title="ПЛОХОЙ ТЕАТР С ХРЕНОВЫМ КОНЦОМ Спектакль в трёх актах, автор — Якушев. Билеты бесплатно, стыд прилагается. АКТ ПЕРВЫЙ. ПУБЛИКА Якушев вышел просить голоса и заодно предложил избирателям свою шкалу общественной нравственности: «По мне, хуже некоторых чиновников только пидорасы». Чиновник — это должность, а не диагноз. Формально Якушев говорит не обо всех, а о «некоторых». Но ни фамилий, ни поступков не называет — значит, обвинение можно натянуть на кого угодно, а тень падает на всю профессию.…">«ПЛОХОЙ ТЕАТР С ХРЕНОВЫМ КОНЦОМ Спектакль в трёх актах, автор — Якушев. Билеты бесплатно, стыд прилагается.…».</a></p>
 <div class="op__author"><span class="op__avatar" aria-hidden="true">3</span>
-<span><div class="op__name">@ulpatriot</div>
+<span><div class="op__name">@volkodav73</div>
 <div class="op__role">телеграм-канал, анонимный источник повестки</div></span></div></article></div>
 <div class="note" style="max-width:var(--maxw);margin:18px auto;padding:0 var(--gutter);">Цитаты анонимных каналов приводятся как материал исследования повестки, а не как редакционные оценки.</div>
 </section>
@@ -638,6 +901,63 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </div>
 <div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
 </footer>
+<script>
+(function(){
+  var grid=document.getElementById('feed-grid');
+  if(!grid)return;
+  var cards=Array.prototype.slice.call(grid.querySelectorAll('.feed-card'));
+  var total=cards.length,limit=12,step=12;
+  var btn=document.getElementById('feed-more');
+  var cnt=document.getElementById('feed-count');
+  var empty=document.getElementById('feed-empty');
+  function state(){
+    var s=location.hash.match(/^#feed=([^:]*)(?::([^:]*))?/);
+    return {cat:s?decodeURIComponent(s[1])||'*':'*',type:s?decodeURIComponent(s[2])||'*':'*'};
+  }
+  function match(c,st){
+    return (st.cat==='*'||c.getAttribute('data-cat')===st.cat)
+        && (st.type==='*'||c.getAttribute('data-type')===st.type);
+  }
+  function paint(){
+    var st=state(),shown=0,hasMore=false;
+    cards.forEach(function(c){
+      if(match(c,st)){
+        if(shown<limit){c.classList.remove('hidden');shown++;}
+        else{c.classList.add('hidden');hasMore=true;}
+      }else{c.classList.add('hidden');}
+    });
+    if(cnt)cnt.textContent='Показано '+shown+' из '+total+' материалов суток';
+    if(btn)btn.style.display=hasMore?'grid':'none';
+    if(empty)empty.hidden=!((st.cat!=='*'||st.type!=='*')&&shown===0);
+    document.querySelectorAll('#feed-chips .chip-f').forEach(function(ch){
+      var g=ch.getAttribute('data-group'),v=ch.getAttribute('data-val');
+      var want=g==='cat'?st.cat:st.type;
+      var on=v===want;
+      ch.classList.toggle('on',on);
+      ch.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+  if(btn)btn.addEventListener('click',function(){limit+=step;paint();});
+  window.addEventListener('hashchange',function(){limit=12;paint();});
+  document.querySelectorAll('#feed-chips .chip-f').forEach(function(ch){
+    ch.addEventListener('click',function(){
+      var g=ch.getAttribute('data-group'),v=ch.getAttribute('data-val');
+      var st=state();
+      if(g==='cat'){st.cat=v;}else{st.type=v;}
+      location.hash='feed='+encodeURIComponent(st.cat)+':'+encodeURIComponent(st.type);
+    });
+  });
+  paint();
+  // #24: A/B — переключатель «версии B главной» (запоминается локально)
+  var ab=document.querySelector('.ab-link');
+  if(ab){
+    var abv=localStorage.getItem('gudok-ab-v2')==='1';
+    function abApply(){document.body.setAttribute('data-ab',abv?'v2':'v1');ab.setAttribute('aria-pressed',abv?'true':'false');}
+    ab.addEventListener('click',function(){abv=!abv;localStorage.setItem('gudok-ab-v2',abv?'1':'0');abApply();});
+    abApply();
+  }
+})();
+</script>
 <script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
 document.documentElement.setAttribute("data-theme",c);

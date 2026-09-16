@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Предложение: первая полоса и структура новостей — Гудок · Ульяновская область</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/cyrillic-400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/cyrillic-500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/cyrillic-600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/cyrillic-700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/latin-400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/latin-600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-serif-4/cyrillic-400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-serif-4/cyrillic-600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-serif-4/latin-400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-serif-4/latin-400-italic.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces/latin-400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces/latin-600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces/latin-700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces/latin-400-italic.css">
+<style>
+/* ============ БАЗА ИЗДАНИЯ (как на index.html) ============ */
+:root{
+  --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
+  --rule:#E3DED4; --rule-strong:#0B0B0B; --accent:#D63F1F; --on-ink:#C9C2B6;
+  --serif-display:"Fraunces","Source Serif 4",Georgia,"Times New Roman",serif;
+  --serif-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --rubleny:Impact,"Arial Black","Franklin Gothic Bold","Helvetica Neue",sans-serif;
+  --maxw:1340px; --gutter:28px;
+  --navy:var(--ink); --blue:var(--ink); --gold:var(--accent); --line:var(--rule);
+  --txt:var(--ink); --bg:var(--paper); --card:var(--paper); --shadow:none;
+  --calm:#4F5F53; --warn:#B04848;
+}
+:root[data-theme="dark"]{
+  --paper:#101214; --paper-2:#17191c; --ink:#ECE7DE; --ink-2:#D5CFC4; --muted:#9A948A;
+  --rule:#2A2D31; --rule-strong:#ECE7DE; --accent:#FF6A4D; --on-ink:#8B8578;
+  --calm:#7FA88C; --warn:#E08A8A;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--accent);}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+img{max-width:100%;display:block;}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:99;}
+.skip:focus{left:8px;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}}
+
+.brand-title,.mast-title,.wordmark,.footer__brand{font-family:var(--rubleny);font-weight:900;text-transform:uppercase;letter-spacing:.04em;line-height:.95;color:var(--ink);font-style:normal;}
+.mast-title{font-size:clamp(44px,8vw,76px);letter-spacing:.06em;text-align:center;}
+.brand-title span,.mast-title span,.wordmark span,.footer__brand span{color:var(--accent);}
+
+.flagline{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;gap:14px;padding:10px var(--gutter);flex-wrap:wrap;font-family:var(--sans);font-size:12px;color:var(--muted);}
+.mast-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;max-width:var(--maxw);margin:0 auto;padding:20px var(--gutter) 20px;}
+.mast-side{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.7;}
+.mast-side--right{text-align:right;}
+.mast-actions{display:flex;gap:14px;justify-content:flex-end;align-items:center;margin-top:10px;}
+.masthead::after{content:"";display:block;max-width:var(--maxw);margin:14px auto 0;border-bottom:1px solid var(--rule-strong);}
+.theme-btn,.print-btn{border:none;background:none;color:var(--muted);font:500 12px var(--sans);padding:0 10px;cursor:pointer;border-bottom:1px solid var(--ink);}
+.theme-btn:hover,.print-btn:hover{color:var(--accent);border-color:var(--accent);}
+
+.nav{position:sticky;top:0;z-index:30;background:var(--paper);border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:flex;align-items:center;flex-wrap:wrap;}
+.nav a{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--ink-2);padding:15px 14px;position:relative;}
+.nav a:hover{color:var(--ink);}
+.nav a.active{color:var(--accent);font-weight:600;}
+.nav a.active::after{content:"";position:absolute;left:14px;right:14px;bottom:10px;height:2px;background:var(--accent);}
+.nav a.nav-util{color:var(--muted);}
+.nav-util-first{margin-left:auto;}
+.nav-toggle{display:none;border:1px solid var(--rule);background:none;color:var(--ink);font:600 13px var(--sans);padding:8px 12px;cursor:pointer;margin:8px var(--gutter);}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--accent);width:0;z-index:31;transition:width .1s linear;}
+@media (max-width:900px){
+  .nav-toggle{display:block;}
+  .nav-inner{display:none;flex-direction:column;align-items:stretch;}
+  body.nav-open .nav-inner{display:flex;}
+  .nav a{padding:12px 16px;border-top:1px solid var(--rule);}
+  .nav-util-first{margin-left:0;}
+}
+.subnav{background:var(--paper);border-bottom:1px solid var(--rule);position:sticky;top:47px;z-index:25;}
+.subnav-inner{max-width:var(--maxw);margin:0 auto;padding:8px var(--gutter);display:flex;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:12.5px;align-items:center;}
+.subnav-inner a{color:var(--muted);}
+.subnav-inner a:hover,.subnav-inner a.on{color:var(--accent);}
+.subnav .lbl{color:var(--ink);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;}
+@media (max-width:720px){.subnav{position:static;}.subnav-inner{overflow-x:auto;flex-wrap:nowrap;}}
+
+.page{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);}
+.sec-head{max-width:var(--maxw);margin:64px auto 26px;padding:16px var(--gutter) 0;border-top:1px solid var(--ink);display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.sec-head h2{font-family:var(--serif-display);font-weight:600;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.02em;color:var(--ink);margin:0;}
+.sec-head .badge{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--muted);}
+.sec-lead{max-width:var(--maxw);margin:-10px auto 26px;padding:0 var(--gutter);font-family:var(--serif-body);font-size:18px;color:var(--ink-2);max-width:78ch;}
+
+.hero{padding:52px 0 44px;border-bottom:1px solid var(--rule);}
+.hero__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.45fr 1fr;gap:56px;align-items:center;}
+.hero__eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.hero__eyebrow .live{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2.4s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
+.kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);}
+.hero__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(34px,4.8vw,64px);line-height:1.04;letter-spacing:-.025em;margin:0 0 22px;text-wrap:balance;color:var(--ink);}
+.hero__title em{font-style:italic;font-weight:400;color:var(--accent);}
+.hero__dek{font-family:var(--serif-body);font-size:19px;line-height:1.5;color:var(--ink-2);margin:0 0 24px;max-width:62ch;}
+.hero__byline{display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px;color:var(--muted);}
+.hero__byline .avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;letter-spacing:.05em;flex:0 0 36px;}
+.hero__byline strong{color:var(--ink);font-weight:600;}
+.dot-sep::before{content:"·";margin:0 8px;color:var(--muted);}
+.hero__media{position:relative;aspect-ratio:4/5;overflow:hidden;margin:0;background:radial-gradient(120% 90% at 30% 20%,#EFE7DA 0%,#DED3C2 55%,#C9BCA8 100%);border:1px solid var(--rule);}
+.hero__media svg{position:absolute;inset:0;width:100%;height:100%;}
+.hero__media figcaption{position:absolute;left:16px;right:16px;bottom:14px;color:#3A342C;font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between;gap:12px;z-index:2;}
+:root[data-theme="dark"] .hero__media{background:radial-gradient(120% 90% at 30% 20%,#2A2D31 0%,#1A1D20 55%,#101214 100%);}
+:root[data-theme="dark"] .hero__media figcaption{color:var(--muted);}
+
+.note{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6;border-left:2px solid var(--accent);padding-left:12px;}
+.verdict{border-left:3px solid var(--accent);padding:14px 18px;font-family:var(--serif-body);font-size:16px;color:var(--ink-2);margin-top:12px;background:var(--paper-2);}
+.verdict b{color:var(--accent);text-transform:uppercase;font-family:var(--sans);font-size:11px;letter-spacing:.12em;display:block;margin-bottom:4px;}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0 28px;}
+.kpi{background:none;border-top:1px solid var(--ink);border-radius:0;padding:14px 14px 14px 0;}
+.kpi .num{font-family:var(--serif-display);font-weight:600;font-size:30px;color:var(--ink);line-height:1.05;}
+.kpi .num small{font-size:12px;font-weight:600;color:var(--muted);}
+.kpi .lbl{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.45;}
+
+/* ============ ДИАГНОЗ ============ */
+.diag-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;}
+.diag{border-top:1px solid var(--ink);padding:18px 0 20px;break-inside:avoid;}
+.diag-n{font-family:var(--rubleny);font-size:13px;letter-spacing:.08em;color:var(--accent);}
+.diag h3{font-family:var(--serif-display);font-weight:600;font-size:22px;line-height:1.15;letter-spacing:-.015em;margin:4px 0 10px;color:var(--ink);}
+.ex{background:var(--paper-2);border-left:3px solid var(--rule);padding:10px 14px;font-family:var(--serif-body);font-size:14.5px;line-height:1.45;color:var(--ink-2);margin:0 0 10px;}
+.ex .src{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+.ex.bad{border-left-color:var(--accent);}
+.ex.good{border-left-color:var(--calm);}
+.diag p{font-family:var(--serif-body);font-size:15px;color:var(--muted);margin:0 0 8px;line-height:1.5;}
+.fix{font-family:var(--sans);font-size:13px;color:var(--ink-2);line-height:1.5;border-top:1px dashed var(--rule);padding-top:10px;}
+.fix b{color:var(--accent);text-transform:uppercase;font-size:10.5px;letter-spacing:.12em;display:block;margin-bottom:3px;}
+
+/* ============ СХЕМА ПОЛОСЫ ============ */
+.wf-wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);}
+.wf-modes{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+.mbtn{border:1px solid var(--rule);background:none;color:var(--muted);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:8px 16px;cursor:pointer;}
+.mbtn.on{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.wf-cols{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;}
+.wf-cols.mode-now .wf-panel--new,.wf-cols.mode-new .wf-panel--now{display:none;}
+.wf-cols.mode-now,.wf-cols.mode-new{grid-template-columns:minmax(0,1fr);}
+.wf-panel{border-top:3px solid var(--ink);padding-top:14px;}
+.wf-panel h3{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 16px;}
+.wf-panel--new h3{color:var(--accent);}
+.wf{display:flex;flex-direction:column;gap:8px;}
+.wf-zone{position:relative;border:1px solid var(--rule);background:var(--paper-2);padding:10px 12px;cursor:default;transition:background .18s,border-color .18s,transform .18s;}
+.wf-zone:hover,.wf-zone.hot{border-color:var(--accent);background:var(--paper);transform:translateX(3px);}
+.wf-zone .zt{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--ink);display:flex;gap:8px;align-items:baseline;}
+.wf-zone .zt i{font-family:var(--rubleny);font-style:normal;font-size:11px;color:var(--accent);letter-spacing:.06em;}
+.wf-zone .zn{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4;}
+.wf-lines{display:flex;flex-direction:column;gap:4px;margin-top:8px;}
+.wf-lines span{height:5px;background:var(--rule);display:block;}
+.wf-lines span:nth-child(1){width:92%}.wf-lines span:nth-child(2){width:78%}.wf-lines span:nth-child(3){width:64%}
+.wf-zone.flag::after{content:"";position:absolute;right:10px;top:10px;width:7px;height:7px;background:var(--accent);border-radius:50%;}
+.wf-zone.dark{background:var(--ink);border-color:var(--ink);}
+.wf-zone.dark .zt,.wf-zone.dark .zt i{color:var(--paper);}
+.wf-zone.dark .zn{color:var(--on-ink);}
+.wf-zone.dark .wf-lines span{background:rgba(250,247,242,.22);}
+.wf-zone.alert{background:var(--accent);border-color:var(--accent);}
+.wf-zone.alert .zt,.wf-zone.alert .zn{color:#fff;}
+.wf-zone.rail{background:none;border-style:dashed;}
+.wf-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.wf-2{display:grid;grid-template-columns:1.6fr 1fr;gap:8px;}
+.wf-3eq{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.wf-legend{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin-top:28px;border-top:1px solid var(--rule);padding-top:18px;}
+.lg{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:12.8px;line-height:1.45;color:var(--muted);cursor:default;transition:color .18s;}
+.lg:hover,.lg.hot{color:var(--ink);}
+.lg i{font-family:var(--rubleny);font-style:normal;color:var(--accent);flex:0 0 22px;font-size:12px;}
+.lg b{color:var(--ink);}
+
+/* ============ АНАТОМИЯ ============ */
+.anat{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start;}
+.anat-card{border-top:3px solid var(--ink);padding:22px 0 6px;position:relative;}
+.anat-media{aspect-ratio:16/9;background:linear-gradient(140deg,#D9CFC0 0%,#A89A85 100%);margin-bottom:16px;position:relative;overflow:hidden;}
+.anat-media::after{content:"ФОТО · подпись и источник обязательны";position:absolute;left:14px;bottom:12px;font-family:var(--sans);font-size:10px;letter-spacing:.1em;color:#3A342C;text-transform:uppercase;}
+.anat-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;}
+.anat-kick{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
+.tag-type{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink);padding:2px 8px;color:var(--ink);}
+.tag-status{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--calm);color:var(--calm);padding:2px 8px;}
+.anat-card h3{font-family:var(--serif-display);font-weight:600;font-size:28px;line-height:1.12;letter-spacing:-.02em;margin:0 0 12px;color:var(--ink);}
+.anat-card .lead{font-family:var(--serif-body);font-size:16.5px;line-height:1.5;color:var(--ink-2);margin:0 0 14px;}
+.factline{display:flex;gap:18px;flex-wrap:wrap;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:10px 0;margin-bottom:12px;font-family:var(--sans);font-size:11.5px;color:var(--muted);}
+.factline b{display:block;color:var(--ink);font-size:12.5px;font-weight:600;margin-top:2px;}
+.anat-meta{font-family:var(--sans);font-size:12px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+.anat-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.anat-acts span{font-family:var(--sans);font-size:11.5px;font-weight:600;border:1px solid var(--ink);padding:6px 12px;color:var(--ink);}
+.anat-acts span.solid{background:var(--ink);color:var(--paper);}
+.marker{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--sans);font-size:11.5px;font-weight:700;display:grid;place-items:center;cursor:pointer;border:2px solid var(--paper);z-index:3;transition:transform .16s;}
+.marker:hover,.marker.hot{transform:scale(1.25);}
+.anat-list{display:flex;flex-direction:column;}
+.anat-item{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--rule);cursor:default;transition:background .16s;}
+.anat-item:first-child{border-top:1px solid var(--ink);}
+.anat-item:hover,.anat-item.hot{background:var(--paper-2);}
+.anat-item i{font-family:var(--rubleny);font-style:normal;color:var(--accent);flex:0 0 24px;font-size:13px;}
+.anat-item b{font-family:var(--sans);font-size:13.5px;color:var(--ink);display:block;}
+.anat-item span{font-family:var(--serif-body);font-size:14px;color:var(--muted);line-height:1.45;display:block;margin-top:2px;}
+
+/* ============ РАНЖИРОВАНИЕ ============ */
+.rank{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:start;}
+.formula{border-top:3px solid var(--ink);padding:16px 0;font-family:var(--sans);font-size:14px;color:var(--ink-2);line-height:1.7;}
+.formula .f{font-family:var(--serif-display);font-size:17px;color:var(--ink);background:var(--paper-2);padding:12px 14px;margin-bottom:14px;border-left:3px solid var(--accent);line-height:1.6;}
+.formula .f em{color:var(--accent);font-style:normal;font-weight:600;}
+.sliders{display:flex;flex-direction:column;gap:14px;margin:14px 0 6px;}
+.sl label{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px;}
+.sl label b{color:var(--accent);font-family:var(--serif-display);font-size:15px;letter-spacing:0;}
+input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;height:22px;}
+.rank-panel{border-top:3px solid var(--ink);padding-top:14px;}
+.rank-head{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:16px;}
+.rank-head h3{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0;}
+.rbtn{border:1px solid var(--rule);background:none;color:var(--muted);font-family:var(--sans);font-size:12px;font-weight:600;padding:6px 13px;cursor:pointer;}
+.rbtn.on{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.rlist{display:flex;flex-direction:column;gap:2px;}
+.ritem{display:grid;grid-template-columns:26px 1fr 130px;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--rule);transition:opacity .2s;}
+.ritem .rpos{font-family:var(--rubleny);font-size:14px;color:var(--muted);}
+.ritem.top3 .rpos{color:var(--accent);}
+.ritem .rtitle{font-family:var(--serif-body);font-size:15.5px;font-weight:600;color:var(--ink);line-height:1.3;}
+.ritem .rsub{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:4px;display:flex;gap:10px;flex-wrap:wrap;}
+.ritem .rsub em{font-style:normal;color:var(--accent);}
+.rbar{height:9px;background:var(--paper-2);position:relative;overflow:hidden;}
+.rbar i{position:absolute;left:0;top:0;bottom:0;background:var(--ink-2);width:0;transition:width .45s cubic-bezier(.2,.7,.2,1);}
+.ritem.top3 .rbar i{background:var(--accent);}
+.ritem.out{opacity:.5;}
+.ritem.out .rbar i{background:var(--rule-strong);}
+.rscore{font-family:var(--sans);font-size:11px;color:var(--muted);text-align:right;margin-top:4px;}
+
+/* ============ ТАБЛИЦЫ ============ */
+.tbl{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;}
+.tbl th{background:none;color:var(--muted);text-align:left;padding:8px 10px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ink);}
+.tbl td{padding:10px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2);line-height:1.45;}
+.tbl td b{color:var(--ink);}
+.tbl .mono{font-family:var(--serif-body);font-size:14px;}
+.tbl .was{color:var(--warn);}
+.tbl .now{color:var(--calm);}
+.arrow{color:var(--accent);font-weight:700;}
+.tw{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);}
+.chip{display:inline-block;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--ink-2);border:1px solid var(--rule);padding:4px 10px;margin:0 6px 6px 0;background:none;}
+.chip.new{border-color:var(--accent);color:var(--accent);}
+.chip.off{opacity:.45;text-decoration:line-through;}
+
+/* ============ РУБРИКАТОР: БАРЫ ============ */
+.rub{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 1fr;gap:0 48px;}
+.rub-col h3{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);border-top:3px solid var(--ink);padding-top:12px;margin:0 0 14px;}
+.rub-col.to h3{color:var(--accent);}
+.brow{display:grid;grid-template-columns:190px 1fr 48px;gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:12.5px;}
+.brow .bn{color:var(--ink);font-weight:600;}
+.brow .bn small{display:block;font-weight:400;color:var(--muted);font-size:11px;}
+.btrack{height:10px;background:var(--paper-2);position:relative;}
+.btrack i{position:absolute;inset:0 auto 0 0;background:var(--ink-2);width:0;transition:width .7s cubic-bezier(.2,.7,.2,1);}
+.rub-col.to .btrack i{background:var(--accent);}
+.brow .bv{text-align:right;color:var(--muted);font-weight:700;}
+
+/* ============ ПРЕДЛОЖЕНИЯ ============ */
+.filters{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.fbtn{border:1px solid var(--rule);background:none;color:var(--muted);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;cursor:pointer;}
+.fbtn.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.fcount{font-family:var(--sans);font-size:12px;color:var(--muted);margin-left:auto;}
+.props{max-width:var(--maxw);margin:22px auto 0;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 1fr;gap:0 40px;align-items:start;}
+.prop{border-top:1px solid var(--rule);break-inside:avoid;}
+.prop:first-child,.prop:nth-child(2){border-top:1px solid var(--ink);}
+.prop summary{list-style:none;cursor:pointer;padding:14px 0;display:flex;gap:12px;align-items:baseline;}
+.prop summary::-webkit-details-marker{display:none;}
+.prop summary .pid{font-family:var(--rubleny);font-size:13px;color:var(--accent);flex:0 0 30px;}
+.prop summary .pt{font-family:var(--serif-display);font-weight:600;font-size:18.5px;line-height:1.2;color:var(--ink);flex:1;}
+.prop summary:hover .pt{color:var(--accent);}
+.prop summary .plus{font-family:var(--sans);font-size:15px;color:var(--muted);flex:0 0 16px;text-align:right;}
+.prop[open] summary .plus::after{content:"–";}
+.prop:not([open]) summary .plus::after{content:"+";}
+.prop .pbody{padding:0 0 16px 42px;font-family:var(--serif-body);font-size:15px;color:var(--ink-2);line-height:1.55;}
+.prop .pbody ul{margin:8px 0 0;padding-left:18px;}
+.prop .pbody li{margin:4px 0;}
+.pmeta{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;padding:0 0 0 42px;}
+.prio,.eff{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule);padding:2px 8px;color:var(--muted);}
+.prio.p0{color:var(--accent);border-color:var(--accent);}
+.prio.p1{color:var(--ink);border-color:var(--ink);}
+.eff.xs,.eff.s{color:var(--calm);border-color:var(--calm);}
+.prop.hide{display:none;}
+
+/* ============ ПЛАН ============ */
+.sprints{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(3,1fr);gap:0 32px;}
+.sprint{border-top:3px solid var(--ink);padding:16px 0 0;}
+.sprint.now{border-top-color:var(--accent);}
+.sprint .sw{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.sprint h3{font-family:var(--serif-display);font-weight:600;font-size:22px;line-height:1.15;margin:6px 0 10px;color:var(--ink);}
+.sprint ul{list-style:none;margin:0;padding:0;}
+.sprint li{font-family:var(--serif-body);font-size:14.5px;color:var(--ink-2);padding:6px 0 6px 18px;position:relative;border-bottom:1px solid var(--rule);line-height:1.4;}
+.sprint li::before{content:"☐";position:absolute;left:0;color:var(--muted);font-size:13px;}
+.sprint .res{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:12px;border-left:2px solid var(--accent);padding-left:10px;line-height:1.5;}
+
+/* ============ ФИЧА / CTA ============ */
+.feature{margin-top:80px;background:var(--ink);color:var(--paper);}
+.feature__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 1.05fr;align-items:stretch;}
+.feature__text{padding:64px 56px 64px 0;display:flex;flex-direction:column;justify-content:center;}
+.feature__kicker{color:var(--accent);font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px;}
+.feature__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(30px,3.4vw,46px);line-height:1.06;letter-spacing:-.025em;margin:0 0 22px;color:var(--paper);text-wrap:balance;}
+.feature__title em{font-style:italic;font-weight:400;}
+.feature__dek{font-family:var(--serif-body);font-size:17px;line-height:1.55;color:var(--on-ink);margin:0 0 22px;max-width:52ch;}
+.checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;}
+.checklist li{font-family:var(--sans);font-size:13.5px;color:var(--on-ink);padding-left:26px;position:relative;line-height:1.45;}
+.checklist li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:700;}
+.feature__media{position:relative;min-height:460px;background:radial-gradient(120% 100% at 70% 30%,#6D4F3C 0%,#3A2A22 55%,#1A1310 100%);overflow:hidden;}
+.feature__media svg{position:absolute;inset:0;width:100%;height:100%;}
+.feature__media figcaption{position:absolute;bottom:18px;right:18px;font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#E9E4DA;}
+
+.newsletter{margin-top:80px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--paper-2);}
+.newsletter__inner{max-width:820px;margin:0 auto;padding:56px var(--gutter) 60px;text-align:center;}
+.newsletter__kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.newsletter__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(28px,3vw,40px);line-height:1.08;letter-spacing:-.02em;margin:0 0 14px;color:var(--ink);text-wrap:balance;}
+.newsletter__title em{font-style:italic;font-weight:400;}
+.newsletter__dek{font-family:var(--serif-body);font-size:17px;color:var(--muted);margin:0 0 26px;}
+.period-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.period-links a,.period-links button{border:1px solid var(--ink);padding:12px 22px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);background:none;cursor:pointer;}
+.period-links a:hover,.period-links button:hover{background:var(--ink);color:var(--paper);}
+.period-links .solid{background:var(--ink);color:var(--paper);}
+.period-links .solid:hover{background:var(--accent);border-color:var(--accent);}
+.newsletter__fine{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:16px;}
+
+.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
+.footer h3{color:var(--paper);font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
+.footer a{color:var(--on-ink);}
+.footer a:hover{color:var(--accent);}
+.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
+.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
+.footer li{margin:4px 0;}
+.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
+.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
+.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+
+/* ============ ПОЯВЛЕНИЕ ============ */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.in{opacity:1;transform:none;}
+
+/* ============ АДАПТИВ ============ */
+@media (max-width:1100px){
+  .hero__inner,.feature__inner,.anat,.rank,.rub,.wf-cols{grid-template-columns:1fr;gap:34px;}
+  .hero__media{aspect-ratio:16/9;}
+  .feature__text{padding:48px 0;}
+  .feature__media{min-height:320px;}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);gap:0 24px;}
+  .sprints{grid-template-columns:1fr;}
+  .footer__inner{grid-template-columns:1fr 1fr;}
+  .anat-card{padding-top:16px;}
+}
+@media (max-width:720px){
+  :root{--gutter:20px;}
+  body{font-size:16px;}
+  .mast-inner{grid-template-columns:1fr;text-align:center;gap:10px;}
+  .mast-side,.mast-side--right{text-align:center;}
+  .mast-actions{justify-content:center;}
+  .diag-grid,.props,.wf-legend{grid-template-columns:1fr;gap:0;}
+  .ritem{grid-template-columns:22px 1fr;gap:10px;}
+  .ritem .rbarwrap{grid-column:1/-1;}
+  .brow{grid-template-columns:120px 1fr 42px;}
+  .footer__inner{grid-template-columns:1fr;}
+  .footer__bottom{flex-direction:column;}
+  .tbl{font-size:12px;}
+  .tw{overflow-x:auto;}
+  .tw .tbl{min-width:560px;}
+}
+@media print{
+  .nav,.subnav,.filters,.print-btn,.theme-btn,.nav-toggle,.wf-modes,.rank-head,.progress{display:none!important;}
+  body{background:#fff;}
+  .reveal{opacity:1!important;transform:none!important;}
+  .prop{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+
+<header class="masthead">
+  <div class="flagline">
+    <span>среда, 16 сентября 2026 г.</span>
+    <span>Ульяновск · издание внутреннее</span>
+    <span>страница-предложение · черновик v1.0</span>
+  </div>
+  <div class="mast-inner">
+    <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+    <div class="mast-title">ГУДОК<span>.</span></div>
+    <div class="mast-side mast-side--right">К выпуску № 5<br>первая полоса и структура новостей
+      <div class="mast-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+        <button class="print-btn" onclick="window.print()" title="Печать">Печать</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="progress" id="progress"></div>
+  <button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button>
+  <div class="nav-inner">
+    <a href="index.html">Первая полоса</a>
+    <a href="digests/today.html">Сегодня</a>
+    <a href="weekly.html">Неделя</a>
+    <a href="monthly.html">Месяц</a>
+    <a href="afisha.html">Афиша</a>
+    <a href="projects.html">Проекты</a>
+    <a href="archive.html">Архив</a>
+    <a class="nav-util nav-util-first active" href="#main">Предложение по полосе</a>
+  </div>
+</nav>
+
+<main id="main">
+
+<div class="subnav">
+  <div class="subnav-inner">
+    <span class="lbl">В предложении:</span>
+    <a href="#diag">Диагноз</a>
+    <a href="#scheme">Схема полосы</a>
+    <a href="#anatomy">Анатомия материала</a>
+    <a href="#rank">Ранжирование</a>
+    <a href="#hygiene">Гигиена заголовка</a>
+    <a href="#rubrics">Рубрикатор</a>
+    <a href="#props">24 предложения</a>
+    <a href="#plan">План</a>
+    <a href="#kpi">Метрики</a>
+  </div>
+</div>
+
+<!-- ================= ГЕРОЙ ================= -->
+<section class="hero">
+  <div class="hero__inner">
+    <div>
+      <div class="hero__eyebrow">
+        <span class="live" aria-hidden="true"></span>
+        <span class="kicker">Редакционное предложение · к выпуску № 5</span>
+      </div>
+      <h1 class="hero__title">Первая полоса должна отвечать на <em>три вопроса</em> за десять секунд</h1>
+      <p class="hero__dek">Что случилось. Насколько это опасно. Что с этим делать. Сейчас полоса отвечает на четвёртый вопрос — «что пришло в ленту последним». Ниже разбор того, что реально видно на <a href="index.html">index.html</a>, и 24 конкретных предложения: по схеме полосы, по структуре каждого материала и по гигиене текста.</p>
+      <div class="hero__byline">
+        <span class="avatar" aria-hidden="true">Р</span>
+        <span><strong>Редакция «Гудка»</strong>
+        <span class="dot-sep">черновик, 16.09.2026</span>
+        <span class="dot-sep">12 мин чтения</span> · 24 пункта</span>
+      </div>
+    </div>
+    <figure class="hero__media">
+      <svg viewBox="0 0 400 500" role="img" aria-label="Схема первой полосы: зоны и порядок">
+        <g fill="none" stroke="#8A7F70" stroke-width="1">
+          <rect x="24" y="24" width="352" height="452"/>
+        </g>
+        <g fill="#D63F1F" opacity=".92">
+          <rect x="40" y="42" width="320" height="20"/>
+        </g>
+        <g fill="#B8AC99" opacity=".55">
+          <rect x="40" y="76" width="196" height="120"/>
+        </g>
+        <g stroke="#8A7F70" stroke-width="1.5">
+          <line x1="252" y1="80" x2="360" y2="80"/>
+          <line x1="252" y1="96" x2="340" y2="96"/>
+          <line x1="252" y1="112" x2="352" y2="112"/>
+          <line x1="252" y1="128" x2="320" y2="128"/>
+          <line x1="252" y1="156" x2="360" y2="156"/>
+          <line x1="252" y1="172" x2="334" y2="172"/>
+        </g>
+        <g fill="#D63F1F">
+          <circle cx="40" cy="42" r="0"/>
+          <circle cx="244" cy="76" r="9"/>
+        </g>
+        <text x="244" y="80" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#FAF7F2" text-anchor="middle">2</text>
+        <g stroke="#C0B4A0" stroke-width="1">
+          <rect x="40" y="212" width="100" height="64"/>
+          <rect x="150" y="212" width="100" height="64"/>
+          <rect x="260" y="212" width="100" height="64"/>
+        </g>
+        <g stroke="#C0B4A0" stroke-width="1.5">
+          <line x1="40" y1="300" x2="360" y2="300"/>
+          <line x1="40" y1="318" x2="300" y2="318"/>
+          <line x1="40" y1="336" x2="340" y2="336"/>
+          <line x1="40" y1="354" x2="260" y2="354"/>
+        </g>
+        <rect x="40" y="380" width="320" height="60" fill="#2A2620" opacity=".85"/>
+        <text x="52" y="404" font-family="Inter,sans-serif" font-size="10" letter-spacing="2" fill="#D63F1F">СЮЖЕТ НЕДЕЛИ</text>
+        <text x="52" y="424" font-family="Inter,sans-serif" font-size="11" fill="#C9C2B6">дуга: возник → пик → сейчас</text>
+        <g fill="#D63F1F" opacity=".18">
+          <circle cx="200" cy="196" r="60"/>
+        </g>
+        <g stroke="#D63F1F" stroke-width="2" fill="none">
+          <circle cx="200" cy="244" r="76" stroke-dasharray="6 5"/>
+        </g>
+        <text x="200" y="470" font-family="Inter,sans-serif" font-size="10" letter-spacing="3" fill="#8A7F70" text-anchor="middle">ПЯТЬ ЗОН ПОЛОСЫ</text>
+      </svg>
+      <figcaption><span>Макет полосы</span><span>Гудок · 16.09.2026</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= TL;DR ================= -->
+<section class="page" style="padding-top:34px;">
+  <div class="verdict">
+    <b>Суть в трёх пунктах</b>
+    1. Главное на полосе выбирает не время публикации, а значимость: алерты — наверх отдельной полосой, герой — по скорингу.<br>
+    2. Один материал — одна карточка с полной анатомией (рубрика, тип, статус, лид, факты, источники), а перепечатки сворачиваются в кластер «также сообщили».<br>
+    3. Заголовок чистится до публикации: без эмодзи, промо-хвостов и обрыва на полуслове; если заголовка нет — он собирается из первого предложения по схеме «кто → что сделал → где».
+  </div>
+  <div class="kpi-grid" style="margin-top:34px;">
+    <div class="kpi reveal"><div class="num"><span data-count="397">0</span></div><div class="lbl">материалов за сутки приходит в конвейер — на полосу попадает 12</div></div>
+    <div class="kpi reveal"><div class="num"><span data-count="5">0</span> из <span data-count="5">0</span></div><div class="lbl">пунктов «Самое читаемое» — с эмодзи, промо-хвостом или обрывком фразы</div></div>
+    <div class="kpi reveal"><div class="num"><span data-count="6">0</span> из 8</div><div class="lbl">карточек «Последних материалов» несут одну рубрику — «Общество и городская среда»</div></div>
+    <div class="kpi reveal"><div class="num"><span data-count="0">0</span></div><div class="lbl">алертов на первой полосе при активной «ракетной опасности» в топе суток</div></div>
+  </div>
+  <div class="note">Все примеры ниже взяты с текущей первой полосы выпуска № 5 и из «Самое читаемое». Цитаты приводятся как материал разбора, а не как оценка источников.</div>
+</section>
+
+<!-- ================= ДИАГНОЗ ================= -->
+<div class="sec-head" id="diag">
+  <h2>Что видно на полосе сейчас</h2>
+  <span class="badge">8 наблюдений · по index.html</span>
+</div>
+<p class="sec-lead reveal">Полоса собирается автоматически и честно показывает, что пришло из источников. Проблема не в сборе, а в трёх местах: отбор главного, нормализация текста и упаковка материала. Всё это правится в генераторе, без изменения конвейера.</p>
+<div class="diag-grid">
+
+  <article class="diag reveal">
+    <div class="diag-n">01</div>
+    <h3>Главное выбирает время, а не значимость</h3>
+    <p class="ex bad">«Владимир Камеко обсудил с Андреем Никитиным обновление общественного транспорта и…»<span class="src">герой полосы · t.me/ulpravda · 16.09 00:24</span></p>
+    <p>В герои попал ночной пост 00:24 — просто потому, что он последний. При этом в «Самое читаемое» пятым пунктом стоит «Ракетная опасность в Ульяновской области», то есть сюжет, который читатель ищет первым.</p>
+    <div class="fix"><b>Предложение</b>Герой — максимум скоринга (значимость × охват × свежесть × надёжность), а не максимум времени. Алерты выводятся отдельной полосой выше героя.</div>
+  </article>
+
+  <article class="diag reveal">
+    <div class="diag-n">02</div>
+    <h3>Заголовки обрываются на полуслове</h3>
+    <p class="ex bad">«За это им заинтересовались сотрудники УФСБ по Ульяновской области и задержали, рассказали в ведомств»<span class="src">карточка ленты · t.me/ulyanovsk_smi</span></p>
+    <p>Обрезка идёт по знакам, поэтому полоса пестрит хвостами «и…», «в ведомств», «следует из…». Смысл заголовка теряется, доверие к изданию — тоже.</p>
+    <div class="fix"><b>Предложение</b>Обрезка только по границе слова, лимит 90 знаков, обязательная точка или многоточие. Полный заголовок — в <code>title</code> и в карточке материала.</div>
+  </article>
+
+  <article class="diag reveal">
+    <div class="diag-n">03</div>
+    <h3>Промо и эмодзи занимают топ</h3>
+    <p class="ex bad">«🤍 Нашему любимому Симбирску-Ульяновску исполнилось 378 лет! 🇷🇺 Мой канал в MAX» · «#ФотоВыходногоДня» · «🍝 Рубрика «Рецепты»: Сегодня готовим пасту–салат Ингредиенты: ❗️ макароны»<span class="src">«Самое читаемое» и лента</span></p>
+    <p>Рейтинг строится по охвату, поэтому личные анонсы и рубрики каналов вытесняют события. Эмодзи в заголовке ломают и печать, и скриншот полосы.</p>
+    <div class="fix"><b>Предложение</b>Жёсткий <code>is_promo</code>-фильтр для топа и героя, очистка эмодзи и служебных хвостов («Подписаться |», «Читать полностью»), рецепты и конкурсы — только в типе «прочее» с отдельным фильтром.</div>
+  </article>
+
+  <article class="diag reveal">
+    <div class="diag-n">04</div>
+    <h3>Одно событие — трижды на полосе</h3>
+    <p class="ex bad">Один и тот же пост про внутриквартальную дорогу одновременно в «Сейчас», в «Самое читаемое» и в «Последних материалах».<span class="src">блоки полосы · дубли</span></p>
+    <p>Кластеризация (<code>dedup.py</code>) уже есть в конвейере, но на полосе блоки не сверяются между собой, поэтому читатель видит повтор.</p>
+    <div class="fix"><b>Предложение</b>Общий реестр показанных id на страницу: блок не повторяет материал, который уже выведен выше. Кластер — одна карточка плюс строка «также сообщили (4)».</div>
+  </article>
+
+  <article class="diag reveal">
+    <div class="diag-n">05</div>
+    <h3>Рубрика не различает</h3>
+    <p class="ex bad">«Общество и городская среда»: грязная горячая вода в Димитровграде, рецепт пасты-салата, красота в Новоспасском районе, блокировка счетов.<span class="src">6 из 8 карточек ленты</span></p>
+    <p>Одна рубрика стала корзиной для 60–75% потока. По ней невозможно ни фильтровать, ни оценивать перекос повестки.</p>
+    <div class="fix"><b>Предложение</b>Разбить на подрубрики: ЖКХ и тарифы · Транспорт и дороги · Благоустройство · Соцподдержка · Здравоохранение · Образование. Плюс тип материала отдельным бейджем.</div>
+  </article>
+
+  <article class="diag reveal">
+    <div class="diag-n">06</div>
+    <h3>Лид дублирует заголовок</h3>
+    <p class="ex bad">Заголовок: «С 01 октября 2026 года в очередной раз будет повышение стоимости за горячую воду…» — и тот же текст ниже как описание.<span class="src">карточка «Последних материалов»</span></p>
+    <p>Карточка тратит два блока на одну и ту же строку: полоса выглядит пустой при том же объёме контента.</p>
+    <div class="fix"><b>Предложение</b>Если совпадение лида и заголовка выше 70% — брать второй абзац, цифру или последствие. Нет нового факта — описание не выводим вовсе.</div>
+  </article>
+
+  <article class="diag reveal">
+    <div class="diag-n">07</div>
+    <h3>Пустые состояния занимают место</h3>
+    <p class="ex bad">«Сегодня в области: Событий на сегодня в афише нет — вся афиша.»<span class="src">средняя колонка панели «Сейчас»</span></p>
+    <p>Целая колонка первой полосы уходит в заглушку, хотя афиша на неделю и ближайшие события есть.</p>
+    <div class="fix"><b>Предложение</b>Fallback-цепочка: сегодня → завтра → выходные → 7 дней → «культура недели» из недельника. Заглушка показывается, только если не сработало ничего.</div>
+  </article>
+
+  <article class="diag reveal">
+    <div class="diag-n">08</div>
+    <h3>Цитаты анонимных каналов выглядят как мнения редакции</h3>
+    <p class="ex bad">Блок «Мнения повестки»: «СМОТРИМ КИНО В ДЖИПСИ „ДВОЕ: Я и моя тень“…» — @ulpromo, «телеграм-канал, анонимный источник повестки».<span class="src">первая полоса, ниже сгиба</span></p>
+    <p>Формат «мнение» обещает автора и позицию, а показывает сырую цитату канала, часто рекламную. Дисклеймер есть, но он мельче заголовков.</p>
+    <div class="fix"><b>Предложение</b>Переименовать в «Что звучит в инфополе», убрать промо-цитаты, оставить 3 цитаты с явной маркировкой «исследование повестки». Мнения — только у подписанных авторов.</div>
+  </article>
+
+</div>
+
+<!-- ================= СХЕМА ПОЛОСЫ ================= -->
+<div class="sec-head" id="scheme">
+  <h2>Схема первой полосы: было → стало</h2>
+  <span class="badge">наведите на зону — появится пояснение</span>
+</div>
+
+<div class="wf-wrap">
+  <div class="wf-modes">
+    <button class="mbtn on" data-mode="both">Рядом</button>
+    <button class="mbtn" data-mode="now">Как сейчас</button>
+    <button class="mbtn" data-mode="new">Как предлагаем</button>
+  </div>
+
+  <div class="wf-cols" id="wfCols">
+    <!-- БЫЛО -->
+    <div class="wf-panel wf-panel--now reveal">
+      <h3>Как сейчас · 7 зон, порядок по времени</h3>
+      <div class="wf">
+        <div class="wf-zone flag" data-zone="n1">
+          <div class="zt"><i>1</i> Герой: одна карточка</div>
+          <div class="wf-lines"><span></span><span></span><span></span></div>
+          <div class="zn">обрывок заголовка + фото, выбор по времени публикации</div>
+        </div>
+        <div class="wf-zone flag" data-zone="n2">
+          <div class="zt"><i>2</i> Самое читаемое · 5 пунктов</div>
+          <div class="zn">2 из 5 — промо и личные анонсы, эмодзи в заголовках</div>
+        </div>
+        <div class="wf-3">
+          <div class="wf-zone flag" data-zone="n3"><div class="zt"><i>3</i> Сейчас</div><div class="zn">дублирует героя</div></div>
+          <div class="wf-zone flag" data-zone="n4"><div class="zt"><i>4</i> Сегодня в области</div><div class="zn">пусто</div></div>
+          <div class="wf-zone" data-zone="n5"><div class="zt"><i>5</i> Справка</div><div class="zn">погода, ссылка</div></div>
+        </div>
+        <div class="wf-zone flag" data-zone="n6">
+          <div class="zt"><i>6</i> Последние материалы · 8 карточек</div>
+          <div class="wf-lines"><span></span><span></span></div>
+          <div class="zn">6 из 8 — одна рубрика, нет фильтров и пагинации</div>
+        </div>
+        <div class="wf-zone dark" data-zone="n7">
+          <div class="zt"><i>7</i> Сюжет недели (тёмная полоса)</div>
+          <div class="zn">аналитика ниже сгиба, заголовок с эмодзи</div>
+        </div>
+        <div class="wf-zone flag" data-zone="n8">
+          <div class="zt"><i>8</i> Мнения повестки</div>
+          <div class="zn">сырые цитаты анонимных каналов</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- СТАЛО -->
+    <div class="wf-panel wf-panel--new reveal">
+      <h3>Как предлагаем · 8 зон, порядок по значимости</h3>
+      <div class="wf">
+        <div class="wf-zone alert" data-zone="m1">
+          <div class="zt"><i>1</i> Алерт-полоса — только официальные источники</div>
+          <div class="zn">появляется при угрозе, авто-скрывается через 2 ч после снятия режима</div>
+        </div>
+        <div class="wf-2">
+          <div class="wf-zone" data-zone="m2">
+            <div class="zt"><i>2</i> Главный сюжет дня</div>
+            <div class="wf-lines"><span></span><span></span><span></span></div>
+            <div class="zn">полный заголовок · лид 2 предложения · фото · «что известно / не подтверждено» · таймлайн · источники (4)</div>
+          </div>
+          <div class="wf-zone rail" data-zone="m7">
+            <div class="zt"><i>7</i> Рельс</div>
+            <div class="zn">погода · афиша на 3 дня · топ-3 кластера · охват суток</div>
+          </div>
+        </div>
+        <div class="wf-3eq">
+          <div class="wf-zone" data-zone="m3"><div class="zt"><i>3</i> Второй сюжет</div><div class="wf-lines"><span></span><span></span></div></div>
+          <div class="wf-zone" data-zone="m3"><div class="zt"><i>3</i> Третий сюжет</div><div class="wf-lines"><span></span><span></span></div></div>
+          <div class="wf-zone" data-zone="m3"><div class="zt"><i>3</i> Четвёртый сюжет</div><div class="wf-lines"><span></span><span></span></div></div>
+        </div>
+        <div class="wf-2">
+          <div class="wf-zone" data-zone="m4">
+            <div class="zt"><i>4</i> Коротко: 7 строк дня</div>
+            <div class="zn">по одной строке на событие · рубрика · время</div>
+          </div>
+          <div class="wf-zone" data-zone="m5">
+            <div class="zt"><i>5</i> Хроника «Сейчас»</div>
+            <div class="zn">фильтр «только новое», относительное время</div>
+          </div>
+        </div>
+        <div class="wf-zone dark" data-zone="m6">
+          <div class="zt"><i>6</i> Сюжет недели — второй экран</div>
+          <div class="zn">дуга: возник → пик → сейчас, число источников, ссылка на недельник</div>
+        </div>
+        <div class="wf-zone" data-zone="m8">
+          <div class="zt"><i>8</i> Лента с рубриками-чипами</div>
+          <div class="zn">фильтр по подрубрике и типу · «Показать ещё 12» · состояние в URL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wf-legend" id="wfLegend">
+    <div>
+      <div class="lg" data-zone="n1"><i>1</i><span><b>Герой сейчас.</b> Одна карточка 4:5, заголовок обрезан, лида нет — полоса не объясняет, почему это главное.</span></div>
+      <div class="lg" data-zone="n2"><i>2</i><span><b>Самое читаемое.</b> Рейтинг по охвату без фильтра промо: в топ попадают хэштег-рубрики и личные анонсы.</span></div>
+      <div class="lg" data-zone="n3"><i>3</i><span><b>Сейчас.</b> Хронология дублирует героя и ленту ниже — те же id на одной странице.</span></div>
+      <div class="lg" data-zone="n4"><i>4</i><span><b>Сегодня в области.</b> Пустое состояние вместо афиши на ближайшие дни.</span></div>
+      <div class="lg" data-zone="n5"><i>5</i><span><b>Справка.</b> Погода и ссылки — полезно, но без единого визуального порядка с рельсом.</span></div>
+    </div>
+    <div>
+      <div class="lg" data-zone="m1"><i>1</i><span><b>Алерт-полоса.</b> Только МЧС, губернатор, администрация: тип угрозы, время, район, что делать. Ничего другого в эту зону не пускаем.</span></div>
+      <div class="lg" data-zone="m2"><i>2</i><span><b>Главный сюжет.</b> Полный заголовок, лид, фото с подписью, блоки «что известно / что не подтверждено», таймлайн обновлений, список источников кластера.</span></div>
+      <div class="lg" data-zone="m3"><i>3</i><span><b>Три вторых сюжета.</b> Равные карточки без фото-перекоса: рубрика, заголовок, одна строка факта.</span></div>
+      <div class="lg" data-zone="m4"><i>4</i><span><b>Коротко: 7 строк дня.</b> Сводка для чтения за 30 секунд — по одному предложению, с рубрикой и временем.</span></div>
+      <div class="lg" data-zone="m5"><i>5</i><span><b>Хроника.</b> Лента «Сейчас» с фильтром и относительным временем, без повторов героя.</span></div>
+      <div class="lg" data-zone="m6"><i>6</i><span><b>Сюжет недели.</b> Тёмная полоса на втором экране: дуга сюжета, охват, число источников, переход в недельник.</span></div>
+      <div class="lg" data-zone="m7"><i>7</i><span><b>Рельс.</b> Погода, афиша на 3 дня, топ-кластеров, охват суток — фиксированный порядок блоков.</span></div>
+      <div class="lg" data-zone="m8"><i>8</i><span><b>Лента.</b> Чипы-рубрики, фильтр по типу, «Показать ещё 12», состояние фильтра в адресе страницы.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= АНАТОМИЯ ================= -->
+<div class="sec-head" id="anatomy">
+  <h2>Анатомия материала</h2>
+  <span class="badge">10 обязательных полей · наведите на цифру</span>
+</div>
+<div class="anat">
+  <div class="anat-card reveal">
+    <div class="anat-media" role="img" aria-label="Место для фотографии материала"></div>
+    <span class="marker" data-m="5" style="left:14px;bottom:56%;">5</span>
+    <div class="anat-top">
+      <span class="anat-kick" data-m="1">ЖКХ и тарифы <span style="color:var(--muted)">· Димитровград</span></span>
+      <span class="tag-type" data-m="2">Новость</span>
+      <span class="tag-status" data-m="7">По данным источника</span>
+    </div>
+    <h3 data-m="3">С 1 октября в Димитровграде вырастет тариф на горячую воду — жители требуют проверить её качество</h3>
+    <p class="lead" data-m="4">Повышение назначено на 1 октября. Жители Первомайского района утверждают, что вода уже несколько месяцев идёт грязной, и просят пересчитать начисления.</p>
+    <div class="factline" data-m="6">
+      <span>Кто<b>Жители Первомайского района</b></span>
+      <span>Что<b>Рост тарифа, жалоба на качество</b></span>
+      <span>Где<b>Димитровград</b></span>
+      <span>Когда<b>с 01.10.2026</b></span>
+    </div>
+    <div class="anat-meta">
+      <span data-m="8">t.me/dimitrovgradonline · 15.09, 22:27 <span style="opacity:.7">(18 мин назад)</span></span>
+      <span data-m="9">👁 4 120 · также сообщили: 3</span>
+    </div>
+    <div class="anat-acts" data-m="10">
+      <span class="solid">Читать в источнике</span>
+      <span>Все материалы сюжета</span>
+      <span>В архив</span>
+    </div>
+    <span class="marker" data-m="3" style="right:-6px;top:38%;">3</span>
+    <span class="marker" data-m="9" style="right:-6px;bottom:60px;">9</span>
+  </div>
+
+  <div class="anat-list reveal">
+    <div class="anat-item" data-m="1"><i>01</i><div><b>Рубрика и подрубрика</b><span>Фиксированный словарь: 9 рубрик, у «Общества» — 6 подрубрик. Плюс гео-тег: Ульяновск / Димитровград / район.</span></div></div>
+    <div class="anat-item" data-m="2"><i>02</i><div><b>Тип материала</b><span>Новость · хроника · аналитика · анонс · мнение · алерт. Тип определяет оформление и место на полосе.</span></div></div>
+    <div class="anat-item" data-m="3"><i>03</i><div><b>Заголовок</b><span>Полное предложение, до 90 знаков, без эмодзи и обрыва на полуслове. Обрезка — только по слову, полная версия в <code>title</code>.</span></div></div>
+    <div class="anat-item" data-m="4"><i>04</i><div><b>Лид</b><span>1–2 предложения, которые добавляют факт к заголовку. Совпадение с заголовком выше 70% — берём следующий абзац.</span></div></div>
+    <div class="anat-item" data-m="5"><i>05</i><div><b>Иллюстрация</b><span>og:image источника, подпись и автор. Нет фото — графическая плашка рубрики, а не пустой блок.</span></div></div>
+    <div class="anat-item" data-m="6"><i>06</i><div><b>Паспорт факта</b><span>Кто · что · где · когда. Строка извлекается автоматически и проверяет, есть ли в материале вообще факт.</span></div></div>
+    <div class="anat-item" data-m="7"><i>07</i><div><b>Статус достоверности</b><span>Факт · по данным источника · не подтверждено · анонс · мнение. Отдельный бейдж, а не догадка читателя.</span></div></div>
+    <div class="anat-item" data-m="8"><i>08</i><div><b>Источник и время</b><span>Название издания или канал, дата, время, относительное время в оперативных блоках. Всегда ссылка на первоисточник.</span></div></div>
+    <div class="anat-item" data-m="9"><i>09</i><div><b>Охват и кластер</b><span>Просмотры источника и счётчик «также сообщили (N)» — вместо четырёх одинаковых карточек на полосе.</span></div></div>
+    <div class="anat-item" data-m="10"><i>10</i><div><b>Действия</b><span>«Читать в источнике», «Все материалы сюжета», «В архив». Для алертов — «Что делать».</span></div></div>
+  </div>
+</div>
+<div class="page"><div class="note">Поля 1–4 и 8 обязательны для любой карточки на первой полосе. Поля 5–7 и 9–10 — для главного сюжета и материалов выпуска. Если поле не заполнено, карточка не поднимается выше ленты.</div></div>
+
+<!-- ================= РАНЖИРОВАНИЕ ================= -->
+<div class="sec-head" id="rank">
+  <h2>Как выбирать главное</h2>
+  <span class="badge">интерактивная модель · двигайте веса</span>
+</div>
+<div class="rank">
+  <div class="formula reveal">
+    <div class="f">score = <em>W₁</em>·значимость + <em>W₂</em>·охват + <em>W₃</em>·свежесть + <em>W₄</em>·источник − <em>P</em>·промо</div>
+    <div class="sliders">
+      <div class="sl"><label for="w1">Значимость темы <b id="w1v">30</b></label><input type="range" id="w1" min="0" max="40" step="5" value="30"></div>
+      <div class="sl"><label for="w2">Охват <b id="w2v">25</b></label><input type="range" id="w2" min="0" max="40" step="5" value="25"></div>
+      <div class="sl"><label for="w3">Свежесть <b id="w3v">20</b></label><input type="range" id="w3" min="0" max="40" step="5" value="20"></div>
+      <div class="sl"><label for="w4">Надёжность источника <b id="w4v">15</b></label><input type="range" id="w4" min="0" max="40" step="5" value="15"></div>
+      <div class="sl"><label for="wp">Штраф за промо <b id="wpv">0.6</b></label><input type="range" id="wp" min="0" max="1" step="0.1" value="0.6"></div>
+    </div>
+    <p style="font-family:var(--serif-body);font-size:14.5px;color:var(--muted);margin:12px 0 0;line-height:1.55;">Значимость — из словаря тем: безопасность 1.0, ЖКХ 0.7, транспорт 0.65, экономика 0.6, политика 0.6, здравоохранение 0.55, культура 0.35, прочее 0.15. Охват — логарифм просмотров, нормированный по медиане канала. Свежесть — exp(−часы/12). Источник — tier 1 = 1.0, tier 2 = 0.7, tier 3 = 0.4.</p>
+    <div class="verdict" style="margin-top:18px;"><b>Правило стабильности</b>Главный сюжет меняется не чаще одного раза в 3 часа и только если новый материал обгоняет текущего героя минимум на 15% — иначе полоса «прыгает» у читателя перед глазами.</div>
+  </div>
+
+  <div class="rank-panel reveal">
+    <div class="rank-head">
+      <h3>Полоса на 22:30 · 6 претендентов</h3>
+      <button class="rbtn" data-sort="score">Сортировка по score (предложение)</button>
+      <button class="rbtn on" data-sort="time">По времени (как сейчас)</button>
+    </div>
+    <div class="rlist" id="rlist"></div>
+    <div class="note" id="rankNote">Сейчас полоса строится по времени публикации: в герои попадает самый поздний пост, даже если это анонс или рецепт. Переключите режим — увидите, кто должен быть главным.</div>
+  </div>
+</div>
+
+<!-- ================= ГИГИЕНА ================= -->
+<div class="sec-head" id="hygiene">
+  <h2>Гигиена заголовка: было → стало</h2>
+  <span class="badge">6 реальных примеров с полосы</span>
+</div>
+<div class="tw reveal">
+  <table class="tbl">
+    <thead><tr><th style="width:44%">Как на полосе сейчас</th><th style="width:4%"></th><th style="width:38%">Как должно быть</th><th style="width:14%">Правило</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="mono was">«Владимир Камеко обсудил с Андреем Никитиным обновление общественного транспорта и…»</td>
+        <td class="arrow">→</td>
+        <td class="mono now">«Камеко и Никитин обсудили обновление общественного транспорта и развитие трассы»</td>
+        <td>обрыв по слову + достройка из первого абзаца</td>
+      </tr>
+      <tr>
+        <td class="mono was">«🤍 Нашему любимому Симбирску-Ульяновску исполнилось 378 лет! 🇷🇺 Мой канал в MAX»</td>
+        <td class="arrow">→</td>
+        <td class="mono now">«Ульяновск отметил 378-летие: итоги праздничной программы»</td>
+        <td>эмодзи и промо личного канала — вне топа</td>
+      </tr>
+      <tr>
+        <td class="mono was">«🚨 Ракетная опасность в Ульяновской области. Сирены завыли по городу. 😱 Подписаться |…»</td>
+        <td class="arrow">→</td>
+        <td class="mono now">АЛЕРТ: «Ракетная опасность в Ульяновской области» · время · источник · «что делать»</td>
+        <td>угроза — отдельная полоса, не пункт рейтинга</td>
+      </tr>
+      <tr>
+        <td class="mono was">«Для разблокировки понадобятся документы: справка 2-НДФЛ, договор о продаже машины или квартиры…»</td>
+        <td class="arrow">→</td>
+        <td class="mono now">«Банки начали блокировать счета: какие документы нужны для разблокировки»</td>
+        <td>заголовок строится от события, а не от детали</td>
+      </tr>
+      <tr>
+        <td class="mono was">«За это им заинтересовались сотрудники УФСБ по Ульяновской области и задержали, рассказали в ведомств»</td>
+        <td class="arrow">→</td>
+        <td class="mono now">«УФСБ задержало жителя Ульяновской области — подробности в ведомстве»</td>
+        <td>запрет обрыва внутри слова</td>
+      </tr>
+      <tr>
+        <td class="mono was">«🍝 Рубрика „Рецепты“: Сегодня готовим пасту–салат Ингредиенты: ❗️ макароны»</td>
+        <td class="arrow">→</td>
+        <td class="mono now">Не попадает в новостную ленту: тип «прочее», виден только под фильтром</td>
+        <td>рубрики каналов — не новости региона</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="page" style="margin-top:22px;">
+  <div style="border-top:1px solid var(--ink);padding-top:14px;">
+    <span style="font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:12px;">Что делает нормализатор перед публикацией</span>
+    <span class="chip">снять эмодзи и вариативные селекторы</span>
+    <span class="chip">удалить хвосты «Подписаться |», «Читать полностью», «Подробнее»</span>
+    <span class="chip">хэштег-рубрику → в поле «тема», не в заголовок</span>
+    <span class="chip">КАПС → строчные, кроме аббревиатур</span>
+    <span class="chip">«ёлочки» вместо дюймов и лапок</span>
+    <span class="chip">пробелы, неразрывный пробел перед короткими словами</span>
+    <span class="chip">дата в формате «15 сентября», не «15.09» в заголовке</span>
+    <span class="chip">обрезка ≤ 90 знаков по границе слова</span>
+    <span class="chip">полная версия — в title и в карточке выпуска</span>
+  </div>
+</div>
+
+<!-- ================= РУБРИКАТОР ================= -->
+<div class="sec-head" id="rubrics">
+  <h2>Рубрикатор и распределение полосы</h2>
+  <span class="badge">цель — ни одна рубрика не занимает больше 35%</span>
+</div>
+<div class="rub">
+  <div class="rub-col reveal">
+    <h3>Как сейчас · выпуск № 5</h3>
+    <div class="brow"><div class="bn">Общество и городская среда</div><div class="btrack"><i data-w="75"></i></div><div class="bv">75%</div></div>
+    <div class="brow"><div class="bn">Безопасность и происшествия</div><div class="btrack"><i data-w="13"></i></div><div class="bv">13%</div></div>
+    <div class="brow"><div class="bn">Экономика и промышленность</div><div class="btrack"><i data-w="8"></i></div><div class="bv">8%</div></div>
+    <div class="brow"><div class="bn">Политика и выборы</div><div class="btrack"><i data-w="2"></i></div><div class="bv">2%</div></div>
+    <div class="brow"><div class="bn">Культура и афиша</div><div class="btrack"><i data-w="2"></i></div><div class="bv">2%</div></div>
+    <div class="brow"><div class="bn">Прочее</div><div class="btrack"><i data-w="0"></i></div><div class="bv">—</div></div>
+    <div class="note">Три четверти полосы — одна рубрика. Фильтр по ней бесполезен, а перекос повестки не виден ни читателю, ни редакции.</div>
+  </div>
+  <div class="rub-col to reveal">
+    <h3>Как предлагаем · подрубрики</h3>
+    <div class="brow"><div class="bn">Безопасность<small>алерты, происшествия, ПВО</small></div><div class="btrack"><i data-w="18"></i></div><div class="bv">18%</div></div>
+    <div class="brow"><div class="bn">ЖКХ и тарифы<small>вода, отопление, начисления</small></div><div class="btrack"><i data-w="16"></i></div><div class="bv">16%</div></div>
+    <div class="brow"><div class="bn">Транспорт и дороги<small>маршруты, мосты, трассы</small></div><div class="btrack"><i data-w="14"></i></div><div class="bv">14%</div></div>
+    <div class="brow"><div class="bn">Экономика и промышленность<small>заводы, закупки, рынок</small></div><div class="btrack"><i data-w="13"></i></div><div class="bv">13%</div></div>
+    <div class="brow"><div class="bn">Соцподдержка и здоровье<small>школы, льготы, поликлиники</small></div><div class="btrack"><i data-w="12"></i></div><div class="bv">12%</div></div>
+    <div class="brow"><div class="bn">Политика и управление<small>решения, назначения, выборы</small></div><div class="btrack"><i data-w="10"></i></div><div class="bv">10%</div></div>
+    <div class="brow"><div class="bn">Благоустройство<small>дворы, парки, набережная</small></div><div class="btrack"><i data-w="9"></i></div><div class="bv">9%</div></div>
+    <div class="brow"><div class="bn">Культура, спорт, афиша<small>события, анонсы</small></div><div class="btrack"><i data-w="8"></i></div><div class="bv">8%</div></div>
+    <div class="note" style="border-left-color:var(--calm);">Доли — целевые, из словаря тем классификатора. Отклонение больше 10 п.п. по любой рубрике — сигнал в отчёт качества выпуска.</div>
+  </div>
+</div>
+
+<!-- ================= 24 ПРЕДЛОЖЕНИЯ ================= -->
+<div class="sec-head" id="props">
+  <h2>24 предложения</h2>
+  <span class="badge">P0 — в ближайший прогон генератора</span>
+</div>
+<div class="filters" id="filters">
+  <button class="fbtn active" data-cat="all">Все</button>
+  <button class="fbtn" data-cat="front">Первая полоса</button>
+  <button class="fbtn" data-cat="item">Структура новости</button>
+  <button class="fbtn" data-cat="text">Гигиена текста</button>
+  <button class="fbtn" data-cat="ux">Навигация и доступность</button>
+  <button class="fbtn" data-cat="meta">Метрики</button>
+  <button class="fbtn" data-cat="p0">Только P0</button>
+  <button class="fbtn" id="expandAll">Развернуть все</button>
+  <span class="fcount" id="fcount">24 пункта</span>
+</div>
+
+<div class="props" id="propsList">
+  <details class="prop" data-cat="front" data-prio="p0"><summary><span class="pid">01</span><span class="pt">Пять зон первой полосы вместо семи разнокалиберных блоков</span><span class="plus"></span></summary>
+    <div class="pbody">Порядок сверху вниз: алерт → главный сюжет → три вторых → «Коротко: 7 строк дня» → хроника → сюжет недели → лента. Рельс (погода, афиша, топ-кластеров)固定 справа от главного сюжета.
+      <ul><li>Каждая зона имеет фиксированную высоту и пустое состояние.</li><li>Зоны не перемешиваются: читатель запоминает, где что искать.</li></ul></div>
+    <div class="pmeta"><span class="prio p0">P0</span><span class="eff m">Трудоёмкость: M</span><span class="eff">Эффект: полоса читается за 30 секунд</span></div></details>
+
+  <details class="prop" data-cat="front" data-prio="p0"><summary><span class="pid">02</span><span class="pt">Алерт-полоса: угрозы — только сверху и только от официальных источников</span><span class="plus"></span></summary>
+    <div class="pbody">Красная полоса на всю ширину: тип угрозы, время введения, география, что делать, ссылка на официальный канал. Источники — МЧС, губернатор, администрация города; телеграм-агрегаторы в эту зону не допускаются.
+      <ul><li>Авто-скрытие через 2 часа после сообщения о снятии режима.</li><li>История алертов — в оперативной хронике и в отчёте руководителю.</li></ul></div>
+    <div class="pmeta"><span class="prio p0">P0</span><span class="eff s">Трудоёмкость: S</span><span class="eff">Эффект: время до читателя ≤ 5 минут</span></div></details>
+
+  <details class="prop" data-cat="front" data-prio="p0"><summary><span class="pid">03</span><span class="pt">Главный сюжет выбирает скоринг, а не время публикации</span><span class="plus"></span></summary>
+    <div class="pbody">Герой — материал с максимумом score (см. раздел «Как выбирать главное»). Ночные и утренние посты не получают приоритета только за свежесть: вес свежести ограничен 20%.
+      <ul><li>Смена героя — не чаще раза в 3 часа и при преимуществе ≥ 15%.</li><li>Под героем — строка «Почему это главное» с тремя факторами.</li></ul></div>
+    <div class="pmeta"><span class="prio p0">P0</span><span class="eff s">Трудоёмкость: S</span><span class="eff">Эффект: полоса объясняет выбор</span></div></details>
+
+  <details class="prop" data-cat="front" data-prio="p1"><summary><span class="pid">04</span><span class="pt">Блок «Коротко: 7 строк дня»</span><span class="plus"></span></summary>
+    <div class="pbody">Семь строк по одному предложению: рубрика, время, событие. Строки берутся из топ-7 кластеров, а не из семи последних постов — иначе блок повторяет ленту.
+      <ul><li>Каждая строка — ссылка на кластер, а не на пост канала.</li><li>Блок печатается в версии руководителю без изменений.</li></ul></div>
+    <div class="pmeta"><span class="prio p1">P1</span><span class="eff s">Трудоёмкость: S</span><span class="eff">Эффект: сводка дня одним экраном</span></div></details>
+
+  <details class="prop" data-cat="front" data-prio="p1"><summary><span class="pid">05</span><span class="pt">Сюжет недели — на второй экран, с дугой вместо заголовка-эмодзи</span><span class="plus"></span></summary>
+    <div class="pbody">Тёмная полоса поднимается сразу за блоком «Коротко». Внутри: нормальный заголовок сюжета, дуга «возник → пик → сейчас», число источников, охват, ссылка на недельник.
+      <ul><li>Заголовок берётся из лучшего заголовка кластера, а не из первого попавшегося поста.</li><li>Если дуги нет (меньше 3 публикаций из 2 источников) — блок не показывается.</li></ul></div>
+    <div class="pmeta"><span class="prio p1">P1</span><span class="eff m">Трудоёмкость: M</span><span class="eff">Эффект: аналитика видна без прокрутки в подвал</span></div></details>
+
+  <details class="prop" data-cat="front" data-prio="p2"><summary><span class="pid">06</span><span class="pt">Правый рельс с фиксированным порядком блоков</span><span class="plus"></span></summary>
+    <div class="pbody">Погода → афиша на 3 дня → топ-3 кластера по охвату → счётчик «материалов за сутки / показано на полосе». Рельс липкий на десктопе, на мобильном уходит под хронику.</div>
+    <div class="pmeta"><span class="prio p2">P2</span><span class="eff s">Трудоёмкость: S</span><span class="eff">Эффект: служебная информация не мешает чтению</span></div></details>
+
+  <details class="prop" data-cat="front" data-prio="p2"><summary><span class="pid">07</span><span class="pt">Пустые состояния с fallback-цепочкой</span><span class="plus"></span></summary>
+    <div class="pbody">Если событий на сегодня нет, полоса показывает завтра → выходные → 7 дней → «культура недели». Заглушка остаётся только если не сработала вся цепочка, и тогда в ней — ссылка на афишу и число ближайших событий.</div>
+    <div class="pmeta"><span class="prio p2">P2</span><span class="eff xs">Трудоёмкость: XS</span><span class="eff">Эффект: ноль мёртвых колонок</span></div></details>
+
+  <details class="prop" data-cat="item" data-prio="p0"><summary><span class="pid">08</span><span class="pt">Кластер вместо четырёх перепечаток</span><span class="plus"></span></summary>
+    <div class="pbody">Одно событие = одна карточка. Остальные источники сворачиваются в строку «Также сообщили: Улпресса, Ulnovosti, t.me/ulsk_on». Кластер хранит лучший заголовок, лучшее фото и суммарный охват.
+      <ul><li>Реестр показанных id на страницу: блок не повторяет материал, выведенный выше.</li><li>Внутри кластера — хронология обновлений.</li></ul></div>
+    <div class="pmeta"><span class="prio p0">P0</span><span class="eff m">Трудоёмкость: M</span><span class="eff">Эффект: дубли на полосе → 0</span></div></details>
+
+  <details class="prop" data-cat="item" data-prio="p0"><summary><span class="pid">09</span><span class="pt">Обязательные поля карточки</span><span class="plus"></span></summary>
+    <div class="pbody">Рубрика, заголовок, лид, источник, время — минимум для любой карточки. Для главного сюжета добавляются фото с подписью, паспорт факта, статус достоверности, охват, теги и действия. Материал без обязательных полей остаётся в архиве выпуска, но не выходит на полосу.</div>
+    <div class="pmeta"><span class="prio p0">P0</span><span class="eff m">Трудоёмкость: M</span><span class="eff">Эффект: единая анатомия материала</span></div></details>
+
+  <details class="prop" data-cat="item" data-prio="p1"><summary><span class="pid">10</span><span class="pt">Статусы достоверности бейджем</span><span class="plus"></span></summary>
+    <div class="pbody">«Факт» · «По данным источника» · «Не подтверждено» · «Анонс» · «Мнение». Статус выводится из типа источника и наличия второго независимого подтверждения. «Не подтверждено» дополнительно подсвечивается в карточке выпуска.</div>
+    <div class="pmeta"><span class="prio p1">P1</span><span class="eff s">Трудоёмкость: S</span><span class="eff">Эффект: читатель видит уровень проверки</span></div></details>
+
+  <details class="prop" data-cat="item" data-prio="p1"><summary><span class="pid">11</span><span class="pt">Тип материала отдельным бейджем</span><span class="plus"></span></summary>
+    <div class="pbody">Новость · хроника · аналитика · анонс · мнение · алерт. Тип задаёт оформление: у анонса — дата и площадка, у хроники — время и статус, у аналитики — автор и дуга сюжета. Фильтр ленты работает и по рубрике, и по типу.</div>
+    <div class="pmeta"><span class="prio p1">P1</span><span class="eff s">Трудоёмкость: S</span><span class="eff">Эффект: анонсы не конкурируют с событиями</span></div></details>
+
+  <details class="prop" data-cat="item" data-prio="p1"><summary><span class="pid">12</span><span class="pt">Гео-привязка: город и район</span><span class="plus"></span></summary>
+    <div class="pbody">Теги Ульяновск · Димитровград · районы области. Выводятся в кикере карточки и дают отдельный фильтр — житель Димитровграда не должен искать свои новости в общей ленте.</div>
+    <div class="pmeta"><span class="prio p1">P1</span><span class="eff s">Трудоёмкость: S</span><span class="eff">Эффект: локальная релевантность</span></div></details>
+
+  <details class="prop" data-cat="item" data-prio="p2"><summary><span class="pid">13</span><span class="pt">Хронология сюжета внутри карточки</span><span class="plus"></span></summary>
+    <div class="pbody">Если кластер обновлялся, в карточке появляется таймлайн: «21:48 — первое сообщение, 22:20 — подтверждение администрации, 23:05 — режим снят». Метка «обновлено» выносится в ленту «Сейчас».</div>
+    <div class="pmeta"><span class="prio p2">P2</span><span class="eff m">Трудоёмкость: M</span><span class="eff">Эффект: сюжет читается как процесс</span></div></details>
+
+  <details class="prop" data-cat="text" data-prio="p0"><summary><span class="pid">14</span><span class="pt">Очистка заголовка перед публикацией</span><span class="plus"></span></summary>
+    <div class="pbody">Снять эмодзи и невидимые селекторы, удалить служебные хвосты («Подписаться |», «Читать полностью», «Подробности в…»), вынести хэштеги-рубрики в поле «тема», заменить КАПС на строчные, привести кавычки к «ёлочкам».</div>
+    <div class="pmeta"><span class="prio p0">P0</span><span class="eff s">Трудоёмкость: S</span><span class="eff">Эффект: полоса выглядит изданием</span></div></details>
+
+  <details class="prop" data-cat="text" data-prio="p0"><summary><span class="pid">15</span><span class="pt">Обрезка только по границе слова, ≤ 90 знаков</span><span class="plus"></span></summary>
+    <div class="pbody">Запрет рвать слово посередине. Если заголовок длиннее лимита — обрезать по последнему целому слову и добавить многоточие, полную версию положить в <code>title</code> и в карточку материала. Обрыв, заканчивающийся предлогом или союзом, перезапускает генерацию заголовка из первого абзаца.</div>
+    <div class="pmeta"><span class="prio p0">P0</span><span class="eff xs">Трудоёмкость: XS</span><span class="eff">Эффект: ноль оборванных фраз</span></div></details>
+
+  <details class="prop" data-cat="text" data-prio="p1"><summary><span class="pid">16</span><span class="pt">Сборка заголовка, когда его нет</span><span class="plus"></span></summary>
+    <div class="pbody">Схема «кто → что сделал → где»: субъект из первого предложения, сказуемое, объект, гео-тег. Если предложение не даёт подлежащего — берётся второе. Результат проверяется на длину и на отсутствие обрыва.</div>
+    <div class="pmeta"><span class="prio p1">P1</span><span class="eff m">Трудоёмкость: M</span><span class="eff">Эффект: заголовок есть у каждого материала</span></div></details>
+
+  <details class="prop" data-cat="text" data-prio="p1"><summary><span class="pid">17</span><span class="pt">Лид не дублирует заголовок</span><span class="plus"></span></summary>
+    <div class="pbody">Проверка лексического совпадения: выше 70% — берём второй абзац, цифру или последствие. Если нового факта нет, описание не выводим: карточка остаётся с заголовком и метой, полоса не «пухнет» от повторов.</div>
+    <div class="pmeta"><span class="prio p1">P1</span><span class="eff s">Трудоёмкость: S</span><span class="eff">Эффект: каждая строка добавляет факт</span></div></details>
+
+  <details class="prop" data-cat="text" data-prio="p2"><summary><span class="pid">18</span><span class="pt">Единый формат времени и источника</span><span class="plus"></span></summary>
+    <div class="pbody">В карточках — «Улпресса · 15.09, 22:22». В хронике — «18 мин назад» с полным временем в <code>title</code>. В заголовках даты словами: «15 сентября». Один формат на всю полосу, включая печать.</div>
+    <div class="pmeta"><span class="prio p2">P2</span><span class="eff xs">Трудоёмкость: XS</span><span class="eff">Эффект: полоса читается как один документ</span></div></details>
+
+  <details class="prop" data-cat="ux" data-prio="p1"><summary><span class="pid">19</span><span class="pt">Чипы-рубрики над лентой, состояние в адресе страницы</span><span class="plus"></span></summary>
+    <div class="pbody">«Все · Безопасность · ЖКХ · Транспорт · Экономика · Соцподдержка · Политика · Благоустройство · Культура · Прочее» плюс фильтр по типу. Выбор сохраняется в якорь, чтобы ссылку на подборку можно было переслать.</div>
+    <div class="pmeta"><span class="prio p1">P1</span><span class="eff s">Трудоёмкость: S</span><span class="eff">Эффект: читатель управляет повесткой</span></div></details>
+
+  <details class="prop" data-cat="ux" data-prio="p1"><summary><span class="pid">20</span><span class="pt">«Показать ещё 12» вместо бесконечной простыни</span><span class="plus"></span></summary>
+    <div class="pbody">Первая страница полосы — 12 карточек, дальше догрузка порциями или переход в выпуск дня. В подвале ленты — счётчик «показано 12 из 397 материалов суток» и ссылка на архив-матрицу.</div>
+    <div class="pmeta"><span class="prio p1">P1</span><span class="eff xs">Трудоёмкость: XS</span><span class="eff">Эффект: полоса не бесконечна</span></div></details>
+
+  <details class="prop" data-cat="ux" data-prio="p1"><summary><span class="pid">21</span><span class="pt">Мобильная полоса</span><span class="plus"></span></summary>
+    <div class="pbody">Одна колонка, липкое меню рубрик, алерт-полоса закрепляется сверху и не уезжает при прокрутке. «Самое читаемое» — вертикальный список с номерами, хроника — с относительным временем. Все зоны доступны в один тап.</div>
+    <div class="pmeta"><span class="prio p1">P1</span><span class="eff m">Трудоёмкость: M</span><span class="eff">Эффект: большинство читает с телефона</span></div></details>
+
+  <details class="prop" data-cat="ux" data-prio="p2"><summary><span class="pid">22</span><span class="pt">Доступность и печать</span><span class="plus"></span></summary>
+    <div class="pbody">Осмысленный <code>alt</code> у фото (сейчас пустой), <code>aria-label</code> у блоков, контраст кикеров не ниже 4.5:1, эмодзи не единственный носитель смысла, обрезанные заголовки дублируются в <code>title</code>. Печатная версия полосы — с теми же зонами и без интерактивных элементов.</div>
+    <div class="pmeta"><span class="prio p2">P2</span><span class="eff s">Трудоёмкость: S</span><span class="eff">Эффект: полоса читается всеми</span></div></details>
+
+  <details class="prop" data-cat="meta" data-prio="p1"><summary><span class="pid">23</span><span class="pt">Отчёт качества выпуска</span><span class="plus"></span></summary>
+    <div class="pbody">После каждого прогона генератор пишет: доля полных заголовков, число дублей на полосе, доля промо в топ-5, распределение по рубрикам, время до публикации последнего алерта, число пустых блоков. Отчёт — на страницу статуса и в версию руководителю.</div>
+    <div class="pmeta"><span class="prio p1">P1</span><span class="eff m">Трудоёмкость: M</span><span class="eff">Эффект: качество измеряется, а не оценивается</span></div></details>
+
+  <details class="prop" data-cat="meta" data-prio="p2"><summary><span class="pid">24</span><span class="pt">Неделя A/B двух вариантов полосы</span><span class="plus"></span></summary>
+    <div class="pbody">Неделю собираем два варианта главной: текущий и предложенный. Сравниваем переходы в источники, глубину просмотра и возвраты. Решение о переходе — по данным, а не по вкусу; результат фиксируем в плане развития.</div>
+    <div class="pmeta"><span class="prio p2">P2</span><span class="eff l">Трудоёмкость: L</span><span class="eff">Эффект: изменения подтверждены метрикой</span></div></details>
+</div>
+
+<!-- ================= ПЛАН ================= -->
+<div class="sec-head" id="plan">
+  <h2>План внедрения</h2>
+  <span class="badge">три спринта · без изменения конвейера сбора</span>
+</div>
+<div class="sprints">
+  <div class="sprint now reveal">
+    <div class="sw">Спринт 1 · неделя</div>
+    <h3>Гигиена и алерты</h3>
+    <ul>
+      <li>Нормализатор заголовка: эмодзи, хвосты, КАПС, кавычки</li>
+      <li>Обрезка по слову ≤ 90 знаков + полный вариант в title</li>
+      <li>Алерт-полоса: официальные источники, авто-скрытие</li>
+      <li>Реестр показанных id — убираем дубли между блоками</li>
+      <li>Fallback пустых состояний в афише</li>
+    </ul>
+    <div class="res">Результат на полосе: ни одного оборванного заголовка, ни одного дубля, угроза видна сразу после открытия страницы.</div>
+  </div>
+  <div class="sprint reveal">
+    <div class="sw">Спринт 2 · две недели</div>
+    <h3>Скоринг и анатомия</h3>
+    <ul>
+      <li>Формула score и правило стабильности героя</li>
+      <li>Кластеры на полосе + «также сообщили»</li>
+      <li>Обязательные поля карточки, статусы и типы</li>
+      <li>Подрубрики «Общества» и гео-теги</li>
+      <li>Блок «Коротко: 7 строк дня»</li>
+    </ul>
+    <div class="res">Результат на полосе: главный сюжет объяснён, рубрики различимы, одна новость показана один раз.</div>
+  </div>
+  <div class="sprint reveal">
+    <div class="sw">Спринт 3 · две недели</div>
+    <h3>Навигация и метрики</h3>
+    <ul>
+      <li>Чипы-рубрики, фильтр по типу, «Показать ещё 12»</li>
+      <li>Мобильная полоса и липкий алерт</li>
+      <li>Доступность: alt, aria, контраст, печать</li>
+      <li>Отчёт качества выпуска на страницу статуса</li>
+      <li>Неделя A/B и решение по переходу</li>
+    </ul>
+    <div class="res">Результат: читатель управляет лентой, редакция видит качество каждого выпуска в числах.</div>
+  </div>
+</div>
+
+<!-- ================= МЕТРИКИ ================= -->
+<div class="sec-head" id="kpi">
+  <h2>Как поймём, что стало лучше</h2>
+  <span class="badge">6 метрик · цель на 4 недели</span>
+</div>
+<div class="page">
+  <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="kpi reveal"><div class="num">40% <span style="color:var(--accent)">→ 98%</span></div><div class="lbl">доля заголовков, которые читаются как полное предложение (без обрыва на полуслове)</div></div>
+    <div class="kpi reveal"><div class="num">5 <span style="color:var(--accent)">→ 0</span></div><div class="lbl">повторов одного и того же материала на первой полосе</div></div>
+    <div class="kpi reveal"><div class="num">2 <span style="color:var(--accent)">→ 0</span></div><div class="lbl">промо-анонсов и личных постов в «Самое читаемое»</div></div>
+    <div class="kpi reveal"><div class="num">25 мин <span style="color:var(--accent)">→ ≤ 5 мин</span></div><div class="lbl">время от официального сообщения об угрозе до появления алерт-полосы</div></div>
+    <div class="kpi reveal"><div class="num">75% <span style="color:var(--accent)">→ ≤ 35%</span></div><div class="lbl">доля одной рубрики в ленте полосы</div></div>
+    <div class="kpi reveal"><div class="num">2 <span style="color:var(--accent)">→ 0</span></div><div class="lbl">блоков с заглушкой «нет данных» на первом экране</div></div>
+  </div>
+  <div class="verdict" style="margin-top:30px;"><b>Что это даёт читателю</b>Полоса перестаёт быть лентой ссылок и становится газетой: за десять секунд видно, что произошло в области, опасно ли это, что с этим делать и где прочитать подробнее. Редакция при этом не теряет автоматизацию — все правила живут в генераторе и применяются к каждому выпуску одинаково.</div>
+</div>
+
+<!-- ================= ФИЧА ================= -->
+<section class="feature">
+  <div class="feature__inner">
+    <div class="feature__text">
+      <div class="feature__kicker">Принцип полосы</div>
+      <h2 class="feature__title">Одна полоса — <em>пять ответов</em></h2>
+      <p class="feature__dek">Каждый экран первой полосы обязан отвечать на конкретный вопрос читателя. Если блок не отвечает ни на один — его нет на полосе.</p>
+      <ul class="checklist">
+        <li>Первый экран: опасно ли сейчас и что произошло главного</li>
+        <li>Второй: три следующих по значимости сюжета и семь строк дня</li>
+        <li>Третий: хроника с фильтром и рельс со справкой</li>
+        <li>Четвёртый: аналитика — дуга сюжета недели</li>
+        <li>Пятый: лента по рубрикам с догрузкой и переходом в выпуск</li>
+      </ul>
+    </div>
+    <figure class="feature__media">
+      <svg viewBox="0 0 500 460" aria-hidden="true">
+        <g opacity=".9">
+          <rect x="40" y="34" width="420" height="26" fill="#D63F1F"/>
+          <rect x="40" y="76" width="250" height="150" fill="#FAF7F2" opacity=".16"/>
+          <rect x="306" y="76" width="154" height="150" fill="none" stroke="#FAF7F2" stroke-opacity=".35" stroke-dasharray="5 4"/>
+          <rect x="40" y="242" width="132" height="70" fill="#FAF7F2" opacity=".12"/>
+          <rect x="184" y="242" width="132" height="70" fill="#FAF7F2" opacity=".12"/>
+          <rect x="328" y="242" width="132" height="70" fill="#FAF7F2" opacity=".12"/>
+          <rect x="40" y="330" width="420" height="9" fill="#FAF7F2" opacity=".22"/>
+          <rect x="40" y="350" width="340" height="9" fill="#FAF7F2" opacity=".18"/>
+          <rect x="40" y="370" width="390" height="9" fill="#FAF7F2" opacity=".14"/>
+          <rect x="40" y="390" width="260" height="9" fill="#FAF7F2" opacity=".1"/>
+        </g>
+        <g font-family="Inter,sans-serif" font-size="10" letter-spacing="2" fill="#FAF7F2" opacity=".8">
+          <text x="46" y="51">АЛЕРТ</text>
+          <text x="46" y="94">ГЛАВНЫЙ СЮЖЕТ</text>
+          <text x="312" y="94">РЕЛЬС</text>
+          <text x="46" y="260">ВТОРОЙ</text>
+          <text x="190" y="260">ТРЕТИЙ</text>
+          <text x="334" y="260">ЧЕТВЁРТЫЙ</text>
+          <text x="40" y="428">КОРОТКО · ХРОНИКА · ЛЕНТА</text>
+        </g>
+      </svg>
+      <figcaption>Схема · Гудок</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= РЕШЕНИЕ ================= -->
+<section class="newsletter">
+  <div class="newsletter__inner">
+    <div class="newsletter__kicker">Что нужно решить</div>
+    <h2 class="newsletter__title">Три решения — <em>и полоса меняется</em></h2>
+    <p class="newsletter__dek">1. Утвердить схему из восьми зон и порядок на полосе. 2. Согласовать формулу скоринга и веса (значимость 30 / охват 25 / свежесть 20 / источник 15 / штраф за промо 0.6). 3. Дать добро на спринт 1 — гигиена заголовков и алерт-полоса, они ничего не ломают в конвейере.</p>
+    <div class="period-links">
+      <button class="solid" onclick="markDecision(this,'Схема полосы согласована')">Согласовать схему полосы</button>
+      <button onclick="markDecision(this,'Веса скоринга приняты')">Принять веса скоринга</button>
+      <button onclick="markDecision(this,'Спринт 1 запущен')">Запустить спринт 1</button>
+      <a href="index.html">Открыть текущую полосу</a>
+      <a href="roadmap.html">План развития</a>
+    </div>
+    <div class="newsletter__fine" id="decFine">Отметки сохраняются в этом браузере — страницу можно показать как рабочий черновик. Издание внутреннее, распространяется среди членов группы «Победа».</div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__brand">ГУДОК<span>.</span></div>
+      <p>Информационно-аналитическое издание марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Эта страница — редакционное предложение по устройству первой полосы и структуры материалов; материалы принадлежат их изданиям.</p>
+    </div>
+    <div><h3>Периодичности</h3><ul>
+      <li><a href="digests/digest_2026-09-16.html">День · выпуск № 5</a></li>
+      <li><a href="weekly.html">Неделя · дуги сюжетов</a></li>
+      <li><a href="monthly.html">Месяц · метрики</a></li>
+      <li><a href="archive.html">Архив-матрица</a></li></ul></div>
+    <div><h3>По теме</h3><ul>
+      <li><a href="index.html">Первая полоса сейчас</a></li>
+      <li><a href="roadmap.html">План развития</a></li>
+      <li><a href="status.html">Статус системы</a></li>
+      <li><a href="infospace.html">Инфопространство</a></li></ul></div>
+    <div><h3>Служебное</h3><ul>
+      <li><a href="#diag">Диагноз полосы</a></li>
+      <li><a href="#props">24 предложения</a></li>
+      <li><a href="#plan">План внедрения</a></li>
+      <li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+  </div>
+  <div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Страница-предложение · черновик v1.0</span></div>
+</footer>
+
+<script>
+/* ---------- тема ---------- */
+function toggleTheme(){
+  var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+  document.documentElement.setAttribute("data-theme",c);
+  try{localStorage.setItem("gudok-theme",c);}catch(e){}
+  syncThemeBtn();
+}
+function syncThemeBtn(){
+  var b=document.getElementById("themeBtn");
+  if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}
+}
+(function(){
+  try{var s=localStorage.getItem("gudok-theme");if(s){document.documentElement.setAttribute("data-theme",s);}}catch(e){}
+  syncThemeBtn();
+})();
+
+/* ---------- прогресс чтения ---------- */
+var progressBar=document.getElementById("progress");
+function updProgress(){
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  var p=h>0?(window.scrollY/h)*100:0;
+  progressBar.style.width=p.toFixed(2)+"%";
+}
+window.addEventListener("scroll",updProgress,{passive:true});
+window.addEventListener("resize",updProgress);
+updProgress();
+
+/* ---------- появление блоков ---------- */
+var revealEls=document.querySelectorAll(".reveal");
+if("IntersectionObserver" in window){
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target);}
+    });
+  },{threshold:.12});
+  revealEls.forEach(function(el){io.observe(el);});
+}else{
+  revealEls.forEach(function(el){el.classList.add("in");});
+}
+
+/* ---------- счётчики ---------- */
+function animateCount(el){
+  var target=parseInt(el.getAttribute("data-count"),10)||0;
+  var cur=0, step=Math.max(1,Math.ceil(target/28));
+  var timer=setInterval(function(){
+    cur+=step;
+    if(cur>=target){cur=target;clearInterval(timer);}
+    el.textContent=cur;
+  },26);
+}
+if("IntersectionObserver" in window){
+  var co=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){animateCount(en.target);co.unobserve(en.target);}
+    });
+  },{threshold:.5});
+  document.querySelectorAll("[data-count]").forEach(function(el){co.observe(el);});
+}
+
+/* ---------- поднавигация: активный якорь ---------- */
+var subLinks=document.querySelectorAll(".subnav-inner a");
+var sections=[];
+subLinks.forEach(function(a){
+  var id=a.getAttribute("href").slice(1);
+  var sec=document.getElementById(id);
+  if(sec){sections.push({id:id,el:sec,link:a});}
+});
+function updSubnav(){
+  var pos=window.scrollY+140, cur=null;
+  sections.forEach(function(s){ if(s.el.offsetTop<=pos){cur=s;} });
+  subLinks.forEach(function(a){a.classList.remove("on");});
+  if(cur){cur.link.classList.add("on");}
+}
+window.addEventListener("scroll",updSubnav,{passive:true});
+updSubnav();
+
+/* ---------- схема полосы: режимы ---------- */
+var wfCols=document.getElementById("wfCols");
+document.querySelectorAll(".wf-modes .mbtn").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    document.querySelectorAll(".wf-modes .mbtn").forEach(function(b){b.classList.remove("on");});
+    btn.classList.add("on");
+    wfCols.classList.remove("mode-now","mode-new");
+    var m=btn.getAttribute("data-mode");
+    if(m==="now"){wfCols.classList.add("mode-now");}
+    if(m==="new"){wfCols.classList.add("mode-new");}
+  });
+});
+
+/* ---------- подсветка зон схемы ---------- */
+function linkZones(selA,selB){
+  document.querySelectorAll(selA+","+selB).forEach(function(node){
+    node.addEventListener("mouseenter",function(){
+      var z=node.getAttribute("data-zone");
+      document.querySelectorAll('[data-zone="'+z+'"]').forEach(function(o){o.classList.add("hot");});
+    });
+    node.addEventListener("mouseleave",function(){
+      document.querySelectorAll(".hot").forEach(function(o){o.classList.remove("hot");});
+    });
+  });
+}
+linkZones(".wf-zone",".lg");
+
+/* ---------- анатомия: маркеры и легенда ---------- */
+document.querySelectorAll("[data-m]").forEach(function(node){
+  node.addEventListener("mouseenter",function(){
+    var m=node.getAttribute("data-m");
+    document.querySelectorAll('[data-m="'+m+'"]').forEach(function(o){o.classList.add("hot");});
+  });
+  node.addEventListener("mouseleave",function(){
+    document.querySelectorAll(".hot").forEach(function(o){o.classList.remove("hot");});
+  });
+});
+
+/* ---------- модель ранжирования ---------- */
+var stories=[
+  {t:"Ракетная опасность в Ульяновской области",s:"официальный канал · tier 1",time:"21:58",topic:1.0,reach:.55,fresh:.95,src:1.0,promo:0,alert:true},
+  {t:"Грязная горячая вода в Первомайском районе Димитровграда",s:"t.me/dimitrovgradonline · tier 3",time:"22:27",topic:.7,reach:.30,fresh:.85,src:.4,promo:0},
+  {t:"Камеко и Никитин обсудили обновление общественного транспорта",s:"t.me/ulpravda · tier 1",time:"00:24",topic:.65,reach:.50,fresh:.90,src:1.0,promo:0},
+  {t:"Ульяновску исполнилось 378 лет: пост главы региона",s:"max.ru · tier 1",time:"13.09",topic:.45,reach:.90,fresh:.35,src:1.0,promo:.3},
+  {t:"#ФотоВыходногоДня — конкурс канала",s:"t.me/uac_ru · tier 2",time:"15.09",topic:.15,reach:.80,fresh:.50,src:.7,promo:1},
+  {t:"Рубрика «Рецепты»: паста-салат",s:"t.me/ulyanovsk_smi · tier 2",time:"22:20",topic:.10,reach:.85,fresh:.88,src:.7,promo:1}
+];
+var sortMode="time";
+var rlist=document.getElementById("rlist");
+var rankNote=document.getElementById("rankNote");
+
+function renderRank(){
+  var w1=+document.getElementById("w1").value;
+  var w2=+document.getElementById("w2").value;
+  var w3=+document.getElementById("w3").value;
+  var w4=+document.getElementById("w4").value;
+  var wp=+document.getElementById("wp").value;
+  document.getElementById("w1v").textContent=w1;
+  document.getElementById("w2v").textContent=w2;
+  document.getElementById("w3v").textContent=w3;
+  document.getElementById("w4v").textContent=w4;
+  document.getElementById("wpv").textContent=wp.toFixed(1);
+
+  var wsum=(w1+w2+w3+w4)||1;
+  var items=stories.map(function(st,idx){
+    var sc=(w1*st.topic+w2*st.reach+w3*st.fresh+w4*st.src)/wsum - wp*st.promo;
+    return {idx:idx,st:st,score:Math.max(0,Math.min(1,sc))};
+  });
+
+  if(sortMode==="score"){
+    items.sort(function(a,b){return b.score-a.score;});
+  }else{
+    var order=[2,1,5,0,3,4]; /* как на полосе сейчас: по времени публикации */
+    items.sort(function(a,b){return order.indexOf(a.idx)-order.indexOf(b.idx);});
+  }
+
+  var maxScore=Math.max.apply(null,items.map(function(i){return i.score;}))||1;
+  rlist.innerHTML="";
+  items.forEach(function(it,pos){
+    var isTop=(sortMode==="score"&&pos<3);
+    var isOut=(it.st.promo>=.5&&sortMode==="score");
+    var row=document.createElement("div");
+    row.className="ritem"+(isTop?" top3":"")+(isOut?" out":"");
+    row.innerHTML=
+      '<div class="rpos">'+(pos+1<10?"0":"")+(pos+1)+'</div>'+
+      '<div><div class="rtitle">'+(it.st.alert?'<span style="color:var(--accent);font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.12em;">АЛЕРТ · </span>':'')+it.st.t+'</div>'+
+      '<div class="rsub"><span>'+it.st.s+'</span><span>'+it.st.time+'</span>'+(it.st.promo>0?'<span><em>промо</em></span>':'')+'</div></div>'+
+      '<div class="rbarwrap"><div class="rbar"><i style="width:'+(it.score/maxScore*100).toFixed(1)+'%"></i></div>'+
+      '<div class="rscore">'+(sortMode==="score"?(it.score*100).toFixed(0)+' / 100':'score '+(it.score*100).toFixed(0))+'</div></div>';
+    rlist.appendChild(row);
+  });
+
+  if(sortMode==="score"){
+    rankNote.textContent="Предложение: первые три позиции — это главный сюжет и два вторых, промо уходит вниз и не попадает в топ. Измените веса слева — порядок пересчитается сразу.";
+  }else{
+    rankNote.textContent="Как сейчас: порядок задаёт время публикации, поэтому в герои попадает ночной пост о транспорте, а алерт о ракетной опасности остаётся четвёртым. Переключите режим, чтобы сравнить.";
+  }
+}
+["w1","w2","w3","w4","wp"].forEach(function(id){
+  document.getElementById(id).addEventListener("input",renderRank);
+});
+document.querySelectorAll(".rbtn").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    document.querySelectorAll(".rbtn").forEach(function(b){b.classList.remove("on");});
+    btn.classList.add("on");
+    sortMode=btn.getAttribute("data-sort");
+    renderRank();
+  });
+});
+renderRank();
+
+/* ---------- бары рубрикатора ---------- */
+if("IntersectionObserver" in window){
+  var bo=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.querySelectorAll(".btrack i").forEach(function(bar){
+          bar.style.width=bar.getAttribute("data-w")+"%";
+        });
+        bo.unobserve(en.target);
+      }
+    });
+  },{threshold:.25});
+  document.querySelectorAll(".rub-col").forEach(function(c){bo.observe(c);});
+}
+
+/* ---------- фильтры предложений ---------- */
+var propEls=Array.prototype.slice.call(document.querySelectorAll(".prop"));
+var fcount=document.getElementById("fcount");
+function plural(n){
+  var m=n%100, k=n%10;
+  if(m>=11&&m<=14){return "пунктов";}
+  if(k===1){return "пункт";}
+  if(k>=2&&k<=4){return "пункта";}
+  return "пунктов";
+}
+function applyFilter(cat){
+  var shown=0;
+  propEls.forEach(function(p){
+    var ok=(cat==="all")||
+           (cat==="p0"?p.getAttribute("data-prio")==="p0":p.getAttribute("data-cat")===cat);
+    p.classList.toggle("hide",!ok);
+    if(ok){shown++;}
+  });
+  fcount.textContent=shown+" "+plural(shown);
+}
+document.querySelectorAll("#filters .fbtn[data-cat]").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    document.querySelectorAll("#filters .fbtn[data-cat]").forEach(function(b){b.classList.remove("active");});
+    btn.classList.add("active");
+    applyFilter(btn.getAttribute("data-cat"));
+  });
+});
+var expandBtn=document.getElementById("expandAll");
+expandBtn.addEventListener("click",function(){
+  var anyClosed=propEls.some(function(p){return !p.classList.contains("hide")&&!p.open;});
+  propEls.forEach(function(p){ if(!p.classList.contains("hide")){p.open=anyClosed;} });
+  expandBtn.textContent=anyClosed?"Свернуть все":"Развернуть все";
+});
+
+/* ---------- отметки решений ---------- */
+var decisions=[];
+function markDecision(btn,text){
+  if(decisions.indexOf(text)===-1){decisions.push(text);}
+  btn.textContent="✓ "+text;
+  btn.classList.add("solid");
+  document.getElementById("decFine").textContent="Отмечено в черновике: "+decisions.join(" · ")+". Отметки сохраняются только в этой вкладке.";
+}
+</script>
+</body>
+</html>

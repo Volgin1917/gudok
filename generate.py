@@ -12,6 +12,7 @@ generate.py — рендер выпусков издание Гудок.
 """
 import argparse
 from collections import Counter
+import math
 import glob
 import re
 import html as H
@@ -150,6 +151,11 @@ img{max-width:100%;display:block;}
 .hero__byline{display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px;color:var(--muted);}
 .hero__byline .avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;letter-spacing:.05em;}
 .hero__byline strong{color:var(--ink);font-weight:600;}
+.hero__why{font-family:var(--sans);font-size:12px;color:var(--muted);letter-spacing:.01em;margin:14px 0 0;}
+.hero__passport{font-family:var(--sans);font-size:12px;color:var(--muted);margin:4px 0 0;}
+.hero__passport strong{color:var(--ink-2);font-weight:600;}
+.hero__also{font-family:var(--sans);font-size:12px;font-style:italic;color:var(--muted);margin:4px 0 0;}
+.hero__timeline{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0 0;letter-spacing:.01em;}
 .dot-sep::before{content:"·";margin:0 8px;color:var(--muted);}
 .hero__media{position:relative;aspect-ratio:4/5;overflow:hidden;margin:0;
   background:radial-gradient(120% 90% at 30% 20%,#4A5A55 0%,#2E3A38 55%,#1C2322 100%);}
@@ -170,6 +176,18 @@ img{max-width:100%;display:block;}
 .mostread__list a{font-family:var(--serif-body);font-size:15px;line-height:1.35;font-weight:600;color:var(--ink);}
 .mostread__list a:hover{color:var(--accent);}
 
+/* «Коротко: 7 строк дня» */
+.brief{border-bottom:1px solid var(--rule);background:var(--paper);}
+.brief__inner{max-width:var(--maxw);margin:0 auto;padding:22px var(--gutter) 24px;}
+.brief__label{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.brief__label::before{content:"";width:22px;height:1px;background:var(--accent);}
+.brief-row{display:grid;grid-template-columns:86px 200px 1fr;gap:16px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule);}
+.brief-row:first-of-type{border-top:0;}
+.brief-t{font-family:var(--sans);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.brief-k{font-family:var(--sans);font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.brief-row a{font-family:var(--serif-body);font-size:15.5px;line-height:1.35;font-weight:600;color:var(--ink);}
+.brief-row a:hover{color:var(--accent);}
+
 /* карточки */
 .grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(4,1fr);gap:36px 28px;}
 .card{display:flex;flex-direction:column;background:none;border:none;border-radius:0;box-shadow:none;}
@@ -184,6 +202,28 @@ img{max-width:100%;display:block;}
 .card__title a:hover{color:var(--accent);}
 .card__dek{font-family:var(--serif-body);font-size:15px;line-height:1.5;color:var(--muted);margin:0 0 12px;}
 .card__meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:auto;}
+.card__badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:3px 8px;border-radius:999px;white-space:nowrap;display:inline-block;}
+.chip--cluster{color:var(--ink-2);background:var(--paper-2);border:1px solid var(--rule);}
+
+/* лента: чипы-рубрики + «Показать ещё» (#19/#20) */
+.feed-chips{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter) 0;display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:52px;z-index:20;background:var(--paper);}
+.chip-f{font:600 12px var(--sans);color:var(--muted);background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer;line-height:1.45;}
+.chip-f:hover{color:var(--ink);border-color:var(--ink);}
+.chip-f.on{color:#fff;background:var(--accent);border-color:var(--accent);}
+.chip-f:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.chip-f-divider{width:1px;height:18px;margin:0 6px;align-self:center;background:var(--rule);}
+.feed-more{display:none;font:600 13px var(--sans);padding:8px 18px;border:1px solid var(--ink);border-radius:999px;background:var(--paper);cursor:pointer;}
+.feed-more:hover{background:var(--ink);color:var(--paper);}
+.feed-bar{max-width:var(--maxw);margin:14px auto 0;padding:0 var(--gutter);display:flex;align-items:center;gap:18px;font:12px var(--sans);color:var(--muted);}
+.feed-bar a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+.feed-empty{max-width:var(--maxw);margin:12px auto 0;padding:0 var(--gutter);font:13px var(--sans);color:var(--muted);}
+.feed-empty a{color:var(--accent);}
+.hidden{display:none!important;}
+.ab-link{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:999px;background:none;padding:4px 12px;cursor:pointer;}
+.ab-link:hover{color:var(--accent);border-color:var(--accent);}
+body[data-ab="v2"] .hero__inner{grid-template-columns:1fr 1.05fr;}
+body[data-ab="v2"] .feature__inner{grid-template-columns:1.05fr 1fr;}
 
 /* фича-полоса (тёмная) */
 .feature{margin-top:72px;background:var(--ink);color:var(--paper);}
@@ -399,6 +439,16 @@ img{max-width:100%;display:block;}
 .tl-src{font-family:var(--sans);color:var(--muted);font-size:11px;}
 .now-line{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);margin-top:4px;line-height:1.5;}
 .now-line b{color:var(--ink);}
+/* v4: алерт-полоса безопасности */
+.alertstrip{background:#5d0f13;color:#fff;}
+.alertstrip__inner{max-width:var(--maxw);margin:0 auto;padding:9px var(--gutter);display:flex;flex-direction:column;gap:5px;}
+body[data-theme="dark"] .alertstrip{background:#7d171d;}
+.alert-row{display:flex;gap:9px;align-items:center;font-family:var(--serif-body);font-size:14.5px;line-height:1.4;}
+.alert-row a{color:#fff;font-weight:600;text-decoration:none;}
+.alert-row a:hover{text-decoration:underline;}
+.alert-dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#ff6b6b;box-shadow:0 0 0 0 rgba(255,107,107,.7);animation:alertpulse 1.6s infinite;}
+@keyframes alertpulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,.6);}70%{box-shadow:0 0 0 7px rgba(255,107,107,0);}100%{box-shadow:0 0 0 0 rgba(255,107,107,0);}}
+.alert-time{margin-left:auto;flex-shrink:0;font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.85);font-weight:700;}
 .now-num{font-family:var(--serif-display);font-size:26px;font-weight:600;color:var(--ink);line-height:1.1;}
 .now-num small{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);}
 .lead-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;}
@@ -468,6 +518,9 @@ img{max-width:100%;display:block;}
 @media (max-width:1100px){
   .hero__inner,.lead-grid,.feature__inner,.wk-grid,.main-grid{grid-template-columns:1fr;}
   .hero__media{aspect-ratio:16/9;}
+  .brief-row{grid-template-columns:1fr;row-gap:3px;}
+  .brief-t,.brief-k{grid-column:1;}
+  .brief-k{white-space:normal;}
   .mostread__inner{grid-template-columns:1fr;gap:18px;}
   .mostread__list{grid-template-columns:repeat(2,1fr);row-gap:18px;}
   .mostread__list li{padding-left:16px;}
@@ -660,6 +713,11 @@ def load_json(path, default=None):
     return default
 
 
+def save_json(path, obj):
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False, indent=1)
+
+
 def load_store():
     items = []
     p = os.path.join(DATA, "store.jsonl")
@@ -822,13 +880,20 @@ def photo_img(it, prefix, style):
         return ""
     if not src.startswith("http"):
         src = prefix + src
-    return (f'<img src="{esc(src)}" alt="" loading="lazy" style="{style}" '
+    alt_text = present_title(it, 120) if it else ""
+    return (f'<img src="{esc(src)}" alt="{esc(alt_text)}" loading="lazy" style="{style}" '
             f'onerror="this.style.display=\'none\'">')
 
 
 def dek_p(it, limit, cls=""):
     """Дек без повтора заголовка; пустой — не выводится."""
-    d = clip_sentences(strip_title_lead(it.get("text") or "", it.get("title")), limit)
+    ttl = it.get("title") or ""
+    body = strip_title_lead(it.get("text") or "", ttl)
+    # лид-дедуп v4: первое предложение почти дублирует заголовок (≥70% биграмм) — съедаем
+    parts = SENT_SPLIT.split(body)
+    if len(parts) > 1 and similarity(parts[0], ttl) > 0.7:
+        body = " ".join(parts[1:])
+    d = clip_sentences(body, limit)
     cls_attr = f' class="{cls}"' if cls else ""
     return f"<p{cls_attr}>{esc(d)}</p>" if len(d) >= 40 else ""
 
@@ -914,6 +979,596 @@ def clip_words(text, limit):
         return text
     cut = text[:limit].rsplit(" ", 1)[0]
     return cut.rstrip(" ,;:—-") + "…"
+
+
+# ------------------------------------------------------------------ v4: гигиена заголовка
+# Своя копия EMOJI_STRIP_RE (collector.py) — не тянем импорт тяжёлого коллектора в рендер.
+EMOJI_STRIP_RE = re.compile(r"[\U0001F000-\U0001FAFF\U00002600-\U000027BF\U0001F1E6-\U0001F1FF\uFE0F\u200D\u203C\u2049\u2B50\u2705\u274C\u2764]+")
+VARIATION_SEL_RE = re.compile(r"[\uFE0E\uFE0F]")
+QUOTES_RE = re.compile(r"[\u00AB\u00BB\u201E\u201C\u201D\u2018\u2019]")
+HASHTAG_RE = re.compile(r"(?<!\w)#[\wа-яё_-]+", re.I)
+FREE_SPACE_RE = re.compile(r"\s{2,}")
+CUT_TAIL_OPEN = re.compile(r"[,;:—–-]$|,\s*$")
+DANGLE_OPEN = ("и", "в", "во", "на", "с", "со", "по", "о", "об", "от", "к", "ко",
+               "для", "из", "у", "за", "над", "под", "при", "про", "без", "не", "или",
+               "а", "но", "что", "как", "где")
+
+
+def _normalize_quotes(s):
+    """Приводит кавычки к «ёлочкам» и типографскому апострофу."""
+    return QUOTES_RE.sub(lambda m: "\u00AB" if m.group() in "\u201E\u00AB" else "\u00BB", s)
+
+
+def _strip_title_junk(t):
+    """Снимает эмодзи, селекторы, хэштеги и уплотняет пробелы."""
+    t = EMOJI_STRIP_RE.sub("", t)
+    t = VARIATION_SEL_RE.sub("", t)
+    t = HASHTAG_RE.sub("", t)
+    return FREE_SPACE_RE.sub(" ", t).strip(" -—,")
+
+
+_KNOWN_ABBREVS = frozenset({
+    "ПВО", "ЕГЭ", "УФСБ", "ФСБ", "МЧС", "ГИБДД", "ООО", "АО", "ПАО", "НКО",
+    "СКР", "УМВД", "ГУВД", "ФМС", "ЕС", "ООН", "НАТО", "СНГ", "ЕАЭС", "ДПС",
+    "МРЭО", "ПФР", "ФНС", "КФХ", "СНТ", "ДНК", "ОМС", "ОМВД", "ФССП", "МВД",
+    "ФСИН", "ФТС", "ЦВК", "ЕИС", "ОПС", "СОБЕС", "ТКО", "МФЦ", "МФО", "ЦОД",
+    "ГИС", "ЕП", "ГПС", "ЗАГС", "УФНС", "УФССП", "ГИТ", "КМВД", "ЦУР",
+    "ВС", "КС", "ВАС", "ВЦИОМ", "Левада", "ДОУ", "ОО",
+})
+
+
+def _decap(t):
+    """КАПС → обычный регистр. Только для «кричащих» заголовков (≥60% заглавных):
+    известные аббревиатуры (ПВО, ЕГЭ, УФСБ — из словаря) сохраняются, остальное
+    в нижний регистр. Обычный прописной заголовок не трогаем."""
+    letters = [c for c in t if c.isalpha()]
+    if not letters:
+        return t
+    upper_ratio = sum(1 for c in letters if c.isupper()) / len(letters)
+    if upper_ratio < 0.6:
+        return t
+    abbrevs = re.findall(r"[А-ЯЁA-Z]{2,}", t)
+    out = t.lower()
+    for abbr in abbrevs:
+        if abbr in _KNOWN_ABBREVS:
+            out = out.replace(abbr.lower(), abbr, 1)
+    return out
+
+
+def _head_from_text(it, limit):
+    """Сборка заголовка из первого абзаца, если обрыв вышел на предлоге/союзе."""
+    txt = _strip_title_junk(it.get("text") or "")
+    if not txt:
+        return ""
+    first = clip_sentences(txt, limit)
+    if first and not first.endswith("\u2026"):
+        return first
+    return clip_words(first or txt, limit)
+
+
+def _dangling(cut):
+    """True, если обрывку заканчивается открывающим предлогом/союзом или знаком."""
+    if CUT_TAIL_OPEN.search(cut):
+        return True
+    last = cut.rsplit(" ", 1)[-1].lower().strip(" ,;:—-«»\"'")
+    return last in DANGLE_OPEN
+
+
+def present_title(it, limit):
+    """Заголовок v4: эмодзи/хэштеги сняты, КАПС нормирован, кавычки — «ёлочки»,
+    обрезка ≤limit по границе слова; обрыв на предлоге/союзе или оборванный
+    коллектором заголовок (…) перезапускает сборку из первого абзаца. Отдаёт
+    только отображение; полную версию кладёт в атрибут `title` вызывающий."""
+    raw = _strip_title_junk(it.get("title") or "")
+    if raw.endswith("\u2026"):
+        rebuilt = _head_from_text(it, limit)
+        if rebuilt:
+            raw = rebuilt
+    if not raw:
+        raw = _head_from_text(it, limit) or "(без заголовка)"
+    raw = _decap(raw)
+    raw = _normalize_quotes(raw)
+    if len(raw) <= limit:
+        # длинный «и»/«в» на конце без оборванного знака — тоже обрыв смысла
+        if _dangling(raw):
+            rebuilt = _head_from_text(it, limit)
+            if rebuilt and not rebuilt.endswith("\u2026"):
+                return rebuilt
+        return raw
+    if _dangling(raw):
+        rebuilt = _head_from_text(it, limit)
+        if rebuilt and not rebuilt.endswith("\u2026"):
+            return rebuilt
+    cut = clip_words(raw, limit)
+    if _dangling(cut):
+        rebuilt = _head_from_text(it, limit)
+        if rebuilt and not rebuilt.endswith("\u2026"):
+            return rebuilt
+    return cut
+
+
+def similarity(a, b):
+    """Доля общих нормализованных биграмм из короткой строки (лид-дедуп)."""
+    norm = lambda s: re.sub(r"[^a-zа-яё0-9]", "", (s or "").lower())
+    x, y = norm(a), norm(b)
+    if not x or not y:
+        return 0.0
+    small, big = (x, y) if len(x) <= len(y) else (y, x)
+    n = len(small)
+    if n < 3:
+        return 1.0 if small in big else 0.0
+    bigrams = {small[i:i + 2] for i in range(n - 1)}
+    return sum(1 for i in range(len(big) - 1) if big[i:i + 2] in bigrams) / max(1, n - 1)
+
+
+# ------------------------------------------------------------------ v4: время
+def fmt_time(iso, now, mode="card"):
+    """Единый формат времени. mode: card — «15.09, 22:22»; rel — «18 мин назад»;
+    word — «15 сентября» для заголовков."""
+    dt = local_dt(iso)
+    if not dt:
+        return ""
+    if mode == "word":
+        months = ("января", "февраля", "марта", "апреля", "мая", "июня",
+                  "июля", "августа", "сентября", "октября", "ноября", "декабря")
+        return f"{dt.day} {months[dt.month - 1]}"
+    if mode == "rel":
+        delta = now - dt
+        sec = int(delta.total_seconds())
+        if sec < 60:
+            return "только что"
+        if sec < 3600:
+            return f"{sec // 60} мин назад"
+        if sec < 86400:
+            return f"{sec // 3600} ч назад"
+        days = sec // 86400
+        if days == 1:
+            return "вчера"
+        if days < 7:
+            return f"{days} дн назад"
+        return dt.strftime("%d.%m.%Y")
+    return dt.strftime("%d.%m, %H:%M")
+
+
+# ------------------------------------------------------------------ v4: афиша (fallback-цепочка)
+def pick_afisha(an, day, limit=4):
+    """Цепочка афиши v4: сегодня → завтра → выходные → 7 дней → культура недели.
+    Возвращает (заголовок, события, дата)."""
+    cal = (an or {}).get("calendar", [])
+    ev = lambda d: [e for e in cal if e.get("date") == d.isoformat()][:limit]
+
+    today_ev = ev(day)
+    if today_ev:
+        return "Сегодня в области", today_ev, day
+
+    tomorrow = day + timedelta(days=1)
+    tm_ev = ev(tomorrow)
+    if tm_ev:
+        return "Завтра", tm_ev, tomorrow
+
+    for off in range(2, 8):
+        d = day + timedelta(days=off)
+        if d.weekday() >= 5:
+            we = ev(d)
+            if we:
+                return f"Выходные · {d:%d.%m}", we, d
+            break
+
+    for off in range(1, 8):
+        d = day + timedelta(days=off)
+        wk = ev(d)
+        if wk:
+            return "Ближайшие события", wk, d
+
+    week_ev = []
+    for off in range(2, 15):
+        week_ev += ev(day + timedelta(days=off))
+    if week_ev:
+        return "Культура недели", week_ev[:limit], day
+    return "Сегодня в области", [], day
+
+
+# ------------------------------------------------------------------ v4: кросс-дедуп полосы
+class ShownIds:
+    """Реестр показанных id на страницу: блок не повторяет материал выше."""
+
+    def __init__(self):
+        self._seen = set()
+
+    def add(self, it):
+        self._seen.add(it.get("id"))
+
+    def has(self, it):
+        return it.get("id") in self._seen
+
+    def first(self, it):
+        """True, если материала ещё не было на полосе; добавляет его в реестр."""
+        if not it or it.get("id") in self._seen:
+            return False
+        self._seen.add(it.get("id"))
+        return True
+
+
+# ------------------------------------------------------------------ v4: скоринг героя
+def sig_value(it, cfg):
+    """Значимость темы: подрубрика → категория → прочее."""
+    sig = cfg.get("settings", {}).get("significance", {})
+    sub = it.get("sub_category")
+    if sub and sub in sig:
+        return sig[sub]
+    cat = it.get("category")
+    if cat in sig:
+        return sig[cat]
+    return sig.get("default", 0.15)
+
+
+def hero_score(it, trends, now, cfg):
+    """Формула v4: W1·значимость + W2·охват + W3·свежесть + W4·источник − P·промо."""
+    comps, pen = hero_components(it, trends, now, cfg)
+    return round(sum(v for v, _k, _h in comps) + pen, 2)
+
+
+TIER_LABEL = {1: "официальные источники", 2: "СМИ и верифицированные каналы",
+              3: "анонимные каналы", 0: "источники"}
+TIER_REL = {1: 1.0, 2: 0.7, 3: 0.4}
+
+
+def _rus_views(v):
+    if not v:
+        return "0"
+    if v >= 1_000_000:
+        return f"{v/1_000_000:.1f} млн".replace(".0 млн", " млн")
+    if v >= 1000:
+        return f"{v/1000:.1f} тыс.".replace(".0 тыс.", " тыс.")
+    return str(int(v))
+
+
+def hero_components(it, trends, now, cfg):
+    """Слагаемые скоринга списком (вес, ключ, человекочитаемое) + штраф за промо.
+    «Охват» и «свежесть» могут отсутствовать (нет просмотров / нет времени)."""
+    w = cfg.get("settings", {}).get("scoring_weights", {})
+    W = lambda k, d: w.get(k, d)
+    comps = []
+    comps.append((W("significance", 30) * sig_value(it, cfg), "significance",
+                  _topic_label(it, cfg)))
+    views = it.get("views") or 0
+    reach = W("reach", 25) * min(math.log1p(views) / math.log1p(100000), 1.0)
+    comps.append((reach, "reach", f"{_rus_views(views)} просмотров" if views else "охват не измерен"))
+    pub = local_dt(it.get("published"))
+    if pub:
+        age_h = max(0.0, (now - pub).total_seconds() / 3600)
+        comps.append((W("freshness", 20) * math.exp(-age_h / 12), "freshness",
+                      fmt_time(pub.isoformat(), now, "rel")))
+    tier = it.get("tier")
+    comps.append((W("reliability", 15) * TIER_REL.get(tier, 0.5), "reliability",
+                  TIER_LABEL.get(tier, "источники")))
+    penalty = -W("promo_penalty", 0.6) * 10 if is_promo(it) else 0.0
+    return comps, penalty
+
+
+# человекочитаемые названия факторов для строки «Почему это главное»
+_FACTOR_HUMAN = {
+    "significance": "значимость",
+    "reach": "охват",
+    "freshness": "свежесть",
+    "reliability": "надёжность источника",
+}
+
+
+def _topic_label(it, cfg):
+    """Человекочитаемое имя рубрики/подрубрики для строки «почему это главное»."""
+    subs = {s.get("id"): s.get("name") for s in cfg.get("subcategories", [])}
+    cats = {c.get("id"): c.get("name") for c in cfg.get("categories", [])}
+    if it.get("sub_category") and it["sub_category"] in subs:
+        return subs[it["sub_category"]]
+    return cats.get(it.get("category"), "тема дня")
+
+
+def hero_factors(it, trends, now, cfg):
+    """Топ-2 фактора скоринга: [(название, пояснение)] для строки «Почему это главное»."""
+    comps, _pen = hero_components(it, trends, now, cfg)
+    comps.sort(reverse=True, key=lambda x: x[0])
+    return [(_FACTOR_HUMAN.get(k, k), h) for _v, k, h in comps[:2]]
+
+
+def pick_hero(pool, trends, now, cfg):
+    """Герой полосы: максимум hero_score с правилом стабильности (3 ч / 15%).
+    Состояние прошлого героя хранится в data/hero_state.json, чтобы полоса не
+    «прыгала» между пересборками."""
+    scored = []
+    for it in pool:
+        copy = dict(it)
+        copy["_score"] = hero_score(it, trends, now, cfg)
+        scored.append(copy)
+    scored.sort(key=lambda x: -x["_score"])
+    if not scored:
+        return None
+    best = scored[0]
+    st_path = os.path.join(DATA, "hero_state.json")
+    st = load_json(st_path, {})
+    prev = next((x for x in scored if x.get("id") == st.get("id")), None)
+    hero = best
+    if prev is not None and not hero_stable(prev, best, now, cfg):
+        hero = prev
+    try:
+        save_json(st_path, {"id": hero.get("id"), "score": hero.get("_score"),
+                            "published": hero.get("published"),
+                            "chosen_at": now.isoformat()})
+    except OSError:
+        pass
+    return hero
+
+
+def hero_stable(prev, new, now, cfg):
+    """Правило стабильности: не чаще раза в 3 ч, перевес ≥15% (или героя нет вовсе)."""
+    w = cfg.get("settings", {}).get("scoring_weights", {})
+    h_stab = w.get("hero_stability_h", 3)
+    margin = w.get("hero_stability_margin", 0.15)
+    if prev is None:
+        return True
+    if prev.get("id") == new.get("id"):
+        return True
+    prev_pub = local_dt(prev.get("published"))
+    if prev_pub and (now - prev_pub).total_seconds() / 3600 < h_stab:
+        return False
+    prev_s = prev.get("_score") or 0.0
+    new_s = new.get("_score") or 0.0
+    return new_s >= prev_s * (1 + margin)
+
+
+# ------------------------------------------------------------------ v4: отчёт качества выпуска
+def quality_report(store, cfg, day):
+    """8 метрик выпуска: полные заголовки, дубли, промо в топ-5, рубрики,
+    время алерта, пустые блоки. Пишем в data/quality_report.json."""
+    now = datetime.now(UTC4)
+    win_start = datetime.combine(day, datetime.min.time(), tzinfo=UTC4) - timedelta(hours=30)
+    window = [it for it in store if not it.get("dup_of")
+              and local_dt(it.get("published")) and local_dt(it["published"]) >= win_start]
+    n = len(window)
+
+    full_titles = sum(1 for it in window if present_title(it, 90) == _strip_title_junk(it.get("title") or "").strip())
+    promo_in_top5 = sum(1 for it in window if it.get("views") and is_promo(it)) / max(1, n)
+    cats = Counter(it.get("category") for it in window)
+    top_cat_share = cats.most_common(1)[0][1] / max(1, n) if cats else 0.0
+    an = load_json(os.path.join(DATA, "analytics.json")) or {}
+    events_today = sum(1 for e in an.get("calendar", [])
+                       if e.get("date") == day.isoformat())
+    report = {
+        "date": day.isoformat(),
+        "items": n,
+        "full_title_share": round(full_titles / max(1, n), 3),
+        "promo_share": round(promo_in_top5, 3),
+        "dups_on_page": 0,           # заполняется генератором при сборке полосы
+        "top_category_share": round(top_cat_share, 3),
+        "top_category": cats.most_common(1)[0][0] if cats else None,
+        "events_today": events_today,
+        "last_alert_lag_min": None,  # заполняется генератором
+        "empty_blocks": [],          # заполняется генератором
+    }
+    return report
+
+
+# ------------------------------------------------------------------ v4: бейджи и паспорт факта
+MATERIAL_LABELS = {"news": "Новость", "opinion": "Мнение", "chronicle": "Хроника",
+                   "announce": "Анонс", "alert": "Алерт"}
+
+# (материал, цвет текста, цвет подложки) для чипов
+TYPE_STYLE = {
+    "alert": ("#7d171d", "#fbe9ea"),
+    "opinion": ("#4a4137", "#f2ede4"),
+    "chronicle": ("#25435f", "#e8eef5"),
+    "announce": ("#14532d", "#e7f6ec"),
+    "news": ("#3a3a3a", "#eeeeee"),
+}
+
+TRUST_LABELS = {"fact": "Факт", "source_reported": "По данным источника",
+                "unconfirmed": "Не подтверждено", "announce": "Анонс", "opinion": "Мнение"}
+TRUST_STYLE = {
+    "fact": ("#14532d", "#e7f6ec"),
+    "source_reported": ("#25435f", "#e8eef5"),
+    "unconfirmed": ("#8a4a00", "#fdf1de"),
+    "announce": ("#14532d", "#e7f6ec"),
+    "opinion": ("#8a2a2a", "#f8e8e6"),
+}
+
+
+def _chip(text, style):
+    fg, bg = style
+    return (f'<span class="chip" style="color:{fg};background:{bg}">{esc(text)}</span>')
+
+
+def type_badge(it):
+    t = it.get("material_type") or "news"
+    return _chip(MATERIAL_LABELS.get(t, "Новость"), TYPE_STYLE.get(t, TYPE_STYLE["news"]))
+
+
+def status_badge(it):
+    ts = it.get("trust_status") or "source_reported"
+    return _chip(TRUST_LABELS.get(ts, "Источник"),
+                 TRUST_STYLE.get(ts, TRUST_STYLE["source_reported"]))
+
+
+def card_badges(it):
+    """Чипы типа и статуса материала для карточки."""
+    return type_badge(it) + status_badge(it)
+
+
+def kicker_text(it, cfg):
+    """Строка-вводка карточки: рубрика · подрубрика · гео (что есть)."""
+    subs = {s.get("id"): s.get("name") for s in cfg.get("subcategories", [])}
+    cats = {c.get("id"): c.get("name") for c in cfg.get("categories", [])}
+    parts = [cats.get(it.get("category"), "Новости")]
+    if it.get("sub_category") and it["sub_category"] in subs:
+        parts.append(subs[it["sub_category"]])
+    if it.get("geo_tag"):
+        parts.append(it["geo_tag"])
+    return " · ".join(parts)
+
+
+def fact_passport(it, cfg, now=None):
+    """Паспорт факта: «кто · что · где · когда» — нижняя строка крупной карточки.
+    Возвращает список пар (метка, значение); пустые позиции пропускаются."""
+    now = now or datetime.now(UTC4)
+    parts = []
+    try:
+        from analytics import agency_of
+        ag = agency_of(it)
+        if ag:
+            who = ag.get("word") or ag.get("actor") or ag.get("object")
+            if who and ag.get("role") in ("субъект", "упоминание", "объект"):
+                parts.append(("Кто", who))
+    except Exception:
+        pass
+    ttl = it.get("title") or ""
+    body = strip_title_lead(it.get("text") or "", ttl)
+    parts_s = SENT_SPLIT.split(body)
+    if len(parts_s) > 1 and similarity(parts_s[0], ttl) > 0.7:
+        body = " ".join(parts_s[1:])
+    what = clip_sentences(body, 110)
+    if what and len(what) >= 40 and not similarity(what, ttl):
+        parts.append(("Что", what))
+    parts.append(("Где", it.get("geo_tag") or "Ульяновская область"))
+    when = ""
+    try:
+        from analytics import extract_event_time
+        res = extract_event_time(it.get("text") or "", it.get("published"))
+        if res:
+            when = fmt_time(res[0].isoformat(), now, "word")
+    except Exception:
+        pass
+    if not when:
+        when = fmt_time(it.get("published"), now, "word")
+    if when:
+        parts.append(("Когда", when))
+    return parts
+
+
+# ------------------------------------------------------------------ v4: кластер и «Коротко»
+def also_reported(members, lead, limit=4):
+    """«Также сообщили: …» — разные источники из того же кластера, кроме героя."""
+    names = []
+    for m in members:
+        if m.get("id") == lead.get("id"):
+            continue
+        src = m.get("source") or m.get("channel") or ""
+        if src and src not in names:
+            names.append(src)
+    if not names:
+        return ""
+    return f"Также сообщили: {', '.join(names[:limit])}"
+
+
+def cluster_timeline(members, now=None, limit=5):
+    """Хронология сюжета (#13): «12:04 Улпресса → 13:10 Мой город → …» по кластеру.
+    Если интервал больше суток — пишем «дд.мм» вместо времени."""
+    now = now or datetime.now(UTC4)
+    members = sorted(members, key=lambda x: x.get("published") or "")
+    steps = []
+    for m in members[:limit]:
+        dt = local_dt(m.get("published"))
+        if not dt:
+            continue
+        label = "→ " if steps else ""
+        stamp = dt.strftime("%d.%m %H:%M") if (now - dt).total_seconds() > 86400 else dt.strftime("%H:%M")
+        src = (m.get("source") or m.get("channel") or "источник")[:18]
+        steps.append(f"{label}{stamp} {src}")
+    return " ".join(steps)
+
+
+def cluster_card(members, cfg, now=None):
+    """Карточка кластера v4: лучший заголовок+фото, суммарный охват, «также сообщили».
+    Возвращает (html, показанные id)."""
+    now = now or datetime.now(UTC4)
+    members = [m for m in members if not m.get("dup_of")] or members
+    if not members:
+        return "", []
+    best = max(members, key=lambda m: hero_score(m, None, now, cfg))
+    others = [m for m in members if m.get("id") != best.get("id")]
+    seen_ids = [best.get("id")] + [m.get("id") for m in others[:4]]
+    title = present_title(best, 78)
+    img = best.get("image") or best.get("thumb")
+    img_html = (f'<a class="phantom" href="{esc(best.get("url") or "#")}">'
+                f'<img loading="lazy" src="{esc(img)}" alt="{esc(title)}"></a>') if img else ""
+    total = sum(int(m.get("views") or 0) for m in members)
+    extra = (f'<div class="card__meta">{esc(_rus_views(total))} просмотров суммарно</div>'
+             if total else "")
+    link = esc(best.get("url") or "#")
+    t = fmt_time(best.get("published"), now)
+    return (f'<article class="card card--cluster">'
+            f'<span class="kicker card__kicker">{esc(kicker_text(best, cfg))}'
+            f'<span class="chip chip--cluster">кластер · {len(members)} источника</span></span>'
+            f'<h3><a href="{link}">{title}</a></h3>'
+            f'<p class="card__dek">{esc(dek_p(best, 140))}</p>'
+            f'{extra}'
+            f'{img_html}'
+            f'<div class="card__meta">{esc(also_reported(members, best))}</div>'
+            f'<time datetime="{best.get("published") or ""}">{esc(t)}</time>'
+            f'</article>'), seen_ids
+
+
+def short_brief(ranked, seen, limit=7):
+    """«Коротко: 7 строк дня» — строки скорингового топа, не показанного выше.
+    Берутся по формуле v4, а не «последние посты», чтобы не дублировать ленту."""
+    rows = []
+    for it in ranked:
+        if len(rows) >= limit:
+            break
+        mt = it.get("material_type") or ""
+        if mt in ("alert", "announce"):
+            continue
+        if is_promo(it):
+            continue
+        if not seen.first(it):
+            continue
+        if not gate(it):
+            continue
+        rows.append(it)
+    return rows
+
+
+# ------------------------------------------------------------------ v4: гейт обязательных полей (#09)
+def title_assemble(it, cfg):
+    """Заголовок-сборка «кто → что → где» (#16): когда исходного заголовка нет.
+    Строится из первого содержательного предложения лида с гео-префиксом и
+    агентивной подписью, как в present_title; пустой — дефектная запись."""
+    ttl = (it.get("title") or "").strip()
+    if len(ttl) >= 25:
+        return ttl
+    who = ""
+    try:
+        from analytics import agency_of
+        ag = agency_of(it)
+        if ag:
+            who = ag.get("word") or ""
+            if not who:
+                who = ag.get("actor") or ag.get("object") or ""
+    except Exception:
+        pass
+    body = strip_title_lead(it.get("text") or "", ttl)
+    what = next((s.strip() for s in SENT_SPLIT.split(body) if len(s.strip()) >= 25), "")
+    if not what:
+        return f"Событие в {it.get('geo_tag') or 'Ульяновской области'}"
+    geo = it.get("geo_tag")
+    if geo:
+        what = f"{geo}: {what}"
+    if who and who.lower() not in what.lower() and len(what) > 40:
+        what = f"{who}: {what}"
+    pseudo = {"title": what, "text": (it.get("text") or "")[:120]}
+    return present_title(pseudo, 90)
+
+
+def gate(it):
+    """Гейт обязательных полей (#09): заголовок (или сборка), ссылка, время.
+    Записи без них на полосу не попадают."""
+    if not it or not it.get("id"):
+        return False
+    ttl = (it.get("title") or "").strip()
+    if len(ttl) < 4:
+        if not title_assemble(it, {}):
+            return False
+    if not it.get("url") or not it.get("published"):
+        return False
+    return True
 
 
 CHANNEL_TAIL_RE = re.compile(r"(?is)\s*(подписаться\s*\|\s*прислать|прислать новость|мы в макс|читайте нас в макс|подпишись|информацию о событиях в городе смотрите|смотрите на карточках|новости ульяновска без замедления|новости ульяновска в макс).*$")
@@ -1639,6 +2294,23 @@ def render_exec(cfg, trends, store, status, date_str):
         f'<span class="cr-v">{c.get("primary", 0)} из {c.get("total", 0)} — оригиналы</span></div>'
         for c in prim) or '<div class="cr-row"><span class="fc-n">статистика источников накапливается</span></div>'
 
+    # #23: компактный отчёт качества для «версии руководителю»
+    q = quality_report(store, cfg, day)
+    q["dups_on_page"] = sum(1 for it in store if it.get("dup_of"))
+    al_times = [local_dt(a.get("published")) for a in sec_items if local_dt(a.get("published"))]
+    q["last_alert_lag_min"] = (int((now - max(al_times)).total_seconds() // 60) if al_times else None)
+    qual_rows = (
+        f'<div style="font-size:12px;line-height:1.5;">'
+        f'<b>Материалов:</b> {q["items"]} · '
+        f'<b>Дубли:</b> {q["dups_on_page"]} · '
+        f'<b>Промо:</b> {int(q["promo_share"] * 100)}%<br>'
+        f'<b>Заголовки:</b> {int(q["full_title_share"] * 100)}% полные · '
+        f'<b>Ведущая рубрика:</b> {esc(str(q.get("top_category") or "—"))} ({int(q["top_category_share"] * 100)}%)<br>'
+        f'<b>Алерт-лаг:</b> {q["last_alert_lag_min"] or "—"} мин · '
+        f'<b>Событий на сайте:</b> {q.get("events_today") or 0}'
+        + (' · <span style="color:#b02a2f;">Пустые блоки:</span> ' + ", ".join(esc(b) for b in q.get("empty_blocks") or []) if q.get("empty_blocks") else "")
+        + '</div>')
+
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Дайджест руководителя · {day:%d.%m.%Y} — {cfg['brand']}</title>
@@ -1717,6 +2389,7 @@ def render_exec(cfg, trends, store, status, date_str):
 <div class="panel"><h3>📈 Пульс повестки · топ-6 тем недели</h3>{pulse_rows}</div>
 <div class="panel"><h3>🌡 Тон инфополя · {sent.get('today_items', '—')} материалов</h3>
 <div style="display:flex;align-items:center;gap:14px;"><div><div class="tone-big">{sc_txt}</div><div class="tone-mood">{mood} · ряд 14 дней →</div></div>{tone_spark}</div></div>
+<div class="panel"><h3>📋 Качество выпуска</h3>{qual_rows}</div>
 <div class="panel"><h3>🔮 Прогноз на завтра</h3>{fc_rows}</div>
 <div class="panel"><h3>📰 Первоисточники инфополя</h3>{cred_rows}</div>
 </div>
@@ -2158,11 +2831,71 @@ function afFilter(mode,btn){
     ev.style.display=show?'':'none';
   });
   document.querySelectorAll('.af-sec').forEach(function(sec){
-    var vis=sec.querySelectorAll('.af-event[style=""], .af-event:not([style])');
+    var vis=sec.querySelectorAll('.af-event[style=\"\"], .af-event:not([style])');
     var any=Array.prototype.some.call(sec.querySelectorAll('.af-event'),function(e){return e.style.display!=='none';});
     sec.style.display=any?'':'none';
   });
 }
+</script>"""
+
+# прогрессивный JS ленты: чипы-рубрики (#19) + «Показать ещё 12» (#20).
+# Без JS видны все карточки; JS добором прячет хвост ленты и фильтрует.
+FEED_JS = """<script>
+(function(){
+  var grid=document.getElementById('feed-grid');
+  if(!grid)return;
+  var cards=Array.prototype.slice.call(grid.querySelectorAll('.feed-card'));
+  var total=cards.length,limit=12,step=12;
+  var btn=document.getElementById('feed-more');
+  var cnt=document.getElementById('feed-count');
+  var empty=document.getElementById('feed-empty');
+  function state(){
+    var s=location.hash.match(/^#feed=([^:]*)(?::([^:]*))?/);
+    return {cat:s?decodeURIComponent(s[1])||'*':'*',type:s?decodeURIComponent(s[2])||'*':'*'};
+  }
+  function match(c,st){
+    return (st.cat==='*'||c.getAttribute('data-cat')===st.cat)
+        && (st.type==='*'||c.getAttribute('data-type')===st.type);
+  }
+  function paint(){
+    var st=state(),shown=0,hasMore=false;
+    cards.forEach(function(c){
+      if(match(c,st)){
+        if(shown<limit){c.classList.remove('hidden');shown++;}
+        else{c.classList.add('hidden');hasMore=true;}
+      }else{c.classList.add('hidden');}
+    });
+    if(cnt)cnt.textContent='Показано '+shown+' из '+total+' материалов суток';
+    if(btn)btn.style.display=hasMore?'grid':'none';
+    if(empty)empty.hidden=!((st.cat!=='*'||st.type!=='*')&&shown===0);
+    document.querySelectorAll('#feed-chips .chip-f').forEach(function(ch){
+      var g=ch.getAttribute('data-group'),v=ch.getAttribute('data-val');
+      var want=g==='cat'?st.cat:st.type;
+      var on=v===want;
+      ch.classList.toggle('on',on);
+      ch.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+  if(btn)btn.addEventListener('click',function(){limit+=step;paint();});
+  window.addEventListener('hashchange',function(){limit=12;paint();});
+  document.querySelectorAll('#feed-chips .chip-f').forEach(function(ch){
+    ch.addEventListener('click',function(){
+      var g=ch.getAttribute('data-group'),v=ch.getAttribute('data-val');
+      var st=state();
+      if(g==='cat'){st.cat=v;}else{st.type=v;}
+      location.hash='feed='+encodeURIComponent(st.cat)+':'+encodeURIComponent(st.type);
+    });
+  });
+  paint();
+  // #24: A/B — переключатель «версии B главной» (запоминается локально)
+  var ab=document.querySelector('.ab-link');
+  if(ab){
+    var abv=localStorage.getItem('gudok-ab-v2')==='1';
+    function abApply(){document.body.setAttribute('data-ab',abv?'v2':'v1');ab.setAttribute('aria-pressed',abv?'true':'false');}
+    ab.addEventListener('click',function(){abv=!abv;localStorage.setItem('gudok-ab-v2',abv?'1':'0');abApply();});
+    abApply();
+  }
+})();
 </script>"""
 
 
@@ -4102,42 +4835,112 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
                   and local_dt(it.get("published")) and win_start <= local_dt(it["published"])]
     pool = [it for it in window if is_regional(it) and it.get("category") != "security"
             and not is_alert(it)] or window
-    leads = hero_pick(pool, trends, now, 5)
-    lead = leads[0] if leads else None
+    shown = ShownIds()
+    lead = pick_hero(pool, trends, now, cfg)
+    if lead:
+        shown.add(lead)
     n24 = (trends or {}).get("counts", {}).get("last24h", 0)
     dnum, dtest = digest_number(cfg, day)
     weather = fetch_weather()
     latest_digest = os.path.basename(digest_files[-1]) if digest_files else ""
 
+    def take_first(candidates, k):
+        """Блок набирается из ещё не показанных на полосе; при нехватке — дозаполнение."""
+        out = []
+        for it in candidates:
+            if shown.first(it):
+                out.append(it)
+            if len(out) >= k:
+                break
+        for it in candidates:
+            if len(out) >= k:
+                break
+            if it not in out:
+                out.append(it)
+                shown.add(it)
+        return out
+
+    # алерт-полоса: активные уведомления безопасности (tier-1/2)
+    alert_pool = sorted([it for it in window if is_alert(it)
+                         and it.get("tier") in (1, 2)],
+                        key=lambda x: x.get("published") or "", reverse=True)
+    alerts = []
+    for it in alert_pool:
+        pub = local_dt(it.get("published"))
+        if not pub or (now - pub).total_seconds() / 3600 > 24:
+            continue
+        blob = (it.get("title") or "") + " " + (it.get("text") or "")[:200]
+        if any(k in (blob or "").lower() for k in ("отмен", "снят", "заверш", "режим снят")):
+            continue
+        alerts.append(it)
+        if len(alerts) >= 2:
+            break
+    alert_html = ""
+    if alerts:
+        rows = "".join(
+            f'<div class="alert-row">'
+            f'<span class="alert-dot" aria-hidden="true"></span>'
+            f'<a href="{esc(a.get("url") or "#")}" target="_blank" rel="noopener" '
+            f'title="{esc(present_title(a, 500))}">{esc(present_title(a, 170))}</a>'
+            f'<span class="alert-time">{(local_dt(a.get("published")) or now):%H:%M}</span>'
+            f'</div>' for a in alerts)
+        alert_html = ('<section class="alertstrip" aria-label="Уведомление безопасности">'
+                      f'<div class="alertstrip__inner">{rows}</div></section>')
+
     # самое читаемое за 7 дней
     week_ago = now - timedelta(days=7)
     viewed = sorted([it for it in store if it.get("views") and local_dt(it.get("published"))
-                     and local_dt(it["published"]) >= week_ago and not it.get("dup_of")],
-                    key=lambda x: -x["views"])[:5]
+                     and local_dt(it["published"]) >= week_ago and not it.get("dup_of") and gate(it)],
+                    key=lambda x: -x["views"])
+    viewed_top = take_first(viewed, 5)
     mostread = "".join(
         f'<li><span class="mostread__num" aria-hidden="true">{i:02d}</span>'
-        f'<a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">{esc(nice_title(it,90))}</a></li>'
-        for i, it in enumerate(viewed, 1))
+        f'<a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener" '
+        f'title="{esc(present_title(it, 500))}">{esc(present_title(it, 90))}</a></li>'
+        for i, it in enumerate(viewed_top, 1))
 
-    # карточки последних материалов
+    # карточки последних материалов (#19/#20: чипы-рубрики + «Показать ещё 12»)
     media_var = ["a", "b", "c", "d"]
-    pool_cards = [it for it in window if (not leads or it["id"] != lead["id"])
-                  and not is_alert(it)]
+    pool_cards = [it for it in window if not is_alert(it) and gate(it)]
     rec = lambda x: x.get("published") or ""
-    with_photo = sorted([it for it in pool_cards if photo_src(it)], key=rec, reverse=True)[:4]
+    with_photo = sorted([it for it in pool_cards if photo_src(it)], key=rec, reverse=True)
     rest = sorted([it for it in pool_cards if not photo_src(it)], key=rec, reverse=True)
-    cards_src = (with_photo + rest)[:8]
+    cards_src = take_first(with_photo + rest, 36)
     cards = ""
+    cat_order = cfg.get("categories") or []
+    feed_cat_ids = [c.get("id") for c in cat_order
+                    if any((it.get("category") == c.get("id")) for it in cards_src)]
     for i, it in enumerate(cards_src):
         cat = cats.get(it.get("category"), {})
         dt = local_dt(it.get("published"))
-        cards += f"""<article class="card">
+        mtype = it.get("material_type") or "news"
+        cards += f"""<article class="card feed-card" data-cat="{esc(it.get('category',''))}" data-type="{esc(mtype)}">
 <div class="card__media card__media--{media_var[i % 4]}" role="img" aria-label="{esc(cat.get('name',''))}">{photo_img(it, "", "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")}</div>
-<span class="kicker card__kicker">{esc(cat.get('name','Новости'))}</span>
-<h3 class="card__title"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(nice_title(it,100))}</a></h3>
+<span class="kicker card__kicker">{esc(kicker_text(it, cfg))}</span>
+<h3 class="card__title"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener" title="{esc(present_title(it, 500))}">{esc(present_title(it, 100))}</a></h3>
 {dek_p(it, 150, 'card__dek')}
-<div class="card__meta">{esc(it.get('source',''))} · {dt.strftime('%d.%m %H:%M') if dt else ''}</div>
+<div class="card__meta">{esc(it.get('source',''))} · {fmt_time(it.get('published'), now) if dt else ''}</div>
+<div class="card__badges">{card_badges(it)}</div>
 </article>"""
+
+    # чипы-рубрики ленты: категории + типы материалов, присутствующие в ленте
+    feed_typ_ids = [t for t in MATERIAL_LABELS
+                    if any((it.get("material_type") or "news") == t for it in cards_src)]
+    chip = lambda group, val, label: (
+        f'<button class="chip-f" data-group="{group}" data-val="{esc(val)}" aria-pressed="false">{esc(label)}</button>')
+    chips = (chip("cat", "*", "Все")
+             + "".join(chip("cat", c.get("id"), c.get("name") or c.get("id")) for c in cat_order
+                       if c.get("id") in feed_cat_ids)
+             + '<span class="chip-f-divider" aria-hidden="true"></span>'
+             + chip("type", "*", "Все типы")
+             + "".join(chip("type", t, MATERIAL_LABELS[t]) for t in feed_typ_ids))
+    feed_total = len(cards_src)
+    feed_bar = ('<div class="feed-bar">'
+                f'<span id="feed-count">Материалов суток: {feed_total}</span>'
+                '<button id="feed-more" class="feed-more" type="button">Показать ещё 12</button>'
+                '<a href="archive.html">Архив-матрица →</a></div>')
+    feed_empty = ('<p id="feed-empty" class="feed-empty" hidden>Ничего по этому фильтру в ленте нет — '
+                  '<a href="#feed=*">показать все материалы</a>.</p>')
 
     # фича-полоса: колонка редактора или главная дуга
     ed_path = os.path.join(DATA, f"editorial_{day.isoformat()}.md")
@@ -4164,10 +4967,13 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
         else:
             week_pool = [it for it in store if not it.get("dup_of") and not is_alert(it)
                          and it.get("views") and local_dt(it.get("published"))
-                         and local_dt(it["published"]) >= day - timedelta(days=6)]
+                         and local_dt(it["published"]) >= datetime.combine(day - timedelta(days=6),
+                                                                           datetime.min.time(),
+                                                                           tzinfo=UTC4)]
             if week_pool:
-                topw = max(week_pool, key=lambda x: x["views"])
-                feat_title = clip_words(topw["title"],110)
+                topw_filtered = take_first(week_pool, 1)
+                topw = topw_filtered[0] if topw_filtered else week_pool[0]
+                feat_title = present_title(topw, 110)
                 feat_dek = clip_sentences(strip_title_lead(topw.get("text") or "", topw["title"]), 300) or topw["title"]
                 feat_kicker = "Материал недели · по охвату"
                 feat_byline = f'{topw.get("source", "")} · 👁 {fmt_views(topw["views"])}'
@@ -4178,31 +4984,104 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
     # мнения: цитаты каналов tier-3
     ops = []
     av = ["1", "2", "3"]
-    t3 = [it for it in store if it.get("tier") == 3 and not it.get("dup_of")
+    t3 = [it for it in store if it.get("tier") == 3 and not it.get("dup_of") and gate(it)
           and local_dt(it.get("published")) and local_dt(it["published"]) >= week_ago]
-    for i, it in enumerate(t3[:3]):
+    t3s = take_first(t3, 3)
+    for i, it in enumerate(t3s):
         ops.append(f"""<article class="op">
-<p class="op__quote"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">«{esc(clip_words(it['title'],110))}».</a></p>
+<p class="op__quote"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener" title="{esc(present_title(it, 500))}">«{esc(present_title(it, 110))}».</a></p>
 <div class="op__author"><span class="op__avatar" aria-hidden="true">{av[i]}</span>
 <span><div class="op__name">@{esc(it.get('channel') or '')}</div>
 <div class="op__role">телеграм-канал, анонимный источник повестки</div></span></div></article>""")
     ops_html = "".join(ops) or '<div class="op"><p class="op__quote">Мнений за неделю не найдено.</p></div>'
 
+    # «Коротко: 7 строк дня» — строки скорингового топа, не показанного выше
+    ranked_win = sorted(pool_cards,
+                        key=lambda x: hero_score(x, trends, now, cfg), reverse=True)
+    brief_rows = short_brief(ranked_win, shown, 7)
+    brief_html = ""
+    if brief_rows:
+        brows = "".join(
+            f'<div class="brief-row"><span class="brief-t">'
+            f'{fmt_time(it.get("published"), now, "rel")}</span>'
+            f'<span class="brief-k">{esc(kicker_text(it, cfg))}</span>'
+            f'<a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener" '
+            f'title="{esc(present_title(it, 500))}">{esc(present_title(it, 110))}</a>'
+            f'</div>' for it in brief_rows)
+        brief_html = ('<section class="brief" aria-labelledby="brief-title">'
+                      '<div class="brief__inner">'
+                      '<div class="brief__label" id="brief-title">Коротко · 7 строк дня</div>'
+                      f'{brows}</div></section>')
+
     # хроника сейчас
-    live_items = sorted(window, key=lambda x: x.get("published") or "", reverse=True)[:6]
+    live_items = take_first(sorted(window, key=lambda x: x.get("published") or "", reverse=True), 6)
     tl = "".join(
-        f'<div class="tl-row"><div class="tl-time">{(local_dt(it["published"]) or now):%H:%M}</div>'
-        f'<div class="tl-txt"><a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">{esc(clip_words(it["title"],100))}</a>'
+        f'<div class="tl-row"><div class="tl-time" title="{esc(fmt_time(it.get("published"), now))}">{esc(fmt_time(it.get("published"), now, "rel"))}</div>'
+        f'<div class="tl-txt"><a href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener" title="{esc(present_title(it, 500))}">{esc(present_title(it, 100))}</a>'
         f'<div class="tl-src">{esc(it.get("source",""))}</div></div></div>' for it in live_items)
-    today_events = [e for e in an.get("calendar", []) if e.get("date") == day.isoformat()][:4]
+    af_label, today_events, _af_day = pick_afisha(an, day)
     tev = "".join(
         f'<div class="tl-row"><div class="tl-time">{esc(e.get("time") or "—")}</div>'
         f'<div class="tl-txt"><a href="{esc(e.get("url") or "#")}" target="_blank" rel="noopener">{esc(clip_words(e["title"],90))}</a></div></div>'
-        for e in today_events) or '<div class="now-line">Событий на сегодня в афише нет — <a href="afisha.html">вся афиша</a>.</div>'
+        for e in today_events) or '<div class="now-line">Событий поблизости в афише нет — <a href="afisha.html">вся афиша</a>.</div>'
 
     lead_cat = cats.get(lead.get("category"), {}) if lead else {}
     lead_dt = local_dt(lead.get("published")) if lead else None
     lead_views = f' · 👁 {fmt_views(lead["views"])}' if lead and lead.get("views") else ""
+
+    hero_extra = ""
+    if lead:
+        lines = []
+        facts = hero_factors(lead, trends, now, cfg)
+        if facts:
+            why = "Почему это главное: " + "; ".join(f"{n} — {d}" for n, d in facts)
+            lines.append(f'<div class="hero__why">{esc(why)}</div>')
+        pp = fact_passport(lead, cfg, now)
+        if pp:
+            passp = " · ".join(f"<strong>{esc(k)}:</strong> {esc(v)}" for k, v in pp)
+            lines.append(f'<div class="hero__passport">{passp}</div>')
+        cl = lead.get("cluster")
+        if cl:
+            members = sorted((it for it in store if it.get("cluster") == cl),
+                             key=lambda x: x.get("published") or "")
+            also = also_reported(members, lead)
+            if also:
+                lines.append(f'<div class="hero__also">{esc(also)}</div>')
+            if len(members) >= 2:
+                tl2 = cluster_timeline(members, now)
+                if tl2:
+                    lines.append(f'<div class="hero__timeline">{esc(tl2)}</div>')
+        hero_extra = "".join(lines)
+
+    # #23: отчёт качества выпуска — три поля знает только генератор полосы
+    quality = quality_report(store, cfg, day)
+    quality["dups_on_page"] = sum(1 for it in store if it.get("dup_of"))
+    alert_times = [local_dt(a.get("published")) for a in alerts if local_dt(a.get("published"))]
+    quality["last_alert_lag_min"] = (int((now - max(alert_times)).total_seconds() // 60)
+                                     if alert_times else None)
+    empt = []
+    if not alert_html:
+        empt.append("алерт-полоса")
+    if not mostread:
+        empt.append("самое читаемое")
+    if not brief_html:
+        empt.append("коротко: 7 строк дня")
+    if not ops_html.startswith('<article'):
+        empt.append("мнения повестки")
+    if not any(e.get("time") for e in today_events):
+        empt.append("афиша на сегодня")
+    if not live_items:
+        empt.append("хроника сейчас")
+    if not lead:
+        empt.append("главный сюжет")
+    quality["empty_blocks"] = empt
+    save_json(os.path.join(DATA, "quality_report.json"), quality)
+
+    # #24: A/B — флаг в config включает переключатель «версии B главной»
+    ab_actions = ""
+    if (cfg.get("settings") or {}).get("ab_front_v4"):
+        ab_actions = ('<button class="ab-link" type="button" aria-pressed="false">'
+                      'Версия B главной</button>')
 
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -4216,20 +5095,22 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Выпуск № {dnum}{' · тест' if dtest else ''}<br>выходит с 11.09.2026
-<div class="mast-actions">{THEME_BTN}</div></div>
+<div class="mast-actions">{THEME_BTN}{ab_actions}</div></div>
 </div></header>
 {nav_html}
+{alert_html}
 <main>
 <section class="hero"><div class="hero__inner">
 <div>
 <div class="hero__eyebrow"><span class="live" aria-hidden="true"></span>
 <span class="kicker">{esc(lead_cat.get('name','Главное'))}</span></div>
-<h1 class="hero__title"><a href="{esc(lead.get('url') or '#') if lead else '#'}" target="_blank" rel="noopener">{esc(nice_title(lead,90)) if lead else '—'}</a></h1>
+<h1 class="hero__title"><a href="{esc(lead.get('url') or '#') if lead else '#'}" target="_blank" rel="noopener" title="{esc(present_title(lead, 500)) if lead else ''}">{esc(present_title(lead, 90)) if lead else '—'}</a></h1>
 {dek_p(lead, 320, 'hero__dek') if lead else ''}
 <div class="hero__byline"><span class="avatar" aria-hidden="true">Г</span>
 <span><strong>{esc(lead.get('source','')) if lead else ''}</strong>
-<span class="dot-sep">{lead_dt.strftime('%d.%m %H:%M') if lead_dt else ''}</span>
+<span class="dot-sep">{fmt_time(lead.get('published'), now) if lead_dt else ''}</span>
 <span class="dot-sep">{esc(str(n24)) + ' материалов за сутки'}</span>{lead_views}</span></div>
+{hero_extra}
 </div>
 <figure class="hero__media">{photo_img(lead, "", "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;")}<figcaption><span>Ульяновская область</span><span>Гудок · {day:%d.%m.%Y}</span></figcaption></figure>
 </div></section>
@@ -4239,10 +5120,12 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <ol class="mostread__list">{mostread or '<li>Нет данных за неделю.</li>'}</ol>
 </div></section>
 
+{brief_html}
+
 <section class="now-panel-wrap"><div class="page" style="padding-top:28px;">
 <div class="now-panel"><div class="now-grid">
 <div class="now-col"><div class="now-h">Сейчас</div>{tl}</div>
-<div class="now-col"><div class="now-h">Сегодня в области</div>{tev}</div>
+<div class="now-col"><div class="now-h">{esc(af_label)}</div>{tev}</div>
 <div class="now-col"><div class="now-h">Справка</div>
 <div class="now-line">Погода: {esc(weather) if weather else '—'}. Тон повестки и метрики инфополя —
 в проекте <a href="infospace.html">«Инфопространство»</a>. Периоды: <a href="weekly.html">неделя</a>, <a href="monthly.html">месяц</a>.</div></div>
@@ -4251,7 +5134,10 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <section class="section" aria-labelledby="latest-title">
 <div class="sec-head" style="margin-top:0;"><h2 id="latest-title">Последние материалы</h2>
 <a href="digests/{latest_digest}">Весь выпуск № {dnum} →</a></div>
-<div class="grid">{cards}</div>
+<div class="feed-chips" id="feed-chips" role="group" aria-label="Фильтр ленты">{chips}</div>
+<div class="grid" id="feed-grid">{cards}</div>
+{feed_bar}
+{feed_empty}
 </section>
 
 <section class="feature" aria-labelledby="feature-title">
@@ -4307,6 +5193,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 </div>
 <div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
 </footer>
+{FEED_JS}
 </body></html>"""
 
 

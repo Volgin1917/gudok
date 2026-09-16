@@ -10,6 +10,7 @@ tests/test_pipeline.py — unit-тесты парсеров и ядра изда
 import ast
 import json
 import os
+import re
 import sys
 import unittest
 
@@ -18,11 +19,18 @@ sys.path.insert(0, BASE)
 
 import collector  # noqa: E402
 import dedup  # noqa: E402
+import generate  # noqa: E402
 import analytics  # noqa: E402
 import outlets  # noqa: E402
+from datetime import datetime, timedelta, timezone
 
 FIX = os.path.join(BASE, "tests", "fixtures")
 CFG = json.load(open(os.path.join(BASE, "config.json"), encoding="utf-8"))
+UTC4 = timezone(timedelta(hours=4))
+
+
+def utc4tz():
+    return timezone(timedelta(hours=4))
 
 
 def read_fixture(name):
@@ -2173,6 +2181,497 @@ class TestOutlets(unittest.TestCase):
         with open(os.path.join(BASE, "dedup.py"), encoding="utf-8") as f:
             dd = f.read()
         self.assertIn("outlet_key", dd)
+
+
+class TestPresentTitle(unittest.TestCase):
+    """v4: гигиена заголовка — эмодзи, КАПС, кавычки, обрезка без обрыва смысла."""
+
+    def test_emoji_and_punct_stripped(self):
+        it = {"title": "🤍 Нашему Симбирску-Ульяновску — 378 лет! 🇷🇺", "text": ""}
+        out = generate.present_title(it, 90)
+        self.assertEqual(out, "Нашему Симбирску-Ульяновску — 378 лет!")
+
+    def test_allcaps_normalized_but_abbrevs_kept(self):
+        it = {"title": "СНЕГ, МОРОЗ И ПЕРЕПАДЫ В ТЕЧЕНИЕ ДНЯ", "text": ""}
+        self.assertEqual(generate.present_title(it, 90),
+                         "снег, мороз и перепады в течение дня")
+        it2 = {"title": "ПВО НЕ ОТРАБОТАЛО, ЕГЭ ОСТАЛСЯ", "text": ""}
+        self.assertIn("ПВО", generate.present_title(it2, 90))
+        self.assertIn("ЕГЭ", generate.present_title(it2, 90))
+
+    def test_trimmed_to_limit(self):
+        it = {"title": "Очень длинный заголовок про новости Ульяновской области из нескольких слов",
+              "text": ""}
+        out = generate.present_title(it, 30)
+        self.assertLessEqual(len(out), 31)
+        self.assertTrue(out.endswith("…"))
+
+    def test_dangling_conjunction_rebuilt_from_text(self):
+        it = {"title": "Камеко и Никитин обсудили обновление транспорта и…",
+              "text": "Камеко и Никитин обсудили обновление транспорта и развитие трассы М-5. "
+                      "Договорились о маршрутах на 2027 год."}
+        out = generate.present_title(it, 90)
+        self.assertNotIn("и…", out)
+        self.assertIn("трассы", out)
+
+    def test_cut_not_end_with_preposition(self):
+        it = {"title": "В Ульяновске начали строить новый мост через Волгу в районе понтонного",
+              "text": "В Ульяновске начали строить новый мост через Волгу. Работы завершат к зиме."}
+        out = generate.present_title(it, 40)
+        self.assertNotEqual(out.rsplit(" ", 1)[-1].strip("…"), "понтонного")
+
+    def test_quotes_normalized(self):
+        it = {"title": "Власти «укрощают» цены на проезд «в ручном» режиме", "text": ""}
+        out = generate.present_title(it, 90)
+        self.assertIn("«", out)
+        self.assertIn("»", out)
+        self.assertNotIn("\u201E", out)
+
+    def test_hashtags_stripped(self):
+        it = {"title": "Горький опыт: как живёт Димитровград #новости #ульяновск", "text": ""}
+        out = generate.present_title(it, 90)
+        self.assertNotIn("#", out)
+        self.assertNotIn("  ", out)
+
+
+class TestHeroScore(unittest.TestCase):
+    """v4: формула веса героя главной полосы."""
+
+    def setUp(self):
+        self.cfg = CFG
+        self.now = datetime(2026, 9, 15, 18, 0, tzinfo=utc4tz())
+
+    def test_positive_score(self):
+        it = {"category": "economy", "sub_category": "", "views": 1200, "title": "тест",
+              "text": "тест", "published": "2026-09-15T12:00:00+04:00", "tier": 1, "id": "a"}
+        s = generate.hero_score(it, None, self.now, self.cfg)
+        self.assertGreater(s, 0)
+
+    def test_recent_higher_than_old(self):
+        base = {"category": "society", "sub_category": "", "views": 1000, "title": "т",
+                "text": "т", "tier": 2, "id": "x"}
+        fresh = dict(base, published="2026-09-15T17:00:00+04:00", views=800)
+        stale = dict(base, published="2026-09-10T10:00:00+04:00", views=800)
+        self.assertGreater(generate.hero_score(fresh, None, self.now, self.cfg),
+                           generate.hero_score(stale, None, self.now, self.cfg))
+
+    def test_promo_penalty(self):
+        base = {"category": "economy", "sub_category": "", "views": 5000,
+                "published": "2026-09-15T17:00:00+04:00", "tier": 1, "id": "p"}
+        promo = dict(base, title="Ждём вас на открытии сезона — розыгрыш билетов")
+        normal = dict(base, title="Банк отчитался о чистой прибыли")
+        s_promo = generate.hero_score(promo, None, self.now, self.cfg)
+        s_norm = generate.hero_score(normal, None, self.now, self.cfg)
+        self.assertLess(s_promo, s_norm)
+
+    def test_security_significance_dominant(self):
+        base = {"sub_category": "", "views": 1000,
+                "published": "2026-09-15T17:00:00+04:00", "title": "тест"}
+        sec = dict(base, category="security", tier=3, id="s")
+        econ = dict(base, category="economy", tier=3, id="e")
+        self.assertGreaterEqual(generate.hero_score(sec, None, self.now, self.cfg),
+                                generate.hero_score(econ, None, self.now, self.cfg))
+
+
+class TestHeroStable(unittest.TestCase):
+    """v4: стабильность героя — не чаще 3 ч, перевес ≥15%."""
+
+    def setUp(self):
+        self.cfg = CFG
+        self.now = datetime(2026, 9, 15, 18, 0, tzinfo=utc4tz())
+
+    def test_first_hero_allowed(self):
+        self.assertTrue(generate.hero_stable(None, {"id": "a", "_score": 10}, self.now, self.cfg))
+
+    def test_same_hero_allowed(self):
+        hero = {"id": "a", "_score": 10, "published": "2026-09-15T12:00:00+04:00"}
+        self.assertTrue(generate.hero_stable(hero, hero, self.now, self.cfg))
+
+    def test_recent_change_blocked(self):
+        prev = {"id": "a", "_score": 50, "published": "2026-09-15T16:00:00+04:00"}
+        new = {"id": "b", "_score": 55, "published": "2026-09-15T17:30:00+04:00"}
+        self.assertFalse(generate.hero_stable(prev, new, self.now, self.cfg))
+
+    def test_big_margin_allowed(self):
+        prev = {"id": "a", "_score": 50, "published": "2026-09-14T10:00:00+04:00"}
+        new = {"id": "b", "_score": 75, "published": "2026-09-15T17:00:00+04:00"}
+        self.assertTrue(generate.hero_stable(prev, new, self.now, self.cfg))
+
+
+class TestFmtTime(unittest.TestCase):
+    """v4: единый формат времени карточки/паспорта."""
+
+    def test_card(self):
+        out = generate.fmt_time("2026-09-15T22:22:04+04:00", None, "card")
+        self.assertEqual(out, "15.09, 22:22")
+
+    def test_rel_minutes(self):
+        now = datetime(2026, 9, 15, 18, 10, tzinfo=utc4tz())
+        out = generate.fmt_time("2026-09-15T17:50:04+04:00", now, "rel")
+        self.assertEqual(out, "19 мин назад")
+
+    def test_rel_hour(self):
+        now = datetime(2026, 9, 15, 18, 10, tzinfo=utc4tz())
+        out = generate.fmt_time("2026-09-15T13:00:04+04:00", now, "rel")
+        self.assertEqual(out, "5 ч назад")
+
+    def test_rel_yesterday(self):
+        now = datetime(2026, 9, 15, 22, 10, tzinfo=utc4tz())
+        out = generate.fmt_time("2026-09-13T19:10:04+04:00", now, "rel")
+        self.assertEqual(out, "2 дн назад")
+
+    def test_rel_just_now(self):
+        now = datetime(2026, 9, 15, 18, 10, 30, tzinfo=utc4tz())
+        out = generate.fmt_time("2026-09-15T18:09:55+04:00", now, "rel")
+        self.assertEqual(out, "только что")
+
+    def test_word_date(self):
+        out = generate.fmt_time("2026-09-15T10:00:00+04:00", None, "word")
+        self.assertEqual(out, "15 сентября")
+
+
+class TestShownIds(unittest.TestCase):
+    """v4: реестр показанных материалов — блок не дублирует id выше."""
+
+    def test_first_added(self):
+        guard = generate.ShownIds()
+        self.assertTrue(guard.first({"id": "a"}))
+        self.assertTrue(guard.first({"id": "b"}))
+
+    def test_duplicate_blocked(self):
+        guard = generate.ShownIds()
+        guard.first({"id": "a"})
+        self.assertFalse(guard.first({"id": "a"}))
+        self.assertFalse(guard.has({"id": "a"}) is False)
+
+    def test_missing_id_treated_as_duplicate(self):
+        guard = generate.ShownIds()
+        guard.first({"id": "a"})
+        self.assertTrue(guard.first({"id": None}))
+        self.assertFalse(guard.first({"id": None}))
+
+
+class TestLeadDedup(unittest.TestCase):
+    """v4: лид-дедуп — если находка повторяет первое предложение, берём следующее."""
+
+    def test_near_identical_similar_high(self):
+        a = "Губернатор открыл новый ФОК в Димитровграде"
+        b = "Губернатор открыл новый ФОК в Димитровграде, сообщает пресс-служба"
+        self.assertGreater(generate.similarity(a, b), 0.7)
+
+    def test_unrelated_low(self):
+        a = "Открыли мост через Волгу"
+        b = "Отменён концерт в Ленинском районе"
+        self.assertLess(generate.similarity(a, b), 0.7)
+
+    def test_empty_similarity_zero(self):
+        self.assertEqual(generate.similarity("", "непустая"), 0.0)
+
+
+class TestAfishaFallback(unittest.TestCase):
+    """v4: афиша — цепочка сегодня→завтра→выходные→7 дней→культура недели."""
+
+    def test_event_today_preferred(self):
+        an = {"calendar": [{"date": "2026-09-15", "title": "Выставка в музее"},
+                           {"date": "2026-09-16", "title": "Концерт на Соборной"}]}
+        label, ev, d = generate.pick_afisha(an, datetime(2026, 9, 15).date())
+        self.assertEqual(label, "Сегодня в области")
+        self.assertEqual(ev[0]["title"], "Выставка в музее")
+
+    def test_tomorrow_when_today_empty(self):
+        an = {"calendar": [{"date": "2026-09-16", "title": "Концерт на Соборной"}]}
+        label, ev, d = generate.pick_afisha(an, datetime(2026, 9, 15).date())
+        self.assertEqual(label, "Завтра")
+
+    def test_weekend_when_nothing_today_tomorrow(self):
+        an = {"calendar": [{"date": "2026-09-19", "title": "Ярмарка выходного дня"}]}
+        label, ev, d = generate.pick_afisha(an, datetime(2026, 9, 15).date())
+        self.assertEqual(label, f"Выходные · {d:%d.%m}")
+
+    def test_empty_calendar_falls_back_to_no_events(self):
+        label, ev, d = generate.pick_afisha({}, datetime(2026, 9, 15).date())
+        self.assertEqual(ev, [])
+
+    def test_week_ahead_before_culture(self):
+        calendar = [{"date": "2026-09-17", "title": "Форум бизнеса"},
+                    {"date": "2026-09-21", "title": "Концерт органной музыки"}]
+        an = {"calendar": calendar}
+        label, ev, d = generate.pick_afisha(an, datetime(2026, 9, 15).date())
+        self.assertEqual(label, "Ближайшие события")
+        self.assertEqual(ev[0]["title"], "Форум бизнеса")
+
+
+class TestBadges(unittest.TestCase):
+    def test_type_badge_news(self):
+        it = {"material_type": "news"}
+        html = generate.type_badge(it)
+        self.assertIn("Новость", html)
+        self.assertIn('class="chip"', html)
+
+    def test_type_badge_alert(self):
+        html = generate.type_badge({"material_type": "alert"})
+        self.assertIn("Алерт", html)
+        self.assertIn("#7d171d", html)
+
+    def test_status_badge_fact(self):
+        html = generate.status_badge({"trust_status": "fact"})
+        self.assertIn("Факт", html)
+
+    def test_card_badges_two_chips(self):
+        html = generate.card_badges({"material_type": "opinion", "trust_status": "unconfirmed"})
+        self.assertEqual(html.count("chip"), 2)
+        self.assertIn("Мнение", html)
+        self.assertIn("Не подтверждено", html)
+
+    def test_kicker_text_with_subcategory_and_geo(self):
+        cfg = json.loads(open("config.json", encoding="utf-8").read())
+        it = {"category": "society", "sub_category": "society_zhkh", "geo_tag": "Димитровград"}
+        kt = generate.kicker_text(it, cfg)
+        self.assertIn("Общество", kt)
+        self.assertIn("ЖКХ", kt)
+        self.assertIn("Димитровград", kt)
+
+    def test_kicker_text_no_subcategory(self):
+        cfg = json.loads(open("config.json", encoding="utf-8").read())
+        kt = generate.kicker_text({"category": "economy"}, cfg)
+        self.assertIn("Экономика", kt)
+        self.assertNotIn("·", kt.split("·")[0])  # нет лишних разделителей
+
+
+class TestClusterTimeline(unittest.TestCase):
+    def test_two_sources(self):
+        now = datetime(2026, 9, 16, 15, 0, tzinfo=generate.UTC4)
+        members = [
+            {"published": "2026-09-16T12:00:00+04:00", "source": "Улпресса", "title": "A"},
+            {"published": "2026-09-16T14:00:00+04:00", "source": "Мой город", "title": "B"},
+        ]
+        tl = generate.cluster_timeline(members, now, limit=4)
+        self.assertIn("12:00", tl)
+        self.assertIn("Улпресса", tl)
+        self.assertIn("→", tl)
+
+    def test_empty(self):
+        self.assertEqual(generate.cluster_timeline([]), "")
+
+    def test_uses_channel_when_no_source(self):
+        now = datetime(2026, 9, 16, 15, 0, tzinfo=generate.UTC4)
+        m = [{"published": "2026-09-16T14:30:00+04:00", "channel": "TG"}]
+        self.assertIn("TG", generate.cluster_timeline(m, now))
+
+
+class TestFactPassport(unittest.TestCase):
+    def test_geo_and_when_present(self):
+        now = datetime(2026, 9, 16, 12, 0, tzinfo=generate.UTC4)
+        it = {"published": "2026-09-16T10:00:00+04:00", "text": "Начался учебный год в школах Димитровграда. Ребята пришли в классы.",
+              "title": "Начался учебный год", "geo_tag": "Димитровград", "id": "x1"}
+        cfg = json.loads(open("config.json", encoding="utf-8").read())
+        parts = dict(generate.fact_passport(it, cfg, now))
+        self.assertIn("Где", parts)
+        self.assertEqual(parts["Где"], "Димитровград")
+        self.assertIn("Когда", parts)
+
+    def test_fallback_geo(self):
+        now = datetime(2026, 9, 16, 12, 0, tzinfo=generate.UTC4)
+        it = {"published": "2026-09-16T10:00:00+04:00", "text": "Прошло событие.", "title": "Событые", "id": "x2"}
+        parts = dict(generate.fact_passport(it, {}, now))
+        self.assertEqual(parts.get("Где"), "Ульяновская область")
+
+
+class TestGate(unittest.TestCase):
+    def test_gate_good_item(self):
+        it = {"id": "a", "title": "Тест", "url": "http://x", "published": "2026-09-16T10:00:00+04:00"}
+        self.assertTrue(generate.gate(it))
+
+    def test_gate_no_url(self):
+        it = {"id": "b", "title": "Тест", "published": "2026-09-16T10:00:00+04:00"}
+        self.assertFalse(generate.gate(it))
+
+    def test_gate_no_id(self):
+        self.assertFalse(generate.gate({}))
+
+    def test_gate_short_title_with_assembly(self):
+        it = {"id": "c", "title": "А!", "url": "http://x", "published": "2026-09-16T10:00:00+04:00",
+              "text": "Губернатор посетил новую школу в Димитровграде. Открытие состоялось утром."}
+        self.assertTrue(generate.gate(it))
+
+
+class TestPickHero(unittest.TestCase):
+    def test_hero_score_positive(self):
+        now = datetime(2026, 9, 16, 12, 0, tzinfo=generate.UTC4)
+        cfg = json.loads(open("config.json", encoding="utf-8").read())
+        it = {"title": "Тест", "views": 5000, "published": now.isoformat(),
+              "tier": 1, "category": "security"}
+        s = generate.hero_score(it, None, now, cfg)
+        self.assertGreater(s, 0)
+
+    def test_hero_factors_two_items(self):
+        now = datetime(2026, 9, 16, 12, 0, tzinfo=generate.UTC4)
+        cfg = json.loads(open("config.json", encoding="utf-8").read())
+        it = {"title": "Тест", "views": 100, "published": now.isoformat(), "tier": 2,
+              "category": "society"}
+        factors = generate.hero_factors(it, None, now, cfg)
+        self.assertEqual(len(factors), 2)
+        self.assertIn("значимость", [f[0] for f in factors])
+
+    def test_hero_components_promo_penalty(self):
+        now = datetime(2026, 9, 16, 12, 0, tzinfo=generate.UTC4)
+        cfg = json.loads(open("config.json", encoding="utf-8").read())
+        it_normal = {"title": "Новость", "views": 100, "published": now.isoformat(), "tier": 2}
+        it_promo = {"title": "Приглашаем на фестиваль уличной еды в Ульяновске",
+                    "views": 100, "published": now.isoformat(), "tier": 2}
+        s_n = generate.hero_score(it_normal, None, now, cfg)
+        s_p = generate.hero_score(it_promo, None, now, cfg)
+        self.assertLess(s_p, s_n)
+
+    def test_pick_hero_returns_highest_score(self):
+        now = datetime(2026, 9, 16, 12, 0, tzinfo=generate.UTC4)
+        cfg = json.loads(open("config.json", encoding="utf-8").read())
+        pool = [
+            {"id": "x1", "title": "Мало", "views": 10, "published": now.isoformat(), "tier": 2, "category": "society"},
+            {"id": "x2", "title": "Много", "views": 50000, "published": now.isoformat(), "tier": 1, "category": "security"},
+        ]
+        hero = generate.pick_hero(pool, None, now, cfg)
+        self.assertEqual(hero["id"], "x2")
+        self.assertIn("_score", hero)
+
+
+class TestShortBrief(unittest.TestCase):
+    def test_skips_alerts_and_promos(self):
+        class FakeShown:
+            def __init__(self): self.seen = set()
+            def first(self, it):
+                if it["id"] in self.seen: return False
+                self.seen.add(it["id"]); return True
+        now = datetime(2026, 9, 16, 12, 0, tzinfo=generate.UTC4)
+        items = [
+            {"id": "a", "material_type": "alert", "title": "Опасность", "url": "x",
+             "published": now.isoformat()},
+            {"id": "b", "material_type": "announce", "title": "Приглашаем вас на открытие сезона",
+             "url": "x", "published": now.isoformat()},
+            {"id": "br", "material_type": "news", "title": "Приглашаем всех на городской праздник завтра",
+             "url": "x", "published": now.isoformat()},
+            {"id": "c", "material_type": "news", "title": "Обычная новость с длинным заголовком для гейта",
+             "url": "x", "published": now.isoformat()},
+        ]
+        rows = generate.short_brief(items, FakeShown(), limit=5)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["id"], "c")
+
+    def test_respects_seen(self):
+        class FakeShown:
+            def __init__(self): self.seen = set()
+            def first(self, it):
+                if it["id"] in self.seen: return False
+                self.seen.add(it["id"]); return True
+        now = datetime(2026, 9, 16, 12, 0, tzinfo=generate.UTC4)
+        items = [{"id": "x", "material_type": "news", "title": "Заголовок для гейта проверки",
+                  "url": "x", "published": now.isoformat()}]
+        sh = FakeShown(); sh.seen.add("x")
+        rows = generate.short_brief(items, sh)
+        self.assertEqual(len(rows), 0)
+
+
+class TestTitleAssemble(unittest.TestCase):
+    def test_long_title_passthrough(self):
+        it = {"title": "Очень длинный заголовок новой статьи о событиях в городе"}
+        self.assertEqual(generate.title_assemble(it, {}), it["title"])
+
+    def test_assembly_geo_prefix(self):
+        it = {"title": "", "text": "В школе № 42 открыли новую столовую. Ребята остались довольны.",
+              "geo_tag": "Димитровград", "published": "2026-09-16T10:00:00+04:00"}
+        assembled = generate.title_assemble(it, {})
+        self.assertIn("Димитровград", assembled)
+
+    def test_fallback_event(self):
+        it = {"title": "", "text": ""}
+        self.assertIn("Событие в", generate.title_assemble(it, {}))
+
+
+class TestFrontFeedV4(unittest.TestCase):
+    """Спринт 3: лента с чипами-рубриками, «Показать ещё 12», отчёт качества, A/B."""
+
+    def setUp(self):
+        generate.fetch_weather = lambda: ""
+        self.old_cfg = CFG
+
+    def tearDown(self):
+        generate.fetch_weather = lambda: "Ульяновск +18°C"
+
+    @staticmethod
+    def _mk(i, cat="economy", mtype="news"):
+        now = datetime.now(generate.UTC4)
+        pub = (now - timedelta(minutes=5 + i * 3)).isoformat()
+        return {"id": f"it{i}", "title": f"Проверочная новость ленты номер {i}",
+                "text": f"Проверочная новость ленты номер {i}. Подробности ниже.",
+                "category": cat, "material_type": mtype, "tier": 1, "source": "Тест",
+                "url": f"https://t.me/x/{i}", "published": pub, "views": 900 - i,
+                "trust_status": "fact", "sub_category": ""}
+
+    def _render_index(self, cfg=None, n=40):
+        store = [self._mk(i, "economy" if i % 3 else "society") for i in range(n)]
+        return generate.render_index(cfg or CFG, {}, store, {}, [], [])
+
+    def test_feed_cards_tagged_and_capped(self):
+        html = self._render_index()
+        self.assertIn('id="feed-grid"', html)
+        cards = re.findall(r'class="card feed-card"', html)
+        self.assertGreaterEqual(len(cards), 12)
+        self.assertLessEqual(len(cards), 36)
+        self.assertIn('data-cat="economy"', html)
+        self.assertIn('data-type="news"', html)
+
+    def test_chips_load_more_and_bar(self):
+        html = self._render_index()
+        self.assertIn('id="feed-chips"', html)
+        self.assertIn('data-group="cat"', html)
+        self.assertIn('data-group="type"', html)
+        self.assertIn("Показать ещё 12", html)
+        self.assertIn('id="feed-more"', html)
+        self.assertIn('id="feed-count"', html)
+        self.assertIn('id="feed-empty"', html)
+
+    def test_card_meta_uses_fmt_time(self):
+        html = self._render_index()
+        self.assertRegex(html, r'class="card__meta">Тест · \d{2}\.\d{2}, \d{2}:\d{2}')
+
+    def test_quality_report_written(self):
+        qp = os.path.join(BASE, "data", "quality_report.json")
+        if os.path.exists(qp):
+            os.remove(qp)
+        self._render_index()
+        self.assertTrue(os.path.exists(qp), "data/quality_report.json не записан")
+        with open(qp, encoding="utf-8") as f:
+            q = json.load(f)
+        for key in ("date", "items", "dups_on_page", "last_alert_lag_min",
+                    "empty_blocks", "top_category", "full_title_share"):
+            self.assertIn(key, q)
+        self.assertIsInstance(q["empty_blocks"], list)
+        self.assertIn("мнения повестки", q["empty_blocks"], "в ленте нет tier-3 — блок пустой")
+
+    def test_exec_has_quality_panel(self):
+        store = [self._mk(i, "economy" if i % 3 else "society") for i in range(25)]
+        html = generate.render_exec(CFG, {"counts": {"last24h": 25}}, store, {}, "2026-09-16")
+        self.assertIn("Качество выпуска", html)
+        self.assertIn("Материалов:", html)
+        self.assertIn("Алерт-лаг", html)
+
+    def test_ab_link_off_by_default(self):
+        html = self._render_index()
+        self.assertNotIn("Версия B главной", html)
+
+    def test_ab_link_on_with_flag(self):
+        cfg = json.loads(json.dumps(CFG))
+        cfg.setdefault("settings", {})["ab_front_v4"] = True
+        html = self._render_index(cfg)
+        self.assertIn("Версия B главной", html)
+        self.assertIn('class="ab-link"', html)
+
+    def test_photo_img_alt_filled(self):
+        html = generate.photo_img({"photo": "https://x/p.jpg",
+                                   "title": "Альтернативный текст фото"},
+                                  "../", "width:1px")
+        self.assertIn('alt="Альтернативный текст фото"', html)
+        self.assertEqual(generate.photo_img({"photo": "/local.jpg"}, "../", ""), "")
 
 
 if __name__ == "__main__":

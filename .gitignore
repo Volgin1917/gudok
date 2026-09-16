@@ -3,6 +3,8 @@ __pycache__/
 data/backups/
 data/alerts.log
 data/tg_catalog_probe.json
+data/hero_state.json
+data/quality_report.json
 .DS_Store
 Thumbs.db
 data/vk_token

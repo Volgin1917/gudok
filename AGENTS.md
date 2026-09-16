@@ -1,0 +1,48 @@
+# AGENTS.md — Гудок
+
+Информационно-аналитический дайджест по Ульяновской области. Ядро — **только stdlib Python 3.8+ (без зависимостей и без `requirements.txt`)**; весь пайплайн это правило соблюдает.
+
+## Команды
+
+- `bash run.sh` — полный цикл: `collector → enrich → photos → dedup → trends → backup → status → generate` (+ `--exec`). Запускать из корня репозитория.
+- `bash run.sh YYYY-MM-DD` — дополнительно собрать выпуск за конкретную дату.
+- `python3 -m unittest discover -s tests` — 205 тестов (~8 с). **Не** вызывается из run.sh: тесты гоняют вручную или CI.
+- `python3 reclassify.py --audit 100` — переразметка сохранённой базы после правки словарей в `config.json` (категории, темы). Это правильный способ применить словарь — не править `data/store.jsonl` руками.
+- `python3 alert_monitor.py --once|--loop|--status` — монитор ракетной/БПЛА-опасности (опрос tier-1 каналов).
+- `python3 generate.py --exec --date YYYY-MM-DD` — «дайджест руководителя» (1 стр. A4).
+- Деструктивно: `python3 seed_data.py` + удаление `data/store.jsonl` — полный пересчёт базы. Только по явному запросу.
+
+## Поток данных
+
+`collector.py` (RSS + t.me/s + VK + Госвеб) → `enrich.py` (полные тексты/og:image) → `photos.py` (зеркала) → `dedup.py` → `trends.py` (внутри вызывает `analytics.py` → `data/analytics.json`) → `generate.py` (HTML). Единая точка входа — `run.sh`; каждый модуль имеет CLI-режим.
+
+## Конвенции (иначе сломается продукт)
+
+- **Запрещено добавлять сторонние зависимости** в основной поток. Опциональные надстройки (Pillow, waitress) — только через guarded `try/except ImportError`, чтобы ядро работало на голом Python.
+- HTML-выпуски **самодостаточны**: inline CSS/JS/SVG, без CDN; обязаны открываться офлайн и печататься в PDF. Не вставлять ссылки на внешние ресурсы.
+- Время: база — в UTC; пояс издания — UTC+4 (`config.json → settings.tz_offset_hours`).
+- `config.json` — главная настройка (источники, `categories`, `topics`; порядок категорий = приоритет разметки).
+- Классификация записывается при сборе; после правки словарей применяй `reclassify.py --audit`.
+- `data/store.jsonl` — append-only, руками не редактировать; дедупликация безопасна к повторным запускам (по хэшу url/заголовка).
+- Политес к источникам: `settings.http_delay_sec` (1.2) и честный User-Agent — не снижать.
+
+## Git и публикация
+
+- **main одновременно хранит код И генерат** (`data/`, `digests/`, `index.html`, `assets/photos`, `afisha/infospace/status.html`, `weekly/monthly/projects`). CI коммитит генерат в main через `ci_push.sh`.
+- Сайт = GitHub Pages из main. Workflow `daily/weekly/monthly` стоят в общей очереди `concurrency: gudok-pipeline` — параллельный ручной push во время CI-прогона создаёт гонку.
+- `ci_push.sh` защищает от гонок и потери правок (fetch → rebase → пересборка через `REBUILD_CMD`). Не добавляй к нему `set -e` (тест `test_no_set_e`).
+- Секреты — только env `GUDOK_VK_TOKEN` (в CI пустой → VK мягко пропускается). Никогда не в git: `.gitignore` покрывает `data/backups/`, `data/alerts.log`, `data/vk_token`. `data/store.jsonl` и `sources_registry.json` — **коммитятся**.
+- Код, комментарии и сообщения коммитов — на русском; стиль — как в соседних файлах.
+
+## Тесты
+
+- `tests/test_pipeline.py` (~2200 строк) + фикстуры реальных страниц в `tests/fixtures/`. Перед правкой чтения модулей — сначала глянь соответствующий класс теста.
+- Перед публикацией изменений всегда гоняй `python3 -m unittest discover -s tests`.
+- **Локальная особенность этой машины**: `TestCiPush::test_bash_syntax` падает здесь из-за нерабочего WSL (bash не монтирует диск) — это не баг кода; на Linux/CI все 205 тестов зелёные. Локально этот единичный фейл игнорируй.
+
+## Текущее состояние vs планы
+
+- **Сейчас**: публикация статикой на GitHub Pages, сбор 1 раз/сутки (07:30 UTC+4), агент-монитор локально.
+- `server_plan.md` — план переезда на VPS (таймеры systemd, зеркало Pages, часовые снапшоты `collector.py --snapshot` и WSGI-слой). **Не реализовано** — в коде нет `--snapshot`, `server.py`, `deploy.sh`, `notify.py`; не ссылайся на них как на существующие.
+- `ROADMAP.md` — план продукта и открытые пункты; `README.md` — устройство и принципы.
+- Спецвыпуск «Выборы-2026» (`projects/elections_2026.html`) пересобирается ежедневно до 21.09.2026.

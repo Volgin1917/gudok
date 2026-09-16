@@ -113,6 +113,11 @@ img{max-width:100%;display:block;}
 .hero__byline{display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px;color:var(--muted);}
 .hero__byline .avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;letter-spacing:.05em;}
 .hero__byline strong{color:var(--ink);font-weight:600;}
+.hero__why{font-family:var(--sans);font-size:12px;color:var(--muted);letter-spacing:.01em;margin:14px 0 0;}
+.hero__passport{font-family:var(--sans);font-size:12px;color:var(--muted);margin:4px 0 0;}
+.hero__passport strong{color:var(--ink-2);font-weight:600;}
+.hero__also{font-family:var(--sans);font-size:12px;font-style:italic;color:var(--muted);margin:4px 0 0;}
+.hero__timeline{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0 0;letter-spacing:.01em;}
 .dot-sep::before{content:"·";margin:0 8px;color:var(--muted);}
 .hero__media{position:relative;aspect-ratio:4/5;overflow:hidden;margin:0;
   background:radial-gradient(120% 90% at 30% 20%,#4A5A55 0%,#2E3A38 55%,#1C2322 100%);}
@@ -133,6 +138,18 @@ img{max-width:100%;display:block;}
 .mostread__list a{font-family:var(--serif-body);font-size:15px;line-height:1.35;font-weight:600;color:var(--ink);}
 .mostread__list a:hover{color:var(--accent);}
 
+/* «Коротко: 7 строк дня» */
+.brief{border-bottom:1px solid var(--rule);background:var(--paper);}
+.brief__inner{max-width:var(--maxw);margin:0 auto;padding:22px var(--gutter) 24px;}
+.brief__label{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.brief__label::before{content:"";width:22px;height:1px;background:var(--accent);}
+.brief-row{display:grid;grid-template-columns:86px 200px 1fr;gap:16px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule);}
+.brief-row:first-of-type{border-top:0;}
+.brief-t{font-family:var(--sans);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.brief-k{font-family:var(--sans);font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.brief-row a{font-family:var(--serif-body);font-size:15.5px;line-height:1.35;font-weight:600;color:var(--ink);}
+.brief-row a:hover{color:var(--accent);}
+
 /* карточки */
 .grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(4,1fr);gap:36px 28px;}
 .card{display:flex;flex-direction:column;background:none;border:none;border-radius:0;box-shadow:none;}
@@ -147,6 +164,28 @@ img{max-width:100%;display:block;}
 .card__title a:hover{color:var(--accent);}
 .card__dek{font-family:var(--serif-body);font-size:15px;line-height:1.5;color:var(--muted);margin:0 0 12px;}
 .card__meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:auto;}
+.card__badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:3px 8px;border-radius:999px;white-space:nowrap;display:inline-block;}
+.chip--cluster{color:var(--ink-2);background:var(--paper-2);border:1px solid var(--rule);}
+
+/* лента: чипы-рубрики + «Показать ещё» (#19/#20) */
+.feed-chips{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter) 0;display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:52px;z-index:20;background:var(--paper);}
+.chip-f{font:600 12px var(--sans);color:var(--muted);background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer;line-height:1.45;}
+.chip-f:hover{color:var(--ink);border-color:var(--ink);}
+.chip-f.on{color:#fff;background:var(--accent);border-color:var(--accent);}
+.chip-f:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.chip-f-divider{width:1px;height:18px;margin:0 6px;align-self:center;background:var(--rule);}
+.feed-more{display:none;font:600 13px var(--sans);padding:8px 18px;border:1px solid var(--ink);border-radius:999px;background:var(--paper);cursor:pointer;}
+.feed-more:hover{background:var(--ink);color:var(--paper);}
+.feed-bar{max-width:var(--maxw);margin:14px auto 0;padding:0 var(--gutter);display:flex;align-items:center;gap:18px;font:12px var(--sans);color:var(--muted);}
+.feed-bar a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+.feed-empty{max-width:var(--maxw);margin:12px auto 0;padding:0 var(--gutter);font:13px var(--sans);color:var(--muted);}
+.feed-empty a{color:var(--accent);}
+.hidden{display:none!important;}
+.ab-link{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:999px;background:none;padding:4px 12px;cursor:pointer;}
+.ab-link:hover{color:var(--accent);border-color:var(--accent);}
+body[data-ab="v2"] .hero__inner{grid-template-columns:1fr 1.05fr;}
+body[data-ab="v2"] .feature__inner{grid-template-columns:1.05fr 1fr;}
 
 /* фича-полоса (тёмная) */
 .feature{margin-top:72px;background:var(--ink);color:var(--paper);}
@@ -362,6 +401,16 @@ img{max-width:100%;display:block;}
 .tl-src{font-family:var(--sans);color:var(--muted);font-size:11px;}
 .now-line{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);margin-top:4px;line-height:1.5;}
 .now-line b{color:var(--ink);}
+/* v4: алерт-полоса безопасности */
+.alertstrip{background:#5d0f13;color:#fff;}
+.alertstrip__inner{max-width:var(--maxw);margin:0 auto;padding:9px var(--gutter);display:flex;flex-direction:column;gap:5px;}
+body[data-theme="dark"] .alertstrip{background:#7d171d;}
+.alert-row{display:flex;gap:9px;align-items:center;font-family:var(--serif-body);font-size:14.5px;line-height:1.4;}
+.alert-row a{color:#fff;font-weight:600;text-decoration:none;}
+.alert-row a:hover{text-decoration:underline;}
+.alert-dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#ff6b6b;box-shadow:0 0 0 0 rgba(255,107,107,.7);animation:alertpulse 1.6s infinite;}
+@keyframes alertpulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,.6);}70%{box-shadow:0 0 0 7px rgba(255,107,107,0);}100%{box-shadow:0 0 0 0 rgba(255,107,107,0);}}
+.alert-time{margin-left:auto;flex-shrink:0;font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.85);font-weight:700;}
 .now-num{font-family:var(--serif-display);font-size:26px;font-weight:600;color:var(--ink);line-height:1.1;}
 .now-num small{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);}
 .lead-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;}
@@ -431,6 +480,9 @@ img{max-width:100%;display:block;}
 @media (max-width:1100px){
   .hero__inner,.lead-grid,.feature__inner,.wk-grid,.main-grid{grid-template-columns:1fr;}
   .hero__media{aspect-ratio:16/9;}
+  .brief-row{grid-template-columns:1fr;row-gap:3px;}
+  .brief-t,.brief-k{grid-column:1;}
+  .brief-k{white-space:normal;}
   .mostread__inner{grid-template-columns:1fr;gap:18px;}
   .mostread__list{grid-template-columns:repeat(2,1fr);row-gap:18px;}
   .mostread__list li{padding-left:16px;}
@@ -525,7 +577,7 @@ img{max-width:100%;display:block;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>среда, 16 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 01:10</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>среда, 16 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 17:04</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Дайджест руководителя<br>16.09.2026 · один лист A4
@@ -535,7 +587,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="exec-head">
 <div><div class="kicker">Руководителю предприятия · внутренний документ</div>
 <h1>Дайджест руководителя</h1></div>
-<div class="d"><b>среда, 16.09.2026</b> · выпуск №5<br>сформирован 01:10 (UTC+4) · источников 40/42 · материалов за 24 ч: <b>397</b></div>
+<div class="d"><b>среда, 16.09.2026</b> · выпуск №5<br>сформирован 17:04 (UTC+4) · источников 40/42 · материалов за 24 ч: <b>397</b></div>
 </div>
 
 <div class="exec-grid">
@@ -543,9 +595,9 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="exec-sec"><h2>Главное за сутки <span class="cnt">топ-5 по значимости</span></h2><ol><li><b><a href="https://t.me/ulpravda/41073" target="_blank" rel="noopener">Владимир Камеко обсудил с Андреем Никитиным обновление общественного транспорта и развитие трассы Р-241</a></b>
 <div class="sub">Владимир Камеко обсудил с Андреем Никитиным обновление общественного транспорта и развитие трассы…</div><div class="src">16.09 00:24 · t.me/ulpravda · 👁 21</div></li><li><b><a href="https://t.me/ulgovru/23744" target="_blank" rel="noopener">✅ 15 сентября ▶️ Долгожданную поликлинику открыли в Засвияжском районе. Наш большой обзор нового подразделения…</a></b>
 <div class="sub">Наш большой обзор нового подразделения ▶️ Где ульяновцы могут узнать о работе управляющей компании ▶️ ИИ, семейное древо и шитье.…</div><div class="src">15.09 19:28 · t.me/ulgovru · 👁 51</div></li><li><b><a href="https://ulpressa.ru/2026/09/15/proezda-net-v-czentre-ulyanovska-vnutrikvartalnuyu-dorogu-prevratili-v-avtodrom-s-lihachami/" target="_blank" rel="noopener">Проезда нет? В центре Ульяновска внутриквартальную дорогу превратили в «автодром» с лихачами</a></b>
-<div class="sub">Жители домов Набережной реки Симбирки – участка между улицами Ленина и Шевченко – на протяжении нескольких лет пытаются убрать сквозной проезд по внутриквартальной дороге.…</div><div class="src">15.09 22:22 · Улпресса</div></li><li><b><a href="https://t.me/insaid173/47015" target="_blank" rel="noopener">Впервые в Ульяновске: больное сердце починили через прокол вместо разреза В областной клинической больнице про…</a></b>
-<div class="sub">Работу сердца пациентке восстановили через крошечный прокол в бедренной артерии (метод TAVI).…</div><div class="src">15.09 20:11 · t.me/insaid173 · 👁 5.4K</div></li><li><b><a href="https://t.me/ulpravda/41076" target="_blank" rel="noopener">В Ульяновской области подешевели картофель и капуста По итогам августа индекс потребительских цен на продукты …</a></b>
-<div class="sub">«Согласно статистическим данным, в августе этого года относительно июля в Ульяновской области наблюдается продовольственная дефляция, то есть индекс потребительских цен на продовольственные товары ниже 100%.…</div><div class="src">16.09 00:42 · t.me/ulpravda · 👁 9</div></li></ol></div>
+<div class="sub">Жители домов Набережной реки Симбирки – участка между улицами Ленина и Шевченко – на протяжении нескольких лет пытаются убрать сквозной проезд по внутриквартальной дороге.…</div><div class="src">15.09 22:22 · Улпресса</div></li><li><b><a href="https://ulnovosti.ru/i-lenta-novostej-i/strong-nedostoverno-zadeklarirovali-okolo-201-tysyachi-tonn-zerna-strong/" target="_blank" rel="noopener">Недостоверно задекларировали около 201 тысячи тонн зерна</a></b>
+<div class="sub">Во времена всеобщей лжи говорить правду — это экстремизм Года Управлением Россельхознадзора по Чувашской Республике и Ульяновской области прекращено действие 118 деклараций о соответствии на зерновую продукцию, произведённую сельхозтоваропроизводителями Ульяновской области.…</div><div class="src">15.09 22:13 · Ulnovosti.ru</div></li><li><b><a href="http://gazeta-zvezda73.ru/index.php/novosti/guberniya/17277-portovaya-osobaya-ekonomicheskaya-zona-ulyanovsk-voshla-v-pyaterku-luchshikh-v-strane-po-otsenke-minekonomrazvitiya-rossii" target="_blank" rel="noopener">Портовая особая экономическая зона «Ульяновск» вошла в пятерку лучших в стране по оценке Минэкономразвития России</a></b>
+<div class="sub">Об этом сообщил губернатор Ульяновской области Алексей Русских 14 сентября на заседании штаба по комплексному развитию региона.…</div><div class="src">15.09 21:47 · Звезда (Новомалыклинский р-н)</div></li></ol></div>
 <div class="exec-sec risk"><h2>Риски <span class="cnt">безопасность и происшествия</span></h2><ol><li><b><a href="https://t.me/chpulsk/50805" target="_blank" rel="noopener">❕ Мошенники пугают родителей подростков сообщениями о подозрительных операциях по детским картам, предупреждае…</a></b>
 <div class="sub">Родитель получает тревожное СМС или сообщение в мессенджере о «подозрительной операции» по счету ребенка.…</div><div class="src">15.09 20:42 · t.me/chpulsk · 👁 2.6K</div></li><li><b><a href="https://t.me/chpulsk/50806" target="_blank" rel="noopener">🚘 В Инзенском районе полицейские задержали 62-летнего рабочего по подозрению в угоне трактора. Мужчина взял те…</a></b>
 <div class="sub">Мужчина взял технику, чтобы покататься, и в состоянии опьянения врезался в легковой автомобиль на трассе «Инза — Карсун».…</div><div class="src">15.09 21:39 · t.me/chpulsk · 👁 1.5K</div></li><li><b><a href="https://t.me/fcvolga/12533" target="_blank" rel="noopener">Акробатический аут, выстрел с центра поля или сумасшедшая пушка из-за штрафной? 😳 ⚽️ Лучшие голы недели – уже …</a></b>
@@ -564,6 +616,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="panel"><h3>📈 Пульс повестки · топ-6 тем недели</h3><div class="pulse-row"><span>🔥</span><span class="p-name">Транспорт и дороги</span><span class="p-nums">24ч 0 · 7д 269</span><svg width="70" height="16" viewBox="0 0 70 16"><path d="M2.0,12.9 L7.1,12.7 L12.2,12.9 L17.2,13.0 L22.3,12.6 L27.4,12.4 L32.5,12.7 L37.5,9.9 L42.6,5.0 L47.7,11.4 L52.8,12.2 L57.8,6.0 L62.9,6.3 L68.0,13.0 L68,14 L2,14 Z" fill="#4a7fb5" opacity="0.12"/><path d="M2.0,12.9 L7.1,12.7 L12.2,12.9 L17.2,13.0 L22.3,12.6 L27.4,12.4 L32.5,12.7 L37.5,9.9 L42.6,5.0 L47.7,11.4 L52.8,12.2 L57.8,6.0 L62.9,6.3 L68.0,13.0" fill="none" stroke="#4a7fb5" stroke-width="1.8" stroke-linejoin="round"/><circle cx="68.0" cy="13.0" r="2.6" fill="#4a7fb5"/></svg></div><div class="pulse-row"><span>⚖️</span><span class="p-name">Суды и криминал</span><span class="p-nums">24ч 2 · 7д 262</span><svg width="70" height="16" viewBox="0 0 70 16"><path d="M2.0,13.0 L7.1,13.0 L12.2,12.7 L17.2,13.0 L22.3,12.7 L27.4,11.9 L32.5,12.0 L37.5,8.8 L42.6,5.0 L47.7,9.6 L52.8,12.1 L57.8,8.4 L62.9,7.5 L68.0,12.8 L68,14 L2,14 Z" fill="#4a7fb5" opacity="0.12"/><path d="M2.0,13.0 L7.1,13.0 L12.2,12.7 L17.2,13.0 L22.3,12.7 L27.4,11.9 L32.5,12.0 L37.5,8.8 L42.6,5.0 L47.7,9.6 L52.8,12.1 L57.8,8.4 L62.9,7.5 L68.0,12.8" fill="none" stroke="#4a7fb5" stroke-width="1.8" stroke-linejoin="round"/><circle cx="68.0" cy="12.8" r="2.6" fill="#4a7fb5"/></svg></div><div class="pulse-row"><span>⚖️</span><span class="p-name">Губернатор / власть</span><span class="p-nums">24ч 2 · 7д 236</span><svg width="70" height="16" viewBox="0 0 70 16"><path d="M2.0,12.9 L7.1,12.8 L12.2,12.9 L17.2,13.0 L22.3,12.4 L27.4,12.0 L32.5,12.3 L37.5,7.9 L42.6,7.2 L47.7,11.2 L52.8,11.1 L57.8,9.6 L62.9,5.0 L68.0,12.8 L68,14 L2,14 Z" fill="#4a7fb5" opacity="0.12"/><path d="M2.0,12.9 L7.1,12.8 L12.2,12.9 L17.2,13.0 L22.3,12.4 L27.4,12.0 L32.5,12.3 L37.5,7.9 L42.6,7.2 L47.7,11.2 L52.8,11.1 L57.8,9.6 L62.9,5.0 L68.0,12.8" fill="none" stroke="#4a7fb5" stroke-width="1.8" stroke-linejoin="round"/><circle cx="68.0" cy="12.8" r="2.6" fill="#4a7fb5"/></svg></div><div class="pulse-row"><span>⚖️</span><span class="p-name">Школы и вузы</span><span class="p-nums">24ч 0 · 7д 216</span><svg width="70" height="16" viewBox="0 0 70 16"><path d="M2.0,12.9 L7.1,12.9 L12.2,13.0 L17.2,12.7 L22.3,12.6 L27.4,12.2 L32.5,11.7 L37.5,7.1 L42.6,5.0 L47.7,10.3 L52.8,10.6 L57.8,9.1 L62.9,7.0 L68.0,13.0 L68,14 L2,14 Z" fill="#4a7fb5" opacity="0.12"/><path d="M2.0,12.9 L7.1,12.9 L12.2,13.0 L17.2,12.7 L22.3,12.6 L27.4,12.2 L32.5,11.7 L37.5,7.1 L42.6,5.0 L47.7,10.3 L52.8,10.6 L57.8,9.1 L62.9,7.0 L68.0,13.0" fill="none" stroke="#4a7fb5" stroke-width="1.8" stroke-linejoin="round"/><circle cx="68.0" cy="13.0" r="2.6" fill="#4a7fb5"/></svg></div><div class="pulse-row"><span>⚖️</span><span class="p-name">Спорт</span><span class="p-nums">24ч 1 · 7д 153</span><svg width="70" height="16" viewBox="0 0 70 16"><path d="M2.0,12.8 L7.1,12.5 L12.2,12.5 L17.2,13.0 L22.3,12.2 L27.4,12.2 L32.5,10.2 L37.5,5.0 L42.6,6.0 L47.7,10.0 L52.8,9.0 L57.8,5.0 L62.9,5.0 L68.0,12.8 L68,14 L2,14 Z" fill="#4a7fb5" opacity="0.12"/><path d="M2.0,12.8 L7.1,12.5 L12.2,12.5 L17.2,13.0 L22.3,12.2 L27.4,12.2 L32.5,10.2 L37.5,5.0 L42.6,6.0 L47.7,10.0 L52.8,9.0 L57.8,5.0 L62.9,5.0 L68.0,12.8" fill="none" stroke="#4a7fb5" stroke-width="1.8" stroke-linejoin="round"/><circle cx="68.0" cy="12.8" r="2.6" fill="#4a7fb5"/></svg></div><div class="pulse-row"><span>⚖️</span><span class="p-name">Городская среда</span><span class="p-nums">24ч 0 · 7д 139</span><svg width="70" height="16" viewBox="0 0 70 16"><path d="M2.0,12.5 L7.1,12.5 L12.2,13.0 L17.2,12.5 L22.3,11.8 L27.4,12.5 L32.5,11.8 L37.5,10.4 L42.6,5.0 L47.7,10.2 L52.8,7.1 L57.8,5.0 L62.9,7.6 L68.0,13.0 L68,14 L2,14 Z" fill="#4a7fb5" opacity="0.12"/><path d="M2.0,12.5 L7.1,12.5 L12.2,13.0 L17.2,12.5 L22.3,11.8 L27.4,12.5 L32.5,11.8 L37.5,10.4 L42.6,5.0 L47.7,10.2 L52.8,7.1 L57.8,5.0 L62.9,7.6 L68.0,13.0" fill="none" stroke="#4a7fb5" stroke-width="1.8" stroke-linejoin="round"/><circle cx="68.0" cy="13.0" r="2.6" fill="#4a7fb5"/></svg></div></div>
 <div class="panel"><h3>🌡 Тон инфополя · 5 материалов</h3>
 <div style="display:flex;align-items:center;gap:14px;"><div><div class="tone-big">+0.20</div><div class="tone-mood">спокойный · ряд 14 дней →</div></div><svg width="150" height="28" viewBox="0 0 150 28"><path d="M2.0,11.7 L13.2,8.3 L24.5,7.5 L35.7,5.0 L46.9,17.2 L58.2,23.6 L69.4,21.3 L80.6,22.3 L91.8,24.6 L103.1,23.2 L114.3,19.5 L125.5,22.8 L136.8,22.9 L148.0,20.3 L148,26 L2,26 Z" fill="#4a7fb5" opacity="0.12"/><path d="M2.0,11.7 L13.2,8.3 L24.5,7.5 L35.7,5.0 L46.9,17.2 L58.2,23.6 L69.4,21.3 L80.6,22.3 L91.8,24.6 L103.1,23.2 L114.3,19.5 L125.5,22.8 L136.8,22.9 L148.0,20.3" fill="none" stroke="#4a7fb5" stroke-width="1.8" stroke-linejoin="round"/><circle cx="148.0" cy="20.3" r="2.6" fill="#4a7fb5"/></svg></div></div>
+<div class="panel"><h3>📋 Качество выпуска</h3><div style="font-size:12px;line-height:1.5;"><b>Материалов:</b> 413 · <b>Дубли:</b> 297 · <b>Промо:</b> 0%<br><b>Заголовки:</b> 25% полные · <b>Ведущая рубрика:</b> society (37%)<br><b>Алерт-лаг:</b> — мин · <b>Событий на сайте:</b> 0</div></div>
 <div class="panel"><h3>🔮 Прогноз на завтра</h3><div class="fc-row"><span class="fc-a">↓</span><span class="fc-n">Школы и вузы</span><span class="fc-e">~9 публ. · средняя</span></div><div class="fc-row"><span class="fc-a">↓</span><span class="fc-n">Суды и криминал</span><span class="fc-e">~15 публ. · средняя</span></div><div class="fc-row"><span class="fc-a">↓</span><span class="fc-n">Культура и туризм</span><span class="fc-e">~5 публ. · средняя</span></div></div>
 <div class="panel"><h3>📰 Первоисточники инфополя</h3><div class="cr-row"><span class="fc-n">Улпресса</span><span class="cr-v">315 из 351 — оригиналы</span></div><div class="cr-row"><span class="fc-n">tresh_ulyan</span><span class="cr-v">96 из 121 — оригиналы</span></div><div class="cr-row"><span class="fc-n">ulyanovsk_smi</span><span class="cr-v">84 из 96 — оригиналы</span></div></div>
 </div>

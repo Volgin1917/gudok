@@ -114,6 +114,11 @@ img{max-width:100%;display:block;}
 .hero__byline{display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px;color:var(--muted);}
 .hero__byline .avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;letter-spacing:.05em;}
 .hero__byline strong{color:var(--ink);font-weight:600;}
+.hero__why{font-family:var(--sans);font-size:12px;color:var(--muted);letter-spacing:.01em;margin:14px 0 0;}
+.hero__passport{font-family:var(--sans);font-size:12px;color:var(--muted);margin:4px 0 0;}
+.hero__passport strong{color:var(--ink-2);font-weight:600;}
+.hero__also{font-family:var(--sans);font-size:12px;font-style:italic;color:var(--muted);margin:4px 0 0;}
+.hero__timeline{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0 0;letter-spacing:.01em;}
 .dot-sep::before{content:"·";margin:0 8px;color:var(--muted);}
 .hero__media{position:relative;aspect-ratio:4/5;overflow:hidden;margin:0;
   background:radial-gradient(120% 90% at 30% 20%,#4A5A55 0%,#2E3A38 55%,#1C2322 100%);}
@@ -134,6 +139,18 @@ img{max-width:100%;display:block;}
 .mostread__list a{font-family:var(--serif-body);font-size:15px;line-height:1.35;font-weight:600;color:var(--ink);}
 .mostread__list a:hover{color:var(--accent);}
 
+/* «Коротко: 7 строк дня» */
+.brief{border-bottom:1px solid var(--rule);background:var(--paper);}
+.brief__inner{max-width:var(--maxw);margin:0 auto;padding:22px var(--gutter) 24px;}
+.brief__label{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.brief__label::before{content:"";width:22px;height:1px;background:var(--accent);}
+.brief-row{display:grid;grid-template-columns:86px 200px 1fr;gap:16px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule);}
+.brief-row:first-of-type{border-top:0;}
+.brief-t{font-family:var(--sans);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.brief-k{font-family:var(--sans);font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.brief-row a{font-family:var(--serif-body);font-size:15.5px;line-height:1.35;font-weight:600;color:var(--ink);}
+.brief-row a:hover{color:var(--accent);}
+
 /* карточки */
 .grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(4,1fr);gap:36px 28px;}
 .card{display:flex;flex-direction:column;background:none;border:none;border-radius:0;box-shadow:none;}
@@ -148,6 +165,28 @@ img{max-width:100%;display:block;}
 .card__title a:hover{color:var(--accent);}
 .card__dek{font-family:var(--serif-body);font-size:15px;line-height:1.5;color:var(--muted);margin:0 0 12px;}
 .card__meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:auto;}
+.card__badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:3px 8px;border-radius:999px;white-space:nowrap;display:inline-block;}
+.chip--cluster{color:var(--ink-2);background:var(--paper-2);border:1px solid var(--rule);}
+
+/* лента: чипы-рубрики + «Показать ещё» (#19/#20) */
+.feed-chips{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter) 0;display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:52px;z-index:20;background:var(--paper);}
+.chip-f{font:600 12px var(--sans);color:var(--muted);background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer;line-height:1.45;}
+.chip-f:hover{color:var(--ink);border-color:var(--ink);}
+.chip-f.on{color:#fff;background:var(--accent);border-color:var(--accent);}
+.chip-f:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.chip-f-divider{width:1px;height:18px;margin:0 6px;align-self:center;background:var(--rule);}
+.feed-more{display:none;font:600 13px var(--sans);padding:8px 18px;border:1px solid var(--ink);border-radius:999px;background:var(--paper);cursor:pointer;}
+.feed-more:hover{background:var(--ink);color:var(--paper);}
+.feed-bar{max-width:var(--maxw);margin:14px auto 0;padding:0 var(--gutter);display:flex;align-items:center;gap:18px;font:12px var(--sans);color:var(--muted);}
+.feed-bar a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+.feed-empty{max-width:var(--maxw);margin:12px auto 0;padding:0 var(--gutter);font:13px var(--sans);color:var(--muted);}
+.feed-empty a{color:var(--accent);}
+.hidden{display:none!important;}
+.ab-link{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:999px;background:none;padding:4px 12px;cursor:pointer;}
+.ab-link:hover{color:var(--accent);border-color:var(--accent);}
+body[data-ab="v2"] .hero__inner{grid-template-columns:1fr 1.05fr;}
+body[data-ab="v2"] .feature__inner{grid-template-columns:1.05fr 1fr;}
 
 /* фича-полоса (тёмная) */
 .feature{margin-top:72px;background:var(--ink);color:var(--paper);}
@@ -363,6 +402,16 @@ img{max-width:100%;display:block;}
 .tl-src{font-family:var(--sans);color:var(--muted);font-size:11px;}
 .now-line{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);margin-top:4px;line-height:1.5;}
 .now-line b{color:var(--ink);}
+/* v4: алерт-полоса безопасности */
+.alertstrip{background:#5d0f13;color:#fff;}
+.alertstrip__inner{max-width:var(--maxw);margin:0 auto;padding:9px var(--gutter);display:flex;flex-direction:column;gap:5px;}
+body[data-theme="dark"] .alertstrip{background:#7d171d;}
+.alert-row{display:flex;gap:9px;align-items:center;font-family:var(--serif-body);font-size:14.5px;line-height:1.4;}
+.alert-row a{color:#fff;font-weight:600;text-decoration:none;}
+.alert-row a:hover{text-decoration:underline;}
+.alert-dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#ff6b6b;box-shadow:0 0 0 0 rgba(255,107,107,.7);animation:alertpulse 1.6s infinite;}
+@keyframes alertpulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,.6);}70%{box-shadow:0 0 0 7px rgba(255,107,107,0);}100%{box-shadow:0 0 0 0 rgba(255,107,107,0);}}
+.alert-time{margin-left:auto;flex-shrink:0;font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.85);font-weight:700;}
 .now-num{font-family:var(--serif-display);font-size:26px;font-weight:600;color:var(--ink);line-height:1.1;}
 .now-num small{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);}
 .lead-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;}
@@ -432,6 +481,9 @@ img{max-width:100%;display:block;}
 @media (max-width:1100px){
   .hero__inner,.lead-grid,.feature__inner,.wk-grid,.main-grid{grid-template-columns:1fr;}
   .hero__media{aspect-ratio:16/9;}
+  .brief-row{grid-template-columns:1fr;row-gap:3px;}
+  .brief-t,.brief-k{grid-column:1;}
+  .brief-k{white-space:normal;}
   .mostread__inner{grid-template-columns:1fr;gap:18px;}
   .mostread__list{grid-template-columns:repeat(2,1fr);row-gap:18px;}
   .mostread__list li{padding-left:16px;}
@@ -558,15 +610,15 @@ font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;font-family
 <span>Сами платформы дистанционного электронного голосования доступны, но авторизация через Mos, «Госуслуги» и ЕСИА из зарубежных сетей практически невозможна.</span>
 <i>19:42 · t.me/chpul</i></div><div class="pm-item"><b>В КПРФ ответили на идею перенести Мавзолей Ленина в Ульяновск Сенатор Айрат Гибатдинов в беседе с NEWS.RU…</b>
 <span>Ленин — великая историческая фигура, а его вклад в развитие и историю нашей страны невозможно просто перечеркнуть или вычеркнуть из памяти народа».…</span>
-<i>20:14 · t.me/volkodav73</i></div><div class="pm-h3">🛡 Безопасность и происшествия</div><div class="pm-item"><b>В Радищевском районе ликвидировали свалку на особо охраняемой природной территории</b>
+<i>20:14 · t.me/volkodav73</i></div><div class="pm-h3">🛡 Безопасность и происшествия</div><div class="pm-item"><b>В Ульяновске мошенник использовал имя реального адвоката и выманил у женщины 100 тысяч рублей</b>
+<span>44-летняя жительница Ульяновска потеряла 100 тысяч рублей, обратившись к мошеннику, выдавшему себя за юриста.…</span>
+<i>19:48 · Улпресса</i></div><div class="pm-item"><b>В Радищевском районе ликвидировали свалку на особо охраняемой природной территории</b>
 <span>Прокуратура Радищевского района добилась ликвидации несанкционированной свалки на особо охраняемой природной территории в Дмитриевском сельском поселении.…</span>
 <i>18:25 · Улпресса</i></div><div class="pm-item"><b>❗️ АКЦИЯ В СЕНТЯБРЕ! ❗️ БАНКРОТСТВО ЗА 90 000 ₽, ВКЛЮЧАЯ ВСЕ РАСХОДЫ! БЕЗ ПРЕДОПЛАТ! ☑️ Фиксированная…</b>
 <span>☑️ Фиксированная стоимость ☑️ Рассрочка 5 000 ₽ в месяц на 15 месяцев ☑️ Подача в суд через 2 недели Все внеплановые расходы оплачиваются Нашей компанией.…</span>
 <i>19:00 · t.me/tresh_ulyan</i></div><div class="pm-item"><b>🤬 09.09.2026г в 7:49 пересечение пр-т Ульяновский/ ул. 40-летия Победы. Сплошная, пешеход, проезд на красный…</b>
 <span>Сплошная, пешеход, проезд на красный сигнал светофора. Надеюсь полиция отреагирует или на такой машине все можно?</span>
-<i>18:11 · t.me/insaid173</i></div><div class="pm-item"><b>Виновник ДТП, в котором бабушка спасла внука ценой жизни , получил условный срок Помните страшную трагедию…</b>
-<span>В январе на трассе в Сенгилеевском районе белый «Фольксваген Поло» вылетел на встречную полосу и столкнулся лоб в лоб с их «Ладой Грантой».…</span>
-<i>18:20 · t.me/insaid173</i></div><div class="pm-h3">💼 Экономика и промышленность</div><div class="pm-item"><b>⚡️ Украина согласилась не наносить удары по объектам российской энергетики, Россия взяла на себя аналогичное…</b>
+<i>18:11 · t.me/insaid173</i></div><div class="pm-h3">💼 Экономика и промышленность</div><div class="pm-item"><b>⚡️ Украина согласилась не наносить удары по объектам российской энергетики, Россия взяла на себя аналогичное…</b>
 <span>⚡️ Украина согласилась не наносить удары по объектам российской энергетики, Россия взяла на себя аналогичное обязательство, — Трамп.…</span>
 <i>19:20 · t.me/tresh_ulyan</i></div><div class="pm-item"><b>«Волга» приберет манеж к рукам По разговорам собеседников в спортивной отрасли региона, губернатор…</b>
 <span>Шолмова в безвозмездное пользование ФК «Волга».…</span>
@@ -580,15 +632,15 @@ font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;font-family
 <span>Экофермер Алексей Якушев изучает «ароматы», которыми дышат сотни людей каждый день.</span>
 <i>16:07 · t.me/volkodav73</i></div><div class="pm-item"><b>Недостоверно задекларировали около 201 тысячи тонн зерна</b>
 <span>Во времена всеобщей лжи говорить правду — это экстремизм Года Управлением Россельхознадзора по Чувашской Республике и Ульяновской области прекращено действие 118 деклараций о соответствии на зерновую продукцию, произведённую сельхозтоваропроизводителями Ульяновской области.…</span>
-<i>22:13 · Ulnovosti.ru</i></div><div class="pm-h3">🏙 Общество и городская среда</div><div class="pm-item"><b>В Ульяновске мошенник использовал имя реального адвоката и выманил у женщины 100 тысяч рублей</b>
-<span>44-летняя жительница Ульяновска потеряла 100 тысяч рублей, обратившись к мошеннику, выдавшему себя за юриста.…</span>
-<i>19:48 · Улпресса</i></div><div class="pm-item"><b>В Ульяновске стартовал Молодёжный парламентский форум ПФО «Сила единства: роль молодёжи в формировании…</b>
+<i>22:13 · Ulnovosti.ru</i></div><div class="pm-h3">🏙 Общество и городская среда</div><div class="pm-item"><b>В Ульяновске стартовал Молодёжный парламентский форум ПФО «Сила единства: роль молодёжи в формировании…</b>
 <span>Форум проходит в рамках Парламентских слушаний «Единство народов России как основа развития муниципалитетов», его организаторами стали Ульяновская Городская Дума и Молодёжная Дума города Ульяновска.…</span>
 <i>19:04 · Улпресса</i></div><div class="pm-item"><b>На трассе М-5 в Новоспасском районе «БМВ» врезался в ограждение: два человека пострадали</b>
 <span>13 сентября в 18:35 на 826-м километре трассы М-5 «Урал» в Новоспасском районе «БМВ-116» не справился с управлением и боковым касательным ударом задел дорожное ограждение.…</span>
 <i>18:48 · Улпресса</i></div><div class="pm-item"><b>✅ 14 сентября ▶️ В профессию со школьной скамьи. В Димитровграде открыли новый медицинский класс ▶️ В…</b>
 <span>В Димитровграде открыли новый медицинский класс ▶️ В Засвияжском районе Ульяновска появился экстрим-парк ▶️ Как Симбирск-Ульяновск отметил 378-летие ▶️ У Дома…</span>
-<i>19:27 · t.me/ulgovru</i></div><div class="pm-h3">⚕️ Здравоохранение</div><div class="pm-item"><b>🏥 15 сентября в Ульяновске откроют новое подразделение поликлиники №4. Новое здание на улице Героя РФ…</b>
+<i>19:27 · t.me/ulgovru</i></div><div class="pm-item"><b>⚡️ Трамп заявил, что Россия и Украина договорились не наносить друг другу удары по объектам энергетики</b>
+<span>⚡️ Трамп заявил, что Россия и Украина договорились не наносить друг другу удары по объектам…</span>
+<i>19:16 · t.me/ulpressa</i></div><div class="pm-h3">⚕️ Здравоохранение</div><div class="pm-item"><b>🏥 15 сентября в Ульяновске откроют новое подразделение поликлиники №4. Новое здание на улице Героя РФ…</b>
 <span>Новое здание на улице Героя РФ Колпакова оборудовали отдельными входами для центра лучевой диагностики, пациентов с температурой и терапевтического блока — это поможет разделить потоки и сократить ожидание.…</span>
 <i>21:01 · t.me/ulkoroche</i></div><div class="pm-item"><b>😱 Россияне массово жалуются на укусы нано-клещей С начала осени за медицинской помощью обратились уже более 2…</b>
 <span>Из-за микроскопического размера клеща почти невозможно заметить, при этом он может переносить опасные инфекции.…</span>
