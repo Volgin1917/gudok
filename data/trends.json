@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-17T11:06:23.173592+00:00",
- "generated_local": "17.09.2026 15:06",
+ "generated_utc": "2026-09-17T11:17:39.539333+00:00",
+ "generated_local": "17.09.2026 15:17",
  "days": [
   "2026-09-04",
   "2026-09-05",
@@ -18,9 +18,9 @@
   "2026-09-17"
  ],
  "counts": {
-  "total": 2441,
-  "last24h": 295,
-  "last7d": 2154
+  "total": 2515,
+  "last24h": 364,
+  "last7d": 2226
  },
  "topics": {
   "elections": {
@@ -39,11 +39,11 @@
     14,
     15,
     20,
-    8
+    12
    ],
-   "today": 8,
-   "week": 84,
-   "total": 107,
+   "today": 12,
+   "week": 88,
+   "total": 111,
    "status": "stable"
   },
   "governor": {
@@ -62,11 +62,11 @@
     35,
     78,
     33,
-    18
+    32
    ],
-   "today": 18,
-   "week": 267,
-   "total": 337,
+   "today": 32,
+   "week": 281,
+   "total": 351,
    "status": "stable"
   },
   "uav": {
@@ -85,11 +85,11 @@
     8,
     43,
     5,
-    6
+    7
    ],
-   "today": 6,
-   "week": 128,
-   "total": 156,
+   "today": 7,
+   "week": 129,
+   "total": 157,
    "status": "stable"
   },
   "cityday": {
@@ -131,11 +131,11 @@
     17,
     24,
     31,
-    11
+    15
    ],
-   "today": 11,
-   "week": 107,
-   "total": 136,
+   "today": 15,
+   "week": 111,
+   "total": 140,
    "status": "rising"
   },
   "uaz": {
@@ -223,11 +223,11 @@
     6,
     15,
     16,
-    4
+    5
    ],
-   "today": 4,
-   "week": 70,
-   "total": 81,
+   "today": 5,
+   "week": 71,
+   "total": 82,
    "status": "stable"
   },
   "cityspace": {
@@ -246,11 +246,11 @@
     37,
     27,
     41,
-    17
+    26
    ],
-   "today": 17,
-   "week": 199,
-   "total": 226,
+   "today": 26,
+   "week": 208,
+   "total": 235,
    "status": "stable"
   },
   "transport": {
@@ -269,11 +269,11 @@
     78,
     78,
     56,
-    29
+    58
    ],
-   "today": 29,
-   "week": 353,
-   "total": 402,
+   "today": 58,
+   "week": 382,
+   "total": 431,
    "status": "stable"
   },
   "schools": {
@@ -292,11 +292,11 @@
     29,
     53,
     28,
-    14
+    16
    ],
-   "today": 14,
-   "week": 226,
-   "total": 293,
+   "today": 16,
+   "week": 228,
+   "total": 295,
    "status": "stable"
   },
   "medicine": {
@@ -315,11 +315,11 @@
     23,
     45,
     24,
-    9
+    11
    ],
-   "today": 9,
-   "week": 148,
-   "total": 184,
+   "today": 11,
+   "week": 150,
+   "total": 186,
    "status": "stable"
   },
   "crime": {
@@ -338,11 +338,11 @@
     49,
     61,
     73,
-    18
+    28
    ],
-   "today": 18,
-   "week": 329,
-   "total": 397,
+   "today": 28,
+   "week": 339,
+   "total": 407,
    "status": "stable"
   },
   "culture": {
@@ -361,11 +361,11 @@
     24,
     23,
     15,
-    7
+    9
    ],
-   "today": 7,
-   "week": 129,
-   "total": 196,
+   "today": 9,
+   "week": 131,
+   "total": 198,
    "status": "stable"
   },
   "sport": {
@@ -384,11 +384,11 @@
     39,
     40,
     26,
-    10
+    29
    ],
-   "today": 10,
-   "week": 175,
-   "total": 228,
+   "today": 29,
+   "week": 194,
+   "total": 247,
    "status": "stable"
   },
   "export": {
@@ -430,11 +430,11 @@
     10,
     15,
     15,
-    10
+    11
    ],
-   "today": 10,
-   "week": 96,
-   "total": 116,
+   "today": 11,
+   "week": 97,
+   "total": 117,
    "status": "stable"
   },
   "macro": {
@@ -478,10 +478,10 @@
     21,
     40,
     34,
-    13
+    22
    ],
-   "week": 163,
-   "today": 13
+   "week": 172,
+   "today": 22
   },
   "security": {
    "name": "Безопасность и происшествия",
@@ -499,10 +499,10 @@
     72,
     88,
     69,
-    27
+    33
    ],
-   "week": 434,
-   "today": 27
+   "week": 440,
+   "today": 33
   },
   "economy": {
    "name": "Экономика и промышленность",
@@ -520,10 +520,10 @@
     44,
     34,
     35,
-    18
+    25
    ],
-   "week": 188,
-   "today": 18
+   "week": 195,
+   "today": 25
   },
   "agro": {
    "name": "Агропром",
@@ -562,10 +562,10 @@
     130,
     143,
     146,
-    72
+    111
    ],
-   "week": 796,
-   "today": 72
+   "week": 835,
+   "today": 111
   },
   "health": {
    "name": "Здравоохранение",
@@ -583,10 +583,10 @@
     18,
     40,
     18,
-    5
+    7
    ],
-   "week": 96,
-   "today": 5
+   "week": 98,
+   "today": 7
   },
   "education": {
    "name": "Образование и наука",
@@ -625,10 +625,10 @@
     12,
     15,
     12,
-    6
+    15
    ],
-   "week": 72,
-   "today": 6
+   "week": 81,
+   "today": 15
   },
   "culture": {
    "name": "Культура и афиша",
@@ -646,10 +646,10 @@
     18,
     9,
     16,
-    10
+    12
    ],
-   "week": 127,
-   "today": 10
+   "week": 129,
+   "today": 12
   }
  },
  "tg_top": [
