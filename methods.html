@@ -7,6 +7,7 @@
 :root{
   --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
   --rule:#E3DED4; --rule-strong:#0B0B0B; --accent:#D63F1F; --on-ink:#C9C2B6;
+  --pos:#4F5F53; --neu:#C9C2B6; --neg:#B04848;
   --serif-display:"Fraunces","Source Serif 4",Georgia,"Times New Roman",serif;
   --serif-body:"Source Serif 4",Georgia,"Times New Roman",serif;
   --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -20,6 +21,7 @@
 :root[data-theme="dark"]{
   --paper:#101214; --paper-2:#17191c; --ink:#ECE7DE; --ink-2:#D5CFC4; --muted:#9A948A;
   --rule:#2A2D31; --rule-strong:#ECE7DE; --accent:#FF6A4D; --on-ink:#2A2620;
+  --pos:#7FA88C; --neu:#4A4E54; --neg:#D07A7A;
   --navy:var(--ink); --navy2:var(--ink); --navy3:var(--ink-2); --blue:var(--ink);
   --gold:var(--accent); --line:var(--rule); --txt:var(--ink); --bg:var(--paper); --card:var(--paper);
 }
@@ -528,6 +530,11 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
 @media (max-width:1100px){.footer__inner{grid-template-columns:1fr 1fr;gap:26px;}}
 @media (max-width:720px){.footer__inner{grid-template-columns:1fr;gap:22px;}.footer__bottom{flex-direction:column;}}
 
+.tbl-wrap{overflow-x:auto;}
+.h3rule{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+color:var(--ink);border-bottom:1px solid var(--ink);padding:0 0 8px;margin:34px 0 14px;}
+.h3rule .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
+
 /* ---- страница «Методы»: карточки паспортов, таблицы техконтура, стенд ---- */
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:8px;}
 .mcard{border-top:1px solid var(--ink);padding:14px 0 18px;break-inside:avoid;}
@@ -556,10 +563,6 @@ background:var(--paper-2);border:1px solid var(--rule);padding:1px 6px;color:var
 .mrow-wide{grid-column:1/-1;}
 .mrow-wide ol{margin:4px 0 0;padding-left:18px;}
 .mrow-wide li{margin:3px 0;}
-.tbl-wrap{overflow-x:auto;}
-.h3rule{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-color:var(--ink);border-bottom:1px solid var(--ink);padding:0 0 8px;margin:34px 0 14px;}
-.h3rule .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
 .fbtn.ideo{border-color:var(--accent);color:var(--accent);}
 .fbtn.ideo.active{background:var(--accent);border-color:var(--accent);color:#fff;}
 .proto-form{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin:6px 0 4px;}
@@ -582,13 +585,13 @@ if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
 <a class="skip" href="#main">К содержанию</a>
-<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 15:17</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 15:49</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Проекты издания<br>реестр методик v1.1 и техконтур
 <div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div></div>
 </div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="" href="afisha.html">Афиша</a><a class="active" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-16.html">Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">Проекты:</span><a href="infospace.html">Инфопространство</a><a href="projects/elections_2026.html">Выборы-2026</a><a href="projects/goszakupki.html">Госзакупки</a><span class="cur">Методы</span><a href="projects/plans.html">Планы</a></div></div><main id="main">
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="" href="afisha.html">Афиша</a><a class="active" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-16.html">Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">Проекты:</span><a href="infospace.html">Инфопространство</a><a href="projects/elections_2026.html">Выборы-2026</a><a href="projects/goszakupki.html">Госзакупки</a><span class="cur">Методы</span><a href="projects/plans.html">Планы</a><a href="projects/dossier.html">Досье</a></div></div><main id="main">
 <main id="main">
 <div class="wrap1200" style="padding-top:20px;">
 
@@ -948,11 +951,12 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="wrap1200"><div class="note" style="margin-top:26px;">Связано:
 <a href="infospace.html" style="color:var(--accent);">дашборд «Инфопространство»</a> ·
 <a href="projects/plans.html#method" style="color:var(--accent);">внедрение методов в планах</a> ·
+<a href="projects/dossier.html" style="color:var(--accent);">досье действующих лиц (прототип)</a> ·
 <a href="projects/elections_2026.html" style="color:var(--accent);">досье «Выборы-2026»</a> ·
 <a href="projects/goszakupki.html" style="color:var(--accent);">досье «Госзакупки»</a> ·
 <a href="status.html" style="color:var(--accent);">статус системы</a>.
 Реестр методик — редакционный документ: правится в <code>methods.py</code>, страница пересобирается
-конвейером. Собрано 17.09.2026 15:17 (UTC+4).</div></div>
+конвейером. Собрано 17.09.2026 15:49 (UTC+4).</div></div>
 </main>
 </main>
 <footer class="footer"><div class="footer__inner">
@@ -968,6 +972,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <li><a href="projects/goszakupki.html">Госзакупки</a></li>
 <li><a href="infospace.html">Инфопространство</a></li>
 <li><a href="methods.html">Методы · реестр v1.1</a></li>
+<li><a href="projects/dossier.html">Досье · прототип</a></li>
 <li><a href="afisha.html">Афиша</a></li></ul></div>
 <div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
 <li><a href="status.html">Статус системы</a></li>

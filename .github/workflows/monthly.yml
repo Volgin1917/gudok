@@ -32,7 +32,7 @@ jobs:
       - name: Коммит и push (защищено от гонок)
         env:
           REBUILD_CMD: bash run.sh && python3 generate.py --monthly "${YM:-$(date -d 'last month' +%Y-%m)}"
-        run: bash ci_push.sh "Месячный отчёт $(date -u +%F)" data monthly monthly.html assets archive.html projects/plans.html methods.html
+        run: bash ci_push.sh "Месячный отчёт $(date -u +%F)" data monthly monthly.html assets archive.html projects/plans.html projects/dossier.html methods.html
       - name: Артефакт сайта (свежие страницы, а не триггерный коммит)
         # upload-pages-artifact выполняется ЗДЕСЬ, в build-джобе, сразу после ci_push.sh:
         # рабочий каталог содержит ровно те страницы, которые только что собраны и

@@ -52,6 +52,7 @@ def render_footer(prefix=""):
 <li><a href="{prefix}projects/goszakupki.html">Госзакупки</a></li>
 <li><a href="{prefix}infospace.html">Инфопространство</a></li>
 <li><a href="{prefix}methods.html">Методы · реестр v1.1</a></li>
+<li><a href="{prefix}projects/dossier.html">Досье · прототип</a></li>
 <li><a href="{prefix}afisha.html">Афиша</a></li></ul></div>
 <div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
 <li><a href="{prefix}status.html">Статус системы</a></li>

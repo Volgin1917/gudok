@@ -5,6 +5,7 @@
 :root{
   --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
   --rule:#E3DED4; --rule-strong:#0B0B0B; --accent:#D63F1F; --on-ink:#C9C2B6;
+  --pos:#4F5F53; --neu:#C9C2B6; --neg:#B04848;
   --serif-display:"Fraunces","Source Serif 4",Georgia,"Times New Roman",serif;
   --serif-body:"Source Serif 4",Georgia,"Times New Roman",serif;
   --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -18,6 +19,7 @@
 :root[data-theme="dark"]{
   --paper:#101214; --paper-2:#17191c; --ink:#ECE7DE; --ink-2:#D5CFC4; --muted:#9A948A;
   --rule:#2A2D31; --rule-strong:#ECE7DE; --accent:#FF6A4D; --on-ink:#2A2620;
+  --pos:#7FA88C; --neu:#4A4E54; --neg:#D07A7A;
   --navy:var(--ink); --navy2:var(--ink); --navy3:var(--ink-2); --blue:var(--ink);
   --gold:var(--accent); --line:var(--rule); --txt:var(--ink); --bg:var(--paper); --card:var(--paper);
 }
@@ -600,7 +602,7 @@ a.cal-cell.has:hover .cal-d{color:var(--accent);}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 15:17</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 15:49</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Архив издания<br>выходит с 11.09.2026
@@ -631,7 +633,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </div>
 
 <div class="sec-head"><h2>Проекты и спецвыпуски</h2><div class="line"></div></div>
-<div class="proj-grid"><a class="proj-card" href="projects/elections_2026.html"><b>Выборы-2026</b><span>спецвыпуск: губернатор, Госдума, довыборы в ЗСО</span></a><a class="proj-card" href="projects/goszakupki.html"><b>Госзакупки</b><span>аналитика закупок региона</span></a><a class="proj-card" href="infospace.html"><b>Инфопространство</b><span>сеттеры повестки, каскады, тон, территории</span></a><a class="proj-card" href="methods.html"><b>Методы</b><span>реестр из 36 методик с паспортами · идеология и гегемония · техконтур · стенд</span></a><a class="proj-card" href="projects/plans.html"><b>Планы</b><span>треки планов · реестр из 32 метрик · паспорта · конвейер внедрения</span></a><a class="proj-card" href="afisha.html"><b>Афиша</b><span>культурные события области, автоизвлечение</span></a></div>
+<div class="proj-grid"><a class="proj-card" href="projects/elections_2026.html"><b>Выборы-2026</b><span>спецвыпуск: губернатор, Госдума, довыборы в ЗСО</span></a><a class="proj-card" href="projects/goszakupki.html"><b>Госзакупки</b><span>аналитика закупок региона</span></a><a class="proj-card" href="infospace.html"><b>Инфопространство</b><span>сеттеры повестки, каскады, тон, территории</span></a><a class="proj-card" href="methods.html"><b>Методы</b><span>реестр из 36 методик с паспортами · идеология и гегемония · техконтур · стенд</span></a><a class="proj-card" href="projects/dossier.html"><b>Досье (прототип)</b><span>действующие лица инфополя: упоминания, тон, дуги сюжетов · демо-данные</span></a><a class="proj-card" href="projects/plans.html"><b>Планы</b><span>треки планов · реестр из 32 метрик · паспорта · конвейер внедрения</span></a><a class="proj-card" href="afisha.html"><b>Афиша</b><span>культурные события области, автоизвлечение</span></a></div>
 
 </div>
 </main>
@@ -648,6 +650,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <li><a href="projects/goszakupki.html">Госзакупки</a></li>
 <li><a href="infospace.html">Инфопространство</a></li>
 <li><a href="methods.html">Методы · реестр v1.1</a></li>
+<li><a href="projects/dossier.html">Досье · прототип</a></li>
 <li><a href="afisha.html">Афиша</a></li></ul></div>
 <div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
 <li><a href="status.html">Статус системы</a></li>

@@ -1,0 +1,1113 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Досье — действующие лица инфополя · листок Гудок</title>
+<meta name="description" content="Прототип раздела «Досье»: карточки действующих лиц инфополя Ульяновской области. Упоминания, тон, дуги сюжетов и источники — по методикам реестра. Данные демонстрационные.">
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
+<style>
+:root{
+  --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
+  --rule:#E3DED4; --rule-strong:#0B0B0B; --accent:#D63F1F; --on-ink:#C9C2B6;
+  --pos:#4F5F53; --neu:#C9C2B6; --neg:#B04848;
+  --serif-display:"Fraunces","Source Serif 4",Georgia,"Times New Roman",serif;
+  --serif-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --rubleny:Impact,"Arial Black","Franklin Gothic Bold","Helvetica Neue",sans-serif;
+  --maxw:1340px; --gutter:28px;
+  /* совместимость старых классов */
+  --navy:var(--ink); --navy2:var(--ink); --navy3:var(--ink-2); --blue:var(--ink);
+  --gold:var(--accent); --line:var(--rule); --txt:var(--ink); --bg:var(--paper);
+  --card:var(--paper); --shadow:none;
+}
+:root[data-theme="dark"]{
+  --paper:#101214; --paper-2:#17191c; --ink:#ECE7DE; --ink-2:#D5CFC4; --muted:#9A948A;
+  --rule:#2A2D31; --rule-strong:#ECE7DE; --accent:#FF6A4D; --on-ink:#2A2620;
+  --pos:#7FA88C; --neu:#4A4E54; --neg:#D07A7A;
+  --navy:var(--ink); --navy2:var(--ink); --navy3:var(--ink-2); --blue:var(--ink);
+  --gold:var(--accent); --line:var(--rule); --txt:var(--ink); --bg:var(--paper); --card:var(--paper);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--accent);}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+img{max-width:100%;display:block;}
+.genstamp{background:var(--ink);color:var(--paper);border-left:5px solid var(--accent);}
+:root[data-theme="dark"] .genstamp{background:var(--paper);color:var(--ink);}
+.genstamp-inner{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter);display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;}
+.genstamp .g1{font-family:var(--serif-display);font-size:17px;font-weight:700;}
+.genstamp .g2{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;}
+.genstamp .g3{font-family:var(--sans);font-size:11.5px;opacity:.75;}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:99;}
+.skip:focus{left:8px;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}}
+
+/* рубленый вордмарк */
+.brand-title,.mast-title,.wordmark,.footer__brand{
+  font-family:var(--rubleny);font-weight:900;text-transform:uppercase;
+  letter-spacing:.04em;line-height:.95;color:var(--ink);font-style:normal;
+}
+.brand-title{font-size:30px;}
+.brand-title span,.mast-title span,.wordmark span,.footer__brand span{color:var(--accent);}
+.mast-title{font-size:clamp(44px,8vw,76px);letter-spacing:.06em;}
+
+/* топбар-флаглиния */
+.flagline,.topbar{background:var(--paper);border-bottom:1px solid var(--rule);
+  font-family:var(--sans);font-size:12px;color:var(--muted);}
+.flagline{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;gap:14px;
+  padding:10px var(--gutter);flex-wrap:wrap;border-bottom:none;padding-bottom:0;}
+.topbar{border-bottom:none;}
+.topbar-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter) 12px;display:block;text-align:center;}
+.brand{display:block;}
+.brand>div{display:block;}
+.brand-sub{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+.top-meta{margin:10px auto 0;display:flex;gap:0;justify-content:center;flex-wrap:wrap;}
+.chip{background:none;border:none;border-radius:0;padding:0 10px;font:400 12px var(--sans);color:var(--muted);position:relative;}
+.chip+.chip::before{content:"·";position:absolute;left:-3px;color:var(--muted);}
+.chip b{color:var(--ink-2);font-weight:600;}
+.chip a,.chip-link,.flink{color:var(--muted);}
+.chip a:hover,.chip-link:hover,.flink:hover{color:var(--accent);}
+.theme-btn,.print-btn{border:none;background:none;color:var(--muted);font:500 12px var(--sans);padding:0 10px;cursor:pointer;border-bottom:1px solid var(--ink);}
+.theme-btn:hover,.print-btn:hover{color:var(--accent);border-color:var(--accent);}
+.logo,.mast-logo,.mast-right{display:none;}
+.masthead::after,.topbar::after{content:"";display:block;max-width:var(--maxw);margin:14px auto 0;border-bottom:1px solid var(--rule-strong);}
+
+/* навигация-секции (sticky) */
+.nav{position:sticky;top:0;z-index:20;background:var(--paper);border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:flex;align-items:center;flex-wrap:wrap;}
+.nav a{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--ink-2);padding:15px 14px;position:relative;border-bottom:none;}
+.nav a:hover{color:var(--ink);}
+.nav a.active{color:var(--accent);font-weight:600;}
+.nav a.active::after{content:"";position:absolute;left:14px;right:14px;bottom:10px;height:2px;background:var(--accent);}
+.nav a.nav-util{color:var(--muted);}
+.nav-util-first{margin-left:auto;}
+.nav-toggle{display:none;border:1px solid var(--rule);background:none;color:var(--ink);font:600 13px var(--sans);padding:8px 12px;cursor:pointer;margin:8px var(--gutter);}
+@media (max-width:900px){
+  .nav-toggle{display:block;}
+  .nav-inner{display:none;flex-direction:column;align-items:stretch;}
+  body.nav-open .nav-inner{display:flex;}
+  .nav a{padding:12px 16px;border-top:1px solid var(--rule);}
+}
+.subnav{background:var(--paper);border-bottom:1px solid var(--rule);}
+.subnav-inner{max-width:var(--maxw);margin:0 auto;padding:8px var(--gutter);display:flex;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:12.5px;}
+.subnav-inner a{color:var(--muted);}
+.subnav-inner a:hover{color:var(--accent);}
+.subnav .lbl{color:var(--ink);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;}
+
+/* страницы: контейнеры и заголовки разделов */
+.page,.wrap1200,.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);}
+.sec-head{max-width:var(--maxw);margin:56px auto 26px;padding:16px var(--gutter) 0;border-top:1px solid var(--ink);display:flex;align-items:baseline;justify-content:space-between;gap:20px;}
+.sec-head h2{font-family:var(--serif-display);font-weight:600;font-size:26px;letter-spacing:-.02em;color:var(--ink);}
+.sec-head .line{flex:1;}
+.sec-head .badge{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--muted);}
+.sec-head .badge a{color:var(--muted);}
+
+/* герой (первая полоса) */
+.hero{padding:52px 0 44px;border-bottom:1px solid var(--rule);}
+.hero__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.45fr 1fr;gap:56px;align-items:center;}
+.hero__eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.hero__eyebrow .live{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+.kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);}
+.kicker--ink{color:var(--ink);}
+.hero__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(38px,5.2vw,72px);line-height:1.03;letter-spacing:-.025em;margin:0 0 22px;text-wrap:balance;color:var(--ink);}
+.hero__title a{color:var(--ink);}
+.hero__title a:hover{color:var(--accent);}
+.hero__title em{font-style:italic;font-weight:400;color:var(--accent);}
+.hero__dek{font-family:var(--serif-body);font-size:20px;line-height:1.45;color:var(--ink-2);margin:0 0 24px;max-width:62ch;}
+.hero__byline{display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px;color:var(--muted);}
+.hero__byline .avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;letter-spacing:.05em;}
+.hero__byline strong{color:var(--ink);font-weight:600;}
+.hero__why{font-family:var(--sans);font-size:12px;color:var(--muted);letter-spacing:.01em;margin:14px 0 0;}
+.hero__passport{font-family:var(--sans);font-size:12px;color:var(--muted);margin:4px 0 0;}
+.hero__passport strong{color:var(--ink-2);font-weight:600;}
+.hero__also{font-family:var(--sans);font-size:12px;font-style:italic;color:var(--muted);margin:4px 0 0;}
+.hero__timeline{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0 0;letter-spacing:.01em;}
+.dot-sep::before{content:"·";margin:0 8px;color:var(--muted);}
+.hero__media{position:relative;aspect-ratio:4/5;overflow:hidden;margin:0;
+  background:radial-gradient(120% 90% at 30% 20%,#4A5A55 0%,#2E3A38 55%,#1C2322 100%);}
+.hero__media--b{background:radial-gradient(120% 90% at 70% 30%,#6D4F3C 0%,#3A2A22 55%,#1A1310 100%);}
+.hero__media--c{background:radial-gradient(120% 90% at 40% 60%,#3E4552 0%,#2A2F3A 55%,#171A20 100%);}
+.hero__media figcaption{position:absolute;left:18px;right:18px;bottom:16px;color:#EDE8DF;font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between;gap:12px;z-index:2;}
+.hero__media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.35) 100%);}
+
+/* самое читаемое */
+.mostread{border-bottom:1px solid var(--rule);background:var(--paper-2);}
+.mostread__inner{max-width:var(--maxw);margin:0 auto;padding:26px var(--gutter) 30px;display:grid;grid-template-columns:180px 1fr;gap:40px;align-items:start;}
+.mostread__label{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px;padding-top:4px;}
+.mostread__label::before{content:"";width:22px;height:1px;background:var(--accent);}
+.mostread__list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);}
+.mostread__list li{padding:0 22px;border-left:1px solid var(--rule);display:flex;gap:14px;align-items:baseline;}
+.mostread__list li:first-child{border-left:0;padding-left:0;}
+.mostread__num{font-family:var(--serif-display);font-weight:400;font-size:34px;line-height:1;color:var(--rule);letter-spacing:-.03em;}
+.mostread__list a{font-family:var(--serif-body);font-size:15px;line-height:1.35;font-weight:600;color:var(--ink);}
+.mostread__list a:hover{color:var(--accent);}
+
+/* «Коротко: 7 строк дня» */
+.brief{border-bottom:1px solid var(--rule);background:var(--paper);}
+.brief__inner{max-width:var(--maxw);margin:0 auto;padding:22px var(--gutter) 24px;}
+.brief__label{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.brief__label::before{content:"";width:22px;height:1px;background:var(--accent);}
+.brief-row{display:grid;grid-template-columns:86px 200px 1fr;gap:16px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule);}
+.brief-row:first-of-type{border-top:0;}
+.brief-t{font-family:var(--sans);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.brief-k{font-family:var(--sans);font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.brief-row a{font-family:var(--serif-body);font-size:15.5px;line-height:1.35;font-weight:600;color:var(--ink);}
+.brief-row a:hover{color:var(--accent);}
+
+/* карточки */
+.grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(4,1fr);gap:36px 28px;}
+.card{display:flex;flex-direction:column;background:none;border:none;border-radius:0;box-shadow:none;}
+.card__media{aspect-ratio:3/2;margin-bottom:14px;position:relative;overflow:hidden;}
+.card__media--a{background:linear-gradient(140deg,#D9CFC0 0%,#A89A85 100%);}
+.card__media--b{background:linear-gradient(140deg,#B8C2C1 0%,#5F6E6D 100%);}
+.card__media--c{background:linear-gradient(140deg,#E5C9B6 0%,#B4795A 100%);}
+.card__media--d{background:linear-gradient(140deg,#C9C2D1 0%,#6D6079 100%);}
+.card__kicker{margin-bottom:10px;}
+.card__title{font-family:var(--serif-display);font-weight:600;font-size:20px;line-height:1.15;letter-spacing:-.015em;margin:0 0 10px;color:var(--ink);}
+.card__title a{color:var(--ink);}
+.card__title a:hover{color:var(--accent);}
+.card__dek{font-family:var(--serif-body);font-size:15px;line-height:1.5;color:var(--muted);margin:0 0 12px;}
+.card__meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:auto;}
+.card__badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:3px 8px;border-radius:999px;white-space:nowrap;display:inline-block;}
+.chip--cluster{color:var(--ink-2);background:var(--paper-2);border:1px solid var(--rule);}
+
+/* лента: чипы-рубрики + «Показать ещё» (#19/#20) */
+.feed-chips{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter) 0;display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:52px;z-index:20;background:var(--paper);}
+.chip-f{font:600 12px var(--sans);color:var(--muted);background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer;line-height:1.45;}
+.chip-f:hover{color:var(--ink);border-color:var(--ink);}
+.chip-f.on{color:#fff;background:var(--accent);border-color:var(--accent);}
+.chip-f:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.chip-f-divider{width:1px;height:18px;margin:0 6px;align-self:center;background:var(--rule);}
+.feed-more{display:none;font:600 13px var(--sans);padding:8px 18px;border:1px solid var(--ink);border-radius:999px;background:var(--paper);cursor:pointer;}
+.feed-more:hover{background:var(--ink);color:var(--paper);}
+.feed-bar{max-width:var(--maxw);margin:14px auto 0;padding:0 var(--gutter);display:flex;align-items:center;gap:18px;font:12px var(--sans);color:var(--muted);}
+.feed-bar a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+.feed-empty{max-width:var(--maxw);margin:12px auto 0;padding:0 var(--gutter);font:13px var(--sans);color:var(--muted);}
+.feed-empty a{color:var(--accent);}
+.hidden{display:none!important;}
+.ab-link{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:999px;background:none;padding:4px 12px;cursor:pointer;}
+.ab-link:hover{color:var(--accent);border-color:var(--accent);}
+body[data-ab="v2"] .hero__inner{grid-template-columns:1fr 1.05fr;}
+body[data-ab="v2"] .feature__inner{grid-template-columns:1.05fr 1fr;}
+
+/* фича-полоса (тёмная) */
+.feature{margin-top:72px;background:var(--ink);color:var(--paper);}
+.feature__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 1.05fr;align-items:stretch;}
+.feature__text{padding:64px 56px 64px 0;display:flex;flex-direction:column;justify-content:center;}
+.feature__kicker{color:var(--accent);font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px;}
+.feature__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(32px,3.6vw,50px);line-height:1.05;letter-spacing:-.025em;margin:0 0 22px;color:var(--paper);text-wrap:balance;}
+.feature__title em{font-style:italic;font-weight:400;}
+.feature__dek{font-family:var(--serif-body);font-size:17px;line-height:1.55;color:var(--on-ink);margin:0 0 24px;max-width:52ch;}
+:root[data-theme="dark"] .feature__dek{color:#8B8578;}
+.feature__byline{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-ink);}
+:root[data-theme="dark"] .feature__byline{color:#8B8578;}
+.feature__byline strong{color:var(--paper);font-weight:600;}
+:root[data-theme="dark"] .feature__byline strong{color:var(--ink);}
+.feature__media{position:relative;min-height:480px;background:radial-gradient(120% 100% at 70% 30%,#6D4F3C 0%,#3A2A22 55%,#1A1310 100%);}
+.feature__media figcaption{position:absolute;bottom:18px;right:18px;font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#E9E4DA;}
+
+/* мнения */
+.opinion__grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}
+.op{border-top:1px solid var(--ink);padding-top:20px;display:flex;flex-direction:column;gap:14px;}
+.op__quote{font-family:var(--serif-display);font-style:italic;font-weight:400;font-size:21px;line-height:1.25;letter-spacing:-.015em;color:var(--ink);margin:0;}
+.op__quote a{color:var(--ink);}
+.op__quote a:hover{color:var(--accent);}
+.op__author{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:8px;}
+.op__avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;color:var(--paper);flex:0 0 40px;background:var(--ink-2);}
+.op__name{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);}
+.op__role{font-family:var(--sans);font-size:12px;color:var(--muted);}
+
+/* периодичности (вместо подписки) */
+.newsletter{margin-top:80px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--paper-2);}
+.newsletter__inner{max-width:760px;margin:0 auto;padding:56px var(--gutter) 60px;text-align:center;}
+.newsletter__kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.newsletter__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(28px,3vw,40px);line-height:1.08;letter-spacing:-.02em;margin:0 0 14px;color:var(--ink);text-wrap:balance;}
+.newsletter__title em{font-style:italic;font-weight:400;}
+.newsletter__dek{font-family:var(--serif-body);font-size:17px;color:var(--muted);margin:0 0 26px;}
+.period-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.period-links a{border:1px solid var(--ink);padding:12px 22px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);}
+.period-links a:hover{background:var(--ink);color:var(--paper);}
+.newsletter__fine{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:14px;}
+
+/* ленты и прочие старые компоненты в новой оптике */
+.main-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:start;}
+.hero-grid{display:grid;grid-template-columns:1.65fr 1fr;gap:0 44px;margin-top:10px;align-items:start;}
+.hero-main,.hero-side{border-top:3px solid var(--ink);padding-top:14px;}
+.hero-card .rank{font-family:var(--serif-display);font-weight:700;font-size:30px;line-height:1;color:var(--accent);}
+.hero-main .rank{font-size:54px;line-height:.85;}
+.hero-rank-line{display:flex;align-items:baseline;gap:12px;margin-bottom:7px;}
+.hero-card .hk{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.hero-main .hk{margin:10px 0 6px;}
+.hero-card h3{font-family:var(--serif-display);font-weight:600;font-size:18.5px;line-height:1.24;margin:0 0 6px;}
+.hero-card h3 a{color:var(--ink);}
+.hero-card h3 a:hover{color:var(--accent);}
+.hero-main h3{font-size:27px;line-height:1.16;letter-spacing:-.01em;margin:0 0 10px;}
+.hero-card p{font-family:var(--serif-body);font-size:13.5px;line-height:1.45;color:var(--ink-2);margin:0 0 7px;}
+.hero-main p{font-size:15.5px;line-height:1.5;margin-bottom:10px;}
+.hero-meta{font-family:var(--sans);font-size:11px;color:var(--muted);}
+.hero-meta a{color:var(--accent);}
+.hero-side{display:flex;flex-direction:column;gap:22px;}
+.hero-side .hero-card+.hero-card{border-top:1px solid var(--rule);padding-top:18px;}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:26px;}}
+.cat-block{border-top:2px solid var(--ink);margin:0 0 30px;padding-top:10px;break-inside:avoid;}
+.cat-head{display:flex;align-items:baseline;gap:12px;padding:0 0 4px;}
+.cat-head h3{font-family:var(--serif-display);font-weight:600;font-size:20px;color:var(--ink);margin:0;}
+.cat-head .count{margin-left:auto;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.feed-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;align-items:start;margin-top:6px;}
+.feed-cols>div{min-width:0;}
+.fi{padding:13px 0;border-bottom:1px solid var(--rule);}
+.fi:last-child{border-bottom:none;}
+.fi h4{font-family:var(--serif-body);font-weight:600;font-size:15.5px;line-height:1.32;margin:0;}
+.fi h4 a{color:var(--ink);}
+.fi h4 a:hover{color:var(--accent);}
+.fi .dek{font-family:var(--serif-body);font-size:13.5px;color:var(--ink-2);line-height:1.45;margin:4px 0 0;}
+.fi .meta{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:5px;}
+.fi .meta time{font-weight:700;color:var(--ink-2);}
+.fi .also{font-family:var(--serif-body);font-size:12px;font-style:italic;color:var(--muted);margin-top:3px;}
+.fi .topics{font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+.fi-lead{padding-top:8px;}
+.fi-lead h4{font-family:var(--serif-display);font-size:19px;line-height:1.22;}
+.fi-lead .dek{font-size:14.5px;}
+.fi.with-photo{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:0 14px;}
+.fi.with-photo .fi-body{min-width:0;}
+.fi-thumb{width:104px;height:70px;overflow:hidden;align-self:start;margin-top:2px;}
+.cat-more{font-family:var(--sans);font-size:11px;color:var(--muted);padding:8px 0 2px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;align-items:start;}
+.grid2>*{min-width:0;}
+@media (max-width:1000px){.feed-cols,.grid2{grid-template-columns:1fr;gap:0;}}
+.news-item{padding:14px 0;border-bottom:1px solid var(--rule);}
+.news-item:last-child{border-bottom:none;}
+.news-item h4{font-family:var(--serif-display);font-weight:600;font-size:18px;line-height:1.25;margin-bottom:6px;color:var(--ink);}
+.news-item h4 a{color:var(--ink);}
+.news-item h4 a:hover{color:var(--accent);}
+.news-item p{font-family:var(--serif-body);font-size:15px;color:var(--ink-2);line-height:1.5;}
+.news-item .meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:6px;}
+.news-item .meta .tg{color:var(--muted);}
+.tchip{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;margin:6px 4px 0 0;}
+.cl-card{border-top:1px solid var(--rule);padding:10px 0;}
+.cl-card:first-child{border-top:none;padding-top:2px;}
+.cl-head{display:flex;align-items:baseline;gap:4px;flex-wrap:wrap;}
+.cl-name{font-family:var(--serif-display);font-weight:600;font-size:16px;color:var(--ink);}
+.cl-card.gap .cl-name{color:var(--accent);}
+.cl-samples{font-family:var(--serif-body);font-size:13px;color:var(--ink-2);margin-top:5px;line-height:1.5;}
+.cl-samples a{color:var(--ink);}
+.cl-samples a:hover{color:var(--accent);}
+.cl-badge{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--rule);padding:2px 8px;margin-left:6px;background:none;}
+.cl-badge.cl-warn{color:var(--accent);border-color:var(--accent);}
+.stchip{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;background:none;white-space:nowrap;}
+.stchip.st-rise{color:var(--accent);border-color:var(--accent);}
+.stchip.st-new{color:var(--ink);border-color:var(--ink);}
+.side-head{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:none;border-bottom:1px solid var(--ink);padding:0 0 8px;}
+.side-head .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
+.side-body{padding:12px 0;}
+.tbl{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;}
+.tbl th{background:none;color:var(--muted);text-align:left;padding:7px 10px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ink);}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2);}
+.tbl tr:nth-child(even) td{background:transparent;}
+.note{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6;border-left:2px solid var(--accent);padding-left:12px;}
+.verdict{border-left:3px solid var(--accent);padding:10px 14px;font-family:var(--serif-body);font-size:15px;color:var(--ink-2);margin-top:12px;background:var(--paper-2);}
+.verdict b{color:var(--accent);text-transform:uppercase;font-family:var(--sans);font-size:11px;letter-spacing:.12em;display:block;margin-bottom:4px;}
+.bar-row .bt,.bar-wrap{background:var(--paper-2);}
+.bar-fill{background:var(--ink-2);}
+.bar-fill.hot{background:var(--accent);}
+.bar-fill.cool{background:#4F5F53;}
+.bar-fill.gold{background:#B4795A;}
+.bar-fill.violet{background:#6D6079;}
+.topic-row{display:grid;grid-template-columns:200px 1fr 120px 96px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:13px;}
+.topic-row:last-child{border-bottom:none;}
+.topic-name{font-weight:600;color:var(--ink);}
+.topic-name small{display:block;font-weight:400;color:var(--muted);font-size:11px;}
+.kpi{background:none;border:none;border-top:1px solid var(--ink);border-radius:0;padding:12px 14px 12px 0;}
+.kpi .num{font-family:var(--serif-display);font-weight:600;font-size:26px;color:var(--ink);line-height:1.05;}
+.kpi .num small{font-size:11px;font-weight:600;color:var(--muted);}
+.kpi .lbl{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:4px;}
+.kpi.gold,.kpi.red,.kpi.green,.kpi.violet{border-top-color:var(--ink);}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0 28px;}
+.cal-badge{flex-shrink:0;width:46px;height:44px;border:1px solid var(--ink);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;background:none;}
+.cal-badge b{font-family:var(--serif-display);font-size:17px;font-weight:600;}
+.cal-badge span{font-family:var(--sans);font-size:8.5px;text-transform:uppercase;color:var(--muted);margin-top:2px;letter-spacing:.08em;}
+.cal-badge.gold{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.cal-badge.gold span{color:var(--on-ink);}
+:root[data-theme="dark"] .cal-badge.gold{background:var(--ink);color:var(--paper);}
+.af-mini{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule);align-items:flex-start;}
+.af-mini:last-child{border-bottom:none;}
+.af-mini a{font-family:var(--serif-body);font-size:14.5px;font-weight:600;color:var(--ink);}
+.af-mini a:hover{color:var(--accent);}
+.af-daybar,.af-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.af-chip{border:1px solid var(--rule);background:none;color:var(--muted);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;cursor:pointer;}
+.af-chip.on{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.sec-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}
+.sec-card{background:none;border:none;border-top:1px solid var(--ink);border-radius:0;padding:18px 0 0;display:flex;flex-direction:column;}
+.sec-card .ic{display:none;}
+.sec-card b{font-family:var(--serif-display);font-weight:600;font-size:19px;color:var(--ink);}
+.sec-card .fig{font-family:var(--serif-display);font-size:22px;font-weight:600;color:var(--accent);margin-top:4px;}
+.sec-card .fig small{font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+.sec-card p{font-family:var(--serif-body);font-size:14.5px;color:var(--muted);line-height:1.5;margin-top:8px;flex:1;}
+.sec-card .go{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--accent);margin-top:10px;}
+.arch-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:center;}
+.arch-item:last-child{border-bottom:none;}
+.arch-date{width:48px;height:46px;border:1px solid var(--ink);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;background:none;}
+.arch-date b{font-family:var(--serif-display);font-size:17px;font-weight:600;}
+.arch-date span{font-family:var(--sans);font-size:8.5px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.08em;}
+.btn{display:inline-block;border:1px solid var(--ink);color:var(--ink);background:none;font-family:var(--sans);font-size:12.5px;font-weight:600;padding:8px 16px;}
+.btn:hover{background:var(--ink);color:var(--paper);}
+.btn.gold{background:var(--ink);color:var(--paper);}
+.btn.gold:hover{background:var(--accent);border-color:var(--accent);}
+.util-bar-wrap{max-width:var(--maxw);margin:0 auto;padding:20px var(--gutter) 0;}
+.util-bar{display:flex;gap:24px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:14px;}
+.util-bar a{font-family:var(--sans);font-size:12.5px;font-weight:500;color:var(--muted);}
+.util-bar a:hover{color:var(--accent);}
+.util-lbl{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.fbtn{border:1px solid var(--rule);background:none;color:var(--muted);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;cursor:pointer;}
+.fbtn.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.alert-banner{background:var(--accent);color:#fff;padding:12px var(--gutter);font-family:var(--sans);font-size:14px;font-weight:600;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.alert-banner a{color:#fff;text-decoration:underline;}
+.alert-banner .blink{animation:none;}
+.ticker-wrap{background:var(--paper-2);color:var(--ink-2);border-bottom:1px solid var(--rule);overflow:hidden;position:relative;height:34px;}
+.ticker-label{position:absolute;left:0;top:0;bottom:0;z-index:2;background:var(--accent);color:#fff;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;display:flex;align-items:center;padding:0 14px;text-transform:uppercase;}
+.ticker{display:flex;white-space:nowrap;animation:none;padding-left:130px;align-items:center;height:100%;font-family:var(--serif-body);font-size:14px;}
+.ticker span{padding-right:56px;}
+.ticker span b{color:var(--accent);}
+.tone-bar{height:12px;background:linear-gradient(90deg,#B04848,#E3DED4 50%,#4F5F53);position:relative;}
+.tone-pin{position:absolute;top:-4px;width:3px;height:20px;background:var(--ink);}
+.tone-cat{font-family:var(--sans);font-size:11px;font-weight:600;border:1px solid var(--rule);padding:3px 9px;color:var(--ink-2);}
+.fc-tbl{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;margin-top:10px;}
+.fc-tbl th{text-align:left;padding:6px 10px;color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--ink);}
+.fc-tbl td{padding:7px 10px;border-bottom:1px solid var(--rule);}
+.fc-up{color:var(--accent);font-weight:700;} .fc-down{color:#4F5F53;font-weight:700;} .fc-flat{color:var(--muted);font-weight:700;}
+.drone{width:24px;height:24px;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:12px;}
+.hl{background:linear-gradient(transparent 62%,#E5C9B6 62%);}
+:root[data-theme="dark"] .hl{background:linear-gradient(transparent 62%,#6D4F3C 62%);}
+.wk-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;margin-top:16px;}
+.wk-rail{display:flex;flex-direction:column;gap:20px;}
+.wk-box{border-top:1px solid var(--ink);padding:12px 0;background:none;border-left:none;border-right:none;border-bottom:none;border-radius:0;}
+.wk-box h4{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;}
+.wk-passport{border-top:1px solid var(--ink);border-left:none;background:none;padding:14px 0;margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;align-items:baseline;border-radius:0;}
+.wk-passport b{font-family:var(--serif-display);font-size:20px;font-weight:600;color:var(--ink);}
+.wk-stamp{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 10px;background:var(--paper-2);color:#4F5F53;border:1px solid var(--rule);}
+.wk-stamp.wip{background:none;color:var(--accent);border-color:var(--accent);}
+.now-panel{border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);padding:18px 0;}
+.now-alert{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);padding:6px 0;}
+.now-alert.calm{color:#4F5F53;}
+.now-alert.danger{color:var(--accent);}
+.now-grid{display:grid;grid-template-columns:1.25fr 1fr .9fr;gap:32px;}
+.now-col{border-left:1px solid var(--rule);padding-left:24px;}
+.now-col:first-child{border-left:none;padding-left:0;}
+.now-h{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.tl-row{display:flex;gap:12px;padding:7px 0;border-bottom:1px solid var(--rule);align-items:baseline;}
+.tl-row:last-child{border-bottom:none;}
+.tl-time{flex-shrink:0;font-family:var(--sans);font-weight:700;font-size:11.5px;color:var(--accent);width:46px;}
+.tl-txt{font-family:var(--serif-body);font-size:14.5px;line-height:1.45;color:var(--ink-2);}
+.tl-txt a{color:var(--ink);}
+.tl-txt a:hover{color:var(--accent);}
+.tl-src{font-family:var(--sans);color:var(--muted);font-size:11px;}
+.now-line{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);margin-top:4px;line-height:1.5;}
+.now-line b{color:var(--ink);}
+/* v4: алерт-полоса безопасности */
+.alertstrip{background:#5d0f13;color:#fff;}
+.alertstrip__inner{max-width:var(--maxw);margin:0 auto;padding:9px var(--gutter);display:flex;flex-direction:column;gap:5px;}
+body[data-theme="dark"] .alertstrip{background:#7d171d;}
+.alert-row{display:flex;gap:9px;align-items:center;font-family:var(--serif-body);font-size:14.5px;line-height:1.4;}
+.alert-row a{color:#fff;font-weight:600;text-decoration:none;}
+.alert-row a:hover{text-decoration:underline;}
+.alert-dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#ff6b6b;box-shadow:0 0 0 0 rgba(255,107,107,.7);animation:alertpulse 1.6s infinite;}
+@keyframes alertpulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,.6);}70%{box-shadow:0 0 0 7px rgba(255,107,107,0);}100%{box-shadow:0 0 0 0 rgba(255,107,107,0);}}
+.alert-time{margin-left:auto;flex-shrink:0;font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.85);font-weight:700;}
+.now-num{font-family:var(--serif-display);font-size:26px;font-weight:600;color:var(--ink);line-height:1.1;}
+.now-num small{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);}
+.lead-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;}
+.lead-main{border-top:1px solid var(--ink);padding-top:14px;}
+.lead-main h2{font-family:var(--serif-display);font-weight:600;font-size:30px;line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin-bottom:10px;}
+.lead-main h2 a{color:var(--ink);}
+.lead-main h2 a:hover{color:var(--accent);}
+.lead-main p{font-family:var(--serif-body);font-size:17px;color:var(--ink-2);line-height:1.5;}
+.lead-side{display:flex;flex-direction:column;gap:20px;}
+.lead-card{border-top:1px solid var(--rule);padding-top:12px;}
+.lead-card h3{font-family:var(--serif-display);font-weight:600;font-size:19px;line-height:1.2;color:var(--ink);}
+.lead-card h3 a{color:var(--ink);}
+.lead-card h3 a:hover{color:var(--accent);}
+.lead-card p{font-family:var(--serif-body);font-size:14.5px;color:var(--muted);line-height:1.5;}
+.lead-kicker{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.lead-meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:8px;}
+.lead-meta a{color:var(--muted);}
+.more-heads{columns:2;column-gap:36px;margin-top:8px;}
+.more-heads a{display:block;font-family:var(--serif-display);font-weight:600;font-size:16px;line-height:1.3;color:var(--ink);padding:7px 0;border-bottom:1px solid var(--rule);break-inside:avoid;}
+.more-heads a:hover{color:var(--accent);}
+.more-heads a span{font-family:var(--sans);color:var(--muted);font-weight:400;font-size:11.5px;display:block;}
+
+/* подвал — единый, см. footer.FOOTER_CSS */
+.footer h3{color:var(--paper);}
+
+/* печать */
+.pm-mast{text-align:center;border-bottom:3px double var(--ink);padding-bottom:4mm;}
+.pm-title{font-family:var(--rubleny);font-weight:900;text-transform:uppercase;letter-spacing:.08em;font-size:40pt;line-height:1;margin:0;color:var(--ink);}
+.pm-line{font-family:var(--sans);font-size:8.5pt;letter-spacing:1.2px;text-transform:uppercase;margin-top:2.5mm;color:var(--muted);}
+.pm-line b{color:var(--ink);}
+.pm-kicker{font-family:var(--sans);font-size:8pt;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700;margin:3mm 0 1.5mm;}
+.pm-lead-h{font-family:var(--serif-display);font-weight:600;font-size:20pt;line-height:1.15;margin:0 0 2.5mm;color:var(--ink);}
+.pm-deck{font-family:var(--serif-body);font-size:10.5pt;font-style:italic;color:var(--ink-2);line-height:1.45;margin:0 0 3mm;}
+.cols{column-count:3;column-gap:6mm;column-rule:.5pt solid var(--rule);}
+.cols p{font-family:var(--serif-body);font-size:9.3pt;line-height:1.42;margin:0 0 2.2mm;text-align:justify;hyphens:auto;}
+.pm-h3{font-family:var(--sans);font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;border-top:1.2pt solid var(--ink);padding-top:1.4mm;margin:3mm 0 1.8mm;break-after:avoid;}
+.pm-item{margin-bottom:2.4mm;break-inside:avoid;}
+.pm-item b{font-family:var(--serif-display);font-size:9.6pt;line-height:1.25;display:block;}
+.pm-item span{font-family:var(--serif-body);font-size:8.6pt;color:var(--muted);line-height:1.35;display:block;}
+.pm-item i{font-family:var(--sans);font-size:7.6pt;color:var(--muted);font-style:normal;}
+.pm-box{border:1pt solid var(--ink);padding:3mm;margin:3mm 0;break-inside:avoid;}
+.pm-box h4{font-family:var(--sans);font-size:9pt;text-transform:uppercase;letter-spacing:1.4px;margin:0 0 2mm;border-bottom:.8pt solid var(--ink);padding-bottom:1.2mm;}
+.pm-box ul{list-style:none;margin:0;padding:0;}
+.pm-box li{font-family:var(--serif-body);font-size:8.8pt;line-height:1.4;margin-bottom:1.4mm;}
+.pm-box li b{color:var(--accent);}
+.pm-stats{display:flex;gap:4mm;justify-content:space-between;margin:3mm 0;break-inside:avoid;}
+.pm-stat{flex:1;text-align:center;border:.8pt solid var(--ink);padding:2mm 1mm;}
+.pm-stat b{display:block;font-family:var(--serif-display);font-size:15pt;font-weight:600;}
+.pm-stat span{font-family:var(--sans);font-size:7.4pt;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);}
+.pm-colophon{border-top:3px double var(--ink);margin-top:4mm;padding-top:2mm;font-family:var(--sans);font-size:7.6pt;color:var(--muted);line-height:1.5;display:flex;justify-content:space-between;gap:6mm;}
+.pm-page{position:absolute;bottom:4mm;right:13mm;font-family:var(--sans);font-size:8pt;color:var(--muted);}
+.pm-ed{font-family:var(--serif-body);font-size:9.3pt;line-height:1.5;text-align:justify;}
+.pm-ed p{margin:0 0 2.2mm;}
+@media (max-width:1100px){
+  .hero__inner,.lead-grid,.feature__inner,.wk-grid,.main-grid{grid-template-columns:1fr;}
+  .hero__media{aspect-ratio:16/9;}
+  .brief-row{grid-template-columns:1fr;row-gap:3px;}
+  .brief-t,.brief-k{grid-column:1;}
+  .brief-k{white-space:normal;}
+  .mostread__inner{grid-template-columns:1fr;gap:18px;}
+  .mostread__list{grid-template-columns:repeat(2,1fr);row-gap:18px;}
+  .mostread__list li{padding-left:16px;}
+  .mostread__list li:nth-child(odd){border-left:0;padding-left:0;}
+  .grid{grid-template-columns:repeat(2,1fr);}
+  .feature__text{padding:48px 0;}
+  .feature__media{min-height:360px;}
+  .opinion__grid{grid-template-columns:1fr 1fr;}
+  .now-grid{grid-template-columns:1fr;}
+  .now-col{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:12px;}
+  .kpi-grid{grid-template-columns:repeat(3,1fr);}
+  .sec-grid{grid-template-columns:repeat(2,1fr);}
+  .more-heads{columns:1;}
+  .topic-row{grid-template-columns:140px 1fr 90px;}
+  .topic-row .sparkcell{display:none;}
+}
+@media (max-width:720px){
+  :root{--gutter:20px;}
+  body{font-size:16px;}
+  .masthead__inner{grid-template-columns:1fr;text-align:center;gap:8px;}
+  .grid,.sec-grid,.opinion__grid{grid-template-columns:1fr;}
+  .mostread__list{grid-template-columns:1fr;}
+  .mostread__list li{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:14px;}
+  .mostread__list li:first-child{border-top:0;padding-top:0;}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:6px;}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+}
+.mast-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;max-width:var(--maxw);margin:0 auto;padding:26px var(--gutter) 20px;}
+.mast-side{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.7;}
+.mast-side--right{text-align:right;}
+.mast-actions{display:flex;gap:14px;justify-content:flex-end;align-items:center;margin-top:10px;}
+.mast-actions a{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule);}
+.mast-actions a:hover{color:var(--accent);border-color:var(--accent);}
+.now-panel-wrap{border-bottom:1px solid var(--rule);}
+@media (max-width:900px){.mast-inner{grid-template-columns:1fr;text-align:center;gap:10px;}.mast-side,.mast-side--right{text-align:center;}.mast-actions{justify-content:center;}}
+@media print{
+  .nav,.ticker-wrap,.filters,.print-btn,.theme-btn,.nav-toggle,.util-bar-wrap{display:none!important;}
+  body{background:#fff;}
+}
+/* подвал — единый */
+.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
+.footer h3{color:var(--paper);}
+.footer h3{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
+.footer a{color:var(--on-ink);}
+.footer a:hover{color:var(--accent);}
+.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
+.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
+.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
+.footer li{margin:4px 0;}
+.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
+.footer__brand span{color:var(--accent);}
+.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+:root[data-theme="dark"] .footer__bottom{border-top-color:rgba(11,11,11,.2);}
+@media (max-width:1100px){.footer__inner{grid-template-columns:1fr 1fr;gap:26px;}}
+@media (max-width:720px){.footer__inner{grid-template-columns:1fr;gap:22px;}.footer__bottom{flex-direction:column;}}
+
+/* ---- «Досье»: панель фильтров, карточки персон, тон, справка, доказательность ---- */
+.panel{border:1px solid var(--rule);background:var(--paper-2);padding:14px 16px;margin-top:18px;}
+.panel-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.panel-row+.panel-row{margin-top:10px;}
+.plbl{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:var(--muted);margin-right:6px;align-self:center;}
+.dsearch{flex:1;min-width:240px;display:flex;align-items:center;gap:8px;border:1px solid var(--ink);
+background:var(--paper);padding:8px 12px;}
+.dsearch input{border:none;outline:none;background:none;font-family:var(--sans);font-size:13.5px;
+color:var(--ink);width:100%;}
+.dsearch input::placeholder{color:var(--muted);}
+.dsearch .ic{color:var(--muted);font-size:14px;}
+.dcount{margin-left:auto;font-family:var(--sans);font-size:12px;color:var(--muted);}
+.dcount b{color:var(--ink);}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:22px;}
+.dcard{border-top:1px solid var(--ink);padding:16px 0 20px;break-inside:avoid;}
+.dsum{list-style:none;cursor:pointer;}
+.dsum::-webkit-details-marker{display:none;}
+.dsum:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.dcard-head{display:flex;gap:16px;align-items:flex-start;}
+.davatar{flex:0 0 56px;width:56px;height:56px;border:1px solid var(--ink);display:flex;align-items:center;
+justify-content:center;font-family:var(--rubleny);font-size:20px;letter-spacing:.02em;color:var(--paper);
+background:var(--ink);}
+.dcard.focus .davatar{background:var(--accent);border-color:var(--accent);color:#fff;}
+.dtitle{flex:1;min-width:0;}
+.dname{font-family:var(--serif-display);font-weight:600;font-size:20px;line-height:1.2;color:var(--ink);}
+.drole{font-family:var(--sans);font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45;}
+.dorg{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:2px;}
+.dchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.dchip{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;
+text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;white-space:nowrap;}
+.dchip.geo{color:var(--ink-2);border-color:var(--ink-2);}
+.dstamp{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+padding:3px 9px;white-space:nowrap;border:1px solid var(--rule);color:var(--muted);background:var(--paper-2);}
+.dstamp.hot{color:#fff;background:var(--accent);border-color:var(--accent);}
+.dstamp.new{color:var(--ink);border-color:var(--ink);background:none;}
+.dtoggle{margin-left:auto;flex-shrink:0;font-family:var(--sans);font-size:11px;font-weight:600;
+color:var(--muted);border-bottom:1px solid var(--rule);padding-top:4px;}
+.dsum:hover .dtoggle{color:var(--accent);border-color:var(--accent);}
+.dstats{display:grid;grid-template-columns:repeat(4,auto);gap:0 22px;justify-content:start;margin-top:12px;
+padding-top:10px;border-top:1px solid var(--rule);}
+.dst .n{font-family:var(--serif-display);font-weight:600;font-size:19px;color:var(--ink);line-height:1.1;}
+.dst .l{font-family:var(--sans);font-size:10.5px;color:var(--muted);text-transform:uppercase;
+letter-spacing:.08em;margin-top:2px;}
+.tonebar{grid-column:1/-1;display:flex;height:10px;border:1px solid var(--rule);margin-top:6px;
+max-width:340px;background:var(--paper);}
+.tonebar i{display:block;height:100%;}
+.tonebar .tp{background:var(--pos);}
+.tonebar .tn{background:var(--neu);}
+.tonebar .tg{background:var(--neg);}
+.tonelegend{grid-column:1/-1;font-family:var(--sans);font-size:10.5px;color:var(--muted);margin-top:4px;}
+.tonelegend b{font-weight:700;}
+.tonelegend .cp{color:var(--pos);}
+.tonelegend .cg{color:var(--neg);}
+.ddet{margin-top:14px;border-top:1px solid var(--rule);}
+.ddet h4{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:var(--muted);margin:14px 0 6px;}
+.fact{display:grid;grid-template-columns:130px 1fr;gap:10px;font-family:var(--sans);font-size:12.5px;
+padding:5px 0;border-bottom:1px dashed var(--rule);color:var(--ink-2);}
+.fact b{color:var(--muted);font-weight:600;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+padding-top:2px;}
+.story{padding:8px 0;border-bottom:1px solid var(--rule);}
+.story:last-child{border-bottom:none;}
+.story b{font-family:var(--serif-body);font-size:14.5px;color:var(--ink);font-weight:600;}
+.story span{display:block;font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:2px;}
+.story .arc{font-family:var(--sans);font-size:11px;color:var(--ink-2);}
+.quote{font-family:var(--serif-display);font-style:italic;font-size:15px;line-height:1.4;color:var(--ink);
+border-left:2px solid var(--rule);padding:4px 0 4px 12px;margin:8px 0;}
+.quote span{display:block;font-family:var(--sans);font-style:normal;font-size:11px;color:var(--muted);
+margin-top:4px;}
+.srcs{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.src{font-family:var(--sans);font-size:10.5px;font-weight:600;border:1px solid var(--rule);padding:2px 8px;
+color:var(--ink-2);}
+.src b{color:var(--accent);font-weight:700;}
+.dfoot{display:flex;gap:14px;flex-wrap:wrap;align-items:baseline;margin-top:14px;padding-top:10px;
+border-top:1px solid var(--ink);}
+.dfoot .upd{font-family:var(--sans);font-size:11px;color:var(--muted);}
+.dfoot a.go{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--accent);}
+.verify{font-family:var(--sans);font-size:11.5px;color:var(--ink-2);background:var(--paper-2);
+border:1px solid var(--rule);padding:6px 10px;margin-top:10px;}
+.verify b{color:var(--pos);}
+.verify.warn b{color:var(--accent);}
+.demo-mark{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:3px 9px;}
+@media (max-width:1100px){.dgrid{grid-template-columns:1fr;}}
+@media (max-width:720px){.fact{grid-template-columns:1fr;gap:2px;}.dstats{grid-template-columns:repeat(2,auto);}}
+@media print{
+  .panel{display:none!important;}
+  .dcard .ddet{display:block!important;}
+}
+</style><script>
+(function(){try{var t=localStorage.getItem("gudok-theme");
+if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
+document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
+</script></head><body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 15:49</span></div><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Проекты издания<br>досье действующих лиц инфополя
+<div class="mast-actions"><span class="demo-mark">прототип · данные демонстрационные</span><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div></div>
+</div></header>
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="" href="../weekly.html">Неделя</a><a class="" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="active" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-16.html">Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">Проекты:</span><a href="../infospace.html">Инфопространство</a><a href="../projects/elections_2026.html">Выборы-2026</a><a href="../projects/goszakupki.html">Госзакупки</a><a href="../methods.html">Методы</a><a href="../projects/plans.html">Планы</a><span class="cur">Досье</span></div></div><main id="main">
+<main id="main">
+<div class="wrap1200" style="padding-top:20px;">
+
+<div class="sec-head" style="margin-top:0;"><h2>Досье: действующие лица инфополя</h2><div class="line"></div>
+<div class="badge">прототип · данные демонстрационные · карточек: 12 · версия 0.1</div></div>
+<div class="note" style="margin-bottom:6px;">Досье — карточка персонажа повестки, собранная <b>автоматически из базы материалов</b> и проверенная редактором: кто это, как часто упоминается, в каком тоне, в каких сюжетах участвует и кто об этом пишет. Карточка не мнение редакции, а срез инфополя: каждая цифра разворачивается в список материалов-оснований (режим «доказательство», <a href="../methods.html#m18" style="color:var(--accent);">М-18</a>).</div>
+<div class="note" style="border-left-color:var(--rule);"><b>Это прототип.</b> Все персонажи, биографии, цитаты и цифры ниже — демонстрационные и не относятся к реальным лицам. Состав полей и метрики соответствуют методикам реестра: М-05 (тон), М-07 (NER), М-11 (каскады), М-13 (дуги сюжетов), М-15 (проверка), М-22 (голоса). Порядок сборки карточки — в разделе <a href="#how" style="color:var(--accent);">«Как собирается досье»</a>.</div>
+
+<div class="kpi-grid" style="margin-top:22px;"><div class="kpi"><div class="num">12</div><div class="lbl">персон в досье</div></div><div class="kpi"><div class="num">3</div><div class="lbl">сейчас в фокусе</div></div><div class="kpi"><div class="num">968</div><div class="lbl">упоминаний за 30 дней</div></div><div class="kpi"><div class="num">8</div><div class="lbl">сюжетов с участием</div></div><div class="kpi"><div class="num">24</div><div class="lbl">источника в наблюдении</div></div><div class="kpi"><div class="num">100%</div><div class="lbl">фактов с ссылкой на материал</div></div></div>
+
+<div class="panel">
+<div class="panel-row"><label class="dsearch"><span class="ic">⌕</span>
+<input type="search" id="dq" placeholder="Поиск: фамилия, должность, организация, город…" aria-label="Поиск по досье"></label></div>
+<div class="panel-row"><span class="plbl">Роль:</span>
+<div class="filters" id="fRole" role="group" aria-label="Фильтр по роли"><button type="button" class="fbtn active" data-r="all">все</button><button type="button" class="fbtn" data-r="official">чиновники (3)</button><button type="button" class="fbtn" data-r="deputy">депутаты (2)</button><button type="button" class="fbtn" data-r="municipal">главы городов и районов (2)</button><button type="button" class="fbtn" data-r="business">бизнес (1)</button><button type="button" class="fbtn" data-r="public">общественники (1)</button><button type="button" class="fbtn" data-r="edu">образование и наука (1)</button><button type="button" class="fbtn" data-r="sport">спорт (1)</button><button type="button" class="fbtn" data-r="force">силовики (1)</button></div></div>
+<div class="panel-row"><span class="plbl">Статус:</span>
+<div class="filters" id="fStatus" role="group" aria-label="Фильтр по статусу"><button type="button" class="fbtn active" data-s="all">все</button><button type="button" class="fbtn" data-s="focus">в фокусе (3)</button><button type="button" class="fbtn" data-s="back">фон (8)</button><button type="button" class="fbtn" data-s="new">новая фигура (1)</button></div>
+<span class="dcount">показано <b id="cntShown">12</b> из 12 · сортировка: по упоминаниям</span></div>
+</div>
+<p class="feed-empty hidden" id="dEmpty">Никого по этому фильтру не найдено —
+<button type="button" class="btn" onclick="_dReset()">сбросить</button></p>
+
+<div class="dgrid" id="dGrid">
+<details class="dcard focus" data-role="official"
+ data-status="focus" data-name="Иванов Иван Иванович губернатор области правительство" data-hay="иванов иван иванович губернатор области правительство иванов иван иванович губернатор ульяновской области (демо) правительство ульяновской области"
+ data-mentions="312" id="p1">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">ИИ</div>
+<div class="dtitle"><div class="dname">Иванов Иван Иванович</div>
+<div class="drole">Губернатор Ульяновской области (демо)</div>
+<div class="dorg">Правительство Ульяновской области</div>
+<div class="dchips"><span class="dchip geo">область</span><span class="dchip">власть</span><span class="dchip">выборы-2026</span></div></div>
+<span class="dstamp hot">в фокусе</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">312</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">7</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">18</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">+0,12</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:31%"></i><i class="tn" style="width:58%"></i><i class="tg" style="width:11%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 31%</b> · нейтрально 58% · <b class="cg">негатив 11%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Должность</b><span>Губернатор Ульяновской области, председатель регионального правительства.</span></div><div class="fact"><b>В повестке с</b><span>Сентябрь 2026 — первое упоминание в собранной базе издания.</span></div><div class="fact"><b>Основные темы</b><span>Бюджет и нацпроекты, ЖКХ и отопительный сезон, дороги, промышленность (Авиастар), выборы-2026.</span></div><div class="fact"><b>Роль в цитатах</b><span>Прямая речь в 41% материалов с участием; чаще всего цитируется по темам «экономика» и «ЧП» (М-22).</span></div>
+
+<h4>Ключевые сюжеты (дуги, М-13)</h4><div class="story"><b>Старт отопительного сезона</b><span class="arc">возник 09.09 → пик 12.09 (14 источников) → угасание; итог: даты пуска по соцобъектам.</span><span>Роль в сюжете: инициатор повестки; каскад начался с официального канала (М-11).</span></div><div class="story"><b>Ремонт Императорского моста</b><span class="arc">возник 05.09 → пик 17.09 → активная фаза; 9 источников держат сюжет.</span><span>Роль: адресат критики по знаку «40»; тон по персоне в сюжете — смешанный.</span></div><div class="story"><b>Выборы-2026</b><span class="arc">фоновый сюжет кампании; устойчивое присутствие с 01.09.</span><span>Связан с досье проекта «Выборы-2026».</span></div>
+<h4>Характерная цитата (демо)</h4><div class="quote">«Тепло придёт по погоде: пять суток ниже плюс восьми — и запускаем, в первую очередь социальные объекты.»<span>официальный канал, 09.09 · материал в архиве, режим «доказательство»</span></div>
+<h4>Топ-источники упоминаний</h4><div class="srcs"><span class="src">Улпресса <b>64</b></span><span class="src">t.me/ulpravda <b>51</b></span><span class="src">Кумәк көч <b>38</b></span><span class="src">t.me/chpulsk <b>29</b></span><span class="src">ещё 14 источников</span></div>
+<div class="verify"><b>Проверено (М-15):</b> факты справки подтверждены ≥ 2 независимыми источниками; биографические поля — только из открытых реестров и официальных публикаций.</div>
+<div class="dfoot"><span class="upd">карточка обновлена автоматически · 335 материалов за сутки в базе</span><a class="go" href="../archive.html">все материалы с персоной →</a><a class="go" href="../infospace.html">тон в дашборде →</a></div>
+</div>
+</details><details class="dcard focus" data-role="municipal"
+ data-status="focus" data-name="Петрова Анна Сергеевна глава города ульяновск мэрия" data-hay="петрова анна сергеевна глава города ульяновск мэрия петрова анна сергеевна глава города ульяновска (демо) администрация города ульяновска"
+ data-mentions="187" id="p2">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">ПА</div>
+<div class="dtitle"><div class="dname">Петрова Анна Сергеевна</div>
+<div class="drole">Глава города Ульяновска (демо)</div>
+<div class="dorg">Администрация города Ульяновска</div>
+<div class="dchips"><span class="dchip geo">Ульяновск</span><span class="dchip">власть</span><span class="dchip">благоустройство</span></div></div>
+<span class="dstamp hot">в фокусе</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">187</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">5</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">14</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">−0,08</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:22%"></i><i class="tn" style="width:56%"></i><i class="tg" style="width:22%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 22%</b> · нейтрально 56% · <b class="cg">негатив 22%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Должность</b><span>Глава города Ульяновска; куратор благоустройства и городского хозяйства.</span></div><div class="fact"><b>В повестке с</b><span>Сентябрь 2026 (база издания).</span></div><div class="fact"><b>Основные темы</b><span>Парклеты на Гончарова и площади Ленина, знак «40» на мосту, трамвайные маршруты, локальные ЧП.</span></div><div class="fact"><b>Роль в цитатах</b><span>Цитируется в 33% материалов; доля критических рамок (фрейм «неисполненное обещание», М-21) — 28%.</span></div>
+
+<h4>Ключевые сюжеты (дуги, М-13)</h4><div class="story"><b>«Знак 40» на Императорском мосту</b><span class="arc">возник 08.09 → пик 17.09 → активная фаза; 6 источников.</span><span>Роль: адресат претензии; контраст между заявлением («ремонт закончим к 1 сентября») и наблюдаемым состоянием зафиксирован в карточке сюжета.</span></div><div class="story"><b>Проекты благоустройства центра</b><span class="arc">возник 15.09 → пик 17.09 (8 источников) → развитие.</span><span>Роль: инициатор; тон преимущественно нейтрально-позитивный.</span></div>
+<h4>Характерная цитата (демо)</h4><div class="quote">«Ремонт моста завершим к 1 сентября, а если потребуется — то и раньше.»<span>t.me/shugozhor73, 17.09 · приводится как материал исследования повестки, статус проверки: «формально верно, контекст опущен» (М-15)</span></div>
+<h4>Топ-источники упоминаний</h4><div class="srcs"><span class="src">t.me/shugozhor73 <b>41</b></span><span class="src">Улпресса <b>33</b></span><span class="src">t.me/ulsk_73online <b>27</b></span><span class="src">ещё 11 источников</span></div>
+<div class="verify warn"><b>Требует внимания (М-15):</b> одна цитата опубликована со статусом «формально верно, контекст опущен» — в карточке сюжета приведена полная хронология обещания.</div>
+<div class="dfoot"><span class="upd">карточка обновлена автоматически</span><a class="go" href="../archive.html">все материалы с персоной →</a></div>
+</div>
+</details><details class="dcard focus" data-role="business"
+ data-status="focus" data-name="Волков Сергей Павлович бизнес поэт директор промзона промышленность" data-hay="волков сергей павлович бизнес поэт директор промзона промышленность волков сергей павлович директор управляющей компании поэз (демо) портовая особая экономическая зона"
+ data-mentions="96" id="p3">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">ВС</div>
+<div class="dtitle"><div class="dname">Волков Сергей Павлович</div>
+<div class="drole">Директор управляющей компании ПОЭЗ (демо)</div>
+<div class="dorg">Портовая особая экономическая зона</div>
+<div class="dchips"><span class="dchip geo">Чердаклинский р-н</span><span class="dchip">бизнес</span><span class="dchip">промышленность</span></div></div>
+<span class="dstamp hot">в фокусе</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">96</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">3</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">7</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">+0,21</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:44%"></i><i class="tn" style="width:51%"></i><i class="tg" style="width:5%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 44%</b> · нейтрально 51% · <b class="cg">негатив 5%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Должность</b><span>Руководитель УК портовой особой экономической зоны; 57 компаний-резидентов (по сообщению t.me/terr73).</span></div><div class="fact"><b>Основные темы</b><span>Резиденты ПОЭЗ, инвестиции, логистика, рабочие места.</span></div><div class="fact"><b>Роль в цитатах</b><span>Экспертная/управленческая роль в 52% материалов — один из самых цитируемых «хозяйственников» (М-22).</span></div>
+<h4>Связи (М-26, демонстрационно)</h4><div class="fact"><b>Аффилированности</b><span>Связи с институтами развития региона; паспорт собственника — в очереди сбора (owners.py).</span></div>
+<h4>Ключевые сюжеты</h4><div class="story"><b>Число резидентов ПОЭЗ</b><span class="arc">точечный всплеск 17.09 (М-04), 4 источника.</span><span>Роль: источник факта; перепечатки шли каскадом от официального канала (М-11).</span></div>
+
+
+<div class="verify"><b>Проверено (М-15):</b> цифра «57 резидентов» подтверждена одним официальным источником — в выпуске помечена «по данным источника».</div>
+<div class="dfoot"><span class="upd">карточка обновлена автоматически</span><a class="go" href="../projects/goszakupki.html">досье «Госзакупки» →</a></div>
+</div>
+</details><details class="dcard" data-role="deputy"
+ data-status="back" data-name="Сидоров Константин Михайлович депутат зсо законодательное собрание" data-hay="сидоров константин михайлович депутат зсо законодательное собрание сидоров константин михайлович депутат законодательного собрания области (демо) зсо ульяновской области"
+ data-mentions="74" id="p4">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">СК</div>
+<div class="dtitle"><div class="dname">Сидоров Константин Михайлович</div>
+<div class="drole">Депутат Законодательного собрания области (демо)</div>
+<div class="dorg">ЗСО Ульяновской области</div>
+<div class="dchips"><span class="dchip geo">область</span><span class="dchip">депутат</span><span class="dchip">выборы-2026</span></div></div>
+<span class="dstamp">фон</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">74</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">2</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">9</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">+0,05</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:27%"></i><i class="tn" style="width:64%"></i><i class="tg" style="width:9%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 27%</b> · нейтрально 64% · <b class="cg">негатив 9%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Должность</b><span>Депутат ЗСО, профиль — бюджет и экономика.</span></div><div class="fact"><b>Основные темы</b><span>Местные инициативы, поощрение молодёжи, бюджетные слушания.</span></div>
+
+<h4>Ключевые сюжеты</h4><div class="story"><b>Поддержка местных инициатив</b><span class="arc">возник 10.09 → плато; 5 источников.</span><span>Роль: инициатор; фрейм «успех программы» (М-21) в 100% материалов.</span></div>
+
+
+<div class="verify"><b>Проверено (М-15):</b> все факты справки подтверждены официальными публикациями.</div>
+<div class="dfoot"><span class="upd">карточка обновлена автоматически</span><a class="go" href="../projects/elections_2026.html">досье «Выборы-2026» →</a></div>
+</div>
+</details><details class="dcard" data-role="deputy"
+ data-status="back" data-name="Кузнецова Елена Викторовна депутат госдумы одномандатный округ 185" data-hay="кузнецова елена викторовна депутат госдумы одномандатный округ 185 кузнецова елена викторовна депутат госдумы, одномандатный округ № 185 (демо) государственная дума рф"
+ data-mentions="61" id="p5">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">КЕ</div>
+<div class="dtitle"><div class="dname">Кузнецова Елена Викторовна</div>
+<div class="drole">Депутат Госдумы, одномандатный округ № 185 (демо)</div>
+<div class="dorg">Государственная Дума РФ</div>
+<div class="dchips"><span class="dchip geo">округ № 185</span><span class="dchip">депутат</span><span class="dchip">выборы-2026</span></div></div>
+<span class="dstamp">фон</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">61</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">2</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">6</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">+0,09</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:29%"></i><i class="tn" style="width:63%"></i><i class="tg" style="width:8%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 29%</b> · нейтрально 63% · <b class="cg">негатив 8%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Должность</b><span>Депутат Госдумы по одномандатному округу № 185.</span></div><div class="fact"><b>Основные темы</b><span>Нацпроекты в регионе, приёмы граждан, довыборы в ЗСО.</span></div><div class="fact"><b>Наблюдение</b><span>Активность в инфополе растёт к выборам — отмечено детектором всплесков (М-04).</span></div>
+
+
+
+
+<div class="verify"><b>Проверено (М-15):</b> справка подтверждена официальными источниками.</div>
+<div class="dfoot"><span class="upd">карточка обновлена автоматически</span><a class="go" href="../projects/elections_2026.html">досье «Выборы-2026» →</a></div>
+</div>
+</details><details class="dcard" data-role="official"
+ data-status="back" data-name="Смирнов Дмитрий Алексеевич министр здравоохранение облздрав" data-hay="смирнов дмитрий алексеевич министр здравоохранение облздрав смирнов дмитрий алексеевич министр здравоохранения области (демо) минздрав ульяновской области"
+ data-mentions="58" id="p6">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">СД</div>
+<div class="dtitle"><div class="dname">Смирнов Дмитрий Алексеевич</div>
+<div class="drole">Министр здравоохранения области (демо)</div>
+<div class="dorg">Минздрав Ульяновской области</div>
+<div class="dchips"><span class="dchip geo">область</span><span class="dchip">власть</span><span class="dchip">здравоохранение</span></div></div>
+<span class="dstamp">фон</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">58</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">2</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">8</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">−0,02</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:21%"></i><i class="tn" style="width:60%"></i><i class="tg" style="width:19%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 21%</b> · нейтрально 60% · <b class="cg">негатив 19%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Должность</b><span>Региональный министр здравоохранения.</span></div><div class="fact"><b>Основные темы</b><span>Запись к врачу через мессенджер, кадры ФАПов, закупки оборудования.</span></div><div class="fact"><b>Наблюдение</b><span>Негативный тон связан с очередями и кадровой темой; доля фрейма «системная проблема» (М-21) — 34%.</span></div>
+
+
+
+
+<div class="verify"><b>Проверено (М-15):</b> справка подтверждена; претензии к отрасли приведены со ссылками на источники.</div>
+<div class="dfoot"><span class="upd">карточка обновлена автоматически</span><a class="go" href="../archive.html">все материалы с персоной →</a></div>
+</div>
+</details><details class="dcard" data-role="public"
+ data-status="new" data-name="Морозова Наталья Ивановна общественница экология активистка" data-hay="морозова наталья ивановна общественница экология активистка морозова наталья ивановна общественный активист, экология (демо) инициативная группа «чистая волга»"
+ data-mentions="43" id="p7">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">МН</div>
+<div class="dtitle"><div class="dname">Морозова Наталья Ивановна</div>
+<div class="drole">Общественный активист, экология (демо)</div>
+<div class="dorg">Инициативная группа «Чистая Волга»</div>
+<div class="dchips"><span class="dchip geo">Ульяновск</span><span class="dchip">общественник</span><span class="dchip">экология</span></div></div>
+<span class="dstamp new">новая фигура</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">43</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">1</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">5</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">+0,15</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:35%"></i><i class="tn" style="width:57%"></i><i class="tg" style="width:8%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 35%</b> · нейтрально 57% · <b class="cg">негатив 8%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Статус</b><span>Впервые попала в поле зрения 12.09 — карточка создана автоматически по порогу новых имён (М-07) и подтверждена редактором.</span></div><div class="fact"><b>Основные темы</b><span>Состояние береговой линии, обращение с отходами.</span></div>
+
+<h4>Ключевой сюжет</h4><div class="story"><b>Общественный контроль береговой линии</b><span class="arc">возник 12.09 → рост; каскад начался с телеграм-канала, подхвачен 3 СМИ (М-11, М-25).</span><span>Роль: инициатор; голос «снизу» — редкий для поля тип актора (М-22).</span></div>
+
+
+<div class="verify"><b>Проверено (М-15):</b> идентификация персоны подтверждена двумя независимыми источниками; личные данные не собираются.</div>
+<div class="dfoot"><span class="upd">карточка создана 12.09 · обновлена автоматически</span><a class="go" href="../archive.html">все материалы с персоной →</a></div>
+</div>
+</details><details class="dcard" data-role="municipal"
+ data-status="back" data-name="Фёдоров Андрей Андреевич глава димитровград" data-hay="фёдоров андрей андреевич глава димитровград фёдоров андрей андреевич глава города димитровграда (демо) администрация г. димитровграда"
+ data-mentions="39" id="p8">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">ФА</div>
+<div class="dtitle"><div class="dname">Фёдоров Андрей Андреевич</div>
+<div class="drole">Глава города Димитровграда (демо)</div>
+<div class="dorg">Администрация г. Димитровграда</div>
+<div class="dchips"><span class="dchip geo">Димитровград</span><span class="dchip">власть</span></div></div>
+<span class="dstamp">фон</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">39</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">1</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">4</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">0,00</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:18%"></i><i class="tn" style="width:74%"></i><i class="tg" style="width:8%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 18%</b> · нейтрально 74% · <b class="cg">негатив 8%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Должность</b><span>Глава города Димитровграда.</span></div><div class="fact"><b>Основные темы</b><span>Городское хозяйство, объекты атомной отрасли (градообразующие).</span></div><div class="fact"><b>Наблюдение</b><span>Медиаприсутствие ниже среднего по сопоставимым городам — отмечено индикатором покрытия муниципалитетов (М-14, М-20).</span></div>
+
+
+
+
+<div class="verify"><b>Проверено (М-15):</b> справка подтверждена официальным каналом администрации.</div>
+<div class="dfoot"><span class="upd">карточка обновлена автоматически</span><a class="go" href="../infospace.html">карта муниципалитетов →</a></div>
+</div>
+</details><details class="dcard" data-role="edu"
+ data-status="back" data-name="Соколова Мария Владимировна ректор улгу университет образование" data-hay="соколова мария владимировна ректор улгу университет образование соколова мария владимировна ректор улгу (демо) ульяновский государственный университет"
+ data-mentions="31" id="p9">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">СМ</div>
+<div class="dtitle"><div class="dname">Соколова Мария Владимировна</div>
+<div class="drole">Ректор УлГУ (демо)</div>
+<div class="dorg">Ульяновский государственный университет</div>
+<div class="dchips"><span class="dchip geo">Ульяновск</span><span class="dchip">образование</span></div></div>
+<span class="dstamp">фон</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">31</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">1</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">4</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">+0,18</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:38%"></i><i class="tn" style="width:58%"></i><i class="tg" style="width:4%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 38%</b> · нейтрально 58% · <b class="cg">негатив 4%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Должность</b><span>Ректор университета.</span></div><div class="fact"><b>Основные темы</b><span>«Профессионалитет» (3,3 тыс. выпускников), приёмная кампания, биатлонный комплекс «Заря».</span></div>
+
+
+
+
+<div class="verify"><b>Проверено (М-15):</b> цифра «3,3 тыс.» подтверждена двумя источниками.</div>
+<div class="dfoot"><span class="upd">карточка обновлена автоматически</span><a class="go" href="../archive.html">все материалы с персоной →</a></div>
+</div>
+</details><details class="dcard" data-role="sport"
+ data-status="back" data-name="Николаев Пётр Григорьевич футбол фк волга тренер спорт" data-hay="николаев пётр григорьевич футбол фк волга тренер спорт николаев пётр григорьевич главный тренер фк «волга» (демо) футбольный клуб «волга», ульяновск"
+ data-mentions="27" id="p10">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">НП</div>
+<div class="dtitle"><div class="dname">Николаев Пётр Григорьевич</div>
+<div class="drole">Главный тренер ФК «Волга» (демо)</div>
+<div class="dorg">Футбольный клуб «Волга», Ульяновск</div>
+<div class="dchips"><span class="dchip geo">Ульяновск</span><span class="dchip">спорт</span></div></div>
+<span class="dstamp">фон</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">27</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">1</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">5</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">+0,07</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:26%"></i><i class="tn" style="width:64%"></i><i class="tg" style="width:10%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 26%</b> · нейтрально 64% · <b class="cg">негатив 10%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Должность</b><span>Главный тренер футбольного клуба.</span></div><div class="fact"><b>Основные темы</b><span>Матчи на стадионе «Труд», экстрим-парк, спортивная повестка выходных.</span></div>
+
+
+
+
+<div class="verify"><b>Проверено (М-15):</b> справка подтверждена спортивными источниками.</div>
+<div class="dfoot"><span class="upd">карточка обновлена автоматически</span><a class="go" href="../afisha.html">афиша →</a></div>
+</div>
+</details><details class="dcard" data-role="force"
+ data-status="back" data-name="Лебедев Виктор Викторович мвд полиция силовики" data-hay="лебедев виктор викторович мвд полиция силовики лебедев виктор викторович руководитель регионального умвд (демо) умвд по ульяновской области"
+ data-mentions="22" id="p11">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">ЛВ</div>
+<div class="dtitle"><div class="dname">Лебедев Виктор Викторович</div>
+<div class="drole">Руководитель регионального УМВД (демо)</div>
+<div class="dorg">УМВД по Ульяновской области</div>
+<div class="dchips"><span class="dchip geo">область</span><span class="dchip">силовики</span><span class="dchip">безопасность</span></div></div>
+<span class="dstamp">фон</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">22</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">1</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">3</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">−0,05</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:12%"></i><i class="tn" style="width:71%"></i><i class="tg" style="width:17%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 12%</b> · нейтрально 71% · <b class="cg">негатив 17%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Должность</b><span>Руководитель регионального управления МВД.</span></div><div class="fact"><b>Основные темы</b><span>Криминальные процессы, борьба с мошенничеством, награждения.</span></div><div class="fact"><b>Наблюдение</b><span>Упоминания почти исключительно в процессуальном контексте; негативный тон относится к событиям, а не к персоне (аспектный тон разделён, М-05).</span></div>
+
+
+
+
+<div class="verify"><b>Проверено (М-15):</b> упоминания в материалах судов публикуются только после вступления решений в силу.</div>
+<div class="dfoot"><span class="upd">карточка обновлена автоматически</span><a class="go" href="../archive.html">все материалы с персоной →</a></div>
+</div>
+</details><details class="dcard" data-role="official"
+ data-status="back" data-name="Орлова Татьяна Борисовна главврач областная больница здравоохранение" data-hay="орлова татьяна борисовна главврач областная больница здравоохранение орлова татьяна борисовна главный врач областной больницы (демо) ульяновская областная клиническая больница"
+ data-mentions="18" id="p12">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">ОТ</div>
+<div class="dtitle"><div class="dname">Орлова Татьяна Борисовна</div>
+<div class="drole">Главный врач областной больницы (демо)</div>
+<div class="dorg">Ульяновская областная клиническая больница</div>
+<div class="dchips"><span class="dchip geo">Ульяновск</span><span class="dchip">здравоохранение</span></div></div>
+<span class="dstamp">фон</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">18</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">1</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">3</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">+0,10</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:30%"></i><i class="tn" style="width:62%"></i><i class="tg" style="width:8%"></i></div>
+<div class="tonelegend"><b class="cp">позитив 30%</b> · нейтрально 62% · <b class="cg">негатив 8%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+<div class="fact"><b>Должность</b><span>Главный врач областной клинической больницы.</span></div><div class="fact"><b>Основные темы</b><span>Закупки оборудования (связь с досье «Госзакупки»), кадровые программы, дни здоровья.</span></div>
+
+
+
+
+<div class="verify"><b>Проверено (М-15):</b> справка подтверждена; контракты учреждения отслеживает проект «Госзакупки».</div>
+<div class="dfoot"><span class="upd">карточка обновлена автоматически</span><a class="go" href="../projects/goszakupki.html">досье «Госзакупки» →</a></div>
+</div>
+</details>
+</div>
+</div>
+
+<div class="sec-head" id="how"><h2>Как собирается досье</h2><div class="line"></div>
+<div class="badge">конвейер карточки</div></div>
+<div class="wrap1200">
+<div class="note" style="margin-bottom:14px;">Карточка персоны — не рукописный текст, а <b>производное базы
+материалов</b>: конвейер собирает её автоматически, редактор только подтверждает идентификацию и подписывает
+справку. Любой элемент карточки раскрывается в список материалов-оснований.</div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr>
+<th style="width:26%">Поле карточки</th><th style="width:22%">Методика реестра</th><th>Как получается</th>
+</tr></thead><tbody><tr><td><b>Появление персоны</b></td><td><a href="../methods.html#m07" style="color:var(--accent);">М-07</a> NER</td><td>Новое имя проходит порог частоты → карточка создаётся автоматически со статусом «новая фигура».</td></tr><tr><td><b>Упоминания, источники</b></td><td><a href="../methods.html#m01" style="color:var(--accent);">М-01</a> <a href="../methods.html#m03" style="color:var(--accent);">М-03</a></td><td>Счёт по дедуплицированной базе: перепечатки считаются один раз, каскад — как каскад.</td></tr><tr><td><b>Тон и его доля</b></td><td><a href="../methods.html#m05" style="color:var(--accent);">М-05</a></td><td>Индекс тона по материалам с персоной; аспектный тон отделяет оценку события от оценки персоны.</td></tr><tr><td><b>Сюжеты и дуги</b></td><td><a href="../methods.html#m13" style="color:var(--accent);">М-13</a> <a href="../methods.html#m11" style="color:var(--accent);">М-11</a></td><td>Паспорт сюжета (возник/пик/угас) и роль персоны: инициатор, адресат, комментатор.</td></tr><tr><td><b>Роль в цитатах</b></td><td><a href="../methods.html#m22" style="color:var(--accent);">М-22</a></td><td>Классификация роли актора: власть, бизнес, эксперт, «голос снизу».</td></tr><tr><td><b>Факты справки</b></td><td><a href="../methods.html#m15" style="color:var(--accent);">М-15</a> <a href="../methods.html#m26" style="color:var(--accent);">М-26</a></td><td>Только открытые реестры и официальные публикации; каждый факт — ≥ 2 источника или пометка «по данным источника».</td></tr><tr><td><b>Изменённые упоминания</b></td><td><a href="../methods.html#m19" style="color:var(--accent);">М-19</a></td><td>Если материал о персоне удалялся или правился — журнал дельт прикрепляется к карточке.</td></tr><tr><td><b>Доказательства</b></td><td><a href="../methods.html#m18" style="color:var(--accent);">М-18</a></td><td>Режим «доказательство»: клик по цифре → список материалов с прямыми ссылками.</td></tr></tbody></table></div>
+<div class="verdict"><b>Этика и границы</b>Досье составляется исключительно по открытым данным и материалам прессы; это срез информационного поля, а не характеристика человека. Персональные данные не собираются, частная жизнь не исследуется. У каждой персоны есть право на ответ: уточнения и возражения публикуются в карточке дословно и отмечаются штампом «ответ получен». Сомнительный факт снимается с публикации до проверки — лучше пустая строка, чем непроверенная. Все изменения карточек логируются в методологическом журнале (М-28).</div>
+
+<div class="h3rule">Очередь развития раздела <span class="sub">· чего в прототипе пока нет</span></div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th style="width:30%">Блок</th><th>Содержание</th></tr></thead>
+<tbody><tr><td><b>Досье организаций</b></td><td>Карточки изданий, ведомств и компаний: структура упоминаний, тон, связь с реестром собственников (М-26, М-27).</td></tr><tr><td><b>Связи и граф</b></td><td>Интерактивный граф «персона — организация — сюжет» (М-12); в целевом контуре — NetworkX/Chart.js, в текущем ядре — статичная таблица связей.</td></tr><tr><td><b>Сравнение периодов</b></td><td>Динамика упоминаний и тона по месяцам; исторические параллели (М-35).</td></tr><tr><td><b>Экспорт</b></td><td>Выгрузка карточки в CSV/JSON (RFC 4180 / RFC 8259) для внешнего анализа.</td></tr><tr><td><b>Автогенерация</b></td><td>Сборка карточек в <code>generate.py</code> из базы: страница перестаёт быть прототипом и обновляется с каждым выпуском.</td></tr></tbody></table></div>
+
+<div class="note" style="margin-top:22px;">Методик в реестре: <b>36</b>
+(работают 11, в тестировании 13, в очереди 12);
+досье опирается на М-01, М-03, М-05, М-07, М-11, М-13, М-15, М-18, М-19, М-22 и М-26. Данные карточек —
+редакционный прототип в <code>dossier.py</code>; автогенерация из <code>data/store.jsonl</code> — пункт
+«Автогенерация» в очереди развития. Собрано 17.09.2026 15:49 (UTC+4).</div>
+
+<div class="util-bar-wrap" style="padding:20px 0 0;"><div class="util-bar">
+<span class="util-lbl">Связано:</span><a class="" href="../infospace.html">дашборд «Инфопространство»</a><a class="" href="../methods.html">реестр методик</a><a class="" href="../projects/plans.html">планы и внедрение методов</a><a class="" href="../projects/elections_2026.html">досье «Выборы-2026»</a><a class="" href="../projects/goszakupki.html">досье «Госзакупки»</a><a class="" href="../archive.html">архив-матрица</a>
+<a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a>
+</div></div>
+</div>
+</main>
+</main>
+<footer class="footer"><div class="footer__inner">
+<div><div class="footer__brand">ГУДОК<span>.</span></div>
+<p>Информационно-аналитическое издание марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Материалы принадлежат их изданиям; издание носит информационно-аналитический характер и не является агитацией.</p></div>
+<div><h3>Периодичности</h3><ul style="list-style:none;padding:0;">
+<li><a href="../digests/today.html">День · выпуск сегодня</a></li>
+<li><a href="../weekly.html">Неделя · дуги сюжетов</a></li>
+<li><a href="../monthly.html">Месяц · метрики</a></li>
+<li><a href="../archive.html">Архив-матрица</a></li></ul></div>
+<div><h3>Проекты</h3><ul style="list-style:none;padding:0;">
+<li><a href="../projects/elections_2026.html">Выборы-2026</a></li>
+<li><a href="../projects/goszakupki.html">Госзакупки</a></li>
+<li><a href="../infospace.html">Инфопространство</a></li>
+<li><a href="../methods.html">Методы · реестр v1.1</a></li>
+<li><a href="../projects/dossier.html">Досье · прототип</a></li>
+<li><a href="../afisha.html">Афиша</a></li></ul></div>
+<div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
+<li><a href="../status.html">Статус системы</a></li>
+<li><a href="../projects/plans.html">Планы и методы</a></li>
+<li><a href="../digests/exec_2026-09-17.html">Версия руководителю</a></li>
+<li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+</div>
+<div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
+</footer>
+<script>
+(function(){
+  var grid=document.getElementById('dGrid');
+  if(!grid){return;}
+  var cards=Array.prototype.slice.call(grid.querySelectorAll('.dcard'));
+  var q=document.getElementById('dq');
+  var shown=document.getElementById('cntShown');
+  var empty=document.getElementById('dEmpty');
+  var ST={r:'all',s:'all',q:''};
+  function pass(c){
+    if(ST.r!=='all'&&c.getAttribute('data-role')!==ST.r){return false;}
+    if(ST.s!=='all'&&c.getAttribute('data-status')!==ST.s){return false;}
+    if(ST.q){
+      var hay=((c.getAttribute('data-name')||'')+' '+(c.getAttribute('data-hay')||'')).toLowerCase();
+      if(hay.indexOf(ST.q)===-1){return false;}
+    }
+    return true;
+  }
+  function paint(){
+    var n=0;
+    cards.forEach(function(c){var ok=pass(c);c.style.display=ok?'':'none';if(ok){n++;}});
+    if(shown){shown.textContent=n;}
+    if(empty){empty.classList.toggle('hidden',n>0);}
+    document.querySelectorAll('#fRole .fbtn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-r')===ST.r);});
+    document.querySelectorAll('#fStatus .fbtn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-s')===ST.s);});
+  }
+  document.querySelectorAll('#fRole .fbtn').forEach(function(b){
+    b.addEventListener('click',function(){ST.r=b.getAttribute('data-r');paint();});
+  });
+  document.querySelectorAll('#fStatus .fbtn').forEach(function(b){
+    b.addEventListener('click',function(){ST.s=b.getAttribute('data-s');paint();});
+  });
+  if(q){q.addEventListener('input',function(){ST.q=q.value.trim().toLowerCase();paint();});}
+  window._dReset=function(){ST.r='all';ST.s='all';ST.q='';if(q){q.value='';}paint();};
+  cards.forEach(function(c){
+    c.addEventListener('toggle',function(){
+      var t=c.querySelector('.dtoggle');
+      if(t){t.textContent=c.open?'досье ↑':'досье ↓';}
+    });
+  });
+  paint();
+})();
+</script>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+document.documentElement.setAttribute("data-theme",c);
+try{localStorage.setItem("gudok-theme",c);}catch(e){}
+syncThemeBtn();}
+function syncThemeBtn(){var b=document.getElementById("themeBtn");
+if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
+syncThemeBtn();
+</script></body></html>

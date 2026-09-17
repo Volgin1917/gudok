@@ -44,6 +44,7 @@ CSS = """
 :root{
   --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
   --rule:#E3DED4; --rule-strong:#0B0B0B; --accent:#D63F1F; --on-ink:#C9C2B6;
+  --pos:#4F5F53; --neu:#C9C2B6; --neg:#B04848;
   --serif-display:"Fraunces","Source Serif 4",Georgia,"Times New Roman",serif;
   --serif-body:"Source Serif 4",Georgia,"Times New Roman",serif;
   --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -57,6 +58,7 @@ CSS = """
 :root[data-theme="dark"]{
   --paper:#101214; --paper-2:#17191c; --ink:#ECE7DE; --ink-2:#D5CFC4; --muted:#9A948A;
   --rule:#2A2D31; --rule-strong:#ECE7DE; --accent:#FF6A4D; --on-ink:#2A2620;
+  --pos:#7FA88C; --neu:#4A4E54; --neg:#D07A7A;
   --navy:var(--ink); --navy2:var(--ink); --navy3:var(--ink-2); --blue:var(--ink);
   --gold:var(--accent); --line:var(--rule); --txt:var(--ink); --bg:var(--paper); --card:var(--paper);
 }
@@ -2593,8 +2595,10 @@ def render_projects(cfg, trends, store, status):
     nav_html = render_nav(cfg, "projects", "", subnav=subnav_projects("", ""))
     plans_tracks = len(_plans.TRACKS)
     import methods as _methods
+    import dossier as _dossier
     methods_total = len(_methods.METHODS)
     methods_ver = _methods.VERSION
+    dossier_persons = len(_dossier.PERSONS)
     cards = f"""<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
 <div><b>Инфопространство</b></div>
 <div class="fig">live <small>дашборд</small></div>
@@ -2607,6 +2611,12 @@ def render_projects(cfg, trends, store, status):
 неопределённость, порядок проверки), сквозной раздел «Идеология и гегемония», техконтур из открытых
 стандартов и стенд испытания с генератором протокола.</p>
 <a class="go" href="methods.html">открыть реестр →</a></div>"""
+    cards += f"""<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
+<div><b>Досье</b> <span style="font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:2px 7px;">прототип</span></div>
+<div class="fig">{dossier_persons}<small>карточек · демо</small></div>
+<p>Действующие лица инфополя: упоминания и источники, индекс тона, дуги сюжетов, роль в цитатах,
+статус проверки фактов и конвейер сборки карточки по методикам реестра. Данные демонстрационные.</p>
+<a class="go" href="projects/dossier.html">открыть досье →</a></div>"""
     cards += f"""<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
 <div><b>Планы и методы</b></div>
 <div class="fig">{plans_tracks}<small>треков</small></div>
@@ -3075,13 +3085,356 @@ def render_plans(cfg, trends, store, status, an=None):
 </body></html>"""
 
 
+DOSSIER_CSS = """
+/* ---- «Досье»: панель фильтров, карточки персон, тон, справка, доказательность ---- */
+.panel{border:1px solid var(--rule);background:var(--paper-2);padding:14px 16px;margin-top:18px;}
+.panel-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.panel-row+.panel-row{margin-top:10px;}
+.plbl{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:var(--muted);margin-right:6px;align-self:center;}
+.dsearch{flex:1;min-width:240px;display:flex;align-items:center;gap:8px;border:1px solid var(--ink);
+background:var(--paper);padding:8px 12px;}
+.dsearch input{border:none;outline:none;background:none;font-family:var(--sans);font-size:13.5px;
+color:var(--ink);width:100%;}
+.dsearch input::placeholder{color:var(--muted);}
+.dsearch .ic{color:var(--muted);font-size:14px;}
+.dcount{margin-left:auto;font-family:var(--sans);font-size:12px;color:var(--muted);}
+.dcount b{color:var(--ink);}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:22px;}
+.dcard{border-top:1px solid var(--ink);padding:16px 0 20px;break-inside:avoid;}
+.dsum{list-style:none;cursor:pointer;}
+.dsum::-webkit-details-marker{display:none;}
+.dsum:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.dcard-head{display:flex;gap:16px;align-items:flex-start;}
+.davatar{flex:0 0 56px;width:56px;height:56px;border:1px solid var(--ink);display:flex;align-items:center;
+justify-content:center;font-family:var(--rubleny);font-size:20px;letter-spacing:.02em;color:var(--paper);
+background:var(--ink);}
+.dcard.focus .davatar{background:var(--accent);border-color:var(--accent);color:#fff;}
+.dtitle{flex:1;min-width:0;}
+.dname{font-family:var(--serif-display);font-weight:600;font-size:20px;line-height:1.2;color:var(--ink);}
+.drole{font-family:var(--sans);font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45;}
+.dorg{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:2px;}
+.dchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.dchip{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;
+text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;white-space:nowrap;}
+.dchip.geo{color:var(--ink-2);border-color:var(--ink-2);}
+.dstamp{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+padding:3px 9px;white-space:nowrap;border:1px solid var(--rule);color:var(--muted);background:var(--paper-2);}
+.dstamp.hot{color:#fff;background:var(--accent);border-color:var(--accent);}
+.dstamp.new{color:var(--ink);border-color:var(--ink);background:none;}
+.dtoggle{margin-left:auto;flex-shrink:0;font-family:var(--sans);font-size:11px;font-weight:600;
+color:var(--muted);border-bottom:1px solid var(--rule);padding-top:4px;}
+.dsum:hover .dtoggle{color:var(--accent);border-color:var(--accent);}
+.dstats{display:grid;grid-template-columns:repeat(4,auto);gap:0 22px;justify-content:start;margin-top:12px;
+padding-top:10px;border-top:1px solid var(--rule);}
+.dst .n{font-family:var(--serif-display);font-weight:600;font-size:19px;color:var(--ink);line-height:1.1;}
+.dst .l{font-family:var(--sans);font-size:10.5px;color:var(--muted);text-transform:uppercase;
+letter-spacing:.08em;margin-top:2px;}
+.tonebar{grid-column:1/-1;display:flex;height:10px;border:1px solid var(--rule);margin-top:6px;
+max-width:340px;background:var(--paper);}
+.tonebar i{display:block;height:100%;}
+.tonebar .tp{background:var(--pos);}
+.tonebar .tn{background:var(--neu);}
+.tonebar .tg{background:var(--neg);}
+.tonelegend{grid-column:1/-1;font-family:var(--sans);font-size:10.5px;color:var(--muted);margin-top:4px;}
+.tonelegend b{font-weight:700;}
+.tonelegend .cp{color:var(--pos);}
+.tonelegend .cg{color:var(--neg);}
+.ddet{margin-top:14px;border-top:1px solid var(--rule);}
+.ddet h4{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:var(--muted);margin:14px 0 6px;}
+.fact{display:grid;grid-template-columns:130px 1fr;gap:10px;font-family:var(--sans);font-size:12.5px;
+padding:5px 0;border-bottom:1px dashed var(--rule);color:var(--ink-2);}
+.fact b{color:var(--muted);font-weight:600;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+padding-top:2px;}
+.story{padding:8px 0;border-bottom:1px solid var(--rule);}
+.story:last-child{border-bottom:none;}
+.story b{font-family:var(--serif-body);font-size:14.5px;color:var(--ink);font-weight:600;}
+.story span{display:block;font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:2px;}
+.story .arc{font-family:var(--sans);font-size:11px;color:var(--ink-2);}
+.quote{font-family:var(--serif-display);font-style:italic;font-size:15px;line-height:1.4;color:var(--ink);
+border-left:2px solid var(--rule);padding:4px 0 4px 12px;margin:8px 0;}
+.quote span{display:block;font-family:var(--sans);font-style:normal;font-size:11px;color:var(--muted);
+margin-top:4px;}
+.srcs{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.src{font-family:var(--sans);font-size:10.5px;font-weight:600;border:1px solid var(--rule);padding:2px 8px;
+color:var(--ink-2);}
+.src b{color:var(--accent);font-weight:700;}
+.dfoot{display:flex;gap:14px;flex-wrap:wrap;align-items:baseline;margin-top:14px;padding-top:10px;
+border-top:1px solid var(--ink);}
+.dfoot .upd{font-family:var(--sans);font-size:11px;color:var(--muted);}
+.dfoot a.go{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--accent);}
+.verify{font-family:var(--sans);font-size:11.5px;color:var(--ink-2);background:var(--paper-2);
+border:1px solid var(--rule);padding:6px 10px;margin-top:10px;}
+.verify b{color:var(--pos);}
+.verify.warn b{color:var(--accent);}
+.demo-mark{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:3px 9px;}
+@media (max-width:1100px){.dgrid{grid-template-columns:1fr;}}
+@media (max-width:720px){.fact{grid-template-columns:1fr;gap:2px;}.dstats{grid-template-columns:repeat(2,auto);}}
+@media print{
+  .panel{display:none!important;}
+  .dcard .ddet{display:block!important;}
+}
+"""
+
+# Прогрессивный JS: фильтры по роли и статусу, поиск, счётчик и подпись раскрытия.
+# Без JS видны все карточки (они отрисованы на сервере и отсортированы по упоминаниям),
+# раскрытие работает нативным <details>.
+DOSSIER_JS = """<script>
+(function(){
+  var grid=document.getElementById('dGrid');
+  if(!grid){return;}
+  var cards=Array.prototype.slice.call(grid.querySelectorAll('.dcard'));
+  var q=document.getElementById('dq');
+  var shown=document.getElementById('cntShown');
+  var empty=document.getElementById('dEmpty');
+  var ST={r:'all',s:'all',q:''};
+  function pass(c){
+    if(ST.r!=='all'&&c.getAttribute('data-role')!==ST.r){return false;}
+    if(ST.s!=='all'&&c.getAttribute('data-status')!==ST.s){return false;}
+    if(ST.q){
+      var hay=((c.getAttribute('data-name')||'')+' '+(c.getAttribute('data-hay')||'')).toLowerCase();
+      if(hay.indexOf(ST.q)===-1){return false;}
+    }
+    return true;
+  }
+  function paint(){
+    var n=0;
+    cards.forEach(function(c){var ok=pass(c);c.style.display=ok?'':'none';if(ok){n++;}});
+    if(shown){shown.textContent=n;}
+    if(empty){empty.classList.toggle('hidden',n>0);}
+    document.querySelectorAll('#fRole .fbtn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-r')===ST.r);});
+    document.querySelectorAll('#fStatus .fbtn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-s')===ST.s);});
+  }
+  document.querySelectorAll('#fRole .fbtn').forEach(function(b){
+    b.addEventListener('click',function(){ST.r=b.getAttribute('data-r');paint();});
+  });
+  document.querySelectorAll('#fStatus .fbtn').forEach(function(b){
+    b.addEventListener('click',function(){ST.s=b.getAttribute('data-s');paint();});
+  });
+  if(q){q.addEventListener('input',function(){ST.q=q.value.trim().toLowerCase();paint();});}
+  window._dReset=function(){ST.r='all';ST.s='all';ST.q='';if(q){q.value='';}paint();};
+  cards.forEach(function(c){
+    c.addEventListener('toggle',function(){
+      var t=c.querySelector('.dtoggle');
+      if(t){t.textContent=c.open?'досье ↑':'досье ↓';}
+    });
+  });
+  paint();
+})();
+</script>"""
+
+
+def render_dossier(cfg, trends, store, status):
+    """Раздел «Досье»: карточки действующих лиц инфополя (прототип на демо-данных).
+
+    Данные — dossier.py: состав карточек, таблица «как собирается досье» (поле →
+    методика реестра → способ получения), этические границы и очередь развития.
+    Страница в общем стиле издания: шапка, навигация, поднавигация рубрики и подвал —
+    из общих компонентов; свой только DOSSIER_CSS. Метрики карточки видны без раскрытия,
+    справка и сюжеты — в нативном <details>, поэтому всё читается и без JavaScript.
+    Все персонажи демонстрационные — метка прототипа выведена в шапке и в вводной.
+    """
+    import dossier as D
+    import methods as M
+    now = datetime.now(UTC4)
+    prefix = "../"
+    nav_html = render_nav(cfg, "projects", prefix, subnav=subnav_projects(prefix, "dossier"))
+    cnt = D.counts()
+    per_role = D.by_role()
+    persons = D.sorted_by_mentions()
+
+    def link(href, text, cls="go"):
+        """Ссылка с префиксом глубины: цели хранятся от корня сайта."""
+        target = href if href.startswith(("http", "#")) else prefix + href
+        return f'<a class="{cls}" href="{esc(target)}">{text}</a>'
+
+    # ------------------------------------------------------------- карточки
+    cards = []
+    for p in persons:
+        st = p.get("status") if p.get("status") in D.STATUS_TITLE else "back"
+        stamp_cls = ("dstamp " + D.STATUS_CSS[st]).strip()
+        chips = "".join(f'<span class="dchip{" geo" if kind == "geo" else ""}">{esc(text)}</span>'
+                        for text, kind in p.get("chips", []))
+        pos, neu, neg = p.get("tone_split", (0, 0, 0))
+        facts = "".join(f'<div class="fact"><b>{esc(label)}</b><span>{text}</span></div>'
+                        for label, text in p.get("facts", []))
+        extra = p.get("extra") or {}
+        extra_html = ""
+        if extra:
+            extra_html = (f'<h4>{esc(extra.get("head", ""))}</h4>'
+                          + "".join(f'<div class="fact"><b>{esc(l)}</b><span>{t}</span></div>'
+                                    for l, t in extra.get("facts", [])))
+        stories = p.get("stories") or []
+        stories_html = ""
+        if stories:
+            stories_html = f'<h4>{esc(p.get("stories_head", "Ключевые сюжеты"))}</h4>' + "".join(
+                f'<div class="story"><b>{esc(s["t"])}</b><span class="arc">{esc(s["arc"])}</span>'
+                f'<span>{esc(s["role"])}</span></div>' for s in stories)
+        quote = p.get("quote") or {}
+        quote_html = (f'<h4>Характерная цитата (демо)</h4><div class="quote">{esc(quote.get("text", ""))}'
+                      f'<span>{esc(quote.get("src", ""))}</span></div>') if quote else ""
+        srcs = "".join(f'<span class="src">{esc(n)} <b>{v}</b></span>'
+                       for n, v in p.get("sources", []))
+        if p.get("sources_more"):
+            srcs += f'<span class="src">{esc(p["sources_more"])}</span>'
+        srcs_html = f'<h4>Топ-источники упоминаний</h4><div class="srcs">{srcs}</div>' if srcs else ""
+        ver = p.get("verify") or {}
+        verify_html = (f'<div class="verify{" warn" if ver.get("kind") == "warn" else ""}">{ver.get("text", "")}</div>'
+                       if ver else "")
+        foot_links = "".join(link(href, esc(text)) for text, href in p.get("foot_links", []))
+        hay = esc(" ".join([p.get("search", ""), p.get("name", ""), p.get("role", ""),
+                            p.get("org", "")]).lower())
+        cards.append(f"""<details class="dcard{' focus' if st == 'focus' else ''}" data-role="{esc(p.get('group', ''))}"
+ data-status="{esc(st)}" data-name="{esc(p.get('search', ''))}" data-hay="{hay}"
+ data-mentions="{int(p.get('mentions') or 0)}" id="{esc(p.get('id', ''))}">
+<summary class="dsum"><div class="dcard-head">
+<div class="davatar">{esc(p.get('avatar') or D.initials(p.get('name', '')))}</div>
+<div class="dtitle"><div class="dname">{esc(p.get('name', ''))}</div>
+<div class="drole">{esc(p.get('role', ''))}</div>
+<div class="dorg">{esc(p.get('org', ''))}</div>
+<div class="dchips">{chips}</div></div>
+<span class="{stamp_cls}">{esc(D.STATUS_TITLE[st])}</span>
+<span class="dtoggle">досье ↓</span></div>
+<div class="dstats">
+<div class="dst"><div class="n">{int(p.get('mentions') or 0)}</div><div class="l">упоминаний / 30 дн.</div></div>
+<div class="dst"><div class="n">{int(p.get('stories_n') or 0)}</div><div class="l">сюжетов</div></div>
+<div class="dst"><div class="n">{int(p.get('sources_n') or 0)}</div><div class="l">источников</div></div>
+<div class="dst"><div class="n">{esc(p.get('tone', ''))}</div><div class="l">индекс тона (М-05)</div></div>
+<div class="tonebar"><i class="tp" style="width:{pos}%"></i><i class="tn" style="width:{neu}%"></i><i class="tg" style="width:{neg}%"></i></div>
+<div class="tonelegend"><b class="cp">позитив {pos}%</b> · нейтрально {neu}% · <b class="cg">негатив {neg}%</b></div>
+</div></summary>
+<div class="ddet">
+<h4>Справка (открытые данные, демо)</h4>
+{facts}
+{extra_html}
+{stories_html}
+{quote_html}
+{srcs_html}
+{verify_html}
+<div class="dfoot"><span class="upd">{esc(p.get('foot_upd', ''))}</span>{foot_links}</div>
+</div>
+</details>""")
+
+    # ------------------------------------------------------------- панель фильтров
+    role_btns = ['<button type="button" class="fbtn active" data-r="all">все</button>']
+    for key, title in D.ROLES:
+        role_btns.append(f'<button type="button" class="fbtn" data-r="{key}">{esc(title)}'
+                         f'{" (" + str(per_role.get(key, 0)) + ")" if per_role.get(key) else ""}</button>')
+    st_btns = ['<button type="button" class="fbtn active" data-s="all">все</button>']
+    for key, title in D.STATUSES:
+        st_btns.append(f'<button type="button" class="fbtn" data-s="{key}">{esc(title)}'
+                       f' ({cnt.get(key, 0)})</button>')
+
+    # ------------------------------------------------------------- как собирается досье
+    pipe_rows = []
+    for field, refs, how in D.PIPELINE:
+        ref_html = " ".join(
+            f'<a href="{esc(prefix + href)}" style="color:var(--accent);">{esc(label)}</a>' if href
+            else esc(label)
+            for label, href in refs)
+        pipe_rows.append(f'<tr><td><b>{esc(field)}</b></td><td>{ref_html}</td><td>{esc(how)}</td></tr>')
+
+    queue_rows = "".join(f'<tr><td><b>{esc(b)}</b></td><td>{t}</td></tr>' for b, t in D.QUEUE)
+
+    kpi = [(str(cnt["persons"]), "персон в досье"), (str(cnt["focus"]), "сейчас в фокусе"),
+           (f"{cnt['mentions']:,}".replace(",", " "), "упоминаний за 30 дней"),
+           (str(cnt["stories"]), "сюжетов с участием")]
+    kpi += [(n, l) for n, l in D.KPI_STATIC]
+    kpi_html = "".join(f'<div class="kpi"><div class="num">{esc(n)}</div><div class="lbl">{esc(l)}</div></div>'
+                       for n, l in kpi)
+
+    note_intro = D.NOTES[0].replace("{prefix}", prefix)
+    related = "".join(link(href, esc(text), cls="") for text, href in [
+        ("дашборд «Инфопространство»", "infospace.html"),
+        ("реестр методик", "methods.html"),
+        ("планы и внедрение методов", "projects/plans.html"),
+        ("досье «Выборы-2026»", "projects/elections_2026.html"),
+        ("досье «Госзакупки»", "projects/goszakupki.html"),
+        ("архив-матрица", "archive.html")])
+
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Досье — действующие лица инфополя · {cfg['brand']}</title>
+<meta name="description" content="Прототип раздела «Досье»: карточки действующих лиц инфополя Ульяновской области. Упоминания, тон, дуги сюжетов и источники — по методикам реестра. Данные демонстрационные.">
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
+<style>{CSS}{DOSSIER_CSS}</style></head><body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Проекты издания<br>досье действующих лиц инфополя
+<div class="mast-actions"><span class="demo-mark">{esc(D.DEMO_LABEL)}</span>{THEME_BTN}</div></div>
+</div></header>
+{nav_html}
+<main id="main">
+<div class="wrap1200" style="padding-top:20px;">
+
+<div class="sec-head" style="margin-top:0;"><h2>Досье: действующие лица инфополя</h2><div class="line"></div>
+<div class="badge">{esc(D.DEMO_LABEL)} · карточек: {cnt['persons']} · версия {esc(D.VERSION)}</div></div>
+<div class="note" style="margin-bottom:6px;">{note_intro}</div>
+<div class="note" style="border-left-color:var(--rule);">{D.NOTES[1]}</div>
+
+<div class="kpi-grid" style="margin-top:22px;">{kpi_html}</div>
+
+<div class="panel">
+<div class="panel-row"><label class="dsearch"><span class="ic">⌕</span>
+<input type="search" id="dq" placeholder="Поиск: фамилия, должность, организация, город…" aria-label="Поиск по досье"></label></div>
+<div class="panel-row"><span class="plbl">Роль:</span>
+<div class="filters" id="fRole" role="group" aria-label="Фильтр по роли">{''.join(role_btns)}</div></div>
+<div class="panel-row"><span class="plbl">Статус:</span>
+<div class="filters" id="fStatus" role="group" aria-label="Фильтр по статусу">{''.join(st_btns)}</div>
+<span class="dcount">показано <b id="cntShown">{cnt['persons']}</b> из {cnt['persons']} · сортировка: по упоминаниям</span></div>
+</div>
+<p class="feed-empty hidden" id="dEmpty">Никого по этому фильтру не найдено —
+<button type="button" class="btn" onclick="_dReset()">сбросить</button></p>
+
+<div class="dgrid" id="dGrid">
+{''.join(cards)}
+</div>
+</div>
+
+<div class="sec-head" id="how"><h2>Как собирается досье</h2><div class="line"></div>
+<div class="badge">конвейер карточки</div></div>
+<div class="wrap1200">
+<div class="note" style="margin-bottom:14px;">Карточка персоны — не рукописный текст, а <b>производное базы
+материалов</b>: конвейер собирает её автоматически, редактор только подтверждает идентификацию и подписывает
+справку. Любой элемент карточки раскрывается в список материалов-оснований.</div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr>
+<th style="width:26%">Поле карточки</th><th style="width:22%">Методика реестра</th><th>Как получается</th>
+</tr></thead><tbody>{''.join(pipe_rows)}</tbody></table></div>
+<div class="verdict"><b>Этика и границы</b>{esc(D.ETHICS)}</div>
+
+<div class="h3rule">Очередь развития раздела <span class="sub">· чего в прототипе пока нет</span></div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th style="width:30%">Блок</th><th>Содержание</th></tr></thead>
+<tbody>{queue_rows}</tbody></table></div>
+
+<div class="note" style="margin-top:22px;">Методик в реестре: <b>{M.counts()['total']}</b>
+(работают {M.counts()['work']}, в тестировании {M.counts()['test']}, в очереди {M.counts()['queue']});
+досье опирается на М-01, М-03, М-05, М-07, М-11, М-13, М-15, М-18, М-19, М-22 и М-26. Данные карточек —
+редакционный прототип в <code>dossier.py</code>; автогенерация из <code>data/store.jsonl</code> — пункт
+«Автогенерация» в очереди развития. Собрано {now:%d.%m.%Y %H:%M} (UTC+4).</div>
+
+<div class="util-bar-wrap" style="padding:20px 0 0;"><div class="util-bar">
+<span class="util-lbl">Связано:</span>{related}
+<a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a>
+</div></div>
+</div>
+</main>
+{footer.render_footer(prefix)}
+{DOSSIER_JS}
+</body></html>"""
+
+
 def subnav_projects(prefix="", current=""):
     """Поднавигация рубрики «Проекты»: сквозная для всех проектных страниц."""
     items = [("infospace.html", "Инфопространство", "infospace"),
              ("projects/elections_2026.html", "Выборы-2026", "elections"),
              ("projects/goszakupki.html", "Госзакупки", "goszakupki"),
              ("methods.html", "Методы", "methods"),
-             ("projects/plans.html", "Планы", "plans")]
+             ("projects/plans.html", "Планы", "plans"),
+             ("projects/dossier.html", "Досье", "dossier")]
     links = "".join(
         f'<span class="cur">{txt}</span>' if key == current
         else f'<a href="{prefix}{href}">{txt}</a>'
@@ -3090,6 +3443,11 @@ def subnav_projects(prefix="", current=""):
 
 
 METHODS_CSS = """
+.tbl-wrap{overflow-x:auto;}
+.h3rule{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+color:var(--ink);border-bottom:1px solid var(--ink);padding:0 0 8px;margin:34px 0 14px;}
+.h3rule .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
+
 /* ---- страница «Методы»: карточки паспортов, таблицы техконтура, стенд ---- */
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:8px;}
 .mcard{border-top:1px solid var(--ink);padding:14px 0 18px;break-inside:avoid;}
@@ -3118,10 +3476,6 @@ background:var(--paper-2);border:1px solid var(--rule);padding:1px 6px;color:var
 .mrow-wide{grid-column:1/-1;}
 .mrow-wide ol{margin:4px 0 0;padding-left:18px;}
 .mrow-wide li{margin:3px 0;}
-.tbl-wrap{overflow-x:auto;}
-.h3rule{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-color:var(--ink);border-bottom:1px solid var(--ink);padding:0 0 8px;margin:34px 0 14px;}
-.h3rule .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
 .fbtn.ideo{border-color:var(--accent);color:var(--accent);}
 .fbtn.ideo.active{background:var(--accent);border-color:var(--accent);color:#fff;}
 .proto-form{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin:6px 0 4px;}
@@ -3416,6 +3770,7 @@ def render_methods(cfg, trends, store, status):
 <div class="wrap1200"><div class="note" style="margin-top:26px;">Связано:
 <a href="infospace.html" style="color:var(--accent);">дашборд «Инфопространство»</a> ·
 <a href="projects/plans.html#method" style="color:var(--accent);">внедрение методов в планах</a> ·
+<a href="projects/dossier.html" style="color:var(--accent);">досье действующих лиц (прототип)</a> ·
 <a href="projects/elections_2026.html" style="color:var(--accent);">досье «Выборы-2026»</a> ·
 <a href="projects/goszakupki.html" style="color:var(--accent);">досье «Госзакупки»</a> ·
 <a href="status.html" style="color:var(--accent);">статус системы</a>.
@@ -5925,6 +6280,7 @@ def render_archive(cfg, trends, store, status):
             ("projects/goszakupki.html", "Госзакупки", "аналитика закупок региона"),
             ("infospace.html", "Инфопространство", "сеттеры повестки, каскады, тон, территории"),
             ("methods.html", "Методы", "реестр из 36 методик с паспортами · идеология и гегемония · техконтур · стенд"),
+            ("projects/dossier.html", "Досье (прототип)", "действующие лица инфополя: упоминания, тон, дуги сюжетов · демо-данные"),
             ("projects/plans.html", "Планы", "треки планов · реестр из 32 метрик · паспорта · конвейер внедрения"),
             ("afisha.html", "Афиша", "культурные события области, автоизвлечение")]
     proj_cards = "".join(
@@ -6590,6 +6946,10 @@ def main():
     with open(os.path.join(BASE, "methods.html"), "w", encoding="utf-8") as f:
         f.write(methods_html)
     print("[generate] методы: methods.html (реестр методик v1.1)")
+    dossier_html = themed(render_dossier(cfg, trends, store, status))
+    with open(os.path.join(proj_dir, "dossier.html"), "w", encoding="utf-8") as f:
+        f.write(dossier_html)
+    print("[generate] досье: projects/dossier.html (прототип, демо-данные)")
 
     special_files = sorted(glob.glob(os.path.join(SPECIAL, "*.html")))
     index_html = themed(render_index(cfg, trends, store, status, digest_files, special_files))

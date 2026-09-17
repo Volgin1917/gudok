@@ -30,8 +30,8 @@ jobs:
         run: |
           bash ci_push.sh "Ежедневный выпуск $(date -u +%F)" \
             data digests index.html afisha.html infospace.html status.html \
-            weekly.html monthly.html projects.html projects archive.html projects/plans.html \
-            methods.html \
+            weekly.html monthly.html projects.html projects archive.html \
+            projects/plans.html projects/dossier.html methods.html \
             assets weekly monthly
       - name: Артефакт сайта (свежие страницы, а не триггерный коммит)
         # upload-pages-artifact выполняется ЗДЕСЬ, в build-джобе, сразу после ci_push.sh:

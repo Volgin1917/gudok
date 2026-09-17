@@ -1479,7 +1479,7 @@ class TestPageStructure(unittest.TestCase):
     отсутствие оборванных тегов."""
 
     PAGES = ("infospace.html", "index.html", "digests/today.html",
-             "projects/plans.html", "methods.html")
+             "projects/plans.html", "methods.html", "projects/dossier.html")
 
     @staticmethod
     def _read(path):
@@ -3399,6 +3399,181 @@ class TestInternalLinks(unittest.TestCase):
         link = generate.digest_link(today)
         self.assertIn(link, ("today.html", f"digest_{today}.html"))
         self.assertTrue(os.path.exists(os.path.join(BASE, "digests", link)))
+
+class TestDossierRegistry(unittest.TestCase):
+    """Данные прототипа «Досье» (dossier.py): целостность карточек и связей с реестром методик."""
+
+    def test_ids_unique(self):
+        import dossier as D
+        ids = [p["id"] for p in D.PERSONS]
+        self.assertEqual(len(ids), len(set(ids)))
+
+    def test_groups_and_statuses_known(self):
+        import dossier as D
+        for p in D.PERSONS:
+            self.assertIn(p["group"], D.ROLE_TITLE, p["id"])
+            self.assertIn(p["status"], D.STATUS_TITLE, p["id"])
+
+    def test_required_fields_filled(self):
+        import dossier as D
+        for p in D.PERSONS:
+            for f in ("name", "role", "org", "avatar", "search", "foot_upd"):
+                self.assertTrue(str(p.get(f, "")).strip(), f"{p['id']}: пусто {f}")
+            self.assertGreaterEqual(int(p.get("mentions") or 0), 0, p["id"])
+            self.assertTrue(p.get("facts"), f"{p['id']}: нет справки")
+            self.assertTrue(p.get("verify", {}).get("text"), f"{p['id']}: нет статуса проверки")
+            self.assertIn(p["verify"]["kind"], ("ok", "warn"), p["id"])
+            self.assertTrue(p.get("foot_links"), f"{p['id']}: нет ссылок в подвале карточки")
+
+    def test_tone_split_consistent(self):
+        import dossier as D
+        for p in D.PERSONS:
+            pos, neu, neg = p["tone_split"]
+            self.assertEqual(pos + neu + neg, 100, f"{p['id']}: доли тона не дают 100%")
+
+    def test_demo_marking(self):
+        # прототип обязан быть помечен: флаг, метка и «(демо)» в каждой должности
+        import dossier as D
+        self.assertTrue(D.DEMO)
+        self.assertIn("демонстрационные", D.DEMO_LABEL)
+        for p in D.PERSONS:
+            self.assertIn("демо", p["role"].lower(), f"{p['id']}: должность без пометки «демо»")
+        self.assertIn("демонстрационные", D.NOTES[1])
+
+    def test_counts_consistent(self):
+        import dossier as D
+        c = D.counts()
+        self.assertEqual(c["persons"], len(D.PERSONS))
+        self.assertEqual(c["focus"] + c["back"] + c["new"], c["persons"])
+        self.assertEqual(c["mentions"], sum(int(p["mentions"]) for p in D.PERSONS))
+        self.assertEqual(c["stories"], sum(len(p.get("stories") or []) for p in D.PERSONS))
+
+    def test_sorted_by_mentions(self):
+        import dossier as D
+        order = [p["mentions"] for p in D.sorted_by_mentions()]
+        self.assertEqual(order, sorted(order, reverse=True))
+
+    def test_initials(self):
+        import dossier as D
+        self.assertEqual(D.initials("Иванов Иван Иванович"), "ИИ")
+        self.assertEqual(D.initials("Фёдоров Андрей Андреевич"), "ФА")
+        for p in D.PERSONS:
+            self.assertEqual(D.initials(p["name"]), p["avatar"], p["id"])
+
+    def test_pipeline_links_to_existing_methods(self):
+        import dossier as D
+        import methods as M
+        ids = {m["id"] for m in M.METHODS}
+        codes = {m["code"] for m in M.METHODS}
+        linked = 0
+        for _field, refs, _how in D.PIPELINE:
+            for label, href in refs:
+                if not href:
+                    continue
+                self.assertTrue(href.startswith("methods.html#"), href)
+                anchor = href.split("#", 1)[1]
+                self.assertIn(anchor, ids, f"якорь {href} не ведёт на карточку методики")
+                linked += 1
+                self.assertIn(label, codes, f"подпись {label} не совпадает с кодом методики")
+        self.assertGreaterEqual(linked, 8)
+
+    def test_ethics_and_queue_present(self):
+        import dossier as D
+        self.assertTrue(D.ETHICS.strip())
+        low = D.ETHICS.lower()
+        for needle in ("персональные данные", "право на ответ", "открытым данным", "м-28"):
+            self.assertIn(needle, low)
+        self.assertEqual(len(D.QUEUE), 5)
+        self.assertIn("Автогенерация", [b for b, _t in D.QUEUE])
+
+
+class TestDossierPage(unittest.TestCase):
+    """Страница projects/dossier.html: общий стиль, самодостаточность, работа без JS."""
+
+    PAGE = os.path.join("projects", "dossier.html")
+
+    @classmethod
+    def _read(cls, name=None):
+        with open(os.path.join(BASE, name or cls.PAGE), encoding="utf-8") as f:
+            return f.read()
+
+    def test_page_exists_and_selfcontained(self):
+        html = self._read()
+        self.assertIn("<!DOCTYPE html>", html)
+        self.assertNotIn("cdn.", html)
+        self.assertNotIn('rel="stylesheet"', html)
+        ext = [u for u in re.findall(r'(?:src|href)="(https?://[^"]+)"', html)
+               if "github.com" not in u]
+        self.assertEqual(ext, [], "внешних ресурсов быть не должно")
+        self.assertIn("masthead", html)
+        self.assertIn("footer__inner", html)
+
+    def test_all_cards_rendered(self):
+        import dossier as D
+        html = self._read()
+        self.assertEqual(html.count('<details class="dcard'), len(D.PERSONS))
+        for p in D.PERSONS:
+            self.assertIn(f'id="{p["id"]}"', html)
+            self.assertIn(p["name"], html)
+            self.assertIn(p["org"], html)
+
+    def test_demo_marker_visible(self):
+        import dossier as D
+        html = self._read()
+        self.assertIn(D.DEMO_LABEL, html)
+        self.assertIn("Это прототип", html)
+        self.assertIn("demo-mark", html)
+
+    def test_kpi_computed_from_data(self):
+        import dossier as D
+        html = self._read()
+        c = D.counts()
+        for val, lbl in ((str(c["persons"]), "персон в досье"), (str(c["focus"]), "сейчас в фокусе"),
+                         (str(c["mentions"]), "упоминаний за 30 дней"), (str(c["stories"]), "сюжетов с участием")):
+            self.assertIn(f'<div class="num">{val}</div><div class="lbl">{lbl}</div>', html)
+
+    def test_cards_open_without_js(self):
+        html = self._read()
+        self.assertNotIn('<div class="ddet" hidden>', html)
+        self.assertEqual(html.count("<summary"), html.count('<details class="dcard'))
+        # метрики видны без раскрытия: они внутри summary
+        self.assertLess(html.index('class="dstats"'), html.index('class="ddet"'))
+
+    def test_filters_and_pipeline(self):
+        import dossier as D
+        html = self._read()
+        self.assertIn('id="fRole"', html)
+        self.assertIn('id="fStatus"', html)
+        self.assertIn('id="dq"', html)
+        for _key, title in D.ROLES:
+            self.assertIn(title, html)
+        self.assertIn("Как собирается досье", html)
+        self.assertIn("Этика и границы", html)
+        self.assertIn("Очередь развития раздела", html)
+
+    def test_links_use_depth_prefix(self):
+        html = self._read()
+        for href in ("../methods.html", "../archive.html", "../infospace.html", "../afisha.html"):
+            self.assertIn(f'href="{href}', html)
+        self.assertNotIn('href="methods.html', html)
+
+    def test_linked_from_projects_footer_archive_methods(self):
+        import footer
+        for page in ("projects.html", "archive.html", "methods.html"):
+            self.assertIn("projects/dossier.html", self._read(page), page)
+        self.assertIn("projects/dossier.html", footer.render_footer(""))
+        self.assertIn("dossier.html", footer.render_footer("../"))
+
+    def test_subnav_marks_current(self):
+        html = self._read()
+        self.assertIn("subnav-inner", html)
+        self.assertIn('<span class="cur">Досье</span>', html)
+
+    def test_page_structure_balanced(self):
+        html = self._read()
+        self.assertEqual(html.count("<div"), html.count("</div>"))
+        self.assertEqual(html.count("<table"), html.count("</table>"))
+        self.assertEqual(html.count("<details"), html.count("</details>"))
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
