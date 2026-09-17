@@ -562,12 +562,40 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
 .af-rej-row:last-child{border-bottom:none;}
 .af-rej-date{min-width:118px;font-weight:800;color:var(--navy);}
 .af-rej-why{color:var(--muted);font-size:11px;margin-left:auto;}
+/* ---- спринт 2: календарь и фильтры ---- */
+.af-frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:9px;}
+.af-frow .fl{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);flex:0 0 96px;}
+.af-q{flex:1;min-width:220px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--sans);font-size:13px;padding:8px 12px;border-radius:9px;}
+.af-q:focus{outline:2px solid var(--blue);outline-offset:1px;}
+.af-sort{border:1px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--sans);font-size:12.5px;font-weight:700;padding:7px 10px;border-radius:9px;cursor:pointer;}
+.af-active{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:2px 0 14px;font-size:11.5px;color:var(--muted);}
+.af-albl{letter-spacing:.06em;text-transform:uppercase;font-size:10px;font-weight:800;}
+.af-achip{border:1px solid var(--line);padding:3px 9px;border-radius:999px;cursor:pointer;color:var(--navy);font-weight:700;transition:border-color .15s,color .15s;}
+.af-achip:hover{border-color:var(--blue);color:var(--blue);}
+.af-achip.reset{border-color:var(--gold);color:var(--gold);}
+.af-day{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 11px;text-align:center;min-width:64px;cursor:pointer;font-family:var(--sans);transition:opacity .15s,border-color .15s;}
+.af-day.zero{opacity:.42;}
+.af-day.on{background:var(--navy3);border-color:var(--navy3);}
+:root[data-theme="dark"] .af-day.on{background:#2f80ed;border-color:#2f80ed;}
+.af-day.on b,.af-day.on span,.af-day.on i{color:#fff;}
+.af-daylist{position:relative;}
+.af-day-head{display:flex;align-items:baseline;gap:12px;border-top:1px solid var(--ink);padding-top:10px;margin:18px 0 2px;}
+.af-day-head h3{font-family:var(--serif);font-size:19px;font-weight:700;margin:0;color:var(--navy);}
+.af-cnt{margin-left:auto;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.af-hide{display:none!important;}
+.af-kick{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:2px;}
+.af-link b{font-size:13.8px;color:var(--navy);line-height:1.35;}
+.af-link:hover b{color:var(--blue);}
+.af-also{font-style:italic;color:var(--muted);font-size:11px;margin-left:4px;}
+.af-tag-icn{font-size:12.5px;margin-right:1px;}
+.af-foot{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:16px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);}
+.af-foot b{color:var(--navy);font-size:16px;margin-right:2px;}
 </style><script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 09:25</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 10:02</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Афиша культурных событий<br>всего 6 · сегодня 1 · выходные 2
@@ -576,42 +604,56 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="active" href="afisha.html">Афиша</a><a class="" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-16.html">Руководителю</a></div></nav><main id="main">
 <div class="page">
 
-<div class="note" style="margin-bottom:4px;">Порог входа: найдено дат <b>65</b> → прошло проверку <b>6</b> → показано сегодня <b>6</b>. Сверяйте время и билеты у организаторов — данные извлечены из публикаций автоматически.</div>
+<div class="note" style="margin-bottom:4px;">Порог входа: найдено дат <b>62</b> → прошло проверку <b>6</b> → показано сегодня <b>6</b>. Сверяйте время и билеты у организаторов — данные извлечены из публикаций автоматически.</div>
 
-<div class="af-chips">
-<button class="af-chip on" onclick="afFilter('all',this)">Все (6)</button>
-<button class="af-chip" onclick="afFilter('today',this)">Сегодня</button>
-<button class="af-chip" onclick="afFilter('tomorrow',this)">Завтра</button>
-<button class="af-chip" onclick="afFilter('weekend',this)">Выходные 19.09–20.09</button>
-<button class="af-chip" onclick="afFilter('week',this)">7 дней</button>
-</div>
+<div id="af-filters"><div class="af-frow"><span class="fl">Когда</span><button type="button" class="af-chip on" data-f="date" data-v="all" aria-pressed="false">Все дни</button><button type="button" class="af-chip" data-f="date" data-v="today" aria-pressed="false">Сегодня</button><button type="button" class="af-chip" data-f="date" data-v="tomorrow" aria-pressed="false">Завтра</button><button type="button" class="af-chip" data-f="date" data-v="weekend" aria-pressed="false">Выходные 19.09–20.09</button><button type="button" class="af-chip" data-f="date" data-v="week" aria-pressed="false">7 дней</button><button type="button" class="af-chip" data-f="date" data-v="evening" aria-pressed="false">Вечером (после 17:00)</button></div><div class="af-frow"><span class="fl">Тип</span><button type="button" class="af-chip on" data-f="type" data-v="all" aria-pressed="false">Все типы</button><button type="button" class="af-chip" data-f="type" data-v="festival" aria-pressed="false">Фестивали и праздники</button><button type="button" class="af-chip" data-f="type" data-v="theatre" aria-pressed="false">Театр и спектакли</button><button type="button" class="af-chip" data-f="type" data-v="concert" aria-pressed="false">Концерты и музыка</button><button type="button" class="af-chip" data-f="type" data-v="expo" aria-pressed="false">Выставки, музеи, библиотеки</button><button type="button" class="af-chip" data-f="type" data-v="kids" aria-pressed="false">Детям и семьям</button><button type="button" class="af-chip" data-f="type" data-v="cinema" aria-pressed="false">Кино</button><button type="button" class="af-chip" data-f="type" data-v="sport" aria-pressed="false">Спорт и ЗОЖ</button><button type="button" class="af-chip" data-f="type" data-v="city" aria-pressed="false">Город и встречи</button><button type="button" class="af-chip" data-f="type" data-v="other" aria-pressed="false">Прочее</button></div><div class="af-frow"><span class="fl">Где и почём</span><button type="button" class="af-chip" data-f="geo" data-v="ulsk" aria-pressed="false">Ульяновск</button><button type="button" class="af-chip" data-f="geo" data-v="dim" aria-pressed="false">Димитровград</button><button type="button" class="af-chip" data-f="geo" data-v="region" aria-pressed="false">Районы области</button><button type="button" class="af-chip" data-f="price" data-v="free" aria-pressed="false">Только бесплатные</button><button type="button" class="af-chip" data-f="age" data-v="kids" aria-pressed="false">Можно с детьми</button><select class="af-sort" id="af-sort" aria-label="Сортировка"><option value="time">Сортировка: по времени</option><option value="type">По типу события</option><option value="score">По релевантности</option></select></div><div class="af-frow"><span class="fl">Поиск</span><input class="af-q" id="af-q" type="search" placeholder="Название, площадка, район — например «филармония»"></div></div>
+<div class="af-active" id="af-active"></div>
+<div class="af-daybar" id="af-daybar" data-ref="2026-09-17"><button type="button" class="af-day" data-date="2026-09-17" aria-pressed="false" title="1 событие"><b>17</b><span>чт 09</span><i>1 соб.</i></button><button type="button" class="af-day" data-date="2026-09-18" aria-pressed="false" title="1 событие"><b>18</b><span>пт 09</span><i>1 соб.</i></button><button type="button" class="af-day we" data-date="2026-09-19" aria-pressed="false" title="1 событие"><b>19</b><span>сб 09</span><i>1 соб.</i></button><button type="button" class="af-day we" data-date="2026-09-20" aria-pressed="false" title="1 событие"><b>20</b><span>вс 09</span><i>1 соб.</i></button><button type="button" class="af-day zero" data-date="2026-09-21" aria-pressed="false" title="Событий нет · ближайшее 24.09"><b>21</b><span>пн 09</span><i>нет соб.</i></button><button type="button" class="af-day zero" data-date="2026-09-22" aria-pressed="false" title="Событий нет · ближайшее 24.09"><b>22</b><span>вт 09</span><i>нет соб.</i></button><button type="button" class="af-day zero" data-date="2026-09-23" aria-pressed="false" title="Событий нет · ближайшее 24.09"><b>23</b><span>ср 09</span><i>нет соб.</i></button><button type="button" class="af-day" data-date="2026-09-24" aria-pressed="false" title="1 событие"><b>24</b><span>чт 09</span><i>1 соб.</i></button><button type="button" class="af-day zero" data-date="2026-09-25" aria-pressed="false" title="Событий нет"><b>25</b><span>пт 09</span><i>нет соб.</i></button><button type="button" class="af-day zero" data-date="2026-09-26" aria-pressed="false" title="Событий нет"><b>26</b><span>сб 09</span><i>нет соб.</i></button><button type="button" class="af-day zero" data-date="2026-09-27" aria-pressed="false" title="Событий нет"><b>27</b><span>вс 09</span><i>нет соб.</i></button><button type="button" class="af-day zero" data-date="2026-09-28" aria-pressed="false" title="Событий нет"><b>28</b><span>пн 09</span><i>нет соб.</i></button><button type="button" class="af-day zero" data-date="2026-09-29" aria-pressed="false" title="Событий нет"><b>29</b><span>вт 09</span><i>нет соб.</i></button><button type="button" class="af-day zero" data-date="2026-09-30" aria-pressed="false" title="Событий нет"><b>30</b><span>ср 09</span><i>нет соб.</i></button></div>
 
-<div class="af-daybar"><div class="af-day"><b>17</b><span>чт 09</span><i>1 соб.</i></div><div class="af-day"><b>18</b><span>пт 09</span><i>1 соб.</i></div><div class="af-day we"><b>19</b><span>сб 09</span><i>1 соб.</i></div><div class="af-day we"><b>20</b><span>вс 09</span><i>1 соб.</i></div><div class="af-day"><b>21</b><span>пн 09</span><i>0 соб.</i></div><div class="af-day"><b>22</b><span>вт 09</span><i>0 соб.</i></div><div class="af-day"><b>23</b><span>ср 09</span><i>0 соб.</i></div><div class="af-day"><b>24</b><span>чт 09</span><i>1 соб.</i></div><div class="af-day"><b>25</b><span>пт 09</span><i>0 соб.</i></div><div class="af-day"><b>26</b><span>сб 09</span><i>0 соб.</i></div></div>
-
-<div class="af-sec" id="et-concert"><div class="sec-head" style="margin:16px 0 8px;"><h2>🎵 Концерты и музыка</h2><div class="line"></div>
-<div class="badge">3</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-17" data-weekend="0">
+<div id="af-list"><div class="af-daylist"><div class="af-day-head"><h3>17 сентября · четверг</h3><span class="af-cnt">1 соб. · будни</span></div><div class="af-list"><div class="af-event" data-d="2026-09-17" data-tm="1380" data-type="concert"
+ data-geo="ulsk" data-price="" data-age=""
+ data-sc="1.0" data-q="караоке-баттл 🎤 мама говорит, у тебя талант? караоке-баттл 🎤 мама говорит, у тебя талант? 17 сентября проверим, не врала ли мама. 10 участников, 3 раунда, … бар «matrёshki» ул. федерации, 4 засвияжский район ульяновск засвияжский район концерты и музыка t.me/pronovosty73">
 <div class="cal-badge"><b>17</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener"><b>Караоке-баттл 🎤 Мама говорит, у тебя талант?</b></a>
-<div class="af-meta"><span class="af-time">23:00</span><span>t.me/ProNovosty73</span><span class="af-meta" style="display:inline;"> · 📍 Бар «Matrёshki»</span><span class="af-meta" style="display:inline;"> · ул. Федерации, 4</span> </div></div></div><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://t.me/culturnik/9298" target="_blank" rel="noopener"><b>Почитушки</b></a>
-<div class="af-meta"><span class="af-time">18:00</span><span>t.me/culturnik</span><span class="af-meta" style="display:inline;"> · 📍 Молодёжный центр современного искусства</span><span class="af-meta" style="display:inline;"> · ул. Минаева, 6</span> </div></div></div><div class="af-event" data-date="2026-10-22" data-weekend="0">
-<div class="cal-badge"><b>22</b><span>чт 10</span></div>
-<div class="af-body"><a href="https://t.me/ProNovosty73/5899" target="_blank" rel="noopener"><b>Мураками</b></a>
-<div class="af-meta"><span class="af-time">19:00</span><span>t.me/ProNovosty73</span><span class="af-meta" style="display:inline;"> · 📍 Клуб «Шипр»</span><span class="af-meta" style="display:inline;"> · ул. Карла Маркса, 13</span> </div></div></div></div></div></div><div class="af-sec" id="et-kids"><div class="sec-head" style="margin:16px 0 8px;"><h2>👶 Детям и семьям</h2><div class="line"></div>
-<div class="badge">2</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-19" data-weekend="1">
-<div class="cal-badge gold"><b>19</b><span>сб 09</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/15/v-dimitrovgrade-19-sentyabrya-projdyot-enduro-gonka-slobodskaya-balka/" target="_blank" rel="noopener"><b>Слободская балка</b></a>
-<div class="af-meta"><span class="af-time">11:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 Трасса «Слободская балка»</span><span class="af-meta" style="display:inline;"> · окрестности города</span> </div></div></div><div class="af-event" data-date="2026-09-24" data-weekend="0">
-<div class="cal-badge"><b>24</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/16/s-17-po-24-sentyabrya-v-chetyryoh-rajonah-ulyanovska-projdut-yarmarki-vakansij/" target="_blank" rel="noopener"><b>Защитники Отечества</b></a>
-<div class="af-meta"><span class="af-time">10:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 ДК «Современник»</span><span class="af-meta" style="display:inline;"> · ул. Рябикова, 2</span> </div></div></div></div></div></div><div class="af-sec" id="et-sport"><div class="sec-head" style="margin:16px 0 8px;"><h2>🏃 Спорт и ЗОЖ</h2><div class="line"></div>
-<div class="badge">1</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-18" data-weekend="0">
+<div class="af-body"><div class="af-kick">🎵 Концерты и музыка</div>
+<a class="af-link" href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener"><b>Караоке-баттл 🎤 Мама говорит, у тебя талант?</b></a>
+<div class="af-meta"><span class="af-time">23:00</span><span>t.me/ProNovosty73</span><span class="af-meta" style="display:inline;"> · 📍 Бар «Matrёshki»</span><span class="af-meta" style="display:inline;"> · ул. Федерации, 4</span> </div></div></div></div></div><div class="af-daylist"><div class="af-day-head"><h3>18 сентября · пятница</h3><span class="af-cnt">1 соб. · будни</span></div><div class="af-list"><div class="af-event" data-d="2026-09-18" data-tm="1080" data-type="sport"
+ data-geo="ulsk" data-price="" data-age=""
+ data-sc="0.96" data-q="волга накопились счёты»: ульяновская «волга» примет костромской «спартак» на стадионе «труд» стадион «труд» ул. гагарина железнодорожный район ульяновск железнодорожный район спорт и зож улпресса">
 <div class="cal-badge"><b>18</b><span>пт 09</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/16/nakopilis-schyoty-ulyanovskaya-volga-primet-kostromskoj-spartak-na-stadione-trud/" target="_blank" rel="noopener"><b>Волга</b></a>
-<div class="af-meta"><span class="af-time">18:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 Стадион «Труд»</span><span class="af-meta" style="display:inline;"> · ул. Гагарина</span> </div></div></div></div></div></div>
+<div class="af-body"><div class="af-kick">🏃 Спорт и ЗОЖ</div>
+<a class="af-link" href="https://ulpressa.ru/2026/09/16/nakopilis-schyoty-ulyanovskaya-volga-primet-kostromskoj-spartak-na-stadione-trud/" target="_blank" rel="noopener"><b>Волга</b></a>
+<div class="af-meta"><span class="af-time">18:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 Стадион «Труд»</span><span class="af-meta" style="display:inline;"> · ул. Гагарина</span> </div></div></div></div></div><div class="af-daylist"><div class="af-day-head"><h3>19 сентября · суббота</h3><span class="af-cnt">1 соб. · выходные</span></div><div class="af-list"><div class="af-event" data-d="2026-09-19" data-tm="660" data-type="kids"
+ data-geo="dim" data-price="" data-age=""
+ data-sc="1.0" data-q="слободская балка в димитровграде 19 сентября пройдёт эндуро-гонка «слободская балка» трасса «слободская балка» окрестности города димитровград димитровград димитровград детям и семьям улпресса">
+<div class="cal-badge gold"><b>19</b><span>сб 09</span></div>
+<div class="af-body"><div class="af-kick">👶 Детям и семьям</div>
+<a class="af-link" href="https://ulpressa.ru/2026/09/15/v-dimitrovgrade-19-sentyabrya-projdyot-enduro-gonka-slobodskaya-balka/" target="_blank" rel="noopener"><b>Слободская балка</b></a>
+<div class="af-meta"><span class="af-time">11:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 Трасса «Слободская балка»</span><span class="af-meta" style="display:inline;"> · окрестности города</span> </div></div></div></div></div><div class="af-daylist"><div class="af-day-head"><h3>20 сентября · воскресенье</h3><span class="af-cnt">1 соб. · выходные</span></div><div class="af-list"><div class="af-event" data-d="2026-09-20" data-tm="1080" data-type="concert"
+ data-geo="ulsk" data-price="" data-age=""
+ data-sc="1.0" data-q="почитушки «почитушки» – поэтический клуб и площадка, где локальные артисты (поэты, музыканты, актёры, художники и т.д.) … молодёжный центр современного искусства ул. минаева, 6 железнодорожный район ульяновск железнодорожный район концерты и музыка t.me/culturnik">
+<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
+<div class="af-body"><div class="af-kick">🎵 Концерты и музыка</div>
+<a class="af-link" href="https://t.me/culturnik/9298" target="_blank" rel="noopener"><b>Почитушки</b></a>
+<div class="af-meta"><span class="af-time">18:00</span><span>t.me/culturnik</span><span class="af-meta" style="display:inline;"> · 📍 Молодёжный центр современного искусства</span><span class="af-meta" style="display:inline;"> · ул. Минаева, 6</span> </div></div></div></div></div><div class="af-daylist"><div class="af-day-head"><h3>24 сентября · четверг</h3><span class="af-cnt">1 соб. · будни</span></div><div class="af-list"><div class="af-event" data-d="2026-09-24" data-tm="600" data-type="kids"
+ data-geo="ulsk" data-price="" data-age=""
+ data-sc="0.96" data-q="защитники отечества с 17 по 24 сентября в четырёх районах ульяновска пройдут ярмарки вакансий дк «современник» ул. рябикова, 2 засвияжский район ульяновск засвияжский район детям и семьям улпресса">
+<div class="cal-badge"><b>24</b><span>чт 09</span></div>
+<div class="af-body"><div class="af-kick">👶 Детям и семьям</div>
+<a class="af-link" href="https://ulpressa.ru/2026/09/16/s-17-po-24-sentyabrya-v-chetyryoh-rajonah-ulyanovska-projdut-yarmarki-vakansij/" target="_blank" rel="noopener"><b>Защитники Отечества</b></a>
+<div class="af-meta"><span class="af-time">10:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 ДК «Современник»</span><span class="af-meta" style="display:inline;"> · ул. Рябикова, 2</span> </div></div></div></div></div><div class="af-daylist"><div class="af-day-head"><h3>22 октября · четверг</h3><span class="af-cnt">1 соб. · будни</span></div><div class="af-list"><div class="af-event" data-d="2026-10-22" data-tm="1140" data-type="concert"
+ data-geo="ulsk" data-price="" data-age=""
+ data-sc="1.0" data-q="мураками концерт группы «мураками» 🎵 презентация альбома «невеста хочет домой» — первой полноформатной работы за послед… клуб «шипр» ул. карла маркса, 13 ленинский район ульяновск ленинский район концерты и музыка t.me/pronovosty73">
+<div class="cal-badge"><b>22</b><span>чт 10</span></div>
+<div class="af-body"><div class="af-kick">🎵 Концерты и музыка</div>
+<a class="af-link" href="https://t.me/ProNovosty73/5899" target="_blank" rel="noopener"><b>Мураками</b></a>
+<div class="af-meta"><span class="af-time">19:00</span><span>t.me/ProNovosty73</span><span class="af-meta" style="display:inline;"> · 📍 Клуб «Шипр»</span><span class="af-meta" style="display:inline;"> · ул. Карла Маркса, 13</span> </div></div></div></div></div></div>
+<div class="af-empty" id="af-empty" hidden><b>Под условия ничего не нашлось.</b> Снимите один из фильтров или поиск.
+<div style="margin-top:10px;"><button type="button" class="af-chip" onclick="_afReset()">Сбросить фильтры</button></div></div>
 
-<details class="af-rej"><summary>Не прошло порог (44) — почему отсеяно</summary>
+<div class="af-foot"><span>Показано: <b id="af-shown">6</b> событий</span><span>дней с событиями: <b id="af-days">6</b></span>
+<span class="af-albl" style="margin-left:auto;">фильтры применяются в браузере; без JS видны все события по дням</span></div>
+
+<details class="af-rej"><summary>Не прошло порог (43) — почему отсеяно</summary>
 <div class="af-rej-row"><span class="af-rej-date">17.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Невозможное существует ровно до того момента, пока кто-то не докажет обратное</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">17.09 <span class="af-time">17:30</span></span>
@@ -657,7 +699,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">21.09 <span class="af-time">14:00</span></span>
 <span>Россия – страна возможностей</span>
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">21.09 <span class="af-badge warn">время уточняется</span></span>
-<span>спортивное событие</span>
+<span>Строительно-монтажного управления-96</span>
 <span class="af-rej-why">дайджест/норма: дата — не события</span></div><div class="af-rej-row"><span class="af-rej-date">24.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Кадры</span>
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">24.09 <span class="af-badge warn">время уточняется</span></span>
@@ -670,8 +712,6 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span>Ульяновск, это будет громко</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Городская теплосеть</span>
-<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
-<span>күмәк көч</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
 <span>🌡 Отопительный сезон в Ульяновске начнется</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
@@ -707,19 +747,19 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="badge">Telegram, последние посты</div></div>
 <div class="grid2"><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
 <a href="https://t.me/culturnik" target="_blank" rel="noopener" style="color:#fff;">@culturnik</a>
-<span class="sub">Культура Ульяновск</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9299" target="_blank" rel="noopener">ВЕЧЕР ПРОЗЫ 🗓️ 20 сентября 17:00 📍 бар Довлатов Ульяновские авторы читают свои произведения на публику. Коротк…</a></div>
-<div class="m">17.09 08:30 · 👁 8</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9298" target="_blank" rel="noopener">«Почитушки» – поэтический клуб и площадка, где локальные артисты (поэты, музыканты, актёры, художники и т.д.) …</a></div>
-<div class="m">17.09 08:26 · 👁 23</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9297" target="_blank" rel="noopener">Friends to Friends — «Друзья для друзей» 🤍 Первая встреча камерного разговорного клуба английского для тех, ко…</a></div>
+<span class="sub">Культура Ульяновск</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><span class="af-badge">20.09</span> <a href="https://t.me/culturnik/9299" target="_blank" rel="noopener">ВЕЧЕР ПРОЗЫ 🗓️ 20 сентября 17:00 📍 бар Довлатов Ульяновские авторы читают свои произведения на публику. Коротк…</a></div>
+<div class="m">17.09 08:30 · 👁 8</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge">20.09</span> <a href="https://t.me/culturnik/9298" target="_blank" rel="noopener">«Почитушки» – поэтический клуб и площадка, где локальные артисты (поэты, музыканты, актёры, художники и т.д.) …</a></div>
+<div class="m">17.09 08:26 · 👁 23</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge">19.09</span> <a href="https://t.me/culturnik/9297" target="_blank" rel="noopener">Friends to Friends — «Друзья для друзей» 🤍 Первая встреча камерного разговорного клуба английского для тех, ко…</a></div>
 <div class="m">16.09 18:46 · 👁 249</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
 <a href="https://t.me/ulpromo" target="_blank" rel="noopener" style="color:#fff;">@ulpromo</a>
-<span class="sub">Движ в любимом У</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/ulpromo/18022" target="_blank" rel="noopener">АФИША КИНОКЛУБА «ДЖАРМУШ» Сентябрь 17 сентября, 18.30 – Пленницы , реж. Дени Вильнёв 25 сентября, 18.00 – Немо…</a></div>
-<div class="m">17.09 08:42 · 👁 136</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ulpromo/18021" target="_blank" rel="noopener">ВЕЧЕР КУЛЬТОВОЙ МУЗЫКИ 17 СЕНТЯБРЯ ⚡️ Мы повторяем в расширенном виде виниловый вечер величайшей группе 60-ых,…</a></div>
-<div class="m">16.09 21:38 · 👁 283</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ulpromo/18020" target="_blank" rel="noopener">ДЕВОЧКИ, У НАС СРОЧНЫЙ СБОР 💋 невеста для девичника вообще не обязательна. Достаточно подруг и коллективного р…</a></div>
-<div class="m">16.09 17:28 · 👁 707</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
+<span class="sub">Движ в любимом У</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><span class="af-badge">17.09</span> <a href="https://t.me/ulpromo/18021" target="_blank" rel="noopener">ВЕЧЕР КУЛЬТОВОЙ МУЗЫКИ 17 СЕНТЯБРЯ ⚡️ Мы повторяем в расширенном виде виниловый вечер величайшей группе 60-ых,…</a></div>
+<div class="m">16.09 21:38 · 👁 283</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge warn">дата не распознана</span> <a href="https://t.me/ulpromo/18020" target="_blank" rel="noopener">ДЕВОЧКИ, У НАС СРОЧНЫЙ СБОР 💋 невеста для девичника вообще не обязательна. Достаточно подруг и коллективного р…</a></div>
+<div class="m">16.09 17:28 · 👁 707</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge">17.09</span> <a href="https://t.me/ulpromo/18019" target="_blank" rel="noopener">Кинопросмотр в Джипси ДАВАЙТЕ ПОТАНЦУЕМ 💃🏼 ❤️ В главных ролях: РИЧАРД ГИР , ДЖЕННИФЕР ЛОПЕС , СЬЮЗЕН САРАНДОН …</a></div>
+<div class="m">16.09 17:13 · 👁 672</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
 <a href="https://t.me/ProNovosty73" target="_blank" rel="noopener" style="color:#fff;">@ProNovosty73</a>
-<span class="sub">Что-то на ульяновском</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/ProNovosty73/5922" target="_blank" rel="noopener">Концерт Рустама Асадуллина ✔️ Сольный концерт композитора и автора-исполнителя, обладателя неповторимого барха…</a></div>
-<div class="m">16.09 17:03 · 👁 94</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ProNovosty73/5921" target="_blank" rel="noopener">Комики общаются со зрителями и шутят в поисках нового формата. 18+. 📅 Когда: 16 сентября, сбор гостей в 18:30,…</a></div>
-<div class="m">16.09 14:01 · 👁 122</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ProNovosty73/5920" target="_blank" rel="noopener">Экскурсия «Усадьба купца Мельникова» ✨ Здание Молодёжного центра современного искусства не всегда было площадк…</a></div>
+<span class="sub">Что-то на ульяновском</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><span class="af-badge">18.09</span> <a href="https://t.me/ProNovosty73/5922" target="_blank" rel="noopener">Концерт Рустама Асадуллина ✔️ Сольный концерт композитора и автора-исполнителя, обладателя неповторимого барха…</a></div>
+<div class="m">16.09 17:03 · 👁 94</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge warn">дата не распознана</span> <a href="https://t.me/ProNovosty73/5921" target="_blank" rel="noopener">Комики общаются со зрителями и шутят в поисках нового формата. 18+. 📅 Когда: 16 сентября, сбор гостей в 18:30,…</a></div>
+<div class="m">16.09 14:01 · 👁 122</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge warn">дата не распознана</span> <a href="https://t.me/ProNovosty73/5920" target="_blank" rel="noopener">Экскурсия «Усадьба купца Мельникова» ✨ Здание Молодёжного центра современного искусства не всегда было площадк…</a></div>
 <div class="m">16.09 10:01 · 👁 60</div></div></div></div></div></div>
 <div class="note" style="margin-top:10px;">Посты каналов выводятся как есть; если дата не распознана — время и место сверяйте у организатора.</div>
 
@@ -751,26 +791,209 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
 </footer>
 <script>
-function afFilter(mode,btn){
-  document.querySelectorAll('.af-chip').forEach(function(c){c.classList.remove('on');});
-  btn.classList.add('on');
-  var now=new Date();now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
-  var iso=now.toISOString().slice(0,10);
-  var tom=(new Date(now.getTime()+86400000)).toISOString().slice(0,10);
-  document.querySelectorAll('.af-event').forEach(function(ev){
-    var d=ev.getAttribute('data-date');var show=true;
-    if(mode==='today')show=(d===iso);
-    else if(mode==='tomorrow')show=(d===tom);
-    else if(mode==='weekend')show=ev.getAttribute('data-weekend')==='1';
-    else if(mode==='week'){var t=new Date(iso);var x=new Date(d);show=((x-t)/86400000)<=7;}
-    ev.style.display=show?'':'none';
+(function(){
+  var box=document.getElementById('af-list');
+  if(!box)return;
+  var cards=Array.prototype.slice.call(box.querySelectorAll('.af-event'));
+  if(!cards.length){return;}
+  var daybar=document.getElementById('af-daybar');
+  var activeBox=document.getElementById('af-active');
+  var qInput=document.getElementById('af-q');
+  var sortSel=document.getElementById('af-sort');
+  var emptyEl=document.getElementById('af-empty');
+  var shownEl=document.getElementById('af-shown');
+  var daysEl=document.getElementById('af-days');
+  var REF_I=(daybar?daybar.getAttribute('data-ref'):'')||cards[0].getAttribute('data-d');
+  var TOM_I=new Date(new Date(REF_I+'T12:00:00').getTime()+86400000).toISOString().slice(0,10);
+  var AF_WD=['вс','пн','вт','ср','чт','пт','сб'];
+  var AF_WD_F=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+  var AF_MON=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  var TYPE_NAMES={},TYPE_KEY={};var TYP_I=0;
+  document.querySelectorAll('#af-filters .af-chip[data-f="type"]').forEach(function(ch){
+    var v=ch.getAttribute('data-v');
+    TYPE_NAMES[v]=ch.textContent.trim();TYPE_KEY[v]=(v==='all'?99:TYP_I++);
   });
-  document.querySelectorAll('.af-sec').forEach(function(sec){
-    var vis=sec.querySelectorAll('.af-event[style=""], .af-event:not([style])');
-    var any=Array.prototype.some.call(sec.querySelectorAll('.af-event'),function(e){return e.style.display!=='none';});
-    sec.style.display=any?'':'none';
+  var geos={ulsk:'Ульяновск',dim:'Димитровград',region:'районы области'};
+  var dates={all:'Все дни',today:'Сегодня',tomorrow:'Завтра',weekend:'Выходные',week:'7 дней',evening:'вечером (после 17:00)'};
+  var ST={date:'all',day:'',type:'all',geo:'all',price:'all',age:'all',sort:'time',q:''};
+
+  function daysFrom(d){return Math.round((new Date(d+'T12:00:00')-new Date(REF_I+'T12:00:00'))/86400000);}
+  function isWe(d){var x=new Date(d+'T12:00:00');return x.getDay()===0||x.getDay()===6;}
+  function toMin(c){var t=c.getAttribute('data-tm');return t?+t:1440;}
+  function dayText(d){var p=d.split('-');var x=new Date(d+'T12:00:00');return (+p[2])+' '+AF_MON[+p[1]-1]+' · '+AF_WD_F[x.getDay()];}
+
+  function pass(c){
+    var d=c.getAttribute('data-d');
+    if(ST.day){if(d!==ST.day)return false;}
+    else if(ST.date==='today'){if(d!==REF_I)return false;}
+    else if(ST.date==='tomorrow'){if(d!==TOM_I)return false;}
+    else if(ST.date==='weekend'){if(!isWe(d)||daysFrom(d)>6)return false;}
+    else if(ST.date==='week'){var w=daysFrom(d);if(w<0||w>7)return false;}
+    else if(ST.date==='evening'){if(toMin(c)<17*60||daysFrom(d)<0||daysFrom(d)>7)return false;}
+    if(ST.type!=='all'&&c.getAttribute('data-type')!==ST.type)return false;
+    if(ST.geo!=='all'&&c.getAttribute('data-geo')!==ST.geo)return false;
+    if(ST.price==='free'&&c.getAttribute('data-price')!=='free')return false;
+    if(ST.age==='kids'){var a=c.getAttribute('data-age');if(a==='16+'||a==='18+'||a==='21+')return false;}
+    if(ST.q&&(c.getAttribute('data-q')||'').indexOf(ST.q)===-1)return false;
+    return true;
+  }
+
+  function paint(){
+    var vis=[];
+    cards.forEach(function(c){if(pass(c)){vis.push(c);}});
+    if(ST.sort==='type'){
+      vis.sort(function(a,b){
+        var ta=a.getAttribute('data-type'),tb=b.getAttribute('data-type');
+        if(ta===tb){var da=a.getAttribute('data-d'),db=b.getAttribute('data-d');
+          return da===db?toMin(a)-toMin(b):(da<db?-1:1);}
+        return ((TYPE_KEY[ta]===undefined)?99:TYPE_KEY[ta])-((TYPE_KEY[tb]===undefined)?99:TYPE_KEY[tb]);
+      });
+    }else if(ST.sort==='score'){
+      vis.sort(function(a,b){return (+b.getAttribute('data-sc'))-(+a.getAttribute('data-sc'));});
+    }else{
+      vis.sort(function(a,b){
+        var da=a.getAttribute('data-d'),db=b.getAttribute('data-d');
+        return da===db?toMin(a)-toMin(b):(da<db?-1:1);
+      });
+    }
+    cards.forEach(function(c){c.classList.add('af-hide');});
+    vis.forEach(function(c){c.classList.remove('af-hide');});
+    var frag=document.createDocumentFragment();
+    if(ST.sort==='score'){
+      var lone=document.createElement('div');lone.className='af-list';
+      vis.forEach(function(c){lone.appendChild(c);});
+      frag.appendChild(lone);
+    }else{
+      var byDay={};
+      vis.forEach(function(c){var d=c.getAttribute('data-d');(byDay[d]=byDay[d]||[]).push(c);});
+      Object.keys(byDay).sort().forEach(function(d){
+        var head=document.createElement('div');head.className='af-day-head';
+        head.innerHTML='<h3>'+dayText(d)+'</h3><span class="af-cnt">'+byDay[d].length+' соб. · '+(isWe(d)?'выходные':'будни')+'</span>';
+        frag.appendChild(head);
+        var l=document.createElement('div');l.className='af-list';
+        byDay[d].forEach(function(c){l.appendChild(c);});
+        frag.appendChild(l);
+      });
+    }
+    box.innerHTML='';
+    box.appendChild(frag);
+    if(emptyEl){emptyEl.hidden=vis.length>0;}
+    if(shownEl){shownEl.textContent=vis.length;}
+    var dcount=ST.sort==='score'?1:0;
+    if(ST.sort!=='score'){
+      var seen={};vis.forEach(function(c){seen[c.getAttribute('data-d')]=1;});
+      dcount=Object.keys(seen).length;
+    }
+    if(daysEl){daysEl.textContent=dcount;}
+    paintChips();paintActive();paintDaybar();syncHash();
+  }
+
+  function chipVal(f){return f==='price'?'free':(f==='age'?'kids':'all');}
+  function paintChips(){
+    document.querySelectorAll('#af-filters .af-chip[data-f]').forEach(function(ch){
+      var f=ch.getAttribute('data-f'),v=ch.getAttribute('data-v');
+      var on=false;
+      if(f==='date'){on=!ST.day&&ST.date===v;}
+      else if(f==='type'){on=ST.type===v;}
+      else if(f==='geo'){on=ST.geo===v;}
+      else if(f==='price'){on=ST.price==='free';}
+      else if(f==='age'){on=ST.age==='kids';}
+      ch.classList.toggle('on',on);
+      ch.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+
+  function paintDaybar(){
+    if(!daybar)return;
+    daybar.querySelectorAll('.af-day[data-date]').forEach(function(b){
+      var on=b.getAttribute('data-date')===ST.day;
+      b.classList.toggle('on',on);
+      b.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+
+  function paintActive(){
+    if(!activeBox)return;
+    var out=[];
+    if(ST.day){out.push(['день: '+dayText(ST.day),function(){ST.day='';ST.date='all';paint();}]);}
+    else if(ST.date!=='all'){out.push(['когда: '+dates[ST.date],function(){ST.date='all';paint();}]);}
+    if(ST.type!=='all'){out.push(['тип: '+TYPE_NAMES[ST.type],function(){ST.type='all';paint();}]);}
+    if(ST.geo!=='all'){out.push(['где: '+geos[ST.geo],function(){ST.geo='all';paint();}]);}
+    if(ST.price==='free'){out.push(['только бесплатные',function(){ST.price='all';paint();}]);}
+    if(ST.age==='kids'){out.push(['можно с детьми',function(){ST.age='all';paint();}]);}
+    if(ST.q){out.push(['поиск: «'+ST.q+'»',function(){ST.q='';if(qInput){qInput.value='';}paint();}]);}
+    var html='<span class="af-albl">'+((out.length)?'Активные фильтры:':'Фильтры не заданы · показаны все события')+'</span>';
+    activeBox.innerHTML=html;
+    out.forEach(function(pair){
+      var s=document.createElement('span');s.className='af-achip';
+      s.textContent=pair[0]+' ✕';
+      s.addEventListener('click',pair[1]);
+      activeBox.appendChild(s);
+    });
+    if(out.length>1){
+      var r=document.createElement('span');r.className='af-achip reset';
+      r.textContent='Сбросить всё ✕';
+      r.addEventListener('click',resetAll);
+      activeBox.appendChild(r);
+    }
+  }
+
+  function resetAll(){
+    ST={date:'all',day:'',type:'all',geo:'all',price:'all',age:'all',sort:(sortSel?sortSel.value:'time'),q:''};
+    if(qInput){qInput.value='';}
+    paint();
+  }
+  window._afReset=resetAll;
+
+  function syncHash(){
+    var p={date:ST.date==='all'?'':ST.date,day:ST.day,type:ST.type==='all'?'':ST.type,
+      geo:ST.geo==='all'?'':ST.geo,price:ST.price==='free'?'1':'',age:ST.age==='kids'?'1':'',
+      sort:ST.sort,q:ST.q};
+    var h='#af='+encodeURIComponent(JSON.stringify(p));
+    try{history.replaceState(null,'',h);}catch(e){}
+  }
+  function readHash(){
+    var s=location.hash;
+    var idx=s.indexOf('#af=');
+    if(idx<0)return;
+    try{var p=JSON.parse(decodeURIComponent(s.slice(idx+4)));}catch(e){return;}
+    if(!p||typeof p!=='object')return;
+    ST.date=(p.date||'all');ST.day=(p.day||'');ST.type=(p.type||'all');ST.geo=(p.geo||'all');
+    ST.price=p.price==='1'?'free':'all';ST.age=p.age==='1'?'kids':'all';
+    ST.sort=(p.sort||'time');ST.q=(p.q||'');
+    if(qInput){qInput.value=ST.q;}
+    if(sortSel){sortSel.value=ST.sort;}
+  }
+
+  document.querySelectorAll('#af-filters .af-chip[data-f]').forEach(function(ch){
+    ch.addEventListener('click',function(){
+      var f=ch.getAttribute('data-f'),v=ch.getAttribute('data-v');
+      if(f==='date'){ST.date=(ST.date===v?'all':v);ST.day='';}
+      else if(f==='type'){ST.type=(ST.type===v?'all':v);}
+      else if(f==='geo'){ST.geo=(ST.geo===v?'all':v);}
+      else if(f==='price'){ST.price=(ST.price==='free'?'all':'free');}
+      else if(f==='age'){ST.age=(ST.age==='kids'?'all':'kids');}
+      paint();
+    });
   });
-}
+  if(qInput){
+    qInput.addEventListener('input',function(ev){ST.q=(ev.target.value||'').trim().toLowerCase();paint();});
+  }
+  if(sortSel){
+    sortSel.addEventListener('change',function(){ST.sort=sortSel.value||'time';paint();});
+  }
+  if(daybar){
+    daybar.querySelectorAll('.af-day[data-date]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var d=b.getAttribute('data-date');
+        ST.day=(ST.day===d?'':d);ST.date='all';
+        paint();
+      });
+    });
+  }
+  window.addEventListener('hashchange',function(){readHash();paint();});
+  readHash();paint();
+})();
 </script>
 <script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";

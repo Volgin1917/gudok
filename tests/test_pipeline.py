@@ -312,6 +312,77 @@ class TestAfishaGate(unittest.TestCase):
         self.assertEqual(full["found_dates"], 1)
         self.assertEqual(len(full["accepted"]) + len(full["rejected"]), 1)
 
+    def test_announced_dates_within_horizon(self):
+        now = analytics.datetime(2026, 9, 17, tzinfo=analytics.UTC4)
+        self.assertEqual(analytics.announced_dates("Старт 24 сентября в 20:00", now=now), ["2026-09-24"])
+        self.assertEqual(analytics.announced_dates("5 октября — фестиваль\n24 сентября — концерт", now=now),
+                         ["2026-10-05"])
+        self.assertEqual(analytics.announced_dates("30 ноября далеко за горизонтом", now=now), [])
+        self.assertEqual(analytics.announced_dates("Приходите, без даты в тексте", now=now), [])
+
+    def test_dedup_also_clusters_outlets(self):
+        now = analytics.datetime(2026, 9, 17, tzinfo=analytics.UTC4)
+        blob = ("Фотофестиваль «Свет и тень» пройдёт 24 сентября в 18:00 📍 "
+                "ДК «Современник», ул. Рябикова, 2. Вход свободный.")
+        items = [
+            {"title": blob, "text": blob, "published": "2026-09-16T05:00:00+00:00", "source": "Улпресса"},
+            {"title": blob, "text": blob, "published": "2026-09-16T06:00:00+00:00",
+             "source": "@ulpressa", "source_type": "tg", "channel": "ulpressa"},
+            {"title": blob, "text": blob, "published": "2026-09-16T07:00:00+00:00",
+             "source": "@ProNovosty73", "source_type": "tg", "channel": "pronovosty73"},
+        ]
+        full = analytics.extract_calendar_full(items, now=now)
+        self.assertEqual(len(full["accepted"]), 1)
+        e = full["accepted"][0]
+        self.assertEqual(e["source"], "Улпресса")
+        self.assertEqual(e["also"], ["@ProNovosty73"])
+        self.assertEqual(e["also_n"], 1)
+
+    def test_afisha_sprint2_markup(self):
+        an = {"calendar": [
+            {"date": "2026-09-20", "time": "12:00", "price_mode": "free", "age": "",
+             "event_title": "Праздник двора", "url": "https://ex", "venue": "ДК",
+             "venue_city": "Ульяновск", "etype": "festival", "score": 0.8, "source": "тест"},
+            {"date": "2026-09-20", "time": "15:00", "price_mode": "paid",
+             "event_title": "Кино на плёнке", "url": "https://ex2", "venue": "Парк",
+             "venue_district": "Ленинский", "venue_city": "Ульяновск", "etype": "cinema",
+             "score": 0.7, "source": "тест"},
+            {"date": "2026-09-22", "time": "", "price_mode": "",
+             "event_title": "Выставка на воде", "url": "#", "venue": "", "venue_city": "Димитровград",
+             "etype": "expo", "score": 0.3, "source": "тест"},
+        ], "calendar_passport": {}, "calendar_rejected": []}
+        store = [
+            {"source_type": "tg", "channel": "ProNovosty73", "title": "Куда пойти?",
+             "text": "Анонс: 24 сентября в 19:00 концерт.", "url": "#",
+             "published": "2026-09-16T08:00:00+00:00"},
+            {"source_type": "tg", "channel": "ProNovosty73", "title": "Ярмарка",
+             "text": "Скоро открытие, следите за анонсами.", "url": "#",
+             "published": "2026-09-16T07:00:00+00:00"},
+        ]
+        html = generate.render_afisha(CFG, {}, store, None, an)
+        self.assertIn('id="af-filters"', html)
+        self.assertIn('id="af-daybar"', html)
+        self.assertIn('data-ref="', html)
+        self.assertIn('id="af-list"', html)
+        self.assertIn('id="af-active"', html)
+        self.assertIn('id="af-shown"', html)
+        self.assertIn('id="af-days"', html)
+        self.assertIn('data-f="type"', html)
+        self.assertIn('id="af-q"', html)
+        self.assertIn('id="af-sort"', html)
+        self.assertIn("af-daylist", html)
+        self.assertIn("20 сентября", html)
+        self.assertIn("22 сентября", html)
+        self.assertIn('data-d="2026-09-20"', html)
+        self.assertIn('data-tm="720"', html)
+        self.assertIn('data-tm="900"', html)
+        self.assertIn('data-tm=""', html)
+        self.assertIn('data-price="free"', html)
+        self.assertIn('data-geo="ulsk"', html)
+        self.assertIn('data-geo="dim"', html)
+        self.assertIn('class="af-badge"', html)
+        self.assertIn('class="af-badge warn">дата не распознана', html)
+
 
 class TestSentiment(unittest.TestCase):
     def score(self, text):

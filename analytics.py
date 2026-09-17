@@ -308,6 +308,49 @@ def _afisha_score(weights, has_time, venue_ok, etype, it):
     return s / total
 
 
+def _resolve_date(day, month, today, horizon):
+    """Ближайшая дата (день, месяц) в горизонте от today или None."""
+    for year in (today.year, today.year + 1):
+        try:
+            d = datetime(year, month, day).date()
+        except ValueError:
+            continue
+        if 0 <= (d - today).days <= horizon:
+            return d
+    return None
+
+
+def announced_dates(blob, now=None, horizon_days=45):
+    """Открытые даты будущих событий в тексте — для блока анонсов каналов.
+    Возвращает отсортированный список ISO-дат в горизонте (пустой — дата не распознана)."""
+    now = now or datetime.now(UTC4)
+    today = now.date()
+    dates = []
+    m = RE_RANGE_CROSS.search(blob or "")
+    if m:
+        d1 = _resolve_date(int(m.group(1)), MONTHS[m.group(2).lower()], today, horizon_days)
+        d2 = _resolve_date(int(m.group(3)), MONTHS[m.group(4).lower()], today, horizon_days)
+        if d1 and d2 and d2 >= d1:
+            dates = [d1, d2]
+    if not dates:
+        m = RE_RANGE_SAME.search(blob or "")
+        if m:
+            mon = MONTHS[m.group(3).lower()]
+            d1 = _resolve_date(int(m.group(1)), mon, today, horizon_days)
+            d2 = _resolve_date(int(m.group(2)), mon, today, horizon_days)
+            if d1 and d2 and d2 >= d1 and (d2 - d1).days <= 10:
+                dates = [d1, d2]
+    if not dates:
+        for m in RE_DAY.finditer(blob or ""):
+            d = _resolve_date(int(m.group(1)), MONTHS[m.group(2).lower()], today, horizon_days)
+            if d:
+                dates.append(d)
+            if len(dates) >= 2:
+                break
+        dates = dates[:1]
+    return sorted({d.isoformat() for d in dates})
+
+
 def extract_calendar_full(items, now=None, cfg=None):
     """События с проверкой порога входа: список принятых и отсев с причинами."""
     now = now or datetime.now(UTC4)
@@ -319,20 +362,13 @@ def extract_calendar_full(items, now=None, cfg=None):
     promo_penalty = float(gate.get("promo_penalty", 0.6))
     title_max = int(gate.get("event_title_max_chars", 90))
     weights = dict(AFISHA_DEFAULT_WEIGHTS, **gate.get("weights", {}))
-    events, rejected, seen, seen_rej = [], [], set(), set()
+    events, rejected, seen_rej = [], [], set()
+    groups = defaultdict(list)
     found_dates = 0
     venues_new = {}
 
     def resolve(day, month):
-        for year in (today.year, today.year + 1):
-            try:
-                d = datetime(year, month, day).date()
-            except ValueError:
-                continue
-            delta = (d - today).days
-            if 0 <= delta <= horizon:
-                return d
-        return None
+        return _resolve_date(day, month, today, horizon)
 
     for it in items:
         if it.get("dup_of"):
@@ -441,16 +477,32 @@ def extract_calendar_full(items, now=None, cfg=None):
             seen_rej.add(key)
             rejected.append(dict(base, reasons=reasons))
             continue
-        if key in seen:
-            continue
-        seen.add(key)
         score = _afisha_score(weights, has_time, venue_ok, etype, it)
         if PROMO_PERSONAL_RE.search(blob):
             score -= promo_penalty
         base["score"] = round(max(0.0, score), 3)
-        events.append(base)
+        base["also"] = []
+        base["also_n"] = 0
+        groups[key].append(base)
         if not vres.get("found", False) and mention:
             venues_new[mention] = venues_new.get(mention, 0) + 1
+    # кластеризация анонсов: одно событие из разных каналов — одна карточка
+    # с «также анонсировали: N»; ведём лучшую запись, считаем НЕЗАВИСИМЫЕ издания.
+    for members in groups.values():
+        members.sort(key=lambda e: (e["title_is_fallback"], -e.get("score", 0), len(e.get("source", ""))))
+        head = members[0]
+        srcs, seen_src = [], set()
+        own = _outlets.resolve_raw(head.get("source") or "") or (head.get("source") or "").lstrip("@")
+        seen_src.add(own)
+        for m in members[1:]:
+            s = (m.get("source") or "").strip()
+            sk = _outlets.resolve_raw(s) or s.lstrip("@")
+            if sk and sk not in seen_src:
+                seen_src.add(sk)
+                srcs.append(s or sk)
+        head["also"] = srcs[:6]
+        head["also_n"] = len(srcs)
+        events.append(head)
     events.sort(key=lambda e: (e["date"], e["time"]))
     # не более max_per_day событий в день, приоритет официальным и уверенным
     by_day = defaultdict(list)

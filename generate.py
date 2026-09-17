@@ -2802,29 +2802,244 @@ AFISHA_CSS = """
 .af-rej-row:last-child{border-bottom:none;}
 .af-rej-date{min-width:118px;font-weight:800;color:var(--navy);}
 .af-rej-why{color:var(--muted);font-size:11px;margin-left:auto;}
+/* ---- спринт 2: календарь и фильтры ---- */
+.af-frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:9px;}
+.af-frow .fl{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);flex:0 0 96px;}
+.af-q{flex:1;min-width:220px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--sans);font-size:13px;padding:8px 12px;border-radius:9px;}
+.af-q:focus{outline:2px solid var(--blue);outline-offset:1px;}
+.af-sort{border:1px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--sans);font-size:12.5px;font-weight:700;padding:7px 10px;border-radius:9px;cursor:pointer;}
+.af-active{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:2px 0 14px;font-size:11.5px;color:var(--muted);}
+.af-albl{letter-spacing:.06em;text-transform:uppercase;font-size:10px;font-weight:800;}
+.af-achip{border:1px solid var(--line);padding:3px 9px;border-radius:999px;cursor:pointer;color:var(--navy);font-weight:700;transition:border-color .15s,color .15s;}
+.af-achip:hover{border-color:var(--blue);color:var(--blue);}
+.af-achip.reset{border-color:var(--gold);color:var(--gold);}
+.af-day{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 11px;text-align:center;min-width:64px;cursor:pointer;font-family:var(--sans);transition:opacity .15s,border-color .15s;}
+.af-day.zero{opacity:.42;}
+.af-day.on{background:var(--navy3);border-color:var(--navy3);}
+:root[data-theme="dark"] .af-day.on{background:#2f80ed;border-color:#2f80ed;}
+.af-day.on b,.af-day.on span,.af-day.on i{color:#fff;}
+.af-daylist{position:relative;}
+.af-day-head{display:flex;align-items:baseline;gap:12px;border-top:1px solid var(--ink);padding-top:10px;margin:18px 0 2px;}
+.af-day-head h3{font-family:var(--serif);font-size:19px;font-weight:700;margin:0;color:var(--navy);}
+.af-cnt{margin-left:auto;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.af-hide{display:none!important;}
+.af-kick{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:2px;}
+.af-link b{font-size:13.8px;color:var(--navy);line-height:1.35;}
+.af-link:hover b{color:var(--blue);}
+.af-also{font-style:italic;color:var(--muted);font-size:11px;margin-left:4px;}
+.af-tag-icn{font-size:12.5px;margin-right:1px;}
+.af-foot{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:16px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);}
+.af-foot b{color:var(--navy);font-size:16px;margin-right:2px;}
 """
 
+# Прогрессивный JS афиши (Спринт 2): фильтры день/тип/район/цена/возраст,
+# пресеты времени, поиск, строка активных фильтров, состояние в hash.
+# Без JS видны все события серверной группировкой по дням; JS перефильтровывает
+# уже отрисованные карточки (.af-event по data-*) — по образцу FEED_JS.
 AFISHA_JS = """<script>
-function afFilter(mode,btn){
-  document.querySelectorAll('.af-chip').forEach(function(c){c.classList.remove('on');});
-  btn.classList.add('on');
-  var now=new Date();now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
-  var iso=now.toISOString().slice(0,10);
-  var tom=(new Date(now.getTime()+86400000)).toISOString().slice(0,10);
-  document.querySelectorAll('.af-event').forEach(function(ev){
-    var d=ev.getAttribute('data-date');var show=true;
-    if(mode==='today')show=(d===iso);
-    else if(mode==='tomorrow')show=(d===tom);
-    else if(mode==='weekend')show=ev.getAttribute('data-weekend')==='1';
-    else if(mode==='week'){var t=new Date(iso);var x=new Date(d);show=((x-t)/86400000)<=7;}
-    ev.style.display=show?'':'none';
+(function(){
+  var box=document.getElementById('af-list');
+  if(!box)return;
+  var cards=Array.prototype.slice.call(box.querySelectorAll('.af-event'));
+  if(!cards.length){return;}
+  var daybar=document.getElementById('af-daybar');
+  var activeBox=document.getElementById('af-active');
+  var qInput=document.getElementById('af-q');
+  var sortSel=document.getElementById('af-sort');
+  var emptyEl=document.getElementById('af-empty');
+  var shownEl=document.getElementById('af-shown');
+  var daysEl=document.getElementById('af-days');
+  var REF_I=(daybar?daybar.getAttribute('data-ref'):'')||cards[0].getAttribute('data-d');
+  var TOM_I=new Date(new Date(REF_I+'T12:00:00').getTime()+86400000).toISOString().slice(0,10);
+  var AF_WD=['вс','пн','вт','ср','чт','пт','сб'];
+  var AF_WD_F=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+  var AF_MON=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  var TYPE_NAMES={},TYPE_KEY={};var TYP_I=0;
+  document.querySelectorAll('#af-filters .af-chip[data-f="type"]').forEach(function(ch){
+    var v=ch.getAttribute('data-v');
+    TYPE_NAMES[v]=ch.textContent.trim();TYPE_KEY[v]=(v==='all'?99:TYP_I++);
   });
-  document.querySelectorAll('.af-sec').forEach(function(sec){
-    var vis=sec.querySelectorAll('.af-event[style=\"\"], .af-event:not([style])');
-    var any=Array.prototype.some.call(sec.querySelectorAll('.af-event'),function(e){return e.style.display!=='none';});
-    sec.style.display=any?'':'none';
+  var geos={ulsk:'Ульяновск',dim:'Димитровград',region:'районы области'};
+  var dates={all:'Все дни',today:'Сегодня',tomorrow:'Завтра',weekend:'Выходные',week:'7 дней',evening:'вечером (после 17:00)'};
+  var ST={date:'all',day:'',type:'all',geo:'all',price:'all',age:'all',sort:'time',q:''};
+
+  function daysFrom(d){return Math.round((new Date(d+'T12:00:00')-new Date(REF_I+'T12:00:00'))/86400000);}
+  function isWe(d){var x=new Date(d+'T12:00:00');return x.getDay()===0||x.getDay()===6;}
+  function toMin(c){var t=c.getAttribute('data-tm');return t?+t:1440;}
+  function dayText(d){var p=d.split('-');var x=new Date(d+'T12:00:00');return (+p[2])+' '+AF_MON[+p[1]-1]+' · '+AF_WD_F[x.getDay()];}
+
+  function pass(c){
+    var d=c.getAttribute('data-d');
+    if(ST.day){if(d!==ST.day)return false;}
+    else if(ST.date==='today'){if(d!==REF_I)return false;}
+    else if(ST.date==='tomorrow'){if(d!==TOM_I)return false;}
+    else if(ST.date==='weekend'){if(!isWe(d)||daysFrom(d)>6)return false;}
+    else if(ST.date==='week'){var w=daysFrom(d);if(w<0||w>7)return false;}
+    else if(ST.date==='evening'){if(toMin(c)<17*60||daysFrom(d)<0||daysFrom(d)>7)return false;}
+    if(ST.type!=='all'&&c.getAttribute('data-type')!==ST.type)return false;
+    if(ST.geo!=='all'&&c.getAttribute('data-geo')!==ST.geo)return false;
+    if(ST.price==='free'&&c.getAttribute('data-price')!=='free')return false;
+    if(ST.age==='kids'){var a=c.getAttribute('data-age');if(a==='16+'||a==='18+'||a==='21+')return false;}
+    if(ST.q&&(c.getAttribute('data-q')||'').indexOf(ST.q)===-1)return false;
+    return true;
+  }
+
+  function paint(){
+    var vis=[];
+    cards.forEach(function(c){if(pass(c)){vis.push(c);}});
+    if(ST.sort==='type'){
+      vis.sort(function(a,b){
+        var ta=a.getAttribute('data-type'),tb=b.getAttribute('data-type');
+        if(ta===tb){var da=a.getAttribute('data-d'),db=b.getAttribute('data-d');
+          return da===db?toMin(a)-toMin(b):(da<db?-1:1);}
+        return ((TYPE_KEY[ta]===undefined)?99:TYPE_KEY[ta])-((TYPE_KEY[tb]===undefined)?99:TYPE_KEY[tb]);
+      });
+    }else if(ST.sort==='score'){
+      vis.sort(function(a,b){return (+b.getAttribute('data-sc'))-(+a.getAttribute('data-sc'));});
+    }else{
+      vis.sort(function(a,b){
+        var da=a.getAttribute('data-d'),db=b.getAttribute('data-d');
+        return da===db?toMin(a)-toMin(b):(da<db?-1:1);
+      });
+    }
+    cards.forEach(function(c){c.classList.add('af-hide');});
+    vis.forEach(function(c){c.classList.remove('af-hide');});
+    var frag=document.createDocumentFragment();
+    if(ST.sort==='score'){
+      var lone=document.createElement('div');lone.className='af-list';
+      vis.forEach(function(c){lone.appendChild(c);});
+      frag.appendChild(lone);
+    }else{
+      var byDay={};
+      vis.forEach(function(c){var d=c.getAttribute('data-d');(byDay[d]=byDay[d]||[]).push(c);});
+      Object.keys(byDay).sort().forEach(function(d){
+        var head=document.createElement('div');head.className='af-day-head';
+        head.innerHTML='<h3>'+dayText(d)+'</h3><span class="af-cnt">'+byDay[d].length+' соб. · '+(isWe(d)?'выходные':'будни')+'</span>';
+        frag.appendChild(head);
+        var l=document.createElement('div');l.className='af-list';
+        byDay[d].forEach(function(c){l.appendChild(c);});
+        frag.appendChild(l);
+      });
+    }
+    box.innerHTML='';
+    box.appendChild(frag);
+    if(emptyEl){emptyEl.hidden=vis.length>0;}
+    if(shownEl){shownEl.textContent=vis.length;}
+    var dcount=ST.sort==='score'?1:0;
+    if(ST.sort!=='score'){
+      var seen={};vis.forEach(function(c){seen[c.getAttribute('data-d')]=1;});
+      dcount=Object.keys(seen).length;
+    }
+    if(daysEl){daysEl.textContent=dcount;}
+    paintChips();paintActive();paintDaybar();syncHash();
+  }
+
+  function chipVal(f){return f==='price'?'free':(f==='age'?'kids':'all');}
+  function paintChips(){
+    document.querySelectorAll('#af-filters .af-chip[data-f]').forEach(function(ch){
+      var f=ch.getAttribute('data-f'),v=ch.getAttribute('data-v');
+      var on=false;
+      if(f==='date'){on=!ST.day&&ST.date===v;}
+      else if(f==='type'){on=ST.type===v;}
+      else if(f==='geo'){on=ST.geo===v;}
+      else if(f==='price'){on=ST.price==='free';}
+      else if(f==='age'){on=ST.age==='kids';}
+      ch.classList.toggle('on',on);
+      ch.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+
+  function paintDaybar(){
+    if(!daybar)return;
+    daybar.querySelectorAll('.af-day[data-date]').forEach(function(b){
+      var on=b.getAttribute('data-date')===ST.day;
+      b.classList.toggle('on',on);
+      b.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+
+  function paintActive(){
+    if(!activeBox)return;
+    var out=[];
+    if(ST.day){out.push(['день: '+dayText(ST.day),function(){ST.day='';ST.date='all';paint();}]);}
+    else if(ST.date!=='all'){out.push(['когда: '+dates[ST.date],function(){ST.date='all';paint();}]);}
+    if(ST.type!=='all'){out.push(['тип: '+TYPE_NAMES[ST.type],function(){ST.type='all';paint();}]);}
+    if(ST.geo!=='all'){out.push(['где: '+geos[ST.geo],function(){ST.geo='all';paint();}]);}
+    if(ST.price==='free'){out.push(['только бесплатные',function(){ST.price='all';paint();}]);}
+    if(ST.age==='kids'){out.push(['можно с детьми',function(){ST.age='all';paint();}]);}
+    if(ST.q){out.push(['поиск: «'+ST.q+'»',function(){ST.q='';if(qInput){qInput.value='';}paint();}]);}
+    var html='<span class="af-albl">'+((out.length)?'Активные фильтры:':'Фильтры не заданы · показаны все события')+'</span>';
+    activeBox.innerHTML=html;
+    out.forEach(function(pair){
+      var s=document.createElement('span');s.className='af-achip';
+      s.textContent=pair[0]+' ✕';
+      s.addEventListener('click',pair[1]);
+      activeBox.appendChild(s);
+    });
+    if(out.length>1){
+      var r=document.createElement('span');r.className='af-achip reset';
+      r.textContent='Сбросить всё ✕';
+      r.addEventListener('click',resetAll);
+      activeBox.appendChild(r);
+    }
+  }
+
+  function resetAll(){
+    ST={date:'all',day:'',type:'all',geo:'all',price:'all',age:'all',sort:(sortSel?sortSel.value:'time'),q:''};
+    if(qInput){qInput.value='';}
+    paint();
+  }
+  window._afReset=resetAll;
+
+  function syncHash(){
+    var p={date:ST.date==='all'?'':ST.date,day:ST.day,type:ST.type==='all'?'':ST.type,
+      geo:ST.geo==='all'?'':ST.geo,price:ST.price==='free'?'1':'',age:ST.age==='kids'?'1':'',
+      sort:ST.sort,q:ST.q};
+    var h='#af='+encodeURIComponent(JSON.stringify(p));
+    try{history.replaceState(null,'',h);}catch(e){}
+  }
+  function readHash(){
+    var s=location.hash;
+    var idx=s.indexOf('#af=');
+    if(idx<0)return;
+    try{var p=JSON.parse(decodeURIComponent(s.slice(idx+4)));}catch(e){return;}
+    if(!p||typeof p!=='object')return;
+    ST.date=(p.date||'all');ST.day=(p.day||'');ST.type=(p.type||'all');ST.geo=(p.geo||'all');
+    ST.price=p.price==='1'?'free':'all';ST.age=p.age==='1'?'kids':'all';
+    ST.sort=(p.sort||'time');ST.q=(p.q||'');
+    if(qInput){qInput.value=ST.q;}
+    if(sortSel){sortSel.value=ST.sort;}
+  }
+
+  document.querySelectorAll('#af-filters .af-chip[data-f]').forEach(function(ch){
+    ch.addEventListener('click',function(){
+      var f=ch.getAttribute('data-f'),v=ch.getAttribute('data-v');
+      if(f==='date'){ST.date=(ST.date===v?'all':v);ST.day='';}
+      else if(f==='type'){ST.type=(ST.type===v?'all':v);}
+      else if(f==='geo'){ST.geo=(ST.geo===v?'all':v);}
+      else if(f==='price'){ST.price=(ST.price==='free'?'all':'free');}
+      else if(f==='age'){ST.age=(ST.age==='kids'?'all':'kids');}
+      paint();
+    });
   });
-}
+  if(qInput){
+    qInput.addEventListener('input',function(ev){ST.q=(ev.target.value||'').trim().toLowerCase();paint();});
+  }
+  if(sortSel){
+    sortSel.addEventListener('change',function(){ST.sort=sortSel.value||'time';paint();});
+  }
+  if(daybar){
+    daybar.querySelectorAll('.af-day[data-date]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var d=b.getAttribute('data-date');
+        ST.day=(ST.day===d?'':d);ST.date='all';
+        paint();
+      });
+    });
+  }
+  window.addEventListener('hashchange',function(){readHash();paint();});
+  readHash();paint();
+})();
 </script>"""
 
 # прогрессивный JS ленты: чипы-рубрики (#19) + «Показать ещё 12» (#20).
@@ -2889,6 +3104,7 @@ FEED_JS = """<script>
 
 
 def render_afisha(cfg, trends, store, status, an):
+    from analytics import announced_dates
     now = datetime.now(UTC4)
     nav_html = render_nav(cfg, "afisha", "")
     today = now.date()
@@ -2914,13 +3130,46 @@ def render_afisha(cfg, trends, store, status, an):
 
     wd = {0: "пн", 1: "вт", 2: "ср", 3: "чт", 4: "пт", 5: "сб", 6: "вс"}
 
-    # панель дней (10 дней вперёд)
+    def geo_bucket(e):
+        t = " ".join(filter(None, [e.get("venue_city", ""), e.get("venue_district", ""), e.get("geo", "")]))
+        tl = t.lower()
+        if "димитровград" in tl:
+            return "dim"
+        if "ульяновск" in tl or any(r in tl for r in ("засвияжск", "заволжск", "железнодорожн", "ленинск")):
+            return "ulsk"
+        return "region"
+
+    # панель дней — 14 дней, кнопки с числом событий и подсказкой у пустых
+    def _pl(n):
+        if n % 10 == 1 and n % 100 != 11:
+            return "событие"
+        if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+            return "события"
+        return "событий"
+
     daybar = []
-    for i in range(10):
+    for i in range(14):
         dd = today + timedelta(days=i)
         n = sum(1 for e in cal if edate(e) == dd)
         we = ' we' if dd in weekend else ''
-        daybar.append(f'<div class="af-day{we}"><b>{dd:%d}</b><span>{wd[dd.weekday()]} {dd:%m}</span><i>{n} соб.</i></div>')
+        zero = ' zero' if n == 0 else ''
+        nxt = ""
+        if n == 0:
+            for j in range(i + 1, 16):
+                if any(edate(e) == today + timedelta(days=j) for e in cal):
+                    nxt = f"{(today + timedelta(days=j)):%d.%m}"
+                    break
+        def _pl(n):
+            n = int(n or 0)
+            if n % 10 == 1 and n % 100 != 11:
+                return "событие"
+            if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+                return "события"
+            return "событий"
+
+        tip = (f"Событий нет · ближайшее {nxt}" if n == 0 and nxt else (f"{n} {_pl(n)}" if n else "Событий нет"))
+        cnt = f"{n} соб." if n else "нет соб."
+        daybar.append(f'<button type="button" class="af-day{we}{zero}" data-date="{dd.isoformat()}" aria-pressed="false" title="{esc(tip)}"><b>{dd:%d}</b><span>{wd[dd.weekday()]} {dd:%m}</span><i>{cnt}</i></button>')
 
     # паспорт порога входа
     found_n = passport.get("found_dates")
@@ -2955,50 +3204,124 @@ def render_afisha(cfg, trends, store, status, an):
             parts.append(esc(geo))
         return "".join(f'<span class="af-meta" style="display:inline;"> · {p}</span>' for p in parts) if parts else ""
 
-    # секции по типам
-    sections = []
-    n_culture = 0
-    for et in AFISHA_ORDER:
-        evs = [e for e in cal if e.get("etype", "other") == et]
-        if not evs:
-            continue
-        if et not in ("sport", "other"):
-            n_culture += len(evs)
-        icon, name = ETYPE_META[et]
-        rows = []
-        for e in evs:
-            d = edate(e)
-            gold = ' gold' if d in weekend else ''
-            span = ''
-            end = e.get("date_end")
-            if end:
-                span = f' — {end[8:10]}.{end[5:7]}'
-            badges = []
-            if e.get("price"):
-                badges.append(f'<span class="af-badge">{esc(e["price"])}</span>')
-            if e.get("age"):
-                badges.append(f'<span class="af-badge alt">{esc(e["age"])}</span>')
-            if e.get("title_is_fallback"):
-                badges.append('<span class="af-badge warn">название уточняется</span>')
-            title = e.get("event_title") or e.get("title") or "без названия"
-            rows.append(f"""<div class="af-event" data-date="{e['date']}" data-weekend="{'1' if d in weekend else '0'}">
-<div class="cal-badge{gold}"><b>{d:%d}</b><span>{wd[d.weekday()]} {d:%m}</span></div>
-<div class="af-body"><a href="{esc(e.get('url') or '#')}" target="_blank" rel="noopener"><b>{esc(clip_words(title, 140))}</b></a>{span}
-<div class="af-meta">{time_html(e)}<span>{esc(e.get('source', ''))}</span>{venue_html(e)} {''.join(badges)}</div></div></div>""")
-        sections.append(f"""<div class="af-sec" id="et-{et}"><div class="sec-head" style="margin:16px 0 8px;"><h2>{icon} {name}</h2><div class="line"></div>
-<div class="badge">{len(evs)}</div></div><div class="card"><div class="card-pad">{''.join(rows)}</div></div></div>""")
+    # карточка события с data-атрибутами для клиентских фильтров
+    def badges_html(e):
+        out = []
+        if e.get("price"):
+            out.append(f'<span class="af-badge">{esc(e["price"])}</span>')
+        if e.get("age"):
+            out.append(f'<span class="af-badge alt">{esc(e["age"])}</span>')
+        if e.get("title_is_fallback"):
+            out.append('<span class="af-badge warn">название уточняется</span>')
+        return "".join(out)
 
-    # анонсы культурных каналов
+    def card_html(e):
+        d = edate(e)
+        if d is None:
+            return ""
+        gold = ' gold' if d in weekend else ''
+        span = ''
+        end = e.get("date_end")
+        if end:
+            span = f' — {end[8:10]}.{end[5:7]}'
+        tm = ""
+        t = e.get("time") or ""
+        if t and ":" in t:
+            hh, mm = t.split(":", 1)
+            try:
+                tm = str((int(hh) * 60 + int(mm[:2]) + 1440) % 1440)
+            except ValueError:
+                tm = ""
+        etype = e.get("etype") or "other"
+        icon, name = ETYPE_META.get(etype, ETYPE_META["other"])
+        also_n = int(e.get("also_n") or 0)
+        kick = f"{icon} {name}"
+        if also_n:
+            kick += f'<span class="af-also">· также анонсировали: {also_n} изд.</span>'
+        hay = " ".join([
+            e.get("event_title") or "", e.get("title") or "",
+            e.get("venue") or "", e.get("venue_addr") or "",
+            e.get("venue_district") or "", e.get("venue_city") or "",
+            e.get("geo") or "", name, e.get("source") or ""]).lower()
+        title = esc(clip_words(e.get("event_title") or e.get("title") or "без названия", 140))
+        url = esc(e.get("url") or "#")
+        return f"""<div class="af-event" data-d="{e['date']}" data-tm="{tm}" data-type="{etype}"
+ data-geo="{geo_bucket(e)}" data-price="{esc(e.get('price_mode') or '')}" data-age="{esc(e.get('age') or '')}"
+ data-sc="{e.get('score') or 0}" data-q="{esc(hay.replace('"', ' '))}">
+<div class="cal-badge{gold}"><b>{d:%d}</b><span>{wd[d.weekday()]} {d:%m}</span></div>
+<div class="af-body"><div class="af-kick">{kick}</div>
+<a class="af-link" href="{url}" target="_blank" rel="noopener"><b>{title}</b></a>{span}
+<div class="af-meta">{time_html(e)}<span>{esc(e.get('source', ''))}</span>{venue_html(e)} {badges_html(e)}</div></div></div>"""
+
+    # группировка по дням (серверная, видна без JS)
+    days_map = {}
+    for e in cal:
+        days_map.setdefault(e["date"], []).append(e)
+    day_lists = []
+    for d in sorted(days_map):
+        evs = days_map[d]
+        evs.sort(key=lambda e: (e.get("time") or "99:99"))
+        dd = edate(evs[0])
+        label = f"{dd:%d} {MONTHS_RU[dd.month - 1]} · {DAYS_RU[dd.weekday()]}"
+        kind = "выходные" if dd in weekend else "будни"
+        rows = "".join(card_html(e) for e in evs)
+        day_lists.append(f'<div class="af-daylist"><div class="af-day-head"><h3>{label}</h3><span class="af-cnt">{len(evs)} соб. · {kind}</span></div><div class="af-list">{rows}</div></div>')
+    main_list = "".join(day_lists)
+    n_culture = sum(1 for e in cal if e.get("etype") not in ("sport", "other"))
+
+    # панель фильтров
+    def chip(f, v, label, on=False):
+        cls = "af-chip on" if on else "af-chip"
+        return f'<button type="button" class="{cls}" data-f="{f}" data-v="{v}" aria-pressed="false">{label}</button>'
+
+    weekday_label = f'Выходные {sat:%d.%m}–{sat + timedelta(days=1):%d.%m}' if len(weekend) > 1 else "Выходные"
+    filters_html = ('<div id="af-filters">'
+                    '<div class="af-frow"><span class="fl">Когда</span>'
+                    + chip("date", "all", "Все дни", True)
+                    + chip("date", "today", "Сегодня")
+                    + chip("date", "tomorrow", "Завтра")
+                    + chip("date", "weekend", weekday_label)
+                    + chip("date", "week", "7 дней")
+                    + chip("date", "evening", "Вечером (после 17:00)")
+                    + '</div>'
+                    '<div class="af-frow"><span class="fl">Тип</span>'
+                    + chip("type", "all", "Все типы", True)
+                    + "".join(chip("type", et, ETYPE_META[et][1]) for et in AFISHA_ORDER)
+                    + '</div>'
+                    '<div class="af-frow"><span class="fl">Где и почём</span>'
+                    + chip("geo", "ulsk", "Ульяновск")
+                    + chip("geo", "dim", "Димитровград")
+                    + chip("geo", "region", "Районы области")
+                    + chip("price", "free", "Только бесплатные")
+                    + chip("age", "kids", "Можно с детьми")
+                    + '<select class="af-sort" id="af-sort" aria-label="Сортировка">'
+                    '<option value="time">Сортировка: по времени</option>'
+                    '<option value="type">По типу события</option>'
+                    '<option value="score">По релевантности</option></select>'
+                    '</div>'
+                    '<div class="af-frow"><span class="fl">Поиск</span>'
+                    '<input class="af-q" id="af-q" type="search" placeholder="Название, площадка, район — например «филармония»">'
+                    '</div></div>')
+
+    # анонсы культурных каналов с пометкой распознанной / нераспознанной даты
     tg_items = [it for it in store if it.get("source_type") == "tg"]
     chan_html = []
     for chn in AFISHA_CHANNELS:
         ch_cfg = next((c for c in cfg.get("telegram_channels", []) if c["username"] == chn), None)
         posts = sorted([it for it in tg_items if it.get("channel") == chn],
                        key=lambda x: x.get("published") or "", reverse=True)[:3]
-        rows = "".join(
-            f"""<div class="tgpost"><div><div class="t"><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it['title'],120))}</a></div>
-<div class="m">{(local_dt(it.get('published')) or now).strftime('%d.%m %H:%M')}{' · 👁 ' + fmt_views(it['views']) if it.get('views') else ''}</div></div></div>"""
-            for it in posts) or '<div class="tgpost"><div class="t" style="color:var(--muted);">нет свежих постов</div></div>'
+        post_rows = []
+        for it in posts:
+            blob = (str(it.get("title") or "") + " " + str(it.get("text") or ""))[:400]
+            ann = announced_dates(blob, now=now)
+            if ann:
+                d0 = ann[0]
+                badge = f'<span class="af-badge">{d0[8:10]}.{d0[5:7]}</span>'
+            else:
+                badge = '<span class="af-badge warn">дата не распознана</span>'
+            post_rows.append(f"""<div class="tgpost"><div><div class="t">{badge} <a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it.get('title') or 'без заголовка', 120))}</a></div>
+<div class="m">{(local_dt(it.get('published')) or now).strftime('%d.%m %H:%M')}{' · 👁 ' + fmt_views(it['views']) if it.get('views') else ''}</div></div></div>""")
+        rows = "".join(post_rows) or '<div class="tgpost"><div class="t" style="color:var(--muted);">нет свежих постов</div></div>'
         chan_html.append(f"""<div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
 <a href="https://t.me/{esc(chn)}" target="_blank" rel="noopener" style="color:#fff;">@{esc(chn)}</a>
 <span class="sub">{esc((ch_cfg or {}).get('title',''))}</span></div><div class="side-body">{rows}</div></div>""")
@@ -3019,6 +3342,12 @@ def render_afisha(cfg, trends, store, status, an):
     today_n = sum(1 for e in cal if edate(e) == today)
     we_n = sum(1 for e in cal if edate(e) in weekend)
     total_n = len(cal)
+    days_n = len(days_map)
+
+    if main_list:
+        list_html = f'<div id="af-list">{main_list}</div>'
+    else:
+        list_html = '<div id="af-list"><div class="af-empty">Событий не найдено — запустите сбор конвейером.</div></div>'
 
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3035,17 +3364,16 @@ def render_afisha(cfg, trends, store, status, an):
 
 <div class="note" style="margin-bottom:4px;">{pipeline_note}</div>
 
-<div class="af-chips">
-<button class="af-chip on" onclick="afFilter('all',this)">Все ({total_n})</button>
-<button class="af-chip" onclick="afFilter('today',this)">Сегодня</button>
-<button class="af-chip" onclick="afFilter('tomorrow',this)">Завтра</button>
-<button class="af-chip" onclick="afFilter('weekend',this)">Выходные {sat:%d.%m}–{sat + timedelta(days=1):%d.%m}</button>
-<button class="af-chip" onclick="afFilter('week',this)">7 дней</button>
-</div>
+{filters_html}
+<div class="af-active" id="af-active"></div>
+<div class="af-daybar" id="af-daybar" data-ref="{today.isoformat()}">{''.join(daybar)}</div>
 
-<div class="af-daybar">{''.join(daybar)}</div>
+{list_html}
+<div class="af-empty" id="af-empty" hidden><b>Под условия ничего не нашлось.</b> Снимите один из фильтров или поиск.
+<div style="margin-top:10px;"><button type="button" class="af-chip" onclick="_afReset()">Сбросить фильтры</button></div></div>
 
-{''.join(sections) or '<div class="card"><div class="af-empty">Событий не найдено — запустите сбор конвейером.</div></div>'}
+<div class="af-foot"><span>Показано: <b id="af-shown">{total_n}</b> событий</span><span>дней с событиями: <b id="af-days">{days_n}</b></span>
+<span class="af-albl" style="margin-left:auto;">фильтры применяются в браузере; без JS видны все события по дням</span></div>
 
 {rej_html}
 
