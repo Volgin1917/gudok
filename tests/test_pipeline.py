@@ -1478,8 +1478,8 @@ class TestPageStructure(unittest.TestCase):
     Проверяем сгенерированные страницы: баланс div, единая глубина разделов,
     отсутствие оборванных тегов."""
 
-    PAGES = ("infospace.html", "index.html", "digests/today.html", "plans.html",
-             "methods.html")
+    PAGES = ("infospace.html", "index.html", "digests/today.html",
+             "projects/plans.html", "methods.html")
 
     @staticmethod
     def _read(path):
@@ -3128,15 +3128,17 @@ class TestPlansDocuments(unittest.TestCase):
 
 
 class TestPlansPage(unittest.TestCase):
-    """Страница plans.html: общий стиль, самодостаточность, ссылки из других разделов."""
+    """Страница projects/plans.html: общий стиль, самодостаточность, ссылки из других разделов."""
 
-    @staticmethod
-    def _read(name):
-        with open(os.path.join(BASE, name), encoding="utf-8") as f:
+    PAGE = os.path.join("projects", "plans.html")
+
+    @classmethod
+    def _read(cls, name=None):
+        with open(os.path.join(BASE, name or cls.PAGE), encoding="utf-8") as f:
             return f.read()
 
     def test_page_exists_and_selfcontained(self):
-        html = self._read("plans.html")
+        html = self._read()
         self.assertIn("<!DOCTYPE html>", html)
         self.assertNotIn("cdn.", html)
         ext = [u for u in re.findall(r'(?:src|href)="(https?://[^"]+)"', html)
@@ -3146,41 +3148,41 @@ class TestPlansPage(unittest.TestCase):
         self.assertIn("masthead", html)
 
     def test_sections_present(self):
-        html = self._read("plans.html")
+        html = self._read()
         for sec in ("Внедрение методов", "Паспорта метрик-пилотов", "Реестр метрик-кандидатов",
                     "Волны внедрения", "Источники данных", "Методологические риски", "Треки планов"):
             self.assertIn(f"<h2>{sec}</h2>", html)
 
     def test_registry_rows_match_data(self):
         import plans
-        html = self._read("plans.html")
+        html = self._read()
         self.assertEqual(html.count("<tr data-ax="), len(plans.REG))
         self.assertIn('id="pl-reg"', html)
 
     def test_method_pipeline_steps(self):
         import plans
-        html = self._read("plans.html")
+        html = self._read()
         for st in plans.METHOD_STAGES:
             self.assertIn(f'<div class="pl-stage__n">{st["n"]}</div>', html)
             self.assertIn(st["t"], html)
 
     def test_all_tracks_rendered(self):
         import plans
-        html = self._read("plans.html")
+        html = self._read()
         for tr in plans.TRACKS:
             self.assertIn(f'id="track-{tr["key"]}"', html)
 
     def test_linked_from_projects_infospace_footer(self):
-        self.assertIn("plans.html", self._read("projects.html"))
+        self.assertIn("projects/plans.html", self._read("projects.html"))
         self.assertIn("Планы и методы", self._read("projects.html"))
-        self.assertIn("plans.html#metrics", self._read("infospace.html"))
+        self.assertIn("projects/plans.html#metrics", self._read("infospace.html"))
         import footer
         self.assertIn("plans.html", footer.render_footer(""))
         self.assertIn("plans.html", footer.render_footer("../"))
 
     def test_filters_work_without_js(self):
         # без JS виден весь реестр: строки не скрыты в разметке
-        html = self._read("plans.html")
+        html = self._read()
         self.assertNotIn('<tr data-ax="money" data-st="done" class="pl-hide"', html)
         self.assertIn('id="pl-shown"', html)
 
@@ -3189,11 +3191,12 @@ class TestPlansPage(unittest.TestCase):
         wf = os.path.join(BASE, ".github", "workflows")
         for name in ("daily.yml", "weekly.yml", "monthly.yml"):
             with open(os.path.join(wf, name), encoding="utf-8") as f:
-                self.assertIn("plans.html", f.read(), f"{name}: plans.html не коммитится")
+                self.assertIn("projects/plans.html", f.read(),
+                              f"{name}: projects/plans.html не коммитится")
 
     def test_page_structure_balanced(self):
         import plans  # noqa: F401
-        html = self._read("plans.html")
+        html = self._read()
         self.assertEqual(html.count("<div"), html.count("</div>"))
         self.assertEqual(html.count("<table"), html.count("</table>"))
 
@@ -3333,13 +3336,13 @@ class TestMethodsPage(unittest.TestCase):
 
     def test_linked_from_projects_footer_archive_plans(self):
         import footer
-        for page in ("projects.html", "archive.html", "plans.html", "infospace.html"):
+        for page in ("projects.html", "archive.html", "projects/plans.html", "infospace.html"):
             self.assertIn("methods.html", self._read(page), page)
         self.assertIn("methods.html", footer.render_footer(""))
         self.assertIn("methods.html", footer.render_footer("../"))
 
     def test_subnav_on_project_pages(self):
-        for page in ("methods.html", "plans.html", "projects.html"):
+        for page in ("methods.html", "projects/plans.html", "projects.html"):
             html = self._read(page)
             self.assertIn("subnav-inner", html, page)
             self.assertIn("Проекты:", html, page)
@@ -3355,6 +3358,47 @@ class TestMethodsPage(unittest.TestCase):
         self.assertEqual(html.count("<div"), html.count("</div>"))
         self.assertEqual(html.count("<table"), html.count("</table>"))
         self.assertEqual(html.count("<details"), html.count("</details>"))
+
+class TestInternalLinks(unittest.TestCase):
+    """Битые внутренние ссылки: страницы ссылаются только на существующие файлы.
+
+    Регрессия 17.09: витрина, «Версия руководителю» и печатная полоса весь день ссылались
+    на digest_<сегодня>.html, которого ещё нет — датированный выпуск появляется после
+    закрытия суток, а свежий живёт на today.html."""
+
+    PATTERNS = ("*.html", os.path.join("projects", "*.html"), os.path.join("digests", "*.html"),
+                os.path.join("weekly", "*.html"), os.path.join("monthly", "*.html"))
+
+    def _pages(self):
+        import glob
+        out = []
+        for pat in self.PATTERNS:
+            out.extend(glob.glob(os.path.join(BASE, pat)))
+        return out
+
+    def test_all_relative_links_resolve(self):
+        bad = []
+        pages = self._pages()
+        self.assertTrue(pages, "страницы для проверки не найдены")
+        for path in pages:
+            with open(path, encoding="utf-8") as f:
+                html = f.read()
+            base = os.path.dirname(path)
+            for href in re.findall(r'href="([^"#][^"]*)"', html):
+                if href.startswith(("http", "mailto", "data:")):
+                    continue
+                target = href.split("#")[0]
+                if target and not os.path.exists(os.path.normpath(os.path.join(base, target))):
+                    bad.append(f"{os.path.relpath(path, BASE)} -> {href}")
+        self.assertEqual(bad, [], "битые внутренние ссылки: " + "; ".join(sorted(set(bad))[:8]))
+
+    def test_digest_link_falls_back_to_today(self):
+        today = datetime.now(UTC4).strftime("%Y-%m-%d")
+        # за закрытые сутки файл есть — ссылка на него; за будущие — живая страница
+        self.assertEqual(generate.digest_link("2999-01-01"), "today.html")
+        link = generate.digest_link(today)
+        self.assertIn(link, ("today.html", f"digest_{today}.html"))
+        self.assertTrue(os.path.exists(os.path.join(BASE, "digests", link)))
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

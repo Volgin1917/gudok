@@ -30,7 +30,7 @@ jobs:
         run: |
           bash ci_push.sh "Ежедневный выпуск $(date -u +%F)" \
             data digests index.html afisha.html infospace.html status.html \
-            weekly.html monthly.html projects.html projects archive.html plans.html \
+            weekly.html monthly.html projects.html projects archive.html projects/plans.html \
             methods.html \
             assets weekly monthly
       - name: Артефакт сайта (свежие страницы, а не триггерный коммит)

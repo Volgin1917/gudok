@@ -1645,7 +1645,7 @@ def render_editorial(date_str):
 def render_utilbar(prefix=""):
     return f"""<div class="util-bar-wrap"><div class="util-bar">
 <span class="util-lbl">Служебное</span>
-<a href="{prefix}plans.html">Планы</a>
+<a href="{prefix}projects/plans.html">Планы</a>
 <a href="{prefix}methods.html">Методы</a>
 <a href="{prefix}status.html">Статус системы</a>
 <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
@@ -1674,6 +1674,15 @@ def digest_number(cfg, date_str):
     except (ValueError, TypeError):
         pass
     return 1, False
+
+
+def digest_link(date_str):
+    """Имя файла выпуска за сутки для ссылок из digests/ и с витрины.
+
+    Датированный выпуск появляется, только когда сутки закрыты; до этого свежий выпуск
+    живёт на today.html. Без проверки страница весь день ссылается на отсутствующий файл."""
+    name = f"digest_{date_str}.html"
+    return name if os.path.exists(os.path.join(DIGESTS, name)) else "today.html"
 
 
 def render_nav(cfg, current, prefix="", subnav=""):
@@ -2381,7 +2390,7 @@ def render_exec(cfg, trends, store, status, date_str):
 
 <div class="exec-foot">
 <span>Сформировано автоматически по мониторингу {len(srcs)} источников; отбор алгоритмический. Требует вычитки редактором перед рассылкой (human-in-the-loop).</span>
-<span>Подробно: <a href="digest_{date_str}.html">полный выпуск №{dno}</a> · {esc(cfg['brand'])}</span>
+<span>Подробно: <a href="{digest_link(date_str)}">полный выпуск №{dno}</a> · {esc(cfg['brand'])}</span>
 </div>
 <button class="print-btn" onclick="window.print()" style="margin-top:10px;">🖨 Печать / PDF</button>
 </div></body></html>"""
@@ -2603,7 +2612,7 @@ def render_projects(cfg, trends, store, status):
 <div class="fig">{plans_tracks}<small>треков</small></div>
 <p>Единая страница планов издания: план развития, реестр метрик «Инфопространства» с паспортами,
 переезд на сервер, спринты первой полосы и конвейер внедрения метода.</p>
-<a class="go" href="plans.html">открыть планы →</a></div>"""
+<a class="go" href="projects/plans.html">открыть планы →</a></div>"""
     for pr in cfg.get("projects", []):
         st = {"active": ("в работе", "#1d7a4d"), "plan": ("в плане", "#96690a")}.get(pr.get("status"), (pr.get("status", ""), "#5b6b7c"))
         cards += f"""<div class="sec-card" style="border-top-color:{st[1]};text-decoration:none;display:block;">
@@ -2761,7 +2770,7 @@ def render_plans(cfg, trends, store, status, an=None):
     import plans as P
     import methods as M
     now = datetime.now(UTC4)
-    nav_html = render_nav(cfg, "projects", "", subnav=subnav_projects("", "plans"))
+    nav_html = render_nav(cfg, "projects", "../", subnav=subnav_projects("../", "plans"))
     an = an or {}
     cnt = P.counts()
     axes = P.by_axis()
@@ -2910,7 +2919,7 @@ def render_plans(cfg, trends, store, status, an=None):
                                  'страница перечисляет только незакрытые пункты, они перечитываются при каждой сборке.</div></div>')
         elif key == "infospace":
             extra = ('<a class="pl-link" href="#metrics">реестр на этой странице ↑</a>'
-                     f'<a class="pl-link" href="infospace.html" >витрина раздела →</a>')
+                     f'<a class="pl-link" href="../infospace.html">витрина раздела →</a>')
             tracks_html.append(track_head(tr, extra)
                                + f'<div class="pl-h4">Статусы реестра</div>'
                                + '<ul class="pl-list">'
@@ -2948,7 +2957,7 @@ def render_plans(cfg, trends, store, status, an=None):
                                + '<div class="note">Статусы берутся из таблиц plan_frontpage_v4.md; '
                                  'колонка «Статус данных» в Спринте 1 описывает готовность данных, а не факт внедрения.</div></div>')
         elif key == "afisha":
-            extra = '<a class="pl-link" href="afisha.html">витрина афиши →</a>'
+            extra = '<a class="pl-link" href="../afisha.html">витрина афиши →</a>'
             tracks_html.append(track_head(tr, extra)
                                + '<div class="pl-h4">Порог входа сейчас</div>'
                                + '<ul class="pl-list">'
@@ -2976,7 +2985,7 @@ def render_plans(cfg, trends, store, status, an=None):
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Планы и внедрение методов — {cfg['brand']}</title>
-<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
 <style>{CSS}{PLANS_CSS}</style></head><body>
 <header class="masthead"><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
@@ -3000,7 +3009,7 @@ def render_plans(cfg, trends, store, status, an=None):
 (<code>generate.py → render_plans</code>) из редакционного реестра <code>plans.py</code> и из markdown-документов
 репозитория — правка документа попадает на витрину при следующем прогоне конвейера. Собрано {now:%d.%m.%Y %H:%M} (UTC+4).</div>
 
-<div class="sec-head" style="margin-top:34px;"><h2>Внедрение методов</h2><div class="line"></div>
+<div class="sec-head" id="method" style="margin-top:34px;"><h2>Внедрение методов</h2><div class="line"></div>
 <div class="badge">паспорт → данные → расчёт → блок → тест</div></div>
 <div class="note" style="margin:0 0 14px;">Правило редакции: метрика или методика добавляется в раздел только через паспорт —
 с гипотезой, формулой, источником данных, порогом тревоги и местом публикации. Пять шагов ниже одинаковы
@@ -3015,7 +3024,7 @@ def render_plans(cfg, trends, store, status, an=None):
 <div class="note">Полные паспорта методик (вход, выход, метрики качества, модуль платформы, оценка
 неопределённости и порядок проверки на контрольной выборке), сквозной раздел «Идеология и гегемония»,
 техконтур из открытых стандартов и стенд испытания с генератором протокола —
-<a href="methods.html" style="color:var(--accent);font-weight:700;">на странице «Методы» →</a>
+<a href="../methods.html" style="color:var(--accent);font-weight:700;">на странице «Методы» →</a>
 Серверный аналог протокола стенда: <code>methods.py → protocol()</code>, покрыт тестами.</div>
 
 <div class="sec-head"><h2>Паспорта метрик-пилотов</h2><div class="line"></div>
@@ -3061,7 +3070,7 @@ def render_plans(cfg, trends, store, status, an=None):
 из них и из реестра <code>plans.py</code>.</div>
 
 </div>
-{footer.render_footer('')}
+{footer.render_footer('../')}
 {PLANS_JS}
 </body></html>"""
 
@@ -3072,7 +3081,7 @@ def subnav_projects(prefix="", current=""):
              ("projects/elections_2026.html", "Выборы-2026", "elections"),
              ("projects/goszakupki.html", "Госзакупки", "goszakupki"),
              ("methods.html", "Методы", "methods"),
-             ("plans.html", "Планы", "plans")]
+             ("projects/plans.html", "Планы", "plans")]
     links = "".join(
         f'<span class="cur">{txt}</span>' if key == current
         else f'<a href="{prefix}{href}">{txt}</a>'
@@ -3406,7 +3415,7 @@ def render_methods(cfg, trends, store, status):
 
 <div class="wrap1200"><div class="note" style="margin-top:26px;">Связано:
 <a href="infospace.html" style="color:var(--accent);">дашборд «Инфопространство»</a> ·
-<a href="plans.html#method" style="color:var(--accent);">внедрение методов в планах</a> ·
+<a href="projects/plans.html#method" style="color:var(--accent);">внедрение методов в планах</a> ·
 <a href="projects/elections_2026.html" style="color:var(--accent);">досье «Выборы-2026»</a> ·
 <a href="projects/goszakupki.html" style="color:var(--accent);">досье «Госзакупки»</a> ·
 <a href="status.html" style="color:var(--accent);">статус системы</a>.
@@ -4549,7 +4558,7 @@ def render_infospace(cfg, trends, store, status, info):
 
         w1_html = f"""
 <div class="sec-head"><h2>Волна 1: деньги, труд, время и территория</h2><div class="line"></div>
-<div class="badge"><a href="plans.html#metrics" style="color:var(--accent);">план внедрения и реестр метрик →</a> · метрики подключены 15.09</div></div>
+<div class="badge"><a href="projects/plans.html#metrics" style="color:var(--accent);">план внедрения и реестр метрик →</a> · метрики подключены 15.09</div></div>
 
 <div class="card"><div class="card-pad">
 <div class="side-head">Матрица «территория × рубрика» <span class="sub">неделя · топ-10 территорий по объёму</span></div>
@@ -4690,7 +4699,7 @@ def render_infospace(cfg, trends, store, status, info):
 
         w2_html = f"""
 <div class="sec-head"><h2>Волна 2: кто пишет и кто читает</h2><div class="line"></div>
-<div class="badge"><a href="plans.html#metrics" style="color:var(--accent);">план внедрения →</a> · реестр источников: {w2.get('registry_sources', 0)} · подключено 15.09</div></div>
+<div class="badge"><a href="projects/plans.html#metrics" style="color:var(--accent);">план внедрения →</a> · реестр источников: {w2.get('registry_sources', 0)} · подключено 15.09</div></div>
 
 <div class="card"><div class="card-pad">
 <div class="side-head">Кто пишет: состав потока по типу производителя <span class="sub">неделя · {wn} сообщений</span></div>
@@ -4757,7 +4766,7 @@ def render_infospace(cfg, trends, store, status, info):
                             for a in w3.get("affiliates") or []) or '<div class="note">Гипотез аффилированности пока нет.</div>'
         w3_html = f"""
 <div class="sec-head"><h2>Волна 3: деньги и собственность</h2><div class="line"></div>
-<div class="badge"><a href="plans.html#metrics" style="color:var(--accent);">план внедрения →</a> · <a href="owner_verification.md" style="color:var(--accent);">верификация владельцев 15.09</a> · реестр: {w3.get('registry_sources', 0)}</div></div>
+<div class="badge"><a href="projects/plans.html#metrics" style="color:var(--accent);">план внедрения →</a> · <a href="owner_verification.md" style="color:var(--accent);">верификация владельцев 15.09</a> · реестр: {w3.get('registry_sources', 0)}</div></div>
 <div class="grid2">
 <div class="card"><div class="card-pad">
 <div class="side-head">Концентрация собственности <span class="sub">HHI по учредителям, взвешенный потоком недели</span></div>
@@ -5072,7 +5081,7 @@ def render_infospace(cfg, trends, store, status, info):
 
         w4_html = f"""
 <div class="sec-head"><h2>Волна 4: язык, труд и методика</h2><div class="line"></div>
-<div class="badge"><a href="plans.html#metrics" style="color:var(--accent);">план внедрения →</a> · метрики подключены 15.09 · выборка: {ag.get('n') or ait.get('n') or 0} сообщения недели</div></div>
+<div class="badge"><a href="projects/plans.html#metrics" style="color:var(--accent);">план внедрения →</a> · метрики подключены 15.09 · выборка: {ag.get('n') or ait.get('n') or 0} сообщения недели</div></div>
 {ag_html}
 <div class="grid2">
 {fr_html}
@@ -5108,7 +5117,7 @@ def render_infospace(cfg, trends, store, status, info):
 </div>
 <div class="note" style="margin-bottom:18px;">Раздел обновляется каждым прогоном конвейера — это не разовый отчёт, а непрерывное наблюдение за устройством регионального инфополя: кто производит новости, кто их тиражирует, какие сюжеты побеждают, кого не слышно. Данные — {esc(str(info.get('generated_local','')))}, база: {len(store)} записей.
 <b>Что измерим дальше и как:</b> реестр из 32 метрик-кандидатов, паспорта метрик, волны внедрения
-и открытые пункты плана развития — <a href="plans.html#metrics" style="color:var(--accent);font-weight:700;">на странице «Планы и методы» →</a></div>
+и открытые пункты плана развития — <a href="projects/plans.html#metrics" style="color:var(--accent);font-weight:700;">на странице «Планы и методы» →</a></div>
 
 <div class="sec-head"><h2>Кто задаёт повестку</h2><div class="line"></div>
 <div class="badge">первичность в каскадах перепечаток</div></div>
@@ -5295,7 +5304,7 @@ def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest
 <style>{CSS}{PRINT_CSS}</style></head>
 <body class="print-mode">
 <div class="pm-toolbar">
-<a href="digest_{date_str}.html">← Электронный выпуск</a>
+<a href="{digest_link(date_str)}">← Электронный выпуск</a>
 <button onclick="window.print()">🖨 Печать / PDF</button>
 </div>
 
@@ -5916,7 +5925,7 @@ def render_archive(cfg, trends, store, status):
             ("projects/goszakupki.html", "Госзакупки", "аналитика закупок региона"),
             ("infospace.html", "Инфопространство", "сеттеры повестки, каскады, тон, территории"),
             ("methods.html", "Методы", "реестр из 36 методик с паспортами · идеология и гегемония · техконтур · стенд"),
-            ("plans.html", "Планы", "треки планов · реестр из 32 метрик · паспорта · конвейер внедрения"),
+            ("projects/plans.html", "Планы", "треки планов · реестр из 32 метрик · паспорта · конвейер внедрения"),
             ("afisha.html", "Афиша", "культурные события области, автоизвлечение")]
     proj_cards = "".join(
         f'<a class="proj-card" href="{href}"><b>{esc(name)}</b><span>{esc(desc)}</span></a>'
@@ -6040,7 +6049,10 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
     n24 = (trends or {}).get("counts", {}).get("last24h", 0)
     dnum, dtest = digest_number(cfg, day)
     weather = fetch_weather()
-    latest_digest = os.path.basename(digest_files[-1]) if digest_files else ""
+    latest_digest = os.path.basename(digest_files[-1]) if digest_files else "today.html"
+    if latest_digest != f"digest_{day:%Y-%m-%d}.html" and os.path.exists(os.path.join(DIGESTS, "today.html")):
+        # текущие сутки ещё не закрыты: датированного выпуска нет, свежий — на живой странице
+        latest_digest = "today.html"
 
     def take_first(candidates, k):
         """Блок набирается из ещё не показанных на полосе; при нехватке — дозаполнение."""
@@ -6413,11 +6425,9 @@ def main():
     os.makedirs(DIGESTS, exist_ok=True)
     os.makedirs(SPECIAL, exist_ok=True)
 
+    # только реально существующие выпуски: раньше сюда дописывался файл текущих суток,
+    # которого ещё нет (сутки не закрыты) — витрина получала битую ссылку на весь день
     digest_files = sorted(glob.glob(os.path.join(DIGESTS, "digest_*.html")))
-    target = os.path.join(DIGESTS, f"digest_{date_str}.html")
-    if target not in digest_files:
-        digest_files.append(target)
-        digest_files = sorted(digest_files)
     digest_no, _test = digest_number(cfg, date_str)
 
     def themed(html):
@@ -6573,9 +6583,9 @@ def main():
 
     plans_html = themed(render_plans(cfg, trends, store, status,
                                      load_json(os.path.join(DATA, "analytics.json")) or {}))
-    with open(os.path.join(BASE, "plans.html"), "w", encoding="utf-8") as f:
+    with open(os.path.join(proj_dir, "plans.html"), "w", encoding="utf-8") as f:
         f.write(plans_html)
-    print("[generate] планы: plans.html")
+    print("[generate] планы: projects/plans.html")
     methods_html = themed(render_methods(cfg, trends, store, status))
     with open(os.path.join(BASE, "methods.html"), "w", encoding="utf-8") as f:
         f.write(methods_html)
