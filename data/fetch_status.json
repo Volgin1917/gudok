@@ -61,7 +61,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 10,
+  "items": 6,
   "error": null,
   "title": "Репортёр73"
  },
@@ -103,7 +103,7 @@
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 12,
+  "items": 10,
   "error": null,
   "title": "ЧП Ульяновск"
  },
@@ -133,7 +133,7 @@
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 14,
+  "items": 13,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
@@ -151,7 +151,7 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "73online"
  },
@@ -181,7 +181,7 @@
  },
  "tg:volkodav73": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Волкодав73"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-09-17T11:12:05.214746+00:00",
-  "last_run_local": "17.09.2026 15:12",
-  "fetched": 490,
-  "new": 74,
-  "total_store": 2515
+  "last_run_utc": "2026-09-17T11:52:11.357881+00:00",
+  "last_run_local": "17.09.2026 15:52",
+  "fetched": 486,
+  "new": 15,
+  "total_store": 2530
  },
  "rss:Улград": {
   "ok": true,

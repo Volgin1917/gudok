@@ -1,5 +1,5 @@
 {
- "generated_local": "17.09.2026 15:17",
+ "generated_local": "17.09.2026 15:58",
  "calendar": [
   {
    "etype": "concert",
@@ -342,37 +342,6 @@
    ]
   },
   {
-   "name": "новое · поликлиники · героя",
-   "terms": [
-    "новое",
-    "поликлиники",
-    "героя"
-   ],
-   "size": 5,
-   "coverage": 0.2,
-   "gap": true,
-   "samples": [
-    {
-     "title": "15 сентября в Ульяновске на улице Героя РФ Колпакова откроется филиал городской поликлиники №4 Отдельные входы",
-     "url": "https://t.me/ulsk_73online/35947",
-     "source": "t.me/ulsk_73online",
-     "views": 937
-    },
-    {
-     "title": "🏥 Новое подразделение городской поликлиники №4 откроют в Засвияжском районе уже завтра, 15 сентября. Современн",
-     "url": "https://t.me/ulsk_on/22800",
-     "source": "t.me/ulsk_on",
-     "views": 247
-    },
-    {
-     "title": "🏥 15 сентября в Ульяновске откроют новое подразделение поликлиники №4. Новое здание на улице Героя РФ Колпаков",
-     "url": "https://t.me/ulkoroche/33768",
-     "source": "t.me/ulkoroche",
-     "views": 146
-    }
-   ]
-  },
-  {
    "name": "лавров · заявил · переговоров",
    "terms": [
     "лавров",
@@ -400,6 +369,37 @@
      "url": "https://t.me/ulyanovsk_smi/29511",
      "source": "t.me/ulyanovsk_smi",
      "views": 633
+    }
+   ]
+  },
+  {
+   "name": "apple · переговоры · iphone",
+   "terms": [
+    "apple",
+    "переговоры",
+    "iphone"
+   ],
+   "size": 4,
+   "coverage": 0.25,
+   "gap": true,
+   "samples": [
+    {
+     "title": "📶 Минцифры обсуждает с Apple подключение 5G на iPhone в России. «Мы ведем переговоры с Apple, обсуждаем возмож",
+     "url": "https://t.me/chpulsk/50848",
+     "source": "t.me/chpulsk",
+     "views": 922
+    },
+    {
+     "title": "❗️ Минцифры обсуждает с Apple подключение 5G на iPhone в России Ведомство ведет переговоры с американской корп",
+     "url": "https://t.me/ulpressa/74723",
+     "source": "t.me/ulpressa",
+     "views": 556
+    },
+    {
+     "title": "Минцифры ведет переговоры с Apple о подключении 5G для iPhone в России. Об этом сообщают РИА Новости. Сеть уже",
+     "url": "https://t.me/ulsk_73online/36043",
+     "source": "t.me/ulsk_73online",
+     "views": 243
     }
    ]
   },
@@ -466,44 +466,44 @@
    ]
   },
   {
-   "name": "противогазы · покупать · запрет",
+   "name": "новое · подразделение · героя",
    "terms": [
-    "противогазы",
-    "покупать",
-    "запрет"
+    "новое",
+    "подразделение",
+    "героя"
    ],
    "size": 3,
    "coverage": 0.33,
    "gap": true,
    "samples": [
     {
-     "title": "❗ Противогазы можно будет свободно покупать в России с 1 марта 2027 года — как для себя, так и для детей Запре",
-     "url": "https://t.me/tresh_ulyan/56214",
-     "source": "t.me/tresh_ulyan",
-     "views": 1360
+     "title": "🏥 Новое подразделение городской поликлиники №4 откроют в Засвияжском районе уже завтра, 15 сентября. Современн",
+     "url": "https://t.me/ulsk_on/22800",
+     "source": "t.me/ulsk_on",
+     "views": 247
     },
     {
-     "title": "Россиянам официально разрешат покупать противогазы для всей семьи Запрет на приобретение средств индивидуально",
-     "url": "https://t.me/ulyanovsk_smi/29502",
-     "source": "t.me/ulyanovsk_smi",
-     "views": 98
+     "title": "🏥 15 сентября в Ульяновске откроют новое подразделение поликлиники №4. Новое здание на улице Героя РФ Колпаков",
+     "url": "https://t.me/ulkoroche/33768",
+     "source": "t.me/ulkoroche",
+     "views": 146
     },
     {
-     "title": "Россиянам разрешили покупать противогазы для всей семьи. Запрет действовал больше 30 лет и теперь будет снят п",
-     "url": "https://t.me/chpul/34442",
-     "source": "t.me/chpul",
-     "views": 56
+     "title": "🏥 В Засвияжье на улице Героя Российской Федерации Колпакова начало работу новое подразделение городской поликл",
+     "url": "https://t.me/reporter73/52194",
+     "source": "t.me/reporter73",
+     "views": 11
     }
    ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.221,
-  "today_items": 190,
-  "today_pos": 727,
+  "today_score": 0.238,
+  "today_items": 202,
+  "today_pos": 733,
   "today_neg": 480,
-  "today_neu": 910,
+  "today_neu": 916,
   "series": [
    {
     "date": "2026-09-04",
@@ -559,18 +559,18 @@
    },
    {
     "date": "2026-09-17",
-    "score": 0.221
+    "score": 0.238
    }
   ],
   "by_category": {
    "culture": 0.417,
-   "economy": 0.286,
+   "economy": 0.348,
    "education": 0.2,
-   "health": 0.167,
-   "politics": 0.228,
-   "security": -0.41,
-   "society": 0.326,
-   "sport": 0.5
+   "health": 0.25,
+   "politics": 0.197,
+   "security": -0.395,
+   "society": 0.337,
+   "sport": 0.533
   }
  },
  "credibility": [
@@ -578,9 +578,9 @@
    "source": "Улпресса",
    "tier": 1,
    "type": "tg",
-   "total": 455,
-   "primary": 407,
-   "dup": 48,
+   "total": 462,
+   "primary": 412,
+   "dup": 50,
    "repost_rate": 0.11,
    "views_median": 1190,
    "label": "первоисточник",
@@ -602,11 +602,11 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 119,
-   "primary": 104,
+   "total": 120,
+   "primary": 105,
    "dup": 15,
-   "repost_rate": 0.13,
-   "views_median": 440,
+   "repost_rate": 0.12,
+   "views_median": 437,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -614,11 +614,23 @@
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 108,
-   "primary": 80,
+   "total": 109,
+   "primary": 81,
    "dup": 28,
    "repost_rate": 0.26,
-   "views_median": 5870,
+   "views_median": 5840,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "chpulsk",
+   "tier": 2,
+   "type": "tg",
+   "total": 105,
+   "primary": 66,
+   "dup": 39,
+   "repost_rate": 0.37,
+   "views_median": 2720,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -635,26 +647,14 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "chpulsk",
-   "tier": 2,
-   "type": "tg",
-   "total": 104,
-   "primary": 66,
-   "dup": 38,
-   "repost_rate": 0.37,
-   "views_median": 2720,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "ulsk_73online",
    "tier": 2,
    "type": "tg",
-   "total": 100,
-   "primary": 94,
+   "total": 101,
+   "primary": 95,
    "dup": 6,
    "repost_rate": 0.06,
-   "views_median": 592,
+   "views_median": 582,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -663,9 +663,9 @@
    "tier": 1,
    "type": "tg",
    "total": 94,
-   "primary": 82,
-   "dup": 12,
-   "repost_rate": 0.13,
+   "primary": 81,
+   "dup": 13,
+   "repost_rate": 0.14,
    "views_median": 117,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -674,10 +674,10 @@
    "source": "ulkompr",
    "tier": 3,
    "type": "tg",
-   "total": 83,
-   "primary": 65,
+   "total": 84,
+   "primary": 66,
    "dup": 18,
-   "repost_rate": 0.22,
+   "repost_rate": 0.21,
    "views_median": 462,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -699,9 +699,9 @@
    "tier": 2,
    "type": "tg",
    "total": 79,
-   "primary": 69,
-   "dup": 10,
-   "repost_rate": 0.13,
+   "primary": 70,
+   "dup": 9,
+   "repost_rate": 0.11,
    "views_median": 1130,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -719,26 +719,26 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "Репортёр73",
+   "tier": 1,
+   "type": "tg",
+   "total": 78,
+   "primary": 68,
+   "dup": 10,
+   "repost_rate": 0.13,
+   "views_median": 35,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "Губернатор и Правительство Ульяновской области",
    "tier": 1,
    "type": "tg",
    "total": 77,
-   "primary": 57,
-   "dup": 20,
-   "repost_rate": 0.26,
-   "views_median": 91,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "Репортёр73",
-   "tier": 1,
-   "type": "tg",
-   "total": 77,
-   "primary": 67,
-   "dup": 10,
-   "repost_rate": 0.13,
-   "views_median": 36,
+   "primary": 58,
+   "dup": 19,
+   "repost_rate": 0.25,
+   "views_median": 96,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -759,10 +759,10 @@
    "tier": 2,
    "type": "tg",
    "total": 65,
-   "primary": 50,
-   "dup": 15,
-   "repost_rate": 0.23,
-   "views_median": 366,
+   "primary": 49,
+   "dup": 16,
+   "repost_rate": 0.25,
+   "views_median": 356,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -794,8 +794,8 @@
    "source": "volkodav73",
    "tier": 3,
    "type": "tg",
-   "total": 49,
-   "primary": 39,
+   "total": 50,
+   "primary": 40,
    "dup": 10,
    "repost_rate": 0.2,
    "views_median": 2820,
@@ -827,6 +827,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "ulpatriot",
+   "tier": 3,
+   "type": "tg",
+   "total": 38,
+   "primary": 35,
+   "dup": 3,
+   "repost_rate": 0.08,
+   "views_median": 6890,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "ProNovosty73",
    "tier": 2,
    "type": "tg",
@@ -835,18 +847,6 @@
    "dup": 3,
    "repost_rate": 0.08,
    "views_median": 194,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "ulpatriot",
-   "tier": 3,
-   "type": "tg",
-   "total": 37,
-   "primary": 34,
-   "dup": 3,
-   "repost_rate": 0.08,
-   "views_median": 7050,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -1051,24 +1051,24 @@
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 20.4,
-   "slope": -3.21,
+   "expected": 21.1,
+   "slope": -3.11,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "budget",
    "name": "Бюджет-2027",
-   "expected": 22.7,
-   "slope": 2.61,
+   "expected": 23.5,
+   "slope": 2.71,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 62.4,
-   "slope": 2.39,
+   "expected": 64.6,
+   "slope": 2.71,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1081,19 +1081,19 @@
    "confidence": "средняя"
   },
   {
+   "topic": "sport",
+   "name": "Спорт",
+   "expected": 32.0,
+   "slope": 1.71,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
    "topic": "avia",
    "name": "Авиапром / УКБП / Ил-114",
    "expected": 0.3,
    "slope": -1.61,
    "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "sport",
-   "name": "Спорт",
-   "expected": 31.2,
-   "slope": 1.61,
-   "direction": "рост",
    "confidence": "средняя"
   },
   {
@@ -1105,11 +1105,19 @@
    "confidence": "средняя"
   },
   {
-   "topic": "crime",
-   "name": "Суды и криминал",
-   "expected": 42.1,
-   "slope": -1.25,
-   "direction": "спад",
+   "topic": "elections",
+   "name": "Выборы-2026",
+   "expected": 17.4,
+   "slope": 1.14,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 20.8,
+   "slope": 1.0,
+   "direction": "рост",
    "confidence": "средняя"
   },
   {
@@ -1117,14 +1125,6 @@
    "name": "Городская среда",
    "expected": 30.8,
    "slope": 0.93,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "elections",
-   "name": "Выборы-2026",
-   "expected": 15.2,
-   "slope": 0.82,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1137,11 +1137,11 @@
    "confidence": "средняя"
   },
   {
-   "topic": "medicine",
-   "name": "Медицина",
-   "expected": 19.3,
-   "slope": 0.79,
-   "direction": "рост",
+   "topic": "crime",
+   "name": "Суды и криминал",
+   "expected": 45.1,
+   "slope": -0.82,
+   "direction": "спад",
    "confidence": "средняя"
   },
   {
@@ -1153,18 +1153,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "export",
-   "name": "Экспорт и кооперация",
-   "expected": 10.3,
-   "slope": -0.21,
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 40.2,
+   "slope": 0.36,
    "direction": "плато",
    "confidence": "низкая"
   },
   {
-   "topic": "governor",
-   "name": "Губернатор / власть",
-   "expected": 38.0,
-   "slope": 0.04,
+   "topic": "export",
+   "name": "Экспорт и кооперация",
+   "expected": 10.3,
+   "slope": -0.21,
    "direction": "плато",
    "confidence": "низкая"
   },
@@ -1562,6 +1562,37 @@
    "district": false,
    "date": "2026-09-18",
    "date_end": "2026-09-20",
+   "time": "08:00",
+   "time_note": "",
+   "event_title": "Единой России",
+   "title_is_fallback": false,
+   "title_kind": "quoted",
+   "title": "Завтра стартуют выборы в Государственную Думу: как Ульяновская область подготовилась к голосованию",
+   "url": "https://ulpressa.ru/2026/09/17/zavtra-startuyut-vybory-v-gosudarstvennuyu-dumu-kak-ulyanovskaya-oblast-podgotovilas-k-golosovaniyu/",
+   "source": "Улпресса",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "тип: новость, не перечневое культурное событие",
+    "нет площадки"
+   ],
+   "score": 0.6
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-18",
+   "date_end": "2026-09-20",
    "time": "",
    "time_note": "уточняется",
    "event_title": "С 18 по",
@@ -1768,6 +1799,37 @@
     "нет площадки"
    ],
    "score": 0.8
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-20",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "Госуслуги",
+   "title_is_fallback": false,
+   "title_kind": "quoted",
+   "title": "Выборы-2026: как проголосовать на дому, если нет возможности прийти на участок",
+   "url": "https://ulpressa.ru/2026/09/17/vybory-2026-kak-progolosovat-na-domu-esli-net-vozmozhnosti-prijti-na-uchastok/",
+   "source": "Улпресса",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "дайджест/норма: дата — не события",
+    "нет площадки"
+   ],
+   "score": 0.0
   },
   {
    "etype": "other",
@@ -2692,17 +2754,18 @@
   }
  ],
  "calendar_passport": {
-  "found_dates": 71,
+  "found_dates": 73,
   "accepted": 10,
-  "rejected": 49,
+  "rejected": 51,
   "venues_new": {
-   "Центр общественного наблюдения": 1,
+   "Центр общественного наблюдения": 2,
    "ООО «Боулинг-центр» и ООО «Аэробоул»": 1,
    "площадке «РТС-тендер»": 1,
    "Центра активного долголетия «Рябинка»": 1,
    "«серебряных» волонтёров Центра": 1,
    "Площадка мероприятия": 1,
-   "ФОКи и дома престарелых": 1
+   "ФОКи и дома престарелых": 1,
+   "Ульяновского государственного педагогического университета": 1
   },
   "threshold": 0.55,
   "stats": {
@@ -2712,8 +2775,8 @@
    "title_composed": 9,
    "with_price": 3,
    "with_age": 0,
-   "rejected_no_venue": 38
+   "rejected_no_venue": 40
   },
-  "run_local": "17.09.2026 15:17"
+  "run_local": "17.09.2026 15:58"
  }
 }
