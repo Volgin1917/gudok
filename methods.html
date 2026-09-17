@@ -1,0 +1,1100 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Методы исследования инфополя · листок Гудок</title>
+<meta name="description" content="Реестр методик исследования инфополя издания «Гудок» v1.1: 36 паспортов методик, сквозной раздел «Идеология и гегемония», оценка неопределённости, стенд испытаний, техконтур из открытых стандартов.">
+<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<style>
+:root{
+  --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
+  --rule:#E3DED4; --rule-strong:#0B0B0B; --accent:#D63F1F; --on-ink:#C9C2B6;
+  --serif-display:"Fraunces","Source Serif 4",Georgia,"Times New Roman",serif;
+  --serif-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --rubleny:Impact,"Arial Black","Franklin Gothic Bold","Helvetica Neue",sans-serif;
+  --maxw:1340px; --gutter:28px;
+  /* совместимость старых классов */
+  --navy:var(--ink); --navy2:var(--ink); --navy3:var(--ink-2); --blue:var(--ink);
+  --gold:var(--accent); --line:var(--rule); --txt:var(--ink); --bg:var(--paper);
+  --card:var(--paper); --shadow:none;
+}
+:root[data-theme="dark"]{
+  --paper:#101214; --paper-2:#17191c; --ink:#ECE7DE; --ink-2:#D5CFC4; --muted:#9A948A;
+  --rule:#2A2D31; --rule-strong:#ECE7DE; --accent:#FF6A4D; --on-ink:#2A2620;
+  --navy:var(--ink); --navy2:var(--ink); --navy3:var(--ink-2); --blue:var(--ink);
+  --gold:var(--accent); --line:var(--rule); --txt:var(--ink); --bg:var(--paper); --card:var(--paper);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--accent);}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+img{max-width:100%;display:block;}
+.genstamp{background:var(--ink);color:var(--paper);border-left:5px solid var(--accent);}
+:root[data-theme="dark"] .genstamp{background:var(--paper);color:var(--ink);}
+.genstamp-inner{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter);display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;}
+.genstamp .g1{font-family:var(--serif-display);font-size:17px;font-weight:700;}
+.genstamp .g2{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;}
+.genstamp .g3{font-family:var(--sans);font-size:11.5px;opacity:.75;}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:99;}
+.skip:focus{left:8px;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}}
+
+/* рубленый вордмарк */
+.brand-title,.mast-title,.wordmark,.footer__brand{
+  font-family:var(--rubleny);font-weight:900;text-transform:uppercase;
+  letter-spacing:.04em;line-height:.95;color:var(--ink);font-style:normal;
+}
+.brand-title{font-size:30px;}
+.brand-title span,.mast-title span,.wordmark span,.footer__brand span{color:var(--accent);}
+.mast-title{font-size:clamp(44px,8vw,76px);letter-spacing:.06em;}
+
+/* топбар-флаглиния */
+.flagline,.topbar{background:var(--paper);border-bottom:1px solid var(--rule);
+  font-family:var(--sans);font-size:12px;color:var(--muted);}
+.flagline{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;gap:14px;
+  padding:10px var(--gutter);flex-wrap:wrap;border-bottom:none;padding-bottom:0;}
+.topbar{border-bottom:none;}
+.topbar-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter) 12px;display:block;text-align:center;}
+.brand{display:block;}
+.brand>div{display:block;}
+.brand-sub{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+.top-meta{margin:10px auto 0;display:flex;gap:0;justify-content:center;flex-wrap:wrap;}
+.chip{background:none;border:none;border-radius:0;padding:0 10px;font:400 12px var(--sans);color:var(--muted);position:relative;}
+.chip+.chip::before{content:"·";position:absolute;left:-3px;color:var(--muted);}
+.chip b{color:var(--ink-2);font-weight:600;}
+.chip a,.chip-link,.flink{color:var(--muted);}
+.chip a:hover,.chip-link:hover,.flink:hover{color:var(--accent);}
+.theme-btn,.print-btn{border:none;background:none;color:var(--muted);font:500 12px var(--sans);padding:0 10px;cursor:pointer;border-bottom:1px solid var(--ink);}
+.theme-btn:hover,.print-btn:hover{color:var(--accent);border-color:var(--accent);}
+.logo,.mast-logo,.mast-right{display:none;}
+.masthead::after,.topbar::after{content:"";display:block;max-width:var(--maxw);margin:14px auto 0;border-bottom:1px solid var(--rule-strong);}
+
+/* навигация-секции (sticky) */
+.nav{position:sticky;top:0;z-index:20;background:var(--paper);border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:flex;align-items:center;flex-wrap:wrap;}
+.nav a{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--ink-2);padding:15px 14px;position:relative;border-bottom:none;}
+.nav a:hover{color:var(--ink);}
+.nav a.active{color:var(--accent);font-weight:600;}
+.nav a.active::after{content:"";position:absolute;left:14px;right:14px;bottom:10px;height:2px;background:var(--accent);}
+.nav a.nav-util{color:var(--muted);}
+.nav-util-first{margin-left:auto;}
+.nav-toggle{display:none;border:1px solid var(--rule);background:none;color:var(--ink);font:600 13px var(--sans);padding:8px 12px;cursor:pointer;margin:8px var(--gutter);}
+@media (max-width:900px){
+  .nav-toggle{display:block;}
+  .nav-inner{display:none;flex-direction:column;align-items:stretch;}
+  body.nav-open .nav-inner{display:flex;}
+  .nav a{padding:12px 16px;border-top:1px solid var(--rule);}
+}
+.subnav{background:var(--paper);border-bottom:1px solid var(--rule);}
+.subnav-inner{max-width:var(--maxw);margin:0 auto;padding:8px var(--gutter);display:flex;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:12.5px;}
+.subnav-inner a{color:var(--muted);}
+.subnav-inner a:hover{color:var(--accent);}
+.subnav .lbl{color:var(--ink);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;}
+
+/* страницы: контейнеры и заголовки разделов */
+.page,.wrap1200,.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);}
+.sec-head{max-width:var(--maxw);margin:56px auto 26px;padding:16px var(--gutter) 0;border-top:1px solid var(--ink);display:flex;align-items:baseline;justify-content:space-between;gap:20px;}
+.sec-head h2{font-family:var(--serif-display);font-weight:600;font-size:26px;letter-spacing:-.02em;color:var(--ink);}
+.sec-head .line{flex:1;}
+.sec-head .badge{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--muted);}
+.sec-head .badge a{color:var(--muted);}
+
+/* герой (первая полоса) */
+.hero{padding:52px 0 44px;border-bottom:1px solid var(--rule);}
+.hero__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.45fr 1fr;gap:56px;align-items:center;}
+.hero__eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.hero__eyebrow .live{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+.kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);}
+.kicker--ink{color:var(--ink);}
+.hero__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(38px,5.2vw,72px);line-height:1.03;letter-spacing:-.025em;margin:0 0 22px;text-wrap:balance;color:var(--ink);}
+.hero__title a{color:var(--ink);}
+.hero__title a:hover{color:var(--accent);}
+.hero__title em{font-style:italic;font-weight:400;color:var(--accent);}
+.hero__dek{font-family:var(--serif-body);font-size:20px;line-height:1.45;color:var(--ink-2);margin:0 0 24px;max-width:62ch;}
+.hero__byline{display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px;color:var(--muted);}
+.hero__byline .avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;letter-spacing:.05em;}
+.hero__byline strong{color:var(--ink);font-weight:600;}
+.hero__why{font-family:var(--sans);font-size:12px;color:var(--muted);letter-spacing:.01em;margin:14px 0 0;}
+.hero__passport{font-family:var(--sans);font-size:12px;color:var(--muted);margin:4px 0 0;}
+.hero__passport strong{color:var(--ink-2);font-weight:600;}
+.hero__also{font-family:var(--sans);font-size:12px;font-style:italic;color:var(--muted);margin:4px 0 0;}
+.hero__timeline{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0 0;letter-spacing:.01em;}
+.dot-sep::before{content:"·";margin:0 8px;color:var(--muted);}
+.hero__media{position:relative;aspect-ratio:4/5;overflow:hidden;margin:0;
+  background:radial-gradient(120% 90% at 30% 20%,#4A5A55 0%,#2E3A38 55%,#1C2322 100%);}
+.hero__media--b{background:radial-gradient(120% 90% at 70% 30%,#6D4F3C 0%,#3A2A22 55%,#1A1310 100%);}
+.hero__media--c{background:radial-gradient(120% 90% at 40% 60%,#3E4552 0%,#2A2F3A 55%,#171A20 100%);}
+.hero__media figcaption{position:absolute;left:18px;right:18px;bottom:16px;color:#EDE8DF;font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between;gap:12px;z-index:2;}
+.hero__media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.35) 100%);}
+
+/* самое читаемое */
+.mostread{border-bottom:1px solid var(--rule);background:var(--paper-2);}
+.mostread__inner{max-width:var(--maxw);margin:0 auto;padding:26px var(--gutter) 30px;display:grid;grid-template-columns:180px 1fr;gap:40px;align-items:start;}
+.mostread__label{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px;padding-top:4px;}
+.mostread__label::before{content:"";width:22px;height:1px;background:var(--accent);}
+.mostread__list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);}
+.mostread__list li{padding:0 22px;border-left:1px solid var(--rule);display:flex;gap:14px;align-items:baseline;}
+.mostread__list li:first-child{border-left:0;padding-left:0;}
+.mostread__num{font-family:var(--serif-display);font-weight:400;font-size:34px;line-height:1;color:var(--rule);letter-spacing:-.03em;}
+.mostread__list a{font-family:var(--serif-body);font-size:15px;line-height:1.35;font-weight:600;color:var(--ink);}
+.mostread__list a:hover{color:var(--accent);}
+
+/* «Коротко: 7 строк дня» */
+.brief{border-bottom:1px solid var(--rule);background:var(--paper);}
+.brief__inner{max-width:var(--maxw);margin:0 auto;padding:22px var(--gutter) 24px;}
+.brief__label{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.brief__label::before{content:"";width:22px;height:1px;background:var(--accent);}
+.brief-row{display:grid;grid-template-columns:86px 200px 1fr;gap:16px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule);}
+.brief-row:first-of-type{border-top:0;}
+.brief-t{font-family:var(--sans);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.brief-k{font-family:var(--sans);font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.brief-row a{font-family:var(--serif-body);font-size:15.5px;line-height:1.35;font-weight:600;color:var(--ink);}
+.brief-row a:hover{color:var(--accent);}
+
+/* карточки */
+.grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(4,1fr);gap:36px 28px;}
+.card{display:flex;flex-direction:column;background:none;border:none;border-radius:0;box-shadow:none;}
+.card__media{aspect-ratio:3/2;margin-bottom:14px;position:relative;overflow:hidden;}
+.card__media--a{background:linear-gradient(140deg,#D9CFC0 0%,#A89A85 100%);}
+.card__media--b{background:linear-gradient(140deg,#B8C2C1 0%,#5F6E6D 100%);}
+.card__media--c{background:linear-gradient(140deg,#E5C9B6 0%,#B4795A 100%);}
+.card__media--d{background:linear-gradient(140deg,#C9C2D1 0%,#6D6079 100%);}
+.card__kicker{margin-bottom:10px;}
+.card__title{font-family:var(--serif-display);font-weight:600;font-size:20px;line-height:1.15;letter-spacing:-.015em;margin:0 0 10px;color:var(--ink);}
+.card__title a{color:var(--ink);}
+.card__title a:hover{color:var(--accent);}
+.card__dek{font-family:var(--serif-body);font-size:15px;line-height:1.5;color:var(--muted);margin:0 0 12px;}
+.card__meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:auto;}
+.card__badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:3px 8px;border-radius:999px;white-space:nowrap;display:inline-block;}
+.chip--cluster{color:var(--ink-2);background:var(--paper-2);border:1px solid var(--rule);}
+
+/* лента: чипы-рубрики + «Показать ещё» (#19/#20) */
+.feed-chips{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter) 0;display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:52px;z-index:20;background:var(--paper);}
+.chip-f{font:600 12px var(--sans);color:var(--muted);background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer;line-height:1.45;}
+.chip-f:hover{color:var(--ink);border-color:var(--ink);}
+.chip-f.on{color:#fff;background:var(--accent);border-color:var(--accent);}
+.chip-f:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.chip-f-divider{width:1px;height:18px;margin:0 6px;align-self:center;background:var(--rule);}
+.feed-more{display:none;font:600 13px var(--sans);padding:8px 18px;border:1px solid var(--ink);border-radius:999px;background:var(--paper);cursor:pointer;}
+.feed-more:hover{background:var(--ink);color:var(--paper);}
+.feed-bar{max-width:var(--maxw);margin:14px auto 0;padding:0 var(--gutter);display:flex;align-items:center;gap:18px;font:12px var(--sans);color:var(--muted);}
+.feed-bar a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+.feed-empty{max-width:var(--maxw);margin:12px auto 0;padding:0 var(--gutter);font:13px var(--sans);color:var(--muted);}
+.feed-empty a{color:var(--accent);}
+.hidden{display:none!important;}
+.ab-link{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:999px;background:none;padding:4px 12px;cursor:pointer;}
+.ab-link:hover{color:var(--accent);border-color:var(--accent);}
+body[data-ab="v2"] .hero__inner{grid-template-columns:1fr 1.05fr;}
+body[data-ab="v2"] .feature__inner{grid-template-columns:1.05fr 1fr;}
+
+/* фича-полоса (тёмная) */
+.feature{margin-top:72px;background:var(--ink);color:var(--paper);}
+.feature__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 1.05fr;align-items:stretch;}
+.feature__text{padding:64px 56px 64px 0;display:flex;flex-direction:column;justify-content:center;}
+.feature__kicker{color:var(--accent);font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px;}
+.feature__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(32px,3.6vw,50px);line-height:1.05;letter-spacing:-.025em;margin:0 0 22px;color:var(--paper);text-wrap:balance;}
+.feature__title em{font-style:italic;font-weight:400;}
+.feature__dek{font-family:var(--serif-body);font-size:17px;line-height:1.55;color:var(--on-ink);margin:0 0 24px;max-width:52ch;}
+:root[data-theme="dark"] .feature__dek{color:#8B8578;}
+.feature__byline{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-ink);}
+:root[data-theme="dark"] .feature__byline{color:#8B8578;}
+.feature__byline strong{color:var(--paper);font-weight:600;}
+:root[data-theme="dark"] .feature__byline strong{color:var(--ink);}
+.feature__media{position:relative;min-height:480px;background:radial-gradient(120% 100% at 70% 30%,#6D4F3C 0%,#3A2A22 55%,#1A1310 100%);}
+.feature__media figcaption{position:absolute;bottom:18px;right:18px;font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#E9E4DA;}
+
+/* мнения */
+.opinion__grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}
+.op{border-top:1px solid var(--ink);padding-top:20px;display:flex;flex-direction:column;gap:14px;}
+.op__quote{font-family:var(--serif-display);font-style:italic;font-weight:400;font-size:21px;line-height:1.25;letter-spacing:-.015em;color:var(--ink);margin:0;}
+.op__quote a{color:var(--ink);}
+.op__quote a:hover{color:var(--accent);}
+.op__author{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:8px;}
+.op__avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;color:var(--paper);flex:0 0 40px;background:var(--ink-2);}
+.op__name{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);}
+.op__role{font-family:var(--sans);font-size:12px;color:var(--muted);}
+
+/* периодичности (вместо подписки) */
+.newsletter{margin-top:80px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--paper-2);}
+.newsletter__inner{max-width:760px;margin:0 auto;padding:56px var(--gutter) 60px;text-align:center;}
+.newsletter__kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.newsletter__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(28px,3vw,40px);line-height:1.08;letter-spacing:-.02em;margin:0 0 14px;color:var(--ink);text-wrap:balance;}
+.newsletter__title em{font-style:italic;font-weight:400;}
+.newsletter__dek{font-family:var(--serif-body);font-size:17px;color:var(--muted);margin:0 0 26px;}
+.period-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.period-links a{border:1px solid var(--ink);padding:12px 22px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);}
+.period-links a:hover{background:var(--ink);color:var(--paper);}
+.newsletter__fine{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:14px;}
+
+/* ленты и прочие старые компоненты в новой оптике */
+.main-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:start;}
+.hero-grid{display:grid;grid-template-columns:1.65fr 1fr;gap:0 44px;margin-top:10px;align-items:start;}
+.hero-main,.hero-side{border-top:3px solid var(--ink);padding-top:14px;}
+.hero-card .rank{font-family:var(--serif-display);font-weight:700;font-size:30px;line-height:1;color:var(--accent);}
+.hero-main .rank{font-size:54px;line-height:.85;}
+.hero-rank-line{display:flex;align-items:baseline;gap:12px;margin-bottom:7px;}
+.hero-card .hk{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.hero-main .hk{margin:10px 0 6px;}
+.hero-card h3{font-family:var(--serif-display);font-weight:600;font-size:18.5px;line-height:1.24;margin:0 0 6px;}
+.hero-card h3 a{color:var(--ink);}
+.hero-card h3 a:hover{color:var(--accent);}
+.hero-main h3{font-size:27px;line-height:1.16;letter-spacing:-.01em;margin:0 0 10px;}
+.hero-card p{font-family:var(--serif-body);font-size:13.5px;line-height:1.45;color:var(--ink-2);margin:0 0 7px;}
+.hero-main p{font-size:15.5px;line-height:1.5;margin-bottom:10px;}
+.hero-meta{font-family:var(--sans);font-size:11px;color:var(--muted);}
+.hero-meta a{color:var(--accent);}
+.hero-side{display:flex;flex-direction:column;gap:22px;}
+.hero-side .hero-card+.hero-card{border-top:1px solid var(--rule);padding-top:18px;}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:26px;}}
+.cat-block{border-top:2px solid var(--ink);margin:0 0 30px;padding-top:10px;break-inside:avoid;}
+.cat-head{display:flex;align-items:baseline;gap:12px;padding:0 0 4px;}
+.cat-head h3{font-family:var(--serif-display);font-weight:600;font-size:20px;color:var(--ink);margin:0;}
+.cat-head .count{margin-left:auto;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.feed-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;align-items:start;margin-top:6px;}
+.feed-cols>div{min-width:0;}
+.fi{padding:13px 0;border-bottom:1px solid var(--rule);}
+.fi:last-child{border-bottom:none;}
+.fi h4{font-family:var(--serif-body);font-weight:600;font-size:15.5px;line-height:1.32;margin:0;}
+.fi h4 a{color:var(--ink);}
+.fi h4 a:hover{color:var(--accent);}
+.fi .dek{font-family:var(--serif-body);font-size:13.5px;color:var(--ink-2);line-height:1.45;margin:4px 0 0;}
+.fi .meta{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:5px;}
+.fi .meta time{font-weight:700;color:var(--ink-2);}
+.fi .also{font-family:var(--serif-body);font-size:12px;font-style:italic;color:var(--muted);margin-top:3px;}
+.fi .topics{font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+.fi-lead{padding-top:8px;}
+.fi-lead h4{font-family:var(--serif-display);font-size:19px;line-height:1.22;}
+.fi-lead .dek{font-size:14.5px;}
+.fi.with-photo{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:0 14px;}
+.fi.with-photo .fi-body{min-width:0;}
+.fi-thumb{width:104px;height:70px;overflow:hidden;align-self:start;margin-top:2px;}
+.cat-more{font-family:var(--sans);font-size:11px;color:var(--muted);padding:8px 0 2px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;align-items:start;}
+.grid2>*{min-width:0;}
+@media (max-width:1000px){.feed-cols,.grid2{grid-template-columns:1fr;gap:0;}}
+.news-item{padding:14px 0;border-bottom:1px solid var(--rule);}
+.news-item:last-child{border-bottom:none;}
+.news-item h4{font-family:var(--serif-display);font-weight:600;font-size:18px;line-height:1.25;margin-bottom:6px;color:var(--ink);}
+.news-item h4 a{color:var(--ink);}
+.news-item h4 a:hover{color:var(--accent);}
+.news-item p{font-family:var(--serif-body);font-size:15px;color:var(--ink-2);line-height:1.5;}
+.news-item .meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:6px;}
+.news-item .meta .tg{color:var(--muted);}
+.tchip{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;margin:6px 4px 0 0;}
+.cl-card{border-top:1px solid var(--rule);padding:10px 0;}
+.cl-card:first-child{border-top:none;padding-top:2px;}
+.cl-head{display:flex;align-items:baseline;gap:4px;flex-wrap:wrap;}
+.cl-name{font-family:var(--serif-display);font-weight:600;font-size:16px;color:var(--ink);}
+.cl-card.gap .cl-name{color:var(--accent);}
+.cl-samples{font-family:var(--serif-body);font-size:13px;color:var(--ink-2);margin-top:5px;line-height:1.5;}
+.cl-samples a{color:var(--ink);}
+.cl-samples a:hover{color:var(--accent);}
+.cl-badge{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--rule);padding:2px 8px;margin-left:6px;background:none;}
+.cl-badge.cl-warn{color:var(--accent);border-color:var(--accent);}
+.stchip{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;background:none;white-space:nowrap;}
+.stchip.st-rise{color:var(--accent);border-color:var(--accent);}
+.stchip.st-new{color:var(--ink);border-color:var(--ink);}
+.side-head{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:none;border-bottom:1px solid var(--ink);padding:0 0 8px;}
+.side-head .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
+.side-body{padding:12px 0;}
+.tbl{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;}
+.tbl th{background:none;color:var(--muted);text-align:left;padding:7px 10px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ink);}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2);}
+.tbl tr:nth-child(even) td{background:transparent;}
+.note{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6;border-left:2px solid var(--accent);padding-left:12px;}
+.verdict{border-left:3px solid var(--accent);padding:10px 14px;font-family:var(--serif-body);font-size:15px;color:var(--ink-2);margin-top:12px;background:var(--paper-2);}
+.verdict b{color:var(--accent);text-transform:uppercase;font-family:var(--sans);font-size:11px;letter-spacing:.12em;display:block;margin-bottom:4px;}
+.bar-row .bt,.bar-wrap{background:var(--paper-2);}
+.bar-fill{background:var(--ink-2);}
+.bar-fill.hot{background:var(--accent);}
+.bar-fill.cool{background:#4F5F53;}
+.bar-fill.gold{background:#B4795A;}
+.bar-fill.violet{background:#6D6079;}
+.topic-row{display:grid;grid-template-columns:200px 1fr 120px 96px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:13px;}
+.topic-row:last-child{border-bottom:none;}
+.topic-name{font-weight:600;color:var(--ink);}
+.topic-name small{display:block;font-weight:400;color:var(--muted);font-size:11px;}
+.kpi{background:none;border:none;border-top:1px solid var(--ink);border-radius:0;padding:12px 14px 12px 0;}
+.kpi .num{font-family:var(--serif-display);font-weight:600;font-size:26px;color:var(--ink);line-height:1.05;}
+.kpi .num small{font-size:11px;font-weight:600;color:var(--muted);}
+.kpi .lbl{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:4px;}
+.kpi.gold,.kpi.red,.kpi.green,.kpi.violet{border-top-color:var(--ink);}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0 28px;}
+.cal-badge{flex-shrink:0;width:46px;height:44px;border:1px solid var(--ink);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;background:none;}
+.cal-badge b{font-family:var(--serif-display);font-size:17px;font-weight:600;}
+.cal-badge span{font-family:var(--sans);font-size:8.5px;text-transform:uppercase;color:var(--muted);margin-top:2px;letter-spacing:.08em;}
+.cal-badge.gold{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.cal-badge.gold span{color:var(--on-ink);}
+:root[data-theme="dark"] .cal-badge.gold{background:var(--ink);color:var(--paper);}
+.af-mini{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule);align-items:flex-start;}
+.af-mini:last-child{border-bottom:none;}
+.af-mini a{font-family:var(--serif-body);font-size:14.5px;font-weight:600;color:var(--ink);}
+.af-mini a:hover{color:var(--accent);}
+.af-daybar,.af-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.af-chip{border:1px solid var(--rule);background:none;color:var(--muted);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;cursor:pointer;}
+.af-chip.on{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.sec-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}
+.sec-card{background:none;border:none;border-top:1px solid var(--ink);border-radius:0;padding:18px 0 0;display:flex;flex-direction:column;}
+.sec-card .ic{display:none;}
+.sec-card b{font-family:var(--serif-display);font-weight:600;font-size:19px;color:var(--ink);}
+.sec-card .fig{font-family:var(--serif-display);font-size:22px;font-weight:600;color:var(--accent);margin-top:4px;}
+.sec-card .fig small{font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+.sec-card p{font-family:var(--serif-body);font-size:14.5px;color:var(--muted);line-height:1.5;margin-top:8px;flex:1;}
+.sec-card .go{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--accent);margin-top:10px;}
+.arch-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:center;}
+.arch-item:last-child{border-bottom:none;}
+.arch-date{width:48px;height:46px;border:1px solid var(--ink);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;background:none;}
+.arch-date b{font-family:var(--serif-display);font-size:17px;font-weight:600;}
+.arch-date span{font-family:var(--sans);font-size:8.5px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.08em;}
+.btn{display:inline-block;border:1px solid var(--ink);color:var(--ink);background:none;font-family:var(--sans);font-size:12.5px;font-weight:600;padding:8px 16px;}
+.btn:hover{background:var(--ink);color:var(--paper);}
+.btn.gold{background:var(--ink);color:var(--paper);}
+.btn.gold:hover{background:var(--accent);border-color:var(--accent);}
+.util-bar-wrap{max-width:var(--maxw);margin:0 auto;padding:20px var(--gutter) 0;}
+.util-bar{display:flex;gap:24px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:14px;}
+.util-bar a{font-family:var(--sans);font-size:12.5px;font-weight:500;color:var(--muted);}
+.util-bar a:hover{color:var(--accent);}
+.util-lbl{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.fbtn{border:1px solid var(--rule);background:none;color:var(--muted);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;cursor:pointer;}
+.fbtn.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.alert-banner{background:var(--accent);color:#fff;padding:12px var(--gutter);font-family:var(--sans);font-size:14px;font-weight:600;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.alert-banner a{color:#fff;text-decoration:underline;}
+.alert-banner .blink{animation:none;}
+.ticker-wrap{background:var(--paper-2);color:var(--ink-2);border-bottom:1px solid var(--rule);overflow:hidden;position:relative;height:34px;}
+.ticker-label{position:absolute;left:0;top:0;bottom:0;z-index:2;background:var(--accent);color:#fff;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;display:flex;align-items:center;padding:0 14px;text-transform:uppercase;}
+.ticker{display:flex;white-space:nowrap;animation:none;padding-left:130px;align-items:center;height:100%;font-family:var(--serif-body);font-size:14px;}
+.ticker span{padding-right:56px;}
+.ticker span b{color:var(--accent);}
+.tone-bar{height:12px;background:linear-gradient(90deg,#B04848,#E3DED4 50%,#4F5F53);position:relative;}
+.tone-pin{position:absolute;top:-4px;width:3px;height:20px;background:var(--ink);}
+.tone-cat{font-family:var(--sans);font-size:11px;font-weight:600;border:1px solid var(--rule);padding:3px 9px;color:var(--ink-2);}
+.fc-tbl{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;margin-top:10px;}
+.fc-tbl th{text-align:left;padding:6px 10px;color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--ink);}
+.fc-tbl td{padding:7px 10px;border-bottom:1px solid var(--rule);}
+.fc-up{color:var(--accent);font-weight:700;} .fc-down{color:#4F5F53;font-weight:700;} .fc-flat{color:var(--muted);font-weight:700;}
+.drone{width:24px;height:24px;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:12px;}
+.hl{background:linear-gradient(transparent 62%,#E5C9B6 62%);}
+:root[data-theme="dark"] .hl{background:linear-gradient(transparent 62%,#6D4F3C 62%);}
+.wk-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;margin-top:16px;}
+.wk-rail{display:flex;flex-direction:column;gap:20px;}
+.wk-box{border-top:1px solid var(--ink);padding:12px 0;background:none;border-left:none;border-right:none;border-bottom:none;border-radius:0;}
+.wk-box h4{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;}
+.wk-passport{border-top:1px solid var(--ink);border-left:none;background:none;padding:14px 0;margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;align-items:baseline;border-radius:0;}
+.wk-passport b{font-family:var(--serif-display);font-size:20px;font-weight:600;color:var(--ink);}
+.wk-stamp{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 10px;background:var(--paper-2);color:#4F5F53;border:1px solid var(--rule);}
+.wk-stamp.wip{background:none;color:var(--accent);border-color:var(--accent);}
+.now-panel{border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);padding:18px 0;}
+.now-alert{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);padding:6px 0;}
+.now-alert.calm{color:#4F5F53;}
+.now-alert.danger{color:var(--accent);}
+.now-grid{display:grid;grid-template-columns:1.25fr 1fr .9fr;gap:32px;}
+.now-col{border-left:1px solid var(--rule);padding-left:24px;}
+.now-col:first-child{border-left:none;padding-left:0;}
+.now-h{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.tl-row{display:flex;gap:12px;padding:7px 0;border-bottom:1px solid var(--rule);align-items:baseline;}
+.tl-row:last-child{border-bottom:none;}
+.tl-time{flex-shrink:0;font-family:var(--sans);font-weight:700;font-size:11.5px;color:var(--accent);width:46px;}
+.tl-txt{font-family:var(--serif-body);font-size:14.5px;line-height:1.45;color:var(--ink-2);}
+.tl-txt a{color:var(--ink);}
+.tl-txt a:hover{color:var(--accent);}
+.tl-src{font-family:var(--sans);color:var(--muted);font-size:11px;}
+.now-line{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);margin-top:4px;line-height:1.5;}
+.now-line b{color:var(--ink);}
+/* v4: алерт-полоса безопасности */
+.alertstrip{background:#5d0f13;color:#fff;}
+.alertstrip__inner{max-width:var(--maxw);margin:0 auto;padding:9px var(--gutter);display:flex;flex-direction:column;gap:5px;}
+body[data-theme="dark"] .alertstrip{background:#7d171d;}
+.alert-row{display:flex;gap:9px;align-items:center;font-family:var(--serif-body);font-size:14.5px;line-height:1.4;}
+.alert-row a{color:#fff;font-weight:600;text-decoration:none;}
+.alert-row a:hover{text-decoration:underline;}
+.alert-dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#ff6b6b;box-shadow:0 0 0 0 rgba(255,107,107,.7);animation:alertpulse 1.6s infinite;}
+@keyframes alertpulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,.6);}70%{box-shadow:0 0 0 7px rgba(255,107,107,0);}100%{box-shadow:0 0 0 0 rgba(255,107,107,0);}}
+.alert-time{margin-left:auto;flex-shrink:0;font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.85);font-weight:700;}
+.now-num{font-family:var(--serif-display);font-size:26px;font-weight:600;color:var(--ink);line-height:1.1;}
+.now-num small{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);}
+.lead-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;}
+.lead-main{border-top:1px solid var(--ink);padding-top:14px;}
+.lead-main h2{font-family:var(--serif-display);font-weight:600;font-size:30px;line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin-bottom:10px;}
+.lead-main h2 a{color:var(--ink);}
+.lead-main h2 a:hover{color:var(--accent);}
+.lead-main p{font-family:var(--serif-body);font-size:17px;color:var(--ink-2);line-height:1.5;}
+.lead-side{display:flex;flex-direction:column;gap:20px;}
+.lead-card{border-top:1px solid var(--rule);padding-top:12px;}
+.lead-card h3{font-family:var(--serif-display);font-weight:600;font-size:19px;line-height:1.2;color:var(--ink);}
+.lead-card h3 a{color:var(--ink);}
+.lead-card h3 a:hover{color:var(--accent);}
+.lead-card p{font-family:var(--serif-body);font-size:14.5px;color:var(--muted);line-height:1.5;}
+.lead-kicker{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.lead-meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:8px;}
+.lead-meta a{color:var(--muted);}
+.more-heads{columns:2;column-gap:36px;margin-top:8px;}
+.more-heads a{display:block;font-family:var(--serif-display);font-weight:600;font-size:16px;line-height:1.3;color:var(--ink);padding:7px 0;border-bottom:1px solid var(--rule);break-inside:avoid;}
+.more-heads a:hover{color:var(--accent);}
+.more-heads a span{font-family:var(--sans);color:var(--muted);font-weight:400;font-size:11.5px;display:block;}
+
+/* подвал — единый, см. footer.FOOTER_CSS */
+.footer h3{color:var(--paper);}
+
+/* печать */
+.pm-mast{text-align:center;border-bottom:3px double var(--ink);padding-bottom:4mm;}
+.pm-title{font-family:var(--rubleny);font-weight:900;text-transform:uppercase;letter-spacing:.08em;font-size:40pt;line-height:1;margin:0;color:var(--ink);}
+.pm-line{font-family:var(--sans);font-size:8.5pt;letter-spacing:1.2px;text-transform:uppercase;margin-top:2.5mm;color:var(--muted);}
+.pm-line b{color:var(--ink);}
+.pm-kicker{font-family:var(--sans);font-size:8pt;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700;margin:3mm 0 1.5mm;}
+.pm-lead-h{font-family:var(--serif-display);font-weight:600;font-size:20pt;line-height:1.15;margin:0 0 2.5mm;color:var(--ink);}
+.pm-deck{font-family:var(--serif-body);font-size:10.5pt;font-style:italic;color:var(--ink-2);line-height:1.45;margin:0 0 3mm;}
+.cols{column-count:3;column-gap:6mm;column-rule:.5pt solid var(--rule);}
+.cols p{font-family:var(--serif-body);font-size:9.3pt;line-height:1.42;margin:0 0 2.2mm;text-align:justify;hyphens:auto;}
+.pm-h3{font-family:var(--sans);font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;border-top:1.2pt solid var(--ink);padding-top:1.4mm;margin:3mm 0 1.8mm;break-after:avoid;}
+.pm-item{margin-bottom:2.4mm;break-inside:avoid;}
+.pm-item b{font-family:var(--serif-display);font-size:9.6pt;line-height:1.25;display:block;}
+.pm-item span{font-family:var(--serif-body);font-size:8.6pt;color:var(--muted);line-height:1.35;display:block;}
+.pm-item i{font-family:var(--sans);font-size:7.6pt;color:var(--muted);font-style:normal;}
+.pm-box{border:1pt solid var(--ink);padding:3mm;margin:3mm 0;break-inside:avoid;}
+.pm-box h4{font-family:var(--sans);font-size:9pt;text-transform:uppercase;letter-spacing:1.4px;margin:0 0 2mm;border-bottom:.8pt solid var(--ink);padding-bottom:1.2mm;}
+.pm-box ul{list-style:none;margin:0;padding:0;}
+.pm-box li{font-family:var(--serif-body);font-size:8.8pt;line-height:1.4;margin-bottom:1.4mm;}
+.pm-box li b{color:var(--accent);}
+.pm-stats{display:flex;gap:4mm;justify-content:space-between;margin:3mm 0;break-inside:avoid;}
+.pm-stat{flex:1;text-align:center;border:.8pt solid var(--ink);padding:2mm 1mm;}
+.pm-stat b{display:block;font-family:var(--serif-display);font-size:15pt;font-weight:600;}
+.pm-stat span{font-family:var(--sans);font-size:7.4pt;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);}
+.pm-colophon{border-top:3px double var(--ink);margin-top:4mm;padding-top:2mm;font-family:var(--sans);font-size:7.6pt;color:var(--muted);line-height:1.5;display:flex;justify-content:space-between;gap:6mm;}
+.pm-page{position:absolute;bottom:4mm;right:13mm;font-family:var(--sans);font-size:8pt;color:var(--muted);}
+.pm-ed{font-family:var(--serif-body);font-size:9.3pt;line-height:1.5;text-align:justify;}
+.pm-ed p{margin:0 0 2.2mm;}
+@media (max-width:1100px){
+  .hero__inner,.lead-grid,.feature__inner,.wk-grid,.main-grid{grid-template-columns:1fr;}
+  .hero__media{aspect-ratio:16/9;}
+  .brief-row{grid-template-columns:1fr;row-gap:3px;}
+  .brief-t,.brief-k{grid-column:1;}
+  .brief-k{white-space:normal;}
+  .mostread__inner{grid-template-columns:1fr;gap:18px;}
+  .mostread__list{grid-template-columns:repeat(2,1fr);row-gap:18px;}
+  .mostread__list li{padding-left:16px;}
+  .mostread__list li:nth-child(odd){border-left:0;padding-left:0;}
+  .grid{grid-template-columns:repeat(2,1fr);}
+  .feature__text{padding:48px 0;}
+  .feature__media{min-height:360px;}
+  .opinion__grid{grid-template-columns:1fr 1fr;}
+  .now-grid{grid-template-columns:1fr;}
+  .now-col{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:12px;}
+  .kpi-grid{grid-template-columns:repeat(3,1fr);}
+  .sec-grid{grid-template-columns:repeat(2,1fr);}
+  .more-heads{columns:1;}
+  .topic-row{grid-template-columns:140px 1fr 90px;}
+  .topic-row .sparkcell{display:none;}
+}
+@media (max-width:720px){
+  :root{--gutter:20px;}
+  body{font-size:16px;}
+  .masthead__inner{grid-template-columns:1fr;text-align:center;gap:8px;}
+  .grid,.sec-grid,.opinion__grid{grid-template-columns:1fr;}
+  .mostread__list{grid-template-columns:1fr;}
+  .mostread__list li{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:14px;}
+  .mostread__list li:first-child{border-top:0;padding-top:0;}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:6px;}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+}
+.mast-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;max-width:var(--maxw);margin:0 auto;padding:26px var(--gutter) 20px;}
+.mast-side{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.7;}
+.mast-side--right{text-align:right;}
+.mast-actions{display:flex;gap:14px;justify-content:flex-end;align-items:center;margin-top:10px;}
+.mast-actions a{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule);}
+.mast-actions a:hover{color:var(--accent);border-color:var(--accent);}
+.now-panel-wrap{border-bottom:1px solid var(--rule);}
+@media (max-width:900px){.mast-inner{grid-template-columns:1fr;text-align:center;gap:10px;}.mast-side,.mast-side--right{text-align:center;}.mast-actions{justify-content:center;}}
+@media print{
+  .nav,.ticker-wrap,.filters,.print-btn,.theme-btn,.nav-toggle,.util-bar-wrap{display:none!important;}
+  body{background:#fff;}
+}
+/* подвал — единый */
+.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
+.footer h3{color:var(--paper);}
+.footer h3{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
+.footer a{color:var(--on-ink);}
+.footer a:hover{color:var(--accent);}
+.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
+.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
+.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
+.footer li{margin:4px 0;}
+.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
+.footer__brand span{color:var(--accent);}
+.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+:root[data-theme="dark"] .footer__bottom{border-top-color:rgba(11,11,11,.2);}
+@media (max-width:1100px){.footer__inner{grid-template-columns:1fr 1fr;gap:26px;}}
+@media (max-width:720px){.footer__inner{grid-template-columns:1fr;gap:22px;}.footer__bottom{flex-direction:column;}}
+
+/* ---- страница «Методы»: карточки паспортов, таблицы техконтура, стенд ---- */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:8px;}
+.mcard{border-top:1px solid var(--ink);padding:14px 0 18px;break-inside:avoid;}
+.mcard[data-ideo="1"]{border-top:3px double var(--ink);}
+.mcard-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;cursor:pointer;list-style:none;}
+.mcard-head::-webkit-details-marker{display:none;}
+.mcard-head:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.mcode{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--accent);}
+.mname{font-family:var(--serif-display);font-weight:600;font-size:19px;line-height:1.2;color:var(--ink);}
+.mgrp{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;
+text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;white-space:nowrap;}
+.mgrp-ideo{color:var(--accent);border-color:var(--accent);}
+.wk-stamp.queued{background:none;color:var(--muted);border-color:var(--rule);}
+:root[data-theme="dark"] .wk-stamp.queued{color:var(--muted);border-color:var(--rule);}
+.mtoggle{margin-left:auto;font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);
+border-bottom:1px solid var(--rule);}
+.mcard-head:hover .mtoggle{color:var(--accent);border-color:var(--accent);}
+.mess{font-family:var(--serif-body);font-size:15px;color:var(--ink-2);margin:9px 0 0;line-height:1.5;max-width:72ch;}
+.mdet{display:grid;grid-template-columns:1fr 1fr;gap:0 36px;margin-top:14px;}
+.mrow{border-top:1px solid var(--rule);padding:8px 0;font-family:var(--sans);font-size:12.5px;
+color:var(--ink-2);line-height:1.5;}
+.mrow b{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+font-weight:700;margin-bottom:3px;}
+.mrow code,.tbl code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;
+background:var(--paper-2);border:1px solid var(--rule);padding:1px 6px;color:var(--ink);}
+.mrow-wide{grid-column:1/-1;}
+.mrow-wide ol{margin:4px 0 0;padding-left:18px;}
+.mrow-wide li{margin:3px 0;}
+.tbl-wrap{overflow-x:auto;}
+.h3rule{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+color:var(--ink);border-bottom:1px solid var(--ink);padding:0 0 8px;margin:34px 0 14px;}
+.h3rule .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
+.fbtn.ideo{border-color:var(--accent);color:var(--accent);}
+.fbtn.ideo.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.proto-form{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin:6px 0 4px;}
+.proto-form label{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.12em;
+text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;gap:6px;}
+.proto-form select{font-family:var(--sans);font-size:13px;color:var(--ink);background:var(--paper);
+border:1px solid var(--ink);border-radius:0;padding:8px 10px;min-width:270px;}
+.proto{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.6;
+background:var(--paper-2);border:1px solid var(--rule);border-left:3px solid var(--accent);
+padding:14px 16px;white-space:pre-wrap;color:var(--ink-2);margin-top:14px;}
+@media (max-width:1100px){.mgrid{grid-template-columns:1fr;}}
+@media (max-width:720px){.mdet{grid-template-columns:1fr;}.proto-form select{min-width:100%;}}
+@media print{
+  .filters,.proto-form{display:none!important;}
+  .mcard .mdet{display:grid!important;}
+}
+</style><script>
+(function(){try{var t=localStorage.getItem("gudok-theme");
+if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
+document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
+</script></head><body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 14:40</span></div><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Проекты издания<br>реестр методик v1.1 и техконтур
+<div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div></div>
+</div></header>
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="" href="afisha.html">Афиша</a><a class="active" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-16.html">Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">Проекты:</span><a href="infospace.html">Инфопространство</a><a href="projects/elections_2026.html">Выборы-2026</a><a href="projects/goszakupki.html">Госзакупки</a><span class="cur">Методы</span><a href="plans.html">Планы</a></div></div><main id="main">
+<main id="main">
+<div class="wrap1200" style="padding-top:20px;">
+
+<div class="sec-head" style="margin-top:0;"><h2>Методы исследования инфополя</h2><div class="line"></div>
+<div class="badge">реестр v1.1 · 36 методик</div></div>
+<div class="note" style="margin-bottom:6px;">Методика — формализованная процедура наблюдения: что считаем, на каких данных, какими метриками удостоверяем, с какой погрешностью. Страница — <b>основа для испытания и представления каждой методики на нашей платформе</b>: у каждой свой паспорт (суть, вход/выход, метрики, модуль кода, оценка неопределённости) и порядок проверки на контрольной выборке из архива. Статусы честные.</div>
+<div class="note" style="border-left-color:var(--rule);"><b>Что нового в v1.1:</b> добавлены группы «Экономика и власть», «Аудитория и активность», «Исторический и сравнительный контекст» (М-19…М-36); во все паспорта встроена оценка неопределённости (интервал Уилсона, минимальная выборка); в М-05 — аспектный тон по классовым акторам; в М-08 — словари классовой лексики; в М-15 — статус «формально верно, контекст опущен»; в М-18 — режим «доказательство» (любая цифра разворачивается в список материалов). Введён сквозной раздел <a href="#ideo" style="color:var(--accent);">«Идеология и гегемония»</a> — методики М-15, М-20…М-23, М-26, М-28 помечены двойной линейкой.</div>
+
+<div class="kpi-grid" style="margin-top:22px;">
+<div class="kpi"><div class="num">36</div><div class="lbl">методик в реестре</div></div>
+<div class="kpi"><div class="num">11</div><div class="lbl">работают на платформе</div></div>
+<div class="kpi"><div class="num">13</div><div class="lbl">в тестировании</div></div>
+<div class="kpi"><div class="num">12</div><div class="lbl">в очереди</div></div>
+<div class="kpi"><div class="num">7</div><div class="lbl">методик идеологического блока</div></div>
+<div class="kpi"><div class="num">17</div><div class="lbl">открытых стандартов и форматов</div></div>
+</div>
+</div>
+
+<div class="sec-head" id="reestr"><h2>Реестр методик</h2><div class="line"></div>
+<div class="badge">показано <span id="cntShown">36</span> из 36</div></div>
+<div class="wrap1200">
+<div class="filters" id="fGroup" role="group" aria-label="Фильтр по группе"><button type="button" class="fbtn active" data-g="all">Все группы</button><button type="button" class="fbtn" data-g="sbor">Сбор и мониторинг (6)</button><button type="button" class="fbtn" data-g="text">Текстовый анализ (9)</button><button type="button" class="fbtn" data-g="dyn">Сети и динамика (6)</button><button type="button" class="fbtn" data-g="verify">Проверка и противодействие (5)</button><button type="button" class="fbtn" data-g="econ">Экономика и власть (3)</button><button type="button" class="fbtn" data-g="aud">Аудитория и активность (3)</button><button type="button" class="fbtn" data-g="ctx">Исторический контекст (2)</button><button type="button" class="fbtn" data-g="present">Представление (2)</button><button type="button" class="fbtn ideo" data-g="ideo">Идеология и гегемония (7)</button></div>
+<div class="filters" id="fStatus" role="group" aria-label="Фильтр по статусу"><button type="button" class="fbtn active" data-s="all">Все статусы</button><button type="button" class="fbtn" data-s="work">работает (11)</button><button type="button" class="fbtn" data-s="test">тест (13)</button><button type="button" class="fbtn" data-s="queue">очередь (12)</button></div>
+<p class="feed-empty hidden" id="mEmpty">По этому фильтру методик нет —
+<button type="button" class="btn" onclick="_mReset()">показать все</button></p>
+<div class="mgrid" id="mGrid">
+<details class="mcard" data-group="sbor" data-status="work"
+ data-mod="collector.py" data-n="100" data-code="М-01"
+ id="m01">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-01</span>
+<span class="mname">Сквозной медиа-мониторинг</span><span class="mgrp">сбор</span>
+<span class="wk-stamp">работает</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Непрерывный сбор материалов СМИ и официальных сайтов: RSS/Atom-подписки, карты сайтов, вежливый обход по robots.txt. Каждый материал получает паспорт: источник, время, рубрика, тип.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Список источников (config.json), ленты RSS/Atom, HTML-страницы.</div><div class="mrow"><b>Выход</b>Единая база материалов (SQLite), суточная лента выпуска.</div><div class="mrow"><b>Метрики качества</b>Полнота охвата источников; задержка сбора; доля материалов с полным паспортом.</div><div class="mrow"><b>Модуль платформы</b><code>collector.py</code></div><div class="mrow"><b>Неопределённость</b>Запись детерминирована: повторный прогон по тому же снимку побайтово совпадает; выборочный контроль ≥ 100 URL.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Контрольные сутки: слепок коллектора против ручной выгрузки первых полос источников.</li><li>Полнота ≥ 95%, пропусков титульных материалов = 0, дублей = 0.</li><li>Паспорт заполнен у 100% материалов; протокол — в журнал (М-28).</li></ol></div></div>
+</details><details class="mcard" data-group="sbor" data-status="work"
+ data-mod="collector.py" data-n="50" data-code="М-02"
+ id="m02">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-02</span>
+<span class="mname">Социальное слушание телеграм-каналов</span><span class="mgrp">сбор</span>
+<span class="wk-stamp">работает</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Мониторинг публичных каналов и чатов через открытое Telegram Bot API (HTTPS/JSON): посты, просмотры, реакции, репосты. Дополняет медиа-мониторинг неофициальной повесткой.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Список каналов; Telegram Bot API (открытая документация, HTTPS/JSON).</div><div class="mrow"><b>Выход</b>Поток постов с метаданными: время, просмотры, реакции, пересылки.</div><div class="mrow"><b>Метрики качества</b>Покрытие списка каналов; задержка доставки; доля постов с реакциями.</div><div class="mrow"><b>Модуль платформы</b><code>collector.py</code></div><div class="mrow"><b>Неопределённость</b>Счётчики просмотров меняются во времени — фиксируем дельту и момент замера; потери = 0 на контрольной выборке 50 постов.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>50 постов из 5 контрольных каналов сверить с ручным журналом: потерь = 0, время ±1 минута.</li><li>Повторный прогон через сутки: метаданные стабильны, дельта просмотров записана.</li><li>Отчёт — в журнал методик (М-28).</li></ol></div></div>
+</details><details class="mcard" data-group="sbor" data-status="work"
+ data-mod="dedup.py" data-n="300" data-code="М-03"
+ id="m03">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-03</span>
+<span class="mname">Дедупликация и near-duplicate</span><span class="mgrp">сбор</span>
+<span class="wk-stamp">работает</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Снятие полных дублей и выявление «почти дублей» (репосты с правкой): шинглы + MinHash, порог Жаккара. Фундамент для каскадов и счёта «кто у кого взял».</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Поток материалов с текстом и временем.</div><div class="mrow"><b>Выход</b>Кластеры дублей, канонический экземпляр, связи «источник → перепечатка».</div><div class="mrow"><b>Метрики качества</b>Precision / recall / F1 на размеченных парах; доля ложных склеек.</div><div class="mrow"><b>Модуль платформы</b><code>dedup.py</code></div><div class="mrow"><b>Неопределённость</b>Интервал Уилсона 95%: при n=300 пар ±5.7 пп; F1 публикуется вместе с интервалом.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>300 размеченных пар (дубль / не дубль): F1 ≥ 0.9 с доверительным интервалом.</li><li>Ручная ревизия 20 случайных кластеров: ложных склеек = 0.</li><li>Границы кластеров сверить с прошлым прогоном.</li></ol></div></div>
+</details><details class="mcard" data-group="sbor" data-status="test"
+ data-mod="analytics.py" data-n="70" data-code="М-04"
+ id="m04">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-04</span>
+<span class="mname">Детекция событий и всплесков</span><span class="mgrp">сбор</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Временные ряды упоминаний по темам и источникам; обнаружение аномальных всплесков (burst detection) — кандидатов в события дня и точки рождения сюжетов.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Метки времени материалов, тематические метки (М-06, М-08).</div><div class="mrow"><b>Выход</b>Список событий: окно, интенсивность, источники-участники.</div><div class="mrow"><b>Метрики качества</b>Precision топ-10 событий против разметки редактора; задержка обнаружения.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code></div><div class="mrow"><b>Неопределённость</b>Топ-10 из ~70 событий недели: оценка precision грубая (±10 пп) — дополняем качественным разбором каждого пропуска.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Неделя архива: топ-10 всплесков против независимой десятки редактора.</li><li>Совпадение ≥ 7 из 10 — проходит; иначе тюнинг порога с фиксацией в журнале.</li><li>Каждый пропуск разбирается письменно: почему событие не всплыло.</li></ol></div></div>
+</details><details class="mcard" data-group="sbor" data-status="test"
+ data-mod="collector.py + versioner.py" data-n="100" data-code="М-19"
+ id="m19">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-19</span>
+<span class="mname">Мониторинг удалённого и изменённого контента</span><span class="mgrp">сбор</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Инфополе — это и то, что исчезает: удалённые посты, переписанные заголовки, заменённые фото. Периодический повторный обход собранных URL, сравнение хешей, фиксация дельт с таймстемпами — доказательная база сюжетов «что пытались спрятать».</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>База URL с хешами контента и снимками.</div><div class="mrow"><b>Выход</b>Журнал правок: «было → стало», тип дельты (заголовок, текст, фото, удаление), время.</div><div class="mrow"><b>Метрики качества</b>Покрытие графика повторных обходов; ноль пропущенных изменений в контрольной выборке.</div><div class="mrow"><b>Модуль платформы</b><code>collector.py</code>; версионирование — <code>versioner.py</code> (в очереди)</div><div class="mrow"><b>Неопределённость</b>Журнал детерминирован; риск — обрыв доступности URL (таймаут ≠ удаление): повторная проверка через 24 ч до вердикта.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>100 URL в недельном цикле: все изменения, замеченные вручную, присутствуют в журнале.</li><li>Каждая дельта содержит «до/после» и время; снимки хранятся в репозитории.</li><li>Публикация примеров — только с цитированием исходного снимка.</li></ol></div></div>
+</details><details class="mcard" data-group="sbor" data-status="test"
+ data-mod="analytics.py" data-n="200" data-code="М-20" data-ideo="1"
+ id="m20">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-20</span>
+<span class="mname">Мониторинг «молчащих» источников</span><span class="mgrp">сбор</span><span class="mgrp mgrp-ideo">идеология</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Отрицательное наблюдение: источники, которые по профилю должны писать о теме X, но не пишут. Матрица «источник × тема» и индикатор умолчания отличают «тема не поднята» от «тема замолчана» — прямой инструмент выявления границ допустимого.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Профили источников, ожидаемая повестка (редакторская матрица), фактическое покрытие.</div><div class="mrow"><b>Выход</b>Индикатор умолчания по паре «источник × тема»; список систематически молчащих тем.</div><div class="mrow"><b>Метрики качества</b>Согласие экспертов при оценке «ожидаемого покрытия»; устойчивость индикатора между периодами.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code></div><div class="mrow"><b>Неопределённость</b>Интервал Уилсона 95%: при n=200 пар ±6.9 пп; «ожидаемая повестка» размечается двумя редакторами независимо (каппа ≥ 0.7).</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>20 источников × 10 тем: двойная разметка ожидаемого покрытия, согласие ≥ 80%.</li><li>Молчание сверить с реальным отсутствием поводов (М-14), а не с ошибкой сбора.</li><li>Публикация — только списком, без мотивационных выводов о редакциях.</li></ol></div></div>
+</details><details class="mcard" data-group="text" data-status="work"
+ data-mod="analytics.py" data-n="400" data-code="М-05"
+ id="m05">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-05</span>
+<span class="mname">Тональный анализ (sentiment)</span><span class="mgrp">текст</span>
+<span class="wk-stamp">работает</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Тон материалов и цитат: словарный базис плюс классификатор на ruBERT; три класса (позитив / нейтрально / негатив). Аспектный тон — по персонам и по классовым акторам: «власть», «бизнес», «рабочие», «профсоюзы», «бюджетники» — агрегация в индекс отношения к каждой группе.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Тексты материалов, цитаты, словарь классовых акторов (JSON, Git).</div><div class="mrow"><b>Выход</b>Тон материала, тон аспекта, тон по классовому актору; индекс тона дня/недели/месяца.</div><div class="mrow"><b>Метрики качества</b>F1 на размеченной выборке ≥ 0.8; каппа двух разметчиков ≥ 0.7.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code></div><div class="mrow"><b>Неопределённость</b>Интервал Уилсона 95%: при n=400 ±4.9 пп; для редких акторов (n&lt;30) индекс публикуется с пометкой «малая выборка».</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>400 размеченных сообщений: матрица ошибок, F1 с интервалом.</li><li>Классовые акторы: 150 цитат с ручной разметкой группы адресата — precision ≥ 0.85.</li><li>Ирония и сарказм размечаются отдельно — фиксируем как известное ограничение в журнале.</li></ol></div></div>
+</details><details class="mcard" data-group="text" data-status="work"
+ data-mod="analytics.py" data-n="200" data-code="М-06"
+ id="m06">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-06</span>
+<span class="mname">Тематическое моделирование</span><span class="mgrp">текст</span>
+<span class="wk-stamp">работает</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Автоматические темы периода: LDA для обзора и кластеризация эмбеддингов для недельника; имена темам присваивает редактор, модель лишь предлагает ядра и объёмы.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Тексты материалов периода.</div><div class="mrow"><b>Выход</b>Набор тем: ядра-слова, объём, динамика, связанные материалы.</div><div class="mrow"><b>Метрики качества</b>Когерентность тем; устойчивость между прогонами; покрытие ручной рубрикации.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code> (Gensim)</div><div class="mrow"><b>Неопределённость</b>Темы стохастичны: два сида — устойчивость ядер по Жаккару ≥ 0.8; объём темы публикуется с интервалом ±10%.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Неделя архива, два прогона с разными сидами: сравнить с ручной рубрикацией — найдено ≥ 80% тем.</li><li>Ядра читаемы и не распадаются между прогонами.</li><li>Имена тем утверждает редактор, решение — в журнале (М-28).</li></ol></div></div>
+</details><details class="mcard" data-group="text" data-status="test"
+ data-mod="enrich.py" data-n="150" data-code="М-07"
+ id="m07">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-07</span>
+<span class="mname">Распознавание именованных сущностей (NER)</span><span class="mgrp">текст</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Извлечение персон, организаций и локаций из текста (spaCy и модели ruBERT); основа для карточек персон повестки, геокарты и распределения голосов (М-22).</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Тексты материалов.</div><div class="mrow"><b>Выход</b>Сущности с типом и привязкой: сущность → материалы, сущность → муниципалитет.</div><div class="mrow"><b>Метрики качества</b>Span-level precision / recall / F1 раздельно по PER, ORG, LOC.</div><div class="mrow"><b>Модуль платформы</b><code>enrich.py</code></div><div class="mrow"><b>Неопределённость</b>Интервал Уилсона 95%: при n=150 материалов ±8.0 пп; ошибки разбираются по типам (слитые сущности, сокращения, омонимия).</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>150 материалов с ручной разметкой: F1 ≥ 0.85 по каждому типу.</li><li>Разбор ошибок с примерами — в журнал методик.</li><li>Регрессия: повторный прогон через месяц без деградации.</li></ol></div></div>
+</details><details class="mcard" data-group="text" data-status="work"
+ data-mod="analytics.py" data-n="400" data-code="М-08"
+ id="m08">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-08</span>
+<span class="mname">Словарное кодирование повестки</span><span class="mgrp">текст</span>
+<span class="wk-stamp">работает</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Словарный метод: редакторские словари тем и маркеров (официоз, социальная лексика, тревожные маркеры) плюс отдельный словарь классовой лексики: «трудовой конфликт», «забастовка», «сокращение», «оптимизация», «коллективный договор». Частоты с нормировкой на 1000 слов — прозрачно и воспроизводимо.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Тексты + словари (JSON, версионируются в Git, каждое слово с автором правки).</div><div class="mrow"><b>Выход</b>Матрица «словарь × материал», индикаторы повестки периода, счётчики классовой лексики.</div><div class="mrow"><b>Метрики качества</b>Согласие редакторов при пополнении словарей; стабильность пересчёта.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code></div><div class="mrow"><b>Неопределённость</b>Подсчёт детерминирован; неопределённость — в самих словарях: каждое новое слово входит после согласия двух редакторов.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Пересчёт архива после правки словаря: отклонения только в затронутых темах.</li><li>Контрольный материал с известными частотами: счётчики сходятся точно.</li><li>История словарей извлекается из Git — в журнал «как менялись наши методы» (М-28).</li></ol></div></div>
+</details><details class="mcard" data-group="text" data-status="work"
+ data-mod="analytics.py" data-n="600" data-code="М-09"
+ id="m09">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-09</span>
+<span class="mname">Классификация типов материалов</span><span class="mgrp">текст</span>
+<span class="wk-stamp">работает</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Тип материала: новость, мнение, анонс, отчёт. Используется для структуры ленты, блока «Мнения повестки» и доли комментариев в отчётах.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Текст + метаданные (источник, рубрика).</div><div class="mrow"><b>Выход</b>Метка типа у каждого материала.</div><div class="mrow"><b>Метрики качества</b>Macro-F1 по классам ≥ 0.85; матрица смешения.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code> (scikit-learn)</div><div class="mrow"><b>Неопределённость</b>Интервал Уилсона 95%: при n=600 ±4.0 пп; редкие классы (отчёт) — с пометкой о малой выборке.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>600 размеченных материалов: macro-F1 ≥ 0.85 с интервалом.</li><li>Разбор смешений: анонсы под видом новостей, мнения под видом отчётов.</li><li>Регрессия на выпуске: распределение типов по суткам стабильно.</li></ol></div></div>
+</details><details class="mcard" data-group="text" data-status="test"
+ data-mod="analytics.py" data-n="200" data-code="М-10"
+ id="m10">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-10</span>
+<span class="mname">Анализ заголовочных стратегий</span><span class="mgrp">текст</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Маркеры заголовков: кликбейт, оценочность, цитирование, вопрос/восклицание; сверка «обещание заголовка — исполнение в тексте».</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Заголовок + текст материала.</div><div class="mrow"><b>Выход</b>Маркеры стратегии; скор «обещание/исполнение».</div><div class="mrow"><b>Метрики качества</b>Precision маркеров на ручной выборке ≥ 0.9.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code></div><div class="mrow"><b>Неопределённость</b>Интервал Уилсона 95%: при n=200 ±6.9 пп; скор «исполнение» — порядковая шкала, только ранговые сравнения.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>200 заголовков: precision маркеров ≥ 0.9.</li><li>50 пар «заголовок—текст»: скор сверить с редакторской оценкой.</li><li>Примеры в выпуск — только с именем источника.</li></ol></div></div>
+</details><details class="mcard" data-group="text" data-status="test"
+ data-mod="analytics.py + редактор" data-n="300" data-code="М-21" data-ideo="1"
+ id="m21">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-21</span>
+<span class="mname">Фрейм-анализ (framing)</span><span class="mgrp">текст</span><span class="mgrp mgrp-ideo">идеология</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">В каких рамках подаётся событие: «ЧП» / «системная проблема» / «происки врагов» / «успех начальства». Разметка по Энтману: диагностический, прогностический и мотивационный компоненты. Ядро идеологического анализа: один факт в разных фреймах обслуживает разные классовые интересы.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Тексты + кодовая книга фреймов (JSON, версионируется).</div><div class="mrow"><b>Выход</b>Фрейм материала; распределение фреймов по источникам и периодам.</div><div class="mrow"><b>Метрики качества</b>Каппа Коэна ≥ 0.7 между кодерами; macro-F1 классификатора ≥ 0.75.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code> + кодовая книга редакции</div><div class="mrow"><b>Неопределённость</b>Интервал Уилсона 95%: при n=300 ±5.7 пп; многофреймовые материалы считаются отдельно, а не «смешиваются».</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>300 материалов: двойное независимое кодирование, каппа ≥ 0.7.</li><li>Классификатор обучается только на консенсусной разметке.</li><li>Кодовая книга публична: каждый фрейм с определениями и примерами.</li></ol></div></div>
+</details><details class="mcard" data-group="text" data-status="test"
+ data-mod="enrich.py" data-n="150" data-code="М-22" data-ideo="1"
+ id="m22">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-22</span>
+<span class="mname">Разнообразие источников цитирования</span><span class="mgrp">текст</span><span class="mgrp mgrp-ideo">идеология</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Кто получает голос: распределение цитируемых по ролям — чиновники, эксперты, бизнес, рабочие, активисты, «простые люди». Индексы разнообразия (Шеннон, Симпсон) по каждому изданию: прямая метрика того, чьи интересы представлены в инфополе, а чьи — нет.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Цитаты, NER-сущности (М-07), словарь ролей акторов (JSON).</div><div class="mrow"><b>Выход</b>Распределение ролей по изданию и периоду; индексы Шеннона/Симпсона.</div><div class="mrow"><b>Метрики качества</b>Precision классификации роли актора ≥ 0.85; покрытие цитат с определённой ролью.</div><div class="mrow"><b>Модуль платформы</b><code>enrich.py</code></div><div class="mrow"><b>Неопределённость</b>Интервал Уилсона 95%: при n=150 цитат ±8.0 пп; для изданий с &lt;30 цитатами индекс не публикуется — только накопительно.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>150 цитат ручной разметки ролей: совпадение ≥ 85%.</li><li>Индекс воспроизводится из CSV-выгрузки сторонним скриптом.</li><li>Ролевой словарь публичен и версионируется (М-28).</li></ol></div></div>
+</details><details class="mcard" data-group="text" data-status="test"
+ data-mod="enrich.py + аналитик" data-n="30" data-code="М-23" data-ideo="1"
+ id="m23">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-23</span>
+<span class="mname">Критический дискурс-анализ</span><span class="mgrp">текст</span><span class="mgrp mgrp-ideo">идеология</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Качественный анализ ключевых текстов с автоматической поддержкой: номинации, пресуппозиции, импликатуры, агентность (кто действует, кто «подвергается»). Автоматизация подсвечивает пассивные конструкции, номинализации и безличные предложения — то, что делает анализ собственно марксистским, а не просто мониторингом.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Ключевые материалы периода (отбирает редактор), подсветка конструкций из enrich.py.</div><div class="mrow"><b>Выход</b>Дискурс-паспорт текста: агентность, пресуппозиции, выводы со ссылками на предложения.</div><div class="mrow"><b>Метрики качества</b>Каждый вывод цитируем: заключение без ссылки на конкретное предложение не принимается.</div><div class="mrow"><b>Модуль платформы</b>Ручная процедура + <code>enrich.py</code> (подсветка)</div><div class="mrow"><b>Неопределённость</b>Выборка мала по определению (n ≈ 20–30 текстов): результаты — качественная интерпретация, не статистика; обобщения только с явной оговоркой.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Два аналитика независимо составляют список агентностей текста; расхождения — третий.</li><li>Согласие по списку ≥ 80%; расхождения фиксируются в примечании.</li><li>Дискурс-паспорт публикуется вместе с текстом-источником.</li></ol></div></div>
+</details><details class="mcard" data-group="dyn" data-status="work"
+ data-mod="analytics.py + dedup.py" data-n="15" data-code="М-11"
+ id="m11">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-11</span>
+<span class="mname">Каскады цитирования и репостов</span><span class="mgrp">динамика</span>
+<span class="wk-stamp">работает</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Цепочки перепечаток: кто первым, кто у кого взял, скорость и глубина распространения. Основа блока «каскады» дашборда и строки «также сообщили» в выпуске.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Кластеры дублей (М-03), метки времени, ссылки цитирования.</div><div class="mrow"><b>Выход</b>Цепочки каскадов: инициатор, глубина, лаги, участники.</div><div class="mrow"><b>Метрики качества</b>Доля каскадов с верным инициатором (ручная ревизия) ≥ 80%.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code> + <code>dedup.py</code></div><div class="mrow"><b>Неопределённость</b>Выборка мала (10–15 каскадов): каждый спорный случай разбирается вручную; интервалы не приводим, указываем число случаев.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>15 каскадов месяца: ручная реконструкция цепочек по архиву.</li><li>Совпадение инициатора и порядка звеньев ≥ 80%; лаги неотрицательны.</li><li>Каждый каскад в выпуске разворачивается в режим «доказательство» (М-18).</li></ol></div></div>
+</details><details class="mcard" data-group="dyn" data-status="queue"
+ data-mod="analytics.py (NetworkX)" data-n="30" data-code="М-12"
+ id="m12">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-12</span>
+<span class="mname">Сетевой анализ источников</span><span class="mgrp">динамика</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Граф источников: рёбра — соучастие в каскадах и совместная цитируемость; центральности, сообщества и «мосты» между кластерами повестки. Питает иерархию тем (М-24) и карту владельцев (М-26).</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Матрица каскадов (М-11), матрица соупоминаний.</div><div class="mrow"><b>Выход</b>Графовые метрики источника; карта сообществ за период.</div><div class="mrow"><b>Метрики качества</b>Устойчивость сообществ между неделями (NMI); экспертная осмысленность.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code> (NetworkX)</div><div class="mrow"><b>Неопределённость</b>Граф разрежен на коротких периодах: центральности публикуем только накопительно за квартал.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Месяц архива: топ-5 центральности против редакторского рейтинга влияния — совпадение ≥ 4 из 5.</li><li>Сообщества объяснимы географией и типом источника.</li><li>В очереди: ждём стабильного объёма базы за квартал.</li></ol></div></div>
+</details><details class="mcard" data-group="dyn" data-status="work"
+ data-mod="analytics.py, weekly.html" data-n="10" data-code="М-13"
+ id="m13">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-13</span>
+<span class="mname">Дуга сюжета</span><span class="mgrp">динамика</span>
+<span class="wk-stamp">работает</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Жизненный цикл сюжета: возник — вырос — пик — угасание. Паспорт сюжета (даты, пик, держащие источники, финал) для недельника и месячного отчёта; основа для исторических параллелей (М-35).</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Тематический кластер сюжета во времени (М-06, М-03).</div><div class="mrow"><b>Выход</b>Паспорт сюжета: возник, пик, угас, участники, итог дуги.</div><div class="mrow"><b>Метрики качества</b>Согласие границ сюжета с редактором ±1 сутки.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code>, публикация в <code>weekly.html</code></div><div class="mrow"><b>Неопределённость</b>Границы дуги ±1 сутки; при n=10 сюжетов месяца публикуем число совпадений, а не проценты.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>10 сюжетов месяца: границы дуг против редакторской хронологии — совпадение ≥ 8 из 10.</li><li>Спорные случаи разбираются и фиксируются в примечании.</li><li>Паспорт сюжета в недельнике собирается без ручной правки.</li></ol></div></div>
+</details><details class="mcard" data-group="dyn" data-status="test"
+ data-mod="enrich.py" data-n="200" data-code="М-14"
+ id="m14">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-14</span>
+<span class="mname">Геокарта упоминаний муниципалитетов</span><span class="mgrp">динамика</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Привязка материалов к районам и городам области: словарь топонимов + NER LOC. Даёт карту покрытия муниципалитетов и сигнал о «молчащих» территориях — вход для М-20.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Тексты, словарь топонимов Ульяновской области.</div><div class="mrow"><b>Выход</b>Муниципалитет → материалы; карта покрытия дашборда.</div><div class="mrow"><b>Метрики качества</b>Precision привязки ≥ 0.9; доля материалов без геопривязки.</div><div class="mrow"><b>Модуль платформы</b><code>enrich.py</code></div><div class="mrow"><b>Неопределённость</b>Интервал Уилсона 95%: при n=200 ±6.9 пп; омонимы разделяются правилом с тестом на 50 примерах.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>200 материалов: precision привязки ≥ 0.9.</li><li>«Молчащие» районы сверить с реальным отсутствием новостей, а не с ошибкой словаря.</li><li>Результат питает индикатор умолчания (М-20).</li></ol></div></div>
+</details><details class="mcard" data-group="dyn" data-status="queue"
+ data-mod="analytics.py" data-n="100" data-code="М-24"
+ id="m24">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-24</span>
+<span class="mname">Повестка дня и иерархия тем (agenda-setting)</span><span class="mgrp">динамика</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Не всплески, а иерархия: что попало в топ и в каком порядке. Ранжирование тем по позиции в лентах, времени выхода и повторяемости у лидеров; индекс «повестка дня» показывает, как формируется «общее мнение» и кто его задаёт.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Позиции в лентах, время выхода, темы (М-06), лидеры (М-12).</div><div class="mrow"><b>Выход</b>Ранг темы по дням, динамика ранга, «задающие» источники.</div><div class="mrow"><b>Метрики качества</b>Устойчивость топ-5 ±1 позиция; совпадение с редакторским «главным».</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code></div><div class="mrow"><b>Неопределённость</b>Ранги — порядковая шкала: публикуем только диапазоны и перестановки, не «баллы».</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Неделя: топ-5 индекса против редакторской пятёрки — совпадение ≥ 4 из 5.</li><li>«Задающий» источник подтверждается лагами каскадов (М-11).</li><li>В очереди до накопления квартала базы.</li></ol></div></div>
+</details><details class="mcard" data-group="dyn" data-status="queue"
+ data-mod="analytics.py" data-n="10" data-code="М-25"
+ id="m25">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-25</span>
+<span class="mname">Трансмедийная траектория сюжета</span><span class="mgrp">динамика</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Сюжет живёт сквозь платформы: телеграм → СМИ → соцсети → обратно. Склейка одного сюжета в межплатформенную траекторию с лагами и аудиторией на каждом узле — обобщение каскадов (М-11) за пределы одного типа медиа.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Кластеры дедупликации между платформами, метаданные аудитории.</div><div class="mrow"><b>Выход</b>Траектория: узлы, платформы, лаги переходов, прирост аудитории.</div><div class="mrow"><b>Метрики качества</b>Верность идентификации узлов против ручной реконструкции ≥ 80%.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code></div><div class="mrow"><b>Неопределённость</b>Межплатформенная склейка без явных ссылок вероятностна: каждая траектория публикуется с уровнем уверенности (явная ссылка / косвенная).</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>10 сюжетов: ручная реконструкция траектории против автоматической.</li><li>Совпадение узлов и порядка платформ ≥ 80%.</li><li>В очереди: требует М-12 и стабильного сбора соцсетей.</li></ol></div></div>
+</details><details class="mcard" data-group="verify" data-status="test"
+ data-mod="analytics.py + редактор" data-n="30" data-code="М-15" data-ideo="1"
+ id="m15">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-15</span>
+<span class="mname">Кросс-проверка фактов и умолчаний</span><span class="mgrp">проверка</span><span class="mgrp mgrp-ideo">идеология</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Перекрёстная верификация фактических утверждений: подтверждён только при независимых источниках; единичные — «по данным источника»; противоречия — в разбор. Добавлен статус «формально верно, контекст опущен»: факт может быть правдивым, но поданным так, что ключевой контекст исчезает.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Фактические утверждения (ручная выборка + шаблоны извлечения).</div><div class="mrow"><b>Выход</b>Статус факта: подтверждён / единственный источник / противоречие / формально верно, контекст опущен.</div><div class="mrow"><b>Метрики качества</b>Доля верных статусов на контрольном наборе; ноль пропущенных противоречий.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code> + ручная работа редактора</div><div class="mrow"><b>Неопределённость</b>n ≈ 30 фактов месяца: статусы публикуются поштучно со ссылками, без процентных обобщений.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>30 фактов месяца: аудит статусов вторым редактором — ошибок = 0.</li><li>Статус «контекст опущен» требует указания, какой именно контекст и из какого источника.</li><li>Пометка «по данным источника» в выпуске проставляется автоматически из статуса.</li></ol></div></div>
+</details><details class="mcard" data-group="verify" data-status="queue"
+ data-mod="методика редакции + analytics.py" data-n="50" data-code="М-16"
+ id="m16">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-16</span>
+<span class="mname">Кодирование тактик манипуляций (DISARM / IMS)</span><span class="mgrp">проверка</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Кодирование сообщений по открытым рамкам DISARM (NATO StratCom COE) и Information Manipulation Sets (EU DisinfoLab): тактики, техники и процедуры вместо расплывчатого «фейк».</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Сообщения-кандидаты, открытые рамки TTP (DISARM, IMS).</div><div class="mrow"><b>Выход</b>Паспорт тактики: коды TTP, каналы, целевая аудитория, пример.</div><div class="mrow"><b>Метрики качества</b>Межкодерное согласие: каппа Коэна ≥ 0.7.</div><div class="mrow"><b>Модуль платформы</b>Методика редакции; автоматизация в <code>analytics.py</code> — в очереди</div><div class="mrow"><b>Неопределённость</b>Каппа публикуется с интервалом; при n=50 и низкой распространённости тактики код не присваивается.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>50 сообщений: два кодировщика независимо, каппа ≥ 0.7; расхождения — консенсус.</li><li>Публикация только с примерами из открытых источников, без персональных выводов.</li><li>Рамки TTP цитируются по первоисточнику.</li></ol></div></div>
+</details><details class="mcard" data-group="verify" data-status="queue"
+ data-mod="ExifTool + открытые API" data-n="20" data-code="М-17"
+ id="m17">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-17</span>
+<span class="mname">Мультимодальная проверка вложений</span><span class="mgrp">проверка</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Проверка изображений и аудио: метаданные (EXIF), обратный поиск, согласованность текста и картинки; барьер против генеративных подделок и чужих фото «не с места события». Работает в связке с М-19 (заменённые фото).</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Медиавложения материалов.</div><div class="mrow"><b>Выход</b>Паспорт вложения: происхождение, признаки монтажа/повторного использования.</div><div class="mrow"><b>Метрики качества</b>Доля вложений с установленным происхождением ≥ 75%.</div><div class="mrow"><b>Модуль платформы</b>Открытые инструменты: <code>ExifTool</code>, обратный поиск по открытым API</div><div class="mrow"><b>Неопределённость</b>n ≈ 20 вложений: каждый вердикт подкреплён цитируемым признаком; «не установлено» — тоже результат.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>20 вложений контрольной выборки: происхождение установлено ≥ 15.</li><li>Инструменты — только открытые лицензии, команды воспроизводимы.</li><li>Вложение с неустановленным происхождением помечается в выпуске.</li></ol></div></div>
+</details><details class="mcard" data-group="verify" data-status="test"
+ data-mod="owners.py + открытые реестры" data-n="20" data-code="М-26" data-ideo="1"
+ id="m26">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-26</span>
+<span class="mname">Атрибуция и карта владельцев медиа</span><span class="mgrp">проверка</span><span class="mgrp mgrp-ideo">идеология</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Кому принадлежит источник, кто его финансирует, кто за ним стоит: реестр «издание → юрлицо → учредители → аффилированности → госзаказы и реклама». Превращает анализ из «что пишут» в «в чьих интересах пишут».</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Открытые реестры (данные юрлиц, ЕИС закупки, декларации), ручная верификация.</div><div class="mrow"><b>Выход</b>Паспорт собственника на каждый источник; граф аффилированностей.</div><div class="mrow"><b>Метрики качества</b>Покрытие реестра источников; полнота паспорта (все поля заполнены или помечены «не установлено»).</div><div class="mrow"><b>Модуль платформы</b><code>owners.py</code> (в разработке) + <code>data/owners.json</code></div><div class="mrow"><b>Неопределённость</b>Каждая запись — с датой и ссылкой на первоисточник; устаревшие (&gt; 12 мес.) помечаются «требует обновления».</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Аудит 20 паспортов двумя редакторами: все ссылки открываются и подтверждают запись.</li><li>Аффилированность фиксируется только при документальном подтверждении.</li><li>Реестр публичен и версионируется в Git (М-28).</li></ol></div></div>
+</details><details class="mcard" data-group="verify" data-status="queue"
+ data-mod="analytics.py + owners.py" data-n="—" data-code="М-27"
+ id="m27">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-27</span>
+<span class="mname">Индекс концентрации и плюрализма</span><span class="mgrp">проверка</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Производная от карты владельцев: доли рынка по охвату, индекс Херфиндаля–Хиршмана по региональному инфополю, число независимых редакций. Прямая метрика монополизации информационного пространства.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Паспорта собственников (М-26), оценки охвата источников.</div><div class="mrow"><b>Выход</b>HHI по инфополю, доли групп, счётчик независимых редакций — за период.</div><div class="mrow"><b>Метрики качества</b>Чувствительность HHI к способу оценки охвата; полнота покрытия источников.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code> + <code>owners.py</code></div><div class="mrow"><b>Неопределённость</b>Охват оценивается приближённо: индекс считаем при двух оценках охвата; вывод публикуем, только если он не меняется между ними.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Пересчёт при двух независимых оценках охвата: знак вывода (высокая/умеренная концентрация) совпадает.</li><li>Состав групп собственников сверяется с реестром М-26.</li><li>В очереди: ждёт готовности карты владельцев.</li></ol></div></div>
+</details><details class="mcard" data-group="econ" data-status="queue"
+ data-mod="owners.py + ЕИС" data-n="—" data-code="М-29"
+ id="m29">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-29</span>
+<span class="mname">Финансирование медиа</span><span class="mgrp">экономика</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Реклама, госзаказ, гранты, донаты: кто платит — тот и заказывает музыку. Структура доходов издания как объяснение его повестки; связывается с картой владельцев (М-26).</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>ЕИС закупки, реестры грантов и субсидий, маркировка рекламы, декларации.</div><div class="mrow"><b>Выход</b>Структура финансирования по изданиям; доля бюджетных денег.</div><div class="mrow"><b>Метрики качества</b>Полнота извлечения контрактов; сверка сумм с первоисточником.</div><div class="mrow"><b>Модуль платформы</b><code>owners.py</code> + контур проекта «Госзакупки»</div><div class="mrow"><b>Неопределённость</b>Не все доходы открыты: доля «не установлено» публикуется явно, а не размазывается по остальным.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Сверка 20 сумм с первоисточниками (ЕИС, реестры): расхождений = 0.</li><li>Каждая запись — с датой и ссылкой.</li><li>В очереди: зависит от ручного экспорта ЕИС.</li></ol></div></div>
+</details><details class="mcard" data-group="econ" data-status="queue"
+ data-mod="collector.py" data-n="—" data-code="М-30"
+ id="m30">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-30</span>
+<span class="mname">Трудовые отношения в редакциях</span><span class="mgrp">экономика</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Инфополе производится трудом: вакансии, зарплаты, сокращения и текучка в СМИ области как предмет наблюдения. Условия производства новостей — часть анализа, а не фон.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Открытые агрегаторы вакансий, сообщения изданий, трудовые споры в СМИ.</div><div class="mrow"><b>Выход</b>Индикаторы условий труда по изданиям: спрос, вилки зарплат, динамика.</div><div class="mrow"><b>Метрики качества</b>Покрытие вакансий; верификация зарплат двумя независимыми источниками.</div><div class="mrow"><b>Модуль платформы</b><code>collector.py</code> (расширение источников)</div><div class="mrow"><b>Неопределённость</b>Вилки зарплат широки: публикуем медиану и диапазон, при n&lt;10 вакансий по изданию — только факты без статистики.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Контрольный срез вакансий месяца: полнота против ручной выборки ≥ 90%.</li><li>Зарплатные вилки сверяются между агрегаторами.</li><li>Персональные данные не собираются — только открытые вакансии.</li></ol></div></div>
+</details><details class="mcard" data-group="econ" data-status="test"
+ data-mod="analytics.py + ЕИС" data-n="50" data-code="М-31"
+ id="m31">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-31</span>
+<span class="mname">Госзаказ в медиа</span><span class="mgrp">экономика</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Мониторинг контрактов, грантов и субсидий СМИ (44-ФЗ, 223-ФЗ) и сопоставление платежей со сдвигами повестки получателя. Работает в связке с досье «Госзакупки».</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Данные ЕИС (прямое подключение из контура РФ или ручной экспорт), темы (М-06).</div><div class="mrow"><b>Выход</b>Контракты по изданиям; сопоставление «платёж → сдвиг повестки».</div><div class="mrow"><b>Метрики качества</b>Полнота извлечения контрактов; точность привязки контракта к изданию ≥ 90%.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code> + проект <a href="projects/goszakupki.html" style="color:var(--accent);">«Госзакупки»</a></div><div class="mrow"><b>Неопределённость</b>Связь «платёж → повестка» корреляционная, не причинная: публикуется как гипотеза с обеими датами.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>50 контрактов: ручная сверка привязки к изданию — ≥ 90% верно.</li><li>Суммы и даты сходятся с карточками ЕИС.</li><li>Каждый пример «платёж → сдвиг» разбирается редактором до публикации.</li></ol></div></div>
+</details><details class="mcard" data-group="aud" data-status="queue"
+ data-mod="collector.py + analytics.py" data-n="300" data-code="М-32"
+ id="m32">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-32</span>
+<span class="mname">Комментарии и обратная связь</span><span class="mgrp">аудитория</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Что аудитория принимает, что отвергает и какие контр-нарративы возникают снизу: анализ комментариев под постами и материалов чатов как самостоятельного слоя инфополя.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Комментарии и реплаи открытых каналов, реакции (М-02).</div><div class="mrow"><b>Выход</b>Тематическая карта комментариев; доля контр-нарративов по темам.</div><div class="mrow"><b>Метрики качества</b>Precision классификации «поддержка / критика / контр-нарратив».</div><div class="mrow"><b>Модуль платформы</b><code>collector.py</code> + <code>analytics.py</code></div><div class="mrow"><b>Неопределённость</b>Интервал Уилсона 95%: при n=300 ±5.7 пп; ботоподобные аккаунты исключаются фильтром активности, фильтр описан публично.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>300 размеченных комментариев: precision по классам ≥ 0.8.</li><li>Цитирование — анонимизированное, без личных данных.</li><li>В очереди: требует расширения сбора чатов.</li></ol></div></div>
+</details><details class="mcard" data-group="aud" data-status="test"
+ data-mod="analytics.py" data-n="30" data-code="М-33"
+ id="m33">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-33</span>
+<span class="mname">Индекс вовлечённости и виральности</span><span class="mgrp">аудитория</span>
+<span class="wk-stamp wip">тест</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Не просто просмотры, а механика резонанса: скорость распространения, глубина каскадов, соотношение реакций к охвату. Единый индекс виральности материала и сюжета.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Метаданные (М-02), каскады (М-11), реакции.</div><div class="mrow"><b>Выход</b>Индекс виральности по материалам и сюжетам; топ резонансов периода.</div><div class="mrow"><b>Метрики качества</b>Корреляция Спирмена с редакторской оценкой резонанса ≥ 0.7.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code></div><div class="mrow"><b>Неопределённость</b>Индекс — относительная шкала внутри периода; сравнение между месяцами только после нормировки, метод нормировки фиксируется в журнале.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>30 материалов: ранг по индексу против ранга редактора — ρ ≥ 0.7.</li><li>Формула индекса и веса опубликованы, изменения — через журнал (М-28).</li><li>Проверка на выбросах: один бот-всплеск не должен ломать топ.</li></ol></div></div>
+</details><details class="mcard" data-group="aud" data-status="queue"
+ data-mod="analytics.py" data-n="—" data-code="М-34"
+ id="m34">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-34</span>
+<span class="mname">Аудиторные сегменты</span><span class="mgrp">аудитория</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Кто читает какие источники: сегментация по пересечениям подписок и открытым данным платформ. Показывает реальную аудиторию «официальной» и «неофициальной» повестки.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Открытые счётчики подписчиков, пересечения каналов (агрегированные, без персональных данных).</div><div class="mrow"><b>Выход</b>Сегменты аудитории; матрица пересечений источников.</div><div class="mrow"><b>Метрики качества</b>Устойчивость сегментов между месяцами.</div><div class="mrow"><b>Модуль платформы</b><code>analytics.py</code></div><div class="mrow"><b>Неопределённость</b>Данные платформ неполны и смещены: каждый сегмент публикуется с указанием источника оценки и её ограничений.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Два среза с разницей в месяц: совпадение сегментов ≥ 70%.</li><li>Никаких персональных данных — только агрегаты.</li><li>В очереди: методика на согласовании по этике данных.</li></ol></div></div>
+</details><details class="mcard" data-group="ctx" data-status="queue"
+ data-mod="archive + analytics.py" data-n="—" data-code="М-35"
+ id="m35">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-35</span>
+<span class="mname">Исторические параллели</span><span class="mgrp">контекст</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Привязка текущих сюжетов к архиву прошлых лет: что уже было, чем кончилось. Карточка «тогда — сейчас» по паспортам сюжетов (М-13) — задел на будущие годы издания.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Архив издания, паспорта сюжетов (М-13), внешние архивы СМИ.</div><div class="mrow"><b>Выход</b>Карточки параллелей: сюжет года N ↔ сюжет года M, сходства и различия.</div><div class="mrow"><b>Метрики качества</b>Обоснованность параллели: подтверждена редактором по списку критериев.</div><div class="mrow"><b>Модуль платформы</b><code>archive.html</code> + <code>analytics.py</code></div><div class="mrow"><b>Неопределённость</b>Параллель — гипотеза, не вывод: публикуется с явным списком отличий, а не только сходств.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Каждая параллель проходит по критериям: те же акторы / та же институция / тот же механизм.</li><li>Редактор подтверждает или отклоняет; отказ фиксируется в журнале.</li><li>В очереди: база архива накопится к годовщине издания.</li></ol></div></div>
+</details><details class="mcard" data-group="ctx" data-status="queue"
+ data-mod="collector.py" data-n="—" data-code="М-36"
+ id="m36">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-36</span>
+<span class="mname">Межрегиональное сравнение</span><span class="mgrp">контекст</span>
+<span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Как та же тема освещается в соседних регионах: отделение местной специфики от общей линии. Сравнительная матрица «регион × тема × фрейм» на базе сопоставимых источников.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Списки равноуровневых источников соседних регионов, темы (М-06), фреймы (М-21).</div><div class="mrow"><b>Выход</b>Сравнительная матрица освещения; маркеры «местное vs общее».</div><div class="mrow"><b>Метрики качества</b>Сопоставимость списков источников (равный ранг и профиль).</div><div class="mrow"><b>Модуль платформы</b><code>collector.py</code> (расширение на соседние регионы)</div><div class="mrow"><b>Неопределённость</b>Разный объём инфополей регионов: сравнение только нормированных долей, абсолютные числа не сопоставляются.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Пилот на двух регионах и одной теме: матрица собирается автоматически.</li><li>Списки источников утверждает редакция, критерии равноуровневости публичны.</li><li>В очереди: после расширения контура сбора.</li></ol></div></div>
+</details><details class="mcard" data-group="present" data-status="work"
+ data-mod="generate.py, infospace.html" data-n="—" data-code="М-18"
+ id="m18">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-18</span>
+<span class="mname">Дашборд и периодические отчёты</span><span class="mgrp">представление</span>
+<span class="wk-stamp">работает</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Представление результатов: живой дашборд и отчёты «день / неделя / месяц». Режим «доказательство»: любая цифра разворачивается в список конкретных материалов, из которых она получена, с прямыми ссылками — дашборд становится инструментом, а не витриной.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>База материалов, метрики методик М-01…М-36.</div><div class="mrow"><b>Выход</b><code>infospace.html</code>, <code>digests/</code>, <code>weekly.html</code>, <code>monthly.html</code>; доказательные списки к каждой цифре.</div><div class="mrow"><b>Метрики качества</b>Время сборки выпуска; ноль ручных исправлений цифр; 100% цифр с доказательным списком.</div><div class="mrow"><b>Модуль платформы</b><code>generate.py</code>, публикация <code>infospace.html</code></div><div class="mrow"><b>Неопределённость</b>Каждая агрегированная цифра сопровождается интервалом (если метрика статистическая) или точным числом материалов (если детерминированная).</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Пересобрать выпуск из архивного снимка базы: метрики побайтово совпадают.</li><li>Сверка трёх случайных цифр с ручным SQL-запросом к базе.</li><li>Клик по любой цифре открывает список материалов-оснований (режим «доказательство»).</li></ol></div></div>
+</details><details class="mcard" data-group="present" data-status="work"
+ data-mod="git + methods.html" data-n="—" data-code="М-28" data-ideo="1"
+ id="m28">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-28</span>
+<span class="mname">Публичный методологический журнал</span><span class="mgrp">представление</span><span class="mgrp mgrp-ideo">идеология</span>
+<span class="wk-stamp">работает</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">Мета-метод, без которого реестр — закрытая кухня: что менялось в методиках, почему, какие гипотезы не подтвердились, какие были ошибки. Вход — Git-история словарей, моделей и модулей; выход — журнал изменений и страница «Как менялись наши методы». Это и этика, и защита от обвинений в «заказном анализе».</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Git-история config.json, словарей, модулей; протоколы испытаний.</div><div class="mrow"><b>Выход</b>Журнал изменений методик; страница «как менялись наши методы».</div><div class="mrow"><b>Метрики качества</b>Ноль изменений словарей и моделей без записи в журнале.</div><div class="mrow"><b>Модуль платформы</b>Git + генерация раздела этой страницы</div><div class="mrow"><b>Неопределённость</b>Журнал детерминирован: строится из коммитов автоматически, ручная правка истории запрещена.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Аудит квартала: каждое изменение методики имеет коммит с комментарием и запись в журнале.</li><li>Неподтвердившиеся гипотезы публикуются наравне с успехами.</li><li>Журнал доступен читателю без регистрации.</li></ol></div></div>
+</details>
+</div>
+</div>
+
+<div class="sec-head" id="ideo"><h2>Идеология и гегемония</h2><div class="line"></div>
+<div class="badge">сквозной раздел · 7 методик</div></div>
+<div class="wrap1200">
+<div class="note" style="margin-bottom:14px;">Это не отдельное «мнение» и не ещё один метод, а рамка, в которую складываются измерения реестра. Вопрос один: <b>как в региональном инфополе воспроизводится господствующая идеология, каковы её механизмы и где трещины</b>. Отвечают те же инструменты, что и везде, — но собранные вместе: фреймы, голоса, собственность, умолчания и язык. Никакой «оценочности» сверх данных: каждый вывод раскрывается в режим «доказательство» (М-18).</div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th style="width:38%">Вопрос</th><th style="width:22%">Методики</th><th>Показатель</th></tr></thead><tbody><tr><td><b>В каких рамках подаётся событие?</b></td><td><a href="#m21" style="color:var(--accent);">М-21</a>, М-13</td><td>Распределение фреймов по источникам и сюжетам («ЧП» vs «системная проблема»).</td></tr><tr><td><b>Кто получает голос?</b></td><td><a href="#m22" style="color:var(--accent);">М-22</a>, М-05</td><td>Доли классовых акторов в цитатах; индексы Шеннона/Симпсона; тон по акторам.</td></tr><tr><td><b>В чьих интересах пишет источник?</b></td><td><a href="#m26" style="color:var(--accent);">М-26</a>, <a href="#m29" style="color:var(--accent);">М-29</a>, М-31</td><td>Паспорт собственника, доля бюджетного финансирования, контракты и сдвиги повестки.</td></tr><tr><td><b>Что систематически замалчивается?</b></td><td><a href="#m20" style="color:var(--accent);">М-20</a>, <a href="#m15" style="color:var(--accent);">М-15</a>, М-19</td><td>Индикатор умолчания; статус «контекст опущен»; удалённый и изменённый контент.</td></tr><tr><td><b>Как устроен язык повестки?</b></td><td><a href="#m23" style="color:var(--accent);">М-23</a>, М-08</td><td>Агентность и номинализации; частоты классовой лексики на 1000 слов.</td></tr><tr><td><b>Кто и как монополизирует поле?</b></td><td><a href="#m27" style="color:var(--accent);">М-27</a>, М-12, М-24</td><td>HHI, число независимых редакций, иерархия тем и «задающие» источники.</td></tr><tr><td><b>Не врём ли мы сами?</b></td><td><a href="#m28" style="color:var(--accent);">М-28</a></td><td>Публичный журнал изменений, неподтвердившиеся гипотезы, протоколы испытаний.</td></tr></tbody></table></div>
+<div class="verdict"><b>Принцип раздела</b>Гегемония измеряется не ярлыками, а соотношениями: чей голос звучит, чей — нет, кто владеет рупором, какие рамки считаются «здравым смыслом», а какие не проходят в эфир, и что стирается задним числом. Все четыре слоя — фреймы, голоса, собственность, умолчания — проверяемы на открытых данных и воспроизводимы кодом. Выводы раздела никогда не публикуются без доказательного списка материалов.</div>
+</div>
+
+<div class="sec-head" id="tech"><h2>Техконтур: открытые стандарты и решения</h2><div class="line"></div>
+<div class="badge">только открытое</div></div>
+<div class="wrap1200">
+<div class="note" style="margin-bottom:18px;">Принцип контура: никаких закрытых форматов и вендор-лока. Данные входят и выходят открытыми стандартами (RSS/Atom, JSON, CSV, SQL), код — свободное ПО с совместимыми лицензиями, воспроизводимость — Git. Любой отчёт можно пересобрать из выгрузки базы на любой машине; любое изменение методики оставляет след в журнале (М-28).</div>
+<div class="h3rule">Протоколы, форматы и стандарты <span class="sub">· что применяем и где</span></div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th style="width:24%">Стандарт / протокол</th><th style="width:26%">Спецификация</th><th>Применение на платформе</th></tr></thead><tbody><tr><td><b>HTTP / HTTPS</b></td><td>RFC 9110–9114</td><td>Сбор источников и публикация страниц издания.</td></tr><tr><td><b>TLS 1.3</b></td><td>RFC 8446</td><td>Защита транспорта при сборе и доступе к базе.</td></tr><tr><td><b>RSS 2.0</b></td><td>спецификация RSS Advisory Board</td><td>Подписки на ленты СМИ и официальных сайтов (М-01).</td></tr><tr><td><b>Atom</b></td><td>RFC 4287</td><td>Ленты без RSS; канонические идентификаторы записей.</td></tr><tr><td><b>JSON Feed 1.1</b></td><td>jsonfeed.org, открытая спецификация</td><td>Резервный формат лент, обмен с внешними наблюдателями.</td></tr><tr><td><b>JSON</b></td><td>RFC 8259</td><td><code>config.json</code>, словари и кодовые книги фреймов (М-08, М-21).</td></tr><tr><td><b>CSV</b></td><td>RFC 4180</td><td>Экспорт контрольных выборок для внешней разметки и аудита.</td></tr><tr><td><b>XML 1.0 / Sitemap 0.9</b></td><td>W3C REC; sitemaps.org</td><td>Разбор лент, обнаружение новых страниц источников.</td></tr><tr><td><b>robots.txt</b></td><td>RFC 9309</td><td>Вежливый обход, в т.ч. повторный для версионирования (М-19).</td></tr><tr><td><b>UTF-8</b></td><td>RFC 3629</td><td>Единая кодировка базы, лент и выпусков.</td></tr><tr><td><b>ISO 8601 / RFC 3339</b></td><td>ISO / IETF</td><td>Все даты и время: материалы, прогоны, дельты изменений.</td></tr><tr><td><b>HTML5 · CSS · ECMAScript</b></td><td>WHATWG / W3C / ECMA-262</td><td>Публикация: страницы, дашборд, доказательные списки.</td></tr><tr><td><b>SQL</b></td><td>ISO/IEC 9075</td><td>Запросы к базе материалов, метрик и реестра владельцев.</td></tr><tr><td><b>Telegram Bot API</b></td><td>открытая документация, HTTPS/JSON</td><td>Сбор публичных каналов (М-02, М-32); закрытые протоколы не используем.</td></tr><tr><td><b>ActivityPub</b></td><td>W3C Recommendation</td><td>В очереди: публикация выпусков в федиверс.</td></tr><tr><td><b>Git / CommonMark</b></td><td>документированный формат объектов; CommonMark</td><td>Версионирование кода, словарей, реестров; журнал методик (М-28).</td></tr><tr><td><b>WCAG 2.1</b></td><td>W3C Recommendation</td><td>Доступность: клавиатура, контраст, печать.</td></tr></tbody></table></div>
+<div class="h3rule">Программные продукты <span class="sub">· свободное ПО контура анализа</span></div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th style="width:24%">Продукт</th><th style="width:22%">Лицензия</th><th>Роль на платформе</th></tr></thead><tbody><tr><td><b>Python 3</b></td><td>PSF-2.0</td><td>Ядро контура: сбор, анализ, генерация выпусков.</td></tr><tr><td><b>pandas · NumPy</b></td><td>BSD-3-Clause</td><td>Таблицы материалов, агрегации, временные ряды (М-04, М-24).</td></tr><tr><td><b>scikit-learn</b></td><td>BSD-3-Clause</td><td>Классификаторы (М-09, М-21), метрики P/R/F1, каппа.</td></tr><tr><td><b>spaCy</b></td><td>MIT</td><td>Морфология и NER (М-07), подсветка конструкций (М-23).</td></tr><tr><td><b>NLTK</b></td><td>Apache-2.0</td><td>Токенизация, словарные базисы (М-05, М-08).</td></tr><tr><td><b>Gensim</b></td><td>LGPL-2.1</td><td>Тематическое моделирование LDA (М-06).</td></tr><tr><td><b>Hugging Face Transformers</b></td><td>Apache-2.0</td><td>Модели ruBERT: тон (М-05), NER (М-07), фреймы (М-21).</td></tr><tr><td><b>NetworkX</b></td><td>BSD-3-Clause</td><td>Графы источников, каскадов, аффилированностей (М-11, М-12, М-26).</td></tr><tr><td><b>Matplotlib · Chart.js</b></td><td>PSF-style · MIT</td><td>Графики отчётов и дашборда (М-18).</td></tr><tr><td><b>requests · BeautifulSoup · feedparser</b></td><td>Apache-2.0 · MIT · BSD-2-Clause</td><td>HTTP-сбор, разбор HTML и лент (М-01, М-19).</td></tr><tr><td><b>SQLite · PostgreSQL</b></td><td>public domain · PostgreSQL License</td><td>База материалов, метрик и реестров: локально и серверно.</td></tr><tr><td><b>ExifTool</b></td><td>GPL-1.0+ / Artistic</td><td>Метаданные вложений (М-17).</td></tr><tr><td><b>Git · Linux · cron</b></td><td>GPL-2.0</td><td>Воспроизводимость, планирование прогонов и повторных обходов.</td></tr></tbody></table></div>
+<div class="note"><b>Примечание редакции.</b> Ядро конвейера сегодня — только стандартная библиотека Python (принцип автономности, см. AGENTS.md: «запрещено добавлять сторонние зависимости в основной поток»; опциональные надстройки — только через guarded <code>try/except ImportError</code>). Перечисленные продукты описывают <b>целевой</b> контур методик: статус «работает» в реестре означает, что методика даёт результат на текущем ядре (словари, эвристики, TF-IDF), а не что внешняя библиотека уже подключена. Подключение каждой — отдельное решение редакции с записью в методологическом журнале (М-28).</div>
+<div class="h3rule">Модули платформы и покрытие методик</div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th style="width:20%">Модуль</th><th style="width:44%">Назначение</th><th>Методики</th></tr></thead><tbody><tr><td><code>collector.py</code></td><td>Сбор RSS/Telegram/сайтов, паспорта материалов, повторные обходы.</td><td>М-01, М-02, М-19, М-30, М-36</td></tr><tr><td><code>dedup.py</code></td><td>Дедупликация, near-duplicate, канонические экземпляры.</td><td>М-03, М-11, М-25</td></tr><tr><td><code>enrich.py</code></td><td>Обогащение: сущности, топонимы, роли акторов, конструкции языка.</td><td>М-07, М-14, М-22, М-23</td></tr><tr><td><code>analytics.py</code></td><td>Метрики, тон, темы, фреймы, каскады, дуги, индексы.</td><td>М-04…М-11, М-13, М-15, М-20, М-21, М-24, М-25, М-27, М-31…М-34</td></tr><tr><td><code>versioner.py</code> очередь</td><td>Версионирование контента: хеши, снимки, журнал дельт.</td><td>М-19, М-17</td></tr><tr><td><code>owners.py</code> очередь</td><td>Реестр собственников и финансирования СМИ.</td><td>М-26, М-27, М-29</td></tr><tr><td><code>generate.py</code></td><td>Сборка выпусков и отчётов из базы, доказательные списки.</td><td>М-18</td></tr><tr><td><code>infospace.html</code></td><td>Живой дашборд: метрики, тон, каскады, геокарта, режим «доказательство».</td><td>М-18</td></tr></tbody></table></div>
+</div>
+
+<div class="sec-head" id="stand"><h2>Стенд испытания методик</h2><div class="line"></div>
+<div class="badge">протокол за 30 секунд</div></div>
+<div class="wrap1200">
+<div class="note" style="margin-bottom:14px;">Каждая методика проходит стенд до смены статуса: контрольная выборка из архива, двойная разметка, прогон модуля, метрики с доверительным интервалом против критерия приёмки, вердикт в реестр и запись в методологический журнал (М-28). Протокол ниже формируется автоматически по паспорту методики — его можно копировать и нести в рабочий журнал.</div>
+<div class="proto-form">
+<label>Методика<select id="protoMethod" aria-label="Выбор методики"><option value="m01">М-01 · Сквозной медиа-мониторинг</option><option value="m02">М-02 · Социальное слушание телеграм-каналов</option><option value="m03">М-03 · Дедупликация и near-duplicate</option><option value="m04">М-04 · Детекция событий и всплесков</option><option value="m05">М-05 · Тональный анализ (sentiment)</option><option value="m06">М-06 · Тематическое моделирование</option><option value="m07">М-07 · Распознавание именованных сущностей (NER)</option><option value="m08">М-08 · Словарное кодирование повестки</option><option value="m09">М-09 · Классификация типов материалов</option><option value="m10">М-10 · Анализ заголовочных стратегий</option><option value="m11">М-11 · Каскады цитирования и репостов</option><option value="m12">М-12 · Сетевой анализ источников</option><option value="m13">М-13 · Дуга сюжета</option><option value="m14">М-14 · Геокарта упоминаний муниципалитетов</option><option value="m15">М-15 · Кросс-проверка фактов и умолчаний</option><option value="m16">М-16 · Кодирование тактик манипуляций (DISARM / IMS)</option><option value="m17">М-17 · Мультимодальная проверка вложений</option><option value="m18">М-18 · Дашборд и периодические отчёты</option><option value="m19">М-19 · Мониторинг удалённого и изменённого контента</option><option value="m20">М-20 · Мониторинг «молчащих» источников</option><option value="m21">М-21 · Фрейм-анализ (framing)</option><option value="m22">М-22 · Разнообразие источников цитирования</option><option value="m23">М-23 · Критический дискурс-анализ</option><option value="m24">М-24 · Повестка дня и иерархия тем (agenda-setting)</option><option value="m25">М-25 · Трансмедийная траектория сюжета</option><option value="m26">М-26 · Атрибуция и карта владельцев медиа</option><option value="m27">М-27 · Индекс концентрации и плюрализма</option><option value="m28">М-28 · Публичный методологический журнал</option><option value="m29">М-29 · Финансирование медиа</option><option value="m30">М-30 · Трудовые отношения в редакциях</option><option value="m31">М-31 · Госзаказ в медиа</option><option value="m32">М-32 · Комментарии и обратная связь</option><option value="m33">М-33 · Индекс вовлечённости и виральности</option><option value="m34">М-34 · Аудиторные сегменты</option><option value="m35">М-35 · Исторические параллели</option><option value="m36">М-36 · Межрегиональное сравнение</option></select></label>
+<label>Контрольная выборка<select id="protoSize" aria-label="Объём выборки">
+<option>100</option><option selected>200</option><option>400</option></select></label>
+<button type="button" class="btn gold" onclick="_mProto()">Сформировать протокол</button>
+<button type="button" class="btn" id="copyBtn" onclick="_mCopy()">скопировать</button>
+</div>
+<pre class="proto" id="protoOut" hidden></pre>
+<div class="verdict"><b>Критерий приёмки</b>Методика переходит в статус «работает», если: метрики на контрольной выборке достигают порога (F1 / precision ≥ 0.80 либо совпадение с редактором ≥ 80%) с учётом доверительного интервала; повторный прогон даёт те же цифры; выгрузка выборки, протокол и запись в журнале (М-28) лежат в репозитории. Качественные методики (М-23, М-35) принимаются по процедуре двойного независимого разбора. Всё остальное остаётся в «тесте» или «очереди» — без исключений.</div>
+<div class="note">Серверный аналог протокола — <code>methods.py → protocol()</code>: тот же текст
+собирается на Python и покрыт тестами, поэтому бумажный протокол и стенд на странице не разъедутся.</div>
+</div>
+
+<div class="wrap1200"><div class="note" style="margin-top:26px;">Связано:
+<a href="infospace.html" style="color:var(--accent);">дашборд «Инфопространство»</a> ·
+<a href="plans.html#method" style="color:var(--accent);">внедрение методов в планах</a> ·
+<a href="projects/elections_2026.html" style="color:var(--accent);">досье «Выборы-2026»</a> ·
+<a href="projects/goszakupki.html" style="color:var(--accent);">досье «Госзакупки»</a> ·
+<a href="status.html" style="color:var(--accent);">статус системы</a>.
+Реестр методик — редакционный документ: правится в <code>methods.py</code>, страница пересобирается
+конвейером. Собрано 17.09.2026 14:40 (UTC+4).</div></div>
+</main>
+</main>
+<footer class="footer"><div class="footer__inner">
+<div><div class="footer__brand">ГУДОК<span>.</span></div>
+<p>Информационно-аналитическое издание марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Материалы принадлежат их изданиям; издание носит информационно-аналитический характер и не является агитацией.</p></div>
+<div><h3>Периодичности</h3><ul style="list-style:none;padding:0;">
+<li><a href="digests/today.html">День · выпуск сегодня</a></li>
+<li><a href="weekly.html">Неделя · дуги сюжетов</a></li>
+<li><a href="monthly.html">Месяц · метрики</a></li>
+<li><a href="archive.html">Архив-матрица</a></li></ul></div>
+<div><h3>Проекты</h3><ul style="list-style:none;padding:0;">
+<li><a href="projects/elections_2026.html">Выборы-2026</a></li>
+<li><a href="projects/goszakupki.html">Госзакупки</a></li>
+<li><a href="infospace.html">Инфопространство</a></li>
+<li><a href="methods.html">Методы · реестр v1.1</a></li>
+<li><a href="afisha.html">Афиша</a></li></ul></div>
+<div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
+<li><a href="status.html">Статус системы</a></li>
+<li><a href="plans.html">Планы и методы</a></li>
+<li><a href="digests/exec_2026-09-17.html">Версия руководителю</a></li>
+<li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+</div>
+<div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
+</footer>
+<script>
+(function(){
+  var grid=document.getElementById('mGrid');
+  if(!grid){return;}
+  var cards=Array.prototype.slice.call(grid.querySelectorAll('.mcard'));
+  var shown=document.getElementById('cntShown');
+  var empty=document.getElementById('mEmpty');
+  var curG='all',curS='all';
+  function apply(){
+    var n=0;
+    cards.forEach(function(c){
+      var okG=(curG==='all')||(curG==='ideo'?c.getAttribute('data-ideo')==='1':c.getAttribute('data-group')===curG);
+      var ok=okG&&(curS==='all'||c.getAttribute('data-status')===curS);
+      c.style.display=ok?'':'none';
+      if(ok){n++;}
+    });
+    if(shown){shown.textContent=n;}
+    if(empty){empty.classList.toggle('hidden',n>0);}
+  }
+  function bind(sel,attr,set){
+    document.querySelectorAll(sel+' .fbtn').forEach(function(b){
+      b.addEventListener('click',function(){
+        set(b.getAttribute(attr));
+        document.querySelectorAll(sel+' .fbtn').forEach(function(x){x.classList.toggle('active',x===b);});
+        apply();
+      });
+    });
+  }
+  bind('#fGroup','data-g',function(v){curG=v;});
+  bind('#fStatus','data-s',function(v){curS=v;});
+  window._mReset=function(){
+    curG='all';curS='all';
+    document.querySelectorAll('#fGroup .fbtn').forEach(function(x){x.classList.toggle('active',x.getAttribute('data-g')==='all');});
+    document.querySelectorAll('#fStatus .fbtn').forEach(function(x){x.classList.toggle('active',x.getAttribute('data-s')==='all');});
+    apply();
+  };
+  cards.forEach(function(c){
+    c.addEventListener('toggle',function(){
+      var t=c.querySelector('.mtoggle');
+      if(t){t.textContent=c.open?'паспорт ↑':'паспорт ↓';}
+    });
+  });
+
+  /* ---------- стенд испытания ---------- */
+  var sel=document.getElementById('protoMethod');
+  if(sel){
+    cards.slice().sort(function(a,b){
+      return (+a.getAttribute('data-code').replace(/\D+/g,''))-(+b.getAttribute('data-code').replace(/\D+/g,''));
+    }).forEach(function(c){
+      var o=document.createElement('option');
+      o.value=c.id;
+      o.textContent=c.getAttribute('data-code')+' · '+c.querySelector('.mname').textContent;
+      sel.appendChild(o);
+    });
+  }
+  function wilson(n){
+    if(!n||n==='—'){return 'детерминированная/качественная процедура — интервал не применяется';}
+    return 'интервал Уилсона 95%: при n='+n+' погрешность ≈ ±'+(1.96*0.5/Math.sqrt(+n)*100).toFixed(1)+' пп';
+  }
+  function metricsOf(c){
+    var out='';
+    c.querySelectorAll('.mdet .mrow').forEach(function(r){
+      var b=r.querySelector('b');
+      if(b&&b.textContent.indexOf('Метрики качества')===0){out=r.textContent.replace(b.textContent,'').trim();}
+    });
+    return out;
+  }
+  window._mProto=function(){
+    var s=document.getElementById('protoMethod');
+    var c=document.getElementById(s.value);
+    if(!c){return;}
+    var size=document.getElementById('protoSize').value;
+    var st=c.getAttribute('data-status');
+    var stTxt=st==='work'?'работает':(st==='test'?'тест':'очередь');
+    var d=new Date();
+    var txt='ПРОТОКОЛ ИСПЫТАНИЯ МЕТОДИКИ\n'+
+      'Код: '+c.getAttribute('data-code')+' · Название: '+c.querySelector('.mname').textContent+'\n'+
+      'Текущий статус: '+stTxt+' · Платформа: «Гудок», контур анализа инфополя\n'+
+      'Выборка: '+size+' единиц (случайная из архива, seed=42); минимум по паспорту: n='+c.getAttribute('data-n')+'\n'+
+      'Разметка: два редактора независимо, расхождения — третий; каппа фиксируется\n'+
+      'Шаги:\n'+
+      ' 1. Выгрузить выборку из базы (SQLite; экспорт CSV по RFC 4180).\n'+
+      ' 2. Разметить вручную по инструкции методики.\n'+
+      ' 3. Прогнать модуль: '+c.getAttribute('data-mod')+'.\n'+
+      ' 4. Посчитать метрики: '+metricsOf(c)+'.\n'+
+      ' 5. Неопределённость: '+wilson(c.getAttribute('data-n'))+'.\n'+
+      ' 6. Критерий приёмки: порог ≥ 0.80 с учётом интервала; повторный прогон без расхождений.\n'+
+      ' 7. Вердикт внести в реестр (methods.html), запись — в методологический журнал (М-28).\n'+
+      'Дата: '+d.toLocaleDateString('ru-RU')+' · Подписи: аналитик ______ редактор ______';
+    var out=document.getElementById('protoOut');
+    out.textContent=txt;
+    out.removeAttribute('hidden');
+  };
+  window._mCopy=function(){
+    var out=document.getElementById('protoOut');
+    if(out.hasAttribute('hidden')){window._mProto();}
+    var txt=out.textContent;
+    var b=document.getElementById('copyBtn');
+    function flash(m){var old=b.textContent;b.textContent=m;setTimeout(function(){b.textContent=old;},1400);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){flash('скопировано ✓');},function(){legacy();});
+    }else{legacy();}
+    function legacy(){
+      var ta=document.createElement('textarea');
+      ta.value=txt;document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');flash('скопировано ✓');}catch(e){flash('не удалось скопировать');}
+      document.body.removeChild(ta);
+    }
+  };
+  apply();
+})();
+</script>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+document.documentElement.setAttribute("data-theme",c);
+try{localStorage.setItem("gudok-theme",c);}catch(e){}
+syncThemeBtn();}
+function syncThemeBtn(){var b=document.getElementById("themeBtn");
+if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
+syncThemeBtn();
+</script></body></html>

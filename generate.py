@@ -1645,7 +1645,8 @@ def render_editorial(date_str):
 def render_utilbar(prefix=""):
     return f"""<div class="util-bar-wrap"><div class="util-bar">
 <span class="util-lbl">Служебное</span>
-<a href="{prefix}roadmap.html">План развития</a>
+<a href="{prefix}plans.html">Планы</a>
+<a href="{prefix}methods.html">Методы</a>
 <a href="{prefix}status.html">Статус системы</a>
 <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
 </div></div>"""
@@ -2445,7 +2446,7 @@ EXTRA_CSS = """
 
 def render_elections(cfg, trends, store, status):
     now = datetime.now(UTC4)
-    nav_html = render_nav(cfg, "elections", "../")
+    nav_html = render_nav(cfg, "projects", "../", subnav=subnav_projects("../", "elections"))
     vote_day = datetime(2026, 9, 18, tzinfo=UTC4).date()
     days_left = (vote_day - now.date()).days
 
@@ -2580,13 +2581,23 @@ def render_projects(cfg, trends, store, status):
     """Хаб рубрики «Проекты»: спецстраницы-досье издания."""
     import plans as _plans
     now = datetime.now(UTC4)
-    nav_html = render_nav(cfg, "projects", "")
+    nav_html = render_nav(cfg, "projects", "", subnav=subnav_projects("", ""))
     plans_tracks = len(_plans.TRACKS)
+    import methods as _methods
+    methods_total = len(_methods.METHODS)
+    methods_ver = _methods.VERSION
     cards = f"""<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
 <div><b>Инфопространство</b></div>
 <div class="fig">live <small>дашборд</small></div>
 <p>Скользящее исследование инфополя: метрики, тон, каскады, карта муниципалитетов, очередь новых метрик.</p>
 <a class="go" href="infospace.html">открыть дашборд →</a></div>"""
+    cards += f"""<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
+<div><b>Методы</b></div>
+<div class="fig">{methods_total}<small>методик v{methods_ver}</small></div>
+<p>Реестр методик исследования инфополя: паспорт каждой (вход, выход, метрики качества, модуль,
+неопределённость, порядок проверки), сквозной раздел «Идеология и гегемония», техконтур из открытых
+стандартов и стенд испытания с генератором протокола.</p>
+<a class="go" href="methods.html">открыть реестр →</a></div>"""
     cards += f"""<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
 <div><b>Планы и методы</b></div>
 <div class="fig">{plans_tracks}<small>треков</small></div>
@@ -2748,8 +2759,9 @@ def render_plans(cfg, trends, store, status, an=None):
     Без JavaScript видны все таблицы — скрипт только фильтрует реестр метрик.
     """
     import plans as P
+    import methods as M
     now = datetime.now(UTC4)
-    nav_html = render_nav(cfg, "projects", "")
+    nav_html = render_nav(cfg, "projects", "", subnav=subnav_projects("", "plans"))
     an = an or {}
     cnt = P.counts()
     axes = P.by_axis()
@@ -2858,6 +2870,18 @@ def render_plans(cfg, trends, store, status, an=None):
                 f'<h3>{esc(tr["title"])}</h3>'
                 f'<span class="pl-track__src">{esc(tr["src"])}</span>{extra}</div>'
                 f'<p class="pl-track__dek">{esc(tr["dek"])}</p>')
+
+    meth = M.counts()
+    meth_rows = []
+    for mkey, mtitle, _mshort in M.GROUPS:
+        items = [m for m in M.METHODS if m.get("group") == mkey]
+        meth_rows.append(
+            f'<tr><td class="pl-n">{esc(mtitle)}</td><td>{len(items)}</td>'
+            f'<td>{sum(1 for m in items if m.get("status") == "work")}</td>'
+            f'<td>{sum(1 for m in items if m.get("status") == "test")}</td>'
+            f'<td>{sum(1 for m in items if m.get("status") == "queue")}</td>'
+            f'<td>{sum(1 for m in items if m.get("ideo"))}</td></tr>')
+    meth_rows = "".join(meth_rows)
 
     passport = an.get("calendar_passport") or {}
     afisha_gate = (cfg.get("settings", {}) or {}).get("afisha", {}) or {}
@@ -2983,6 +3007,17 @@ def render_plans(cfg, trends, store, status, an=None):
 для метрик «Инфопространства», для порогов афиши и для правил дедупликации: отличается только файл.</div>
 {"".join(stage_rows)}
 
+<div class="pl-h4">Реестр методик · v{M.VERSION}: {meth['total']} паспортов</div>
+<table class="tbl pl-tbl"><thead><tr><th>Группа методик</th><th>Всего</th><th>Работают</th>
+<th>В тесте</th><th>В очереди</th><th>Идеологический блок</th></tr></thead>
+<tbody>{meth_rows}<tr><td class="pl-n">Итого</td><td>{meth['total']}</td><td>{meth['work']}</td>
+<td>{meth['test']}</td><td>{meth['queue']}</td><td>{meth['ideo']}</td></tr></tbody></table>
+<div class="note">Полные паспорта методик (вход, выход, метрики качества, модуль платформы, оценка
+неопределённости и порядок проверки на контрольной выборке), сквозной раздел «Идеология и гегемония»,
+техконтур из открытых стандартов и стенд испытания с генератором протокола —
+<a href="methods.html" style="color:var(--accent);font-weight:700;">на странице «Методы» →</a>
+Серверный аналог протокола стенда: <code>methods.py → protocol()</code>, покрыт тестами.</div>
+
 <div class="sec-head"><h2>Паспорта метрик-пилотов</h2><div class="line"></div>
 <div class="badge">{len(P.PILOTS)} паспорта · образец для остальных</div></div>
 {"".join(pass_html)}
@@ -3031,6 +3066,358 @@ def render_plans(cfg, trends, store, status, an=None):
 </body></html>"""
 
 
+def subnav_projects(prefix="", current=""):
+    """Поднавигация рубрики «Проекты»: сквозная для всех проектных страниц."""
+    items = [("infospace.html", "Инфопространство", "infospace"),
+             ("projects/elections_2026.html", "Выборы-2026", "elections"),
+             ("projects/goszakupki.html", "Госзакупки", "goszakupki"),
+             ("methods.html", "Методы", "methods"),
+             ("plans.html", "Планы", "plans")]
+    links = "".join(
+        f'<span class="cur">{txt}</span>' if key == current
+        else f'<a href="{prefix}{href}">{txt}</a>'
+        for href, txt, key in items)
+    return f'<div class="subnav"><div class="subnav-inner"><span class="lbl">Проекты:</span>{links}</div></div>'
+
+
+METHODS_CSS = """
+/* ---- страница «Методы»: карточки паспортов, таблицы техконтура, стенд ---- */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:8px;}
+.mcard{border-top:1px solid var(--ink);padding:14px 0 18px;break-inside:avoid;}
+.mcard[data-ideo="1"]{border-top:3px double var(--ink);}
+.mcard-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;cursor:pointer;list-style:none;}
+.mcard-head::-webkit-details-marker{display:none;}
+.mcard-head:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.mcode{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--accent);}
+.mname{font-family:var(--serif-display);font-weight:600;font-size:19px;line-height:1.2;color:var(--ink);}
+.mgrp{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;
+text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;white-space:nowrap;}
+.mgrp-ideo{color:var(--accent);border-color:var(--accent);}
+.wk-stamp.queued{background:none;color:var(--muted);border-color:var(--rule);}
+:root[data-theme="dark"] .wk-stamp.queued{color:var(--muted);border-color:var(--rule);}
+.mtoggle{margin-left:auto;font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);
+border-bottom:1px solid var(--rule);}
+.mcard-head:hover .mtoggle{color:var(--accent);border-color:var(--accent);}
+.mess{font-family:var(--serif-body);font-size:15px;color:var(--ink-2);margin:9px 0 0;line-height:1.5;max-width:72ch;}
+.mdet{display:grid;grid-template-columns:1fr 1fr;gap:0 36px;margin-top:14px;}
+.mrow{border-top:1px solid var(--rule);padding:8px 0;font-family:var(--sans);font-size:12.5px;
+color:var(--ink-2);line-height:1.5;}
+.mrow b{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+font-weight:700;margin-bottom:3px;}
+.mrow code,.tbl code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;
+background:var(--paper-2);border:1px solid var(--rule);padding:1px 6px;color:var(--ink);}
+.mrow-wide{grid-column:1/-1;}
+.mrow-wide ol{margin:4px 0 0;padding-left:18px;}
+.mrow-wide li{margin:3px 0;}
+.tbl-wrap{overflow-x:auto;}
+.h3rule{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+color:var(--ink);border-bottom:1px solid var(--ink);padding:0 0 8px;margin:34px 0 14px;}
+.h3rule .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
+.fbtn.ideo{border-color:var(--accent);color:var(--accent);}
+.fbtn.ideo.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.proto-form{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin:6px 0 4px;}
+.proto-form label{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.12em;
+text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;gap:6px;}
+.proto-form select{font-family:var(--sans);font-size:13px;color:var(--ink);background:var(--paper);
+border:1px solid var(--ink);border-radius:0;padding:8px 10px;min-width:270px;}
+.proto{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.6;
+background:var(--paper-2);border:1px solid var(--rule);border-left:3px solid var(--accent);
+padding:14px 16px;white-space:pre-wrap;color:var(--ink-2);margin-top:14px;}
+@media (max-width:1100px){.mgrid{grid-template-columns:1fr;}}
+@media (max-width:720px){.mdet{grid-template-columns:1fr;}.proto-form select{min-width:100%;}}
+@media print{
+  .filters,.proto-form{display:none!important;}
+  .mcard .mdet{display:grid!important;}
+}
+"""
+
+# Прогрессивный JS страницы «Методы»: фильтры реестра, подпись раскрытия паспорта
+# и стенд испытания (протокол формируется из data-атрибутов карточки). Без JS
+# видны все карточки и все фильтры просто не работают — как на остальных страницах.
+METHODS_JS = """<script>
+(function(){
+  var grid=document.getElementById('mGrid');
+  if(!grid){return;}
+  var cards=Array.prototype.slice.call(grid.querySelectorAll('.mcard'));
+  var shown=document.getElementById('cntShown');
+  var empty=document.getElementById('mEmpty');
+  var curG='all',curS='all';
+  function apply(){
+    var n=0;
+    cards.forEach(function(c){
+      var okG=(curG==='all')||(curG==='ideo'?c.getAttribute('data-ideo')==='1':c.getAttribute('data-group')===curG);
+      var ok=okG&&(curS==='all'||c.getAttribute('data-status')===curS);
+      c.style.display=ok?'':'none';
+      if(ok){n++;}
+    });
+    if(shown){shown.textContent=n;}
+    if(empty){empty.classList.toggle('hidden',n>0);}
+  }
+  function bind(sel,attr,set){
+    document.querySelectorAll(sel+' .fbtn').forEach(function(b){
+      b.addEventListener('click',function(){
+        set(b.getAttribute(attr));
+        document.querySelectorAll(sel+' .fbtn').forEach(function(x){x.classList.toggle('active',x===b);});
+        apply();
+      });
+    });
+  }
+  bind('#fGroup','data-g',function(v){curG=v;});
+  bind('#fStatus','data-s',function(v){curS=v;});
+  window._mReset=function(){
+    curG='all';curS='all';
+    document.querySelectorAll('#fGroup .fbtn').forEach(function(x){x.classList.toggle('active',x.getAttribute('data-g')==='all');});
+    document.querySelectorAll('#fStatus .fbtn').forEach(function(x){x.classList.toggle('active',x.getAttribute('data-s')==='all');});
+    apply();
+  };
+  cards.forEach(function(c){
+    c.addEventListener('toggle',function(){
+      var t=c.querySelector('.mtoggle');
+      if(t){t.textContent=c.open?'паспорт ↑':'паспорт ↓';}
+    });
+  });
+
+  /* ---------- стенд испытания ---------- */
+  var sel=document.getElementById('protoMethod');
+  if(sel){
+    cards.slice().sort(function(a,b){
+      return (+a.getAttribute('data-code').replace(/\\D+/g,''))-(+b.getAttribute('data-code').replace(/\\D+/g,''));
+    }).forEach(function(c){
+      var o=document.createElement('option');
+      o.value=c.id;
+      o.textContent=c.getAttribute('data-code')+' · '+c.querySelector('.mname').textContent;
+      sel.appendChild(o);
+    });
+  }
+  function wilson(n){
+    if(!n||n==='—'){return 'детерминированная/качественная процедура — интервал не применяется';}
+    return 'интервал Уилсона 95%: при n='+n+' погрешность ≈ ±'+(1.96*0.5/Math.sqrt(+n)*100).toFixed(1)+' пп';
+  }
+  function metricsOf(c){
+    var out='';
+    c.querySelectorAll('.mdet .mrow').forEach(function(r){
+      var b=r.querySelector('b');
+      if(b&&b.textContent.indexOf('Метрики качества')===0){out=r.textContent.replace(b.textContent,'').trim();}
+    });
+    return out;
+  }
+  window._mProto=function(){
+    var s=document.getElementById('protoMethod');
+    var c=document.getElementById(s.value);
+    if(!c){return;}
+    var size=document.getElementById('protoSize').value;
+    var st=c.getAttribute('data-status');
+    var stTxt=st==='work'?'работает':(st==='test'?'тест':'очередь');
+    var d=new Date();
+    var txt='ПРОТОКОЛ ИСПЫТАНИЯ МЕТОДИКИ\\n'+
+      'Код: '+c.getAttribute('data-code')+' · Название: '+c.querySelector('.mname').textContent+'\\n'+
+      'Текущий статус: '+stTxt+' · Платформа: «Гудок», контур анализа инфополя\\n'+
+      'Выборка: '+size+' единиц (случайная из архива, seed=42); минимум по паспорту: n='+c.getAttribute('data-n')+'\\n'+
+      'Разметка: два редактора независимо, расхождения — третий; каппа фиксируется\\n'+
+      'Шаги:\\n'+
+      ' 1. Выгрузить выборку из базы (SQLite; экспорт CSV по RFC 4180).\\n'+
+      ' 2. Разметить вручную по инструкции методики.\\n'+
+      ' 3. Прогнать модуль: '+c.getAttribute('data-mod')+'.\\n'+
+      ' 4. Посчитать метрики: '+metricsOf(c)+'.\\n'+
+      ' 5. Неопределённость: '+wilson(c.getAttribute('data-n'))+'.\\n'+
+      ' 6. Критерий приёмки: порог ≥ 0.80 с учётом интервала; повторный прогон без расхождений.\\n'+
+      ' 7. Вердикт внести в реестр (methods.html), запись — в методологический журнал (М-28).\\n'+
+      'Дата: '+d.toLocaleDateString('ru-RU')+' · Подписи: аналитик ______ редактор ______';
+    var out=document.getElementById('protoOut');
+    out.textContent=txt;
+    out.removeAttribute('hidden');
+  };
+  window._mCopy=function(){
+    var out=document.getElementById('protoOut');
+    if(out.hasAttribute('hidden')){window._mProto();}
+    var txt=out.textContent;
+    var b=document.getElementById('copyBtn');
+    function flash(m){var old=b.textContent;b.textContent=m;setTimeout(function(){b.textContent=old;},1400);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){flash('скопировано ✓');},function(){legacy();});
+    }else{legacy();}
+    function legacy(){
+      var ta=document.createElement('textarea');
+      ta.value=txt;document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');flash('скопировано ✓');}catch(e){flash('не удалось скопировать');}
+      document.body.removeChild(ta);
+    }
+  };
+  apply();
+})();
+</script>"""
+
+
+def render_methods(cfg, trends, store, status):
+    """Страница «Методы»: реестр методик исследования инфополя с паспортами.
+
+    Данные — methods.py (редакционный реестр v1.1): 36 методик, восемь групп,
+    сквозной идеологический блок, техконтур из открытых стандартов и стенд
+    испытания с генератором протокола. Страница в общем стиле издания: шапка,
+    навигация и подвал — из общих компонентов, свой только METHODS_CSS.
+    Паспорта раскрываются нативным <details> — работают и без JavaScript.
+    """
+    import methods as M
+    now = datetime.now(UTC4)
+    cnt = M.counts()
+    nav_html = render_nav(cfg, "projects", "", subnav=subnav_projects("", "methods"))
+
+    # ------------------------------------------------------------- карточки
+    cards = []
+    for m in M.METHODS:
+        st = m.get("status") if m.get("status") in M.STATUS else "queue"
+        stamp_cls = ("wk-stamp " + M.STATUS_CSS[st]).strip()
+        grp = f'<span class="mgrp">{esc(M.GROUP_SHORT.get(m.get("group"), m.get("group", "")))}</span>'
+        if m.get("ideo"):
+            grp += '<span class="mgrp mgrp-ideo">идеология</span>'
+        rows = []
+        for r in m.get("rows", []):
+            body = r.get("text", "")          # доверенный редакционный текст с <code>/<a>
+            if r.get("steps"):
+                body += "<ol>" + "".join(f"<li>{s}</li>" for s in r["steps"]) + "</ol>"
+            wide = " mrow-wide" if r.get("steps") else ""
+            rows.append(f'<div class="mrow{wide}"><b>{esc(r.get("label", ""))}</b>{body}</div>')
+        ideo_attr = ' data-ideo="1"' if m.get("ideo") else ""
+        cards.append(f"""<details class="mcard" data-group="{esc(m.get('group', ''))}" data-status="{esc(st)}"
+ data-mod="{esc(m.get('mod', ''))}" data-n="{esc(str(m.get('n', '')))}" data-code="{esc(m.get('code', ''))}"{ideo_attr}
+ id="{esc(m.get('id', ''))}">
+<summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">{esc(m.get('code', ''))}</span>
+<span class="mname">{esc(m.get('name', ''))}</span>{grp}
+<span class="{stamp_cls}">{esc(M.STATUS[st])}</span><span class="mtoggle">паспорт ↓</span></summary>
+<p class="mess">{esc(m.get('ess', ''))}</p>
+<div class="mdet">{''.join(rows)}</div>
+</details>""")
+
+    # ------------------------------------------------------------- фильтры
+    g_chips = ['<button type="button" class="fbtn active" data-g="all">Все группы</button>']
+    for key, title, _short in M.GROUPS:
+        n = sum(1 for m in M.METHODS if m.get("group") == key)
+        g_chips.append(f'<button type="button" class="fbtn" data-g="{esc(key)}">{esc(title)} ({n})</button>')
+    g_chips.append(f'<button type="button" class="fbtn ideo" data-g="ideo">{esc(M.IDEO_TITLE)} ({cnt["ideo"]})</button>')
+    s_chips = ['<button type="button" class="fbtn active" data-s="all">Все статусы</button>']
+    for key, label in M.STATUS.items():
+        s_chips.append(f'<button type="button" class="fbtn" data-s="{key}">{esc(label)} ({cnt.get(key, 0)})</button>')
+
+    # ------------------------------------------------------------- таблицы
+    def tbl(t, widths):
+        ths = "".join(f'<th{" style=" + chr(34) + "width:" + w + chr(34) if w else ""}>{h}</th>'
+                      for h, w in zip(t["heads"], widths + [""] * len(t["heads"])))
+        rows = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in t["rows"])
+        return (f'<div class="tbl-wrap"><table class="tbl"><thead><tr>{ths}</tr></thead>'
+                f'<tbody>{rows}</tbody></table></div>')
+
+    def h3rule(text):
+        parts = text.split("·", 1)
+        sub = f' <span class="sub">· {esc(parts[1].strip())}</span>' if len(parts) > 1 else ""
+        return f'<div class="h3rule">{esc(parts[0].strip())}{sub}</div>'
+
+    ideo_tbl = tbl(M.IDEO_TABLE, ["38%", "22%"])
+    std_tbl = tbl(M.TECH_STANDARDS, ["24%", "26%"])
+    soft_tbl = tbl(M.TECH_SOFTWARE, ["24%", "22%"])
+    mod_tbl = tbl(M.TECH_MODULES, ["20%", "44%"])
+
+    verdict_ideo = next((v for v in M.VERDICTS if v["title"].startswith("Принцип")), M.VERDICTS[0])
+    verdict_acc = next((v for v in M.VERDICTS if v["title"].startswith("Критерий")), M.VERDICTS[-1])
+
+    opts = "".join(f'<option value="{esc(m["id"])}">{esc(m["code"])} · {esc(m["name"])}</option>'
+                   for m in M.sorted_by_code())
+
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Методы исследования инфополя · {cfg['brand']}</title>
+<meta name="description" content="Реестр методик исследования инфополя издания «Гудок» v{M.VERSION}: {cnt['total']} паспортов методик, сквозной раздел «Идеология и гегемония», оценка неопределённости, стенд испытаний, техконтур из открытых стандартов.">
+<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<style>{CSS}{METHODS_CSS}</style></head><body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Проекты издания<br>реестр методик v{M.VERSION} и техконтур
+<div class="mast-actions">{THEME_BTN}</div></div>
+</div></header>
+{nav_html}
+<main id="main">
+<div class="wrap1200" style="padding-top:20px;">
+
+<div class="sec-head" style="margin-top:0;"><h2>Методы исследования инфополя</h2><div class="line"></div>
+<div class="badge">реестр v{M.VERSION} · {cnt['total']} методик</div></div>
+<div class="note" style="margin-bottom:6px;">{M.NOTES[0]}</div>
+<div class="note" style="border-left-color:var(--rule);">{M.NOTES[1]}</div>
+
+<div class="kpi-grid" style="margin-top:22px;">
+<div class="kpi"><div class="num">{cnt['total']}</div><div class="lbl">методик в реестре</div></div>
+<div class="kpi"><div class="num">{cnt['work']}</div><div class="lbl">работают на платформе</div></div>
+<div class="kpi"><div class="num">{cnt['test']}</div><div class="lbl">в тестировании</div></div>
+<div class="kpi"><div class="num">{cnt['queue']}</div><div class="lbl">в очереди</div></div>
+<div class="kpi"><div class="num">{cnt['ideo']}</div><div class="lbl">методик идеологического блока</div></div>
+<div class="kpi"><div class="num">{cnt['standards']}</div><div class="lbl">открытых стандартов и форматов</div></div>
+</div>
+</div>
+
+<div class="sec-head" id="reestr"><h2>Реестр методик</h2><div class="line"></div>
+<div class="badge">показано <span id="cntShown">{cnt['total']}</span> из {cnt['total']}</div></div>
+<div class="wrap1200">
+<div class="filters" id="fGroup" role="group" aria-label="Фильтр по группе">{''.join(g_chips)}</div>
+<div class="filters" id="fStatus" role="group" aria-label="Фильтр по статусу">{''.join(s_chips)}</div>
+<p class="feed-empty hidden" id="mEmpty">По этому фильтру методик нет —
+<button type="button" class="btn" onclick="_mReset()">показать все</button></p>
+<div class="mgrid" id="mGrid">
+{''.join(cards)}
+</div>
+</div>
+
+<div class="sec-head" id="ideo"><h2>{esc(M.IDEO_TITLE)}</h2><div class="line"></div>
+<div class="badge">сквозной раздел · {cnt['ideo']} методик</div></div>
+<div class="wrap1200">
+<div class="note" style="margin-bottom:14px;">{M.NOTES[2]}</div>
+{ideo_tbl}
+<div class="verdict"><b>{esc(verdict_ideo['title'])}</b>{esc(verdict_ideo['text'])}</div>
+</div>
+
+<div class="sec-head" id="tech"><h2>Техконтур: открытые стандарты и решения</h2><div class="line"></div>
+<div class="badge">только открытое</div></div>
+<div class="wrap1200">
+<div class="note" style="margin-bottom:18px;">{M.NOTES[3]}</div>
+{h3rule(M.H3RULES[0])}
+{std_tbl}
+{h3rule(M.H3RULES[1])}
+{soft_tbl}
+<div class="note">{M.TECH_NOTE}</div>
+{h3rule(M.H3RULES[2])}
+{mod_tbl}
+</div>
+
+<div class="sec-head" id="stand"><h2>Стенд испытания методик</h2><div class="line"></div>
+<div class="badge">протокол за 30 секунд</div></div>
+<div class="wrap1200">
+<div class="note" style="margin-bottom:14px;">{M.NOTES[4]}</div>
+<div class="proto-form">
+<label>Методика<select id="protoMethod" aria-label="Выбор методики">{opts}</select></label>
+<label>Контрольная выборка<select id="protoSize" aria-label="Объём выборки">
+<option>100</option><option selected>200</option><option>400</option></select></label>
+<button type="button" class="btn gold" onclick="_mProto()">Сформировать протокол</button>
+<button type="button" class="btn" id="copyBtn" onclick="_mCopy()">скопировать</button>
+</div>
+<pre class="proto" id="protoOut" hidden></pre>
+<div class="verdict"><b>{esc(verdict_acc['title'])}</b>{esc(verdict_acc['text'])}</div>
+<div class="note">Серверный аналог протокола — <code>methods.py → protocol()</code>: тот же текст
+собирается на Python и покрыт тестами, поэтому бумажный протокол и стенд на странице не разъедутся.</div>
+</div>
+
+<div class="wrap1200"><div class="note" style="margin-top:26px;">Связано:
+<a href="infospace.html" style="color:var(--accent);">дашборд «Инфопространство»</a> ·
+<a href="plans.html#method" style="color:var(--accent);">внедрение методов в планах</a> ·
+<a href="projects/elections_2026.html" style="color:var(--accent);">досье «Выборы-2026»</a> ·
+<a href="projects/goszakupki.html" style="color:var(--accent);">досье «Госзакупки»</a> ·
+<a href="status.html" style="color:var(--accent);">статус системы</a>.
+Реестр методик — редакционный документ: правится в <code>methods.py</code>, страница пересобирается
+конвейером. Собрано {now:%d.%m.%Y %H:%M} (UTC+4).</div></div>
+</main>
+{footer.render_footer('')}
+{METHODS_JS}
+</body></html>"""
+
+
 GZ_RE = None
 
 
@@ -3042,7 +3429,7 @@ def render_goszakupki(cfg, trends, store, status, an):
     if GZ_RE is None:
         GZ_RE = _re.compile(cfg.get("goszakupki_keywords", "закуп|тендер|аукцион"), _re.I)
     now = datetime.now(UTC4)
-    nav_html = render_nav(cfg, "projects", "../")
+    nav_html = render_nav(cfg, "projects", "../", subnav=subnav_projects("../", "goszakupki"))
     week_ago = now - timedelta(days=7)
     live = [it for it in store if not it.get("dup_of") and local_dt(it.get("published"))]
     gz = [it for it in live if GZ_RE.search(f"{it.get('title','')} {(it.get('text') or '')[:300]}")]
@@ -4708,7 +5095,7 @@ def render_infospace(cfg, trends, store, status, info):
 <div class="mast-side mast-side--right">Исследование инфопространства<br>период: 7 дней
 <div class="mast-actions">{THEME_BTN}</div></div>
 </div></header>
-{render_nav(cfg, "infospace", "")}
+{render_nav(cfg, "projects", "", subnav=subnav_projects("", "infospace"))}
 
 <div class="page">
 
@@ -5528,7 +5915,8 @@ def render_archive(cfg, trends, store, status):
     proj = [("projects/elections_2026.html", "Выборы-2026", "спецвыпуск: губернатор, Госдума, довыборы в ЗСО"),
             ("projects/goszakupki.html", "Госзакупки", "аналитика закупок региона"),
             ("infospace.html", "Инфопространство", "сеттеры повестки, каскады, тон, территории"),
-            ("plans.html", "Планы и методы", "треки планов · реестр из 32 метрик · паспорта · конвейер внедрения"),
+            ("methods.html", "Методы", "реестр из 36 методик с паспортами · идеология и гегемония · техконтур · стенд"),
+            ("plans.html", "Планы", "треки планов · реестр из 32 метрик · паспорта · конвейер внедрения"),
             ("afisha.html", "Афиша", "культурные события области, автоизвлечение")]
     proj_cards = "".join(
         f'<a class="proj-card" href="{href}"><b>{esc(name)}</b><span>{esc(desc)}</span></a>'
@@ -6187,7 +6575,11 @@ def main():
                                      load_json(os.path.join(DATA, "analytics.json")) or {}))
     with open(os.path.join(BASE, "plans.html"), "w", encoding="utf-8") as f:
         f.write(plans_html)
-    print("[generate] планы и методы: plans.html")
+    print("[generate] планы: plans.html")
+    methods_html = themed(render_methods(cfg, trends, store, status))
+    with open(os.path.join(BASE, "methods.html"), "w", encoding="utf-8") as f:
+        f.write(methods_html)
+    print("[generate] методы: methods.html (реестр методик v1.1)")
 
     special_files = sorted(glob.glob(os.path.join(SPECIAL, "*.html")))
     index_html = themed(render_index(cfg, trends, store, status, digest_files, special_files))

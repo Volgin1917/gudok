@@ -1478,7 +1478,8 @@ class TestPageStructure(unittest.TestCase):
     Проверяем сгенерированные страницы: баланс div, единая глубина разделов,
     отсутствие оборванных тегов."""
 
-    PAGES = ("infospace.html", "index.html", "digests/today.html", "plans.html")
+    PAGES = ("infospace.html", "index.html", "digests/today.html", "plans.html",
+             "methods.html")
 
     @staticmethod
     def _read(path):
@@ -3195,6 +3196,165 @@ class TestPlansPage(unittest.TestCase):
         html = self._read("plans.html")
         self.assertEqual(html.count("<div"), html.count("</div>"))
         self.assertEqual(html.count("<table"), html.count("</table>"))
+
+class TestMethodsRegistry(unittest.TestCase):
+    """Реестр методик (methods.py): целостность редакционных данных v1.1."""
+
+    def test_codes_unique_and_numbered(self):
+        import methods as M
+        codes = [m["code"] for m in M.METHODS]
+        self.assertEqual(len(codes), len(set(codes)), "коды методик должны быть уникальны")
+        nums = sorted(M.code_num(c) for c in codes)
+        self.assertEqual(nums, list(range(1, len(codes) + 1)))
+
+    def test_statuses_and_groups_known(self):
+        import methods as M
+        for m in M.METHODS:
+            self.assertIn(m["status"], M.STATUS, m["code"])
+            self.assertIn(m["group"], M.GROUP_TITLE, m["code"])
+
+    def test_passport_fields_complete(self):
+        import methods as M
+        labels = {"Вход", "Выход", "Метрики качества", "Модуль платформы",
+                  "Неопределённость", "Порядок проверки на платформе"}
+        for m in M.METHODS:
+            got = {r["label"] for r in m["rows"]}
+            self.assertEqual(got, labels, f"{m['code']}: состав полей паспорта")
+            for r in m["rows"]:
+                self.assertTrue(r["text"].strip() or r["steps"], f"{m['code']}: пусто поле {r['label']}")
+            self.assertTrue(M.steps_of(m), f"{m['code']}: нет порядка проверки")
+            self.assertTrue(m["name"].strip() and m["ess"].strip(), m["code"])
+
+    def test_counts_consistent(self):
+        import methods as M
+        c = M.counts()
+        self.assertEqual(c["total"], len(M.METHODS))
+        self.assertEqual(c["work"] + c["test"] + c["queue"], c["total"])
+        self.assertEqual(c["ideo"], sum(1 for m in M.METHODS if m["ideo"]))
+        self.assertEqual(c["standards"], len(M.TECH_STANDARDS["rows"]))
+
+    def test_groups_cover_registry(self):
+        import methods as M
+        groups = M.by_group()
+        self.assertEqual(sum(len(v) for v in groups.values()), len(M.METHODS))
+        for key, _title, _short in M.GROUPS:
+            self.assertTrue(groups[key], f"группа {key} пуста")
+
+    def test_wilson_interval(self):
+        import methods as M
+        self.assertIn("±5.7", M.wilson_pp("300"))
+        self.assertIn("±6.9", M.wilson_pp(200))
+        self.assertIn("не применяется", M.wilson_pp("—"))
+        self.assertIn("не применяется", M.wilson_pp(""))
+
+    def test_protocol_matches_passport(self):
+        import methods as M
+        m = next(x for x in M.METHODS if x["code"] == "М-03")
+        txt = M.protocol(m, size=300, date_str="17.09.2026")
+        for needle in ("ПРОТОКОЛ ИСПЫТАНИЯ МЕТОДИКИ", "М-03", "Дедупликация",
+                       "dedup.py", "seed=42", "±5.7", "17.09.2026", "М-28"):
+            self.assertIn(needle, txt)
+        self.assertNotIn("..", txt, "двойная точка в протоколе")
+
+    def test_tables_shape(self):
+        import methods as M
+        self.assertEqual(len(M.IDEO_TABLE["rows"]), 7)
+        self.assertEqual(len(M.TECH_STANDARDS["rows"]), 17)
+        self.assertEqual(len(M.TECH_SOFTWARE["rows"]), 13)
+        self.assertEqual(len(M.TECH_MODULES["rows"]), 8)
+        self.assertEqual(len(M.VERDICTS), 2)
+        self.assertEqual(len(M.NOTES), 5)
+
+    def test_ideo_links_point_to_existing_cards(self):
+        import methods as M
+        ids = {m["id"] for m in M.METHODS}
+        for row in M.IDEO_TABLE["rows"]:
+            for href in re.findall(r'href="#([a-z0-9]+)"', " ".join(row)):
+                self.assertIn(href, ids, f"ссылка #{href} не ведёт на карточку")
+
+
+class TestMethodsPage(unittest.TestCase):
+    """Страница methods.html: общий стиль, самодостаточность, работа без JS."""
+
+    @staticmethod
+    def _read(name):
+        with open(os.path.join(BASE, name), encoding="utf-8") as f:
+            return f.read()
+
+    def test_page_exists_and_selfcontained(self):
+        html = self._read("methods.html")
+        self.assertIn("<!DOCTYPE html>", html)
+        self.assertNotIn("cdn.", html)
+        self.assertNotIn("<link rel=\"stylesheet\"", html)
+        ext = [u for u in re.findall(r'(?:src|href)="(https?://[^"]+)"', html)
+               if "github.com" not in u]
+        self.assertEqual(ext, [], "внешних ресурсов быть не должно")
+        self.assertIn("masthead", html)
+        self.assertIn("footer__inner", html)
+
+    def test_all_methods_rendered(self):
+        import methods as M
+        html = self._read("methods.html")
+        self.assertEqual(html.count('<details class="mcard"'), len(M.METHODS))
+        for m in M.METHODS:
+            self.assertIn(f'id="{m["id"]}"', html)
+            self.assertIn(m["name"], html)
+
+    def test_passports_open_without_js(self):
+        # нативный <details>, а не hidden-блок: паспорт доступен и без скрипта
+        html = self._read("methods.html")
+        self.assertNotIn('<div class="mdet" hidden>', html)
+        self.assertEqual(html.count("<summary"), len(re.findall(r'<details class="mcard"', html)))
+
+    def test_sections_and_filters(self):
+        html = self._read("methods.html")
+        for sec in ("Методы исследования инфополя", "Реестр методик", "Идеология и гегемония",
+                    "Техконтур: открытые стандарты и решения", "Стенд испытания методик"):
+            self.assertIn(f"<h2>{sec}</h2>", html)
+        self.assertIn('id="fGroup"', html)
+        self.assertIn('id="fStatus"', html)
+        self.assertIn('data-g="ideo"', html)
+        self.assertIn('id="protoMethod"', html)
+
+    def test_kpi_matches_registry(self):
+        import methods as M
+        html = self._read("methods.html")
+        c = M.counts()
+        for val, lbl in ((c["total"], "методик в реестре"), (c["work"], "работают на платформе"),
+                         (c["test"], "в тестировании"), (c["queue"], "в очереди"),
+                         (c["ideo"], "методик идеологического блока")):
+            self.assertIn(f'<div class="num">{val}</div><div class="lbl">{lbl}</div>', html)
+
+    def test_protocol_select_covers_registry(self):
+        import methods as M
+        html = self._read("methods.html")
+        sel = html[html.index('id="protoMethod"'):html.index("</select>")]
+        self.assertEqual(sel.count("<option"), len(M.METHODS))
+
+    def test_linked_from_projects_footer_archive_plans(self):
+        import footer
+        for page in ("projects.html", "archive.html", "plans.html", "infospace.html"):
+            self.assertIn("methods.html", self._read(page), page)
+        self.assertIn("methods.html", footer.render_footer(""))
+        self.assertIn("methods.html", footer.render_footer("../"))
+
+    def test_subnav_on_project_pages(self):
+        for page in ("methods.html", "plans.html", "projects.html"):
+            html = self._read(page)
+            self.assertIn("subnav-inner", html, page)
+            self.assertIn("Проекты:", html, page)
+
+    def test_autonomy_note_present(self):
+        # техконтур перечисляет внешние библиотеки — ядро остаётся на stdlib, это оговорено
+        html = self._read("methods.html")
+        self.assertIn("Примечание редакции", html)
+        self.assertIn("стандартная библиотека Python", html)
+
+    def test_page_structure_balanced(self):
+        html = self._read("methods.html")
+        self.assertEqual(html.count("<div"), html.count("</div>"))
+        self.assertEqual(html.count("<table"), html.count("</table>"))
+        self.assertEqual(html.count("<details"), html.count("</details>"))
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
