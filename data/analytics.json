@@ -1,5 +1,5 @@
 {
- "generated_local": "17.09.2026 09:08",
+ "generated_local": "17.09.2026 09:25",
  "calendar": [
   {
    "etype": "concert",
@@ -71,6 +71,31 @@
    "venue_city": "Димитровград",
    "venue_found": true,
    "geo": "Димитровград",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "score": 1.0
+  },
+  {
+   "etype": "concert",
+   "is_culture": true,
+   "district": true,
+   "date": "2026-09-20",
+   "date_end": null,
+   "time": "18:00",
+   "time_note": "",
+   "event_title": "Почитушки",
+   "title_is_fallback": false,
+   "title": "«Почитушки» – поэтический клуб и площадка, где локальные артисты (поэты, музыканты, актёры, художники и т.д.) …",
+   "url": "https://t.me/culturnik/9298",
+   "source": "t.me/culturnik",
+   "tier": 3,
+   "venue": "Молодёжный центр современного искусства",
+   "venue_addr": "ул. Минаева, 6",
+   "venue_district": "Железнодорожный район",
+   "venue_city": "Ульяновск",
+   "venue_found": true,
+   "geo": "Железнодорожный район",
    "price": "",
    "price_mode": "",
    "age": "",
@@ -284,44 +309,44 @@
    ]
   },
   {
-   "name": "недель · рабочих · осталось",
+   "name": "маркса · карла · проект",
    "terms": [
-    "недель",
-    "рабочих",
-    "осталось"
+    "маркса",
+    "карла",
+    "проект"
    ],
    "size": 3,
-   "coverage": 0.0,
+   "coverage": 0.33,
    "gap": true,
    "samples": [
     {
-     "title": "📆 Россиянам осталось работать всего 77 дней до Нового года. До конца года впереди ещё 17 рабочих недель, две и",
-     "url": "https://t.me/chpulsk/50762",
-     "source": "t.me/chpulsk",
-     "views": 1290
+     "title": "😱 На Карла Маркса сидит лиса",
+     "url": "https://t.me/insaid173/46961",
+     "source": "t.me/insaid173",
+     "views": 10800
     },
     {
-     "title": "🎄 До Нового года россиянам осталось отработать 77 дней — это 17 рабочих недель, две из них будут короткими. На",
-     "url": "https://t.me/chpul/34420",
-     "source": "t.me/chpul",
-     "views": 885
+     "title": "В Ульяновске снова заговорили о строительстве Еврейского религиозно-культурного центра на Карла Маркса, 16. Пр",
+     "url": "https://t.me/insaid173/47040",
+     "source": "t.me/insaid173",
+     "views": 5900
     },
     {
-     "title": "🎄 До Нового года осталось работать 77 дней. Всего до конца 2026 россиян ждут 17 рабочих недель, две из которых",
-     "url": "https://t.me/reporter73/52181",
-     "source": "t.me/reporter73",
-     "views": 52
+     "title": "В Ульяновске «оживили» проект строительства Еврейского религиозного центра на улице Карла Маркса Проект, о кот",
+     "url": "https://t.me/ulsk_73online/36003",
+     "source": "t.me/ulsk_73online",
+     "views": 957
     }
    ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": null,
-  "today_items": 0,
-  "today_pos": 650,
-  "today_neg": 447,
-  "today_neu": 827,
+  "today_score": 0.049,
+  "today_items": 48,
+  "today_pos": 667,
+  "today_neg": 459,
+  "today_neu": 853,
   "series": [
    {
     "date": "2026-09-04",
@@ -365,7 +390,7 @@
    },
    {
     "date": "2026-09-14",
-    "score": 0.095
+    "score": 0.097
    },
    {
     "date": "2026-09-15",
@@ -373,25 +398,34 @@
    },
    {
     "date": "2026-09-16",
-    "score": 0.07
+    "score": 0.074
    },
    {
     "date": "2026-09-17",
-    "score": null
+    "score": 0.049
    }
   ],
-  "by_category": {}
+  "by_category": {
+   "culture": 0.25,
+   "economy": -0.111,
+   "education": 0.5,
+   "health": 0.0,
+   "politics": 0.111,
+   "security": -0.63,
+   "society": 0.267,
+   "sport": 0.5
+  }
  },
  "credibility": [
   {
    "source": "Улпресса",
    "tier": 1,
    "type": "tg",
-   "total": 407,
-   "primary": 366,
-   "dup": 41,
-   "repost_rate": 0.1,
-   "views_median": 1350,
+   "total": 419,
+   "primary": 375,
+   "dup": 44,
+   "repost_rate": 0.11,
+   "views_median": 1210,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -399,11 +433,11 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 145,
-   "primary": 116,
-   "dup": 29,
-   "repost_rate": 0.2,
-   "views_median": 8900,
+   "total": 150,
+   "primary": 119,
+   "dup": 31,
+   "repost_rate": 0.21,
+   "views_median": 8590,
    "label": "первоисточник",
    "clickbait_rate": 0.01
   },
@@ -411,10 +445,10 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 109,
-   "primary": 96,
-   "dup": 13,
-   "repost_rate": 0.12,
+   "total": 115,
+   "primary": 100,
+   "dup": 15,
+   "repost_rate": 0.13,
    "views_median": 457,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -423,23 +457,35 @@
    "source": "chpul",
    "tier": 2,
    "type": "tg",
-   "total": 97,
+   "total": 98,
    "primary": 73,
-   "dup": 24,
-   "repost_rate": 0.25,
+   "dup": 25,
+   "repost_rate": 0.26,
    "views_median": 503,
-   "label": "первоисточник",
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 93,
-   "primary": 69,
-   "dup": 24,
+   "total": 97,
+   "primary": 72,
+   "dup": 25,
    "repost_rate": 0.26,
    "views_median": 5990,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "chpulsk",
+   "tier": 2,
+   "type": "tg",
+   "total": 94,
+   "primary": 59,
+   "dup": 35,
+   "repost_rate": 0.37,
+   "views_median": 2860,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -447,35 +493,47 @@
    "source": "ulpravda",
    "tier": 1,
    "type": "tg",
-   "total": 89,
-   "primary": 77,
-   "dup": 12,
-   "repost_rate": 0.13,
-   "views_median": 124,
+   "total": 92,
+   "primary": 81,
+   "dup": 11,
+   "repost_rate": 0.12,
+   "views_median": 117,
    "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "chpulsk",
-   "tier": 2,
-   "type": "tg",
-   "total": 89,
-   "primary": 56,
-   "dup": 33,
-   "repost_rate": 0.37,
-   "views_median": 2970,
-   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
    "source": "ulsk_73online",
    "tier": 2,
    "type": "tg",
-   "total": 83,
-   "primary": 79,
+   "total": 86,
+   "primary": 82,
    "dup": 4,
    "repost_rate": 0.05,
-   "views_median": 634,
+   "views_median": 628,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "ulkompr",
+   "tier": 3,
+   "type": "tg",
+   "total": 79,
+   "primary": 61,
+   "dup": 18,
+   "repost_rate": 0.23,
+   "views_median": 468,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "topor_ul",
+   "tier": 2,
+   "type": "tg",
+   "total": 76,
+   "primary": 58,
+   "dup": 18,
+   "repost_rate": 0.24,
+   "views_median": 1430,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -492,26 +550,14 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "ulkompr",
-   "tier": 3,
-   "type": "tg",
-   "total": 75,
-   "primary": 60,
-   "dup": 15,
-   "repost_rate": 0.2,
-   "views_median": 512,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "topor_ul",
+   "source": "dimitrovgradd",
    "tier": 2,
    "type": "tg",
-   "total": 74,
-   "primary": 57,
-   "dup": 17,
-   "repost_rate": 0.23,
-   "views_median": 1430,
+   "total": 73,
+   "primary": 65,
+   "dup": 8,
+   "repost_rate": 0.11,
+   "views_median": 1210,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -520,34 +566,22 @@
    "tier": 1,
    "type": "tg",
    "total": 72,
-   "primary": 56,
-   "dup": 16,
-   "repost_rate": 0.22,
-   "views_median": 96,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "dimitrovgradd",
-   "tier": 2,
-   "type": "tg",
-   "total": 71,
-   "primary": 64,
-   "dup": 7,
-   "repost_rate": 0.1,
-   "views_median": 1210,
-   "label": "первоисточник",
+   "primary": 54,
+   "dup": 18,
+   "repost_rate": 0.25,
+   "views_median": 91,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
    "source": "Репортёр73",
    "tier": 1,
    "type": "tg",
-   "total": 69,
-   "primary": 61,
+   "total": 70,
+   "primary": 62,
    "dup": 8,
-   "repost_rate": 0.12,
-   "views_median": 42,
+   "repost_rate": 0.11,
+   "views_median": 40,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -555,8 +589,8 @@
    "source": "ulsk_driver73",
    "tier": 2,
    "type": "tg",
-   "total": 67,
-   "primary": 54,
+   "total": 68,
+   "primary": 55,
    "dup": 13,
    "repost_rate": 0.19,
    "views_median": 447,
@@ -567,10 +601,10 @@
    "source": "dimitrovgradonline",
    "tier": 2,
    "type": "tg",
-   "total": 55,
-   "primary": 39,
-   "dup": 16,
-   "repost_rate": 0.29,
+   "total": 57,
+   "primary": 42,
+   "dup": 15,
+   "repost_rate": 0.26,
    "views_median": 392,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -579,8 +613,8 @@
    "source": "ulkoroche",
    "tier": 2,
    "type": "tg",
-   "total": 53,
-   "primary": 45,
+   "total": 54,
+   "primary": 46,
    "dup": 8,
    "repost_rate": 0.15,
    "views_median": 712,
@@ -591,8 +625,8 @@
    "source": "shugozhor73",
    "tier": 3,
    "type": "tg",
-   "total": 51,
-   "primary": 35,
+   "total": 52,
+   "primary": 36,
    "dup": 16,
    "repost_rate": 0.31,
    "views_median": 2630,
@@ -616,9 +650,9 @@
    "tier": 3,
    "type": "tg",
    "total": 46,
-   "primary": 37,
-   "dup": 9,
-   "repost_rate": 0.2,
+   "primary": 38,
+   "dup": 8,
+   "repost_rate": 0.17,
    "views_median": 3080,
    "label": "первоисточник",
    "clickbait_rate": 0.02
@@ -627,8 +661,8 @@
    "source": "Звезда (Новомалыклинский р-н)",
    "tier": 1,
    "type": "rss",
-   "total": 38,
-   "primary": 35,
+   "total": 39,
+   "primary": 36,
    "dup": 3,
    "repost_rate": 0.08,
    "views_median": 53,
@@ -687,8 +721,8 @@
    "source": "ulpromo",
    "tier": 3,
    "type": "tg",
-   "total": 29,
-   "primary": 27,
+   "total": 30,
+   "primary": 28,
    "dup": 2,
    "repost_rate": 0.07,
    "views_median": 979,
@@ -699,10 +733,10 @@
    "source": "Ulnovosti.ru",
    "tier": null,
    "type": "rss",
-   "total": 24,
-   "primary": 23,
-   "dup": 1,
-   "repost_rate": 0.04,
+   "total": 27,
+   "primary": 25,
+   "dup": 2,
+   "repost_rate": 0.07,
    "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -711,11 +745,11 @@
    "source": "culturnik",
    "tier": 3,
    "type": "tg",
-   "total": 22,
-   "primary": 20,
+   "total": 24,
+   "primary": 22,
    "dup": 2,
-   "repost_rate": 0.09,
-   "views_median": 394,
+   "repost_rate": 0.08,
+   "views_median": 350,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -728,6 +762,18 @@
    "dup": 1,
    "repost_rate": 0.05,
    "views_median": 5620,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "Кумәк көч",
+   "tier": null,
+   "type": "rss",
+   "total": 19,
+   "primary": 19,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -768,11 +814,23 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "Кумәк көч",
+   "source": "Кузоватовские вести",
    "tier": null,
    "type": "rss",
-   "total": 14,
-   "primary": 14,
+   "total": 15,
+   "primary": 10,
+   "dup": 5,
+   "repost_rate": 0.33,
+   "views_median": null,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "Администрация г. Ульяновска",
+   "tier": 1,
+   "type": "web",
+   "total": 15,
+   "primary": 15,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": null,
@@ -792,35 +850,11 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "Кузоватовские вести",
-   "tier": null,
-   "type": "rss",
-   "total": 13,
-   "primary": 8,
-   "dup": 5,
-   "repost_rate": 0.38,
-   "views_median": null,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "Администрация г. Ульяновска",
-   "tier": 1,
-   "type": "web",
-   "total": 12,
-   "primary": 12,
-   "dup": 0,
-   "repost_rate": 0.0,
-   "views_median": null,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "vmkononov",
    "tier": 1,
    "type": "tg",
-   "total": 11,
-   "primary": 11,
+   "total": 12,
+   "primary": 12,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 36,
@@ -842,90 +876,82 @@
  ],
  "forecast": [
   {
-   "topic": "schools",
-   "name": "Школы и вузы",
-   "expected": 8.4,
-   "slope": -5.0,
+   "topic": "cityday",
+   "name": "День города (378 лет)",
+   "expected": 0.0,
+   "slope": -4.32,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "cityday",
-   "name": "День города (378 лет)",
-   "expected": 0.0,
-   "slope": -4.43,
+   "topic": "schools",
+   "name": "Школы и вузы",
+   "expected": 13.8,
+   "slope": -4.18,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 21.6,
-   "slope": -4.25,
+   "expected": 26.8,
+   "slope": -3.5,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "uav",
    "name": "БПЛА и воздушные угрозы",
-   "expected": 2.7,
-   "slope": -3.96,
+   "expected": 6.3,
+   "slope": -3.43,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 19.6,
-   "slope": -3.89,
+   "expected": 23.6,
+   "slope": -3.29,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "governor",
    "name": "Губернатор / власть",
-   "expected": 13.6,
-   "slope": -3.61,
+   "expected": 18.3,
+   "slope": -2.86,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "culture",
    "name": "Культура и туризм",
-   "expected": 3.9,
-   "slope": -2.68,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "weather",
-   "name": "Погода",
-   "expected": 3.7,
-   "slope": -1.96,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "cityspace",
-   "name": "Городская среда",
-   "expected": 11.8,
-   "slope": -1.86,
+   "expected": 4.7,
+   "slope": -2.57,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "avia",
    "name": "Авиапром / УКБП / Ил-114",
-   "expected": 0.0,
-   "slope": -1.71,
+   "expected": 0.3,
+   "slope": -1.61,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "sport",
-   "name": "Спорт",
-   "expected": 10.0,
-   "slope": -1.5,
+   "topic": "budget",
+   "name": "Бюджет-2027",
+   "expected": 14.7,
+   "slope": 1.43,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "cityspace",
+   "name": "Городская среда",
+   "expected": 14.7,
+   "slope": -1.43,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -938,58 +964,66 @@
    "confidence": "средняя"
   },
   {
-   "topic": "export",
-   "name": "Экспорт и кооперация",
-   "expected": 3.7,
-   "slope": -1.18,
+   "topic": "weather",
+   "name": "Погода",
+   "expected": 8.8,
+   "slope": -1.21,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "sport",
+   "name": "Спорт",
+   "expected": 12.9,
+   "slope": -1.07,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "uaz",
    "name": "УАЗ / Соллерс",
-   "expected": 0.0,
-   "slope": -1.0,
+   "expected": 0.1,
+   "slope": -0.93,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "budget",
-   "name": "Бюджет-2027",
-   "expected": 11.1,
-   "slope": 0.86,
-   "direction": "рост",
+   "topic": "export",
+   "name": "Экспорт и кооперация",
+   "expected": 6.6,
+   "slope": -0.75,
+   "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "zhkh",
    "name": "ЖКХ, газ, тепло",
-   "expected": 5.0,
-   "slope": -0.64,
-   "direction": "спад",
-   "confidence": "средняя"
+   "expected": 6.8,
+   "slope": -0.36,
+   "direction": "плато",
+   "confidence": "низкая"
   },
   {
    "topic": "elections",
    "name": "Выборы-2026",
-   "expected": 6.1,
-   "slope": -0.54,
-   "direction": "спад",
-   "confidence": "средняя"
+   "expected": 7.9,
+   "slope": -0.25,
+   "direction": "плато",
+   "confidence": "низкая"
   },
   {
    "topic": "medicine",
    "name": "Медицина",
-   "expected": 10.6,
-   "slope": -0.54,
-   "direction": "спад",
-   "confidence": "средняя"
+   "expected": 14.2,
+   "slope": 0.04,
+   "direction": "плато",
+   "confidence": "низкая"
   },
   {
    "topic": "harvest",
    "name": "Урожай и АПК",
-   "expected": 1.0,
-   "slope": -0.11,
+   "expected": 1.8,
+   "slope": 0.0,
    "direction": "плато",
    "confidence": "низкая"
   }
@@ -1158,6 +1192,33 @@
    ]
   },
   {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-17",
+   "date_end": null,
+   "time": "00:14",
+   "time_note": "",
+   "event_title": "⚡️ Опасность БПЛА объявлена в Ульяновской области с 00:14",
+   "title_is_fallback": false,
+   "title": "⚡️ Опасность БПЛА объявлена в Ульяновской области с 00:14 17 сентября ⚠️ Внимание! Оперативные каналы Ульяновс…",
+   "url": "https://t.me/tresh_ulyan/56270",
+   "source": "t.me/tresh_ulyan",
+   "tier": 2,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "geo": "",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "дайджест/норма: дата — не события"
+   ]
+  },
+  {
    "etype": "sport",
    "is_culture": false,
    "district": true,
@@ -1312,6 +1373,33 @@
    "venue_city": "",
    "venue_found": false,
    "geo": "Ульяновск",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "тип: новость, не перечневое культурное событие"
+   ]
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-20",
+   "date_end": null,
+   "time": "08:00",
+   "time_note": "",
+   "event_title": "Единая Россия",
+   "title_is_fallback": false,
+   "title": "«Единая Россия» запустила горячую линию по вопросам выборов",
+   "url": "https://ulpressa.ru/2026/09/17/edinaya-rossiya-zapustila-goryachuyu-liniyu-po-voprosam-vyborov/",
+   "source": "Улпресса",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "geo": "",
    "price": "",
    "price_mode": "",
    "age": "",
@@ -1536,18 +1624,18 @@
    ]
   },
   {
-   "etype": "other",
+   "etype": "sport",
    "is_culture": false,
    "district": true,
    "date": "2026-09-21",
    "date_end": null,
    "time": "",
    "time_note": "уточняется",
-   "event_title": "Строительно-монтажного управления-96",
-   "title_is_fallback": false,
-   "title": "В Ульяновске рассматривают самое крупное и долгое дело автоподставщиков в России",
-   "url": "https://ulpressa.ru/2026/09/16/v-ulyanovske-rassmatrivayut-samoe-krupnoe-i-dolgoe-delo-avtopodstavshhikov-v-rossii/",
-   "source": "Улпресса",
+   "event_title": "спортивное событие",
+   "title_is_fallback": true,
+   "title": "Страховая расплата. В Ульяновске рассматривают самое крупное и долгое дело автоподставщиков",
+   "url": "https://ulnovosti.ru/tema-dnya/strahovaya-rasplata-v-ulyanovske-rassmatrivajut-samoe-krupnoe-i-dolgoe-delo-avtopodstavshhikov/",
+   "source": "Ulnovosti.ru",
    "tier": null,
    "venue": "",
    "venue_addr": "",
@@ -1644,6 +1732,33 @@
    ]
   },
   {
+   "etype": "kids",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-26",
+   "date_end": null,
+   "time": "09:00",
+   "time_note": "",
+   "event_title": "Кросс нации",
+   "title_is_fallback": false,
+   "title": "26 сентября в Ульяновске пройдёт «Кросс нации»",
+   "url": "https://ulpressa.ru/2026/09/17/26-sentyabrya-v-ulyanovske-projdyot-kross-naczii/",
+   "source": "Улпресса",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "geo": "",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "нет площадки"
+   ]
+  },
+  {
    "etype": "other",
    "is_culture": false,
    "district": true,
@@ -1693,6 +1808,33 @@
    "price": "",
    "price_mode": "",
    "age": "",
+   "reasons": [
+    "тип: новость, не перечневое культурное событие"
+   ]
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": true,
+   "date": "2026-09-28",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "күмәк көч",
+   "title_is_fallback": false,
+   "title": "Стала известна дата старта отопительного сезона в Ульяновске",
+   "url": "https://kumiakk.ru/?p=20224",
+   "source": "Кумәк көч",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "geo": "Старокулаткинский район",
+   "price": "",
+   "price_mode": "",
+   "age": "12+",
    "reasons": [
     "тип: новость, не перечневое культурное событие"
    ]
@@ -2077,10 +2219,10 @@
   }
  ],
  "calendar_passport": {
-  "found_dates": 58,
-  "accepted": 5,
-  "rejected": 40,
+  "found_dates": 65,
+  "accepted": 6,
+  "rejected": 44,
   "venues_new": {},
-  "run_local": "17.09.2026 09:08"
+  "run_local": "17.09.2026 09:25"
  }
 }

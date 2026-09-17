@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": false,
-  "items": 0,
-  "error": "<urlopen error [Errno 101] Network is unreachable>"
+  "ok": true,
+  "items": 10,
+  "error": null
  },
  "rss:Улпресса": {
   "ok": true,
@@ -61,7 +61,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 8,
+  "items": 9,
   "error": null,
   "title": "Репортёр73"
  },
@@ -73,7 +73,7 @@
  },
  "tg:vmkononov": {
   "ok": true,
-  "items": 5,
+  "items": 3,
   "error": null,
   "title": "Владимир Кононов (депутат Госдумы)"
  },
@@ -103,31 +103,31 @@
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 8,
+  "items": 6,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 9,
+  "items": 10,
   "error": null,
   "title": "Информационный Димитровград"
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 14,
+  "items": 15,
   "error": null,
   "title": "Топор Ульяновск"
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 7,
+  "items": 8,
   "error": null,
   "title": "Короче, Ульяновск"
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 7,
+  "items": 8,
   "error": null,
   "title": "Типичный Димитровград"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-09-17T04:29:08.136932+00:00",
-  "last_run_local": "17.09.2026 08:29",
-  "fetched": 479,
-  "new": 47,
-  "total_store": 2319
+  "last_run_utc": "2026-09-17T05:17:59.152032+00:00",
+  "last_run_local": "17.09.2026 09:17",
+  "fetched": 490,
+  "new": 24,
+  "total_store": 2343
  },
  "rss:Улград": {
   "ok": true,
