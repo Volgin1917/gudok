@@ -1,5 +1,5 @@
 {
- "generated_local": "17.09.2026 14:16",
+ "generated_local": "17.09.2026 15:06",
  "calendar": [
   {
    "etype": "concert",
@@ -127,6 +127,36 @@
     "t.me/reporter73"
    ],
    "also_n": 2
+  },
+  {
+   "etype": "expo",
+   "is_culture": true,
+   "district": true,
+   "date": "2026-09-18",
+   "date_end": null,
+   "time": "18:30",
+   "time_note": "",
+   "event_title": "Перформативная ночная экскурсия по",
+   "title_is_fallback": false,
+   "title_kind": "kind",
+   "title": "18 сентября, 18:30 | Перформативная ночная экскурсия по выставке «Шесть истории о городе» | МЦСИ Выставка «Шес…",
+   "url": "https://t.me/ulpromo/18023",
+   "source": "t.me/ulpromo",
+   "tier": 3,
+   "venue": "Молодёжный центр современного искусства",
+   "venue_addr": "ул. Минаева, 6",
+   "venue_district": "Железнодорожный район",
+   "venue_city": "Ульяновск",
+   "venue_found": true,
+   "venue_how": "text",
+   "geo": "Железнодорожный район",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [],
+   "score": 1.0,
+   "also": [],
+   "also_n": 0
   },
   {
    "etype": "kids",
@@ -374,37 +404,6 @@
    ]
   },
   {
-   "name": "комплексному · штаба · развитию",
-   "terms": [
-    "комплексному",
-    "штаба",
-    "развитию"
-   ],
-   "size": 3,
-   "coverage": 0.0,
-   "gap": true,
-   "samples": [
-    {
-     "title": "Трансляция заседания штаба по комплексному развитию Ульяновской области. В повестке: реализация нацпроекта \"Эк",
-     "url": "https://t.me/ulpravda/41043",
-     "source": "t.me/ulpravda",
-     "views": 124
-    },
-    {
-     "title": "⚡️ Заседание штаба по комплексному развитию Ульяновской области. Смотрите прямую трансляцию сегодня в 15:00. 🇷",
-     "url": "https://t.me/ulgovru/23714",
-     "source": "t.me/ulgovru",
-     "views": 87
-    },
-    {
-     "title": "Трансляция штаба по комплексному развитию города Ульяновска",
-     "url": "https://ulpressa.ru/2026/09/15/translyacziya-shtaba-po-kompleksnomu-razvitiyu-goroda-ulyanovska-7/",
-     "source": "Улпресса",
-     "views": null
-    }
-   ]
-  },
-  {
    "name": "противогазы · покупать · запрет",
    "terms": [
     "противогазы",
@@ -463,6 +462,37 @@
      "url": "https://t.me/chpul/34443",
      "source": "t.me/chpul",
      "views": 45
+    }
+   ]
+  },
+  {
+   "name": "интернационала · кирова · поворот",
+   "terms": [
+    "интернационала",
+    "кирова",
+    "поворот"
+   ],
+   "size": 3,
+   "coverage": 0.33,
+   "gap": true,
+   "samples": [
+    {
+     "title": "На перекрёстке улиц III Интернационала и Кирова расширили поворот До конца недели «Россети» должны перенести с",
+     "url": "https://t.me/ulpressa/74654",
+     "source": "t.me/ulpressa",
+     "views": 423
+    },
+    {
+     "title": "В Ульяновске р асширили поворот с улицы III Интернационала на Кирова Это работу для предотвращения дорожных за",
+     "url": "https://t.me/ulpravda/41058",
+     "source": "t.me/ulpravda",
+     "views": 61
+    },
+    {
+     "title": "На перекрёстке III Интернационала и Кирова расширили поворот",
+     "url": "https://ulpressa.ru/2026/09/15/na-perekryostke-iii-internaczionala-i-kirova-rasshirili-povorot/",
+     "source": "Улпресса",
+     "views": null
     }
    ]
   }
@@ -1403,33 +1433,6 @@
    "score": 0.46
   },
   {
-   "etype": "expo",
-   "is_culture": true,
-   "district": false,
-   "date": "2026-09-18",
-   "date_end": null,
-   "time": "18:30",
-   "time_note": "",
-   "event_title": "Шесть истории о городе",
-   "title_is_fallback": false,
-   "title": "18 сентября, 18:30 | Перформативная ночная экскурсия по выставке «Шесть истории о городе» | МЦСИ Выставка «Шес…",
-   "url": "https://t.me/ulpromo/18023",
-   "source": "t.me/ulpromo",
-   "tier": 3,
-   "venue": "",
-   "venue_addr": "",
-   "venue_district": "",
-   "venue_city": "",
-   "venue_found": false,
-   "geo": "",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [
-    "нет площадки"
-   ]
-  },
-  {
    "etype": "other",
    "is_culture": false,
    "district": false,
@@ -2295,8 +2298,9 @@
    "date_end": null,
    "time": "19:00",
    "time_note": "",
-   "event_title": "Атмосфера",
+   "event_title": "Концерт в мерцании 3000 свечей, от солистов оркестра « Атмосфера »",
    "title_is_fallback": false,
+   "title_kind": "kind",
    "title": "30 сентября в Ульяновске в 19:00 состоится концерт в мерцании 3000 свечей, от солистов оркестра « Атмосфера ».…",
    "url": "https://t.me/topor_ul/11656",
    "source": "t.me/topor_ul",
@@ -2306,13 +2310,16 @@
    "venue_district": "",
    "venue_city": "",
    "venue_found": false,
+   "venue_how": "",
    "geo": "Ульяновск",
-   "price": "",
-   "price_mode": "",
+   "price": "по билетам",
+   "price_mode": "paid",
    "age": "",
    "reasons": [
-    "промо канала"
-   ]
+    "промо канала",
+    "нет площадки"
+   ],
+   "score": 0.2
   },
   {
    "etype": "concert",
@@ -2593,6 +2600,37 @@
    "score": 0.46
   },
   {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-10-14",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "Международном фестивале …",
+   "title_is_fallback": false,
+   "title_kind": "kind",
+   "title": "😚 😚 😚 😚 Дан старт народному голосованию за финалистов Премии #МЫВМЕСТЕ 15 сентября на Международном фестивале …",
+   "url": "https://t.me/ulgovru/23774",
+   "source": "t.me/ulgovru",
+   "tier": 1,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "тип: новость, не перечневое культурное событие",
+    "нет площадки"
+   ],
+   "score": 0.46
+  },
+  {
    "etype": "sport",
    "is_culture": false,
    "district": true,
@@ -2624,9 +2662,9 @@
   }
  ],
  "calendar_passport": {
-  "found_dates": 66,
-  "accepted": 9,
-  "rejected": 46,
+  "found_dates": 69,
+  "accepted": 10,
+  "rejected": 48,
   "venues_new": {
    "Центр общественного наблюдения": 1,
    "ООО «Боулинг-центр» и ООО «Аэробоул»": 1,
@@ -2638,14 +2676,14 @@
   },
   "threshold": 0.55,
   "stats": {
-   "venue_text": 1,
+   "venue_text": 2,
    "venue_addr": 0,
    "venue_city": 2,
-   "title_composed": 8,
+   "title_composed": 9,
    "with_price": 3,
    "with_age": 0,
-   "rejected_no_venue": 36
+   "rejected_no_venue": 38
   },
-  "run_local": "17.09.2026 14:16"
+  "run_local": "17.09.2026 15:06"
  }
 }
