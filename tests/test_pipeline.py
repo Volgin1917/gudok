@@ -292,7 +292,11 @@ class TestAfishaGate(unittest.TestCase):
                      "Выставка «На крыше» пройдёт 12 октября в 20:00 📍 Бар «Земля».")
         full = self.run_full([it])
         self.assertEqual(len(full["accepted"]), 1)
-        self.assertEqual(full["accepted"][0]["event_title"], "На крыше")
+        # Спринт 3: название события описательное — слово-тип + имя, а не голое имя
+        self.assertEqual(full["accepted"][0]["event_title"], "Выставка «На крыше»")
+        self.assertEqual(full["accepted"][0]["title_kind"], "kind")
+        # прежний экстрактор имени в кавычках сохранён и доступен отдельно
+        self.assertEqual(analytics.event_title("Выставка «На крыше» пройдёт 12 октября."), "На крыше")
 
     def test_venue_resolve_quoted_in_text(self):
         r = analytics.venue_resolve("", "Матч пройдёт на стадионе «Труд», старт в 18:00.")
@@ -2817,6 +2821,229 @@ class TestFrontFeedV4(unittest.TestCase):
                                   "../", "width:1px")
         self.assertIn('alt="Альтернативный текст фото"', html)
         self.assertEqual(generate.photo_img({"photo": "/local.jpg"}, "../", ""), "")
+
+
+class TestAfishaVenueText(unittest.TestCase):
+    """Спринт 3: площадка из текста без маркера 📍, адрес и кандидаты в справочник."""
+
+    def test_venue_from_text_case_and_order(self):
+        r = analytics.venue_from_text("17 сентября в 17:30 в Кошелев Конгресс-холле пройдёт лекция.")
+        self.assertTrue(r)
+        self.assertEqual(r["name"], "Конгресс-холл «Кошелев»")
+        self.assertEqual(r["how"], "text")
+
+    def test_venue_from_text_rejects_lowercase_lookalike(self):
+        # «современные языковые модели» — не ДК «Современник»
+        self.assertIsNone(analytics.venue_from_text(
+            "На лекции разберут, как работают современные языковые модели и почему они ошибаются."))
+
+    def test_venue_from_text_rejects_generic_key(self):
+        # «Главный старт пройдёт…» — не стадион «Старт» (ключ «старт» слишком общий)
+        self.assertIsNone(analytics.venue_from_text(
+            "Главный старт пройдёт утром, регистрация на месте с 9:00."))
+
+    def test_venue_from_text_prefers_matching_address(self):
+        # два «Современника» в справочнике различаются улицей из текста
+        a = analytics.venue_from_text("Ярмарка откроется в «Современнике», Луначарского, 2А.")
+        b = analytics.venue_from_text("Ярмарка откроется в «Современнике», Рябикова, 2.")
+        self.assertTrue(a["name"].startswith("ККК"))
+        self.assertTrue(b["name"].startswith("ДК"))
+
+    def test_addr_from_text_lead_word(self):
+        self.assertEqual(
+            analytics.addr_from_text("Сбор гостей в 16:30. Адрес: Гончарова, 25, зал «Архангельский №1»."),
+            "Гончарова, 25")
+
+    def test_addr_from_text_parentheses(self):
+        self.assertEqual(analytics.addr_from_text("Ярмарка пройдёт (Карамзина, 3) и на Орской, 1."),
+                         "Карамзина, 3")
+
+    def test_addr_from_text_rejects_area_and_time(self):
+        self.assertEqual(analytics.addr_from_text("Дом площадью 398 квадратов на Московском шоссе."), "")
+        self.assertEqual(analytics.addr_from_text("Сбор в 16:30, начало в 17:00."), "")
+
+    def test_venue_candidates_finds_unknown_venue(self):
+        cands = analytics.venue_candidates(
+            "Концерт пройдёт во Дворце спорта «Волга-Спорт-Арена» 20 сентября.")
+        self.assertTrue(any("Волга-Спорт-Арена" in c for c in cands), cands)
+        self.assertEqual(len(cands), 1, "вложенные дубли должны схлопываться")
+
+    def test_venue_candidates_skips_generic_phrase(self):
+        self.assertEqual(analytics.venue_candidates("В городе открыли обновлённый кинозал."), [])
+
+    def test_mention_without_registry_still_a_venue(self):
+        it = {"title": "Праздник двора", "published": "2026-09-16T05:00:00+00:00", "source": "test",
+              "text": "Праздник состоится 24 сентября в 10:00 📍 Площадь Ленина. Вход свободный."}
+        full = analytics.extract_calendar_full([it], now=datetime(2026, 9, 17, tzinfo=UTC4))
+        self.assertEqual(len(full["accepted"]), 1)
+        e = full["accepted"][0]
+        self.assertIn("Площадь Ленина", e["venue"])
+        self.assertEqual(e["venue_how"], "mention")
+
+
+class TestEventTitleCompose(unittest.TestCase):
+    """Спринт 3: описательное название события вместо голого имени в кавычках."""
+
+    def test_match_versus_match(self):
+        t, kind = analytics.compose_event_title(
+            "Домашний матч ульяновской команды пройдёт на стадионе «Труд».",
+            "«Волга» примет костромской «Спартак» 18 сентября", "sport")
+        self.assertEqual(t, "Матч «Волга» — «Спартак»")
+        self.assertEqual(kind, "match")
+
+    def test_kind_phrase_cuts_second_kind(self):
+        t, kind = analytics.compose_event_title(
+            "Концерт группы «Мураками» 🎵 Презентация альбома «Невеста хочет домой».",
+            "Концерт группы «Мураками» 🎵 Презентация альбома «Невеста хочет домой».", "concert")
+        self.assertEqual(t, "Концерт группы «Мураками»")
+        self.assertEqual(kind, "kind")
+
+    def test_kind_phrase_keeps_hyphen_prefix(self):
+        t, _ = analytics.compose_event_title(
+            "Начало в 11:00, вход для зрителей свободный.",
+            "В Димитровграде 19 сентября пройдёт эндуро-гонка «Слободская балка»", "kids")
+        self.assertEqual(t, "Эндуро-гонка «Слободская балка»")
+
+    def test_kind_phrase_verb_is_a_boundary(self):
+        t, _ = analytics.compose_event_title(
+            "Выставка «На крыше» пройдёт 12 октября в 20:00 📍 Бар «Земля».", "Выставка", "expo")
+        self.assertEqual(t, "Выставка «На крыше»")
+
+    def test_kind_phrase_rejects_predicate(self):
+        # «Встреча будет посвящена…» — предложение, а не название: остаёмся на имени клуба
+        t, kind = analytics.compose_event_title(
+            "Первая встреча будет посвящена поэзии перестройки. 20 сентября, 18:00",
+            "«Почитушки» – поэтический клуб и площадка", "concert")
+        self.assertNotEqual(kind, "kind")
+        self.assertIn("Почитушки", t)
+
+    def test_all_caps_normalized(self):
+        self.assertEqual(
+            analytics._kind_phrase("ВЕЧЕР ПРОЗЫ 20 СЕНТЯБРЯ Ульяновские авторы читают произведения"),
+            "Вечер прозы")
+
+    def test_emoji_stripped(self):
+        t, _ = analytics.compose_event_title(
+            "Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли мама.",
+            "Караоке-баттл 🎤 Мама говорит, у тебя талант?", "concert")
+        self.assertNotIn("🎤", t)
+        self.assertTrue(t.startswith("Караоке-баттл"))
+
+    def test_duplicated_title_prefix_not_broken(self):
+        # коллектор дублирует заголовок в начало текста: повтор не должен ломать фразу
+        title = "Выставка «На крыше»"
+        t, kind = analytics.compose_event_title(f"{title} {title} пройдёт 12 октября в 20:00.", title, "expo")
+        self.assertEqual(kind, "kind")
+        self.assertEqual(t.count("Выставка"), 1)
+
+    def test_bare_kind_word_is_not_a_title(self):
+        self.assertEqual(analytics._kind_phrase("Выставка"), "")
+
+
+class TestAfishaPriceAge(unittest.TestCase):
+    """Спринт 3: цена входа и возрастной маркер для бейджей афиши."""
+
+    def test_free_entry(self):
+        self.assertEqual(analytics.extract_price("Вход свободный, приходите."),
+                         {"mode": "free", "text": "вход свободный"})
+
+    def test_free_with_registration(self):
+        p = analytics.extract_price("Вход свободный, нужна регистрация на сайте.")
+        self.assertEqual(p["mode"], "reg")
+
+    def test_price_range_dash_and_words(self):
+        self.assertEqual(analytics.extract_price("Билеты 300–700 ₽.")["text"], "300–700 ₽")
+        self.assertEqual(analytics.extract_price("Билеты от 500 до 1500 рублей.")["text"], "500–1500 ₽")
+
+    def test_tickets_link(self):
+        p = analytics.extract_price("💸 Билеты: clck.ru/3VjxX7")
+        self.assertEqual(p, {"mode": "paid", "text": "по билетам"})
+
+    def test_free_contributions(self):
+        self.assertEqual(analytics.extract_price("🏷 свободные взносы")["mode"], "free")
+
+    def test_number_without_price_context_ignored(self):
+        # штраф или сумма гранта ценой билета не считаются
+        self.assertEqual(analytics.extract_price("Штраф 1000 рублей за нарушение.")["mode"], "")
+
+    def test_age_explicit_and_category(self):
+        self.assertEqual(analytics.extract_age("Вход 18+"), "18+")
+        self.assertEqual(analytics.extract_age("Возрастная категория: 6+"), "6+")
+        self.assertEqual(analytics.extract_age("Детям до 6 лет бесплатно"), "")
+
+
+class TestAfishaClusterGate(unittest.TestCase):
+    """Спринт 3: порог входа по кластеру анонсов, городские события, порог уверенности."""
+
+    NOW = datetime(2026, 9, 17, tzinfo=UTC4)
+
+    def _it(self, title, text, source="test", **kw):
+        d = {"title": title, "text": text, "source": source,
+             "published": "2026-09-16T05:00:00+00:00"}
+        d.update(kw)
+        return d
+
+    def test_gate_applies_to_cluster_not_record(self):
+        # у перепечатки нет площадки, у первоисточника есть: событие проходит, also_n растёт
+        ev = ("Концерт группы «Ладо» состоится 24 сентября в 18:00 "
+              "📍 ДК «Современник», ул. Рябикова, 2. Вход свободный.")
+        items = [self._it("Концерт группы «Ладо»", ev, source="Улпресса"),
+                 self._it("Концерт группы «Ладо» 24 сентября",
+                          "Концерт группы «Ладо» пройдёт 24 сентября в 18:00.",
+                          source="@ulsk_73online")]
+        full = analytics.extract_calendar_full(items, now=self.NOW)
+        self.assertEqual(len(full["accepted"]), 1)
+        e = full["accepted"][0]
+        self.assertEqual(e["venue"], "ДК «Современник»")
+        self.assertEqual(e["also_n"], 1)
+
+    def test_city_wide_event_without_single_venue(self):
+        it = self._it("Фестиваль «Симбирская осень» пройдёт в Ульяновске",
+                      "Фестиваль пройдёт 26 сентября в Ульяновске, программа на нескольких сценах.")
+        full = analytics.extract_calendar_full([it], now=self.NOW)
+        self.assertEqual(len(full["accepted"]), 1)
+        e = full["accepted"][0]
+        self.assertEqual(e["venue"], analytics.CITY_WIDE_VENUE)
+        self.assertEqual(e["venue_how"], "city")
+
+    def test_multiday_range_with_po(self):
+        it = self._it("Ярмарки вакансий", "С 17 по 24 сентября в Ульяновске пройдут ярмарки вакансий.")
+        full = analytics.extract_calendar_full([it], now=self.NOW)
+        cands = full["accepted"] + full["rejected"]
+        self.assertTrue(cands)
+        self.assertEqual(cands[0]["date"], "2026-09-17")
+        self.assertEqual(cands[0]["date_end"], "2026-09-24")
+
+    def test_threshold_from_config(self):
+        it = self._it("Концерт группы «Ладо»",
+                      "Концерт состоится 24 сентября в 18:00 📍 ДК «Современник», ул. Рябикова, 2.")
+        cfg = {"settings": {"afisha": {"threshold": 0.99}}}
+        full = analytics.extract_calendar_full([it], now=self.NOW, cfg=cfg)
+        self.assertEqual(full["accepted"], [])
+        self.assertTrue(any("низкая уверенность" in r for r in full["rejected"][0]["reasons"]))
+
+    def test_passport_has_threshold_and_stats(self):
+        it = self._it("Концерт группы «Ладо»",
+                      "Концерт состоится 24 сентября в 18:00 📍 ДК «Современник», ул. Рябикова, 2.")
+        full = analytics.extract_calendar_full([it], now=self.NOW)
+        for key in ("venue_text", "venue_city", "venue_addr", "title_composed",
+                    "with_price", "rejected_no_venue"):
+            self.assertIn(key, full["stats"])
+        self.assertIn("threshold", full)
+
+    def test_checklist_title_rejected(self):
+        it = self._it("Для занятий спортом ребёнку необходимы:",
+                      "Список опубликован 24 сентября, подробности в тексте.")
+        full = analytics.extract_calendar_full([it], now=self.NOW)
+        self.assertEqual(full["accepted"], [])
+
+    def test_internal_fields_not_serializable_leak(self):
+        it = self._it("Концерт группы «Ладо»",
+                      "Концерт состоится 24 сентября в 18:00 📍 ДК «Современник», ул. Рябикова, 2.")
+        full = analytics.extract_calendar_full([it], now=self.NOW)
+        rec = (full["accepted"] + full["rejected"])[0]
+        self.assertFalse([k for k in rec if k.startswith("_")])
+        json.dumps(rec, ensure_ascii=False)   # не должно падать
 
 
 if __name__ == "__main__":

@@ -46,7 +46,7 @@ EVENT_HINTS = re.compile(
     r"запуск|введ|планиру|примут|прожив|заверш|продлится|объявлен|введён|введен|"
     r"стартует|пропуст|приед|выступ|вручат|чествов|состоится|включ")
 RE_DAY = re.compile(rf"(\d{{1,2}})\s*({MONTH_STEM})", re.I)
-RE_RANGE_SAME = re.compile(rf"(\d{{1,2}})\s*[–—-]\s*(\d{{1,2}})\s*({MONTH_STEM})", re.I)
+RE_RANGE_SAME = re.compile(rf"(\d{{1,2}})\s*(?:[–—-]|\bпо\b)\s*(\d{{1,2}})\s*({MONTH_STEM})", re.I)
 RE_RANGE_CROSS = re.compile(rf"(\d{{1,2}})\s*({MONTH_STEM})\w*\s*[–—-]\s*(\d{{1,2}})\s*({MONTH_STEM})", re.I)
 RE_TIME = re.compile(r"\b(\d{1,2})[:.](\d{2})\b")
 RE_VENUE = re.compile(r"📍\s*([^\n,]{3,70})")
@@ -141,6 +141,20 @@ def load_venues():
     return _VENUES_CACHE
 
 
+def _alias_cap_ok(alias, *sources):
+    """Короткий алиас («старт», «труд», «заря») — обычное слово: принимаем его,
+    только если в тексте он встречается с заглавной буквы или в КАПСе.
+    Иначе «Главный старт пройдёт…» превращается в стадион «Старт»."""
+    cap = alias.capitalize()
+    up = alias.upper()
+    for src in sources:
+        if src and re.search(r"(?<![а-яёa-z])" + re.escape(cap), src):
+            return True
+        if src and re.search(r"(?<![А-ЯЁA-Z])" + re.escape(up) + r"(?![а-яёa-z])", src):
+            return True
+    return False
+
+
 def venue_resolve(mention, blob=""):
     """Упоминание/текст → запись справочника. Возвращает {name, address, district, city, found}."""
     vdb = load_venues()
@@ -156,8 +170,12 @@ def venue_resolve(mention, blob=""):
         for key, v in vdb.items():
             names = [v.get("name", ""), key] + (v.get("keys") or [])
             for a in names:
-                a = re.sub(r"[«»\"'`.,;:]+", "", (a or "").strip().lower())
-                if a and (a == m_low or a in m_low or m_low in a):
+                a_norm = re.sub(r"[«»\"'`.,;:]+", "", (a or "").strip().lower())
+                if not a_norm:
+                    continue
+                if a_norm == m_low or a_norm in m_low or m_low in a_norm:
+                    if len(a_norm) < 6 and not _alias_cap_ok(a_norm, mention, blob):
+                        continue   # «старт» в значении «начало забега» — не стадион
                     cands.append(v)
                     break
         if cands:
@@ -194,6 +212,250 @@ def venue_resolve(mention, blob=""):
     return {"name": (mention or "").strip(), "address": "", "district": "", "city": "", "found": False}
 
 
+# Спринт 3: площадка без маркера 📍 — большинство источников его не ставит,
+# поэтому имя из справочника ищем в самом тексте (любой падеж и порядок слов).
+AF_TOK_RE = re.compile(r"[A-Za-zА-Яа-яЁё0-9]+")
+
+
+def _af_stem(word):
+    """Основа слова для сопоставления площадок: 6 первых букв, ё→е."""
+    w = (word or "").lower().replace("ё", "е")
+    return w[:6] if len(w) > 6 else w
+
+
+AF_PREP = frozenset(("в", "во", "на", "у"))
+AF_STOP = frozenset("""котор сегодня вчера завтра сентябр октябр ноябр декабр январ феврал март
+апрел июн июл август ульяновск ульяновской ульяновска области регионе город городе новость новости
+сообщил сообщает время также может будут будет около после через между очень более самый своем своих
+этот этого этой эти тех тот эта всего все весь всей людям люди человек дней дня день году года лет
+пройдет пройдёт состоится начнется начнётся откроется приглашает приглашают""".split())
+# слова-типы площадок: отличают «Дворец культуры «Губернаторский»» от «губернатора области»
+VENUE_TYPE_STEMS = frozenset(
+    _af_stem(w) for w in (
+        "дк", "дворец", "культуры", "дом", "парк", "сквер", "стадион", "арена", "манеж",
+        "театр", "музей", "галерея", "библиотека", "клуб", "бар", "филармония", "центр",
+        "площадь", "набережная", "трасса", "кинотеатр", "кинозал", "конгресс", "холл",
+        "университет", "институт", "академия", "школа", "цирк", "трц", "кафе", "ресторан",
+        "комплекс", "зал", "площадка", "молодёжный", "молодежный", "спорт", "фок",
+    )
+)
+# географические слова в имени площадки («Ульяновская областная филармония») не могут
+# быть опознавательным признаком: они есть почти в каждом тексте про регион
+AF_GEO_STEMS = frozenset(
+    _af_stem(w) for w in (
+        "ульяновская", "ульяновский", "ульяновск", "ульяновске", "ульяновской", "областная",
+        "областной", "область", "области", "город", "города", "городе", "район", "района",
+        "российская", "россии", "всероссийский", "международный", "центральный", "регион",
+        "региональный", "государственный", "муниципальный",
+    )
+)
+
+
+def _af_tokens(blob):
+    """Слова текста с признаками регистра и кавычек — для поиска площадок."""
+    out = []
+    src = blob or ""
+    for m in AF_TOK_RE.finditer(src):
+        w = m.group(0)
+        prev = src[m.start() - 1:m.start()] if m.start() else ""
+        out.append({"w": w, "st": _af_stem(w), "cap": w[0].isupper(), "quoted": prev in "«\"“"})
+    return out
+
+
+# слова-типы, которые сами по себе опознают площадку («филармония», «кинотеатр»):
+# «сервисы для молодёжи» не должны превращаться в парк «Молодёжный»
+AF_STRONG_TYPE_STEMS = frozenset(
+    _af_stem(w) for w in ("филармония", "кинотеатр", "библиотека", "университет",
+                          "конгресс", "цирк", "планетарий", "аквапарк", "консерватория"))
+
+
+def _af_alias_forms(entry, key):
+    """Формы алиасов записи справочника: (основы имени, основы слов-типов)."""
+    forms = []
+    for alias in [entry.get("name", ""), key] + (entry.get("keys") or []):
+        words = [w for w in AF_TOK_RE.findall(alias or "")
+                 if len(w) >= 2 and w.lower() not in AF_STOP]
+        if not words:
+            continue
+        stems = {_af_stem(w) for w in words}
+        typed = {s for s in stems if s in VENUE_TYPE_STEMS}
+        named = {s for s in stems if s not in VENUE_TYPE_STEMS and s not in AF_GEO_STEMS}
+        # «Ульяновская областная филармония»: собственного имени нет — опознаём по
+        # слову-типу, но только если оно однозначное (филармония, кинотеатр, …)
+        need = named or (typed if typed and typed <= AF_STRONG_TYPE_STEMS else set())
+        if need:
+            forms.append((need, typed))
+    return forms
+
+
+def venue_from_text(blob, window=4):
+    """Запись справочника площадок, встреченная в тексте без маркера 📍.
+
+    Сопоставление по набору основ: «в Кошелев Конгресс-холле» = «Конгресс-холл «Кошелев»»
+    (порядок слов и падеж не важны). Охраны от ложных срабатываний:
+      1. имя встречается с заглавной буквы или в кавычках — «современные языковые модели»
+         не принимается за ДК «Современник»;
+      2. все основы имени алиаса лежат в пределах window слов;
+      3. рядом предлог в/во/на/у либо слово-тип площадки из того же алиаса.
+    Возвращает запись справочника (с how="text") или None.
+    """
+    vdb = load_venues()
+    if not vdb:
+        return None
+    tk = _af_tokens(blob)
+    if not tk:
+        return None
+    best = None
+    for key, v in vdb.items():
+        for named, typed in _af_alias_forms(v, key):
+            anchor = max(named, key=len)
+            for i, t in enumerate(tk):
+                if t["st"] != anchor:
+                    continue
+                lo, hi = max(0, i - window), min(len(tk), i + window + 1)
+                win = tk[lo:hi]
+                if not named <= {x["st"] for x in win}:
+                    continue
+                alias_toks = [x for x in win if x["st"] in (named | typed)]
+                capok = any(x["cap"] or x["quoted"] for x in alias_toks)
+                typeok = bool(typed) and bool(typed & {x["st"] for x in win})
+                # «Дворец книги»: имя со строчной, но слово-тип на месте — этого достаточно;
+                # «современные языковые модели» без «ДК» площадкой не считается
+                if not (capok or typeok):
+                    continue
+                prep = any(tk[j]["w"].lower() in AF_PREP for j in range(max(0, i - 2), i))
+                # две площадки с одним именем («Современник» на Рябикова и на Луначарского)
+                # различаем по улице из адреса справочника, если она названа рядом
+                street = ""
+                m_addr = re.search(r"(?:ул\.?\s*|улиц\w+\s+)?([А-Яа-яЁё][\wё\-]{3,20}),?\s*\d",
+                                   v.get("address") or "")
+                if m_addr:
+                    street = _af_stem(m_addr.group(1))
+                addr_ok = int(bool(street) and street in {x["st"] for x in tk[max(0, i - 6):i + 7]})
+                rank = (len(named) + len(typed & {x["st"] for x in win}), addr_ok,
+                        int(capok), int(prep), -i)
+                if best is None or rank[:4] > best[0][:4]:
+                    best = (rank, v)
+                break
+    if not best:
+        return None
+    hit = dict(best[1])
+    hit["how"] = "text"
+    return hit
+
+
+AF_STREET = (r"(?:ул\.?|улиц\w+|пр-т|пр\.?|проспект\w*|пер\.?|переулок\w*|бульвар\w*|б-р|"
+             r"наб\.?|набережн\w+|шоссе|пл\.?|площадь|проезд\w*|тракт\w*)")
+# «Адрес: Гончарова, 25» — префикса улицы может не быть, тогда опираемся на вводное слово
+AF_ADDR_LEAD_RE = re.compile(
+    r"(?:адрес|по адресу|место(?:\s+проведения)?|сбор(?:\s+гостей)?|где)\s*[:—-]?\s*"
+    r"\(?\s*((?:" + AF_STREET + r"\s+)?[А-Яа-яЁё][\wё\-\. ]{2,38}?,?\s*\d+[А-Яа-я]?)", re.I)
+AF_ADDR_ANY_RE = re.compile(r"\b(" + AF_STREET + r"\s+[А-Яа-яЁё][\wё\-\.]{2,38},?\s+\d+[А-Яа-я]?)")
+AF_ADDR_PAREN_RE = re.compile(r"\(([A-Яа-яЁё][^()\n]{3,58}?,\s*\d+[А-Яа-я]?)\)")
+# «в Кошелев Конгресс-холле», «во Дворце книги» — площадка, которой нет в справочнике
+AF_CAND_TYPE_RE = re.compile(
+    r"\b(?:конгресс-?холл\w*|дворц(?:а|у|е|ом|ы|ев|ам|ами|ах)?|дк|"
+    r"дом[аеу]?\s+культур\w+|театр(?:а|у|е|ом|ы|ов|ам|ами|ах)?|музе\w+|библиотек\w+|"
+    r"стадион(?:а|у|е|ом|ы|ов|ам|ами|ах)?|арен(?:а|у|е|ой|ы)|"
+    r"парк(?:а|у|е|ом|и|ов|ам|ами|ах)?|сквер(?:а|у|е|ом|ы|ов|ам|ами|ах)?|"
+    r"клуб(?:а|у|е|ом|ы|ов|ам|ами|ах)?|бар(?:а|у|е|ом|ы|ов|ам|ами|ах)?|"
+    r"филармони\w+|цент(?:р|ра|ру|ре|ром|ры|ров|рам|рами|рах)|галере\w+|"
+    r"кинотеатр\w+|кинозал\w+|манеже|университет\w+|академи\w+|институт\w+|"
+    r"комплекс(?:а|у|е|ом|ы|ов|ам|ами|ах)?|зал(?:а|у|е|ом|ы|ов|ам|ами|ах)?|"
+    r"площадк\w+|трц|цирк(?:а|у|е|ом|и|ов)?|фок\w*)\b", re.I)
+AF_PHRASE_TOK_RE = re.compile(r"«[^»\n]{2,60}»|[A-Za-zА-Яа-яЁё0-9][\wё\-]*")
+AF_CAND_LEAD_STOP = frozenset(("как", "для", "и", "а", "но", "что", "где", "когда", "этот", "эта",
+                               "этого", "того", "его", "её", "ее", "их", "мы", "вы", "они", "уже",
+                               "все", "всё", "в", "во", "на", "с", "со", "к", "из", "от", "до", "по",
+                               "при", "у", "время", "акций", "месячника", "базе", "здания", "фасад"))
+
+
+def addr_from_text(blob):
+    """Адрес из текста: «Адрес: Гончарова, 25», «по адресу ул. Орская, 1», «(Карамзина, 3)».
+
+    Используется, когда название площадки в тексте не названо — адрес честно
+    показывается вместо площадки с пометкой venue_how="address"."""
+    src = blob or ""
+    for rx in (AF_ADDR_LEAD_RE, AF_ADDR_ANY_RE, AF_ADDR_PAREN_RE):
+        for m in rx.finditer(src):
+            addr = re.sub(r"\s+", " ", m.group(1)).strip(" ,.()")
+            # «площадью 398» — метраж, «период 14» — склейка из потока, «в 16:30» — время
+            if not re.search(r"\d+\s*[А-Яа-я]?$", addr):
+                continue
+            if re.search(r"площадью|период|сумм|тыс\.?|млн", addr, re.I):
+                continue
+            if len(addr) < 6 or not re.search(r"[А-Яа-яЁё]{3,}", addr):
+                continue
+            return addr[:120]
+    return ""
+
+
+def venue_candidates(blob):
+    """Неизвестные справочнику площадки — кандидаты на пополнение data/venues.json.
+
+    Фраза собирается вокруг слова-типа («дворец», «комплекс», «парк»…) по соседям
+    в кавычках и с заглавной буквы; мусор («в обновлённом кинозале») отсекается
+    требованием собственного имени во фразе."""
+    src = blob or ""
+    toks = [(m.start(), m.end(), m.group(0)) for m in AF_PHRASE_TOK_RE.finditer(src)]
+    out = []
+    for idx, (st, en, w) in enumerate(toks):
+        if not AF_CAND_TYPE_RE.fullmatch(re.sub(r"[«»]", "", w).strip()) and not AF_CAND_TYPE_RE.search(w):
+            continue
+        lo = hi = idx
+        # расширяем фразу, пока между словами нет разделителей и не встретилось сказуемое
+        while lo > 0 and src[toks[lo - 1][1]:toks[lo][0]].strip(" \t") == "":
+            if AF_VERB_RE.search(toks[lo - 1][2]):
+                break
+            lo -= 1
+            if lo < idx - 2:
+                break
+        while hi + 1 < len(toks) and src[toks[hi][1]:toks[hi + 1][0]].strip(" \t") == "":
+            if AF_VERB_RE.search(toks[hi + 1][2]):
+                break
+            hi += 1
+            if hi > idx + 2:
+                break
+        phrase = re.sub(r"\s+", " ", src[toks[lo][0]:toks[hi][1]]).strip(" ,.;:!—–")
+        # «Как рассказала руководитель … Центра» — служебные слова слева не часть названия
+        for _ in range(3):
+            words = phrase.split(" ")
+            if len(words) < 2:
+                break
+            first = words[0]
+            drop = (first.lower().strip("«»") in AF_CAND_LEAD_STOP
+                    or (first[:1].islower()
+                        and (not AF_CAND_TYPE_RE.fullmatch(first.rstrip(".,;:"))
+                             or any(w[:1].isupper() for w in words[1:]))))
+            if not drop:
+                break
+            phrase = " ".join(words[1:]).strip(" ,.;:!—–")
+        phrase = re.split(r"\s+\d{1,2}\s+(?:янв|фев|мар|апр|ма[йя]|июн|июл|авг|сен|окт|ноя|дек)\w*|"
+                          r"\s+\d{1,2}:\d{2}|\s+в\s+\d{1,2}:\d{2}", phrase, flags=re.I)[0].strip(" ,.;:!—–")
+        phrase = re.sub(r"\s+\d{1,2}$", "", phrase).strip(" ,.;:!—–")   # хвост даты без месяца
+        if len(phrase) < 6 or len(phrase) > 60 or not AF_CAND_TYPE_RE.search(phrase):
+            continue
+        names = [toks[i][2] for i in range(lo, hi + 1)]
+        has_quote = any(n.startswith("«") for n in names)
+        has_cap = any(n[0].isupper() for n in names)
+        if not (has_quote or has_cap):
+            continue
+        if venue_from_text(phrase) or venue_resolve(phrase).get("found"):
+            continue
+        dup = next((prev for prev in out if phrase in prev or prev in phrase), None)
+        if dup:
+            out.remove(dup)
+        out.append(phrase)
+    return out[:3]
+
+
+CITY_WIDE_RE = re.compile(
+    r"фестивал\w+|ярмарк\w+|кросс нации|день города|ночь (?:музеев|театров|кино|библиотек)|"
+    r"гулянь\w+|парад\w*|шестви\w+|во всех (?:четырёх|четырех|районах)|в (?:разных|нескольких) районах|"
+    r"по всему городу|площадк\w+ (?:заработ|откр|пройд)|в четырёх районах", re.I)
+CITY_WIDE_VENUE = "площадки города"
+
+
 def event_title(blob, max_chars=90):
     """Название события отдельным полем: кавычки → шаблон «Название: …» → заглавная строка."""
     if not blob:
@@ -225,29 +487,226 @@ def event_title(blob, max_chars=90):
     return None
 
 
+# ---------------------------------------------------------------- Спринт 3: описательное название
+# Голое имя («Волга», «Мураками», «Почитушки») читателю ничего не говорит, поэтому
+# название события собираем вокруг слова-типа: «Концерт группы «Мураками»»,
+# «Эндуро-гонка «Слободская балка»», «Матч «Волга» — «Спартак»».
+EVENT_KIND_RE = re.compile(
+    r"\b(концерт\w*|спектакл\w*|выставк\w*|экспозиц\w*|фестивал\w*|лекци\w*|мастер-класс\w*|"
+    r"ярмарк\w*|баттл\w*|караоке(?:-баттл\w*)?|гонк\w*|вечер|турнир\w*|забег\w*|кросс\w*|"
+    r"презентац\w*|кинопоказ\w*|показ|встреч[аи]\w*|экскурс\w*|форум\w*|праздник\w*|"
+    r"дискотек\w*|квест\w*|конкурс\w*|чемпионат\w*|первенств\w*|соревнован\w*|матч\w*|"
+    r"акци[яи]\w*|флешмоб\w*|конференц\w*|круглый стол|open\s?air|пленэр\w*|вернисаж\w*)\b", re.I)
+MATCH_VS_RE = re.compile(
+    r"«([^»\n]{2,40})»\s*"
+    r"(?:[—–-]|\bпри(?:мет|нима\w+|нял\w*)\b|\bвстретится с\b|\bсыгра(?:ет|ют) с\b|"
+    r"\bсразится с\b|\bпротив\b)\s*"
+    r"(?:[\w\-]+\s+)?«([^»\n]{2,40})»", re.I)
+AF_EMOJI_RE = re.compile(
+    "[\U0001F000-\U0001FAFF\U00002600-\U000027BF\U0001F1E6-\U0001F1FF\uFE0F\u200D"
+    "\u2B50\u2705\u274C\u2764]")
+AF_ADJ_RE = re.compile(
+    r"(?:ый|ий|ой|ая|яя|ое|ее|ые|ие|ых|их|ым|им|ом|ем|ую|юю|ей|нный|нная)$", re.I)
+AF_ROMAN_RE = re.compile(r"^(?:I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII|XIV|XV)+$", re.I)
+AF_DATE_TAIL_RE = re.compile(
+    r"\s+\d{1,2}\s+(?:янв|фев|мар|апр|ма[йя]|июн|июл|авг|сен|окт|ноя|дек)\w*|\s+в\s+\d{1,2}:\d{2}|"
+    r"\s+(?:начало|сбор|регистрация|вход|адрес|место|билеты)\b|[.!?;\n]|$", re.I)
+AF_PREPS = frozenset(("в", "во", "на", "с", "со", "к", "из", "от", "до", "по", "при", "у", "и", "а", "но"))
+# сказуемое внутри названия — признак того, что мы вырезали предложение, а не заголовок
+AF_VERB_RE = re.compile(
+    r"\b(?:будет|будут|проходит|пройдут|пройдёт|пройдет|состоится|состоятся|ожидается|"
+    r"приглашает|приглашают|расскажет|расскажут|посвящена|посвящён|посвящен|начинается|"
+    r"начнётся|начнется|откроется|открывается|проверим|ждёт|ждет|соберутся|выступит|"
+    r"выступят|сразятся|сыграет|объявлен\w*|продолжается|планируется|готовят|"
+    r"старту\w+|открыл\w+|открыта|рассказал\w+|сообщил\w+|назвал\w+|подтвердил\w+|"
+    r"состоятся|готовится|прошли|прошла|собрались|соберёт|соберет|собрал\w+|стала|стал)\b", re.I)
+# каноническое слово-тип: «на форуме …» → «Форум …» (ключ — 4 первых буквы слова-типа)
+EVENT_KIND_NORM = {}
+for _w, _label in (
+        ("концерт", "Концерт"), ("спектакль", "Спектакль"), ("выставка", "Выставка"),
+        ("экспозиция", "Экспозиция"), ("фестиваль", "Фестиваль"), ("лекция", "Лекция"),
+        ("мастер-класс", "Мастер-класс"), ("ярмарка", "Ярмарка"), ("баттл", "Баттл"),
+        ("караоке", "Караоке"), ("гонка", "Гонка"), ("вечер", "Вечер"), ("турнир", "Турнир"),
+        ("забег", "Забег"), ("кросс", "Кросс"), ("презентация", "Презентация"),
+        ("кинопоказ", "Кинопоказ"), ("показ", "Показ"), ("встреча", "Встреча"),
+        ("экскурсия", "Экскурсия"), ("форум", "Форум"), ("праздник", "Праздник"),
+        ("дискотека", "Дискотека"), ("квест", "Квест"), ("конкурс", "Конкурс"),
+        ("чемпионат", "Чемпионат"), ("первенство", "Первенство"), ("соревнования", "Соревнования"),
+        ("матч", "Матч"), ("акция", "Акция"), ("флешмоб", "Флешмоб"), ("конференция", "Конференция"),
+        ("круглый стол", "Круглый стол"), ("open air", "Open air"), ("пленэр", "Пленэр"),
+        ("вернисаж", "Вернисаж")):
+    EVENT_KIND_NORM[_w.lower().replace("ё", "е")[:4]] = _label
+
+
+def _af_title_case(phrase):
+    """«ВЕЧЕР ПРОЗЫ» → «Вечер прозы»; обычный регистр не трогаем.
+
+    Второй веткой чиним хвост после канонизации слова-типа: «Вечер ПРОЗЫ»."""
+    if phrase.isupper() and len(phrase) <= 45:
+        return phrase.capitalize()
+    words = phrase.split(" ")
+    tail = [w for w in words[1:] if any(c.isalpha() for c in w)]
+    if tail and all(w.isupper() for w in tail):
+        return words[0] + " " + " ".join(w.lower() if w.isupper() else w for w in words[1:])
+    return phrase[0].upper() + phrase[1:] if phrase[:1].islower() else phrase
+
+
+def _kind_phrase(src, max_chars=90, from_text=False):
+    """Фраза вокруг слова-типа события: назад — по дефису и прилагательным
+    («эндуро-гонка», «профориентационные экскурсии»), вперёд — до конца предложения,
+    даты, времени, имени в кавычках или следующего слова-типа.
+
+    Охраны: сказуемое в фразе («встреча будет посвящена…») и фраза из текста без
+    имени события («матчей текущего отрезка») отбраковываются — название события
+    не должно быть обрывком предложения."""
+    s = AF_EMOJI_RE.sub(" ", PROMO_TAIL.sub(" ", src or ""))
+    s = re.sub(r"\s+", " ", s).strip()
+    # коллектор пишет заголовок и в начало текста: «Выставка Выставка «На крыше»»
+    # без схлопывания повтора обрезалось бы по «второму слову-типа»
+    s = re.sub(r"\b(\S{4,})\s+\1\b", r"\1", s, flags=re.I)
+    m = EVENT_KIND_RE.search(s)
+    if not m:
+        return ""
+    start = m.start()
+    # назад: «эндуро-гонка», «III Международный театральный фестиваль»
+    head_words = s[:start].split()
+    taken = 0
+    while head_words and taken < 3:
+        w = head_words[-1].strip(" ,;:—–-«»\"")
+        if not w or w.lower() in AF_PREPS:
+            break
+        hyphen = s[:start].rstrip().endswith("-") and taken == 0
+        if not (hyphen or AF_ADJ_RE.search(w) or AF_ROMAN_RE.match(w)):
+            break
+        start = s.rfind(head_words[-1], 0, start)
+        head_words = head_words[:-1]
+        taken += 1
+    tail = s[start:start + max_chars]
+    end = AF_DATE_TAIL_RE.search(tail, 1)
+    phrase = tail[:end.start()] if end and end.start() > 0 else tail
+    kind_end = m.end() - start
+    # второе слово-типа — уже другое событие: «Концерт группы «Мураками» Презентация альбома…»
+    second = EVENT_KIND_RE.search(phrase, kind_end)
+    if second:
+        phrase = phrase[:second.start()]
+    # хвост после имени в кавычках не нужен: «Форум «Создавая будущее» Надежда Ярушкина расскажет…»
+    q = re.search(r"»", phrase)
+    if q and len(phrase[q.end():].split()) > 2:
+        phrase = phrase[:q.end()]
+    verb = AF_VERB_RE.search(phrase)
+    if verb:
+        # «Встреча будет посвящена…» — сказуемое сразу за словом-типа: это предложение,
+        # а не название. «Выставка «На крыше» пройдёт…» — обрезаем по сказуемому.
+        if len(phrase[:verb.start()].split()) < 2:
+            return ""
+        phrase = phrase[:verb.start()]
+    phrase = phrase.strip(" ,;:—–-\u00a0")
+    if phrase.count("«") < phrase.count("»"):
+        phrase = phrase.rstrip("»").rstrip(" ,;:—–-")
+    if phrase.count("»") < phrase.count("«"):
+        phrase = phrase.lstrip("«").lstrip(" ,;:—–-")
+    if len(phrase) < 8:
+        return ""
+    if from_text and "«" not in phrase:
+        return ""
+    # косвенный падеж → именительный, но только если фраза начинается со слова-типа:
+    # «на форуме …» → «Форум …», зато «профориентационные экскурсии» остаются согласованными
+    if m.start() == start:
+        kw = phrase[:kind_end]
+        norm = EVENT_KIND_NORM.get(kw.lower().replace("ё", "е")[:4])
+        if norm and "-" not in kw:
+            phrase = norm + phrase[kind_end:]
+    phrase = _af_title_case(phrase.strip())[:max_chars]
+    if len(phrase.split()) < 2:
+        return ""       # голое слово-тип («Выставка») названием события не считается
+    return phrase
+
+
+def compose_event_title(blob, title="", etype="", max_chars=90):
+    """Описательное название события. Возвращает (название, kind) или (None, "").
+
+    Порядок: матч «A» — «B» → фраза вокруг слова-типа (заголовок, затем текст) →
+    имя в кавычках (event_title). kind: match | kind | quoted — для тестов и паспорта."""
+    text = blob or ""
+    src = f"{title or ''}\n{text}"
+    m = MATCH_VS_RE.search(src)
+    if m and (etype == "sport" or re.search(r"\bматч\w*|\bигр[ау]\b", src, re.I)):
+        a = m.group(1).strip()
+        b = m.group(2).strip()
+        if a.lower() != b.lower():
+            return f"Матч «{a}» — «{b}»"[:max_chars], "match"
+    phrase = _kind_phrase(title or "", max_chars)
+    if not phrase:
+        phrase = _kind_phrase(text, max_chars, from_text=True)
+    if phrase:
+        return phrase, "kind"
+    quoted = event_title(AF_EMOJI_RE.sub(" ", (title or "") + " " + text), max_chars)
+    if quoted:
+        return re.sub(r"\s+[.,;:!?]+$", "", quoted.strip()), "quoted"
+    return None, ""
+
+
+
+PRICE_RANGE_RE = re.compile(r"(\d{2,6})\s*[–—-]\s*(\d{2,6})\s*(?:рубл\w*|руб\.?|₽|р\.)", re.I)
+PRICE_FROM_TO_RE = re.compile(r"от\s*(\d{2,6})\s*(?:рубл\w*|руб\.?|₽|р\.\s*)?\s*до\s*(\d{2,6})\s*"
+                              r"(?:рубл\w*|руб\.?|₽|р\.)", re.I)
+PRICE_NUM_RE = re.compile(r"(от\s+|по\s+)?(\d{2,6})\s*(?:рубл\w*|руб\.?|₽|р\.)", re.I)
+PRICE_CTX_RE = re.compile(r"билет\w*|вход\w*|стоимост\w*|цен[аы]\b|взнос\w*|прайс|💸", re.I)
+
+
 def extract_price(blob):
-    """{mode, text}: free / reg / paid."""
-    low = (blob or "").lower()
-    if re.search(r"вход свободн|свободны[йм]\s*(вход|посещ)|бесплатн|free", low):
-        return {"mode": "free", "text": "вход свободный"}
-    if re.search(r"по регистраци|нужна регистраци|регистраци\w*\s+обязательн", low):
+    """{mode, text}: free / reg / paid — бейдж «почём» в афише.
+
+    Спринт 3: диапазоны («500–1500 ₽»), «Билеты: <ссылка>», свободные взносы,
+    «Пушкинская карта», регистрация на месте. Число без ценового контекста ценой
+    не считается — иначе штраф или сумма гранта превращаются в стоимость билета."""
+    src = blob or ""
+    low = src.lower()
+    m = PRICE_RANGE_RE.search(low) or PRICE_FROM_TO_RE.search(low)
+    if m:
+        return {"mode": "paid", "text": f"{int(m.group(1))}–{int(m.group(2))} ₽"}
+    num = None
+    for m in PRICE_NUM_RE.finditer(low):
+        val = int(m.group(2))
+        if 30 <= val <= 100000:
+            num = (bool(m.group(1)), val)
+            break
+    if num and (num[0] or PRICE_CTX_RE.search(low)):
+        return {"mode": "paid", "text": f"от {num[1]} ₽" if num[0] else f"{num[1]} ₽"}
+    if re.search(r"свободн\w+\s+взнос|взнос\w*\s+свободн", low):
+        return {"mode": "free", "text": "свободные взносы"}
+    free = bool(re.search(r"вход свободн|свободны[йм]\s*(вход|посещ)|бесплатн|\bfree\b", low))
+    reg = bool(re.search(r"по регистраци|нужна регистраци|регистраци\w*\s+обязательн|"
+                         r"регистрация на месте|по записи|нужно записаться|записаться|"
+                         r"заявк\w+\s+принима|предварительн\w+\s+запис", low))
+    pushkin = bool(re.search(r"пушкинск\w+\s+карт", low))
+    tickets = bool(re.search(r"билет\w*\s*[:—]|по билет|билет\w+\s+(?:от|сто|цени)|купить билет", low))
+    if free and reg:
         return {"mode": "reg", "text": "бесплатно по регистрации"}
-    m = re.search(r"(от\s*)?(\d{1,2}[\d\s]{0,6})\s*(?:руб(?:лей)?|₽|р\.)", low)
-    if m and int(m.group(2).replace(" ", "")) >= 30:
-        val = int(m.group(2).replace(" ", ""))
-        return {"mode": "paid", "text": f"от {val} ₽" if m.group(1) else f"{val} ₽"}
-    if re.search(r"по билет|билет\w+ (?:от|сто|цени)", low):
-        return {"mode": "paid", "text": "по билетам"}
+    if free:
+        return {"mode": "free", "text": "вход свободный"}
+    if reg:
+        return {"mode": "reg", "text": "бесплатно по регистрации"}
+    if tickets:
+        return {"mode": "paid", "text": "по билетам" + (" · Пушкинская карта" if pushkin else "")}
+    if pushkin:
+        return {"mode": "paid", "text": "Пушкинская карта"}
     return {"mode": "", "text": ""}
 
 
 def extract_age(blob):
-    vals = [int(x) for x in AGE_RE.findall(blob or "")]
+    """Возрастной маркер: самый строгий из найденных («18+», «возрастная категория 6+»)."""
+    src = blob or ""
+    vals = [int(x) for x in AGE_RE.findall(src)]
+    m = re.search(r"возрастн\w+\s*(?:категори|ограничени)\w*\s*[:—-]?\s*(\d{1,2})\s*\+?", src, re.I)
+    if m:
+        vals.append(int(m.group(1)))
     return f"{max(vals)}+" if vals else ""
 
 
 NOT_EVENT_RE = re.compile(
-    r"иннопром|бизнес-делег|делегаци|отопительн|котельн|теплоснаб|\bмост\b|голосован|выбор", re.I)
+    r"иннопром|бизнес-делег|делегаци|отопительн|отоплени|дадут тепло|тепло дадут|котельн|теплоснаб|"
+    r"\bмост\b|голосован|выбор|норматив\w+\s+гто|техногто|горяч\w+\s+лин\w+", re.I)
 
 
 def event_type(blob):
@@ -297,13 +756,20 @@ def _local_dt(iso):
 
 # ---------------------------------------------------------------- 1. calendar
 def _afisha_score(weights, has_time, venue_ok, etype, it):
-    """Прозрачный индекс уверенности: доли от суммы весов, диапазон 0..1."""
+    """Прозрачный индекс уверенности: доли от суммы весов, диапазон 0..1.
+
+    venue_ok — True/False или строка "found"/"inferred"/"none": площадка,
+    восстановленная из адреса или помеченная как «площадки города», получает
+    половину кредита (Спринт 3) — событие показываем, но уверенность ниже."""
+    vk = {"found": 1.0, "inferred": 0.5, "none": 0.0}.get(venue_ok, 0.0) \
+        if isinstance(venue_ok, str) else (1.0 if venue_ok else 0.0)
     total = max(1, sum(int(weights.get(k, 0)) for k in AFISHA_DEFAULT_WEIGHTS))
     s = int(weights.get("date", 30))
     s += int(weights.get("time", 20)) * (1.0 if has_time else 0.3)
-    s += int(weights.get("venue", 20)) * (1.0 if venue_ok else 0.0)
+    s += int(weights.get("venue", 20)) * vk
     s += int(weights.get("ctype", 20)) * (1.0 if etype != "other" else 0.2)
-    src_ok = it.get("category") == "culture" or (it.get("channel") or "").lstrip("@") in AFISHA_CHANNELS
+    chan = (it.get("channel") or "").lstrip("@").lower()
+    src_ok = it.get("category") == "culture" or chan in tuple(c.lower() for c in AFISHA_CHANNELS)
     s += int(weights.get("source", 10)) * (1.0 if src_ok else 0.6)
     return s / total
 
@@ -351,8 +817,75 @@ def announced_dates(blob, now=None, horizon_days=45):
     return sorted({d.isoformat() for d in dates})
 
 
+def _strip_internal(rec):
+    """Служебные поля (_reasons, _it, _promo) не должны попадать в data/analytics.json."""
+    return {k: v for k, v in rec.items() if not k.startswith("_")}
+
+
+def _af_norm_name(s):
+    return re.sub(r"\W+", "", (s or "").lower())[:40]
+
+
+def _af_quoted_name(rec):
+    """Имя события в кавычках — общий знаменатель разных пересказов одного анонса."""
+    m = re.search(r"«([^»]{2,40})»", rec.get("event_title") or rec.get("title") or "")
+    return _af_norm_name(m.group(1)) if m else ""
+
+
+def _same_event(a, b):
+    """Один и тот же анонс в разных изданиях.
+
+    Ключ по названию ненадёжен: одно событие пересказывают по-разному
+    («Форум инноваторов» и «Форум «Создавая будущее»»), поэтому внутри суток
+    сливаем по вложенности названий, общему имени в кавычках либо по совпадению
+    площадки и времени. Разное время при одной площадке = разные события (сеансы)."""
+    if a.get("date") != b.get("date"):
+        return False
+    ta, tb = _af_norm_name(a.get("event_title")), _af_norm_name(b.get("event_title"))
+    if ta and tb and min(len(ta), len(tb)) >= 8 and (ta in tb or tb in ta):
+        return True
+    qa = _af_quoted_name(a)
+    if qa and qa == _af_quoted_name(b):
+        return True
+    va, vb = _af_norm_name(a.get("venue")), _af_norm_name(b.get("venue"))
+    if va and va == vb and va != _af_norm_name(CITY_WIDE_VENUE):
+        t1, t2 = a.get("time") or "", b.get("time") or ""
+        if t1 == t2 or not t1 or not t2:
+            return True
+    return False
+
+
+def _cluster_candidates(cands):
+    """Группы анонсов одного события: жадное слияние внутри суток, сильные записи первыми."""
+    cands = sorted(cands, key=lambda e: (len(e.get("_reasons") or ()),
+                                         -AF_TITLE_RANK.get(e.get("title_kind"), 0),
+                                         -AF_VENUE_RANK.get(e.get("venue_how"), 0)))
+    by_date = defaultdict(list)
+    for c in cands:
+        by_date[c["date"]].append(c)
+    clusters = []
+    for d in sorted(by_date):
+        merged = []
+        for base in by_date[d]:
+            for grp in merged:
+                if any(_same_event(m, base) for m in grp):
+                    grp.append(base)
+                    break
+            else:
+                merged.append([base])
+        clusters.extend(merged)
+    return clusters
+
+
+AF_VENUE_RANK = {"mention": 3, "quoted": 3, "text": 3, "address": 2, "city": 1, "": 0}
+AF_TITLE_RANK = {"match": 3, "kind": 2, "quoted": 1, "fallback": 0}
+
+
 def extract_calendar_full(items, now=None, cfg=None):
-    """События с проверкой порога входа: список принятых и отсев с причинами."""
+    """События с проверкой порога входа: список принятых и отсев с причинами.
+
+    Порог применяется к КЛАСТЕРУ анонсов (дата + название), а не к отдельной записи:
+    у перепечатки может не быть площадки или времени, хотя у первоисточника они есть."""
     now = now or datetime.now(UTC4)
     today = now.date()
     gate = dict((cfg or {}).get("settings", {}).get("afisha") or {})
@@ -361,9 +894,9 @@ def extract_calendar_full(items, now=None, cfg=None):
     max_per_day = int(gate.get("max_per_day", 4))
     promo_penalty = float(gate.get("promo_penalty", 0.6))
     title_max = int(gate.get("event_title_max_chars", 90))
+    min_score = float(gate.get("threshold", 0.0))
     weights = dict(AFISHA_DEFAULT_WEIGHTS, **gate.get("weights", {}))
-    events, rejected, seen_rej = [], [], set()
-    groups = defaultdict(list)
+    events, rejected, candidates = [], [], []
     found_dates = 0
     venues_new = {}
 
@@ -424,16 +957,44 @@ def extract_calendar_full(items, now=None, cfg=None):
         mention = (vm.group(1).strip() if vm else "")
         mention = re.sub(r"(?i)^(где|гдe|площадк\w*)\s*[:—]?\s*", "", mention).strip()
         vres = venue_resolve(mention, blob)
-        venue_ok = bool(mention) or vres.get("found", False)
+        if mention:
+            # 📍 — явное указание площадки изданием: доверяем, даже если названия
+            # нет в справочнике («📍 Площадь Ленина» остаётся площадкой)
+            venue_how = "mention"
+            if not vres.get("found"):
+                vres = {"name": mention, "address": "", "district": "", "city": "", "found": False}
+        elif vres.get("found"):
+            venue_how = "quoted"
+        else:
+            venue_how = ""
+        if not venue_how:
+            # Спринт 3: маркер 📍 ставят не все издания — ищем имя справочника в тексте
+            vtext = venue_from_text(blob)
+            if vtext:
+                vres, venue_how = vtext, "text"
+        addr = addr_from_text(blob) if not vres.get("address") else ""
+        if not venue_how and addr:
+            venue_how = "address"
         geo = vres.get("district") or vres.get("city") or extract_geo(blob)
+        city_wide = bool(geo) and bool(CITY_WIDE_RE.search(blob))
+        if not venue_how and city_wide:
+            # фестиваль, ярмарка, кросс: площадок много или они перечислены в тексте
+            venue_how = "city"
+        elif city_wide and len(dates) > 1:
+            # многодневная ярмарка «во всех четырёх районах»: одна площадка из текста
+            # относится к одному из дней, поэтому честнее показать «площадки города»
+            venue_how, vres = "city", {"name": "", "address": "", "district": "",
+                                       "city": "", "found": False}
         etype = event_type(blob)
-        etitle = event_title(blob, title_max)
+        # Спринт 3: описательное название («Концерт группы «Мураками»») вместо голого имени
+        etitle, title_kind = compose_event_title(blob, title, etype, title_max)
         title_fallback = etitle is None
         if etitle is None:
             etitle = ETYPE_LABEL.get(etype, "событие")
             if vres.get("name"):
                 etitle = f"{etitle} · {vres.get('name')}"
             etitle = etitle[:title_max]
+            title_kind = "fallback"
         price = extract_price(blob)
         age = extract_age(blob)
         reasons = []
@@ -443,8 +1004,17 @@ def extract_calendar_full(items, now=None, cfg=None):
             reasons.append("промо канала")
         elif etype == "other":
             reasons.append("тип: новость, не перечневое культурное событие")
-        if not venue_ok and not reasons:
-            reasons.append("нет площадки")
+        if not reasons and title.rstrip().endswith(":"):
+            reasons.append("заголовок-перечисление: событие не названо")
+        if venue_how in ("mention", "quoted", "text"):
+            vname = (vres.get("name") or mention or "")[:60]
+            vaddr = (vres.get("address") or addr)[:120]
+        elif venue_how == "address":
+            vname, vaddr = addr[:60], ""
+        elif venue_how == "city":
+            vname, vaddr = CITY_WIDE_VENUE, ""
+        else:
+            vname, vaddr = "", ""
         base = {
             "etype": etype,
             "is_culture": etype in ("kids", "cinema", "festival", "theatre", "concert", "expo") or it.get("category") == "culture",
@@ -455,42 +1025,73 @@ def extract_calendar_full(items, now=None, cfg=None):
             "time_note": tnote,
             "event_title": etitle,
             "title_is_fallback": title_fallback,
+            "title_kind": title_kind,
             "title": title[:150],
             "url": it.get("url") or "",
             "source": it.get("source", ""),
             "tier": it.get("tier"),
-            "venue": (vres.get("name") or mention or "")[:60],
-            "venue_addr": vres.get("address", "")[:120],
-            "venue_district": vres.get("district", ""),
-            "venue_city": vres.get("city", ""),
-            "venue_found": vres.get("found", False) or bool(mention),
+            "venue": vname,
+            "venue_addr": vaddr,
+            "venue_district": vres.get("district", "") or (geo if venue_how in ("address", "city") else ""),
+            "venue_city": vres.get("city", "") or ("Ульяновск" if venue_how == "city" and geo == "Ульяновск" else ""),
+            "venue_found": bool(venue_how),
+            "venue_how": venue_how,
             "geo": geo,
             "price": price["text"],
             "price_mode": price["mode"],
             "age": age,
+            "_reasons": reasons,
+            "_promo": bool(PROMO_PERSONAL_RE.search(blob)),
+            "_it": it,
         }
-        key = (dates[0].isoformat(),
-               re.sub(r"\W+", "", (etitle or title).lower())[:60])
-        if reasons:
-            if key in seen_rej:
-                continue
-            seen_rej.add(key)
-            rejected.append(dict(base, reasons=reasons))
-            continue
-        score = _afisha_score(weights, has_time, venue_ok, etype, it)
-        if PROMO_PERSONAL_RE.search(blob):
+        candidates.append(base)
+        if venue_how in ("", "address"):
+            # площадок нет в справочнике — собираем кандидатов на пополнение venues.json
+            for cand in venue_candidates(blob):
+                venues_new[cand] = venues_new.get(cand, 0) + 1
+            if mention and not vres.get("found"):
+                venues_new[mention[:60]] = venues_new.get(mention[:60], 0) + 1
+
+    # Порог входа применяется к кластеру: ведущей становится самая чистая запись,
+    # недостающие свидетельства (площадка, время, цена, возраст, название)
+    # подтягиваются из соседних анонсов того же события.
+    for members in _cluster_candidates(candidates):
+        head = dict(members[0])
+        best_title = max(members, key=lambda e: AF_TITLE_RANK.get(e.get("title_kind"), 0))
+        if AF_TITLE_RANK.get(best_title.get("title_kind"), 0) > AF_TITLE_RANK.get(head.get("title_kind"), 0):
+            head["event_title"] = best_title["event_title"]
+            head["title_kind"] = best_title["title_kind"]
+            head["title_is_fallback"] = best_title["title_is_fallback"]
+        for m in members[1:]:
+            if AF_VENUE_RANK.get(m.get("venue_how"), 0) > AF_VENUE_RANK.get(head.get("venue_how"), 0):
+                for f in ("venue", "venue_addr", "venue_district", "venue_city",
+                          "venue_found", "venue_how"):
+                    head[f] = m[f]
+            if not head.get("time") and m.get("time"):
+                head["time"], head["time_note"] = m["time"], ""
+            elif head.get("time_note") == "уточняется" and m.get("time_note") == "весь день":
+                head["time_note"] = "весь день"
+            for f in ("price", "price_mode", "age", "geo", "date_end", "venue_addr"):
+                if not head.get(f) and m.get(f):
+                    head[f] = m[f]
+            if head.get("geo") and not head.get("district"):
+                head["district"] = True
+        head["reasons"] = list(head.get("_reasons") or ())
+        if AF_VENUE_RANK.get(head.get("venue_how"), 0) == 0:
+            head["reasons"].append("нет площадки")
+        has_time = bool(head.get("time")) or head.get("time_note") == "весь день"
+        vrank = AF_VENUE_RANK.get(head.get("venue_how"), 0)
+        vkind = "found" if vrank >= 3 else ("inferred" if vrank >= 1 else "none")
+        score = _afisha_score(weights, has_time, vkind, head.get("etype"), head.get("_it") or {})
+        if head.get("_promo"):
             score -= promo_penalty
-        base["score"] = round(max(0.0, score), 3)
-        base["also"] = []
-        base["also_n"] = 0
-        groups[key].append(base)
-        if not vres.get("found", False) and mention:
-            venues_new[mention] = venues_new.get(mention, 0) + 1
-    # кластеризация анонсов: одно событие из разных каналов — одна карточка
-    # с «также анонсировали: N»; ведём лучшую запись, считаем НЕЗАВИСИМЫЕ издания.
-    for members in groups.values():
-        members.sort(key=lambda e: (e["title_is_fallback"], -e.get("score", 0), len(e.get("source", ""))))
-        head = members[0]
+        head["score"] = round(max(0.0, score), 3)
+        if not head["reasons"] and min_score > 0 and head["score"] < min_score:
+            head["reasons"] = [f"низкая уверенность: индекс {head['score']:.2f} ниже порога {min_score:.2f}"]
+        if head["reasons"]:
+            rejected.append(_strip_internal(head))
+            continue
+        # «также анонсировали»: считаем НЕЗАВИСИМЫЕ издания кластера
         srcs, seen_src = [], set()
         own = _outlets.resolve_raw(head.get("source") or "") or (head.get("source") or "").lstrip("@")
         seen_src.add(own)
@@ -502,7 +1103,7 @@ def extract_calendar_full(items, now=None, cfg=None):
                 srcs.append(s or sk)
         head["also"] = srcs[:6]
         head["also_n"] = len(srcs)
-        events.append(head)
+        events.append(_strip_internal(head))
     events.sort(key=lambda e: (e["date"], e["time"]))
     # не более max_per_day событий в день, приоритет официальным и уверенным
     by_day = defaultdict(list)
@@ -512,12 +1113,24 @@ def extract_calendar_full(items, now=None, cfg=None):
     for d in sorted(by_day):
         day_evs = sorted(by_day[d], key=lambda e: (e["tier"] or 2, -e.get("score", 0)))
         out.extend(day_evs[:max_per_day])
-    rejected.sort(key=lambda e: (e["date"], e["event_title"]))
+    out = out[:max_total]
+    rejected.sort(key=lambda e: (e["date"], e.get("event_title") or ""))
+    stats = {
+        "venue_text": sum(1 for e in out if e.get("venue_how") == "text"),
+        "venue_addr": sum(1 for e in out if e.get("venue_how") == "address"),
+        "venue_city": sum(1 for e in out if e.get("venue_how") == "city"),
+        "title_composed": sum(1 for e in out if e.get("title_kind") in ("match", "kind")),
+        "with_price": sum(1 for e in out if e.get("price_mode")),
+        "with_age": sum(1 for e in out if e.get("age")),
+        "rejected_no_venue": sum(1 for r in rejected if "нет площадки" in (r.get("reasons") or [])),
+    }
     return {
-        "accepted": out[:max_total],
+        "accepted": out,
         "rejected": rejected,
         "found_dates": found_dates,
         "venues_new": venues_new,
+        "stats": stats,
+        "threshold": min_score,
     }
 
 
@@ -2890,6 +3503,8 @@ def build_all(items, trends, cfg=None):
         "accepted": len(cal_full["accepted"]),
         "rejected": len(cal_full["rejected"]),
         "venues_new": dict(sorted(cal_full["venues_new"].items(), key=lambda kv: -kv[1])[:20]),
+        "threshold": cal_full.get("threshold", 0),
+        "stats": cal_full.get("stats", {}),
         "run_local": now.strftime("%d.%m.%Y %H:%M"),
     }
     os.makedirs(DATA, exist_ok=True)
