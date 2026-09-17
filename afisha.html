@@ -548,156 +548,158 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
 .af-day span{font-size:10px;color:var(--muted);text-transform:uppercase;}
 .af-day i{display:block;font-style:normal;font-size:11px;font-weight:800;color:var(--blue);margin-top:2px;}
 .af-day.we{border-color:var(--gold);}
+.af-badge{display:inline-block;background:#eef6f1;color:#1f7a43;border-radius:7px;padding:1px 8px;font-weight:800;font-size:10.5px;margin-right:6px;}
+:root[data-theme="dark"] .af-badge{background:#14301f;color:#7fd49b;}
+.af-badge.alt{background:#f4f0ff;color:#5b3fd4;}
+:root[data-theme="dark"] .af-badge.alt{background:#221a42;color:#b3a0ff;}
+.af-badge.warn{background:#fff4e2;color:#96690a;border:1px dashed #e0b04e;}
+:root[data-theme="dark"] .af-badge.warn{background:#2a2110;color:#e5b14e;}
+.af-tag{font-size:10px;color:var(--muted);font-style:italic;margin-left:4px;}
+.af-rej{margin-top:18px;background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:12px 16px;}
+.af-rej summary{cursor:pointer;font-weight:800;font-size:13px;color:var(--muted);margin-bottom:4px;}
+.af-rej summary:hover{color:var(--blue);}
+.af-rej-row{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12.5px;align-items:baseline;flex-wrap:wrap;}
+.af-rej-row:last-child{border-bottom:none;}
+.af-rej-date{min-width:118px;font-weight:800;color:var(--navy);}
+.af-rej-why{color:var(--muted);font-size:11px;margin-left:auto;}
 </style><script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 08:39</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 09:09</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
-<div class="mast-side mast-side--right">Афиша культурных событий<br>всего 37 · сегодня 4 · выходные 7
+<div class="mast-side mast-side--right">Афиша культурных событий<br>всего 5 · сегодня 1 · выходные 1
 <div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div></div>
 </div></header>
 <nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="active" href="afisha.html">Афиша</a><a class="" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-16.html">Руководителю</a></div></nav><main id="main">
 <div class="page">
 
+<div class="note" style="margin-bottom:4px;">Порог входа: найдено дат <b>58</b> → прошло проверку <b>5</b> → показано сегодня <b>5</b>. Сверяйте время и билеты у организаторов — данные извлечены из публикаций автоматически.</div>
+
 <div class="af-chips">
-<button class="af-chip on" onclick="afFilter('all',this)">Все (37)</button>
+<button class="af-chip on" onclick="afFilter('all',this)">Все (5)</button>
 <button class="af-chip" onclick="afFilter('today',this)">Сегодня</button>
 <button class="af-chip" onclick="afFilter('tomorrow',this)">Завтра</button>
 <button class="af-chip" onclick="afFilter('weekend',this)">Выходные 19.09–20.09</button>
 <button class="af-chip" onclick="afFilter('week',this)">7 дней</button>
 </div>
 
-<div class="af-daybar"><div class="af-day"><b>17</b><span>чт 09</span><i>4 соб.</i></div><div class="af-day"><b>18</b><span>пт 09</span><i>3 соб.</i></div><div class="af-day we"><b>19</b><span>сб 09</span><i>3 соб.</i></div><div class="af-day we"><b>20</b><span>вс 09</span><i>4 соб.</i></div><div class="af-day"><b>21</b><span>пн 09</span><i>2 соб.</i></div><div class="af-day"><b>22</b><span>вт 09</span><i>0 соб.</i></div><div class="af-day"><b>23</b><span>ср 09</span><i>0 соб.</i></div><div class="af-day"><b>24</b><span>чт 09</span><i>3 соб.</i></div><div class="af-day"><b>25</b><span>пт 09</span><i>1 соб.</i></div><div class="af-day"><b>26</b><span>сб 09</span><i>2 соб.</i></div></div>
+<div class="af-daybar"><div class="af-day"><b>17</b><span>чт 09</span><i>1 соб.</i></div><div class="af-day"><b>18</b><span>пт 09</span><i>1 соб.</i></div><div class="af-day we"><b>19</b><span>сб 09</span><i>1 соб.</i></div><div class="af-day we"><b>20</b><span>вс 09</span><i>0 соб.</i></div><div class="af-day"><b>21</b><span>пн 09</span><i>0 соб.</i></div><div class="af-day"><b>22</b><span>вт 09</span><i>0 соб.</i></div><div class="af-day"><b>23</b><span>ср 09</span><i>0 соб.</i></div><div class="af-day"><b>24</b><span>чт 09</span><i>1 соб.</i></div><div class="af-day"><b>25</b><span>пт 09</span><i>0 соб.</i></div><div class="af-day"><b>26</b><span>сб 09</span><i>0 соб.</i></div></div>
 
-<div class="af-sec" id="et-festival"><div class="sec-head" style="margin:16px 0 8px;"><h2>🎪 Фестивали и праздники</h2><div class="line"></div>
-<div class="badge">1</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-25" data-weekend="0">
-<div class="cal-badge"><b>25</b><span>пт 09</span></div>
-<div class="af-body"><a href="https://t.me/ulgovru/23642" target="_blank" rel="noopener"><b>✅ 11 сентября ▶️ Куда сходить ульяновцам: афиша событий на 12 и 13 сентября ▶️ Безопасность, современность, те…</b></a>
-<div class="af-meta">t.me/ulgovru</div></div></div></div></div></div><div class="af-sec" id="et-concert"><div class="sec-head" style="margin:16px 0 8px;"><h2>🎵 Концерты и музыка</h2><div class="line"></div>
-<div class="badge">3</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-17" data-weekend="0">
+<div class="af-sec" id="et-concert"><div class="sec-head" style="margin:16px 0 8px;"><h2>🎵 Концерты и музыка</h2><div class="line"></div>
+<div class="badge">2</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-17" data-weekend="0">
 <div class="cal-badge"><b>17</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpravda/41078" target="_blank" rel="noopener"><b>📣 17 сентября Надежда Глебовна Ярушкина выступит на Международном форуме инноваторов, изобретателей и технолог…</b></a>
-<div class="af-meta">t.me/ulpravda</div></div></div><div class="af-event" data-date="2026-09-17" data-weekend="0">
-<div class="cal-badge"><b>17</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener"><b>Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли мама. 10 участников, 3 раунда, …</b></a>
-<div class="af-meta"><span class="af-time">23:00</span>t.me/ProNovosty73 · 📍 Где: «Matrëshki»</div></div></div><div class="af-event" data-date="2026-10-22" data-weekend="0">
+<div class="af-body"><a href="https://t.me/ProNovosty73/5896" target="_blank" rel="noopener"><b>Караоке-баттл 🎤 Мама говорит, у тебя талант?</b></a>
+<div class="af-meta"><span class="af-time">23:00</span><span>t.me/ProNovosty73</span><span class="af-meta" style="display:inline;"> · 📍 Бар «Matrёshki»</span><span class="af-meta" style="display:inline;"> · ул. Федерации, 4</span> </div></div></div><div class="af-event" data-date="2026-10-22" data-weekend="0">
 <div class="cal-badge"><b>22</b><span>чт 10</span></div>
-<div class="af-body"><a href="https://t.me/ProNovosty73/5899" target="_blank" rel="noopener"><b>Концерт группы «Мураками» 🎵 Презентация альбома «Невеста хочет домой» — первой полноформатной работы за послед…</b></a>
-<div class="af-meta"><span class="af-time">19:00</span>t.me/ProNovosty73 · 📍 Где: «Шипр» (ул. Карла Маркса</div></div></div></div></div></div><div class="af-sec" id="et-kids"><div class="sec-head" style="margin:16px 0 8px;"><h2>👶 Детям и семьям</h2><div class="line"></div>
-<div class="badge">9</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-19" data-weekend="1">
+<div class="af-body"><a href="https://t.me/ProNovosty73/5899" target="_blank" rel="noopener"><b>Мураками</b></a>
+<div class="af-meta"><span class="af-time">19:00</span><span>t.me/ProNovosty73</span><span class="af-meta" style="display:inline;"> · 📍 Клуб «Шипр»</span><span class="af-meta" style="display:inline;"> · ул. Карла Маркса, 13</span> </div></div></div></div></div></div><div class="af-sec" id="et-kids"><div class="sec-head" style="margin:16px 0 8px;"><h2>👶 Детям и семьям</h2><div class="line"></div>
+<div class="badge">2</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-19" data-weekend="1">
 <div class="cal-badge gold"><b>19</b><span>сб 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpressa/74667" target="_blank" rel="noopener"><b>В программе также выставка техники, технозона, концерт, мастер-классы, аниматоры, фудкорт и запуск воздушного …</b></a>
-<div class="af-meta">t.me/ulpressa<span class="dist-badge">район/область</span></div></div></div><div class="af-event" data-date="2026-09-19" data-weekend="1">
-<div class="cal-badge gold"><b>19</b><span>сб 09</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/15/v-dimitrovgrade-19-sentyabrya-projdyot-enduro-gonka-slobodskaya-balka/" target="_blank" rel="noopener"><b>В Димитровграде 19 сентября пройдёт эндуро-гонка «Слободская балка»</b></a>
-<div class="af-meta"><span class="af-time">11:00</span>Улпресса<span class="dist-badge">район/область</span></div></div></div><div class="af-event" data-date="2026-09-19" data-weekend="1">
-<div class="cal-badge gold"><b>19</b><span>сб 09</span></div>
-<div class="af-body"><a href="https://ulmeria.gosuslugi.ru/dlya-zhiteley/novosti-i-reportazhi/novosti-193_6946.html" target="_blank" rel="noopener"><b>Концерты, фотоконкурс, экскурсии и футбол: афиша Ульяновска на эту неделю</b></a>
-<div class="af-meta"><span class="af-time">14:00</span>Администрация Ульяновска</div></div></div><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://t.me/reporter73/52229" target="_blank" rel="noopener"><b>🎭 В Ульяновске стартовал III Международный театральный фестиваль «Вместе» . С 16 по 20 сентября фестиваль объе…</b></a>
-<div class="af-meta">t.me/reporter73</div></div></div><div class="af-event" data-date="2026-09-24" data-weekend="0">
+<div class="af-body"><a href="https://ulpressa.ru/2026/09/15/v-dimitrovgrade-19-sentyabrya-projdyot-enduro-gonka-slobodskaya-balka/" target="_blank" rel="noopener"><b>Слободская балка</b></a>
+<div class="af-meta"><span class="af-time">11:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 Трасса «Слободская балка»</span><span class="af-meta" style="display:inline;"> · окрестности города</span> </div></div></div><div class="af-event" data-date="2026-09-24" data-weekend="0">
 <div class="cal-badge"><b>24</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://ulmeria.gosuslugi.ru/dlya-zhiteley/novosti-i-reportazhi/novosti-193_6948.html" target="_blank" rel="noopener"><b>Ульяновцев с 17 по 24 сентября приглашают на ярмарки вакансий</b></a>
-<div class="af-meta">Администрация Ульяновска</div></div></div><div class="af-event" data-date="2026-09-24" data-weekend="0">
-<div class="cal-badge"><b>24</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/16/s-17-po-24-sentyabrya-v-chetyryoh-rajonah-ulyanovska-projdut-yarmarki-vakansij/" target="_blank" rel="noopener"><b>С 17 по 24 сентября в четырёх районах Ульяновска пройдут ярмарки вакансий</b></a>
-<div class="af-meta"><span class="af-time">10:00</span>Улпресса<span class="dist-badge">район/область</span></div></div></div><div class="af-event" data-date="2026-09-26" data-weekend="0">
-<div class="cal-badge"><b>26</b><span>сб 09</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/17/26-sentyabrya-v-ulyanovske-projdyot-kross-naczii/" target="_blank" rel="noopener"><b>26 сентября в Ульяновске пройдёт «Кросс нации»</b></a>
-<div class="af-meta"><span class="af-time">09:00</span>Улпресса</div></div></div><div class="af-event" data-date="2026-09-28" data-weekend="0">
-<div class="cal-badge"><b>28</b><span>пн 09</span></div>
-<div class="af-body"><a href="https://t.me/tresh_ulyan/56262" target="_blank" rel="noopener"><b>🥵 Отопление в Ульяновске дадут уже 28 сентября Сначала тепло придёт в соцобъекты: поликлиники, школы, детские …</b></a>
-<div class="af-meta">t.me/tresh_ulyan</div></div></div><div class="af-event" data-date="2026-10-01" data-weekend="0">
-<div class="cal-badge"><b>01</b><span>чт 10</span></div>
-<div class="af-body"><a href="http://gazeta-zvezda73.ru/index.php/novosti/obshchestvo/17256-vmeste-silnee-vmeste-bodree" target="_blank" rel="noopener"><b>Вместе — сильнее, вместе — бодрее!</b></a>
-<div class="af-meta">Звезда (Новомалыклинский р-н)<span class="dist-badge">район/область</span></div></div></div></div></div></div><div class="af-sec" id="et-sport"><div class="sec-head" style="margin:16px 0 8px;"><h2>🏃 Спорт и ЗОЖ</h2><div class="line"></div>
-<div class="badge">4</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-18" data-weekend="0">
+<div class="af-body"><a href="https://ulpressa.ru/2026/09/16/s-17-po-24-sentyabrya-v-chetyryoh-rajonah-ulyanovska-projdut-yarmarki-vakansij/" target="_blank" rel="noopener"><b>Защитники Отечества</b></a>
+<div class="af-meta"><span class="af-time">10:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 ДК «Современник»</span><span class="af-meta" style="display:inline;"> · ул. Рябикова, 2</span> </div></div></div></div></div></div><div class="af-sec" id="et-sport"><div class="sec-head" style="margin:16px 0 8px;"><h2>🏃 Спорт и ЗОЖ</h2><div class="line"></div>
+<div class="badge">1</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-18" data-weekend="0">
 <div class="cal-badge"><b>18</b><span>пт 09</span></div>
-<div class="af-body"><a href="https://t.me/insaid173/47051" target="_blank" rel="noopener"><b>⚽️ «Волга» принимает костромской «Спартак» 18 сентября Домашний матч ульяновской команды пройдёт на стадионе «…</b></a>
-<div class="af-meta"><span class="af-time">18:00</span>t.me/insaid173</div></div></div><div class="af-event" data-date="2026-09-18" data-weekend="0">
-<div class="cal-badge"><b>18</b><span>пт 09</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/16/nakopilis-schyoty-ulyanovskaya-volga-primet-kostromskoj-spartak-na-stadione-trud/" target="_blank" rel="noopener"><b>Накопились счёты»: ульяновская «Волга» примет костромской «Спартак» на стадионе «Труд»</b></a>
-<div class="af-meta"><span class="af-time">18:00</span>Улпресса</div></div></div><div class="af-event" data-date="2026-09-21" data-weekend="0">
-<div class="cal-badge"><b>21</b><span>пн 09</span></div>
-<div class="af-body"><a href="https://media73.ru/2026/ulgu-zapustil-sdachu-normativov-tekhnogto" target="_blank" rel="noopener"><b>УлГУ запустил сдачу нормативов ТехноГТО</b></a> — 24.09
-<div class="af-meta"><span class="af-time">14:00</span>Media73</div></div></div><div class="af-event" data-date="2026-10-14" data-weekend="0">
-<div class="cal-badge"><b>14</b><span>ср 10</span></div>
-<div class="af-body"><a href="https://t.me/fcvolga/12497" target="_blank" rel="noopener"><b>🔚 🔚 🔚 🔚 Выигрываем в серии пенальти! В пятом раунде встретимся с "Муромом". Матч пройдет в Ульяновске в период…</b></a> — 16.10
-<div class="af-meta">t.me/fcvolga</div></div></div></div></div></div><div class="af-sec" id="et-other"><div class="sec-head" style="margin:16px 0 8px;"><h2>📌 Прочее и официальное</h2><div class="line"></div>
-<div class="badge">20</div></div><div class="card"><div class="card-pad"><div class="af-event" data-date="2026-09-17" data-weekend="0">
-<div class="cal-badge"><b>17</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpressa/74430" target="_blank" rel="noopener"><b>Новый мост через Свиягу планируется открыть 15-17 сентября, сообщил глава Ульяновска Мы в Telegram | Мы в MAX</b></a>
-<div class="af-meta">t.me/ulpressa</div></div></div><div class="af-event" data-date="2026-09-17" data-weekend="0">
-<div class="cal-badge"><b>17</b><span>чт 09</span></div>
-<div class="af-body"><a href="https://media73.ru/2026/ulgu-priglashaet-na-proforientatsionnye-ekskursii" target="_blank" rel="noopener"><b>УлГУ приглашает на профориентационные экскурсии</b></a>
-<div class="af-meta">Media73</div></div></div><div class="af-event" data-date="2026-09-18" data-weekend="0">
-<div class="cal-badge"><b>18</b><span>пт 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpromo/18020" target="_blank" rel="noopener"><b>ДЕВОЧКИ, У НАС СРОЧНЫЙ СБОР 💋 невеста для девичника вообще не обязательна. Достаточно подруг и коллективного р…</b></a>
-<div class="af-meta"><span class="af-time">04:00</span>t.me/ulpromo</div></div></div><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://t.me/ulgovru/23761" target="_blank" rel="noopener"><b>🇷🇺 Владимир Путин обратился к россиянам в преддверии предстоящих парламентских выборов в РФ, которые состоятся…</b></a>
-<div class="af-meta">t.me/ulgovru</div></div></div><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://t.me/ulgovru/23762" target="_blank" rel="noopener"><b>Обращение в преддверии выборов Голосование будет проходить в течение трёх дней: 18, 19 и 20 сентября . Прошу в…</b></a>
-<div class="af-meta">t.me/ulgovru</div></div></div><div class="af-event" data-date="2026-09-20" data-weekend="1">
-<div class="cal-badge gold"><b>20</b><span>вс 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpravda/41047" target="_blank" rel="noopener"><b>С 18 по 20 сентября в Ульяновской области пройдут выборы губернатора и депутатов Госдумы . Безопасность на уча…</b></a>
-<div class="af-meta">t.me/ulpravda</div></div></div><div class="af-event" data-date="2026-09-21" data-weekend="0">
-<div class="cal-badge"><b>21</b><span>пн 09</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/16/v-ulyanovske-rassmatrivayut-samoe-krupnoe-i-dolgoe-delo-avtopodstavshhikov-v-rossii/" target="_blank" rel="noopener"><b>В Ульяновске рассматривают самое крупное и долгое дело автоподставщиков в России</b></a>
-<div class="af-meta">Улпресса</div></div></div><div class="af-event" data-date="2026-09-24" data-weekend="0">
-<div class="cal-badge"><b>24</b><span>чт 09</span></div>
-<div class="af-body"><a href="http://gazeta-zvezda73.ru/index.php/novosti/guberniya/17245-po-dannym-natsionalnoj-immunobiologicheskoj-kompanii-pervaya-partiya-vaktsiny-ot-grippa-v-ulyanovskoj-oblasti-ozhidaetsya-24-sentyabrya" target="_blank" rel="noopener"><b>По данным Национальной иммунобиологической компании, первая партия вакцины от гриппа в Ульяновской области ожидается 24 сентября</b></a>
-<div class="af-meta">Звезда (Новомалыклинский р-н)<span class="dist-badge">район/область</span></div></div></div><div class="af-event" data-date="2026-09-26" data-weekend="0">
-<div class="cal-badge"><b>26</b><span>сб 09</span></div>
-<div class="af-body"><a href="https://t.me/ulpromo/18018" target="_blank" rel="noopener"><b>Ульяновск, это будет громко: Мидийному месту исполняется 1 год 26 сентября самый морской ресторан Ульяновска о…</b></a>
-<div class="af-meta">t.me/ulpromo</div></div></div><div class="af-event" data-date="2026-09-28" data-weekend="0">
-<div class="cal-badge"><b>28</b><span>пн 09</span></div>
-<div class="af-body"><a href="https://t.me/reporter73/52204" target="_blank" rel="noopener"><b>🌡 Ульяновская область готовится к отопительному сезону. С 28 сентября тепло начнут подавать в учреждения социа…</b></a>
-<div class="af-meta">t.me/reporter73</div></div></div><div class="af-event" data-date="2026-09-28" data-weekend="0">
-<div class="cal-badge"><b>28</b><span>пн 09</span></div>
-<div class="af-body"><a href="https://t.me/chpulsk/50653" target="_blank" rel="noopener"><b>🌡 Отопительный сезон в Ульяновске начнется 28 сентября . Первыми тепло получат детские сады, школы и больницы.…</b></a>
-<div class="af-meta">t.me/chpulsk</div></div></div><div class="af-event" data-date="2026-09-28" data-weekend="0">
-<div class="cal-badge"><b>28</b><span>пн 09</span></div>
-<div class="af-body"><a href="https://t.me/ulsk_on/22834" target="_blank" rel="noopener"><b>Отопительный сезон в Ульяновске официально стартует 28 сентября. С этой даты наше МУП «Городская теплосеть» и …</b></a>
-<div class="af-meta">t.me/ulsk_on</div></div></div><div class="af-event" data-date="2026-09-30" data-weekend="0">
-<div class="cal-badge"><b>30</b><span>ср 09</span></div>
-<div class="af-body"><a href="https://media73.ru/2026/ulyanovsk-eto-po-lyubvi-zhiteli-regiona-poboryutsya-za-100-tysyach-rubley" target="_blank" rel="noopener"><b>«Ульяновск — это по любви»: жители региона поборются за 100 тысяч рублей</b></a>
-<div class="af-meta">Media73</div></div></div><div class="af-event" data-date="2026-09-30" data-weekend="0">
-<div class="cal-badge"><b>30</b><span>ср 09</span></div>
-<div class="af-body"><a href="https://t.me/chpul/34439" target="_blank" rel="noopener"><b>Мэрия Ульяновска подала в суд на ООО «Ленинские горки» с требованием снести канатную дорогу с нижней и верхней…</b></a>
-<div class="af-meta">t.me/chpul</div></div></div><div class="af-event" data-date="2026-09-30" data-weekend="0">
-<div class="cal-badge"><b>30</b><span>ср 09</span></div>
-<div class="af-body"><a href="https://t.me/chpulsk/50785" target="_blank" rel="noopener"><b>👩🏻‍⚖️ Аварийную канатную дорогу в Ульяновске планируют снести по решению суда Администрация Ульяновска подала …</b></a>
-<div class="af-meta">t.me/chpulsk</div></div></div><div class="af-event" data-date="2026-09-30" data-weekend="0">
-<div class="cal-badge"><b>30</b><span>ср 09</span></div>
-<div class="af-body"><a href="https://t.me/ulkoroche/33772" target="_blank" rel="noopener"><b>🏔 Мэрия Ульяновска через суд требует снести «Ленинские горки». Городские власти подали иск в Арбитражный суд о…</b></a>
-<div class="af-meta">t.me/ulkoroche</div></div></div><div class="af-event" data-date="2026-10-01" data-weekend="0">
-<div class="cal-badge"><b>01</b><span>чт 10</span></div>
-<div class="af-body"><a href="https://t.me/chpul/34393" target="_blank" rel="noopener"><b>С 1 октября 2026 года маркетплейсы не смогут включать товар продавца в распродажу без его согласия, а за отказ…</b></a>
-<div class="af-meta">t.me/chpul</div></div></div><div class="af-event" data-date="2026-10-01" data-weekend="0">
-<div class="cal-badge"><b>01</b><span>чт 10</span></div>
-<div class="af-body"><a href="https://t.me/dimitrovgradd/31810" target="_blank" rel="noopener"><b>Из предложки: Уважаемые Димитровградцы! В Первомайском районе который раз уже течет грязная горячая вода. С 01…</b></a>
-<div class="af-meta">t.me/dimitrovgradd<span class="dist-badge">район/область</span></div></div></div><div class="af-event" data-date="2026-10-05" data-weekend="0">
-<div class="cal-badge"><b>05</b><span>пн 10</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/13/ulyanovczy-mogut-vybrat-proekty-blagoustrojstva-ploshhadi-lenina-i-uliczy-goncharova/" target="_blank" rel="noopener"><b>Ульяновцы могут выбрать проекты благоустройства площади Ленина и улицы Гончарова</b></a>
-<div class="af-meta"><span class="af-time">13:00</span>Улпресса</div></div></div><div class="af-event" data-date="2026-10-09" data-weekend="0">
-<div class="cal-badge"><b>09</b><span>пт 10</span></div>
-<div class="af-body"><a href="https://ulpressa.ru/2026/09/15/po-27-tysyach-za-kvadrat-na-moskovskom-shosse-pustyat-s-molotka-arestovannoe-zdanie/" target="_blank" rel="noopener"><b>По 27 тысяч за «квадрат»: на Московском шоссе пустят с молотка арестованное здание</b></a>
-<div class="af-meta">Улпресса<span class="dist-badge">район/область</span></div></div></div></div></div></div>
+<div class="af-body"><a href="https://ulpressa.ru/2026/09/16/nakopilis-schyoty-ulyanovskaya-volga-primet-kostromskoj-spartak-na-stadione-trud/" target="_blank" rel="noopener"><b>Волга</b></a>
+<div class="af-meta"><span class="af-time">18:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 Стадион «Труд»</span><span class="af-meta" style="display:inline;"> · ул. Гагарина</span> </div></div></div></div></div></div>
+
+<details class="af-rej"><summary>Не прошло порог (40) — почему отсеяно</summary>
+<div class="af-rej-row"><span class="af-rej-date">17.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Невозможное существует ровно до того момента, пока кто-то не докажет обратное</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">17.09 <span class="af-time">17:30</span></span>
+<span>Преимущества и риски искусственного интеллекта</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">17.09 <span class="af-time">17:30</span></span>
+<span>Создавая будущее</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">17.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Улправда</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">17.09 <span class="af-badge warn">время уточняется</span></span>
+<span>встреча</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">17.09 <span class="af-badge warn">время уточняется</span></span>
+<span>событие</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">18.09 <span class="af-time">18:00</span></span>
+<span>Волга</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">18.09 <span class="af-time">04:00</span></span>
+<span>сегодня красиво отдыхаем</span>
+<span class="af-rej-why">промо канала</span></div><div class="af-rej-row"><span class="af-rej-date">19.09 <span class="af-time">14:00</span></span>
+<span>Вся семья вместе и душа на месте</span>
+<span class="af-rej-why">дайджест/норма: дата — не события</span></div><div class="af-rej-row"><span class="af-rej-date">20.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Вместе</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">20.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Где и как можно проголосовать? С 18 по</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">20.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Госуслуги</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">20.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Обращение в преддверии выборов Голосование будет проходить в течение трёх дней: 18, 19 и</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">20.09 <span class="af-badge warn">время уточняется</span></span>
+<span>С 18 по</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">20.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Ульяновцев зовут на трехдневные выборы губернатора и депутатов С 18 по</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">20.09 <span class="af-badge warn">время уточняется</span></span>
+<span>күмәк көч</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">20.09 <span class="af-badge warn">время уточняется</span></span>
+<span>событие</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">20.09 <span class="af-time">10:00</span></span>
+<span>событие · Ульяновский драматический театр им. И. А. Гончарова</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">20.09 <span class="af-time">16:30</span></span>
+<span>спектакль</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">21.09 <span class="af-time">14:00</span></span>
+<span>Россия – страна возможностей</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">21.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Строительно-монтажного управления-96</span>
+<span class="af-rej-why">дайджест/норма: дата — не события</span></div><div class="af-rej-row"><span class="af-rej-date">24.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Кадры</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">24.09 <span class="af-badge warn">время уточняется</span></span>
+<span>событие</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">25.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Поток</span>
+<span class="af-rej-why">дайджест/норма: дата — не события</span></div><div class="af-rej-row"><span class="af-rej-date">26.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Ульяновск, это будет громко</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Городская теплосеть</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
+<span>🌡 Отопительный сезон в Ульяновске начнется</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
+<span>🌡 Ульяновская область готовится к отопительному сезону. С</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
+<span>🔥 Отопление включат</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
+<span>🥵 Отопление в Ульяновске дадут уже</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">30.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Ленинские горки</span>
+<span class="af-rej-why">дайджест/норма: дата — не события</span></div><div class="af-rej-row"><span class="af-rej-date">30.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Ульяновск — это по любви</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">30.09 <span class="af-badge warn">время уточняется</span></span>
+<span>күмәк көч</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">30.09 <span class="af-badge warn">время уточняется</span></span>
+<span>событие</span>
+<span class="af-rej-why">дайджест/норма: дата — не события</span></div><div class="af-rej-row"><span class="af-rej-date">01.10 <span class="af-badge warn">время уточняется</span></span>
+<span>Из предложки</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">01.10 <span class="af-badge warn">время уточняется</span></span>
+<span>Сентябриада</span>
+<span class="af-rej-why">промо канала</span></div><div class="af-rej-row"><span class="af-rej-date">01.10 <span class="af-badge warn">время уточняется</span></span>
+<span>событие</span>
+<span class="af-rej-why">дайджест/норма: дата — не события</span></div><div class="af-rej-row"><span class="af-rej-date">05.10 <span class="af-time">13:00</span></span>
+<span>Уютные ступени</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">09.10 <span class="af-badge warn">время уточняется</span></span>
+<span>квадрат</span>
+<span class="af-rej-why">дайджест/норма: дата — не события</span></div><div class="af-rej-row"><span class="af-rej-date">14.10 <span class="af-badge warn">время уточняется</span></span>
+<span>Муромом</span>
+<span class="af-rej-why">нет площадки</span></div>
+</details>
 
 <div class="sec-head"><h2>Анонсы культурных каналов</h2><div class="line"></div>
 <div class="badge">Telegram, последние посты</div></div>
 <div class="grid2"><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
 <a href="https://t.me/culturnik" target="_blank" rel="noopener" style="color:#fff;">@culturnik</a>
-<span class="sub">Культура Ульяновск</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9299" target="_blank" rel="noopener">ВЕЧЕР ПРОЗЫ 🗓️ 20 сентября 17:00 📍 бар Довлатов Ульяновские авторы читают свои произведения на публику. Коротк…</a></div>
-<div class="m">17.09 08:30 · 👁 8</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9298" target="_blank" rel="noopener">«Почитушки» – поэтический клуб и площадка, где локальные артисты (поэты, музыканты, актёры, художники и т.д.) …</a></div>
-<div class="m">17.09 08:26 · 👁 23</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9297" target="_blank" rel="noopener">Friends to Friends — «Друзья для друзей» 🤍 Первая встреча камерного разговорного клуба английского для тех, ко…</a></div>
-<div class="m">16.09 18:46 · 👁 249</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
+<span class="sub">Культура Ульяновск</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9297" target="_blank" rel="noopener">Friends to Friends — «Друзья для друзей» 🤍 Первая встреча камерного разговорного клуба английского для тех, ко…</a></div>
+<div class="m">16.09 18:46 · 👁 249</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9296" target="_blank" rel="noopener">Игра-исследование городской среды «Бродилка» 🗓️ 19 сентября 18:30 📍 Квартал, Ленина 78 В детстве приключения с…</a></div>
+<div class="m">16.09 15:25 · 👁 350</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/culturnik/9295" target="_blank" rel="noopener">Виниловый вечер King Crimson 🗓️ 17 сентября 20:00 📍 бар Довлатов, Дворцовая 6 In the Court of the Crimson King…</a></div>
+<div class="m">16.09 12:48 · 👁 8</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
 <a href="https://t.me/ulpromo" target="_blank" rel="noopener" style="color:#fff;">@ulpromo</a>
 <span class="sub">Движ в любимом У</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><a href="https://t.me/ulpromo/18021" target="_blank" rel="noopener">ВЕЧЕР КУЛЬТОВОЙ МУЗЫКИ 17 СЕНТЯБРЯ ⚡️ Мы повторяем в расширенном виде виниловый вечер величайшей группе 60-ых,…</a></div>
 <div class="m">16.09 21:38 · 👁 283</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ulpromo/18020" target="_blank" rel="noopener">ДЕВОЧКИ, У НАС СРОЧНЫЙ СБОР 💋 невеста для девичника вообще не обязательна. Достаточно подруг и коллективного р…</a></div>
@@ -708,11 +710,11 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="m">16.09 17:03 · 👁 94</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ProNovosty73/5921" target="_blank" rel="noopener">Комики общаются со зрителями и шутят в поисках нового формата. 18+. 📅 Когда: 16 сентября, сбор гостей в 18:30,…</a></div>
 <div class="m">16.09 14:01 · 👁 122</div></div></div><div class="tgpost"><div><div class="t"><a href="https://t.me/ProNovosty73/5920" target="_blank" rel="noopener">Экскурсия «Усадьба купца Мельникова» ✨ Здание Молодёжного центра современного искусства не всегда было площадк…</a></div>
 <div class="m">16.09 10:01 · 👁 60</div></div></div></div></div></div>
+<div class="note" style="margin-top:10px;">Посты каналов выводятся как есть; если дата не распознана — время и место сверяйте у организатора.</div>
 
-<div class="note" style="margin-top:16px;">Афиша собирается автоматически (analytics.py → extract_calendar) из текстов всех
-мониторируемых источников: даты, время, площадки. Типы событий определяются по ключевым словам; районные мероприятия
-помечены бейджем. Культурных событий в выборке: 13. <b>Перед визитом сверяйте время и билеты у организаторов</b> —
-данные извлечены из публикаций автоматически и могут содержать неточности.</div>
+<div class="note" style="margin-top:16px;">Афиша собирается автоматически (analytics.py → extract_calendar_full): события проходят
+порог входа — дата в горизонте, время (или «весь день»/«уточняется»), площадка из справочника venues.json и тип культурного события.
+Что не прошло — видно в блоке «Не прошло порог». Культурных событий в выборке: 4.</div>
 
 </div>
 </main>
@@ -741,9 +743,9 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 function afFilter(mode,btn){
   document.querySelectorAll('.af-chip').forEach(function(c){c.classList.remove('on');});
   btn.classList.add('on');
-  var today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());
-  var iso=today.toISOString().slice(0,10);
-  var tom=new Date(today.getTime()+86400000)).toISOString().slice(0,10);
+  var now=new Date();now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
+  var iso=now.toISOString().slice(0,10);
+  var tom=(new Date(now.getTime()+86400000)).toISOString().slice(0,10);
   document.querySelectorAll('.af-event').forEach(function(ev){
     var d=ev.getAttribute('data-date');var show=true;
     if(mode==='today')show=(d===iso);

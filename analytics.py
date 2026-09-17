@@ -62,9 +62,188 @@ ETYPE_RULES = [
     ("theatre",   r"театр|спектакл|пьес|премьер|драм|постановк|балет|оперет"),
     ("concert",   r"концерт|филармони|оркестр|хор |хор\b|романс|песн|музык|джаз|рок|стендап|stand.?up|выступит|ансамбл|караоке|дискотек|вечеринк"),
     ("expo",      r"выставк|музей|экспозиц|вернисаж|галере|арт-объект|библиотек"),
+    ("city",      r"экскурс|лекци|дискусси|круглый стол|открыт\w* (лекц\w+|урок)|встреч\w* с (жител|эксперт|автором)|собрание жител|публичн\w* разговор|приём граждан|посиделк"),
     ("sport",     r"спорт|забег|матч|турнир|соревнован|зарядк|гто|кубок|чемпионат"),
 ]
 DISTRICT_RE = re.compile(r"димитровград|барыш|инза|сенгилей|новоульяновск|ундоры|павловк|кузоватов|старая майна|чердакл|вешкайм|карсун|сурск|никольск|тереньга|радищев|майнк|большое нагаткино|район[аеу]?\b", re.I)
+
+# ---------------------------------------------------------------- афиша: порог входа
+AFISHA_CHANNELS = ("culturnik", "ulpromo", "ProNovosty73")
+AFISHA_DEFAULT_WEIGHTS = {"date": 30, "time": 20, "venue": 20, "ctype": 20, "source": 10}
+
+DIGEST_RE = re.compile(
+    r"подборк|дайджест|сводк|главное за день|итоги дня|обзор (дня|недели)|"
+    r"что (произошло|было) за (день|неделю|сутки)|"
+    r"афиш\w*.*(недел|выходн|событий)|куда сходить", re.I)
+NORM_RE = re.compile(
+    r"не смогут|вступит в силу|вступает в силу|обязан\w{0,3} (с |до )|"
+    r"будет (запрещено|приостановлено|введено)|начиная с|начнёт действовать", re.I)
+AUCTION_RE = re.compile(r"торг\w*|с молотка|аукцион", re.I)
+COURT_RE = re.compile(r"\bсуд[:еуа]?\b|через суд|арестованн\w+ (здание|имущество)|подал\w* в суд", re.I)
+WHOLE_DAY_RE = re.compile(r"весь день|круглосуточн|весь вечер\b", re.I)
+PROMO_PERSONAL_RE = re.compile(r"девочки, у нас|девичник|срочный сбор|розыгрыш|поспеши|успей|только сегодня|ограниченн|акция!|скидк\w{0,5}\s*\d", re.I)
+AGE_RE = re.compile(r"\b(0|6|12|14|16|18)\s*\+")
+
+# район/город из текста: города и районы области, районы Ульяновска
+GEO_RULES = [
+    (r"димитровград", "Димитровград"),
+    (r"новоульяновск", "Новоульяновск"),
+    (r"сенгилей", "Сенгилей"),
+    (r"новоспас", "Новоспасский район"),
+    (r"кузоват", "Кузоватовский район"),
+    (r"чердакл", "Чердаклинский район"),
+    (r"вешкайм", "Вешкаймский район"),
+    (r"карсун", "Карсунский район"),
+    (r"сурск", "Сурский район"),
+    (r"никольск", "Никольский район"),
+    (r"тереньг", "Тереньгульский район"),
+    (r"радищев", "Радищевский район"),
+    (r"\bмайн", "Майнский район"),
+    (r"старая майна", "Старая Майна"),
+    (r"большое нагаткино", "Цильнинский район"),
+    (r"старокулатк", "Старокулаткинский район"),
+    (r"павловк", "Павловский район"),
+    (r"засвияж", "Засвияжский район"),
+    (r"заволж", "Заволжский район"),
+    (r"железнодорожн\w*\s+район", "Железнодорожный район"),
+    (r"ленинск\w*\s+район", "Ленинский район"),
+]
+ETYPE_LABEL = {
+    "festival": "праздник", "theatre": "спектакль", "concert": "концерт",
+    "expo": "выставка", "kids": "детское событие", "cinema": "кинопоказ",
+    "sport": "спортивное событие", "city": "встреча", "other": "событие",
+}
+
+
+def extract_geo(blob):
+    """Название района/города из текста (для карточек без площадки в справочнике)."""
+    low = (blob or "").lower()
+    for pat, label in GEO_RULES:
+        if re.search(pat, low):
+            return label
+    if re.search(r"ульяновск", low) and not re.search(r"област", low):
+        return "Ульяновск"
+    return ""
+
+
+_VENUES_CACHE = None
+
+
+def load_venues():
+    """Справочник площадок data/venues.json: название → адрес/район/город."""
+    global _VENUES_CACHE
+    if _VENUES_CACHE is None:
+        try:
+            with open(os.path.join(DATA, "venues.json"), encoding="utf-8") as f:
+                _VENUES_CACHE = json.load(f) or {}
+        except (OSError, ValueError):
+            _VENUES_CACHE = {}
+    return _VENUES_CACHE
+
+
+def venue_resolve(mention, blob=""):
+    """Упоминание/текст → запись справочника. Возвращает {name, address, district, city, found}."""
+    vdb = load_venues()
+    low_blob = (blob or "").lower()
+
+    def hit(v):
+        return {"name": v.get("name") or mention, "address": v.get("address", ""),
+                "district": v.get("district", ""), "city": v.get("city", ""), "found": True}
+
+    if mention:
+        m_low = re.sub(r"[«»\"'`.,;:]+", "", mention.strip().lower())
+        cands = []
+        for key, v in vdb.items():
+            names = [v.get("name", ""), key] + (v.get("keys") or [])
+            for a in names:
+                a = re.sub(r"[«»\"'`.,;:]+", "", (a or "").strip().lower())
+                if a and (a == m_low or a in m_low or m_low in a):
+                    cands.append(v)
+                    break
+        if cands:
+            c = cands[0]
+            if "ккк" in m_low or "ккк" in low_blob:
+                for v in cands:
+                    if v.get("name", "").startswith("ККК"):
+                        c = v
+            return hit(c)
+    if blob:
+        # внутри текста площадку надёжнее ловить в кавычках «Труд», «Современник»
+        quoted = re.findall(r"[«\"“]([^»\"”]{2,90})[»\"”]", low_blob)
+        if quoted:
+            cands = []
+            for key, v in vdb.items():
+                aliases = [v.get("name", ""), key] + (v.get("keys") or [])
+                for a in aliases:
+                    a = re.sub(r"[«»\"'`.,;:]+", "", (a or "").strip().lower())
+                    if len(a) < 3:
+                        continue
+                    for q in quoted:
+                        if q == a or q.startswith(a + " ") \
+                                or (q.endswith(a) and len(q) > len(a)) \
+                                or (len(a) >= 6 and a in q):
+                            cands.append(v)
+                            break
+            if cands:
+                c = cands[0]
+                if "ккк" in low_blob:
+                    for v in cands:
+                        if v.get("name", "").startswith("ККК"):
+                            c = v
+                return hit(c)
+    return {"name": (mention or "").strip(), "address": "", "district": "", "city": "", "found": False}
+
+
+def event_title(blob, max_chars=90):
+    """Название события отдельным полем: кавычки → шаблон «Название: …» → заглавная строка."""
+    if not blob:
+        return None
+    s = PROMO_TAIL.sub(" ", blob)
+    s = re.split(r"(?is)(📍|📅|🗓|^где[:：]|^когда[:：])", s, maxsplit=1)[0]
+    vdb = load_venues()
+    venue_words = {a for v in vdb.values()
+                   for a in ([v.get("name", "")] + (v.get("keys") or []))}
+    venue_words = {re.sub(r"[«»\"'`.,;:]+", "", w.strip().lower()) for w in venue_words if w}
+    for m in re.finditer(r"[«\"“]([^»\"”]{3,90})[»\"”]", s):
+        cand = m.group(1).strip()
+        cand_low = re.sub(r"[«»\"'`.,;:]+", "", cand.lower())
+        if cand_low in venue_words:
+            continue
+        cand_low2 = cand.lower()
+        if re.match(r"^(в|на|с|до|после|около|примерно|к|и)\s+[а-яё]{2,40}\s+(улиц\w+|площад\w+|территор\w+|сквер\w+|набережн\w+|шоссе)\b", cand_low2):
+            continue  # «на Соборной площади» — локация, не название
+        return cand[:max_chars]
+    m = re.search(r"^([А-ЯЁA-Z0-9][^:\n]{8,70})[:：]\s", s)
+    if m:
+        return m.group(1).strip()[:max_chars]
+    m = re.search(r"^([А-ЯЁA-Z0-9][^…\n]{8,70}?)\s*—\s*[а-яё]", s)
+    if m:
+        return m.group(1).strip().rstrip(" —-")[:max_chars]
+    m = re.search(r"^(.{5,90}?)\s+\d{1,2}\s+[а-яё]{3,12}", s)
+    if m:
+        return m.group(1).strip().rstrip(" :,—–-")[:max_chars]
+    return None
+
+
+def extract_price(blob):
+    """{mode, text}: free / reg / paid."""
+    low = (blob or "").lower()
+    if re.search(r"вход свободн|свободны[йм]\s*(вход|посещ)|бесплатн|free", low):
+        return {"mode": "free", "text": "вход свободный"}
+    if re.search(r"по регистраци|нужна регистраци|регистраци\w*\s+обязательн", low):
+        return {"mode": "reg", "text": "бесплатно по регистрации"}
+    m = re.search(r"(от\s*)?(\d{1,2}[\d\s]{0,6})\s*(?:руб(?:лей)?|₽|р\.)", low)
+    if m and int(m.group(2).replace(" ", "")) >= 30:
+        val = int(m.group(2).replace(" ", ""))
+        return {"mode": "paid", "text": f"от {val} ₽" if m.group(1) else f"{val} ₽"}
+    if re.search(r"по билет|билет\w+ (?:от|сто|цени)", low):
+        return {"mode": "paid", "text": "по билетам"}
+    return {"mode": "", "text": ""}
+
+
+def extract_age(blob):
+    vals = [int(x) for x in AGE_RE.findall(blob or "")]
+    return f"{max(vals)}+" if vals else ""
 
 
 NOT_EVENT_RE = re.compile(
@@ -117,11 +296,32 @@ def _local_dt(iso):
 
 
 # ---------------------------------------------------------------- 1. calendar
-def extract_calendar(items, now=None, horizon_days=45):
-    """Будущие события, упомянутые в новостях: дата(+диапазон), время, площадка."""
+def _afisha_score(weights, has_time, venue_ok, etype, it):
+    """Прозрачный индекс уверенности: доли от суммы весов, диапазон 0..1."""
+    total = max(1, sum(int(weights.get(k, 0)) for k in AFISHA_DEFAULT_WEIGHTS))
+    s = int(weights.get("date", 30))
+    s += int(weights.get("time", 20)) * (1.0 if has_time else 0.3)
+    s += int(weights.get("venue", 20)) * (1.0 if venue_ok else 0.0)
+    s += int(weights.get("ctype", 20)) * (1.0 if etype != "other" else 0.2)
+    src_ok = it.get("category") == "culture" or (it.get("channel") or "").lstrip("@") in AFISHA_CHANNELS
+    s += int(weights.get("source", 10)) * (1.0 if src_ok else 0.6)
+    return s / total
+
+
+def extract_calendar_full(items, now=None, cfg=None):
+    """События с проверкой порога входа: список принятых и отсев с причинами."""
     now = now or datetime.now(UTC4)
     today = now.date()
-    events, seen = [], set()
+    gate = dict((cfg or {}).get("settings", {}).get("afisha") or {})
+    horizon = int(gate.get("horizon_days", 45))
+    max_total = int(gate.get("max_total", 40))
+    max_per_day = int(gate.get("max_per_day", 4))
+    promo_penalty = float(gate.get("promo_penalty", 0.6))
+    title_max = int(gate.get("event_title_max_chars", 90))
+    weights = dict(AFISHA_DEFAULT_WEIGHTS, **gate.get("weights", {}))
+    events, rejected, seen, seen_rej = [], [], set(), set()
+    found_dates = 0
+    venues_new = {}
 
     def resolve(day, month):
         for year in (today.year, today.year + 1):
@@ -130,7 +330,7 @@ def extract_calendar(items, now=None, horizon_days=45):
             except ValueError:
                 continue
             delta = (d - today).days
-            if 0 <= delta <= horizon_days:
+            if 0 <= delta <= horizon:
                 return d
         return None
 
@@ -177,38 +377,103 @@ def extract_calendar(items, now=None, horizon_days=45):
             dates = dates[:1]
         if not dates:
             continue
+        found_dates += 1
         tm = RE_TIME.search(blob)
         time_s = f"{int(tm.group(1)):02d}:{tm.group(2)}" if tm and int(tm.group(1)) < 24 else ""
+        tnote = ""
+        if not time_s:
+            tnote = "весь день" if WHOLE_DAY_RE.search(blob) else "уточняется"
+        has_time = bool(time_s) or tnote == "весь день"
         vm = RE_VENUE.search(blob)
-        key = (dates[0].isoformat(), re.sub(r"\W+", "", it.get("title", "").lower())[:40])
-        if key in seen:
-            continue
-        seen.add(key)
-        etype = event_type(f"{it.get('title','')} {it.get('text','')}")
-        is_culture = etype in ("kids", "cinema", "festival", "theatre", "concert", "expo") or it.get("category") == "culture"
-        events.append({
+        mention = (vm.group(1).strip() if vm else "")
+        mention = re.sub(r"(?i)^(где|гдe|площадк\w*)\s*[:—]?\s*", "", mention).strip()
+        vres = venue_resolve(mention, blob)
+        venue_ok = bool(mention) or vres.get("found", False)
+        geo = vres.get("district") or vres.get("city") or extract_geo(blob)
+        etype = event_type(blob)
+        etitle = event_title(blob, title_max)
+        title_fallback = etitle is None
+        if etitle is None:
+            etitle = ETYPE_LABEL.get(etype, "событие")
+            if vres.get("name"):
+                etitle = f"{etitle} · {vres.get('name')}"
+            etitle = etitle[:title_max]
+        price = extract_price(blob)
+        age = extract_age(blob)
+        reasons = []
+        if DIGEST_RE.search(blob) or NORM_RE.search(blob) or AUCTION_RE.search(blob) or COURT_RE.search(blob):
+            reasons.append("дайджест/норма: дата — не события")
+        elif PROMO_PERSONAL_RE.search(blob):
+            reasons.append("промо канала")
+        elif etype == "other":
+            reasons.append("тип: новость, не перечневое культурное событие")
+        if not venue_ok and not reasons:
+            reasons.append("нет площадки")
+        base = {
             "etype": etype,
-            "is_culture": is_culture,
-            "district": bool(DISTRICT_RE.search(f"{it.get('title','')} {it.get('text','')}")),
+            "is_culture": etype in ("kids", "cinema", "festival", "theatre", "concert", "expo") or it.get("category") == "culture",
+            "district": bool(geo),
             "date": dates[0].isoformat(),
             "date_end": dates[-1].isoformat() if len(dates) > 1 else None,
             "time": time_s,
-            "title": it.get("title", "")[:150],
+            "time_note": tnote,
+            "event_title": etitle,
+            "title_is_fallback": title_fallback,
+            "title": title[:150],
             "url": it.get("url") or "",
             "source": it.get("source", ""),
             "tier": it.get("tier"),
-            "venue": (vm.group(1).strip()[:60] if vm else ""),
-        })
+            "venue": (vres.get("name") or mention or "")[:60],
+            "venue_addr": vres.get("address", "")[:120],
+            "venue_district": vres.get("district", ""),
+            "venue_city": vres.get("city", ""),
+            "venue_found": vres.get("found", False) or bool(mention),
+            "geo": geo,
+            "price": price["text"],
+            "price_mode": price["mode"],
+            "age": age,
+        }
+        key = (dates[0].isoformat(),
+               re.sub(r"\W+", "", (etitle or title).lower())[:60])
+        if reasons:
+            if key in seen_rej:
+                continue
+            seen_rej.add(key)
+            rejected.append(dict(base, reasons=reasons))
+            continue
+        if key in seen:
+            continue
+        seen.add(key)
+        score = _afisha_score(weights, has_time, venue_ok, etype, it)
+        if PROMO_PERSONAL_RE.search(blob):
+            score -= promo_penalty
+        base["score"] = round(max(0.0, score), 3)
+        events.append(base)
+        if not vres.get("found", False) and mention:
+            venues_new[mention] = venues_new.get(mention, 0) + 1
     events.sort(key=lambda e: (e["date"], e["time"]))
-    # не более 4 событий в день, приоритет официальным
+    # не более max_per_day событий в день, приоритет официальным и уверенным
     by_day = defaultdict(list)
     for e in events:
         by_day[e["date"]].append(e)
     out = []
     for d in sorted(by_day):
-        day_evs = sorted(by_day[d], key=lambda e: (e["tier"] or 2, e["source"]))
-        out.extend(day_evs[:4])
-    return out[:40]
+        day_evs = sorted(by_day[d], key=lambda e: (e["tier"] or 2, -e.get("score", 0)))
+        out.extend(day_evs[:max_per_day])
+    rejected.sort(key=lambda e: (e["date"], e["event_title"]))
+    return {
+        "accepted": out[:max_total],
+        "rejected": rejected,
+        "found_dates": found_dates,
+        "venues_new": venues_new,
+    }
+
+
+def extract_calendar(items, now=None, horizon_days=45, cfg=None):
+    """Будущие события, прошедшие порог: дата(+диапазон), время, площадка.
+    Совместимая обёртка — возвращает список принятых событий."""
+    gate = cfg or {"settings": {"afisha": {"horizon_days": horizon_days}}}
+    return extract_calendar_full(items, now=now, cfg=gate)["accepted"]
 
 
 # ---------------------------------------------------------------- 2. clusters
@@ -2558,13 +2823,22 @@ def build_all(items, trends, cfg=None):
     with open(os.path.join(DATA, "infospace.json"), "w", encoding="utf-8") as f:
         json.dump(infospace, f, ensure_ascii=False, indent=1)
 
+    cal_full = extract_calendar_full(items, now, cfg)
     result = {
         "generated_local": now.strftime("%d.%m.%Y %H:%M"),
-        "calendar": extract_calendar(items, now),
+        "calendar": cal_full["accepted"],
         "clusters": cluster_stories(items, now),
         "sentiment": sentiment_score(items, now=now),
         "credibility": source_credibility(items),
         "forecast": forecast_topics(trends),
+    }
+    result["calendar_rejected"] = cal_full["rejected"]
+    result["calendar_passport"] = {
+        "found_dates": cal_full["found_dates"],
+        "accepted": len(cal_full["accepted"]),
+        "rejected": len(cal_full["rejected"]),
+        "venues_new": dict(sorted(cal_full["venues_new"].items(), key=lambda kv: -kv[1])[:20]),
+        "run_local": now.strftime("%d.%m.%Y %H:%M"),
     }
     os.makedirs(DATA, exist_ok=True)
     with open(os.path.join(DATA, "analytics.json"), "w", encoding="utf-8") as f:
@@ -2586,7 +2860,8 @@ def main():
                 except json.JSONDecodeError:
                     pass
     r = build_all(items, trends, cfg)
-    print(f"[analytics] календарь: {len(r['calendar'])} событий | кластеров: {len(r['clusters'])} "
+    print(f"[analytics] календарь: {len(r['calendar'])} событий (отсев: {r['calendar_passport']['rejected']}, "
+          f"датировок встречено: {r['calendar_passport']['found_dates']}) | кластеров: {len(r['clusters'])} "
           f"(слепых зон словаря: {sum(1 for c in r['clusters'] if c['gap'])})")
     s = r["sentiment"]
     print(f"[analytics] тон дня: {s['today_score']} (+{s['today_pos']}/-{s['today_neg']}/±{s['today_neu']})")

@@ -239,6 +239,80 @@ class TestCalendar(unittest.TestCase):
         self.assertEqual(len(evs), 0)
 
 
+class TestAfishaGate(unittest.TestCase):
+    NOW = analytics.datetime(2026, 9, 17, tzinfo=analytics.UTC4)
+
+    def ev(self, title, text, cat=None):
+        return {"title": title, "text": text,
+                "published": "2026-09-16T05:00:00+00:00",
+                "category": cat, "source": "test"}
+
+    def run_full(self, items):
+        return analytics.extract_calendar_full(items, now=self.NOW)
+
+    def test_accepts_full_event(self):
+        it = self.ev("Праздник двора",
+                     "Техно-осень состоится 24 сентября в 10:00 📍 ДК «Современник», ул. Рябикова, 2. "
+                     "Вход свободный, мастер-классы для детей.")
+        full = self.run_full([it])
+        self.assertEqual(len(full["accepted"]), 1)
+        e = full["accepted"][0]
+        self.assertEqual(e["date"], "2026-09-24")
+        self.assertEqual(e["time"], "10:00")
+        self.assertEqual(e["venue"], "ДК «Современник»")
+        self.assertTrue(e["venue_found"])
+        self.assertEqual(e["price_mode"], "free")
+        self.assertGreater(e["score"], 0.5)
+
+    def test_rejects_digest(self):
+        it = self.ev("Подборка: куда сходить в выходные",
+                     "18 сентября в 18:00 пройдёт концерт, 19 сентября — праздник в парке Прибрежный. "
+                     "Даты из дайджеста.")
+        full = self.run_full([it])
+        self.assertEqual(len(full["accepted"]), 0)
+        self.assertEqual(len(full["rejected"]), 1)
+        self.assertTrue(any("дайджест" in r for r in full["rejected"][0]["reasons"]))
+
+    def test_rejects_no_venue(self):
+        it = self.ev("Мастер-класс по гончарному делу",
+                     "30 сентября в 12:00 состоится мастер-класс. Регистрация обязательна.")
+        full = self.run_full([it])
+        self.assertEqual(len(full["accepted"]), 0)
+        self.assertIn("нет площадки", full["rejected"][0]["reasons"])
+
+    def test_rejects_news_type(self):
+        it = self.ev("Голосование пройдёт с 18 по 20 сентября",
+                     "Избирательные участки будут работать с 18 по 20 сентября с 8 утра.")
+        full = self.run_full([it])
+        self.assertEqual(len(full["accepted"]), 0)
+        self.assertTrue(any("новость" in r for r in full["rejected"][0]["reasons"]))
+
+    def test_event_title_quoted(self):
+        it = self.ev("Выставка",
+                     "Выставка «На крыше» пройдёт 12 октября в 20:00 📍 Бар «Земля».")
+        full = self.run_full([it])
+        self.assertEqual(len(full["accepted"]), 1)
+        self.assertEqual(full["accepted"][0]["event_title"], "На крыше")
+
+    def test_venue_resolve_quoted_in_text(self):
+        r = analytics.venue_resolve("", "Матч пройдёт на стадионе «Труд», старт в 18:00.")
+        self.assertTrue(r["found"])
+        self.assertEqual(r["district"], "Железнодорожный район")
+
+    def test_wrapper_backward_compat(self):
+        it = self.ev("Праздник двора",
+                     "Техно-осень состоится 24 сентября в 10:00 📍 ДК «Современник», ул. Рябикова, 2.")
+        evs = analytics.extract_calendar([it], now=self.NOW)
+        self.assertEqual(len(evs), 1)
+
+    def test_passport_fields(self):
+        it = self.ev("Праздник двора",
+                     "Техно-осень состоится 24 сентября в 10:00 📍 ДК «Современник», ул. Рябикова, 2.")
+        full = self.run_full([it])
+        self.assertEqual(full["found_dates"], 1)
+        self.assertEqual(len(full["accepted"]) + len(full["rejected"]), 1)
+
+
 class TestSentiment(unittest.TestCase):
     def score(self, text):
         items = [{"title": text, "text": "", "published": "2026-09-11T05:00:00+00:00",

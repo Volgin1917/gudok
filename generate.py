@@ -2759,9 +2759,10 @@ ETYPE_META = {
     "kids":     ("👶", "Детям и семьям"),
     "cinema":   ("🎬", "Кино"),
     "sport":    ("🏃", "Спорт и ЗОЖ"),
-    "other":    ("📌", "Прочее и официальное"),
+    "city":     ("🤝", "Город и встречи"),
+    "other":    ("📌", "Прочее"),
 }
-AFISHA_ORDER = ["festival", "theatre", "concert", "expo", "kids", "cinema", "sport", "other"]
+AFISHA_ORDER = ["festival", "theatre", "concert", "expo", "kids", "cinema", "sport", "city", "other"]
 AFISHA_CHANNELS = ["culturnik", "ulpromo", "ProNovosty73"]
 
 AFISHA_CSS = """
@@ -2787,15 +2788,29 @@ AFISHA_CSS = """
 .af-day span{font-size:10px;color:var(--muted);text-transform:uppercase;}
 .af-day i{display:block;font-style:normal;font-size:11px;font-weight:800;color:var(--blue);margin-top:2px;}
 .af-day.we{border-color:var(--gold);}
+.af-badge{display:inline-block;background:#eef6f1;color:#1f7a43;border-radius:7px;padding:1px 8px;font-weight:800;font-size:10.5px;margin-right:6px;}
+:root[data-theme="dark"] .af-badge{background:#14301f;color:#7fd49b;}
+.af-badge.alt{background:#f4f0ff;color:#5b3fd4;}
+:root[data-theme="dark"] .af-badge.alt{background:#221a42;color:#b3a0ff;}
+.af-badge.warn{background:#fff4e2;color:#96690a;border:1px dashed #e0b04e;}
+:root[data-theme="dark"] .af-badge.warn{background:#2a2110;color:#e5b14e;}
+.af-tag{font-size:10px;color:var(--muted);font-style:italic;margin-left:4px;}
+.af-rej{margin-top:18px;background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:12px 16px;}
+.af-rej summary{cursor:pointer;font-weight:800;font-size:13px;color:var(--muted);margin-bottom:4px;}
+.af-rej summary:hover{color:var(--blue);}
+.af-rej-row{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12.5px;align-items:baseline;flex-wrap:wrap;}
+.af-rej-row:last-child{border-bottom:none;}
+.af-rej-date{min-width:118px;font-weight:800;color:var(--navy);}
+.af-rej-why{color:var(--muted);font-size:11px;margin-left:auto;}
 """
 
 AFISHA_JS = """<script>
 function afFilter(mode,btn){
   document.querySelectorAll('.af-chip').forEach(function(c){c.classList.remove('on');});
   btn.classList.add('on');
-  var today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());
-  var iso=today.toISOString().slice(0,10);
-  var tom=new Date(today.getTime()+86400000)).toISOString().slice(0,10);
+  var now=new Date();now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
+  var iso=now.toISOString().slice(0,10);
+  var tom=(new Date(now.getTime()+86400000)).toISOString().slice(0,10);
   document.querySelectorAll('.af-event').forEach(function(ev){
     var d=ev.getAttribute('data-date');var show=true;
     if(mode==='today')show=(d===iso);
@@ -2878,22 +2893,18 @@ def render_afisha(cfg, trends, store, status, an):
     nav_html = render_nav(cfg, "afisha", "")
     today = now.date()
     cal = (an or {}).get("calendar", [])
+    rej = (an or {}).get("calendar_rejected", [])
+    passport = (an or {}).get("calendar_passport", {})
 
     def edate(e):
         try:
             return datetime.strptime(e["date"], "%Y-%m-%d").date()
-        except ValueError:
+        except (ValueError, TypeError, KeyError):
             return None
 
     cal = [e for e in cal if edate(e) and edate(e) >= today]
-    seen, uniq = set(), []
-    for e in sorted(cal, key=lambda x: (x["date"], x.get("time", ""))):
-        k = (e["date"], re.sub(r"\W+", "", e["title"].lower())[:30])
-        if k in seen:
-            continue
-        seen.add(k)
-        uniq.append(e)
-    cal = uniq
+    cal = sorted(cal, key=lambda x: (x["date"], x.get("time") or "99:99"))
+    rej = [e for e in rej if edate(e) and edate(e) >= today]
 
     # ближайшие выходные (сб+вс)
     sat = today + timedelta(days=(5 - today.weekday()) % 7)
@@ -2911,6 +2922,39 @@ def render_afisha(cfg, trends, store, status, an):
         we = ' we' if dd in weekend else ''
         daybar.append(f'<div class="af-day{we}"><b>{dd:%d}</b><span>{wd[dd.weekday()]} {dd:%m}</span><i>{n} соб.</i></div>')
 
+    # паспорт порога входа
+    found_n = passport.get("found_dates")
+    passed_n = passport.get("accepted")
+    shown_n = len(cal)
+    if found_n is None:
+        pipeline_note = f"Событий в выборке: <b>{shown_n}</b>."
+    else:
+        pipeline_note = ("Порог входа: найдено дат <b>{found}</b> → прошло проверку <b>{passed}</b> → "
+                         "показано сегодня <b>{shown}</b>. Сверяйте время и билеты у организаторов — "
+                         "данные извлечены из публикаций автоматически.").format(found=found_n, passed=passed_n, shown=shown_n)
+
+    def time_html(e):
+        t = e.get("time") or ""
+        note = e.get("time_note") or ""
+        if t:
+            return f'<span class="af-time">{esc(t)}</span>'
+        if note == "весь день":
+            return '<span class="af-badge alt">весь день</span>'
+        return '<span class="af-badge warn">время уточняется</span>'
+
+    def venue_html(e):
+        v = e.get("venue") or ""
+        addr = e.get("venue_addr") or ""
+        geo = e.get("geo") or ""
+        parts = []
+        if v:
+            parts.append("📍 " + esc(v))
+            if addr and addr.lower() not in v.lower():
+                parts.append(esc(addr))
+        elif geo:
+            parts.append(esc(geo))
+        return "".join(f'<span class="af-meta" style="display:inline;"> · {p}</span>' for p in parts) if parts else ""
+
     # секции по типам
     sections = []
     n_culture = 0
@@ -2925,15 +2969,22 @@ def render_afisha(cfg, trends, store, status, an):
         for e in evs:
             d = edate(e)
             gold = ' gold' if d in weekend else ''
-            t = f'<span class="af-time">{esc(e["time"])}</span>' if e.get("time") else ''
-            venue = f' · 📍 {esc(e["venue"])}' if e.get("venue") else ''
-            dist = '<span class="dist-badge">район/область</span>' if e.get("district") else ''
+            span = ''
             end = e.get("date_end")
-            span = f' — {end[8:10]}.{end[5:7]}' if end else ''
+            if end:
+                span = f' — {end[8:10]}.{end[5:7]}'
+            badges = []
+            if e.get("price"):
+                badges.append(f'<span class="af-badge">{esc(e["price"])}</span>')
+            if e.get("age"):
+                badges.append(f'<span class="af-badge alt">{esc(e["age"])}</span>')
+            if e.get("title_is_fallback"):
+                badges.append('<span class="af-badge warn">название уточняется</span>')
+            title = e.get("event_title") or e.get("title") or "без названия"
             rows.append(f"""<div class="af-event" data-date="{e['date']}" data-weekend="{'1' if d in weekend else '0'}">
 <div class="cal-badge{gold}"><b>{d:%d}</b><span>{wd[d.weekday()]} {d:%m}</span></div>
-<div class="af-body"><a href="{esc(e.get('url') or '#')}" target="_blank" rel="noopener"><b>{esc(clip_words(e['title'],130))}</b></a>{span}
-<div class="af-meta">{t}{esc(e.get('source',''))}{venue}{dist}</div></div></div>""")
+<div class="af-body"><a href="{esc(e.get('url') or '#')}" target="_blank" rel="noopener"><b>{esc(clip_words(title, 140))}</b></a>{span}
+<div class="af-meta">{time_html(e)}<span>{esc(e.get('source', ''))}</span>{venue_html(e)} {''.join(badges)}</div></div></div>""")
         sections.append(f"""<div class="af-sec" id="et-{et}"><div class="sec-head" style="margin:16px 0 8px;"><h2>{icon} {name}</h2><div class="line"></div>
 <div class="badge">{len(evs)}</div></div><div class="card"><div class="card-pad">{''.join(rows)}</div></div></div>""")
 
@@ -2952,6 +3003,19 @@ def render_afisha(cfg, trends, store, status, an):
 <a href="https://t.me/{esc(chn)}" target="_blank" rel="noopener" style="color:#fff;">@{esc(chn)}</a>
 <span class="sub">{esc((ch_cfg or {}).get('title',''))}</span></div><div class="side-body">{rows}</div></div>""")
 
+    # блок «не прошло порог»
+    rej_html = ""
+    if rej:
+        rows_rej = []
+        for r in sorted(rej, key=lambda e: (e["date"], e.get("event_title") or ""))[:80]:
+            why = " · ".join(r.get("reasons") or [])
+            rows_rej.append(f"""<div class="af-rej-row"><span class="af-rej-date">{r['date'][8:10]}.{r['date'][5:7]} {time_html(r)}</span>
+<span>{esc((r.get('event_title') or r.get('title') or '—')[:90])}</span>
+<span class="af-rej-why">{esc(why)}</span></div>""")
+        rej_html = f"""<details class="af-rej"><summary>Не прошло порог ({len(rej)}) — почему отсеяно</summary>
+{''.join(rows_rej)}
+</details>"""
+
     today_n = sum(1 for e in cal if edate(e) == today)
     we_n = sum(1 for e in cal if edate(e) in weekend)
     total_n = len(cal)
@@ -2969,6 +3033,8 @@ def render_afisha(cfg, trends, store, status, an):
 {nav_html}
 <div class="page">
 
+<div class="note" style="margin-bottom:4px;">{pipeline_note}</div>
+
 <div class="af-chips">
 <button class="af-chip on" onclick="afFilter('all',this)">Все ({total_n})</button>
 <button class="af-chip" onclick="afFilter('today',this)">Сегодня</button>
@@ -2981,14 +3047,16 @@ def render_afisha(cfg, trends, store, status, an):
 
 {''.join(sections) or '<div class="card"><div class="af-empty">Событий не найдено — запустите сбор конвейером.</div></div>'}
 
+{rej_html}
+
 <div class="sec-head"><h2>Анонсы культурных каналов</h2><div class="line"></div>
 <div class="badge">Telegram, последние посты</div></div>
 <div class="grid2">{''.join(chan_html)}</div>
+<div class="note" style="margin-top:10px;">Посты каналов выводятся как есть; если дата не распознана — время и место сверяйте у организатора.</div>
 
-<div class="note" style="margin-top:16px;">Афиша собирается автоматически (analytics.py → extract_calendar) из текстов всех
-мониторируемых источников: даты, время, площадки. Типы событий определяются по ключевым словам; районные мероприятия
-помечены бейджем. Культурных событий в выборке: {n_culture}. <b>Перед визитом сверяйте время и билеты у организаторов</b> —
-данные извлечены из публикаций автоматически и могут содержать неточности.</div>
+<div class="note" style="margin-top:16px;">Афиша собирается автоматически (analytics.py → extract_calendar_full): события проходят
+порог входа — дата в горизонте, время (или «весь день»/«уточняется»), площадка из справочника venues.json и тип культурного события.
+Что не прошло — видно в блоке «Не прошло порог». Культурных событий в выборке: {n_culture}.</div>
 
 </div>
 {footer.render_footer('')}

@@ -45,6 +45,21 @@
    "hero_stability_h": 3,
    "hero_stability_margin": 0.15
   },
+  "afisha": {
+   "horizon_days": 45,
+   "max_per_day": 4,
+   "max_total": 40,
+   "threshold": 0.55,
+   "promo_penalty": 0.6,
+   "weights": {
+    "date": 30,
+    "time": 20,
+    "venue": 20,
+    "ctype": 20,
+    "source": 10
+   },
+   "event_title_max_chars": 90
+  },
   "ab_front_v4": false,
   "significance": {
    "security": 1.0,
