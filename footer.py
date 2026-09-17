@@ -54,7 +54,7 @@ def render_footer(prefix=""):
 <li><a href="{prefix}afisha.html">Афиша</a></li></ul></div>
 <div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
 <li><a href="{prefix}status.html">Статус системы</a></li>
-<li><a href="{prefix}roadmap.html">План развития</a></li>
+<li><a href="{prefix}plans.html">Планы и методы</a></li>
 <li><a href="{prefix}digests/exec_{today}.html">Версия руководителю</a></li>
 <li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
 </div>

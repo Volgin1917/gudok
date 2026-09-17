@@ -1,0 +1,1099 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Планы и внедрение методов — листок Гудок</title>
+<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<style>
+:root{
+  --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
+  --rule:#E3DED4; --rule-strong:#0B0B0B; --accent:#D63F1F; --on-ink:#C9C2B6;
+  --serif-display:"Fraunces","Source Serif 4",Georgia,"Times New Roman",serif;
+  --serif-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --rubleny:Impact,"Arial Black","Franklin Gothic Bold","Helvetica Neue",sans-serif;
+  --maxw:1340px; --gutter:28px;
+  /* совместимость старых классов */
+  --navy:var(--ink); --navy2:var(--ink); --navy3:var(--ink-2); --blue:var(--ink);
+  --gold:var(--accent); --line:var(--rule); --txt:var(--ink); --bg:var(--paper);
+  --card:var(--paper); --shadow:none;
+}
+:root[data-theme="dark"]{
+  --paper:#101214; --paper-2:#17191c; --ink:#ECE7DE; --ink-2:#D5CFC4; --muted:#9A948A;
+  --rule:#2A2D31; --rule-strong:#ECE7DE; --accent:#FF6A4D; --on-ink:#2A2620;
+  --navy:var(--ink); --navy2:var(--ink); --navy3:var(--ink-2); --blue:var(--ink);
+  --gold:var(--accent); --line:var(--rule); --txt:var(--ink); --bg:var(--paper); --card:var(--paper);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--accent);}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+img{max-width:100%;display:block;}
+.genstamp{background:var(--ink);color:var(--paper);border-left:5px solid var(--accent);}
+:root[data-theme="dark"] .genstamp{background:var(--paper);color:var(--ink);}
+.genstamp-inner{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter);display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;}
+.genstamp .g1{font-family:var(--serif-display);font-size:17px;font-weight:700;}
+.genstamp .g2{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;}
+.genstamp .g3{font-family:var(--sans);font-size:11.5px;opacity:.75;}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:99;}
+.skip:focus{left:8px;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}}
+
+/* рубленый вордмарк */
+.brand-title,.mast-title,.wordmark,.footer__brand{
+  font-family:var(--rubleny);font-weight:900;text-transform:uppercase;
+  letter-spacing:.04em;line-height:.95;color:var(--ink);font-style:normal;
+}
+.brand-title{font-size:30px;}
+.brand-title span,.mast-title span,.wordmark span,.footer__brand span{color:var(--accent);}
+.mast-title{font-size:clamp(44px,8vw,76px);letter-spacing:.06em;}
+
+/* топбар-флаглиния */
+.flagline,.topbar{background:var(--paper);border-bottom:1px solid var(--rule);
+  font-family:var(--sans);font-size:12px;color:var(--muted);}
+.flagline{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;gap:14px;
+  padding:10px var(--gutter);flex-wrap:wrap;border-bottom:none;padding-bottom:0;}
+.topbar{border-bottom:none;}
+.topbar-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter) 12px;display:block;text-align:center;}
+.brand{display:block;}
+.brand>div{display:block;}
+.brand-sub{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+.top-meta{margin:10px auto 0;display:flex;gap:0;justify-content:center;flex-wrap:wrap;}
+.chip{background:none;border:none;border-radius:0;padding:0 10px;font:400 12px var(--sans);color:var(--muted);position:relative;}
+.chip+.chip::before{content:"·";position:absolute;left:-3px;color:var(--muted);}
+.chip b{color:var(--ink-2);font-weight:600;}
+.chip a,.chip-link,.flink{color:var(--muted);}
+.chip a:hover,.chip-link:hover,.flink:hover{color:var(--accent);}
+.theme-btn,.print-btn{border:none;background:none;color:var(--muted);font:500 12px var(--sans);padding:0 10px;cursor:pointer;border-bottom:1px solid var(--ink);}
+.theme-btn:hover,.print-btn:hover{color:var(--accent);border-color:var(--accent);}
+.logo,.mast-logo,.mast-right{display:none;}
+.masthead::after,.topbar::after{content:"";display:block;max-width:var(--maxw);margin:14px auto 0;border-bottom:1px solid var(--rule-strong);}
+
+/* навигация-секции (sticky) */
+.nav{position:sticky;top:0;z-index:20;background:var(--paper);border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:flex;align-items:center;flex-wrap:wrap;}
+.nav a{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--ink-2);padding:15px 14px;position:relative;border-bottom:none;}
+.nav a:hover{color:var(--ink);}
+.nav a.active{color:var(--accent);font-weight:600;}
+.nav a.active::after{content:"";position:absolute;left:14px;right:14px;bottom:10px;height:2px;background:var(--accent);}
+.nav a.nav-util{color:var(--muted);}
+.nav-util-first{margin-left:auto;}
+.nav-toggle{display:none;border:1px solid var(--rule);background:none;color:var(--ink);font:600 13px var(--sans);padding:8px 12px;cursor:pointer;margin:8px var(--gutter);}
+@media (max-width:900px){
+  .nav-toggle{display:block;}
+  .nav-inner{display:none;flex-direction:column;align-items:stretch;}
+  body.nav-open .nav-inner{display:flex;}
+  .nav a{padding:12px 16px;border-top:1px solid var(--rule);}
+}
+.subnav{background:var(--paper);border-bottom:1px solid var(--rule);}
+.subnav-inner{max-width:var(--maxw);margin:0 auto;padding:8px var(--gutter);display:flex;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:12.5px;}
+.subnav-inner a{color:var(--muted);}
+.subnav-inner a:hover{color:var(--accent);}
+.subnav .lbl{color:var(--ink);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;}
+
+/* страницы: контейнеры и заголовки разделов */
+.page,.wrap1200,.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);}
+.sec-head{max-width:var(--maxw);margin:56px auto 26px;padding:16px var(--gutter) 0;border-top:1px solid var(--ink);display:flex;align-items:baseline;justify-content:space-between;gap:20px;}
+.sec-head h2{font-family:var(--serif-display);font-weight:600;font-size:26px;letter-spacing:-.02em;color:var(--ink);}
+.sec-head .line{flex:1;}
+.sec-head .badge{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--muted);}
+.sec-head .badge a{color:var(--muted);}
+
+/* герой (первая полоса) */
+.hero{padding:52px 0 44px;border-bottom:1px solid var(--rule);}
+.hero__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.45fr 1fr;gap:56px;align-items:center;}
+.hero__eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.hero__eyebrow .live{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+.kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);}
+.kicker--ink{color:var(--ink);}
+.hero__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(38px,5.2vw,72px);line-height:1.03;letter-spacing:-.025em;margin:0 0 22px;text-wrap:balance;color:var(--ink);}
+.hero__title a{color:var(--ink);}
+.hero__title a:hover{color:var(--accent);}
+.hero__title em{font-style:italic;font-weight:400;color:var(--accent);}
+.hero__dek{font-family:var(--serif-body);font-size:20px;line-height:1.45;color:var(--ink-2);margin:0 0 24px;max-width:62ch;}
+.hero__byline{display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px;color:var(--muted);}
+.hero__byline .avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;letter-spacing:.05em;}
+.hero__byline strong{color:var(--ink);font-weight:600;}
+.hero__why{font-family:var(--sans);font-size:12px;color:var(--muted);letter-spacing:.01em;margin:14px 0 0;}
+.hero__passport{font-family:var(--sans);font-size:12px;color:var(--muted);margin:4px 0 0;}
+.hero__passport strong{color:var(--ink-2);font-weight:600;}
+.hero__also{font-family:var(--sans);font-size:12px;font-style:italic;color:var(--muted);margin:4px 0 0;}
+.hero__timeline{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0 0;letter-spacing:.01em;}
+.dot-sep::before{content:"·";margin:0 8px;color:var(--muted);}
+.hero__media{position:relative;aspect-ratio:4/5;overflow:hidden;margin:0;
+  background:radial-gradient(120% 90% at 30% 20%,#4A5A55 0%,#2E3A38 55%,#1C2322 100%);}
+.hero__media--b{background:radial-gradient(120% 90% at 70% 30%,#6D4F3C 0%,#3A2A22 55%,#1A1310 100%);}
+.hero__media--c{background:radial-gradient(120% 90% at 40% 60%,#3E4552 0%,#2A2F3A 55%,#171A20 100%);}
+.hero__media figcaption{position:absolute;left:18px;right:18px;bottom:16px;color:#EDE8DF;font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between;gap:12px;z-index:2;}
+.hero__media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.35) 100%);}
+
+/* самое читаемое */
+.mostread{border-bottom:1px solid var(--rule);background:var(--paper-2);}
+.mostread__inner{max-width:var(--maxw);margin:0 auto;padding:26px var(--gutter) 30px;display:grid;grid-template-columns:180px 1fr;gap:40px;align-items:start;}
+.mostread__label{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px;padding-top:4px;}
+.mostread__label::before{content:"";width:22px;height:1px;background:var(--accent);}
+.mostread__list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);}
+.mostread__list li{padding:0 22px;border-left:1px solid var(--rule);display:flex;gap:14px;align-items:baseline;}
+.mostread__list li:first-child{border-left:0;padding-left:0;}
+.mostread__num{font-family:var(--serif-display);font-weight:400;font-size:34px;line-height:1;color:var(--rule);letter-spacing:-.03em;}
+.mostread__list a{font-family:var(--serif-body);font-size:15px;line-height:1.35;font-weight:600;color:var(--ink);}
+.mostread__list a:hover{color:var(--accent);}
+
+/* «Коротко: 7 строк дня» */
+.brief{border-bottom:1px solid var(--rule);background:var(--paper);}
+.brief__inner{max-width:var(--maxw);margin:0 auto;padding:22px var(--gutter) 24px;}
+.brief__label{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.brief__label::before{content:"";width:22px;height:1px;background:var(--accent);}
+.brief-row{display:grid;grid-template-columns:86px 200px 1fr;gap:16px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule);}
+.brief-row:first-of-type{border-top:0;}
+.brief-t{font-family:var(--sans);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.brief-k{font-family:var(--sans);font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.brief-row a{font-family:var(--serif-body);font-size:15.5px;line-height:1.35;font-weight:600;color:var(--ink);}
+.brief-row a:hover{color:var(--accent);}
+
+/* карточки */
+.grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(4,1fr);gap:36px 28px;}
+.card{display:flex;flex-direction:column;background:none;border:none;border-radius:0;box-shadow:none;}
+.card__media{aspect-ratio:3/2;margin-bottom:14px;position:relative;overflow:hidden;}
+.card__media--a{background:linear-gradient(140deg,#D9CFC0 0%,#A89A85 100%);}
+.card__media--b{background:linear-gradient(140deg,#B8C2C1 0%,#5F6E6D 100%);}
+.card__media--c{background:linear-gradient(140deg,#E5C9B6 0%,#B4795A 100%);}
+.card__media--d{background:linear-gradient(140deg,#C9C2D1 0%,#6D6079 100%);}
+.card__kicker{margin-bottom:10px;}
+.card__title{font-family:var(--serif-display);font-weight:600;font-size:20px;line-height:1.15;letter-spacing:-.015em;margin:0 0 10px;color:var(--ink);}
+.card__title a{color:var(--ink);}
+.card__title a:hover{color:var(--accent);}
+.card__dek{font-family:var(--serif-body);font-size:15px;line-height:1.5;color:var(--muted);margin:0 0 12px;}
+.card__meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:auto;}
+.card__badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:3px 8px;border-radius:999px;white-space:nowrap;display:inline-block;}
+.chip--cluster{color:var(--ink-2);background:var(--paper-2);border:1px solid var(--rule);}
+
+/* лента: чипы-рубрики + «Показать ещё» (#19/#20) */
+.feed-chips{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter) 0;display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:52px;z-index:20;background:var(--paper);}
+.chip-f{font:600 12px var(--sans);color:var(--muted);background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer;line-height:1.45;}
+.chip-f:hover{color:var(--ink);border-color:var(--ink);}
+.chip-f.on{color:#fff;background:var(--accent);border-color:var(--accent);}
+.chip-f:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.chip-f-divider{width:1px;height:18px;margin:0 6px;align-self:center;background:var(--rule);}
+.feed-more{display:none;font:600 13px var(--sans);padding:8px 18px;border:1px solid var(--ink);border-radius:999px;background:var(--paper);cursor:pointer;}
+.feed-more:hover{background:var(--ink);color:var(--paper);}
+.feed-bar{max-width:var(--maxw);margin:14px auto 0;padding:0 var(--gutter);display:flex;align-items:center;gap:18px;font:12px var(--sans);color:var(--muted);}
+.feed-bar a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+.feed-empty{max-width:var(--maxw);margin:12px auto 0;padding:0 var(--gutter);font:13px var(--sans);color:var(--muted);}
+.feed-empty a{color:var(--accent);}
+.hidden{display:none!important;}
+.ab-link{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:999px;background:none;padding:4px 12px;cursor:pointer;}
+.ab-link:hover{color:var(--accent);border-color:var(--accent);}
+body[data-ab="v2"] .hero__inner{grid-template-columns:1fr 1.05fr;}
+body[data-ab="v2"] .feature__inner{grid-template-columns:1.05fr 1fr;}
+
+/* фича-полоса (тёмная) */
+.feature{margin-top:72px;background:var(--ink);color:var(--paper);}
+.feature__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 1.05fr;align-items:stretch;}
+.feature__text{padding:64px 56px 64px 0;display:flex;flex-direction:column;justify-content:center;}
+.feature__kicker{color:var(--accent);font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px;}
+.feature__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(32px,3.6vw,50px);line-height:1.05;letter-spacing:-.025em;margin:0 0 22px;color:var(--paper);text-wrap:balance;}
+.feature__title em{font-style:italic;font-weight:400;}
+.feature__dek{font-family:var(--serif-body);font-size:17px;line-height:1.55;color:var(--on-ink);margin:0 0 24px;max-width:52ch;}
+:root[data-theme="dark"] .feature__dek{color:#8B8578;}
+.feature__byline{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-ink);}
+:root[data-theme="dark"] .feature__byline{color:#8B8578;}
+.feature__byline strong{color:var(--paper);font-weight:600;}
+:root[data-theme="dark"] .feature__byline strong{color:var(--ink);}
+.feature__media{position:relative;min-height:480px;background:radial-gradient(120% 100% at 70% 30%,#6D4F3C 0%,#3A2A22 55%,#1A1310 100%);}
+.feature__media figcaption{position:absolute;bottom:18px;right:18px;font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#E9E4DA;}
+
+/* мнения */
+.opinion__grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}
+.op{border-top:1px solid var(--ink);padding-top:20px;display:flex;flex-direction:column;gap:14px;}
+.op__quote{font-family:var(--serif-display);font-style:italic;font-weight:400;font-size:21px;line-height:1.25;letter-spacing:-.015em;color:var(--ink);margin:0;}
+.op__quote a{color:var(--ink);}
+.op__quote a:hover{color:var(--accent);}
+.op__author{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:8px;}
+.op__avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;color:var(--paper);flex:0 0 40px;background:var(--ink-2);}
+.op__name{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);}
+.op__role{font-family:var(--sans);font-size:12px;color:var(--muted);}
+
+/* периодичности (вместо подписки) */
+.newsletter{margin-top:80px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--paper-2);}
+.newsletter__inner{max-width:760px;margin:0 auto;padding:56px var(--gutter) 60px;text-align:center;}
+.newsletter__kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.newsletter__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(28px,3vw,40px);line-height:1.08;letter-spacing:-.02em;margin:0 0 14px;color:var(--ink);text-wrap:balance;}
+.newsletter__title em{font-style:italic;font-weight:400;}
+.newsletter__dek{font-family:var(--serif-body);font-size:17px;color:var(--muted);margin:0 0 26px;}
+.period-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.period-links a{border:1px solid var(--ink);padding:12px 22px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);}
+.period-links a:hover{background:var(--ink);color:var(--paper);}
+.newsletter__fine{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:14px;}
+
+/* ленты и прочие старые компоненты в новой оптике */
+.main-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:start;}
+.hero-grid{display:grid;grid-template-columns:1.65fr 1fr;gap:0 44px;margin-top:10px;align-items:start;}
+.hero-main,.hero-side{border-top:3px solid var(--ink);padding-top:14px;}
+.hero-card .rank{font-family:var(--serif-display);font-weight:700;font-size:30px;line-height:1;color:var(--accent);}
+.hero-main .rank{font-size:54px;line-height:.85;}
+.hero-rank-line{display:flex;align-items:baseline;gap:12px;margin-bottom:7px;}
+.hero-card .hk{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.hero-main .hk{margin:10px 0 6px;}
+.hero-card h3{font-family:var(--serif-display);font-weight:600;font-size:18.5px;line-height:1.24;margin:0 0 6px;}
+.hero-card h3 a{color:var(--ink);}
+.hero-card h3 a:hover{color:var(--accent);}
+.hero-main h3{font-size:27px;line-height:1.16;letter-spacing:-.01em;margin:0 0 10px;}
+.hero-card p{font-family:var(--serif-body);font-size:13.5px;line-height:1.45;color:var(--ink-2);margin:0 0 7px;}
+.hero-main p{font-size:15.5px;line-height:1.5;margin-bottom:10px;}
+.hero-meta{font-family:var(--sans);font-size:11px;color:var(--muted);}
+.hero-meta a{color:var(--accent);}
+.hero-side{display:flex;flex-direction:column;gap:22px;}
+.hero-side .hero-card+.hero-card{border-top:1px solid var(--rule);padding-top:18px;}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:26px;}}
+.cat-block{border-top:2px solid var(--ink);margin:0 0 30px;padding-top:10px;break-inside:avoid;}
+.cat-head{display:flex;align-items:baseline;gap:12px;padding:0 0 4px;}
+.cat-head h3{font-family:var(--serif-display);font-weight:600;font-size:20px;color:var(--ink);margin:0;}
+.cat-head .count{margin-left:auto;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.feed-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;align-items:start;margin-top:6px;}
+.feed-cols>div{min-width:0;}
+.fi{padding:13px 0;border-bottom:1px solid var(--rule);}
+.fi:last-child{border-bottom:none;}
+.fi h4{font-family:var(--serif-body);font-weight:600;font-size:15.5px;line-height:1.32;margin:0;}
+.fi h4 a{color:var(--ink);}
+.fi h4 a:hover{color:var(--accent);}
+.fi .dek{font-family:var(--serif-body);font-size:13.5px;color:var(--ink-2);line-height:1.45;margin:4px 0 0;}
+.fi .meta{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:5px;}
+.fi .meta time{font-weight:700;color:var(--ink-2);}
+.fi .also{font-family:var(--serif-body);font-size:12px;font-style:italic;color:var(--muted);margin-top:3px;}
+.fi .topics{font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+.fi-lead{padding-top:8px;}
+.fi-lead h4{font-family:var(--serif-display);font-size:19px;line-height:1.22;}
+.fi-lead .dek{font-size:14.5px;}
+.fi.with-photo{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:0 14px;}
+.fi.with-photo .fi-body{min-width:0;}
+.fi-thumb{width:104px;height:70px;overflow:hidden;align-self:start;margin-top:2px;}
+.cat-more{font-family:var(--sans);font-size:11px;color:var(--muted);padding:8px 0 2px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;align-items:start;}
+.grid2>*{min-width:0;}
+@media (max-width:1000px){.feed-cols,.grid2{grid-template-columns:1fr;gap:0;}}
+.news-item{padding:14px 0;border-bottom:1px solid var(--rule);}
+.news-item:last-child{border-bottom:none;}
+.news-item h4{font-family:var(--serif-display);font-weight:600;font-size:18px;line-height:1.25;margin-bottom:6px;color:var(--ink);}
+.news-item h4 a{color:var(--ink);}
+.news-item h4 a:hover{color:var(--accent);}
+.news-item p{font-family:var(--serif-body);font-size:15px;color:var(--ink-2);line-height:1.5;}
+.news-item .meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:6px;}
+.news-item .meta .tg{color:var(--muted);}
+.tchip{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;margin:6px 4px 0 0;}
+.cl-card{border-top:1px solid var(--rule);padding:10px 0;}
+.cl-card:first-child{border-top:none;padding-top:2px;}
+.cl-head{display:flex;align-items:baseline;gap:4px;flex-wrap:wrap;}
+.cl-name{font-family:var(--serif-display);font-weight:600;font-size:16px;color:var(--ink);}
+.cl-card.gap .cl-name{color:var(--accent);}
+.cl-samples{font-family:var(--serif-body);font-size:13px;color:var(--ink-2);margin-top:5px;line-height:1.5;}
+.cl-samples a{color:var(--ink);}
+.cl-samples a:hover{color:var(--accent);}
+.cl-badge{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--rule);padding:2px 8px;margin-left:6px;background:none;}
+.cl-badge.cl-warn{color:var(--accent);border-color:var(--accent);}
+.stchip{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;background:none;white-space:nowrap;}
+.stchip.st-rise{color:var(--accent);border-color:var(--accent);}
+.stchip.st-new{color:var(--ink);border-color:var(--ink);}
+.side-head{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:none;border-bottom:1px solid var(--ink);padding:0 0 8px;}
+.side-head .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
+.side-body{padding:12px 0;}
+.tbl{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;}
+.tbl th{background:none;color:var(--muted);text-align:left;padding:7px 10px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ink);}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2);}
+.tbl tr:nth-child(even) td{background:transparent;}
+.note{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6;border-left:2px solid var(--accent);padding-left:12px;}
+.verdict{border-left:3px solid var(--accent);padding:10px 14px;font-family:var(--serif-body);font-size:15px;color:var(--ink-2);margin-top:12px;background:var(--paper-2);}
+.verdict b{color:var(--accent);text-transform:uppercase;font-family:var(--sans);font-size:11px;letter-spacing:.12em;display:block;margin-bottom:4px;}
+.bar-row .bt,.bar-wrap{background:var(--paper-2);}
+.bar-fill{background:var(--ink-2);}
+.bar-fill.hot{background:var(--accent);}
+.bar-fill.cool{background:#4F5F53;}
+.bar-fill.gold{background:#B4795A;}
+.bar-fill.violet{background:#6D6079;}
+.topic-row{display:grid;grid-template-columns:200px 1fr 120px 96px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:13px;}
+.topic-row:last-child{border-bottom:none;}
+.topic-name{font-weight:600;color:var(--ink);}
+.topic-name small{display:block;font-weight:400;color:var(--muted);font-size:11px;}
+.kpi{background:none;border:none;border-top:1px solid var(--ink);border-radius:0;padding:12px 14px 12px 0;}
+.kpi .num{font-family:var(--serif-display);font-weight:600;font-size:26px;color:var(--ink);line-height:1.05;}
+.kpi .num small{font-size:11px;font-weight:600;color:var(--muted);}
+.kpi .lbl{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:4px;}
+.kpi.gold,.kpi.red,.kpi.green,.kpi.violet{border-top-color:var(--ink);}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0 28px;}
+.cal-badge{flex-shrink:0;width:46px;height:44px;border:1px solid var(--ink);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;background:none;}
+.cal-badge b{font-family:var(--serif-display);font-size:17px;font-weight:600;}
+.cal-badge span{font-family:var(--sans);font-size:8.5px;text-transform:uppercase;color:var(--muted);margin-top:2px;letter-spacing:.08em;}
+.cal-badge.gold{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.cal-badge.gold span{color:var(--on-ink);}
+:root[data-theme="dark"] .cal-badge.gold{background:var(--ink);color:var(--paper);}
+.af-mini{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule);align-items:flex-start;}
+.af-mini:last-child{border-bottom:none;}
+.af-mini a{font-family:var(--serif-body);font-size:14.5px;font-weight:600;color:var(--ink);}
+.af-mini a:hover{color:var(--accent);}
+.af-daybar,.af-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.af-chip{border:1px solid var(--rule);background:none;color:var(--muted);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;cursor:pointer;}
+.af-chip.on{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.sec-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}
+.sec-card{background:none;border:none;border-top:1px solid var(--ink);border-radius:0;padding:18px 0 0;display:flex;flex-direction:column;}
+.sec-card .ic{display:none;}
+.sec-card b{font-family:var(--serif-display);font-weight:600;font-size:19px;color:var(--ink);}
+.sec-card .fig{font-family:var(--serif-display);font-size:22px;font-weight:600;color:var(--accent);margin-top:4px;}
+.sec-card .fig small{font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+.sec-card p{font-family:var(--serif-body);font-size:14.5px;color:var(--muted);line-height:1.5;margin-top:8px;flex:1;}
+.sec-card .go{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--accent);margin-top:10px;}
+.arch-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:center;}
+.arch-item:last-child{border-bottom:none;}
+.arch-date{width:48px;height:46px;border:1px solid var(--ink);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;background:none;}
+.arch-date b{font-family:var(--serif-display);font-size:17px;font-weight:600;}
+.arch-date span{font-family:var(--sans);font-size:8.5px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.08em;}
+.btn{display:inline-block;border:1px solid var(--ink);color:var(--ink);background:none;font-family:var(--sans);font-size:12.5px;font-weight:600;padding:8px 16px;}
+.btn:hover{background:var(--ink);color:var(--paper);}
+.btn.gold{background:var(--ink);color:var(--paper);}
+.btn.gold:hover{background:var(--accent);border-color:var(--accent);}
+.util-bar-wrap{max-width:var(--maxw);margin:0 auto;padding:20px var(--gutter) 0;}
+.util-bar{display:flex;gap:24px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:14px;}
+.util-bar a{font-family:var(--sans);font-size:12.5px;font-weight:500;color:var(--muted);}
+.util-bar a:hover{color:var(--accent);}
+.util-lbl{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.fbtn{border:1px solid var(--rule);background:none;color:var(--muted);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;cursor:pointer;}
+.fbtn.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.alert-banner{background:var(--accent);color:#fff;padding:12px var(--gutter);font-family:var(--sans);font-size:14px;font-weight:600;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.alert-banner a{color:#fff;text-decoration:underline;}
+.alert-banner .blink{animation:none;}
+.ticker-wrap{background:var(--paper-2);color:var(--ink-2);border-bottom:1px solid var(--rule);overflow:hidden;position:relative;height:34px;}
+.ticker-label{position:absolute;left:0;top:0;bottom:0;z-index:2;background:var(--accent);color:#fff;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;display:flex;align-items:center;padding:0 14px;text-transform:uppercase;}
+.ticker{display:flex;white-space:nowrap;animation:none;padding-left:130px;align-items:center;height:100%;font-family:var(--serif-body);font-size:14px;}
+.ticker span{padding-right:56px;}
+.ticker span b{color:var(--accent);}
+.tone-bar{height:12px;background:linear-gradient(90deg,#B04848,#E3DED4 50%,#4F5F53);position:relative;}
+.tone-pin{position:absolute;top:-4px;width:3px;height:20px;background:var(--ink);}
+.tone-cat{font-family:var(--sans);font-size:11px;font-weight:600;border:1px solid var(--rule);padding:3px 9px;color:var(--ink-2);}
+.fc-tbl{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;margin-top:10px;}
+.fc-tbl th{text-align:left;padding:6px 10px;color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--ink);}
+.fc-tbl td{padding:7px 10px;border-bottom:1px solid var(--rule);}
+.fc-up{color:var(--accent);font-weight:700;} .fc-down{color:#4F5F53;font-weight:700;} .fc-flat{color:var(--muted);font-weight:700;}
+.drone{width:24px;height:24px;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:12px;}
+.hl{background:linear-gradient(transparent 62%,#E5C9B6 62%);}
+:root[data-theme="dark"] .hl{background:linear-gradient(transparent 62%,#6D4F3C 62%);}
+.wk-grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;margin-top:16px;}
+.wk-rail{display:flex;flex-direction:column;gap:20px;}
+.wk-box{border-top:1px solid var(--ink);padding:12px 0;background:none;border-left:none;border-right:none;border-bottom:none;border-radius:0;}
+.wk-box h4{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;}
+.wk-passport{border-top:1px solid var(--ink);border-left:none;background:none;padding:14px 0;margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;align-items:baseline;border-radius:0;}
+.wk-passport b{font-family:var(--serif-display);font-size:20px;font-weight:600;color:var(--ink);}
+.wk-stamp{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 10px;background:var(--paper-2);color:#4F5F53;border:1px solid var(--rule);}
+.wk-stamp.wip{background:none;color:var(--accent);border-color:var(--accent);}
+.now-panel{border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);padding:18px 0;}
+.now-alert{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);padding:6px 0;}
+.now-alert.calm{color:#4F5F53;}
+.now-alert.danger{color:var(--accent);}
+.now-grid{display:grid;grid-template-columns:1.25fr 1fr .9fr;gap:32px;}
+.now-col{border-left:1px solid var(--rule);padding-left:24px;}
+.now-col:first-child{border-left:none;padding-left:0;}
+.now-h{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.tl-row{display:flex;gap:12px;padding:7px 0;border-bottom:1px solid var(--rule);align-items:baseline;}
+.tl-row:last-child{border-bottom:none;}
+.tl-time{flex-shrink:0;font-family:var(--sans);font-weight:700;font-size:11.5px;color:var(--accent);width:46px;}
+.tl-txt{font-family:var(--serif-body);font-size:14.5px;line-height:1.45;color:var(--ink-2);}
+.tl-txt a{color:var(--ink);}
+.tl-txt a:hover{color:var(--accent);}
+.tl-src{font-family:var(--sans);color:var(--muted);font-size:11px;}
+.now-line{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);margin-top:4px;line-height:1.5;}
+.now-line b{color:var(--ink);}
+/* v4: алерт-полоса безопасности */
+.alertstrip{background:#5d0f13;color:#fff;}
+.alertstrip__inner{max-width:var(--maxw);margin:0 auto;padding:9px var(--gutter);display:flex;flex-direction:column;gap:5px;}
+body[data-theme="dark"] .alertstrip{background:#7d171d;}
+.alert-row{display:flex;gap:9px;align-items:center;font-family:var(--serif-body);font-size:14.5px;line-height:1.4;}
+.alert-row a{color:#fff;font-weight:600;text-decoration:none;}
+.alert-row a:hover{text-decoration:underline;}
+.alert-dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#ff6b6b;box-shadow:0 0 0 0 rgba(255,107,107,.7);animation:alertpulse 1.6s infinite;}
+@keyframes alertpulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,.6);}70%{box-shadow:0 0 0 7px rgba(255,107,107,0);}100%{box-shadow:0 0 0 0 rgba(255,107,107,0);}}
+.alert-time{margin-left:auto;flex-shrink:0;font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.85);font-weight:700;}
+.now-num{font-family:var(--serif-display);font-size:26px;font-weight:600;color:var(--ink);line-height:1.1;}
+.now-num small{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);}
+.lead-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;}
+.lead-main{border-top:1px solid var(--ink);padding-top:14px;}
+.lead-main h2{font-family:var(--serif-display);font-weight:600;font-size:30px;line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin-bottom:10px;}
+.lead-main h2 a{color:var(--ink);}
+.lead-main h2 a:hover{color:var(--accent);}
+.lead-main p{font-family:var(--serif-body);font-size:17px;color:var(--ink-2);line-height:1.5;}
+.lead-side{display:flex;flex-direction:column;gap:20px;}
+.lead-card{border-top:1px solid var(--rule);padding-top:12px;}
+.lead-card h3{font-family:var(--serif-display);font-weight:600;font-size:19px;line-height:1.2;color:var(--ink);}
+.lead-card h3 a{color:var(--ink);}
+.lead-card h3 a:hover{color:var(--accent);}
+.lead-card p{font-family:var(--serif-body);font-size:14.5px;color:var(--muted);line-height:1.5;}
+.lead-kicker{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.lead-meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:8px;}
+.lead-meta a{color:var(--muted);}
+.more-heads{columns:2;column-gap:36px;margin-top:8px;}
+.more-heads a{display:block;font-family:var(--serif-display);font-weight:600;font-size:16px;line-height:1.3;color:var(--ink);padding:7px 0;border-bottom:1px solid var(--rule);break-inside:avoid;}
+.more-heads a:hover{color:var(--accent);}
+.more-heads a span{font-family:var(--sans);color:var(--muted);font-weight:400;font-size:11.5px;display:block;}
+
+/* подвал — единый, см. footer.FOOTER_CSS */
+.footer h3{color:var(--paper);}
+
+/* печать */
+.pm-mast{text-align:center;border-bottom:3px double var(--ink);padding-bottom:4mm;}
+.pm-title{font-family:var(--rubleny);font-weight:900;text-transform:uppercase;letter-spacing:.08em;font-size:40pt;line-height:1;margin:0;color:var(--ink);}
+.pm-line{font-family:var(--sans);font-size:8.5pt;letter-spacing:1.2px;text-transform:uppercase;margin-top:2.5mm;color:var(--muted);}
+.pm-line b{color:var(--ink);}
+.pm-kicker{font-family:var(--sans);font-size:8pt;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700;margin:3mm 0 1.5mm;}
+.pm-lead-h{font-family:var(--serif-display);font-weight:600;font-size:20pt;line-height:1.15;margin:0 0 2.5mm;color:var(--ink);}
+.pm-deck{font-family:var(--serif-body);font-size:10.5pt;font-style:italic;color:var(--ink-2);line-height:1.45;margin:0 0 3mm;}
+.cols{column-count:3;column-gap:6mm;column-rule:.5pt solid var(--rule);}
+.cols p{font-family:var(--serif-body);font-size:9.3pt;line-height:1.42;margin:0 0 2.2mm;text-align:justify;hyphens:auto;}
+.pm-h3{font-family:var(--sans);font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;border-top:1.2pt solid var(--ink);padding-top:1.4mm;margin:3mm 0 1.8mm;break-after:avoid;}
+.pm-item{margin-bottom:2.4mm;break-inside:avoid;}
+.pm-item b{font-family:var(--serif-display);font-size:9.6pt;line-height:1.25;display:block;}
+.pm-item span{font-family:var(--serif-body);font-size:8.6pt;color:var(--muted);line-height:1.35;display:block;}
+.pm-item i{font-family:var(--sans);font-size:7.6pt;color:var(--muted);font-style:normal;}
+.pm-box{border:1pt solid var(--ink);padding:3mm;margin:3mm 0;break-inside:avoid;}
+.pm-box h4{font-family:var(--sans);font-size:9pt;text-transform:uppercase;letter-spacing:1.4px;margin:0 0 2mm;border-bottom:.8pt solid var(--ink);padding-bottom:1.2mm;}
+.pm-box ul{list-style:none;margin:0;padding:0;}
+.pm-box li{font-family:var(--serif-body);font-size:8.8pt;line-height:1.4;margin-bottom:1.4mm;}
+.pm-box li b{color:var(--accent);}
+.pm-stats{display:flex;gap:4mm;justify-content:space-between;margin:3mm 0;break-inside:avoid;}
+.pm-stat{flex:1;text-align:center;border:.8pt solid var(--ink);padding:2mm 1mm;}
+.pm-stat b{display:block;font-family:var(--serif-display);font-size:15pt;font-weight:600;}
+.pm-stat span{font-family:var(--sans);font-size:7.4pt;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);}
+.pm-colophon{border-top:3px double var(--ink);margin-top:4mm;padding-top:2mm;font-family:var(--sans);font-size:7.6pt;color:var(--muted);line-height:1.5;display:flex;justify-content:space-between;gap:6mm;}
+.pm-page{position:absolute;bottom:4mm;right:13mm;font-family:var(--sans);font-size:8pt;color:var(--muted);}
+.pm-ed{font-family:var(--serif-body);font-size:9.3pt;line-height:1.5;text-align:justify;}
+.pm-ed p{margin:0 0 2.2mm;}
+@media (max-width:1100px){
+  .hero__inner,.lead-grid,.feature__inner,.wk-grid,.main-grid{grid-template-columns:1fr;}
+  .hero__media{aspect-ratio:16/9;}
+  .brief-row{grid-template-columns:1fr;row-gap:3px;}
+  .brief-t,.brief-k{grid-column:1;}
+  .brief-k{white-space:normal;}
+  .mostread__inner{grid-template-columns:1fr;gap:18px;}
+  .mostread__list{grid-template-columns:repeat(2,1fr);row-gap:18px;}
+  .mostread__list li{padding-left:16px;}
+  .mostread__list li:nth-child(odd){border-left:0;padding-left:0;}
+  .grid{grid-template-columns:repeat(2,1fr);}
+  .feature__text{padding:48px 0;}
+  .feature__media{min-height:360px;}
+  .opinion__grid{grid-template-columns:1fr 1fr;}
+  .now-grid{grid-template-columns:1fr;}
+  .now-col{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:12px;}
+  .kpi-grid{grid-template-columns:repeat(3,1fr);}
+  .sec-grid{grid-template-columns:repeat(2,1fr);}
+  .more-heads{columns:1;}
+  .topic-row{grid-template-columns:140px 1fr 90px;}
+  .topic-row .sparkcell{display:none;}
+}
+@media (max-width:720px){
+  :root{--gutter:20px;}
+  body{font-size:16px;}
+  .masthead__inner{grid-template-columns:1fr;text-align:center;gap:8px;}
+  .grid,.sec-grid,.opinion__grid{grid-template-columns:1fr;}
+  .mostread__list{grid-template-columns:1fr;}
+  .mostread__list li{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:14px;}
+  .mostread__list li:first-child{border-top:0;padding-top:0;}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:6px;}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+}
+.mast-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;max-width:var(--maxw);margin:0 auto;padding:26px var(--gutter) 20px;}
+.mast-side{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.7;}
+.mast-side--right{text-align:right;}
+.mast-actions{display:flex;gap:14px;justify-content:flex-end;align-items:center;margin-top:10px;}
+.mast-actions a{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule);}
+.mast-actions a:hover{color:var(--accent);border-color:var(--accent);}
+.now-panel-wrap{border-bottom:1px solid var(--rule);}
+@media (max-width:900px){.mast-inner{grid-template-columns:1fr;text-align:center;gap:10px;}.mast-side,.mast-side--right{text-align:center;}.mast-actions{justify-content:center;}}
+@media print{
+  .nav,.ticker-wrap,.filters,.print-btn,.theme-btn,.nav-toggle,.util-bar-wrap{display:none!important;}
+  body{background:#fff;}
+}
+/* подвал — единый */
+.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
+.footer h3{color:var(--paper);}
+.footer h3{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
+.footer a{color:var(--on-ink);}
+.footer a:hover{color:var(--accent);}
+.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
+.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
+.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
+.footer li{margin:4px 0;}
+.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
+.footer__brand span{color:var(--accent);}
+.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+:root[data-theme="dark"] .footer__bottom{border-top-color:rgba(11,11,11,.2);}
+@media (max-width:1100px){.footer__inner{grid-template-columns:1fr 1fr;gap:26px;}}
+@media (max-width:720px){.footer__inner{grid-template-columns:1fr;gap:22px;}.footer__bottom{flex-direction:column;}}
+
+/* ---- страница «Планы»: статусы, конвейер метода, реестр метрик, треки ---- */
+.pl-st{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:800;letter-spacing:.08em;
+text-transform:uppercase;padding:2px 8px;border:1px solid var(--rule);color:var(--muted);white-space:nowrap;}
+.pl-st--done{color:#1d7a4d;border-color:#1d7a4d;}
+.pl-st--ok{color:#1f5fbf;border-color:#1f5fbf;}
+.pl-st--queue{color:#96690a;border-color:#e0b04e;}
+.pl-st--hard{color:#a3341f;border-color:#a3341f;}
+:root[data-theme="dark"] .pl-st--done{color:#7fd49b;border-color:#7fd49b;}
+:root[data-theme="dark"] .pl-st--ok{color:#8dc0ff;border-color:#8dc0ff;}
+:root[data-theme="dark"] .pl-st--queue{color:#e5b14e;border-color:#e5b14e;}
+:root[data-theme="dark"] .pl-st--hard{color:#ff9b85;border-color:#ff9b85;}
+.pl-stage{display:grid;grid-template-columns:64px 1fr;gap:4px 18px;border-top:1px solid var(--rule);padding:16px 0;}
+.pl-stage:first-child{border-top:1px solid var(--ink);}
+.pl-stage__n{font-family:var(--serif-display);font-size:34px;font-weight:700;line-height:.9;color:var(--accent);}
+.pl-stage h3{font-family:var(--serif-display);font-size:19px;font-weight:600;margin:0 0 4px;color:var(--ink);}
+.pl-stage p{font-family:var(--serif-body);font-size:14.5px;line-height:1.6;margin:0 0 6px;color:var(--ink-2);}
+.pl-code{font-family:var(--sans);font-size:11.5px;line-height:1.6;color:var(--muted);}
+.pl-code b{color:var(--ink);font-weight:700;}
+.pl-ex{font-family:var(--serif-body);font-size:13px;font-style:italic;color:var(--muted);
+border-left:2px solid var(--rule);padding-left:10px;margin-top:6px;}
+.pl-pass{border:1px solid var(--rule);padding:14px 16px;margin-bottom:12px;background:var(--paper);}
+.pl-pass summary{cursor:pointer;font-family:var(--serif-display);font-size:17px;font-weight:600;color:var(--ink);}
+.pl-pass__meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0 4px;}
+.pl-pass dl{display:grid;grid-template-columns:180px 1fr;gap:9px 18px;margin:12px 0 0;
+font-family:var(--serif-body);font-size:13.5px;}
+.pl-pass dt{font-family:var(--sans);font-size:10.5px;font-weight:800;letter-spacing:.1em;
+text-transform:uppercase;color:var(--muted);padding-top:3px;}
+.pl-pass dd{margin:0;line-height:1.55;color:var(--ink-2);}
+.pl-formula{font-family:var(--sans);font-size:12.5px;background:var(--paper-2);
+border-left:2px solid var(--accent);padding:9px 12px;line-height:1.65;}
+.pl-axbar{display:grid;grid-template-columns:160px 1fr 70px;gap:8px 12px;align-items:center;
+font-family:var(--sans);font-size:12.5px;margin:5px 0;}
+.pl-axbar__t{color:var(--ink);font-weight:600;}
+.pl-axbar__n{color:var(--muted);text-align:right;}
+#pl-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 14px;}
+#pl-q{flex:1;min-width:210px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);
+font-family:var(--sans);font-size:13px;padding:8px 12px;}
+#pl-q:focus{outline:2px solid var(--accent);outline-offset:1px;}
+.pl-tbl td,.pl-tbl th{vertical-align:top;}
+.pl-tbl .pl-n{font-weight:700;color:var(--ink);}
+.pl-hide{display:none!important;}
+.pl-foot{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-family:var(--sans);
+font-size:12px;color:var(--muted);margin-top:12px;}
+.pl-foot b{color:var(--ink);font-size:15px;margin-right:2px;}
+.pl-track{border-top:1px solid var(--ink);padding:16px 0;}
+.pl-track__h{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;}
+.pl-track h3{font-family:var(--serif-display);font-size:20px;font-weight:600;margin:0;color:var(--ink);}
+.pl-track__src{font-family:var(--sans);font-size:11.5px;color:var(--muted);}
+.pl-track__dek{font-family:var(--serif-body);font-size:14px;line-height:1.6;color:var(--ink-2);margin:6px 0 0;}
+.pl-h4{font-family:var(--sans);font-size:10.5px;font-weight:800;letter-spacing:.12em;
+text-transform:uppercase;color:var(--muted);margin:14px 0 6px;}
+.pl-list{margin:0;padding-left:18px;font-family:var(--serif-body);font-size:13.5px;line-height:1.6;color:var(--ink-2);}
+.pl-list li{margin:4px 0;}
+.pl-link{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--accent);text-decoration:none;}
+.pl-link:hover{text-decoration:underline;}
+.pl-done{color:#1d7a4d;font-weight:700;}
+.pl-open{color:#96690a;font-weight:700;}
+@media (max-width:900px){
+  .pl-stage{grid-template-columns:46px 1fr;}
+  .pl-pass dl{grid-template-columns:1fr;gap:4px 0;}
+  .pl-pass dt{padding-top:8px;}
+  .pl-axbar{grid-template-columns:120px 1fr 60px;}
+}
+@media print{
+  .pl-pass{break-inside:avoid;}
+  #pl-filters{display:none;}
+  .pl-pass[open] summary{font-weight:700;}
+}
+</style><script>
+(function(){try{var t=localStorage.getItem("gudok-theme");
+if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
+document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
+</script></head><body>
+<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 14:20</span></div><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Планы издания и методы<br>треков 7 · метрик 32 · подключено 20
+<div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div></div>
+</div></header>
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="" href="afisha.html">Афиша</a><a class="active" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-16.html">Руководителю</a></div></nav><main id="main">
+<div class="page">
+
+<div class="kpi-grid" style="margin:18px 0 6px;">
+<div class="kpi"><div class="num">7</div><div class="lbl">треков плана</div></div>
+<div class="kpi"><div class="num">32</div><div class="lbl">метрик-кандидатов в реестре</div></div>
+<div class="kpi green"><div class="num">20</div><div class="lbl">подключено к витрине</div></div>
+<div class="kpi gold"><div class="num">6</div><div class="lbl">в очереди на внедрение</div></div>
+<div class="kpi"><div class="num">18</div><div class="lbl">открытых пунктов плана развития</div></div>
+<div class="kpi red"><div class="num">6</div><div class="lbl">ищут данные или с риском метода</div></div>
+</div>
+<div class="note" style="margin-bottom:8px;">Одна страница вместо четырёх документов: план развития издания, план расширения
+«Инфопространства», переезд на выделенный сервер и спринты первой полосы. Страница генерируется
+(<code>generate.py → render_plans</code>) из редакционного реестра <code>plans.py</code> и из markdown-документов
+репозитория — правка документа попадает на витрину при следующем прогоне конвейера. Собрано 17.09.2026 14:20 (UTC+4).</div>
+
+<div class="sec-head" style="margin-top:34px;"><h2>Внедрение методов</h2><div class="line"></div>
+<div class="badge">паспорт → данные → расчёт → блок → тест</div></div>
+<div class="note" style="margin:0 0 14px;">Правило редакции: метрика или методика добавляется в раздел только через паспорт —
+с гипотезой, формулой, источником данных, порогом тревоги и местом публикации. Пять шагов ниже одинаковы
+для метрик «Инфопространства», для порогов афиши и для правил дедупликации: отличается только файл.</div>
+<div class="pl-stage"><div class="pl-stage__n">1</div>
+<div><h3>Паспорт метрики</h3><p>Гипотеза, формула, источник данных, порог тревоги, где публикуется и первый иллюстративный расчёт. Шесть полей паспорта — без них метрика в реестр не попадает.</p>
+<div class="pl-code"><b>Где в коде:</b> plans.py → PILOTS (пилоты), REG (реестр из 32 кандидатов)</div>
+<div class="pl-code"><b>Проверка:</b> решение редакции на планёрке; паспорт виден на странице «Планы»</div>
+<div class="pl-ex">Пример — TLI: гипотеза «труд присутствует как объект, но не как субъект речи», порог тревоги TLI &lt; 0.10 неделю подряд</div></div></div><div class="pl-stage"><div class="pl-stage__n">2</div>
+<div><h3>Данные</h3><p>Что нужно для расчёта: уже собранная база, реестр источников, словари config.json или внешняя выгрузка. Пока источника нет, метрика живёт в статусе «ищем данные».</p>
+<div class="pl-code"><b>Где в коде:</b> data/store.jsonl · sources_registry.json · config.json · data/goszakupki_eis.csv</div>
+<div class="pl-code"><b>Проверка:</b> источник назван в паспорте и доступен конвейеру без сторонних зависимостей</div>
+<div class="pl-ex">Пример — TLI: store.jsonl (1405 сообщений за 7 дней) + маркер-словарь профессий</div></div></div><div class="pl-stage"><div class="pl-stage__n">3</div>
+<div><h3>Расчёт</h3><p>Функция в analytics.py пишет метрику в data/infospace.json в разрезе своей волны (w1–w4). Считаем только на stdlib: эвристики и словари вместо внешних API.</p>
+<div class="pl-code"><b>Где в коде:</b> analytics.py: build_infospace · build_infospace_ext (w1) · build_infospace_w2/w3/w4 · compute_eis_metrics</div>
+<div class="pl-code"><b>Проверка:</b> python3 analytics.py пересобирает data/infospace.json из текущей базы</div>
+<div class="pl-ex">Пример — TLI: build_infospace_ext → infospace.json[w1].tli (шесть групп, доля субъектности)</div></div></div><div class="pl-stage"><div class="pl-stage__n">4</div>
+<div><h3>Блок на витрине</h3><p>render_infospace() собирает блок: число, подпись, развертка и методика под блоком. Вёрстка самодостаточная (inline CSS/SVG), страница открывается офлайн и печатается.</p>
+<div class="pl-code"><b>Где в коде:</b> generate.py: render_infospace (w1–w4), infospace.html</div>
+<div class="pl-code"><b>Проверка:</b> блок виден без JavaScript, числа сходятся с data/infospace.json</div>
+<div class="pl-ex">Пример — TLI: шесть полос bar-row по группам + значение индекса (9% — «труд невидим»)</div></div></div><div class="pl-stage"><div class="pl-stage__n">5</div>
+<div><h3>Тест и статус</h3><p>Юнит-тест на расчёт и на присутствие блока на странице. После зелёного прогона метрика получает статус «подключена» с датой, запись уходит в ROADMAP.md.</p>
+<div class="pl-code"><b>Где в коде:</b> tests/test_pipeline.py: TestInfospaceW1–W4 · TestEisMetrics · TestSourcesRegistry · TestOutlets</div>
+<div class="pl-code"><b>Проверка:</b> python3 -m unittest discover -s tests — зелёный до публикации</div>
+<div class="pl-ex">Пример — TLI: подключена 15.09 (Волна 1), поле dn в реестре, запись в версии документа</div></div></div>
+
+<div class="sec-head"><h2>Паспорта метрик-пилотов</h2><div class="line"></div>
+<div class="badge">3 паспорта · образец для остальных</div></div>
+<details class="pl-pass" open>
+<summary>Индекс присутствия труда (TLI)</summary>
+<div class="pl-pass__meta"><span class="pl-st pl-st--ok">готовы</span>
+<span class="pl-st">ось: Труд</span>
+<span class="pl-st">трудозатраты: S–M</span></div>
+<p class="pl-ex">Проверяет гипотезу: в региональном инфополе труд существует как объект — в сводках ЧП, отчётах о посещении завода, поздравлениях с праздником — и почти никогда как субъект речи.</p>
+<dl>
+<dt>Гипотеза</dt><dd>Рабочие УАЗа, Авиастара, УМЗ, учителя и медики области присутствуют в повестке, но не говорят от своего имени. Если это так, доля «оригинальных» сообщений ничего не говорит о реальном плюрализме поля.</dd>
+<dt>Формула</dt><dd><div class="pl-formula">TLI = (S_субъект − S_объект) / S_всего, где S — сообщения с маркерами шести групп:<br>рабочие и инженеры · учителя · медики · водители и транспортники · селяне · студенты<br><br>TLI &lt; 0.15 → «труд невидим»; 0.15–0.35 → «труд упоминаем»; &gt; 0.35 → «труд говорит»</div></dd>
+<dt>Источник данных</dt><dd>store.jsonl (уже собрано: 1405 сообщений за 7 дней). Дополнительно: маркер-словарь профессий и детекция прямой речи (кавычки + атрибуция).</dd>
+<dt>Порог тревоги</dt><dd>Порог тревоги: TLI &amp;lt; 0.10 неделю подряд — фиксируется как структурный перекос, а не случайность недели.</dd>
+<dt>Где публикуется</dt><dd>Блок в разделе «Инфопространство» рядом с «Оригинальностью по уровням»: шесть полос bar-row по группам + значение индекса. В недельнике — сравнение с прошлой неделей.</dd>
+<dt>Первый расчёт</dt><dd>Иллюстративный расчёт на текущей базе: из 1405 сообщений профессиональные группы упомянуты в ~90; в роли подлежащего — в ~12. TLI ≈ 0.03.</dd>
+</dl></details><details class="pl-pass">
+<summary>Деньги повестки</summary>
+<div class="pl-pass__meta"><span class="pl-st pl-st--search">ищем данные</span>
+<span class="pl-st">ось: Собственность</span>
+<span class="pl-st">трудозатраты: M–L</span></div>
+<p class="pl-ex">Связывает публичные госконтракты на информационное освещение с реальным содержанием поля: кто заказчик, кто подрядчик, какая сумма и какой тон сообщений подрядчика.</p>
+<dl>
+<dt>Гипотеза</dt><dd>Значимая доля сообщений, которые дедупликатор считает оригинальными, производится по контракту или из пресс-служб. Без этого метрика «82% оригинальных» описывает форму, а не самостоятельность редакций.</dd>
+<dt>Формула</dt><dd><div class="pl-formula">MoneyShare = Σ(сообщения подрядчика за период) / Σ(все сообщения)<br>TonePaid − ToneIndep = разница лексиконной тональности<br>Rub/Msg = сумма контракта / число сообщений подрядчика за период</div></dd>
+<dt>Источник данных</dt><dd>ЕИС zakupki.gov.ru (открытый API по заказчикам региона), реестр СМИ Роскомнадзора, ЕГРЮЛ для учредителей; сопоставление подрядчика с sources_registry.json.</dd>
+<dt>Порог тревоги</dt><dd>Порог: MoneyShare &amp;gt; 25% или TonePaid − ToneIndep &amp;gt; 0.20 — повод для разбора в недельнике.</dd>
+<dt>Где публикуется</dt><dd>Таблица tbl: заказчик → исполнитель → сумма → сообщений/нед → тон → доля в повестке. Рядом bar-row «кто оплачивает освещение» и примечание о неполноте данных (не все контракты публичны).</dd>
+<dt>Первый расчёт</dt><dd>Первый шаг без ЕИС: помечать сообщения пресс-служб (ulgovru, администрация, министерства) как «официально-оплаченный слой» и считать его долю — это уже Волна 1.</dd>
+</dl></details><details class="pl-pass">
+<summary>Латентность и скорость каскада</summary>
+<div class="pl-pass__meta"><span class="pl-st pl-st--ok">готовы</span>
+<span class="pl-st">ось: Время</span>
+<span class="pl-st">трудозатраты: S</span></div>
+<p class="pl-ex">Превращает «Каскады недели» из статичного списка в процесс с временем: сколько часов поле догоняет событие и как быстро сюжет доходит до ×5 источников.</p>
+<dl>
+<dt>Гипотеза</dt><dd>Инфополе региона запаздывает на 2–6 часов, причём тревожные сюжеты (режим «Беспилотная опасность», ДТП, суды) расходятся втрое быстрее позитивных. Это проверяемо на уже собранных timestamp.</dd>
+<dt>Формула</dt><dd><div class="pl-formula">Δt = t_первой публикации − t_события (из текста; fallback — время поста)<br>v = число источников / часы до ×5<br>Decay = часов от пика каскада до последнего подхвата</div></dd>
+<dt>Источник данных</dt><dd>store.jsonl (timestamp каждого сообщения), кластеры каскадов из dedup.py, темы из классификатора.</dd>
+<dt>Порог тревоги</dt><dd>Порог: медианная Δt &amp;gt; 6 ч по тревожным темам — признак того, что поле не выполняет функцию оперативного оповещения.</dd>
+<dt>Где публикуется</dt><dd>Блок из трёх полос: медиана Δt по темам (ЧП, ЖКХ, власть, культура), скорость каскада по дням, «полка жизни сюжета». Плюс метка времени на каждом каскаде: «×16 за 3 ч 20 мин».</dd>
+<dt>Первый расчёт</dt><dd>Реализуется одним проходом по store.jsonl; метрика уже значится в очереди как «Задержки освещения» — остаётся добавить формулу и пороги.</dd>
+</dl></details>
+
+<div class="sec-head" id="metrics"><h2>Реестр метрик-кандидатов</h2><div class="line"></div>
+<div class="badge">32 метрики · 7 осей</div></div>
+<div class="pl-h4">Готовность по осям</div>
+<div class="pl-axbar"><span class="pl-axbar__t">Собственность</span>
+<span class="bar-wrap"><span class="bar-fill" style="width:60%"></span></span>
+<span class="pl-axbar__n">3 из 5</span></div><div class="pl-axbar"><span class="pl-axbar__t">Труд</span>
+<span class="bar-wrap"><span class="bar-fill" style="width:60%"></span></span>
+<span class="pl-axbar__n">3 из 5</span></div><div class="pl-axbar"><span class="pl-axbar__t">Язык</span>
+<span class="bar-wrap"><span class="bar-fill" style="width:80%"></span></span>
+<span class="pl-axbar__n">4 из 5</span></div><div class="pl-axbar"><span class="pl-axbar__t">Аудитория</span>
+<span class="bar-wrap"><span class="bar-fill" style="width:50%"></span></span>
+<span class="pl-axbar__n">2 из 4</span></div><div class="pl-axbar"><span class="pl-axbar__t">Территория</span>
+<span class="bar-wrap"><span class="bar-fill" style="width:80%"></span></span>
+<span class="pl-axbar__n">4 из 5</span></div><div class="pl-axbar"><span class="pl-axbar__t">Время</span>
+<span class="bar-wrap"><span class="bar-fill" style="width:60%"></span></span>
+<span class="pl-axbar__n">3 из 5</span></div><div class="pl-axbar"><span class="pl-axbar__t">Методика</span>
+<span class="bar-wrap"><span class="bar-fill" style="width:33%"></span></span>
+<span class="pl-axbar__n">1 из 3</span></div>
+<div id="pl-filters"><button type="button" class="fbtn active" data-f="ax" data-v="all">Все оси</button><button type="button" class="fbtn" data-f="ax" data-v="money">Собственность (5)</button><button type="button" class="fbtn" data-f="ax" data-v="labor">Труд (5)</button><button type="button" class="fbtn" data-f="ax" data-v="lang">Язык (5)</button><button type="button" class="fbtn" data-f="ax" data-v="audience">Аудитория (4)</button><button type="button" class="fbtn" data-f="ax" data-v="territory">Территория (5)</button><button type="button" class="fbtn" data-f="ax" data-v="time">Время (5)</button><button type="button" class="fbtn" data-f="ax" data-v="method">Методика (3)</button></div>
+<div id="pl-filters"><button type="button" class="fbtn active" data-f="st" data-v="all">Любой статус</button><button type="button" class="fbtn" data-f="st" data-v="done">подключена (20)</button><button type="button" class="fbtn" data-f="st" data-v="ok">готовы (1)</button><button type="button" class="fbtn" data-f="st" data-v="queue">в очереди (5)</button><button type="button" class="fbtn" data-f="st" data-v="search">ищем данные (4)</button><button type="button" class="fbtn" data-f="st" data-v="hard">с риском (2)</button>
+<input id="pl-q" type="search" placeholder="Поиск по реестру — например «тон», «ЕИС», «Gini», «село»"></div>
+<table class="tbl pl-tbl" id="pl-reg"><thead><tr>
+<th>Метрика</th><th>Ось</th><th>Статус</th><th>Трудо&shy;ёмкость</th><th>Приоритет</th>
+<th>Подклю&shy;чена</th><th>Что даёт</th><th>Данные</th></tr></thead>
+<tbody><tr data-ax="money" data-st="search" data-q="цена слова сколько бюджет платит за освещение и кому: заказчик, подрядчик, сумма, период. прямая связь денег и доли повестки. еис zakupki.gov.ru (открытый api), контракты администрации ульяновска, облправительства, мупов, больниц money Собственность">
+<td class="pl-n">Цена слова</td>
+<td>Собственность</td>
+<td><span class="pl-st pl-st--search">ищем данные</span></td>
+<td>M</td>
+<td>9</td>
+<td>—</td>
+<td>Сколько бюджет платит за освещение и кому: заказчик, подрядчик, сумма, период. Прямая связь денег и доли повестки.</td>
+<td>ЕИС zakupki.gov.ru (открытый API), контракты администрации Ульяновска, облправительства, МУПов, больниц</td></tr><tr data-ax="money" data-st="done" data-q="доля бюджетного голоса какая часть «оригинальных» сообщений фактически произведена пресс-службами и опубликована без изменения. store.jsonl + маркеры «пресс-служба», «администрация информирует», совпадающие абзацы между t1 и t2 money Собственность">
+<td class="pl-n">Доля бюджетного голоса</td>
+<td>Собственность</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>S</td>
+<td>8</td>
+<td>15.09</td>
+<td>Какая часть «оригинальных» сообщений фактически произведена пресс-службами и опубликована без изменения.</td>
+<td>store.jsonl + маркеры «пресс-служба», «администрация информирует», совпадающие абзацы между T1 и T2</td></tr><tr data-ax="money" data-st="hard" data-q="тон за деньги отличается ли тон оплаченных сообщений от тона независимых при той же теме: проверяет гипотезу «позитив покупается». результат «цены слова» + тональность по сообщениям подрядчика; нужна ручная разметка 150–200 пар money Собственность">
+<td class="pl-n">Тон за деньги</td>
+<td>Собственность</td>
+<td><span class="pl-st pl-st--hard">с риском</span></td>
+<td>M</td>
+<td>6</td>
+<td>—</td>
+<td>Отличается ли тон оплаченных сообщений от тона независимых при той же теме: проверяет гипотезу «позитив покупается».</td>
+<td>результат «Цены слова» + тональность по сообщениям подрядчика; нужна ручная разметка 150–200 пар</td></tr><tr data-ax="money" data-st="done" data-q="концентрация собственности (hhi) насколько поле принадлежит узкой группе владельцев: индекс херфиндаля по учредителям источников. реестр сми ркн, егрюл/фнс (открытые данные), ручной реестр владельцев money Собственность">
+<td class="pl-n">Концентрация собственности (HHI)</td>
+<td>Собственность</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>L</td>
+<td>5</td>
+<td>15.09</td>
+<td>Насколько поле принадлежит узкой группе владельцев: индекс Херфиндаля по учредителям источников.</td>
+<td>реестр СМИ РКН, ЕГРЮЛ/ФНС (открытые данные), ручной реестр владельцев</td></tr><tr data-ax="money" data-st="done" data-q="рекламная нагрузка доля коммерческих интеграций и «посевов» в потоке и их тон: реклама вытесняет социальную повестку. store.jsonl + классификатор рекламных сообщений, маркировка «реклама» money Собственность">
+<td class="pl-n">Рекламная нагрузка</td>
+<td>Собственность</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>M</td>
+<td>4</td>
+<td>15.09</td>
+<td>Доля коммерческих интеграций и «посевов» в потоке и их тон: реклама вытесняет социальную повестку.</td>
+<td>store.jsonl + классификатор рекламных сообщений, маркировка «реклама»</td></tr><tr data-ax="labor" data-st="done" data-q="индекс присутствия труда (tli) рабочие и трудовые коллективы — субъект речи или объект сводки? сейчас о труде говорят, но труд не говорит. store.jsonl: маркеры профессий + роль в предложении (подлежащее/дополнение), прямая речь labor Труд">
+<td class="pl-n">Индекс присутствия труда (TLI)</td>
+<td>Труд</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>S</td>
+<td>10</td>
+<td>15.09</td>
+<td>Рабочие и трудовые коллективы — субъект речи или объект сводки? Сейчас о труде говорят, но труд не говорит.</td>
+<td>store.jsonl: маркеры профессий + роль в предложении (подлежащее/дополнение), прямая речь</td></tr><tr data-ax="labor" data-st="done" data-q="кто пишет: тип производителя разложение потока на пресс-службы, редакции, агрегаторы, авторские каналы, генерацию. показывает реальный уровень концентрации. sources_registry.json (новый) + эвристики шаблонности текста labor Труд">
+<td class="pl-n">Кто пишет: тип производителя</td>
+<td>Труд</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>M</td>
+<td>7</td>
+<td>15.09</td>
+<td>Разложение потока на пресс-службы, редакции, агрегаторы, авторские каналы, генерацию. Показывает реальный уровень концентрации.</td>
+<td>sources_registry.json (новый) + эвристики шаблонности текста</td></tr><tr data-ax="labor" data-st="ok" data-q="конвейер редакции производительность канала: сообщений в час по времени суток, «ночные» всплески как признак автоматической публикации. store.jsonl (timestamp источника), уже собирается labor Труд">
+<td class="pl-n">Конвейер редакции</td>
+<td>Труд</td>
+<td><span class="pl-st pl-st--ok">готовы</span></td>
+<td>S</td>
+<td>5</td>
+<td>—</td>
+<td>Производительность канала: сообщений в час по времени суток, «ночные» всплески как признак автоматической публикации.</td>
+<td>store.jsonl (timestamp источника), уже собирается</td></tr><tr data-ax="labor" data-st="search" data-q="зарплата и вакансии медиа сколько в регионе платят за производство контента: медиана по вакансиям smm/журналист, число вакансий пресс-служб. hh.ru, avito, zarplata.ru — парсинг, возможен блок; альтернатива — ручной срез раз в месяц labor Труд">
+<td class="pl-n">Зарплата и вакансии медиа</td>
+<td>Труд</td>
+<td><span class="pl-st pl-st--search">ищем данные</span></td>
+<td>M</td>
+<td>4</td>
+<td>—</td>
+<td>Сколько в регионе платят за производство контента: медиана по вакансиям SMM/журналист, число вакансий пресс-служб.</td>
+<td>hh.ru, avito, zarplata.ru — парсинг, возможен блок; альтернатива — ручной срез раз в месяц</td></tr><tr data-ax="labor" data-st="done" data-q="ии-след доля текстов с признаками машинной генерации: шаблонные концовки «мы в telegram | мы в max», однородные эмодзи-блоки. store.jsonl + классификатор шаблонов; сверка с редакциями вручную labor Труд">
+<td class="pl-n">ИИ-след</td>
+<td>Труд</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>M</td>
+<td>3</td>
+<td>15.09</td>
+<td>Доля текстов с признаками машинной генерации: шаблонные концовки «Мы в Telegram | Мы в MAX», однородные эмодзи-блоки.</td>
+<td>store.jsonl + классификатор шаблонов; сверка с редакциями вручную</td></tr><tr data-ax="lang" data-st="done" data-q="фрейм-карта события как один и тот же сюжет назван в разных каналах: «чп», «плановые работы», «провокация». расхождение фреймов = конфликт интересов. кластеры каскадов (уже есть) + сравнение заголовков внутри кластера lang Язык">
+<td class="pl-n">Фрейм-карта события</td>
+<td>Язык</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>M</td>
+<td>7</td>
+<td>15.09</td>
+<td>Как один и тот же сюжет назван в разных каналах: «ЧП», «плановые работы», «провокация». Расхождение фреймов = конфликт интересов.</td>
+<td>кластеры каскадов (уже есть) + сравнение заголовков внутри кластера</td></tr><tr data-ax="lang" data-st="done" data-q="словарь власти частотность канцелярита и эвфемизмов («оптимизация», «временные неудобства», «благоустройство») по уровням источников. store.jsonl + список маркеров, расширяемый; лексикон уже есть в тональности lang Язык">
+<td class="pl-n">Словарь власти</td>
+<td>Язык</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>S</td>
+<td>6</td>
+<td>15.09</td>
+<td>Частотность канцелярита и эвфемизмов («оптимизация», «временные неудобства», «благоустройство») по уровням источников.</td>
+<td>store.jsonl + список маркеров, расширяемый; лексикон уже есть в тональности</td></tr><tr data-ax="lang" data-st="done" data-q="индекс агентности (субъект/объект) кто подлежащее в сообщении: чиновник, «жители», «силовики», «неизвестные». мера того, кому поле отдаёт действие. ner + синтаксический разбор (natasha/syntax), разметка 200 сообщений для калибровки lang Язык">
+<td class="pl-n">Индекс агентности (субъект/объект)</td>
+<td>Язык</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>L</td>
+<td>5</td>
+<td>15.09</td>
+<td>Кто подлежащее в сообщении: чиновник, «жители», «силовики», «неизвестные». Мера того, кому поле отдаёт действие.</td>
+<td>NER + синтаксический разбор (natasha/syntax), разметка 200 сообщений для калибровки</td></tr><tr data-ax="lang" data-st="done" data-q="эмодзи-профиль доля постов с эмодзи и их набор как маркер уровня источника и коммерческого характера сообщения. store.jsonl, подсчёт символов unicode-эмодзи lang Язык">
+<td class="pl-n">Эмодзи-профиль</td>
+<td>Язык</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>S</td>
+<td>3</td>
+<td>15.09</td>
+<td>Доля постов с эмодзи и их набор как маркер уровня источника и коммерческого характера сообщения.</td>
+<td>store.jsonl, подсчёт символов Unicode-эмодзи</td></tr><tr data-ax="lang" data-st="search" data-q="язык меньшинств присентствие татарского и чувашского в повестке старокулаткинского, новомалыклинского и других районов. районные издания и паблики (нужны источники) + определение языка текста lang Язык">
+<td class="pl-n">Язык меньшинств</td>
+<td>Язык</td>
+<td><span class="pl-st pl-st--search">ищем данные</span></td>
+<td>M</td>
+<td>2</td>
+<td>—</td>
+<td>Присентствие татарского и чувашского в повестке Старокулаткинского, Новомалыклинского и других районов.</td>
+<td>районные издания и паблики (нужны источники) + определение языка текста</td></tr><tr data-ax="audience" data-st="done" data-q="внимание как ресурс просмотры и er по источникам, gini концентрации внимания: 14.6k просмотров за сутки у одного канала против десятков у районных. страницы t.me/s/ (просмотры видны), snapshot раз в сутки audience Аудитория">
+<td class="pl-n">Внимание как ресурс</td>
+<td>Аудитория</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>M</td>
+<td>8</td>
+<td>15.09</td>
+<td>Просмотры и ER по источникам, Gini концентрации внимания: 14.6K просмотров за сутки у одного канала против десятков у районных.</td>
+<td>страницы t.me/s/ (просмотры видны), snapshot раз в сутки</td></tr><tr data-ax="audience" data-st="queue" data-q="второй этаж: vk, ок, сайты значимая часть районной аудитории живёт вне telegram. без vk/ок картина поля неполна и смещена в сторону города. публичные страницы vk и ок районов, сайты райгазет, форумы; ручной отбор источников audience Аудитория">
+<td class="pl-n">Второй этаж: VK, ОК, сайты</td>
+<td>Аудитория</td>
+<td><span class="pl-st pl-st--queue">в очереди</span></td>
+<td>L</td>
+<td>7</td>
+<td>—</td>
+<td>Значимая часть районной аудитории живёт вне Telegram. Без VK/ОК картина поля неполна и смещена в сторону города.</td>
+<td>публичные страницы VK и ОК районов, сайты райгазет, форумы; ручной отбор источников</td></tr><tr data-ax="audience" data-st="search" data-q="комментарийный слой разрыв «витрина и реакция»: тон комментариев против тона поста, темы несогласия, скорость появления первых ответов. t.me/s/ с комментариями частично доступны; нужна этико-правовая оценка и обезличивание audience Аудитория">
+<td class="pl-n">Комментарийный слой</td>
+<td>Аудитория</td>
+<td><span class="pl-st pl-st--search">ищем данные</span></td>
+<td>L</td>
+<td>6</td>
+<td>—</td>
+<td>Разрыв «витрина и реакция»: тон комментариев против тона поста, темы несогласия, скорость появления первых ответов.</td>
+<td>t.me/s/ с комментариями частично доступны; нужна этико-правовая оценка и обезличивание</td></tr><tr data-ax="audience" data-st="done" data-q="полка жизни сюжета сколько часов сюжет держится в поле: время от первой публикации до последнего подхвата. store.jsonl + кластеры каскадов (уже считаются) audience Аудитория">
+<td class="pl-n">Полка жизни сюжета</td>
+<td>Аудитория</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>S</td>
+<td>4</td>
+<td>15.09</td>
+<td>Сколько часов сюжет держится в поле: время от первой публикации до последнего подхвата.</td>
+<td>store.jsonl + кластеры каскадов (уже считаются)</td></tr><tr data-ax="territory" data-st="done" data-q="карта немых групп кто ни разу за неделю не получил прямой речи: рабочие, учителя, медики, студенты, пенсионеры, мигранты, инвалиды. store.jsonl + классификатор социальных групп, разметка спикеров territory Территория">
+<td class="pl-n">Карта немых групп</td>
+<td>Территория</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>M</td>
+<td>8</td>
+<td>15.09</td>
+<td>Кто ни разу за неделю не получил прямой речи: рабочие, учителя, медики, студенты, пенсионеры, мигранты, инвалиды.</td>
+<td>store.jsonl + классификатор социальных групп, разметка спикеров</td></tr><tr data-ax="territory" data-st="queue" data-q="голос района: расширение довести «свой голос» с 3 до 10+ муниципалитетов, иначе 29% доли своего голоса нерепрезентативны. ручной поиск районных газет и пабликов (tgstat закрыт для ботов), фиксация в реестре источников territory Территория">
+<td class="pl-n">Голос района: расширение</td>
+<td>Территория</td>
+<td><span class="pl-st pl-st--queue">в очереди</span></td>
+<td>M</td>
+<td>7</td>
+<td>—</td>
+<td>Довести «свой голос» с 3 до 10+ муниципалитетов, иначе 29% доли своего голоса нерепрезентативны.</td>
+<td>ручной поиск районных газет и пабликов (tgstat закрыт для ботов), фиксация в реестре источников</td></tr><tr data-ax="territory" data-st="done" data-q="матрица территория × тема чем именно известна каждая территория: только чп и суды или ещё развитием, культурой, экономикой. store.jsonl (геомаркеры + темы уже классифицированы) territory Территория">
+<td class="pl-n">Матрица территория × тема</td>
+<td>Территория</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>S</td>
+<td>6</td>
+<td>15.09</td>
+<td>Чем именно известна каждая территория: только ЧП и суды или ещё развитием, культурой, экономикой.</td>
+<td>store.jsonl (геомаркеры + темы уже классифицированы)</td></tr><tr data-ax="territory" data-st="done" data-q="соотношение прямой речи сколько цитат жителей приходится на одну цитату чиновника. мера того, кто в поле обладает голосом. store.jsonl: детекция кавычек + атрибуция спикера по должностям-маркерам territory Территория">
+<td class="pl-n">Соотношение прямой речи</td>
+<td>Территория</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>M</td>
+<td>6</td>
+<td>15.09</td>
+<td>Сколько цитат жителей приходится на одну цитату чиновника. Мера того, кто в поле обладает голосом.</td>
+<td>store.jsonl: детекция кавычек + атрибуция спикера по должностям-маркерам</td></tr><tr data-ax="territory" data-st="done" data-q="индекс присутствия села доля сельских территорий в повестке против их доли в населении области: мера символического исключения. store.jsonl + данные ульяновскстата по населению (открытые) territory Территория">
+<td class="pl-n">Индекс присутствия села</td>
+<td>Территория</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>S</td>
+<td>5</td>
+<td>15.09</td>
+<td>Доля сельских территорий в повестке против их доли в населении области: мера символического исключения.</td>
+<td>store.jsonl + данные Ульяновскстата по населению (открытые)</td></tr><tr data-ax="time" data-st="done" data-q="латентность освещения часы от события до первой публикации: насколько поле догоняет реальность и по каким темам догоняет медленнее. store.jsonl (timestamp) + извлечение даты события из текста, fallback — время поста time Время">
+<td class="pl-n">Латентность освещения</td>
+<td>Время</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>S</td>
+<td>9</td>
+<td>15.09</td>
+<td>Часы от события до первой публикации: насколько поле догоняет реальность и по каким темам догоняет медленнее.</td>
+<td>store.jsonl (timestamp) + извлечение даты события из текста, fallback — время поста</td></tr><tr data-ax="time" data-st="done" data-q="скорость каскада источников в час до ×5: тревожные сюжеты расходятся быстрее позитивных — проверяемая гипотеза. store.jsonl + кластеры каскадов time Время">
+<td class="pl-n">Скорость каскада</td>
+<td>Время</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>S</td>
+<td>7</td>
+<td>15.09</td>
+<td>Источников в час до ×5: тревожные сюжеты расходятся быстрее позитивных — проверяемая гипотеза.</td>
+<td>store.jsonl + кластеры каскадов</td></tr><tr data-ax="time" data-st="hard" data-q="опережающие индикаторы рост частоты слов-предвестников за 3–7 дней до события (анонс → реализация): попытка прогноза повестки. история наблюдений (накапливается с 03.09), нужна база минимум 8–10 недель time Время">
+<td class="pl-n">Опережающие индикаторы</td>
+<td>Время</td>
+<td><span class="pl-st pl-st--hard">с риском</span></td>
+<td>L</td>
+<td>5</td>
+<td>—</td>
+<td>Рост частоты слов-предвестников за 3–7 дней до события (анонс → реализация): попытка прогноза повестки.</td>
+<td>история наблюдений (накапливается с 03.09), нужна база минимум 8–10 недель</td></tr><tr data-ax="time" data-st="queue" data-q="память инфополя возвраты тем и сезонность: отопление, дороги, егэ, уборочная. сколько поле помнит сюжет после затухания. недельные и месячные снапшоты metrics, тема-кластеры time Время">
+<td class="pl-n">Память инфополя</td>
+<td>Время</td>
+<td><span class="pl-st pl-st--queue">в очереди</span></td>
+<td>M</td>
+<td>4</td>
+<td>—</td>
+<td>Возвраты тем и сезонность: отопление, дороги, ЕГЭ, уборочная. Сколько поле помнит сюжет после затухания.</td>
+<td>недельные и месячные снапшоты metrics, тема-кластеры</td></tr><tr data-ax="time" data-st="done" data-q="ритм недели будни против выходных, ночная доля потока, пики пресс-релизов по часам. store.jsonl (timestamp) — данные уже есть time Время">
+<td class="pl-n">Ритм недели</td>
+<td>Время</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>S</td>
+<td>4</td>
+<td>15.09</td>
+<td>Будни против выходных, ночная доля потока, пики пресс-релизов по часам.</td>
+<td>store.jsonl (timestamp) — данные уже есть</td></tr><tr data-ax="method" data-st="queue" data-q="аудит выборки какую долю реального инфополя мы видим: число известных источников против числа охваченных мониторингом. data/audit_sample_ids.json (уже существует), ручной список источников области method Методика">
+<td class="pl-n">Аудит выборки</td>
+<td>Методика</td>
+<td><span class="pl-st pl-st--queue">в очереди</span></td>
+<td>S</td>
+<td>6</td>
+<td>—</td>
+<td>Какую долю реального инфополя мы видим: число известных источников против числа охваченных мониторингом.</td>
+<td>data/audit_sample_ids.json (уже существует), ручной список источников области</td></tr><tr data-ax="method" data-st="queue" data-q="калибровка тональности точность лексикона на иронии, сарказме и эмодзи: ручная разметка 200 сообщений и поправка весов. store.jsonl + ручная разметка, ±110 маркеров как база method Методика">
+<td class="pl-n">Калибровка тональности</td>
+<td>Методика</td>
+<td><span class="pl-st pl-st--queue">в очереди</span></td>
+<td>M</td>
+<td>5</td>
+<td>—</td>
+<td>Точность лексикона на иронии, сарказме и эмодзи: ручная разметка 200 сообщений и поправка весов.</td>
+<td>store.jsonl + ручная разметка, ±110 маркеров как база</td></tr><tr data-ax="method" data-st="done" data-q="устойчивость дедупликации доля ложных склеек и пропусков в дедупликации: 82% оригинальности может быть завышен или занижен. dedup.py: пороговые эксперименты на жаккар + контрольная выборка 100 пар method Методика">
+<td class="pl-n">Устойчивость дедупликации</td>
+<td>Методика</td>
+<td><span class="pl-st pl-st--done">подключена</span></td>
+<td>S</td>
+<td>3</td>
+<td>15.09</td>
+<td>Доля ложных склеек и пропусков в дедупликации: 82% оригинальности может быть завышен или занижен.</td>
+<td>dedup.py: пороговые эксперименты на Жаккар + контрольная выборка 100 пар</td></tr></tbody></table>
+<div class="pl-foot"><span>Показано: <b id="pl-shown">32</b> из 32</span>
+<span id="pl-empty" hidden>Под условия ничего не нашлось — снимите фильтр.</span>
+<span style="margin-left:auto;">фильтры работают в браузере; без JavaScript виден весь реестр</span></div>
+
+<div class="sec-head"><h2>Волны внедрения</h2><div class="line"></div>
+<div class="badge">порядок работ и что нужно для каждого шага</div></div>
+<table class="tbl pl-tbl"><thead><tr><th>Волна</th><th>Срок</th><th>Что нужно</th><th>Состав и статусы</th></tr></thead>
+<tbody><tr><td class="pl-n">Волна 1</td>
+<td>1–2 недели</td><td>только store.jsonl, новых данных не нужно</td>
+<td style="font-family:var(--serif-body);font-size:13px;line-height:1.9;">Матрица территория × тема <span class="pl-st pl-st--ok">готовы</span> Латентность освещения <span class="pl-st pl-st--ok">готовы</span> Скорость каскада <span class="pl-st pl-st--ok">готовы</span> Ритм недели (будни/выходные, ночь) <span class="pl-st pl-st--ok">готовы</span> Индекс тревожности <span class="pl-st pl-st--ok">готовы</span> Индекс присутствия труда (TLI) <span class="pl-st pl-st--ok">готовы</span> Словарь власти: канцелярит <span class="pl-st pl-st--ok">готовы</span> Эмодзи-профиль <span class="pl-st pl-st--ok">готовы</span> Полка жизни сюжета <span class="pl-st pl-st--ok">готовы</span> Индекс присутствия села <span class="pl-st pl-st--ok">готовы</span> Доля бюджетного голоса <span class="pl-st pl-st--ok">готовы</span> Аудит выборки <span class="pl-st pl-st--queue">в очереди</span></td></tr><tr><td class="pl-n">Волна 2</td>
+<td>3–6 недель</td><td>один-два новых источника, парсинг</td>
+<td style="font-family:var(--serif-body);font-size:13px;line-height:1.9;">Внимание как ресурс (охваты, Gini) <span class="pl-st pl-st--queue">в очереди</span> Комментарийный слой <span class="pl-st pl-st--search">ищем данные</span> Второй этаж: VK, ОК, сайты районов <span class="pl-st pl-st--search">ищем данные</span> Голос района: 10+ муниципалитетов <span class="pl-st pl-st--search">ищем данные</span> Карта немых групп <span class="pl-st pl-st--queue">в очереди</span> Соотношение прямой речи <span class="pl-st pl-st--queue">в очереди</span> Кто пишет: тип производителя <span class="pl-st pl-st--queue">в очереди</span> Рекламная нагрузка <span class="pl-st pl-st--queue">в очереди</span> Ульяновскстат как знаменатель <span class="pl-st pl-st--ok">готовы</span></td></tr><tr><td class="pl-n">Волна 3</td>
+<td>2–3 месяца</td><td>внешние реестры и ручная разметка</td>
+<td style="font-family:var(--serif-body);font-size:13px;line-height:1.9;">Цена слова (ЕИС) <span class="pl-st pl-st--search">ищем данные</span> Концентрация собственности (HHI) <span class="pl-st pl-st--search">ищем данные</span> Тон за деньги <span class="pl-st pl-st--hard">с риском</span> Индекс агентности (субъект/объект) <span class="pl-st pl-st--hard">с риском</span> Фрейм-карта события <span class="pl-st pl-st--queue">в очереди</span> ИИ-след <span class="pl-st pl-st--search">ищем данные</span> Зарплата и вакансии медиа <span class="pl-st pl-st--search">ищем данные</span> Язык меньшинств <span class="pl-st pl-st--search">ищем данные</span> Опережающие индикаторы <span class="pl-st pl-st--hard">с риском</span> Память инфополя: сезонность <span class="pl-st pl-st--queue">в очереди</span> Калибровка тональности <span class="pl-st pl-st--queue">в очереди</span> Устойчивость дедупликации <span class="pl-st pl-st--hard">с риском</span></td></tr></tbody></table>
+
+<div class="sec-head"><h2>Источники данных</h2><div class="line"></div>
+<div class="badge">что подключаем ради новых метрик</div></div>
+<table class="tbl pl-tbl"><thead><tr><th>Источник</th><th>Статус</th><th>Метка</th><th>Что даёт</th><th>Примечание</th></tr></thead>
+<tbody><tr><td class="pl-n">Районные газеты</td>
+<td><span class="pl-st pl-st--search">ищем данные</span></td><td>ищем вручную</td>
+<td>Инзенский, Барышский, Карсунский, Радищевский, Старокулаткинский, Новомалыклинский, Кузоватовский, Майнский районы. Сайты и PDF-выпуски: закрывают «немые» территории и дают язык местных редакций.</td><td>tgstat закрыт для ботов — отбор вручную, фиксация в sources_registry.json</td></tr><tr><td class="pl-n">Паблики районов в VK и Одноклассниках</td>
+<td><span class="pl-st pl-st--search">ищем данные</span></td><td>новый канал сбора</td>
+<td>Основная среда для аудитории 40+ и для села. Без неё «второй этаж» поля невидим, а покрытие муниципалитетов 100% — техническая, а не содержательная величина.</td><td>парсер публичных стен + ограничения по частоте запросов</td></tr><tr><td class="pl-n">ЕИС «Госзакупки»</td>
+<td><span class="pl-st pl-st--search">ищем данные</span></td><td>открытый API</td>
+<td>Контракты на информационное освещение деятельности органов власти региона: заказчик, исполнитель, сумма, срок. Ядро оси «Деньги».</td><td>нужен кэш и повторный запрос раз в неделю</td></tr><tr><td class="pl-n">Реестр СМИ РКН и ЕГРЮЛ</td>
+<td><span class="pl-st pl-st--search">ищем данные</span></td><td>открытые данные</td>
+<td>Учредители и владельцы изданий: позволяет считать HHI концентрации собственности и отличать независимую редакцию от аффилированной.</td><td>сопоставление по ИНН и названию, ручная верификация спорных случаев</td></tr><tr><td class="pl-n">Ульяновскстат и Росстат</td>
+<td><span class="pl-st pl-st--ok">готовы</span></td><td>данные открыты</td>
+<td>Население муниципалитетов, занятость, отраслевая структура. Знаменатель для «индекса присутствия села» и для сравнения повестки с реальным весом территорий.</td><td>подключается сразу, без парсинга</td></tr><tr><td class="pl-n">Предприятия и профсоюзы</td>
+<td><span class="pl-st pl-st--search">ищем данные</span></td><td>ручной отбор</td>
+<td>УАЗ, Авиастар (ОАК), Ульяновский моторный завод, димитровградские производства, облсовпроф. Их пресс-релизы — единственный источник о труде; их отсутствие в поле тоже метрика.</td><td>сайты + страницы в соцсетях</td></tr><tr><td class="pl-n">Страницы t.me/s/ (просмотры и комментарии)</td>
+<td><span class="pl-st pl-st--queue">в очереди</span></td><td>частично доступно</td>
+<td>Охваты и слой реакции аудитории. Требует решения по этике: цитируем обезличенно, персональные данные не храним.</td><td>снапшот раз в сутки, хранение только агрегатов</td></tr><tr><td class="pl-n">hh.ru и региональные вакансии</td>
+<td><span class="pl-st pl-st--search">ищем данные</span></td><td>возможен блок</td>
+<td>Число вакансий и медиана зарплат в медиа и пресс-службах: косвенная оценка того, сколько в регионе стоит производство контента.</td><td>альтернатива — ручной срез раз в месяц в таблицу</td></tr><tr><td class="pl-n">Каналы в MAX</td>
+<td><span class="pl-st pl-st--queue">в очереди</span></td><td>новый источник</td>
+<td>Часть редакций дублирует контент в MAX (метка «Мы в MAX» уже встречается в каскадах). Игнорирование площадки занижает объём поля.</td><td>проверить доступность выгрузки</td></tr><tr><td class="pl-n">Местные форумы и домовые чаты</td>
+<td><span class="pl-st pl-st--hard">с риском</span></td><td>закрытые среды</td>
+<td>Слой неформальной повестки: жалобы на ЖКХ, дороги, медицину. Формально закрыты, но дают ранние сигналы тем, что станет сюжетом.</td><td>только агрегированные наблюдения, без цитирования</td></tr></tbody></table>
+
+<div class="sec-head"><h2>Методологические риски</h2><div class="line"></div>
+<div class="badge">что может исказить картину и как это лечим</div></div>
+<ul class="pl-list"><li><b>Смещение выборки</b> — Поле = Telegram-каналы + RSS нескольких изданий. Районы, VK, ОК и форумы вне кадра: «покрытие муниципалитетов 100%» означает лишь то, что о каждой территории хоть раз написали областные каналы. Лечение: реестр источников с оценкой полноты и отдельная метрика «аудит выборки».</li><li><b>Тональность и ирония</b> — Лексикон на ±110 маркеров не ловит сарказм, эмодзи-иронию и «народную» лексику анонимных каналов. Тон T3 (+0.17) может быть артефактом. Лечение: ручная разметка 200 сообщений, отдельный вес для эмодзи, публикация доверительного интервала.</li><li><b>Дедупликация склеивает анонсы</b> — Анонс и итог одного события — разные сообщения, но Жаккар может их объединить: «оригинальность 82%» тогда завышена. Лечение: контроль по кластерам, где временной разрыв больше 24 часов.</li><li><b>Граница «федерального эха</b> — СВО-сводки, ключевая ставка и 5G часто имеют региональную привязку (имена, адреса, местные предприятия). Бинарная метка «регион/федералы» спорна. Лечение: трёхуровневая шкала — чисто федеральное, с местной привязкой, местное.</li><li><b>Персональные данные в комментариях</b> — Слой аудитории соблазнительно измеряем, но это живые люди. Лечение: хранить только агрегаты, без имён и цитат, обезличивать на этапе сбора, зафиксировать правило в разделе «Методика».</li><li><b>Воспроизводимость</b> — store.jsonl растёт, пересчёт старых недель даёт другие цифры. Лечение: снапшоты metrics по неделям (уже есть weekly/ и monthly/), версия методики в штампе каждого блока.</li><li><b>Ручной труд и зависимость от одного человека</b> — Районные источники, реестр владельцев, разметка — всё это ручная работа. Лечение: задачи в ROADMAP.md с ответственным и сроком, статус в status.html.</li><li><b>Соблазн интерпретации</b> — Цифры вроде «48% федеральное эхо» легко превратить в политический вывод без проверки. Лечение: каждый блок обязан содержать строку методики и порог, выше которого вывод считается обоснованным.</li></ul>
+
+<div class="sec-head"><h2>Треки планов</h2><div class="line"></div>
+<div class="badge">7 трека · документы перечитываются при сборке</div></div>
+<div class="pl-track" id="track-roadmap"><div class="pl-track__h"><h3>План развития</h3><span class="pl-track__src">ROADMAP.md</span><span class="pl-track__src">версия документа 3.1 · 17.09.2026</span><a class="pl-link" href="https://github.com/Volgin1917/gudok/blob/main/ROADMAP.md" target="_blank" rel="noopener">источник →</a></div><p class="pl-track__dek">Продукт и инфраструктура издания: фазы, ближайшие спринты, метрики цели и журнал решений. Источник правды — markdown в корне репозитория.</p><div class="pl-h4">Открытые пункты · 18</div><div class="pl-h4">Фаза 1 — Контент и качество (сентябрь–октябрь 2026) · 1</div><ul class="pl-list"><li>Миграция на SQLite при достижении 5 000 записей</li></ul><div class="pl-h4">Инфопространство: волны расширения (предложение v0.9, 15.09.2026) · 1</div><ul class="pl-list"><li>Волна 5 (кандидаты): «язык меньшинств» (источник подключён — «Кумәк көч», доля мала),</li></ul><div class="pl-h4">Фаза 2 — Интеллектуальная аналитика (октябрь–декабрь 2026) · 2</div><ul class="pl-list"><li>Сезонность и сравнение с прошлым годом («что волновало регион год назад»)</li><li>Принцип human-in-the-loop: руководящий дайджест выходит только после подтверждения редактора</li></ul><div class="pl-h4">Фаза 3 — Доставка и алерты (I квартал 2027) · 7</div><ul class="pl-list"><li>~~Telegram-бот @gudok_bot: утренняя рассылка дайджеста (07:30 UTC+4)~~ (отложено)</li><li>Мгновенные алерты: «Ракетная опасность» / «БПЛА» — пуш в течение 1–2 минут</li><li>Email-подписка (недельный дайджест)</li><li>Мета-RSS: сам дайджест как лента для подписки в читалках</li><li>PDF-недельник: автоматический лонгрид с версткой под A4</li><li>PWA: установка на телефон, офлайн-режим</li><li>Аудиоверсия дайджеста (TTS) — «слушай по дороге»</li></ul><div class="pl-h4">Фаза 4 — Масштабирование (2027) · 5</div><ul class="pl-list"><li>Мультирегиональность: config-driven подключение любого субъекта РФ</li><li>Публичный дашборд «Медиаиндекс региона» (открытые тренды для всех)</li><li>Публичный API для журналистов и исследователей</li><li>Сравнение «регион vs федеральная повестка» (доля местных тем, «эхо» федеральных)</li><li>Конструктор отчётов за произвольный период из архива</li></ul><div class="pl-h4">🔧 Инфраструктура (постоянный трек) · 2</div><ul class="pl-list"><li>Переход на выделенный сервер (server_plan.md): этап 0 — РФ-VPS «минимум» (1 vCPU / 2 ГБ + swap / 40–50 ГБ NVMe,</li><li>Документация и онбординг нового мейнтейнера: ARCHITECTURE.md, схема данных, как добавлять источник/рубрику</li></ul><div class="note">Полный журнал решений и история версий — в ROADMAP.md; страница перечисляет только незакрытые пункты, они перечитываются при каждой сборке.</div></div><div class="pl-track" id="track-infospace"><div class="pl-track__h"><h3>Инфопространство: что измерить дальше</h3><span class="pl-track__src">plans.py (реестр) · infospace-plan.html (черновик v0.9)</span><a class="pl-link" href="#metrics">реестр на этой странице ↑</a><a class="pl-link" href="infospace.html" >витрина раздела →</a></div><p class="pl-track__dek">Шесть осей расширения, реестр из 32 метрик-кандидатов, паспорта пилотов, волны внедрения, источники данных и методологические риски.</p><div class="pl-h4">Статусы реестра</div><ul class="pl-list"><li>подключена — <b>20</b></li><li>готовы — <b>1</b></li><li>в очереди — <b>5</b></li><li>ищем данные — <b>4</b></li><li>с риском — <b>2</b></li></ul><div class="note">Метрика добавляется в раздел только через паспорт (см. «Внедрение методов»). Черновик предложения v0.9 — infospace-plan.html.</div></div><div class="pl-track" id="track-server"><div class="pl-track__h"><h3>Переезд на выделенный сервер</h3><span class="pl-track__src">server_plan.md</span><a class="pl-link" href="https://github.com/Volgin1917/gudok/blob/main/server_plan.md" target="_blank" rel="noopener">источник →</a></div><p class="pl-track__dek">Диагноз ограничений GitHub Pages в цифрах, целевая архитектура, три уровня конфигурации с ценами, этапы миграции 0/A/B/C без простоя и точки выбора.</p><div class="pl-h4">Этапы миграции</div><table class="tbl pl-tbl"><thead><tr><th>Этап</th><th>Срок</th><th>Содержание</th><th>Критерий готовности</th></tr></thead><tbody><tr><td class="pl-n">0. Фундамент</td><td>1 день</td><td>VPS, домен, DNS; nginx, certbot, python, ufw/fail2ban/unattended-upgrades; restic→S3; timedatectl Europe/Ulyanovsk</td><td>https://домен отдаёт заглушку с валидным сертификатом; тестовый бэкап восстановлен</td></tr><tr><td class="pl-n">A. «То же, но на сервере»</td><td>1–2 дня</td><td>git-клон кода; systemd timers вместо Actions; deploy.sh; публикация в webroot; параллельный прогон с Pages ≥ 1 неделю</td><td>Выпуск 07:30 собрался и опубликовался на сервере; diff с Pages-версией пустой (кроме base_url)</td></tr><tr><td class="pl-n">B1. Закрытие долгов</td><td>2–3 дня</td><td>Pillow + пережатие 535 зеркал; FTS5-поиск; notify.py; метрики nginx</td><td>Поиск находит «ЖКХ тарифы» по архиву; анонс прилетел в TG-канал; пережатие: 67→~30 МБ, визуальных регрессий нет</td></tr><tr><td class="pl-n">B2. Сервис</td><td>~1 неделя</td><td>Панель «конвейер редакции»; внутридневной сбор; RSS-фиды; PDF-печать</td><td>Размечено первые 50 сообщений агентности через веб; витрина обновляется внутри дня</td></tr><tr><td class="pl-n">C. Рост (опц.)</td><td>по решению</td><td>Email-рассылка, API наружу; локальный LLM и Matomo — вне горизонта решением 15.09 (возврат после апгрейда железа)</td><td>—</td></tr><tr><td class="pl-n">Переключение</td><td>после A+неделя</td><td>DNS A-запись → VPS; Pages остаётся зеркалом (gh-pages force-update из CI)</td><td>Трафик на домене; зеркало синхронно</td></tr><tr><td class="pl-n">Откат</td><td>минуты</td><td>DNS обратно на github.io; зеркало актуально по определению</td><td>—</td></tr></tbody></table><div class="pl-h4">Точки выбора</div><ul class="pl-list"><li><span class="pl-done">решено</span> — Провайдер и бюджет: РФ-VPS, уровень «Минимум» — 1 vCPU / 2 ГБ RAM + 2 ГБ swap / 40–50 ГБ NVMe, Ubuntu 24.04, ~300–500 ₽/мес (кандидаты: Beget, FirstVDS, Aeza; Timeweb Cloud — если «минимум» окажется сопоставим по цене). LLM-запас не закладываем; при росте — resize 2→4 ГБ у того же провайдера.</li><li><span class="pl-done">решено</span> — GitHub Pages: остаётся зеркалом — gh-pages = снапшот последней сборки (force-update раз в сутки, история не растёт), main — только код. Откат при падении VPS — возврат DNS за минуты.</li><li><span class="pl-done">решено</span> — Локальный LLM: вне горизонта — эвристики и словари остаются ядром; возврат к вопросу после апгрейда железа или на отдельной машине.</li><li><span class="pl-done">решено</span> — Очередь этапа B1: по §6 — поиск по архиву (SQLite FTS5) → сжатие фото (Pillow, закрытие вопроса о зеркалах) → метрики читателей (логи nginx) → TG-уведомление выпуска.</li><li><span class="pl-open">открыто</span> — Домен: без него не оформить HTTPS (Let's Encrypt), покупка .ru — на этапе 0. Имя — за редакцией (паттерн-кандидат: «гудок» + региональный маркер; проверить доступность в .ru/.rf).</li><li><span class="pl-open">открыто</span> — Частота сбора: строго суточный ритм (07:30) / + внутридневные снапшоты раз в 2–3 ч. Снапшоты делают латентность и каскады реальновременными, но меняют характер метрик и добавляют нагрузку — на «Минимуме» посильно, решение вместе с этапом B2.</li></ul><div class="note">Не реализовано: в коде нет --snapshot, server.py, deploy.sh, notify.py. Публикация остаётся на GitHub Pages до этапа A.</div></div><div class="pl-track" id="track-frontpage"><div class="pl-track__h"><h3>Первая полоса v4</h3><span class="pl-track__src">plan_frontpage_v4.md</span><a class="pl-link" href="https://github.com/Volgin1917/gudok/blob/main/plan_frontpage_v4.md" target="_blank" rel="noopener">источник →</a></div><p class="pl-track__dek">24 предложения макета первой полосы, разложенные на три спринта: гигиена заголовков и алерты, скоринг и анатомия события, навигация и метрики качества.</p><div class="pl-h4">Спринт 1 (гигиена и алерты) · готово 0 из 6</div><table class="tbl pl-tbl"><tbody><tr><td>14</td><td class="pl-n">Очистка заголовка</td><td>Частично: хвосты режет коллектор, xtail есть; эмодзи/КАПС/кавычки не нормированы</td><td>present_title()</td></tr><tr><td>15</td><td class="pl-n">Обрезка ≤90 по слову, полный в title</td><td>Есть nice_title; нет достройки от предлога/союза, нет атрибута title</td><td>present_title()</td></tr><tr><td>02</td><td class="pl-n">Алерт-полоса</td><td>is_alert + whitelist есть; зоны нет</td><td>Новая зона render_index</td></tr><tr><td>08</td><td class="pl-n">Реестр показанных id</td><td>dup_of/cluster/also_in есть</td><td>shown_ids guard</td></tr><tr><td>07</td><td class="pl-n">Fallback пустых состояний</td><td>calendar есть (27 событий); логики нет</td><td>Fallback-цепочка</td></tr><tr><td>17</td><td class="pl-n">Лид не дублирует заголовок</td><td>strip_title_lead + dek_p есть</td><td>similarity &gt;70% → абзац 2</td></tr></tbody></table><div class="pl-h4">Спринт 2 (скоринг и анатомия) · готово 10 из 11</div><table class="tbl pl-tbl"><tbody><tr><td>03</td><td class="pl-n">Герой по скорингу</td><td>Готово</td><td>pick_hero + hero_stable (3 ч / 15%) + «Почему это главное» (hero_factors)</td></tr><tr><td>11</td><td class="pl-n">Тип материала</td><td>Готово</td><td>type_badge в карточках (type_badge/status_badge)</td></tr><tr><td>12</td><td class="pl-n">Гео-тег</td><td>Готово</td><td>kicker_text: рубрика · подрубрика · гео</td></tr><tr><td>09</td><td class="pl-n">Обязательные поля</td><td>Готово</td><td>gate() применяется в карточках/читаемом/мнениях/«Коротко»</td></tr><tr><td>04</td><td class="pl-n">«Коротко: 7 строк дня»</td><td>Готово</td><td>short_brief по скорингу, не «последние посты»</td></tr><tr><td>05</td><td class="pl-n">Сюжет недели 2-м экраном</td><td>Готово</td><td>фича week_arcs была; слот на полосе есть</td></tr><tr><td>08</td><td class="pl-n">Кластер вместо перепечаток</td><td>Готово</td><td>also_reported + cluster_timeline у героя, cluster_card()</td></tr><tr><td>10</td><td class="pl-n">Статус достоверности</td><td>Готово</td><td>status_badge в карточках</td></tr><tr><td>13</td><td class="pl-n">Хронология сюжета</td><td>Готово</td><td>cluster_timeline (герой, кластер ≥2)</td></tr><tr><td>06</td><td class="pl-n">Правый рельс</td><td>Частично</td><td>погода/афиша/периоды в колонке «Справка»; полный рельс — Спринт 3</td></tr><tr><td>16</td><td class="pl-n">Сборка заголовка при отсутствии</td><td>Готово</td><td>title_assemble (кто→что→где) + гейт</td></tr></tbody></table><div class="pl-h4">Спринт 3 (навигация и метрики) · готово 5 из 8</div><table class="tbl pl-tbl"><tbody><tr><td>01</td><td class="pl-n">Восемь зон полосы</td><td>Готово</td><td>render_index v4: алерт → герой → читаемое → «Коротко» → now-панель → лента → фича → мнения → периодичности</td></tr><tr><td>19</td><td class="pl-n">Чипы-рубрики, якорь</td><td>Готово</td><td>чипы категорий+типов, состояние в #feed=рубрика:тип, прогрессивный JS (16.09.2026)</td></tr><tr><td>20</td><td class="pl-n">«Показать ещё 12»</td><td>Готово</td><td>шаг 12, счётчик «Показано X из N», рабочий без JS (все карточки)</td></tr><tr><td>21</td><td class="pl-n">Мобильная полоса</td><td>Частично</td><td>липкие чипы, одна колонка; хроника на rel-времени — сделано, остальное CSS-пошёрст</td></tr><tr><td>22</td><td class="pl-n">Доступность/печать</td><td>Частично</td><td>alt фото = заголовок, aria-pressed у чипов, контраст чипов; печать уже была</td></tr><tr><td>18</td><td class="pl-n">Единый формат времени</td><td>Готово</td><td>fmt_time: карточки/герой «15.09, 22:22», хроника «18 мин назад» + полное время в title</td></tr><tr><td>23</td><td class="pl-n">Отчёт качества выпуска</td><td>Готово</td><td>8 метрик → data/quality_report.json + блок «Качество выпуска» в версии руководителю</td></tr><tr><td>24</td><td class="pl-n">A/B неделя</td><td>Частично</td><td>флаг settings.ab_front_v4, переключатель «Версия B» (зеркалит hero/фичу); измерения — после включения</td></tr></tbody></table><div class="note">Статусы берутся из таблиц plan_frontpage_v4.md; колонка «Статус данных» в Спринте 1 описывает готовность данных, а не факт внедрения.</div></div><div class="pl-track" id="track-afisha"><div class="pl-track__h"><h3>Афиша: порог входа и качество событий</h3><span class="pl-track__src">config.json → settings.afisha · data/venues.json</span><a class="pl-link" href="afisha.html">витрина афиши →</a></div><p class="pl-track__dek">Спринты афиши: порог входа события, календарь и фильтры, площадка без маркера и описательное название. Методика опубликована на самой странице афиши.</p><div class="pl-h4">Порог входа сейчас</div><ul class="pl-list"><li>горизонт — <b>45</b> дней, не более <b>4</b> событий в день, порог уверенности <b>0.55</b></li><li>веса индекса: {"date": 30, "time": 20, "venue": 20, "ctype": 20, "source": 10}</li><li>площадок в справочнике data/venues.json: <b>35</b></li><li>последний прогон: найдено дат <b>66</b>, прошло порог <b>9</b>, отсев <b>46</b> (17.09.2026 14:16)</li></ul><div class="note">Методика порога опубликована на странице афиши вместе с блоком «Не прошло порог» — отсев виден читателю, а не только в логах.</div></div><div class="pl-track" id="track-districts"><div class="pl-track__h"><h3>Районные источники «немых» территорий</h3><span class="pl-track__src">district_sources_draft.md</span><a class="pl-link" href="https://github.com/Volgin1917/gudok/blob/main/district_sources_draft.md" target="_blank" rel="noopener">источник →</a></div><p class="pl-track__dek">Черновик пункта d4: восемь территорий без своего голоса, живые и мёртвые RSS, татароязычный источник, кандидаты в VK.</p><div class="pl-h4">Состав документа</div><ul class="pl-list"><li>Сводка</li><li>Районы</li><li>1. Карсунский — «Карсунский вестник» ✅ RSS жив</li><li>2. Старокулаткинский — «Кумәк көч» ✅ RSS жив (татароязычная!)</li><li>3. Новомалыклинский — «Звезда» («Звезда. 73 регион») ✅ RSS жив + ✅ TG жив</li><li>4. Кузоватовский — «Кузоватовские вести» ✅ RSS жив</li><li>5. Инзенский — «Вперёд» ⚠️ RSS мёртв → VK</li><li>6. Барышский — «Барышские вести» ⚠️ RSS пуст → VK</li><li>7. Майнский — «Ленинец» ⚠️ RSS мёртв → VK (группу найти)</li><li>8. Радищевский — «Восход» («Восход 73») ❓ ручная проверка</li><li>Вторая линия (не газеты)</li><li>Что даёт подключение</li><li>Технические примечания</li></ul></div><div class="pl-track" id="track-owners"><div class="pl-track__h"><h3>Владельцы и канонические издания</h3><span class="pl-track__src">owner_verification.md</span><a class="pl-link" href="https://github.com/Volgin1917/gudok/blob/main/owner_verification.md" target="_blank" rel="noopener">источник →</a></div><p class="pl-track__dek">Верификация владельцев источников, концентрация собственности (HHI), гипотезы аффилированности и таблица объединений «одно издание — несколько каналов».</p><div class="pl-h4">Состав документа</div><ul class="pl-list"><li>Подтверждено (первичный imprint + ЕГРЮЛ-зеркало)</li><li>Ключевые находки</li><li>Без изменений (подтверждены ранее)</li><li>Итог для реестра</li><li>Издания: каналы одной редакции (15.09.2026, outlets.py)</li><li>Объединено (основание — один производитель)</li><li>Не объединено (разные производители, несмотря на схожую тематику)</li><li>Эффект на данных недели (15.09.2026, 1933 записи)</li></ul></div>
+
+<div class="note" style="margin-top:22px;">Историческая справка: до объединения планы жили отдельными страницами —
+<code>roadmap.html</code> (визуальная версия ROADMAP.md) и <code>infospace-plan.html</code> (черновик предложения v0.9
+по расширению «Инфопространства»). Оба документа сохранены в репозитории как источники; эта страница собирается
+из них и из реестра <code>plans.py</code>.</div>
+
+</div>
+</main>
+<footer class="footer"><div class="footer__inner">
+<div><div class="footer__brand">ГУДОК<span>.</span></div>
+<p>Информационно-аналитическое издание марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Материалы принадлежат их изданиям; издание носит информационно-аналитический характер и не является агитацией.</p></div>
+<div><h3>Периодичности</h3><ul style="list-style:none;padding:0;">
+<li><a href="digests/today.html">День · выпуск сегодня</a></li>
+<li><a href="weekly.html">Неделя · дуги сюжетов</a></li>
+<li><a href="monthly.html">Месяц · метрики</a></li>
+<li><a href="archive.html">Архив-матрица</a></li></ul></div>
+<div><h3>Проекты</h3><ul style="list-style:none;padding:0;">
+<li><a href="projects/elections_2026.html">Выборы-2026</a></li>
+<li><a href="projects/goszakupki.html">Госзакупки</a></li>
+<li><a href="infospace.html">Инфопространство</a></li>
+<li><a href="afisha.html">Афиша</a></li></ul></div>
+<div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
+<li><a href="status.html">Статус системы</a></li>
+<li><a href="plans.html">Планы и методы</a></li>
+<li><a href="digests/exec_2026-09-17.html">Версия руководителю</a></li>
+<li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+</div>
+<div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
+</footer>
+<script>
+(function(){
+  var rows=Array.prototype.slice.call(document.querySelectorAll('#pl-reg tbody tr[data-ax]'));
+  if(!rows.length){return;}
+  var q=document.getElementById('pl-q');
+  var shown=document.getElementById('pl-shown');
+  var empty=document.getElementById('pl-empty');
+  var ST={ax:'all',st:'all',q:''};
+  function pass(r){
+    if(ST.ax!=='all'&&r.getAttribute('data-ax')!==ST.ax){return false;}
+    if(ST.st!=='all'&&r.getAttribute('data-st')!==ST.st){return false;}
+    if(ST.q&&(r.getAttribute('data-q')||'').indexOf(ST.q)===-1){return false;}
+    return true;
+  }
+  function paint(){
+    var n=0;
+    rows.forEach(function(r){var ok=pass(r);r.classList.toggle('pl-hide',!ok);if(ok){n++;}});
+    if(shown){shown.textContent=n;}
+    if(empty){empty.hidden=n>0;}
+    document.querySelectorAll('#pl-filters .fbtn').forEach(function(b){
+      var f=b.getAttribute('data-f'),v=b.getAttribute('data-v');
+      var on=(f==='ax'&&ST.ax===v)||(f==='st'&&ST.st===v);
+      b.classList.toggle('active',!!on);
+    });
+  }
+  document.querySelectorAll('#pl-filters .fbtn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.getAttribute('data-f'),v=b.getAttribute('data-v');
+      if(f==='ax'){ST.ax=(ST.ax===v?'all':v);}
+      if(f==='st'){ST.st=(ST.st===v?'all':v);}
+      paint();
+    });
+  });
+  if(q){
+    q.addEventListener('input',function(){ST.q=q.value.trim().toLowerCase();paint();});
+  }
+  paint();
+})();
+</script>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+document.documentElement.setAttribute("data-theme",c);
+try{localStorage.setItem("gudok-theme",c);}catch(e){}
+syncThemeBtn();}
+function syncThemeBtn(){var b=document.getElementById("themeBtn");
+if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
+syncThemeBtn();
+</script></body></html>

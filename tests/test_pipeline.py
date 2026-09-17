@@ -1478,7 +1478,7 @@ class TestPageStructure(unittest.TestCase):
     Проверяем сгенерированные страницы: баланс div, единая глубина разделов,
     отсутствие оборванных тегов."""
 
-    PAGES = ("infospace.html", "index.html", "digests/today.html")
+    PAGES = ("infospace.html", "index.html", "digests/today.html", "plans.html")
 
     @staticmethod
     def _read(path):
@@ -3045,6 +3045,156 @@ class TestAfishaClusterGate(unittest.TestCase):
         self.assertFalse([k for k in rec if k.startswith("_")])
         json.dumps(rec, ensure_ascii=False)   # не должно падать
 
+
+class TestPlansRegistry(unittest.TestCase):
+    """Реестр планов (plans.py): целостность редакционных данных."""
+
+    def test_statuses_known(self):
+        import plans
+        for r in plans.REG:
+            self.assertIn(r.get("st"), plans.STATUS, r.get("n"))
+
+    def test_axes_known(self):
+        import plans
+        keys = {a["k"] for a in plans.AXES}
+        for r in plans.REG:
+            self.assertIn(r.get("ax"), keys, r.get("n"))
+
+    def test_counts_consistent(self):
+        import plans
+        c = plans.counts()
+        self.assertEqual(sum(v for k, v in c.items() if k != "total"), c["total"])
+        self.assertEqual(c["total"], len(plans.REG))
+
+    def test_passports_complete(self):
+        import plans
+        for p in plans.PILOTS:
+            for f in ("n", "ax", "st", "dek", "hyp", "formula", "src", "thr", "out", "first"):
+                self.assertTrue(str(p.get(f, "")).strip(), f"{p.get('n')}: пусто поле {f}")
+
+    def test_method_stages_have_anchors(self):
+        import plans
+        self.assertEqual(len(plans.METHOD_STAGES), 5)
+        for st in plans.METHOD_STAGES:
+            for f in ("n", "t", "d", "where", "check", "ex"):
+                self.assertTrue(str(st.get(f, "")).strip(), f"этап {st.get('n')}: пусто {f}")
+
+    def test_tracks_have_existing_sources(self):
+        import plans
+        for tr in plans.TRACKS:
+            if tr["src"].endswith(".md"):
+                self.assertTrue(os.path.exists(os.path.join(BASE, tr["src"])), tr["src"])
+
+
+class TestPlansDocuments(unittest.TestCase):
+    """Разборчики markdown: страница «Планы» не должна разъезжаться с документами."""
+
+    def test_roadmap_open_items(self):
+        import plans
+        groups = plans.roadmap_open()
+        self.assertTrue(groups)
+        self.assertGreater(sum(len(g["items"]) for g in groups), 5)
+        for g in groups:
+            for it in g["items"]:
+                self.assertFalse(it["done"])
+
+    def test_server_stages(self):
+        import plans
+        stages = plans.server_stages()
+        self.assertGreaterEqual(len(stages), 5)
+        names = " ".join(s["stage"] for s in stages)
+        self.assertIn("0. Фундамент", names)
+        for s in stages:
+            self.assertTrue(s["content"] and s["ready"])
+
+    def test_server_choices(self):
+        import plans
+        decided, opened = plans.server_choices()
+        self.assertGreaterEqual(len(decided), 3)
+        self.assertGreaterEqual(len(opened), 1)
+
+    def test_frontpage_sprints(self):
+        import plans
+        sp = plans.frontpage_sprints()
+        self.assertEqual(len(sp), 3)
+        self.assertTrue(all(s["items"] for s in sp))
+        self.assertTrue(all(s["total"] >= s["done"] for s in sp))
+
+    def test_roadmap_version(self):
+        import plans
+        ver, date = plans.roadmap_version()
+        self.assertTrue(ver and date)
+
+
+class TestPlansPage(unittest.TestCase):
+    """Страница plans.html: общий стиль, самодостаточность, ссылки из других разделов."""
+
+    @staticmethod
+    def _read(name):
+        with open(os.path.join(BASE, name), encoding="utf-8") as f:
+            return f.read()
+
+    def test_page_exists_and_selfcontained(self):
+        html = self._read("plans.html")
+        self.assertIn("<!DOCTYPE html>", html)
+        self.assertNotIn("cdn.", html)
+        ext = [u for u in re.findall(r'(?:src|href)="(https?://[^"]+)"', html)
+               if "github.com" not in u]
+        self.assertEqual(ext, [], "на странице не должно быть внешних ресурсов")
+        self.assertIn("footer__inner", html)
+        self.assertIn("masthead", html)
+
+    def test_sections_present(self):
+        html = self._read("plans.html")
+        for sec in ("Внедрение методов", "Паспорта метрик-пилотов", "Реестр метрик-кандидатов",
+                    "Волны внедрения", "Источники данных", "Методологические риски", "Треки планов"):
+            self.assertIn(f"<h2>{sec}</h2>", html)
+
+    def test_registry_rows_match_data(self):
+        import plans
+        html = self._read("plans.html")
+        self.assertEqual(html.count("<tr data-ax="), len(plans.REG))
+        self.assertIn('id="pl-reg"', html)
+
+    def test_method_pipeline_steps(self):
+        import plans
+        html = self._read("plans.html")
+        for st in plans.METHOD_STAGES:
+            self.assertIn(f'<div class="pl-stage__n">{st["n"]}</div>', html)
+            self.assertIn(st["t"], html)
+
+    def test_all_tracks_rendered(self):
+        import plans
+        html = self._read("plans.html")
+        for tr in plans.TRACKS:
+            self.assertIn(f'id="track-{tr["key"]}"', html)
+
+    def test_linked_from_projects_infospace_footer(self):
+        self.assertIn("plans.html", self._read("projects.html"))
+        self.assertIn("Планы и методы", self._read("projects.html"))
+        self.assertIn("plans.html#metrics", self._read("infospace.html"))
+        import footer
+        self.assertIn("plans.html", footer.render_footer(""))
+        self.assertIn("plans.html", footer.render_footer("../"))
+
+    def test_filters_work_without_js(self):
+        # без JS виден весь реестр: строки не скрыты в разметке
+        html = self._read("plans.html")
+        self.assertNotIn('<tr data-ax="money" data-st="done" class="pl-hide"', html)
+        self.assertIn('id="pl-shown"', html)
+
+    def test_workflows_commit_plans_page(self):
+        # plans.html генерируется каждым прогоном — значит, должен коммититься каждым
+        wf = os.path.join(BASE, ".github", "workflows")
+        for name in ("daily.yml", "weekly.yml", "monthly.yml"):
+            with open(os.path.join(wf, name), encoding="utf-8") as f:
+                self.assertIn("plans.html", f.read(), f"{name}: plans.html не коммитится")
+
+    def test_page_structure_balanced(self):
+        import plans  # noqa: F401
+        html = self._read("plans.html")
+        self.assertEqual(html.count("<div"), html.count("</div>"))
+        self.assertEqual(html.count("<table"), html.count("</table>"))
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -2578,13 +2578,21 @@ def render_elections(cfg, trends, store, status):
 # ------------------------------------------------------------------ projects
 def render_projects(cfg, trends, store, status):
     """Хаб рубрики «Проекты»: спецстраницы-досье издания."""
+    import plans as _plans
     now = datetime.now(UTC4)
     nav_html = render_nav(cfg, "projects", "")
+    plans_tracks = len(_plans.TRACKS)
     cards = f"""<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
 <div><b>Инфопространство</b></div>
 <div class="fig">live <small>дашборд</small></div>
 <p>Скользящее исследование инфополя: метрики, тон, каскады, карта муниципалитетов, очередь новых метрик.</p>
 <a class="go" href="infospace.html">открыть дашборд →</a></div>"""
+    cards += f"""<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
+<div><b>Планы и методы</b></div>
+<div class="fig">{plans_tracks}<small>треков</small></div>
+<p>Единая страница планов издания: план развития, реестр метрик «Инфопространства» с паспортами,
+переезд на сервер, спринты первой полосы и конвейер внедрения метода.</p>
+<a class="go" href="plans.html">открыть планы →</a></div>"""
     for pr in cfg.get("projects", []):
         st = {"active": ("в работе", "#1d7a4d"), "plan": ("в плане", "#96690a")}.get(pr.get("status"), (pr.get("status", ""), "#5b6b7c"))
         cards += f"""<div class="sec-card" style="border-top-color:{st[1]};text-decoration:none;display:block;">
@@ -2613,6 +2621,413 @@ def render_projects(cfg, trends, store, status):
 <div class="sec-grid">{cards}</div>
 </div>
 {footer.render_footer('')}
+</body></html>"""
+
+
+PLANS_CSS = """
+/* ---- страница «Планы»: статусы, конвейер метода, реестр метрик, треки ---- */
+.pl-st{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:800;letter-spacing:.08em;
+text-transform:uppercase;padding:2px 8px;border:1px solid var(--rule);color:var(--muted);white-space:nowrap;}
+.pl-st--done{color:#1d7a4d;border-color:#1d7a4d;}
+.pl-st--ok{color:#1f5fbf;border-color:#1f5fbf;}
+.pl-st--queue{color:#96690a;border-color:#e0b04e;}
+.pl-st--hard{color:#a3341f;border-color:#a3341f;}
+:root[data-theme="dark"] .pl-st--done{color:#7fd49b;border-color:#7fd49b;}
+:root[data-theme="dark"] .pl-st--ok{color:#8dc0ff;border-color:#8dc0ff;}
+:root[data-theme="dark"] .pl-st--queue{color:#e5b14e;border-color:#e5b14e;}
+:root[data-theme="dark"] .pl-st--hard{color:#ff9b85;border-color:#ff9b85;}
+.pl-stage{display:grid;grid-template-columns:64px 1fr;gap:4px 18px;border-top:1px solid var(--rule);padding:16px 0;}
+.pl-stage:first-child{border-top:1px solid var(--ink);}
+.pl-stage__n{font-family:var(--serif-display);font-size:34px;font-weight:700;line-height:.9;color:var(--accent);}
+.pl-stage h3{font-family:var(--serif-display);font-size:19px;font-weight:600;margin:0 0 4px;color:var(--ink);}
+.pl-stage p{font-family:var(--serif-body);font-size:14.5px;line-height:1.6;margin:0 0 6px;color:var(--ink-2);}
+.pl-code{font-family:var(--sans);font-size:11.5px;line-height:1.6;color:var(--muted);}
+.pl-code b{color:var(--ink);font-weight:700;}
+.pl-ex{font-family:var(--serif-body);font-size:13px;font-style:italic;color:var(--muted);
+border-left:2px solid var(--rule);padding-left:10px;margin-top:6px;}
+.pl-pass{border:1px solid var(--rule);padding:14px 16px;margin-bottom:12px;background:var(--paper);}
+.pl-pass summary{cursor:pointer;font-family:var(--serif-display);font-size:17px;font-weight:600;color:var(--ink);}
+.pl-pass__meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0 4px;}
+.pl-pass dl{display:grid;grid-template-columns:180px 1fr;gap:9px 18px;margin:12px 0 0;
+font-family:var(--serif-body);font-size:13.5px;}
+.pl-pass dt{font-family:var(--sans);font-size:10.5px;font-weight:800;letter-spacing:.1em;
+text-transform:uppercase;color:var(--muted);padding-top:3px;}
+.pl-pass dd{margin:0;line-height:1.55;color:var(--ink-2);}
+.pl-formula{font-family:var(--sans);font-size:12.5px;background:var(--paper-2);
+border-left:2px solid var(--accent);padding:9px 12px;line-height:1.65;}
+.pl-axbar{display:grid;grid-template-columns:160px 1fr 70px;gap:8px 12px;align-items:center;
+font-family:var(--sans);font-size:12.5px;margin:5px 0;}
+.pl-axbar__t{color:var(--ink);font-weight:600;}
+.pl-axbar__n{color:var(--muted);text-align:right;}
+#pl-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 14px;}
+#pl-q{flex:1;min-width:210px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);
+font-family:var(--sans);font-size:13px;padding:8px 12px;}
+#pl-q:focus{outline:2px solid var(--accent);outline-offset:1px;}
+.pl-tbl td,.pl-tbl th{vertical-align:top;}
+.pl-tbl .pl-n{font-weight:700;color:var(--ink);}
+.pl-hide{display:none!important;}
+.pl-foot{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-family:var(--sans);
+font-size:12px;color:var(--muted);margin-top:12px;}
+.pl-foot b{color:var(--ink);font-size:15px;margin-right:2px;}
+.pl-track{border-top:1px solid var(--ink);padding:16px 0;}
+.pl-track__h{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;}
+.pl-track h3{font-family:var(--serif-display);font-size:20px;font-weight:600;margin:0;color:var(--ink);}
+.pl-track__src{font-family:var(--sans);font-size:11.5px;color:var(--muted);}
+.pl-track__dek{font-family:var(--serif-body);font-size:14px;line-height:1.6;color:var(--ink-2);margin:6px 0 0;}
+.pl-h4{font-family:var(--sans);font-size:10.5px;font-weight:800;letter-spacing:.12em;
+text-transform:uppercase;color:var(--muted);margin:14px 0 6px;}
+.pl-list{margin:0;padding-left:18px;font-family:var(--serif-body);font-size:13.5px;line-height:1.6;color:var(--ink-2);}
+.pl-list li{margin:4px 0;}
+.pl-link{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--accent);text-decoration:none;}
+.pl-link:hover{text-decoration:underline;}
+.pl-done{color:#1d7a4d;font-weight:700;}
+.pl-open{color:#96690a;font-weight:700;}
+@media (max-width:900px){
+  .pl-stage{grid-template-columns:46px 1fr;}
+  .pl-pass dl{grid-template-columns:1fr;gap:4px 0;}
+  .pl-pass dt{padding-top:8px;}
+  .pl-axbar{grid-template-columns:120px 1fr 60px;}
+}
+@media print{
+  .pl-pass{break-inside:avoid;}
+  #pl-filters{display:none;}
+  .pl-pass[open] summary{font-weight:700;}
+}
+"""
+
+# Фильтры реестра метрик: прогрессивный JS по образцу AFISHA_JS — таблица целиком
+# отрисована на сервере, без JS видны все строки, скрипт только скрывает лишние.
+PLANS_JS = """<script>
+(function(){
+  var rows=Array.prototype.slice.call(document.querySelectorAll('#pl-reg tbody tr[data-ax]'));
+  if(!rows.length){return;}
+  var q=document.getElementById('pl-q');
+  var shown=document.getElementById('pl-shown');
+  var empty=document.getElementById('pl-empty');
+  var ST={ax:'all',st:'all',q:''};
+  function pass(r){
+    if(ST.ax!=='all'&&r.getAttribute('data-ax')!==ST.ax){return false;}
+    if(ST.st!=='all'&&r.getAttribute('data-st')!==ST.st){return false;}
+    if(ST.q&&(r.getAttribute('data-q')||'').indexOf(ST.q)===-1){return false;}
+    return true;
+  }
+  function paint(){
+    var n=0;
+    rows.forEach(function(r){var ok=pass(r);r.classList.toggle('pl-hide',!ok);if(ok){n++;}});
+    if(shown){shown.textContent=n;}
+    if(empty){empty.hidden=n>0;}
+    document.querySelectorAll('#pl-filters .fbtn').forEach(function(b){
+      var f=b.getAttribute('data-f'),v=b.getAttribute('data-v');
+      var on=(f==='ax'&&ST.ax===v)||(f==='st'&&ST.st===v);
+      b.classList.toggle('active',!!on);
+    });
+  }
+  document.querySelectorAll('#pl-filters .fbtn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.getAttribute('data-f'),v=b.getAttribute('data-v');
+      if(f==='ax'){ST.ax=(ST.ax===v?'all':v);}
+      if(f==='st'){ST.st=(ST.st===v?'all':v);}
+      paint();
+    });
+  });
+  if(q){
+    q.addEventListener('input',function(){ST.q=q.value.trim().toLowerCase();paint();});
+  }
+  paint();
+})();
+</script>"""
+
+
+def render_plans(cfg, trends, store, status, an=None):
+    """Страница «Планы»: треки планов издания и внедрение методов.
+
+    Собирается из plans.py (редакционный реестр метрик, паспорта, волны, риски)
+    и из markdown-документов репозитория (ROADMAP.md, server_plan.md,
+    plan_frontpage_v4.md, district_sources_draft.md, owner_verification.md),
+    которые читаются при генерации: правка документа сразу видна на витрине.
+    Без JavaScript видны все таблицы — скрипт только фильтрует реестр метрик.
+    """
+    import plans as P
+    now = datetime.now(UTC4)
+    nav_html = render_nav(cfg, "projects", "")
+    an = an or {}
+    cnt = P.counts()
+    axes = P.by_axis()
+    open_groups = P.roadmap_open()
+    open_n = sum(len(g["items"]) for g in open_groups)
+    stages = P.server_stages()
+    decided, opened = P.server_choices()
+    sprints = P.frontpage_sprints()
+    ver, ver_date = P.roadmap_version()
+    gh = "https://github.com/Volgin1917/gudok/blob/main/"
+
+    def st_chip(st):
+        return f'<span class="pl-st pl-st--{esc(st)}">{esc(P.STATUS.get(st, st))}</span>'
+
+    # ---------------------------------------------------------- конвейер внедрения
+    stage_rows = []
+    for st in P.METHOD_STAGES:
+        stage_rows.append(f"""<div class="pl-stage"><div class="pl-stage__n">{st['n']}</div>
+<div><h3>{esc(st['t'])}</h3><p>{esc(st['d'])}</p>
+<div class="pl-code"><b>Где в коде:</b> {esc(st['where'])}</div>
+<div class="pl-code"><b>Проверка:</b> {esc(st['check'])}</div>
+<div class="pl-ex">Пример — {esc(st['ex'])}</div></div></div>""")
+
+    # ---------------------------------------------------------- паспорта метрик
+    pass_html = []
+    for i, pl in enumerate(P.PILOTS):
+        pass_html.append(f"""<details class="pl-pass"{' open' if i == 0 else ''}>
+<summary>{esc(pl['n'])}</summary>
+<div class="pl-pass__meta">{st_chip(pl.get('st', 'queue'))}
+<span class="pl-st">ось: {esc(P.AXIS_NAME.get(pl.get('ax'), pl.get('ax', '')))}</span>
+<span class="pl-st">трудозатраты: {esc(pl.get('ef', ''))}</span></div>
+<p class="pl-ex">{esc(pl.get('dek', ''))}</p>
+<dl>
+<dt>Гипотеза</dt><dd>{esc(pl.get('hyp', ''))}</dd>
+<dt>Формула</dt><dd><div class="pl-formula">{pl.get('formula', '')}</div></dd>
+<dt>Источник данных</dt><dd>{esc(pl.get('src', ''))}</dd>
+<dt>Порог тревоги</dt><dd>{esc(pl.get('thr', ''))}</dd>
+<dt>Где публикуется</dt><dd>{esc(pl.get('out', ''))}</dd>
+<dt>Первый расчёт</dt><dd>{esc(pl.get('first', ''))}</dd>
+</dl></details>""")
+
+    # ---------------------------------------------------------- реестр метрик
+    ax_order = [a["k"] for a in P.AXES]
+    ax_bars = []
+    for k in ax_order:
+        row = axes.get(k)
+        if not row:
+            continue
+        total = max(1, row.get("total", 0))
+        done = row.get("done", 0)
+        pct = round(100 * done / total)
+        ax_bars.append(f"""<div class="pl-axbar"><span class="pl-axbar__t">{esc(P.AXIS_NAME.get(k, k))}</span>
+<span class="bar-wrap"><span class="bar-fill" style="width:{pct}%"></span></span>
+<span class="pl-axbar__n">{done} из {row.get('total', 0)}</span></div>""")
+
+    st_order = ["done", "ok", "queue", "search", "hard"]
+    reg_rows = []
+    reg = sorted(P.REG, key=lambda r: (ax_order.index(r.get("ax")) if r.get("ax") in ax_order else 99,
+                                       -int(r.get("p") or 0), r.get("n", "")))
+    for r in reg:
+        stt = r.get("st") if r.get("st") in P.STATUS else "queue"
+        q = " ".join(str(r.get(k, "")) for k in ("n", "h", "s", "ax")).lower()
+        q = esc(q + " " + P.AXIS_NAME.get(r.get("ax"), ""))
+        reg_rows.append(f"""<tr data-ax="{esc(r.get('ax', ''))}" data-st="{esc(stt)}" data-q="{q}">
+<td class="pl-n">{esc(r.get('n', ''))}</td>
+<td>{esc(P.AXIS_NAME.get(r.get('ax'), r.get('ax', '')))}</td>
+<td>{st_chip(stt)}</td>
+<td>{esc(r.get('ef', ''))}</td>
+<td>{esc(str(r.get('p', '')))}</td>
+<td>{esc(r.get('dn', '') or '—')}</td>
+<td>{esc(r.get('h', ''))}</td>
+<td>{esc(r.get('s', ''))}</td></tr>""")
+
+    ax_chips = ['<button type="button" class="fbtn active" data-f="ax" data-v="all">Все оси</button>']
+    for a in P.AXES:
+        n = axes.get(a["k"], {}).get("total", 0)
+        ax_chips.append(f'<button type="button" class="fbtn" data-f="ax" data-v="{esc(a["k"])}">'
+                        f'{esc(a["n"])} ({n})</button>')
+    st_chips = ['<button type="button" class="fbtn active" data-f="st" data-v="all">Любой статус</button>']
+    for k in st_order:
+        st_chips.append(f'<button type="button" class="fbtn" data-f="st" data-v="{k}">'
+                        f'{esc(P.STATUS[k])} ({cnt.get(k, 0)})</button>')
+
+    # ---------------------------------------------------------- волны внедрения
+    wave_rows = []
+    for w in P.WAVES:
+        items = " ".join(f'{esc(n)} {st_chip(s)}' for n, s in w.get("items", []))
+        wave_rows.append(f"""<tr><td class="pl-n">{esc(w.get('t', ''))}</td>
+<td>{esc(w.get('per', ''))}</td><td>{esc(w.get('req', ''))}</td>
+<td style="font-family:var(--serif-body);font-size:13px;line-height:1.9;">{items}</td></tr>""")
+
+    # ---------------------------------------------------------- источники данных
+    src_rows = []
+    for s in P.SOURCES:
+        src_rows.append(f"""<tr><td class="pl-n">{esc(s.get('n', ''))}</td>
+<td>{st_chip(s.get('st', 'search'))}</td><td>{esc(s.get('tag', ''))}</td>
+<td>{esc(s.get('d', ''))}</td><td>{esc(s.get('note', ''))}</td></tr>""")
+
+    # ---------------------------------------------------------- риски метода
+    risk_html = "".join(
+        f'<li><b>{esc(t)}</b> — {esc(x)}</li>' for t, x in P.RISKS)
+
+    # ---------------------------------------------------------- треки планов
+    def track_head(tr, extra=""):
+        return (f'<div class="pl-track" id="track-{esc(tr["key"])}"><div class="pl-track__h">'
+                f'<h3>{esc(tr["title"])}</h3>'
+                f'<span class="pl-track__src">{esc(tr["src"])}</span>{extra}</div>'
+                f'<p class="pl-track__dek">{esc(tr["dek"])}</p>')
+
+    passport = an.get("calendar_passport") or {}
+    afisha_gate = (cfg.get("settings", {}) or {}).get("afisha", {}) or {}
+    venues_n = 0
+    try:
+        with open(os.path.join(DATA, "venues.json"), encoding="utf-8") as f:
+            venues_n = len(json.load(f) or {})
+    except (OSError, ValueError):
+        venues_n = 0
+
+    tracks_html = []
+    for tr in P.TRACKS:
+        key = tr["key"]
+        if key == "roadmap":
+            rows = []
+            for g in open_groups:
+                lis = "".join(f'<li>{esc(i["text"])}</li>' for i in g["items"])
+                rows.append(f'<div class="pl-h4">{esc(g["section"] or "Без раздела")} · {len(g["items"])}</div>'
+                            f'<ul class="pl-list">{lis}</ul>')
+            extra = (f'<span class="pl-track__src">версия документа {esc(ver)} · {esc(ver_date)}</span>'
+                     f'<a class="pl-link" href="{gh}ROADMAP.md" target="_blank" rel="noopener">источник →</a>')
+            tracks_html.append(track_head(tr, extra)
+                               + f'<div class="pl-h4">Открытые пункты · {open_n}</div>'
+                               + "".join(rows)
+                               + '<div class="note">Полный журнал решений и история версий — в ROADMAP.md; '
+                                 'страница перечисляет только незакрытые пункты, они перечитываются при каждой сборке.</div></div>')
+        elif key == "infospace":
+            extra = ('<a class="pl-link" href="#metrics">реестр на этой странице ↑</a>'
+                     f'<a class="pl-link" href="infospace.html" >витрина раздела →</a>')
+            tracks_html.append(track_head(tr, extra)
+                               + f'<div class="pl-h4">Статусы реестра</div>'
+                               + '<ul class="pl-list">'
+                               + "".join(f'<li>{esc(P.STATUS[k])} — <b>{cnt.get(k, 0)}</b></li>'
+                                         for k in st_order if cnt.get(k))
+                               + '</ul>'
+                               + '<div class="note">Метрика добавляется в раздел только через паспорт '
+                                 '(см. «Внедрение методов»). Черновик предложения v0.9 — infospace-plan.html.</div></div>')
+        elif key == "server":
+            st_rows = "".join(
+                f'<tr><td class="pl-n">{esc(s["stage"])}</td><td>{esc(s["term"])}</td>'
+                f'<td>{esc(s["content"])}</td><td>{esc(s["ready"])}</td></tr>' for s in stages)
+            dec = "".join(f'<li><span class="pl-done">решено</span> — {esc(x)}</li>' for x in decided)
+            op = "".join(f'<li><span class="pl-open">открыто</span> — {esc(x)}</li>' for x in opened)
+            extra = f'<a class="pl-link" href="{gh}server_plan.md" target="_blank" rel="noopener">источник →</a>'
+            tracks_html.append(track_head(tr, extra)
+                               + '<div class="pl-h4">Этапы миграции</div>'
+                               + '<table class="tbl pl-tbl"><thead><tr><th>Этап</th><th>Срок</th>'
+                                 '<th>Содержание</th><th>Критерий готовности</th></tr></thead>'
+                                 f'<tbody>{st_rows}</tbody></table>'
+                               + '<div class="pl-h4">Точки выбора</div>'
+                               + f'<ul class="pl-list">{dec}{op}</ul>'
+                               + '<div class="note">Не реализовано: в коде нет --snapshot, server.py, deploy.sh, '
+                                 'notify.py. Публикация остаётся на GitHub Pages до этапа A.</div></div>')
+        elif key == "frontpage":
+            sp_html = []
+            for sp in sprints:
+                rows = "".join(
+                    f'<tr><td>{esc(i["no"])}</td><td class="pl-n">{esc(i["proposal"])}</td>'
+                    f'<td>{esc(i["status"])}</td><td>{esc(i["note"])}</td></tr>' for i in sp["items"])
+                sp_html.append(f'<div class="pl-h4">{esc(sp["title"])} · готово {sp["done"]} из {sp["total"]}</div>'
+                               '<table class="tbl pl-tbl"><tbody>' + rows + '</tbody></table>')
+            extra = f'<a class="pl-link" href="{gh}plan_frontpage_v4.md" target="_blank" rel="noopener">источник →</a>'
+            tracks_html.append(track_head(tr, extra) + "".join(sp_html)
+                               + '<div class="note">Статусы берутся из таблиц plan_frontpage_v4.md; '
+                                 'колонка «Статус данных» в Спринте 1 описывает готовность данных, а не факт внедрения.</div></div>')
+        elif key == "afisha":
+            extra = '<a class="pl-link" href="afisha.html">витрина афиши →</a>'
+            tracks_html.append(track_head(tr, extra)
+                               + '<div class="pl-h4">Порог входа сейчас</div>'
+                               + '<ul class="pl-list">'
+                               + f'<li>горизонт — <b>{esc(str(afisha_gate.get("horizon_days", 45)))}</b> дней, '
+                                 f'не более <b>{esc(str(afisha_gate.get("max_per_day", 4)))}</b> событий в день, '
+                                 f'порог уверенности <b>{esc(str(afisha_gate.get("threshold", 0)))}</b></li>'
+                               + f'<li>веса индекса: {esc(json.dumps(afisha_gate.get("weights", {}), ensure_ascii=False))}</li>'
+                               + f'<li>площадок в справочнике data/venues.json: <b>{venues_n}</b></li>'
+                               + (f'<li>последний прогон: найдено дат <b>{esc(str(passport.get("found_dates", "—")))}</b>, '
+                                  f'прошло порог <b>{esc(str(passport.get("accepted", "—")))}</b>, '
+                                  f'отсев <b>{esc(str(passport.get("rejected", "—")))}</b> '
+                                  f'({esc(str(passport.get("run_local", "")))})</li>' if passport else '')
+                               + '</ul>'
+                               + '<div class="note">Методика порога опубликована на странице афиши вместе с блоком '
+                                 '«Не прошло порог» — отсев виден читателю, а не только в логах.</div></div>')
+        else:
+            doc = P.read_md(tr["src"])
+            heads = [t for lvl, t, _b in P.md_outline(doc) if lvl in (2, 3) and t][:14]
+            lis = "".join(f'<li>{esc(h)}</li>' for h in heads)
+            extra = f'<a class="pl-link" href="{gh}{esc(tr["src"])}" target="_blank" rel="noopener">источник →</a>'
+            tracks_html.append(track_head(tr, extra)
+                               + '<div class="pl-h4">Состав документа</div>'
+                               + f'<ul class="pl-list">{lis}</ul></div>')
+
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Планы и внедрение методов — {cfg['brand']}</title>
+<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<style>{CSS}{PLANS_CSS}</style></head><body>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Планы издания и методы<br>треков {len(P.TRACKS)} · метрик {cnt['total']} · подключено {cnt['done']}
+<div class="mast-actions">{THEME_BTN}</div></div>
+</div></header>
+{nav_html}
+<div class="page">
+
+<div class="kpi-grid" style="margin:18px 0 6px;">
+<div class="kpi"><div class="num">{len(P.TRACKS)}</div><div class="lbl">треков плана</div></div>
+<div class="kpi"><div class="num">{cnt['total']}</div><div class="lbl">метрик-кандидатов в реестре</div></div>
+<div class="kpi green"><div class="num">{cnt['done']}</div><div class="lbl">подключено к витрине</div></div>
+<div class="kpi gold"><div class="num">{cnt['queue'] + cnt['ok']}</div><div class="lbl">в очереди на внедрение</div></div>
+<div class="kpi"><div class="num">{open_n}</div><div class="lbl">открытых пунктов плана развития</div></div>
+<div class="kpi red"><div class="num">{cnt['search'] + cnt['hard']}</div><div class="lbl">ищут данные или с риском метода</div></div>
+</div>
+<div class="note" style="margin-bottom:8px;">Одна страница вместо четырёх документов: план развития издания, план расширения
+«Инфопространства», переезд на выделенный сервер и спринты первой полосы. Страница генерируется
+(<code>generate.py → render_plans</code>) из редакционного реестра <code>plans.py</code> и из markdown-документов
+репозитория — правка документа попадает на витрину при следующем прогоне конвейера. Собрано {now:%d.%m.%Y %H:%M} (UTC+4).</div>
+
+<div class="sec-head" style="margin-top:34px;"><h2>Внедрение методов</h2><div class="line"></div>
+<div class="badge">паспорт → данные → расчёт → блок → тест</div></div>
+<div class="note" style="margin:0 0 14px;">Правило редакции: метрика или методика добавляется в раздел только через паспорт —
+с гипотезой, формулой, источником данных, порогом тревоги и местом публикации. Пять шагов ниже одинаковы
+для метрик «Инфопространства», для порогов афиши и для правил дедупликации: отличается только файл.</div>
+{"".join(stage_rows)}
+
+<div class="sec-head"><h2>Паспорта метрик-пилотов</h2><div class="line"></div>
+<div class="badge">{len(P.PILOTS)} паспорта · образец для остальных</div></div>
+{"".join(pass_html)}
+
+<div class="sec-head" id="metrics"><h2>Реестр метрик-кандидатов</h2><div class="line"></div>
+<div class="badge">{cnt['total']} метрики · {len(P.AXES)} осей</div></div>
+<div class="pl-h4">Готовность по осям</div>
+{"".join(ax_bars)}
+<div id="pl-filters">{''.join(ax_chips)}</div>
+<div id="pl-filters">{''.join(st_chips)}
+<input id="pl-q" type="search" placeholder="Поиск по реестру — например «тон», «ЕИС», «Gini», «село»"></div>
+<table class="tbl pl-tbl" id="pl-reg"><thead><tr>
+<th>Метрика</th><th>Ось</th><th>Статус</th><th>Трудо&shy;ёмкость</th><th>Приоритет</th>
+<th>Подклю&shy;чена</th><th>Что даёт</th><th>Данные</th></tr></thead>
+<tbody>{''.join(reg_rows)}</tbody></table>
+<div class="pl-foot"><span>Показано: <b id="pl-shown">{cnt['total']}</b> из {cnt['total']}</span>
+<span id="pl-empty" hidden>Под условия ничего не нашлось — снимите фильтр.</span>
+<span style="margin-left:auto;">фильтры работают в браузере; без JavaScript виден весь реестр</span></div>
+
+<div class="sec-head"><h2>Волны внедрения</h2><div class="line"></div>
+<div class="badge">порядок работ и что нужно для каждого шага</div></div>
+<table class="tbl pl-tbl"><thead><tr><th>Волна</th><th>Срок</th><th>Что нужно</th><th>Состав и статусы</th></tr></thead>
+<tbody>{''.join(wave_rows)}</tbody></table>
+
+<div class="sec-head"><h2>Источники данных</h2><div class="line"></div>
+<div class="badge">что подключаем ради новых метрик</div></div>
+<table class="tbl pl-tbl"><thead><tr><th>Источник</th><th>Статус</th><th>Метка</th><th>Что даёт</th><th>Примечание</th></tr></thead>
+<tbody>{''.join(src_rows)}</tbody></table>
+
+<div class="sec-head"><h2>Методологические риски</h2><div class="line"></div>
+<div class="badge">что может исказить картину и как это лечим</div></div>
+<ul class="pl-list">{risk_html}</ul>
+
+<div class="sec-head"><h2>Треки планов</h2><div class="line"></div>
+<div class="badge">{len(P.TRACKS)} трека · документы перечитываются при сборке</div></div>
+{''.join(tracks_html)}
+
+<div class="note" style="margin-top:22px;">Историческая справка: до объединения планы жили отдельными страницами —
+<code>roadmap.html</code> (визуальная версия ROADMAP.md) и <code>infospace-plan.html</code> (черновик предложения v0.9
+по расширению «Инфопространства»). Оба документа сохранены в репозитории как источники; эта страница собирается
+из них и из реестра <code>plans.py</code>.</div>
+
+</div>
+{footer.render_footer('')}
+{PLANS_JS}
 </body></html>"""
 
 
@@ -3178,9 +3593,23 @@ def render_afisha(cfg, trends, store, status, an):
     if found_n is None:
         pipeline_note = f"Событий в выборке: <b>{shown_n}</b>."
     else:
+        st = passport.get("stats") or {}
+        thr = passport.get("threshold") or 0
+        extra = []
+        if st.get("title_composed"):
+            extra.append(f"названий собрано из типа события и имени — <b>{st['title_composed']}</b>")
+        if st.get("venue_text"):
+            extra.append(f"площадок найдено в тексте без маркера 📍 — <b>{st['venue_text']}</b>")
+        if st.get("venue_city"):
+            extra.append(f"городских событий без одной площадки — <b>{st['venue_city']}</b>")
+        if st.get("with_price"):
+            extra.append(f"с известной ценой входа — <b>{st['with_price']}</b>")
         pipeline_note = ("Порог входа: найдено дат <b>{found}</b> → прошло проверку <b>{passed}</b> → "
-                         "показано сегодня <b>{shown}</b>. Сверяйте время и билеты у организаторов — "
-                         "данные извлечены из публикаций автоматически.").format(found=found_n, passed=passed_n, shown=shown_n)
+                         "показано сегодня <b>{shown}</b>. Порог уверенности — <b>{thr}</b>"
+                         "{extra}. Сверяйте время и билеты у организаторов — "
+                         "данные извлечены из публикаций автоматически.").format(
+                             found=found_n, passed=passed_n, shown=shown_n, thr=thr,
+                             extra=("; " + "; ".join(extra)) if extra else "")
 
     def time_html(e):
         t = e.get("time") or ""
@@ -3195,11 +3624,15 @@ def render_afisha(cfg, trends, store, status, an):
         v = e.get("venue") or ""
         addr = e.get("venue_addr") or ""
         geo = e.get("geo") or ""
+        how = e.get("venue_how") or ""
         parts = []
         if v:
             parts.append("📍 " + esc(v))
             if addr and addr.lower() not in v.lower():
                 parts.append(esc(addr))
+            if how in ("address", "city"):
+                # площадка восстановлена по адресу или событие городское: не выдаём догадку за факт
+                parts.append('<span class="af-badge warn">площадка уточняется</span>')
         elif geo:
             parts.append(esc(geo))
         return "".join(f'<span class="af-meta" style="display:inline;"> · {p}</span>' for p in parts) if parts else ""
@@ -3268,6 +3701,9 @@ def render_afisha(cfg, trends, store, status, an):
         day_lists.append(f'<div class="af-daylist"><div class="af-day-head"><h3>{label}</h3><span class="af-cnt">{len(evs)} соб. · {kind}</span></div><div class="af-list">{rows}</div></div>')
     main_list = "".join(day_lists)
     n_culture = sum(1 for e in cal if e.get("etype") not in ("sport", "other"))
+    af_gate = (cfg.get("settings", {}) or {}).get("afisha", {}) or {}
+    af_horizon = af_gate.get("horizon_days", 45)
+    af_thr = passport.get("threshold") or af_gate.get("threshold") or 0
 
     # панель фильтров
     def chip(f, v, label, on=False):
@@ -3326,14 +3762,31 @@ def render_afisha(cfg, trends, store, status, an):
 <a href="https://t.me/{esc(chn)}" target="_blank" rel="noopener" style="color:#fff;">@{esc(chn)}</a>
 <span class="sub">{esc((ch_cfg or {}).get('title',''))}</span></div><div class="side-body">{rows}</div></div>""")
 
+    # площадки-кандидаты: названы в текстах, но не опознаны справочником
+    cand = (passport.get("venues_new") or {})
+    cand_html = ""
+    if cand:
+        rows_c = "".join(f'<div class="af-rej-row"><span>{esc(k[:70])}</span>'
+                         f'<span class="af-rej-why">встречается {v} раз(а)</span></div>'
+                         for k, v in list(cand.items())[:12])
+        cand_html = f"""<details class="af-rej"><summary>Площадки-кандидаты ({len(cand)}) — названы в текстах, но не опознаны</summary>
+{rows_c}
+<div class="note">Это названия и адреса, которые встретились в анонсах, но не совпали со справочником
+<code>data/venues.json</code>. Список — редактору на пополнение: запись с адресом и районом даёт событию
+площадку, а событию без площадки порог входа не пройти.</div>
+</details>"""
+
     # блок «не прошло порог»
     rej_html = ""
     if rej:
         rows_rej = []
         for r in sorted(rej, key=lambda e: (e["date"], e.get("event_title") or ""))[:80]:
             why = " · ".join(r.get("reasons") or [])
+            rej_title = r.get("event_title") or ""
+            if r.get("title_is_fallback") and r.get("title"):
+                rej_title = r["title"]      # «событие» без названия заменяем заголовком источника
             rows_rej.append(f"""<div class="af-rej-row"><span class="af-rej-date">{r['date'][8:10]}.{r['date'][5:7]} {time_html(r)}</span>
-<span>{esc((r.get('event_title') or r.get('title') or '—')[:90])}</span>
+<span>{esc((rej_title or '—')[:90])}</span>
 <span class="af-rej-why">{esc(why)}</span></div>""")
         rej_html = f"""<details class="af-rej"><summary>Не прошло порог ({len(rej)}) — почему отсеяно</summary>
 {''.join(rows_rej)}
@@ -3376,15 +3829,23 @@ def render_afisha(cfg, trends, store, status, an):
 <span class="af-albl" style="margin-left:auto;">фильтры применяются в браузере; без JS видны все события по дням</span></div>
 
 {rej_html}
+{cand_html}
 
 <div class="sec-head"><h2>Анонсы культурных каналов</h2><div class="line"></div>
 <div class="badge">Telegram, последние посты</div></div>
 <div class="grid2">{''.join(chan_html)}</div>
 <div class="note" style="margin-top:10px;">Посты каналов выводятся как есть; если дата не распознана — время и место сверяйте у организатора.</div>
 
-<div class="note" style="margin-top:16px;">Афиша собирается автоматически (analytics.py → extract_calendar_full): события проходят
-порог входа — дата в горизонте, время (или «весь день»/«уточняется»), площадка из справочника venues.json и тип культурного события.
-Что не прошло — видно в блоке «Не прошло порог». Культурных событий в выборке: {n_culture}.</div>
+<div class="note" style="margin-top:16px;"><b>Методика порога входа</b> (analytics.py → extract_calendar_full, настройки — config.json → settings.afisha).
+Событие проходит, если выполнены четыре условия: <b>дата</b> в горизонте {af_horizon} дней, <b>время</b> (или «весь день»/«уточняется»),
+<b>площадка</b> и <b>тип</b> культурного события; сверх того индекс уверенности должен быть не ниже {af_thr}.
+Площадка берётся из четырёх источников по убыванию надёжности: маркер 📍 в посте, имя из справочника <code>data/venues.json</code>
+в кавычках, то же имя в тексте без маркера (любой падеж и порядок слов, с защитой от «современные языковые модели» ≠ ДК «Современник»)
+и адрес («Адрес: Гончарова, 25»). Фестиваль, ярмарка или кросс, у которых площадок несколько, идут как «площадки города»
+с пометкой «площадка уточняется» и половиной кредита уверенности. Порог применяется к <b>кластеру</b> анонсов, а не к отдельной записи:
+у перепечатки может не быть времени или площадки, хотя у первоисточника они есть, — свидетельства сливаются, а в карточке появляется
+«также анонсировали: N изд.». Название события собирается описательным (тип + имя: «Концерт группы «Мураками»», «Матч «Волга» — «Спартак»»),
+а не голым именем из кавычек. Что не прошло — видно в блоке «Не прошло порог» с причиной. Культурных событий в выборке: {n_culture}.</div>
 
 </div>
 {footer.render_footer('')}
@@ -3701,7 +4162,7 @@ def render_infospace(cfg, trends, store, status, info):
 
         w1_html = f"""
 <div class="sec-head"><h2>Волна 1: деньги, труд, время и территория</h2><div class="line"></div>
-<div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план расширения раздела v0.9 →</a> · метрики подключены 15.09</div></div>
+<div class="badge"><a href="plans.html#metrics" style="color:var(--accent);">план внедрения и реестр метрик →</a> · метрики подключены 15.09</div></div>
 
 <div class="card"><div class="card-pad">
 <div class="side-head">Матрица «территория × рубрика» <span class="sub">неделя · топ-10 территорий по объёму</span></div>
@@ -3842,7 +4303,7 @@ def render_infospace(cfg, trends, store, status, info):
 
         w2_html = f"""
 <div class="sec-head"><h2>Волна 2: кто пишет и кто читает</h2><div class="line"></div>
-<div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план v0.9 →</a> · реестр источников: {w2.get('registry_sources', 0)} · подключено 15.09</div></div>
+<div class="badge"><a href="plans.html#metrics" style="color:var(--accent);">план внедрения →</a> · реестр источников: {w2.get('registry_sources', 0)} · подключено 15.09</div></div>
 
 <div class="card"><div class="card-pad">
 <div class="side-head">Кто пишет: состав потока по типу производителя <span class="sub">неделя · {wn} сообщений</span></div>
@@ -3909,7 +4370,7 @@ def render_infospace(cfg, trends, store, status, info):
                             for a in w3.get("affiliates") or []) or '<div class="note">Гипотез аффилированности пока нет.</div>'
         w3_html = f"""
 <div class="sec-head"><h2>Волна 3: деньги и собственность</h2><div class="line"></div>
-<div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план v0.9 →</a> · <a href="owner_verification.md" style="color:var(--accent);">верификация владельцев 15.09</a> · реестр: {w3.get('registry_sources', 0)}</div></div>
+<div class="badge"><a href="plans.html#metrics" style="color:var(--accent);">план внедрения →</a> · <a href="owner_verification.md" style="color:var(--accent);">верификация владельцев 15.09</a> · реестр: {w3.get('registry_sources', 0)}</div></div>
 <div class="grid2">
 <div class="card"><div class="card-pad">
 <div class="side-head">Концентрация собственности <span class="sub">HHI по учредителям, взвешенный потоком недели</span></div>
@@ -4224,7 +4685,7 @@ def render_infospace(cfg, trends, store, status, info):
 
         w4_html = f"""
 <div class="sec-head"><h2>Волна 4: язык, труд и методика</h2><div class="line"></div>
-<div class="badge"><a href="infospace-plan.html" style="color:var(--accent);">план v0.9 →</a> · метрики подключены 15.09 · выборка: {ag.get('n') or ait.get('n') or 0} сообщения недели</div></div>
+<div class="badge"><a href="plans.html#metrics" style="color:var(--accent);">план внедрения →</a> · метрики подключены 15.09 · выборка: {ag.get('n') or ait.get('n') or 0} сообщения недели</div></div>
 {ag_html}
 <div class="grid2">
 {fr_html}
@@ -4258,7 +4719,9 @@ def render_infospace(cfg, trends, store, status, info):
 <div class="kpi gold"><div class="num">{fed_pct}%</div><div class="lbl">федеральное эхо (не про регион)</div></div>
 <div class="kpi red"><div class="num">{len(silent)}<small> + {len(low)}</small></div><div class="lbl">молчащих и полунемых муниципалитетов</div></div>
 </div>
-<div class="note" style="margin-bottom:18px;">Раздел обновляется каждым прогоном конвейера — это не разовый отчёт, а непрерывное наблюдение за устройством регионального инфополя: кто производит новости, кто их тиражирует, какие сюжеты побеждают, кого не слышно. Данные — {esc(str(info.get('generated_local','')))}, база: {len(store)} записей.</div>
+<div class="note" style="margin-bottom:18px;">Раздел обновляется каждым прогоном конвейера — это не разовый отчёт, а непрерывное наблюдение за устройством регионального инфополя: кто производит новости, кто их тиражирует, какие сюжеты побеждают, кого не слышно. Данные — {esc(str(info.get('generated_local','')))}, база: {len(store)} записей.
+<b>Что измерим дальше и как:</b> реестр из 32 метрик-кандидатов, паспорта метрик, волны внедрения
+и открытые пункты плана развития — <a href="plans.html#metrics" style="color:var(--accent);font-weight:700;">на странице «Планы и методы» →</a></div>
 
 <div class="sec-head"><h2>Кто задаёт повестку</h2><div class="line"></div>
 <div class="badge">первичность в каскадах перепечаток</div></div>
@@ -5065,7 +5528,7 @@ def render_archive(cfg, trends, store, status):
     proj = [("projects/elections_2026.html", "Выборы-2026", "спецвыпуск: губернатор, Госдума, довыборы в ЗСО"),
             ("projects/goszakupki.html", "Госзакупки", "аналитика закупок региона"),
             ("infospace.html", "Инфопространство", "сеттеры повестки, каскады, тон, территории"),
-            ("infospace-plan.html", "Инфопространство: план расширения", "предложение v0.9: 6 осей · 32 метрики · 3 волны внедрения"),
+            ("plans.html", "Планы и методы", "треки планов · реестр из 32 метрик · паспорта · конвейер внедрения"),
             ("afisha.html", "Афиша", "культурные события области, автоизвлечение")]
     proj_cards = "".join(
         f'<a class="proj-card" href="{href}"><b>{esc(name)}</b><span>{esc(desc)}</span></a>'
@@ -5719,6 +6182,12 @@ def main():
     with open(os.path.join(proj_dir, "goszakupki.html"), "w", encoding="utf-8") as f:
         f.write(gz_html)
     print("[generate] проекты: projects.html, projects/elections_2026.html, projects/goszakupki.html")
+
+    plans_html = themed(render_plans(cfg, trends, store, status,
+                                     load_json(os.path.join(DATA, "analytics.json")) or {}))
+    with open(os.path.join(BASE, "plans.html"), "w", encoding="utf-8") as f:
+        f.write(plans_html)
+    print("[generate] планы и методы: plans.html")
 
     special_files = sorted(glob.glob(os.path.join(SPECIAL, "*.html")))
     index_html = themed(render_index(cfg, trends, store, status, digest_files, special_files))
