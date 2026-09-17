@@ -19,6 +19,7 @@ if BASE not in sys.path:
     sys.path.insert(0, BASE)
 
 import outlets  # канонические издания: какие каналы считаются одним источником
+import footer  # единый подвал всех страниц
 DATA = os.path.join(BASE, "data")
 UTC4 = timezone(timedelta(hours=4))
 
@@ -154,7 +155,7 @@ def main():
 <link rel="icon" type="image/png" href="assets/logo_gudok.png">
 <title>Status — {cfg.get('brand','издание Гудок')}</title>
 <style>
-:root{{--paper:#FAF7F2;--paper-2:#F3EFE7;--ink:#0B0B0B;--ink-2:#2A2620;--muted:#6B655C;--rule:#E3DED4;--rule-strong:#0B0B0B;--accent:#D63F1F;--on-ink:#C9C2B6;
+:root{{--paper:#FAF7F2;--paper-2:#F3EFE7;--ink:#0B0B0B;--ink-2:#2A2620;--muted:#6B655C;--rule:#E3DED4;--rule-strong:#0B0B0B;--accent:#D63F1F;--on-ink:#C9C2B6;--maxw:1180px;--gutter:20px;
 --serif-display:"Fraunces","Source Serif 4",Georgia,serif;--serif-body:"Source Serif 4",Georgia,serif;--sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--rubleny:Impact,"Arial Black","Franklin Gothic Bold",sans-serif;}}
 :root[data-theme="dark"]{{--paper:#101214;--paper-2:#17191c;--ink:#ECE7DE;--ink-2:#D5CFC4;--muted:#9A948A;--rule:#2A2D31;--rule-strong:#ECE7DE;--accent:#FF6A4D;--on-ink:#2A2620;}}
 body{{background:var(--paper);color:var(--ink);font-family:var(--serif-body);font-size:16.5px;line-height:1.55;}}
@@ -219,6 +220,7 @@ td{{padding:7px 12px;border-bottom:1px solid var(--line);}}
 .theme-btn,.print-btn{{border:none;background:none;color:var(--muted,#57616c);font-size:11.5px;text-decoration:underline;cursor:pointer;}}
 .logo,.mast-logo,.mast-right{{display:none;}}
 .ticker{{animation:none;}}
+{footer.FOOTER_CSS}
 </style>
 <script>
 (function(){{try{{var t=localStorage.getItem("gudok-theme");
@@ -279,6 +281,7 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener"> GitHub: исходники, выпуски и конвейер</a>
 </div></div>
 </main>
+{footer.render_footer('')}
 <script>var d=new Date();var M=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];var W=["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];var e=document.getElementById("fl");if(e)e.textContent=W[d.getDay()]+", "+d.getDate()+" "+M[d.getMonth()]+" "+d.getFullYear()+" г.";</script></body></html>"""
 
     with open(os.path.join(BASE, "status.html"), "w", encoding="utf-8") as f:

@@ -26,6 +26,7 @@ if BASE not in sys.path:
     sys.path.insert(0, BASE)
 
 import outlets  # канонические издания: каналы одной редакции = один источник
+import footer  # единый подвал всех страниц
 DATA = os.path.join(BASE, "data")
 DIGESTS = os.path.join(BASE, "digests")
 SPECIAL = os.path.join(BASE, "special")
@@ -471,21 +472,8 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
 .more-heads a:hover{color:var(--accent);}
 .more-heads a span{font-family:var(--sans);color:var(--muted);font-weight:400;font-size:11.5px;display:block;}
 
-/* подвал — компактный */
-.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
-.footer b,.footer h3{color:var(--paper);}
-.footer h3{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
-.footer a{color:var(--on-ink);}
-.footer a:hover{color:var(--accent);}
-.footer-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:20px 36px;}
-.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
-.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
-.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
-.footer li{margin:4px 0;}
-.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
-.footer__brand span{color:var(--accent);}
-.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
-:root[data-theme="dark"] .footer__bottom{border-top-color:rgba(11,11,11,.2);}
+/* подвал — единый, см. footer.FOOTER_CSS */
+.footer h3{color:var(--paper);}
 
 /* печать */
 .pm-mast{text-align:center;border-bottom:3px double var(--ink);padding-bottom:4mm;}
@@ -529,7 +517,6 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
   .feature__text{padding:48px 0;}
   .feature__media{min-height:360px;}
   .opinion__grid{grid-template-columns:1fr 1fr;}
-  .footer__inner{grid-template-columns:1fr 1fr;gap:26px;}
   .now-grid{grid-template-columns:1fr;}
   .now-col{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:12px;}
   .kpi-grid{grid-template-columns:repeat(3,1fr);}
@@ -547,8 +534,6 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
   .mostread__list li{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:14px;}
   .mostread__list li:first-child{border-top:0;padding-top:0;}
   .sec-head{flex-direction:column;align-items:flex-start;gap:6px;}
-  .footer__inner{grid-template-columns:1fr;gap:22px;}
-  .footer__bottom{flex-direction:column;}
   .kpi-grid{grid-template-columns:repeat(2,1fr);}
 }
 .mast-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;max-width:var(--maxw);margin:0 auto;padding:26px var(--gutter) 20px;}
@@ -564,6 +549,8 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
   body{background:#fff;}
 }
 """
+
+CSS = CSS + footer.FOOTER_CSS
 
 THEME_HEAD = """<script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
@@ -2135,11 +2122,7 @@ def render_digest(cfg, trends, store, status, date_str, digest_no, mode="closed"
 
     meta = (status or {}).get("_meta", {})
     parts.append(f"""</div>
-<footer class="footer"><div class="footer-inner">
-<div><b>{cfg['brand']}</b><p>{esc(cfg['tagline_full'])}</p><p style="margin-top:6px;">Выпуск №{digest_no} от {day:%d.%m.%Y}. Собрано автоматически: {esc(meta.get('last_run_local','—'))} (UTC+4).</p></div>
-<div><b>Методика</b><p>Мониторинг RSS ({', '.join(s['name'] for s in cfg['rss_sources'] if s.get('enabled', True))}) , публичных превью Telegram-каналов (t.me/s/…) и официальных сайтов органов власти (Госвеб). Классификация — по словарю config.json; тренды — сравнение 3-дневного окна с недельной базой.</p></div>
-<div><b>Навигация</b><p><a href="../index.html" class="flink">← Первая полоса</a> · <a href="../weekly.html" class="flink">Аналитика недели</a></p></div>
-</div></footer></body></html>""")
+{footer.render_footer('../')}</body></html>""")
     return "".join(parts)
 
 
@@ -2587,11 +2570,8 @@ def render_elections(cfg, trends, store, status):
 </div>
 
 </div>
-<footer class="footer"><div class="footer-inner">
-<div><b>{cfg['brand']}</b><p>Спецвыпуск «Выборы-2026». Предвыборная редакция от {now:%d.%m.%Y}. Обновляется ежедневно конвейером run.sh до дня голосования.</p></div>
-<div><b>Источники профилей</b><p>Википедия («Выборы губернатора Ульяновской области (2026)»), gogov.ru (сводка кандидатов от 23.08.2026), Избирательная комиссия Ульяновской области, «Ведомости», региональные СМИ.</p></div>
-<div><b>Дисклеймер</b><p>Выпуск информационно-аналитический, не является агитацией. Оценки помечены как редакционные. Фактические данные сверены с первоисточниками на дату обновления.</p></div>
-</div></footer>
+{footer.render_footer('../')}
+{FEED_JS}
 </body></html>"""
 
 
@@ -2632,10 +2612,7 @@ def render_projects(cfg, trends, store, status):
 и «Инфопространством». Название рубрики рабочее — редакция обсуждает варианты: «Проекты», «Спецпроекты», «Досье».</div>
 <div class="sec-grid">{cards}</div>
 </div>
-<footer class="footer"><div class="footer-inner">
-<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
-<div><b>Разделы</b><p><a href="index.html" class="flink">Первая полоса</a> · <a href="infospace.html" class="flink">Инфопространство</a> · <a href="afisha.html" class="flink">Афиша</a></p></div>
-</div></footer>
+{footer.render_footer('')}
 </body></html>"""
 
 
@@ -2769,10 +2746,7 @@ csv/json со полями заказчик, НМЦК, способ, дата, �
 </div>
 </div>
 </div>
-<footer class="footer"><div class="footer-inner">
-<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
-<div><b>Рубрика</b><p><a href="../projects.html" class="flink">Все проекты</a> · <a href="../infospace.html" class="flink">Инфопространство</a></p></div>
-</div></footer>
+{footer.render_footer('../')}
 </body></html>"""
 
 
@@ -3017,10 +2991,7 @@ def render_afisha(cfg, trends, store, status, an):
 данные извлечены из публикаций автоматически и могут содержать неточности.</div>
 
 </div>
-<footer class="footer"><div class="footer-inner">
-<div><b>{cfg['brand']} · Афиша</b><p>Автономная страница, обновляется каждым прогоном run.sh. Источники: Telegram-каналы (@culturnik, @ulpromo, @ProNovosty73 и др.) и RSS СМИ региона.</p></div>
-<div><b>Навигация</b><p><a href="index.html" class="flink">Первая полоса</a> · <a href="digests/digest_{today.isoformat()}.html" class="flink">Свежий дайджест</a> · <a href="status.html" class="flink">Статус системы</a></p></div>
-</div></footer>
+{footer.render_footer('')}
 {AFISHA_JS}
 </body></html>"""
 
@@ -3998,11 +3969,7 @@ def render_infospace(cfg, trends, store, status, info):
 <div class="note">Выводы формируются правилами analytics.py; по мере накопления истории добавятся сравнения неделя-к-неделе и сезонность.</div></div></div>
 
 </div>
-<footer class="footer"><div class="footer-inner">
-<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
-<div><b>Методика</b><p>Дедупликация (Жаккар + вложенность заголовков), TF-IDF-кластеризация, лексикон тональности (±110 маркеров), географические маркеры муниципалитетов. Всё — на открытых данных мониторинга; воспроизводится из data/store.jsonl.</p></div>
-<div><b>Навигация</b><p><a href="index.html" class="flink">Первая полоса</a> · <a href="weekly.html" class="flink">Аналитика недели</a> · <a href="roadmap.html" class="flink">План развития</a></p></div>
-</div></footer>
+{footer.render_footer('')}
 </body></html>"""
 
 
@@ -4283,10 +4250,7 @@ def render_weekly_hub(cfg, trends, store, status):
 Правая колонка каждого выпуска генерируется функцией render_weekly_rail (python3 generate.py --weekly-rail START END) —
 данные всегда свежие на момент доводки выпуска.</div>
 </div>
-<footer class="footer"><div class="footer-inner">
-<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
-<div><b>Разделы</b><p><a href="index.html" class="flink">Первая полоса</a> · <a href="infospace.html" class="flink">Инфопространство</a> · <a href="projects.html" class="flink">Проекты</a></p></div>
-</div></footer>
+{footer.render_footer('')}
 </body></html>"""
 
 
@@ -4472,10 +4436,7 @@ def render_monthly(cfg, trends, store, status, ym):
 </div>
 </div>
 </div>
-<footer class="footer"><div class="footer-inner">
-<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
-<div><b>Периодичности</b><p><a href="../weekly.html" class="flink">Неделя</a> · <a href="../monthly.html" class="flink">Месяц</a> · <a href="../index.html" class="flink">Первая полоса</a></p></div>
-</div></footer>
+{footer.render_footer('../')}
 </body></html>"""
 
 
@@ -4515,10 +4476,7 @@ def render_monthly_hub(cfg, trends, store, status):
 <div class="sec-head"><h2>Отчёты</h2><div class="line"></div></div>
 <div class="card"><div class="card-pad">{rows or '<span style="color:var(--muted);">Пока нет отчётов.</span>'}</div></div>
 </div>
-<footer class="footer"><div class="footer-inner">
-<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
-<div><b>Периодичности</b><p><a href="index.html" class="flink">Первая полоса</a> · <a href="weekly.html" class="flink">Неделя</a> · <a href="infospace.html" class="flink">Инфопространство</a></p></div>
-</div></footer>
+{footer.render_footer('')}
 </body></html>"""
 
 
@@ -4603,10 +4561,7 @@ def render_weekly_full(cfg, trends, store, status, start, end, rail=None):
 вносится ассистентом по понедельникам, после чего штамп меняется на «завершён».</div>
 </div>{rail}</div>
 </div>
-<footer class="footer"><div class="footer-inner">
-<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
-<div><b>Периоды</b><p><a href="../weekly.html" class="flink">Все недели</a> · <a href="../archive.html" class="flink">Архив-матрица</a> · <a href="../index.html" class="flink">Первая полоса</a></p></div>
-</div></footer>
+{footer.render_footer('../')}
 </body></html>"""
 
 
@@ -4808,11 +4763,7 @@ a.cal-cell.has:hover .cal-d{{color:var(--accent);}}
 <div class="proj-grid">{proj_cards}</div>
 
 </div>
-<footer class="footer"><div class="footer-inner">
-<div><b>Гудок</b><p>{esc(cfg['tagline_full'])}</p></div>
-<div><b>Периодичности</b><p><a href="digests/today.html" class="flink">День</a> · <a href="weekly.html" class="flink">Неделя</a> · <a href="monthly.html" class="flink">Месяц</a></p></div>
-<div><b>Служебное</b><p><a href="status.html" class="flink">Статус системы</a> · <a href="roadmap.html" class="flink">План развития</a></p></div>
-</div></footer>
+{footer.render_footer('')}
 </body></html>"""
 
 
@@ -5172,27 +5123,7 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 <div class="newsletter__fine">Издание внутреннее. Распространяется среди членов группы «Победа».</div>
 </div></section>
 </main>
-<footer class="footer"><div class="footer__inner">
-<div><div class="footer__brand">ГУДОК<span>.</span></div>
-<p>Информационно-аналитическое издание марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Материалы принадлежат их изданиям; издание носит информационно-аналитический характер и не является агитацией.</p></div>
-<div><h3>Периодичности</h3><ul style="list-style:none;padding:0;">
-<li><a href="digests/{latest_digest}">День · выпуск № {dnum}</a></li>
-<li><a href="weekly.html">Неделя · дуги сюжетов</a></li>
-<li><a href="monthly.html">Месяц · метрики</a></li>
-<li><a href="archive.html">Архив-матрица</a></li></ul></div>
-<div><h3>Проекты</h3><ul style="list-style:none;padding:0;">
-<li><a href="projects/elections_2026.html">Выборы-2026</a></li>
-<li><a href="projects/goszakupki.html">Госзакупки</a></li>
-<li><a href="infospace.html">Инфопространство</a></li>
-<li><a href="afisha.html">Афиша</a></li></ul></div>
-<div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
-<li><a href="status.html">Статус системы</a></li>
-<li><a href="roadmap.html">План развития</a></li>
-<li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li>
-<li><a href="digests/exec_{latest_digest.replace('digest_','') if latest_digest else ''}">Версия руководителю</a></li></ul></div>
-</div>
-<div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
-</footer>
+{footer.render_footer('')}
 {FEED_JS}
 </body></html>"""
 

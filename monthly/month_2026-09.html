@@ -114,6 +114,11 @@ img{max-width:100%;display:block;}
 .hero__byline{display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px;color:var(--muted);}
 .hero__byline .avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--rubleny);font-size:13px;letter-spacing:.05em;}
 .hero__byline strong{color:var(--ink);font-weight:600;}
+.hero__why{font-family:var(--sans);font-size:12px;color:var(--muted);letter-spacing:.01em;margin:14px 0 0;}
+.hero__passport{font-family:var(--sans);font-size:12px;color:var(--muted);margin:4px 0 0;}
+.hero__passport strong{color:var(--ink-2);font-weight:600;}
+.hero__also{font-family:var(--sans);font-size:12px;font-style:italic;color:var(--muted);margin:4px 0 0;}
+.hero__timeline{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0 0;letter-spacing:.01em;}
 .dot-sep::before{content:"·";margin:0 8px;color:var(--muted);}
 .hero__media{position:relative;aspect-ratio:4/5;overflow:hidden;margin:0;
   background:radial-gradient(120% 90% at 30% 20%,#4A5A55 0%,#2E3A38 55%,#1C2322 100%);}
@@ -134,6 +139,18 @@ img{max-width:100%;display:block;}
 .mostread__list a{font-family:var(--serif-body);font-size:15px;line-height:1.35;font-weight:600;color:var(--ink);}
 .mostread__list a:hover{color:var(--accent);}
 
+/* «Коротко: 7 строк дня» */
+.brief{border-bottom:1px solid var(--rule);background:var(--paper);}
+.brief__inner{max-width:var(--maxw);margin:0 auto;padding:22px var(--gutter) 24px;}
+.brief__label{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.brief__label::before{content:"";width:22px;height:1px;background:var(--accent);}
+.brief-row{display:grid;grid-template-columns:86px 200px 1fr;gap:16px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule);}
+.brief-row:first-of-type{border-top:0;}
+.brief-t{font-family:var(--sans);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.brief-k{font-family:var(--sans);font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.brief-row a{font-family:var(--serif-body);font-size:15.5px;line-height:1.35;font-weight:600;color:var(--ink);}
+.brief-row a:hover{color:var(--accent);}
+
 /* карточки */
 .grid{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(4,1fr);gap:36px 28px;}
 .card{display:flex;flex-direction:column;background:none;border:none;border-radius:0;box-shadow:none;}
@@ -148,6 +165,28 @@ img{max-width:100%;display:block;}
 .card__title a:hover{color:var(--accent);}
 .card__dek{font-family:var(--serif-body);font-size:15px;line-height:1.5;color:var(--muted);margin:0 0 12px;}
 .card__meta{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:auto;}
+.card__badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:3px 8px;border-radius:999px;white-space:nowrap;display:inline-block;}
+.chip--cluster{color:var(--ink-2);background:var(--paper-2);border:1px solid var(--rule);}
+
+/* лента: чипы-рубрики + «Показать ещё» (#19/#20) */
+.feed-chips{max-width:var(--maxw);margin:0 auto;padding:10px var(--gutter) 0;display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:52px;z-index:20;background:var(--paper);}
+.chip-f{font:600 12px var(--sans);color:var(--muted);background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer;line-height:1.45;}
+.chip-f:hover{color:var(--ink);border-color:var(--ink);}
+.chip-f.on{color:#fff;background:var(--accent);border-color:var(--accent);}
+.chip-f:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.chip-f-divider{width:1px;height:18px;margin:0 6px;align-self:center;background:var(--rule);}
+.feed-more{display:none;font:600 13px var(--sans);padding:8px 18px;border:1px solid var(--ink);border-radius:999px;background:var(--paper);cursor:pointer;}
+.feed-more:hover{background:var(--ink);color:var(--paper);}
+.feed-bar{max-width:var(--maxw);margin:14px auto 0;padding:0 var(--gutter);display:flex;align-items:center;gap:18px;font:12px var(--sans);color:var(--muted);}
+.feed-bar a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+.feed-empty{max-width:var(--maxw);margin:12px auto 0;padding:0 var(--gutter);font:13px var(--sans);color:var(--muted);}
+.feed-empty a{color:var(--accent);}
+.hidden{display:none!important;}
+.ab-link{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:999px;background:none;padding:4px 12px;cursor:pointer;}
+.ab-link:hover{color:var(--accent);border-color:var(--accent);}
+body[data-ab="v2"] .hero__inner{grid-template-columns:1fr 1.05fr;}
+body[data-ab="v2"] .feature__inner{grid-template-columns:1.05fr 1fr;}
 
 /* фича-полоса (тёмная) */
 .feature{margin-top:72px;background:var(--ink);color:var(--paper);}
@@ -363,6 +402,16 @@ img{max-width:100%;display:block;}
 .tl-src{font-family:var(--sans);color:var(--muted);font-size:11px;}
 .now-line{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);margin-top:4px;line-height:1.5;}
 .now-line b{color:var(--ink);}
+/* v4: алерт-полоса безопасности */
+.alertstrip{background:#5d0f13;color:#fff;}
+.alertstrip__inner{max-width:var(--maxw);margin:0 auto;padding:9px var(--gutter);display:flex;flex-direction:column;gap:5px;}
+body[data-theme="dark"] .alertstrip{background:#7d171d;}
+.alert-row{display:flex;gap:9px;align-items:center;font-family:var(--serif-body);font-size:14.5px;line-height:1.4;}
+.alert-row a{color:#fff;font-weight:600;text-decoration:none;}
+.alert-row a:hover{text-decoration:underline;}
+.alert-dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#ff6b6b;box-shadow:0 0 0 0 rgba(255,107,107,.7);animation:alertpulse 1.6s infinite;}
+@keyframes alertpulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,.6);}70%{box-shadow:0 0 0 7px rgba(255,107,107,0);}100%{box-shadow:0 0 0 0 rgba(255,107,107,0);}}
+.alert-time{margin-left:auto;flex-shrink:0;font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.85);font-weight:700;}
 .now-num{font-family:var(--serif-display);font-size:26px;font-weight:600;color:var(--ink);line-height:1.1;}
 .now-num small{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);}
 .lead-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;}
@@ -385,21 +434,8 @@ img{max-width:100%;display:block;}
 .more-heads a:hover{color:var(--accent);}
 .more-heads a span{font-family:var(--sans);color:var(--muted);font-weight:400;font-size:11.5px;display:block;}
 
-/* подвал — компактный */
-.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
-.footer b,.footer h3{color:var(--paper);}
-.footer h3{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
-.footer a{color:var(--on-ink);}
-.footer a:hover{color:var(--accent);}
-.footer-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:20px 36px;}
-.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
-.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
-.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
-.footer li{margin:4px 0;}
-.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
-.footer__brand span{color:var(--accent);}
-.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
-:root[data-theme="dark"] .footer__bottom{border-top-color:rgba(11,11,11,.2);}
+/* подвал — единый, см. footer.FOOTER_CSS */
+.footer h3{color:var(--paper);}
 
 /* печать */
 .pm-mast{text-align:center;border-bottom:3px double var(--ink);padding-bottom:4mm;}
@@ -432,6 +468,9 @@ img{max-width:100%;display:block;}
 @media (max-width:1100px){
   .hero__inner,.lead-grid,.feature__inner,.wk-grid,.main-grid{grid-template-columns:1fr;}
   .hero__media{aspect-ratio:16/9;}
+  .brief-row{grid-template-columns:1fr;row-gap:3px;}
+  .brief-t,.brief-k{grid-column:1;}
+  .brief-k{white-space:normal;}
   .mostread__inner{grid-template-columns:1fr;gap:18px;}
   .mostread__list{grid-template-columns:repeat(2,1fr);row-gap:18px;}
   .mostread__list li{padding-left:16px;}
@@ -440,7 +479,6 @@ img{max-width:100%;display:block;}
   .feature__text{padding:48px 0;}
   .feature__media{min-height:360px;}
   .opinion__grid{grid-template-columns:1fr 1fr;}
-  .footer__inner{grid-template-columns:1fr 1fr;gap:26px;}
   .now-grid{grid-template-columns:1fr;}
   .now-col{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:12px;}
   .kpi-grid{grid-template-columns:repeat(3,1fr);}
@@ -458,8 +496,6 @@ img{max-width:100%;display:block;}
   .mostread__list li{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:14px;}
   .mostread__list li:first-child{border-top:0;padding-top:0;}
   .sec-head{flex-direction:column;align-items:flex-start;gap:6px;}
-  .footer__inner{grid-template-columns:1fr;gap:22px;}
-  .footer__bottom{flex-direction:column;}
   .kpi-grid{grid-template-columns:repeat(2,1fr);}
 }
 .mast-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;max-width:var(--maxw);margin:0 auto;padding:26px var(--gutter) 20px;}
@@ -474,6 +510,22 @@ img{max-width:100%;display:block;}
   .nav,.ticker-wrap,.filters,.print-btn,.theme-btn,.nav-toggle,.util-bar-wrap{display:none!important;}
   body{background:#fff;}
 }
+/* подвал — единый */
+.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
+.footer h3{color:var(--paper);}
+.footer h3{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
+.footer a{color:var(--on-ink);}
+.footer a:hover{color:var(--accent);}
+.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
+.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
+.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
+.footer li{margin:4px 0;}
+.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
+.footer__brand span{color:var(--accent);}
+.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+:root[data-theme="dark"] .footer__bottom{border-top-color:rgba(11,11,11,.2);}
+@media (max-width:1100px){.footer__inner{grid-template-columns:1fr 1fr;gap:26px;}}
+@media (max-width:720px){.footer__inner{grid-template-columns:1fr;gap:22px;}.footer__bottom{flex-direction:column;}}
 
 
 .lead-sec{max-width:1200px;margin:0 auto;padding:22px 18px 0;}
@@ -505,63 +557,80 @@ img{max-width:100%;display:block;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>вторник, 15 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 22:41</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>среда, 16 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 23:33</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Месячный отчёт<br>период 01.09–30.09.26
 <div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div></div>
 </div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="" href="../weekly.html">Неделя</a><a class="active" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-14.html">Руководителю</a></div></nav><main id="main">
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="" href="../weekly.html">Неделя</a><a class="active" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-15.html">Руководителю</a></div></nav><main id="main">
 <div class="wrap1200" style="padding-top:16px;">
 <div class="wk-passport"><b>Сентябрь 2026 · месячный отчёт</b>
-<span style="font-size:12.5px;color:var(--muted);">данные на 15.09.2026 · источников: 48 · публикация 1-го числа следующего месяца</span><span class="wk-stamp wip">готовится</span></div>
+<span style="font-size:12.5px;color:var(--muted);">данные на 16.09.2026 · источников: 43 · публикация 1-го числа следующего месяца</span><span class="wk-stamp wip">готовится</span></div>
 
 <div class="sec-head"><h2>Ключевые метрики месяца</h2><div class="line"></div></div>
 <div class="kpi-grid" style="grid-template-columns:repeat(6,1fr);">
-<div class="kpi"><div class="num">1870</div><div class="lbl">сообщений в потоке</div></div>
+<div class="kpi"><div class="num">2047</div><div class="lbl">сообщений в потоке</div></div>
 <div class="kpi green"><div class="num">84<small>%</small></div><div class="lbl">оригинальных</div></div>
-<div class="kpi"><div class="num">25<small>%</small></div><div class="lbl">концентрация топ-3</div></div>
-<div class="kpi violet"><div class="num">+0.28</div><div class="lbl">средний тон</div></div>
-<div class="kpi red"><div class="num">14</div><div class="lbl">макс. каскад (независимых источников)</div></div>
+<div class="kpi"><div class="num">30<small>%</small></div><div class="lbl">концентрация топ-3</div></div>
+<div class="kpi violet"><div class="num">+0.26</div><div class="lbl">средний тон</div></div>
+<div class="kpi red"><div class="num">12</div><div class="lbl">макс. каскад (независимых источников)</div></div>
 <div class="kpi gold"><div class="num">21</div><div class="lbl">территорий в повестке</div></div>
 </div>
 
 <div class="grid2" style="margin-top:18px;">
 <div class="card"><div class="card-pad">
 <div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Темы месяца (недельная разбивка)</div>
-<div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Суды и криминал</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:51%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">285</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Транспорт и дороги</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:89%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">285</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Губернатор / власть</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:65%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">256</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Школы и вузы</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:44%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">240</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Спорт</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:60%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">173</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Культура и туризм</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:7%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:36%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">171</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Городская среда</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:6%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:60%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">157</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">БПЛА и воздушные угрозы</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:53%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">141</div></div>
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Транспорт и дороги</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:83%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">350</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Суды и криминал</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:77%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">347</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Губернатор / власть</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:75%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">304</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Школы и вузы</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:56%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">268</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Спорт</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:85%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">207</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Городская среда</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:6%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:87%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">193</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Культура и туризм</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:7%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:41%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">179</div></div><div style="display:flex;gap:10px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:190px;text-align:right;font-weight:600;flex-shrink:0;">Медицина</div><div style="flex:1;display:flex;"><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:4%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:100%;height:100%;background:#1d4066;"></div></div><div style="flex:1;background:#edf2f8;border-radius:4px;height:14px;overflow:hidden;margin:0 1px;"><div style="width:96%;height:100%;background:#1d4066;"></div></div></div><div style="width:40px;font-weight:800;color:var(--navy);">161</div></div>
 <div class="note">Столбцы — недели месяца слева направо; высота — относительная интенсивность темы.</div>
 </div></div>
 <div class="card"><div class="card-pad">
 <div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Объём и тон по неделям</div>
-<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">нед. 31.08</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;"><div style="width:4%;height:100%;background:#2f80ed;"></div></div><div style="width:90px;font-size:11.5px;color:var(--muted);">33 · тон 0.64</div></div><div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">нед. 07.09</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;"><div style="width:100%;height:100%;background:#2f80ed;"></div></div><div style="width:90px;font-size:11.5px;color:var(--muted);">925 · тон 0.09</div></div><div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">нед. 14.09</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;"><div style="width:66%;height:100%;background:#2f80ed;"></div></div><div style="width:90px;font-size:11.5px;color:var(--muted);">619 · тон 0.08</div></div>
+<div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">нед. 31.08</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;"><div style="width:4%;height:100%;background:#2f80ed;"></div></div><div style="width:90px;font-size:11.5px;color:var(--muted);">33 · тон 0.64</div></div><div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">нед. 07.09</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;"><div style="width:100%;height:100%;background:#2f80ed;"></div></div><div style="width:90px;font-size:11.5px;color:var(--muted);">925 · тон 0.09</div></div><div style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">нед. 14.09</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:16px;overflow:hidden;"><div style="width:83%;height:100%;background:#2f80ed;"></div></div><div style="width:90px;font-size:11.5px;color:var(--muted);">769 · тон 0.06</div></div>
 <div style="font-size:12.5px;font-weight:800;color:var(--navy);margin:12px 0 8px;">Тон по дням месяца</div>
-<svg width="320" height="52" viewBox="0 0 320 52"><path d="M2.0,34.3 L26.3,15.6 L50.6,7.3 L74.9,5.0 L99.2,7.3 L123.5,34.9 L147.8,49.0 L172.2,42.0 L196.5,41.4 L220.8,48.4 L245.1,44.9 L269.4,34.9 L293.7,43.7 L318.0,44.9 L318,50 L2,50 Z" fill="#9a4d8f" opacity="0.12"/><path d="M2.0,34.3 L26.3,15.6 L50.6,7.3 L74.9,5.0 L99.2,7.3 L123.5,34.9 L147.8,49.0 L172.2,42.0 L196.5,41.4 L220.8,48.4 L245.1,44.9 L269.4,34.9 L293.7,43.7 L318.0,44.9" fill="none" stroke="#9a4d8f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="318.0" cy="44.9" r="2.6" fill="#9a4d8f"/></svg>
+<svg width="320" height="52" viewBox="0 0 320 52"><path d="M2.0,34.3 L24.6,15.6 L47.1,7.3 L69.7,5.0 L92.3,7.3 L114.9,34.9 L137.4,49.0 L160.0,42.0 L182.6,41.4 L205.1,48.4 L227.7,44.9 L250.3,34.9 L272.9,43.7 L295.4,44.9 L318.0,48.4 L318,50 L2,50 Z" fill="#9a4d8f" opacity="0.12"/><path d="M2.0,34.3 L24.6,15.6 L47.1,7.3 L69.7,5.0 L92.3,7.3 L114.9,34.9 L137.4,49.0 L160.0,42.0 L182.6,41.4 L205.1,48.4 L227.7,44.9 L250.3,34.9 L272.9,43.7 L295.4,44.9 L318.0,48.4" fill="none" stroke="#9a4d8f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="318.0" cy="48.4" r="2.6" fill="#9a4d8f"/></svg>
 </div></div>
 </div>
 
 <div class="grid2" style="margin-top:18px;">
 <div>
 <div class="sec-head"><h2>Каскады месяца</h2><div class="line"></div></div>
-<div class="card"><div class="side-body"><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×14</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/ulpravda/41052" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">⚡️ Дежурными средствами ПВО над территорией нашего региона перехвачено и уничтожено 3 вражеских…</a><div style="font-size:11.3px;color:var(--muted);">15.09 · t.me/ulpravda</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×6</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной…</a><div style="font-size:11.3px;color:var(--muted);">10.09 · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×5</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12316" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">❗️ Снят режим «Ракетная опасность» на территории Ульяновской области. 🇷🇺 Мой канал в MAX</a><div style="font-size:11.3px;color:var(--muted);">11.09 · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×5</b><span>ист.</span></div><div style="flex:1;"><a href="https://ulpressa.ru/2026/09/14/na-trasse-barysh-karsun-19-letnij-voditel-bez-prav-ustroil-dtp-odin-chelovek-pogib-chetvero-v-bolnicze/" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">На трассе Барыш — Карсун 19-летний водитель без прав устроил ДТП — один человек погиб, четверо в…</a><div style="font-size:11.3px;color:var(--muted);">14.09 · Улпресса</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×5</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/ulpravda/41061" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">В дальнем Засвияжье открыли новую взрослую поликлинику Более 15 лет горожане ждали новое…</a><div style="font-size:11.3px;color:var(--muted);">15.09 · t.me/ulpravda</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×4</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/ulpressa/74421" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Geely Monjaro загорелся на Юго-западной</a><div style="font-size:11.3px;color:var(--muted);">10.09 · t.me/ulpressa</div></div></div></div></div>
+<div class="card"><div class="side-body"><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×12</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12391" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">⚡️ Дежурными средствами ПВО над территорией нашего региона перехвачено и уничтожено 3 вражеских…</a><div style="font-size:11.3px;color:var(--muted);">15.09 · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×5</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной…</a><div style="font-size:11.3px;color:var(--muted);">10.09 · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×4</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/ulpressa/74421" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Geely Monjaro загорелся на Юго-западной</a><div style="font-size:11.3px;color:var(--muted);">10.09 · t.me/ulpressa</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×4</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/insaid173/46860" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября . Об этом сообщил мэр…</a><div style="font-size:11.3px;color:var(--muted);">10.09 · t.me/insaid173</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×4</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12316" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">❗️ Снят режим «Ракетная опасность» на территории Ульяновской области. 🇷🇺 Мой канал в MAX</a><div style="font-size:11.3px;color:var(--muted);">11.09 · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge" style="background:var(--red);"><b>×4</b><span>ист.</span></div><div style="flex:1;"><a href="https://t.me/insaid173/46865" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🚌 Отключил ГЛОНАСС — жди проверки: в Ульяновске ужесточат контроль за перевозчиками В Ульяновске…</a><div style="font-size:11.3px;color:var(--muted);">11.09 · t.me/insaid173</div></div></div></div></div>
 <div class="sec-head"><h2>Территории за месяц</h2><div class="line"></div></div>
 <div class="card"><div class="card-pad" style="padding:10px 14px;">
-<table class="tbl"><tr><th>Муниципалитет</th><th>Упоминаний</th><th>Свой голос</th></tr><tr><td><b>Димитровград</b></td><td>81</td><td>✅ 33</td></tr><tr><td><b>Инзенский р-н</b></td><td>23</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Новоспасский р-н</b></td><td>20</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Карсунский р-н</b></td><td>15</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Радищевский р-н</b></td><td>15</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Барышский р-н</b></td><td>14</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Кузоватовский р-н</b></td><td>14</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Мелекесский р-н</b></td><td>12</td><td>✅ 2</td></tr><tr><td><b>Павловский р-н</b></td><td>11</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Цильнинский р-н</b></td><td>8</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Майнский р-н</b></td><td>6</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Чердаклинский р-н</b></td><td>6</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Вешкаймский р-н</b></td><td>5</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Сенгилеевский р-н</b></td><td>5</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr></table></div></div>
+<table class="tbl"><tr><th>Муниципалитет</th><th>Упоминаний</th><th>Свой голос</th></tr><tr><td><b>Димитровград</b></td><td>89</td><td>✅ 41</td></tr><tr><td><b>Инзенский р-н</b></td><td>27</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Новоспасский р-н</b></td><td>21</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Карсунский р-н</b></td><td>17</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Барышский р-н</b></td><td>16</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Радищевский р-н</b></td><td>16</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Кузоватовский р-н</b></td><td>15</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Мелекесский р-н</b></td><td>12</td><td>✅ 2</td></tr><tr><td><b>Павловский р-н</b></td><td>11</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Сенгилеевский р-н</b></td><td>8</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Цильнинский р-н</b></td><td>8</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Майнский р-н</b></td><td>6</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Чердаклинский р-н</b></td><td>6</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr><tr><td><b>Вешкаймский р-н</b></td><td>5</td><td><span style="color:#b02a2f;font-weight:700;">нет</span></td></tr></table></div></div>
 </div>
 <div>
 <div class="sec-head"><h2>Хроника месяца: топ-10 по охвату</h2><div class="line"></div></div>
 <div class="card"><div class="side-body"><div class="af-mini"><div class="cal-badge"><b>09</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/ulpatriot/6899" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Бесплатному питанию для школьников - быть Губернатор Алексей Русских в своих соцсетях сделал…</a><div style="font-size:11.3px;color:var(--muted);">👁 31.6K · t.me/ulpatriot</div></div></div><div class="af-mini"><div class="cal-badge"><b>13</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/uac_ru/5046" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">#ФотоВыходногоДня</a><div style="font-size:11.3px;color:var(--muted);">👁 28.7K · t.me/uac_ru</div></div></div><div class="af-mini"><div class="cal-badge"><b>13</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12388" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🤍 Нашему любимому Симбирску-Ульяновску исполнилось 378 лет! 🇷🇺 Мой канал в MAX</a><div style="font-size:11.3px;color:var(--muted);">👁 26.2K · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge"><b>08</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12293" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Друзья, сегодня провел совещание с главами администраций муниципальных образований. Поводом стало…</a><div style="font-size:11.3px;color:var(--muted);">👁 25.5K · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge"><b>06</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12276" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">«Когда тепло приходит в семьи — сразу понимаешь, что трудишься не зря». 🔹 26 лет Александр…</a><div style="font-size:11.3px;color:var(--muted);">👁 24.8K · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge"><b>10</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12304" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🤝 Ежегодно поощряем молодых жителей нашего региона, которые вносят вклад в развитие родной…</a><div style="font-size:11.3px;color:var(--muted);">👁 20.1K · t.me/Russkih_Aleksey</div></div></div><div class="af-mini"><div class="cal-badge"><b>10</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/tresh_ulyan/56101" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🚨 Ракетная опасность в Ульяновской области. Сирены завыли по городу. 😱 Подписаться | Прислать…</a><div style="font-size:11.3px;color:var(--muted);">👁 16.3K · t.me/tresh_ulyan</div></div></div><div class="af-mini"><div class="cal-badge"><b>10</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/tresh_ulyan/56102" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">⚡️ Ракетная опасность объявлена в Ульяновской области ⚠️ Внимание! Оперативные каналы Ульяновской…</a><div style="font-size:11.3px;color:var(--muted);">👁 16.2K · t.me/tresh_ulyan</div></div></div><div class="af-mini"><div class="cal-badge"><b>12</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/tresh_ulyan/56156" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">🤔 Российские детские сады оснастят «правильными игрушками» на основе традиционных ценностей…</a><div style="font-size:11.3px;color:var(--muted);">👁 16.2K · t.me/tresh_ulyan</div></div></div><div class="af-mini"><div class="cal-badge"><b>13</b><span>Sep</span></div><div style="flex:1;"><a href="https://t.me/tresh_ulyan/56158" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">❗️ Сильный хлопок услышали жители 19 микрорайона После звука в районе появился дым. 😱</a><div style="font-size:11.3px;color:var(--muted);">👁 16K · t.me/tresh_ulyan</div></div></div></div></div>
 <div class="sec-head"><h2>Выводы</h2><div class="line"></div></div>
 <div class="card"><div class="card-pad"><div class="verdict"><b>Итоги периода</b>
-<ul style="padding-left:20px;line-height:1.7;font-size:13px;"><li>Объём инфопотока за месяц: 1870 сообщений, оригинальных 84%.</li><li>Концентрация источников: топ-3 дают 25% потока.</li><li>Средний тон месяца: +0.28.</li><li>Крупнейший каскад: ×14 независимых источников («⚡️ Дежурными средствами ПВО над территорией нашего региона п»).</li><li>Территорий с упоминаниями: 21 из 22; свой голос — у 2.</li></ul></div></div></div>
+<ul style="padding-left:20px;line-height:1.7;font-size:13px;"><li>Объём инфопотока за месяц: 2047 сообщений, оригинальных 84%.</li><li>Концентрация источников: топ-3 дают 30% потока.</li><li>Средний тон месяца: +0.26.</li><li>Крупнейший каскад: ×12 независимых источников («⚡️ Дежурными средствами ПВО над территорией нашего региона п»).</li><li>Территорий с упоминаниями: 21 из 22; свой голос — у 2.</li></ul></div></div></div>
 </div>
 </div>
 </div>
 </main>
-<footer class="footer"><div class="footer-inner">
-<div><b>Гудок</b><p>Гудок — информационно-аналитический листок марксистской группы «Победа» по Ульяновской области. Готовится для внутреннего чтения членами организации: ежедневный мониторинг региональных СМИ и Telegram-каналов, анализ тенденций информационного пространства, хроника событий, прогнозы повестки. Материалы принадлежат их изданиям; листок носит информационно-аналитический характер и не является агитацией. Выходит с 11 сентября 2026 года.</p></div>
-<div><b>Периодичности</b><p><a href="../weekly.html" class="flink">Неделя</a> · <a href="../monthly.html" class="flink">Месяц</a> · <a href="../index.html" class="flink">Первая полоса</a></p></div>
-</div></footer>
+<footer class="footer"><div class="footer__inner">
+<div><div class="footer__brand">ГУДОК<span>.</span></div>
+<p>Информационно-аналитическое издание марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Материалы принадлежат их изданиям; издание носит информационно-аналитический характер и не является агитацией.</p></div>
+<div><h3>Периодичности</h3><ul style="list-style:none;padding:0;">
+<li><a href="../digests/today.html">День · выпуск сегодня</a></li>
+<li><a href="../weekly.html">Неделя · дуги сюжетов</a></li>
+<li><a href="../monthly.html">Месяц · метрики</a></li>
+<li><a href="../archive.html">Архив-матрица</a></li></ul></div>
+<div><h3>Проекты</h3><ul style="list-style:none;padding:0;">
+<li><a href="../projects/elections_2026.html">Выборы-2026</a></li>
+<li><a href="../projects/goszakupki.html">Госзакупки</a></li>
+<li><a href="../infospace.html">Инфопространство</a></li>
+<li><a href="../afisha.html">Афиша</a></li></ul></div>
+<div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
+<li><a href="../status.html">Статус системы</a></li>
+<li><a href="../roadmap.html">План развития</a></li>
+<li><a href="../digests/exec_2026-09-16.html">Версия руководителю</a></li>
+<li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+</div>
+<div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
+</footer>
 <script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
 document.documentElement.setAttribute("data-theme",c);
