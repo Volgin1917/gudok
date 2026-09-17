@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Проект «Госзакупки» — листок Гудок</title>
+<title>Гудок № 6 от 17.09.2026 — печатная полоса</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png">
 <style>
 :root{
@@ -527,120 +527,160 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
 @media (max-width:1100px){.footer__inner{grid-template-columns:1fr 1fr;gap:26px;}}
 @media (max-width:720px){.footer__inner{grid-template-columns:1fr;gap:22px;}.footer__bottom{flex-direction:column;}}
 
+body.print-mode{background:#8b939c;margin:0;font-family:Georgia,'Times New Roman',serif;}
+.sheet{width:186mm;min-height:266mm;margin:10mm auto;background:#fdfcf8;color:#141414;
+padding:11mm 13mm 9mm;box-shadow:0 4px 24px rgba(0,0,0,.45);position:relative;box-sizing:border-box;}
+.pm-mast{text-align:center;border-bottom:3px double #141414;padding-bottom:4mm;}
+.pm-title{font-size:44pt;font-weight:900;letter-spacing:10px;line-height:1;margin:0;}
+.pm-line{font-size:8.5pt;letter-spacing:1.2px;text-transform:uppercase;margin-top:2.5mm;color:#333;}
+.pm-line b{color:#141414;}
+.pm-kicker{font-size:8pt;letter-spacing:2px;text-transform:uppercase;color:#7a1f1f;font-weight:700;margin:3mm 0 1.5mm;}
+.pm-lead-h{font-size:21pt;font-weight:900;line-height:1.15;margin:0 0 2.5mm;}
+.pm-deck{font-size:10.5pt;font-style:italic;color:#3a3a3a;line-height:1.45;margin:0 0 3mm;}
+.cols{column-count:3;column-gap:6mm;column-rule:.6pt solid #b9b2a6;}
+.cols p{font-size:9.3pt;line-height:1.42;margin:0 0 2.2mm;text-align:justify;hyphens:auto;}
+.pm-h3{font-size:10pt;font-weight:900;text-transform:uppercase;letter-spacing:1px;border-top:1.6pt solid #141414;
+padding-top:1.4mm;margin:3mm 0 1.8mm;break-after:avoid;}
+.pm-item{margin-bottom:2.4mm;break-inside:avoid;}
+.pm-item b{font-size:9.6pt;line-height:1.25;display:block;}
+.pm-item span{font-size:8.6pt;color:#4a4a4a;line-height:1.35;display:block;}
+.pm-item i{font-size:7.6pt;color:#8a8378;font-style:normal;}
+.pm-box{border:1.2pt solid #141414;padding:3mm;margin:3mm 0;break-inside:avoid;}
+.pm-box h4{font-size:9pt;text-transform:uppercase;letter-spacing:1.4px;margin:0 0 2mm;border-bottom:.8pt solid #141414;padding-bottom:1.2mm;}
+.pm-box ul{list-style:none;margin:0;padding:0;}
+.pm-box li{font-size:8.8pt;line-height:1.4;margin-bottom:1.4mm;}
+.pm-box li b{color:#7a1f1f;}
+.pm-stats{display:flex;gap:4mm;justify-content:space-between;margin:3mm 0;break-inside:avoid;}
+.pm-stat{flex:1;text-align:center;border:.8pt solid #141414;padding:2mm 1mm;}
+.pm-stat b{display:block;font-size:15pt;font-weight:900;}
+.pm-stat span{font-size:7.4pt;text-transform:uppercase;letter-spacing:.8px;color:#4a4a4a;}
+.pm-colophon{border-top:3px double #141414;margin-top:4mm;padding-top:2mm;font-size:7.6pt;color:#5a5a5a;line-height:1.5;
+display:flex;justify-content:space-between;gap:6mm;}
+.pm-page{position:absolute;bottom:4mm;right:13mm;font-size:8pt;color:#7a7a7a;}
+.pm-ed{font-size:9.3pt;line-height:1.5;text-align:justify;}
+.pm-ed p{margin:0 0 2.2mm;}
+.pm-toolbar{position:fixed;top:10px;right:14px;z-index:9;display:flex;gap:8px;}
+.pm-toolbar a,.pm-toolbar button{background:#141414;color:#fff;border:none;border-radius:8px;padding:8px 14px;
+font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;font-family:Segoe UI,Arial,sans-serif;}
+@media print{
+  body.print-mode{background:#fff;}
+  .sheet{margin:0;box-shadow:none;width:auto;min-height:auto;page-break-after:always;}
+  .sheet:last-of-type{page-break-after:auto;}
+  .pm-toolbar{display:none;}
+  @page{size:A4;margin:0;}
+}
+</style></head>
+<body class="print-mode">
+<div class="pm-toolbar">
+<a href="digest_2026-09-17.html">← Электронный выпуск</a>
+<button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
 
-.lead-sec{max-width:1200px;margin:0 auto;padding:22px 18px 0;}
-.lead-kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:6px;}
-.lead-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;}
-.lead-main{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 24px;border-top:5px solid var(--gold);}
-.lead-main h2{font-size:24px;font-weight:900;color:var(--navy);line-height:1.25;margin-bottom:10px;}
-.lead-main h2 a{color:var(--navy);} .lead-main h2 a:hover{color:var(--blue);}
-.lead-main p{font-size:14px;color:var(--muted);line-height:1.6;}
-.lead-side{display:flex;flex-direction:column;gap:14px;}
-.lead-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 18px;flex:1;border-top:4px solid var(--blue);}
-.lead-card h3{font-size:16px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:6px;}
-.lead-card h3 a{color:var(--navy);} .lead-card h3 a:hover{color:var(--blue);}
-.lead-card p{font-size:12.6px;color:var(--muted);line-height:1.5;}
-.lead-meta{margin-top:8px;font-size:11px;color:#8a99aa;font-weight:600;}
-.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;max-width:1200px;margin:20px auto 0;padding:0 18px;}
-.tile{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px 16px;border-left:4px solid var(--blue);transition:transform .12s;}
-.tile:hover{transform:translateY(-2px);text-decoration:none;}
-.tile .ic{font-size:21px;}
-.tile b{display:block;font-size:13.5px;color:var(--navy);margin-top:5px;}
-.tile span{display:block;font-size:11.3px;color:var(--muted);margin-top:2px;line-height:1.35;}
-.tile .n{font-size:19px;font-weight:800;color:var(--blue);}
-.wrap1200{max-width:1200px;margin:0 auto;padding:0 18px;}
-.af-mini{display:flex;gap:11px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
-.af-mini:last-child{border-bottom:none;}
-@media (max-width:900px){.lead-grid{grid-template-columns:1fr;}.tiles{grid-template-columns:repeat(2,1fr);}}
-</style><script>
-(function(){try{var t=localStorage.getItem("gudok-theme");
-if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
-document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
-</script></head><body>
-<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 08:28</span></div><div class="mast-inner">
-<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
-<div class="mast-title">ГУДОК<span>.</span></div>
-<div class="mast-side mast-side--right">Проект «Госзакупки»<br>неделя: 14 упоминаний
-<div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div></div>
-</div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="" href="../weekly.html">Неделя</a><a class="" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="active" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-16.html">Руководителю</a></div></nav><main id="main">
-<div class="wrap1200" style="padding-top:20px;">
-<div class="sec-head" style="margin-top:0;"><h2>Паспорт проекта</h2><div class="line"></div></div>
-<div class="note" style="margin-bottom:16px;"><b>Цель</b> — видеть, как расходуются бюджетные деньги региона: что закупается,
-кем, у кого и по какой цене; и как закупочная повестка отражается в СМИ и телеграм-каналах.
-<b>Источники:</b> (1) инфопоток издания — упоминания закупок в 30+ мониторируемых источниках; (2) ЕИС zakupki.gov.ru
-(44-ФЗ и 223-ФЗ) — прямое подключение возможно из контура РФ (сервер редакции или ручной экспорт выгрузки:
-csv/json со полями заказчик, НМЦК, способ, дата, поставщик); из песочницы и облачных раннеров ЕИС недоступна (таймауты).
-<b>Методика:</b> недельные срезы, сравнение периодов, разбор аномалий (крупные единственные поставщики, рост НМЦК по темам).</div>
+<div class="sheet">
+<div class="pm-mast">
+<div class="pm-title">ГУДОК</div>
+<div class="pm-line">информационно-аналитическое издание · выпуск № <b>6</b> · четверг, 17 сентября 2026 · Ульяновск</div>
+<div class="pm-line">марксистская группа «Победа» · для внутреннего распространения · выходит с 11.09.2026</div>
+</div>
 
-<div class="grid2">
-<div>
-<div class="sec-head"><h2>Закупки в инфопотоке</h2><div class="line"></div>
-<div class="badge">14 за неделю · тон +0.19</div></div>
-<div class="card"><div class="card-pad">
-<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Кто освещает закупки</div>
-<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">Улпресса</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:100%;height:100%;background:#96690a;border-radius:6px;"></div></div><div style="width:30px;font-weight:800;">3</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">Губернатор и Правительство Ульяновской области</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:100%;height:100%;background:#96690a;border-radius:6px;"></div></div><div style="width:30px;font-weight:800;">3</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">ulsk_73online</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:66%;height:100%;background:#96690a;border-radius:6px;"></div></div><div style="width:30px;font-weight:800;">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">chpul</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:66%;height:100%;background:#96690a;border-radius:6px;"></div></div><div style="width:30px;font-weight:800;">2</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">Ulnovosti.ru</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:33%;height:100%;background:#96690a;border-radius:6px;"></div></div><div style="width:30px;font-weight:800;">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">Администрация г. Ульяновска</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:33%;height:100%;background:#96690a;border-radius:6px;"></div></div><div style="width:30px;font-weight:800;">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">dimitrovgradd</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:33%;height:100%;background:#96690a;border-radius:6px;"></div></div><div style="width:30px;font-weight:800;">1</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.4px;"><div style="width:150px;text-align:right;font-weight:600;flex-shrink:0;">ulkompr</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:33%;height:100%;background:#96690a;border-radius:6px;"></div></div><div style="width:30px;font-weight:800;">1</div></div>
-</div></div>
-<div class="card" style="margin-top:14px;"><div class="side-head">🗂 Сюжеты недели о закупках</div>
-<div class="side-body"><div class="af-mini"><div class="cal-badge"><b>14</b><span>Sep</span></div>
-<div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12390" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Коротко по итогам еженедельного штаба: ✅ 15 сентября откроем новую взрослую поликлинику в Дальнем Засвияжье.…</a>
-<div style="font-size:11.3px;color:var(--muted);">t.me/Russkih_Aleksey · 👁 8.2K</div></div></div><div class="af-mini"><div class="cal-badge"><b>12</b><span>Sep</span></div>
-<div style="flex:1;"><a href="https://t.me/Russkih_Aleksey/12380" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">📚 В Ульяновске после ремонта открыли обновленную библиотеку №8 на проспекте Нариманова, 106. ✅…</a>
-<div style="font-size:11.3px;color:var(--muted);">t.me/Russkih_Aleksey · 👁 1.8K</div></div></div><div class="af-mini"><div class="cal-badge"><b>16</b><span>Sep</span></div>
-<div style="flex:1;"><a href="https://t.me/dimitrovgradd/31813" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">В димитровградской тюрьме начали шить спецкостюмы на 1,8 млн рублей В тюрьме Димитровграда приступили к…</a>
-<div style="font-size:11.3px;color:var(--muted);">t.me/dimitrovgradd · 👁 896</div></div></div><div class="af-mini"><div class="cal-badge"><b>16</b><span>Sep</span></div>
-<div style="flex:1;"><a href="https://t.me/ulkompr/36383" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Суд отклонил иск международной компании AstraZeneca к российскому фармгиганту «Герофарм» и его партнеру «АЗТ…</a>
-<div style="font-size:11.3px;color:var(--muted);">t.me/ulkompr · 👁 808</div></div></div><div class="af-mini"><div class="cal-badge"><b>11</b><span>Sep</span></div>
-<div style="flex:1;"><a href="https://t.me/ulsk_73online/35858" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Цифровая модернизация за ₽109 млн: «Ульяновскэнерго» ищет подрядчика для установки тысяч «умных» счетчиков…</a>
-<div style="font-size:11.3px;color:var(--muted);">t.me/ulsk_73online · 👁 680</div></div></div><div class="af-mini"><div class="cal-badge"><b>15</b><span>Sep</span></div>
-<div style="flex:1;"><a href="https://t.me/ulsk_73online/35993" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">В Ульяновской области до конца года планируют распределить более ₽600 млн по программе социальных контрактов…</a>
-<div style="font-size:11.3px;color:var(--muted);">t.me/ulsk_73online · 👁 640</div></div></div><div class="af-mini"><div class="cal-badge"><b>14</b><span>Sep</span></div>
-<div style="flex:1;"><a href="https://t.me/ulgovru/23712" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">📚 В Ульяновске после ремонта открыли обновлённую библиотеку № 8 на проспекте Нариманова, 106 Её обновили в…</a>
-<div style="font-size:11.3px;color:var(--muted);">t.me/ulgovru · 👁 96</div></div></div><div class="af-mini"><div class="cal-badge"><b>15</b><span>Sep</span></div>
-<div style="flex:1;"><a href="https://t.me/chpul/34438" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--navy);">Росимущество проводит торги по продаже нежилого здания на Московском шоссе, 24И — объект под арестом из‑за…</a>
-<div style="font-size:11.3px;color:var(--muted);">t.me/chpul · 👁 64</div></div></div></div></div>
-</div>
-<div>
-<div class="sec-head"><h2>Метрики ЕИС</h2><div class="line"></div>
-<div class="badge">подключение</div></div>
-<div class="card"><div class="card-pad" style="padding:10px 14px;">
-<table class="tbl"><tr><th>Метрика</th><th>Ед.</th><th>Статус</th></tr><tr><td>Число извещений 44-ФЗ заказчиков Ульяновской области</td><td>неделя / месяц</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr><tr><td>Суммарная НМЦК и цена заключённых контрактов</td><td>млн ₽</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr><tr><td>Доля закупки у единственного поставщика</td><td>%</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr><tr><td>Среднее снижение цены на конкурентных процедурах</td><td>%</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr><tr><td>Топ-10 заказчиков региона по объёму</td><td>рейтинг</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr><tr><td>Топ-10 поставщиков и концентрация рынка</td><td>HHI</td><td><span class="stchip" style="background:#fdf3dd;color:#96690a;">ожидает подключения</span></td></tr></table>
+<div class="pm-kicker">⟡ Сюжет дня</div>
+<div class="pm-lead-h">🌳 🏠 Продолжаем делать комфортнее наши дворы, скверы и парки: ✅ В этом году по программе «Мой двор» ремонтируем…</div>
+<div class="pm-deck">Обновляем проезды, тротуары, ливневки, заездные карманы, площадки под мусорные контейнеры. В Ульяновске привели в порядок 84 двора, работы продолжаются.…</div>
 
-<div class="note">Как подключить: выгрузка ЕИС (личный кабинет / открытые данные, из контура РФ) кладётся в <code>data/goszakupki_eis.csv</code>
-со столбцами <code>date,customer,method,nmck[,supplier[,price]]</code> (даты YYYY-MM-DD или ДД.ММ.ГГГГ; числа с запятой или точкой) —
-метрики и топы на этой странице считаются автоматически при каждом прогоне конвейера. Статус: файл не загружен — проект ведёт повесточную часть и готовит разборы вручную.</div>
-</div></div>
+<div class="pm-stats">
+<div class="pm-stat"><b>333</b><span>публикаций за сутки</span></div>
+<div class="pm-stat"><b>73</b><span>тема дня: Суды и криминал</span></div>
+<div class="pm-stat"><b>+0.07</b><span>тон повестки</span></div>
+<div class="pm-stat"><b>1</b><span>дн. до голосования</span></div>
+<div class="pm-stat"><b>14</b><span>каскад недели, источников</span></div>
 </div>
+
+<div class="cols">
+<p>Обновляем проезды, тротуары, ливневки, заездные карманы, площадки под мусорные контейнеры. В Ульяновске привели в порядок 84 двора, работы продолжаются. Проверил качество ремонта возле домов №34 и №36 на Камышинской, №19 на Жигулёвской, №25 корпус 1 на Самарской. ✅ На контроле благоустройство общественных пространств. Наращивать темпы помогает нацпроект «Инфраструктура для жизни». В Ульяновске на этот год шесть объектов.…</p>
+<div class="pm-item"><b>Обошла 300 претендентов из России и стран СНГ. Ульяновская вокалистка Софья Иншакова стала участником музыкаль…</b>
+<span>Ульяновская вокалистка Софья Иншакова стала участником музыкально-театрального реалити «Классный мюзикл».</span>
+<i>Культура и афиша · 16.09 15:05 · t.me/ulpressa</i></div><div class="pm-item"><b>Обращение в преддверии выборов Голосование будет проходить в течение трёх дней: 18, 19 и 20 сентября . Прошу в…</b>
+<span>Прошу вас обязательно реализовать своё конституционное право, принять обдуманное, ответственное решение, чтобы результаты выборов подтвердили зрелость и стойкость российского общества.…</span>
+<i>Политика и выборы · 16.09 21:01 · t.me/ulgovru</i></div>
+<div class="pm-h3">🏛 Политика и выборы</div><div class="pm-item"><b>ИНТЕРНАЦИОНАЛ НА ВОЛГЕ: ИЗУЧАЕМ БЮЛЛЕТЕНЬ 2026-й официально объявлен Годом единства народов России. Где-то в…</b>
+<span>Где-то в администрации, видимо, восприняли методичку слишком близко к сердцу, потому что губернаторская кампания в Ульяновской области выполнила план по «единству народов» на 100%.…</span>
+<i>18:19 · t.me/volkodav73</i></div><div class="pm-item"><b>✅ 15 сентября ▶️ Долгожданную поликлинику открыли в Засвияжском районе. Наш большой обзор нового…</b>
+<span>Наш большой обзор нового подразделения ▶️ Где ульяновцы могут узнать о работе управляющей компании ▶️ ИИ, семейное древо и шитье.…</span>
+<i>19:28 · t.me/ulgovru</i></div><div class="pm-item"><b>Короче, фото дня 💼 А вот и первые отзывы о новом мосте через Свиягу. «Ура. Классный мост получился! Теперь из…</b>
+<span>Теперь из центра до 19 микрорайона 10 минут на машине!…</span>
+<i>21:01 · t.me/ulkoroche</i></div><div class="pm-item"><b>Айфон является «куском американской ерунды», заявил депутат Милонов. По его словам, iPhone у него «уже лет…</b>
+<span>По его словам, iPhone у него «уже лет 300 нет» и он ему «нафиг не нужен», хотя ранее депутата замечали со смартфоном Apple.</span>
+<i>20:57 · t.me/ulsk_on</i></div><div class="pm-h3">🛡 Безопасность и происшествия</div><div class="pm-item"><b>🚔 В Ульяновском районе задержали двух подозреваемых в сбыте наркотиков. Полицейские остановили «Приору», в…</b>
+<span>Полицейские остановили «Приору», в которой находились две женщины.…</span>
+<i>18:07 · t.me/reporter73</i></div><div class="pm-item"><b>В Инзенском районе рабочий угнал трактор и врезался в легковушку</b>
+<span>В Инзенском районе 62-летний наёмный рабочий угнал трактор работодателя, чтобы покататься.…</span>
+<i>21:21 · Улпресса</i></div><div class="pm-item"><b>В Ульяновской области мужчину отправили на принудительные работы за неуплату алиментов</b>
+<span>Житель Ульяновской области дважды привлечён к уголовной ответственности за неуплату алиментов на несовершеннолетнюю дочь.…</span>
+<i>20:40 · Улпресса</i></div><div class="pm-item"><b>В Ленинском районе сожитель сломал женщине четыре ребра и кисть</b>
+<span>В Ленинском районе задержан 60-летний мужчина, избивший сожительницу во время ссоры.…</span>
+<i>20:21 · Улпресса</i></div><div class="pm-h3">💼 Экономика и промышленность</div><div class="pm-item"><b>В Ульяновске проиндексируют стоимость проверки проектной документации по инженерным сетям С 1 января 2027…</b>
+<span>В Ульяновске проиндексируют стоимость проверки проектной документации по инженерным сетям С 1 января 2027 года цена за один проверенный комплект документов составит 1320 рублей.…</span>
+<i>18:20 · t.me/ulsk_73online</i></div><div class="pm-item"><b>Объявлены цены на новый кроссовер Tenet T9 (переименованный Chery Tiggo 9) — от 3 950 000 рублей. Автомобиль…</b>
+<span>Автомобиль, выпускающийся на заводе АГР в Калуге, оснащается турбомотором 2.0 (245 л. с.), восьмиступенчатым автоматом и полным приводом.</span>
+<i>18:19 · t.me/ulsk_driver73</i></div><div class="pm-item"><b>Димитровград и «Город трудовой доблести» На сегодняшний день наш Димитровград, который в годы Великой…</b>
+<span>Но многие считают это несправедливым, ведь в те тяжёлые военные годы здесь работали многочисленные важные предприятия и эвакуированные производства, тысячи горожан трудились для фронта.……</span>
+<i>18:18 · t.me/ulpatriot</i></div><div class="pm-item"><b>Портовая особая экономическая зона «Ульяновск» вошла в пятерку лучших в стране по оценке Минэкономразвития…</b>
+<span>Об этом сообщил губернатор Ульяновской области Алексей Русских 14 сентября на заседании штаба по комплексному развитию региона.…</span>
+<i>21:47 · Звезда (Новомалыклинский р-н)</i></div><div class="pm-h3">🌾 Агропром</div><div class="pm-item"><b>Недостоверно задекларировали около 201 тысячи тонн зерна</b>
+<span>Во времена всеобщей лжи говорить правду — это экстремизм Года Управлением Россельхознадзора по Чувашской Республике и Ульяновской области прекращено действие 118 деклараций о соответствии на зерновую продукцию, произведённую сельхозтоваропроизводителями Ульяновской области.…</span>
+<i>22:13 · Ulnovosti.ru</i></div><div class="pm-item"><b>Россельхознадзор потребовал уничтожить серию вакцины «Мультикан-8» после сообщений о гибели собак. Ранее…</b>
+<span>Ранее владельцы животных жаловались на ухудшение состояния питомцев после вакцинации.</span>
+<i>14:15 · t.me/chpul</i></div><div class="pm-h3">🏙 Общество и городская среда</div><div class="pm-item"><b>😱 На Кузоватовской медики спасают мужчину, потерял сознание.</b>
+<span>😱 На Кузоватовской медики спасают мужчину, потерял сознание.</span>
+<i>18:03 · t.me/insaid173</i></div><div class="pm-item"><b>Новый мост через Свиягу, дорога уже с разметкой Источник</b>
+<span>Новый мост через Свиягу, дорога уже с разметкой…</span>
+<i>18:10 · t.me/shugozhor73</i></div><div class="pm-item"><b>🤩 Телеканал «Репортер 73» — победитель Всероссийской телевизионной премии «ТЭФИ-Капитал» 2026. Сюжет Татьяны…</b>
+<span>Сюжет Татьяны Дамадановой — «Лагерь 50+» — возглавил номинацию «Лучший репортаж в ежедневном выпуске новостей». Поздравляем и гордимся!…</span>
+<i>20:02 · t.me/reporter73</i></div><div class="pm-item"><b>25 ЛЕТ СОЮЗУ ВЕТЕРАНОВ АФГАНИСТАНА ДИМИТРОВГРАДА Имел честь сегодня поздравить друзей! За этой датой — не…</b>
+<span>За этой датой — не просто годы работы организации.…</span>
+<i>20:53 · t.me/sergeymorozov73</i></div><div class="pm-h3">⚕️ Здравоохранение</div><div class="pm-item"><b>Вакцину от рака кожи включили в полис ОМС. Первым препарат получил житель Курской области с диагнозом…</b>
+<span>Первым препарат получил житель Курской области с диагнозом «меланома кожи». До конца 2026 года вакцину получат ещё 20 пациентов, сообщили в Минздраве.</span>
+<i>18:20 · t.me/chpul</i></div><div class="pm-item"><b>ДОЛГОЖДАННОЕ СОБЫТИЕ ДЛЯ ЗАСВИЯЖЦЕВ: В УЛЬЯНОВСКЕ ОТКРЫЛИ НОВУЮ ВЗРОСЛУЮ ПОЛИКЛИНИКУ № 4 НА УЛИЦЕ ГЕРОЯ…</b>
+<span>КОЛПАКОВА! Это событие, которого жители Засвияжского района ждали более 15 лет!…</span>
+<i>19:35 · t.me/vmkononov</i></div><div class="pm-item"><b>👏 В Ульяновске впервые заменили аортальный клапан через прокол без разреза В областной клинической больнице…</b>
+<span>Вмешательство выполнил заведующий отделением из Казани Михаил Володюхин, ульяновские хирурги ассистировали и перенимали опыт.…</span>
+<i>21:34 · t.me/tresh_ulyan</i></div><div class="pm-item"><b>Впервые в Ульяновске: больное сердце починили через прокол вместо разреза В областной клинической больнице…</b>
+<span>Работу сердца пациентке восстановили через крошечный прокол в бедренной артерии (метод TAVI).…</span>
+<i>20:11 · t.me/insaid173</i></div><div class="pm-h3">🎓 Образование и наука</div><div class="pm-item"><b>Замахнулись на всю страну. Костишко и Кононов превратят УлГУ в мощный научно-индустриальный хаб</b>
+<span>Замахнулись на всю страну.…</span>
+<i>19:12 · t.me/ulpravda</i></div><div class="pm-item"><b>Ксения Душкова: В ЦКиД «Восход» состоялось торжественное мероприятие, посвященное 25-летию со дня образования…</b>
+<span>25 лет — это целая эпоха. Эпоха верной дружбы, взаимовыручки и неустанной работы.…</span>
+<i>21:30 · t.me/dimitrovgradonline</i></div><div class="pm-item"><b>За написанием дипломов начнут следить в реальном времени. В ноябре запустят «Антиплагиат 2.0», который…</b>
+<span>В ноябре запустят «Антиплагиат 2.0», который покажет преподавателю всю историю работы над текстом — вставки, правки, источники и использование нейросетей.…</span>
+<i>19:03 · t.me/topor_ul</i></div><div class="pm-item"><b>❗️ Средний размер пособия по беременности и родам для студенток вырос в четыре раза: сейчас он составляет…</b>
+<span>Пособие выплачивается единовременно за весь период декретного отпуска и один раз на каждую беременность, сообщили в Соцфонде.…</span>
+<i>08:56 · t.me/topor_ul</i></div><div class="pm-h3">🏆 Спорт</div><div class="pm-item"><b>Три миллиона — на спортплощадку На стадионе «Строитель» установлена спортивная площадка для выполнения…</b>
+<span>И все это благодаря реализации национального проекта «Развитие массового спорта и физической культуры в Российской Федерации».…</span>
+<i>20:40 · t.me/dimitrovgradonline</i></div><div class="pm-item"><b>Владимир Камеко обсудил с Андреем Никитиным обновление общественного транспорта и развитие трассы Р-241</b>
+<span>Владимир Камеко обсудил с Андреем Никитиным обновление общественного транспорта и развитие трассы…</span>
+<i>00:24 · t.me/ulpravda</i></div><div class="pm-item"><b>"Волга-Спорт-Арена" взяла третье место среди ледовых дворцов России и была признана лучшей тренировочной…</b>
+<span>"Волга-Спорт-Арена" взяла третье место среди ледовых дворцов России и была признана лучшей тренировочной ледовой площадкой…</span>
+<i>12:28 · t.me/ulpressa</i></div><div class="pm-item"><b>🔝 Багателия и Степанов - в "команде недели" по версии "Советского спорта" Действия Луки и Данила в Уфе…</b>
+<span>Символическая сборная тура Лиги PARI составляется редакцией «Советского спорта» совместно с партнёрами из РУСТАТ на основе индекса футболистов.…</span>
+<i>10:33 · t.me/fcvolga</i></div><div class="pm-h3">🎭 Культура и афиша</div><div class="pm-item"><b>Съёмные комнаты в Ульяновске подорожали на 7,5 процента за год</b>
+<span>Аренда комнат в Ульяновске за год выросла на 7,5 процента — до 10 203 рублей в месяц.…</span>
+<i>11:13 · Улпресса</i></div><div class="pm-item"><b>🌷 Ульяновские озеленители готовят клумбы к высадке луковиц тюльпанов. С октября специалисты приступят к…</b>
+<span>С октября специалисты приступят к высадке деревьев и кустарников, а также луковиц тюльпанов, которые расцветут к майским праздникам.…</span>
+<i>11:47 · t.me/reporter73</i></div><div class="pm-item"><b>Обошла 300 претендентов из шести стран: ульяновская вокалистка стала героиней всероссийского реалити</b>
+<span>Ульяновская певица Софья Иншакова вошла в число 20 участников федерального музыкально-театрального реалити «Классный мюзикл», которое с 7 сентября выходит на платформе ОК.…</span>
+<i>14:53 · Улпресса</i></div><div class="pm-item"><b>✅ 16 сентября ▶️ 175 ульяновских ветеранов спецоперации нашли работу благодаря сервису «Работа для СВОих» ▶️…</b>
+<span>В России появится новый дорожный знак ▶️ Ульяновский музей приглашает на выставку, посвящённую путешествиям Лермонтова ▶️ Волонтёры региона зовут вступить в Регистр доноров костного мозга ▶️ Большая перемена.……</span>
+<i>19:31 · t.me/ulgovru</i></div>
 </div>
+
+<div class="pm-box"><h4>Афиша: сегодня и завтра</h4><ul><li><b>17.09 —</b> — 📣 17 сентября Надежда Глебовна Ярушкина выступит на Международном форуме инноваторов…</li><li><b>17.09 —</b> — Новый мост через Свиягу планируется открыть 15-17 сентября, сообщил глава Ульяновска Мы в…</li><li><b>17.09 —</b> — УлГУ приглашает на профориентационные экскурсии</li><li><b>17.09 23:00</b> — Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли мама. 10…</li><li><b>18.09 18:00</b> — ⚽️ «Волга» принимает костромской «Спартак» 18 сентября Домашний матч ульяновской команды…</li><li><b>18.09 18:00</b> — Накопились счёты»: ульяновская «Волга» примет костромской «Спартак» на стадионе «Труд»</li><li><b>18.09 04:00</b> — ДЕВОЧКИ, У НАС СРОЧНЫЙ СБОР 💋 невеста для девичника вообще не обязательна. Достаточно подруг и…</li></ul></div>
+
+
+
+<div class="pm-colophon">
+<div>Набрано и выпущено автоматически: мониторинг 33 Telegram-каналов и 6 RSS-лент, 1 сайт(ов) органов власти; колонку редактора готовит ассистент.</div>
+<div>Материалы принадлежат их изданиям. Листок не является агитацией.</div>
 </div>
-</main>
-<footer class="footer"><div class="footer__inner">
-<div><div class="footer__brand">ГУДОК<span>.</span></div>
-<p>Информационно-аналитическое издание марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Материалы принадлежат их изданиям; издание носит информационно-аналитический характер и не является агитацией.</p></div>
-<div><h3>Периодичности</h3><ul style="list-style:none;padding:0;">
-<li><a href="../digests/today.html">День · выпуск сегодня</a></li>
-<li><a href="../weekly.html">Неделя · дуги сюжетов</a></li>
-<li><a href="../monthly.html">Месяц · метрики</a></li>
-<li><a href="../archive.html">Архив-матрица</a></li></ul></div>
-<div><h3>Проекты</h3><ul style="list-style:none;padding:0;">
-<li><a href="../projects/elections_2026.html">Выборы-2026</a></li>
-<li><a href="../projects/goszakupki.html">Госзакупки</a></li>
-<li><a href="../infospace.html">Инфопространство</a></li>
-<li><a href="../afisha.html">Афиша</a></li></ul></div>
-<div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
-<li><a href="../status.html">Статус системы</a></li>
-<li><a href="../roadmap.html">План развития</a></li>
-<li><a href="../digests/exec_2026-09-17.html">Версия руководителю</a></li>
-<li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+<div class="pm-page">стр. 1</div>
 </div>
-<div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
-</footer>
-<script>
-function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
-document.documentElement.setAttribute("data-theme",c);
-try{localStorage.setItem("gudok-theme",c);}catch(e){}
-syncThemeBtn();}
-function syncThemeBtn(){var b=document.getElementById("themeBtn");
-if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
-syncThemeBtn();
-</script></body></html>
+</body></html>

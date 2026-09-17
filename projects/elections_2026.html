@@ -433,21 +433,8 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
 .more-heads a:hover{color:var(--accent);}
 .more-heads a span{font-family:var(--sans);color:var(--muted);font-weight:400;font-size:11.5px;display:block;}
 
-/* подвал — компактный */
-.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
-.footer b,.footer h3{color:var(--paper);}
-.footer h3{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
-.footer a{color:var(--on-ink);}
-.footer a:hover{color:var(--accent);}
-.footer-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:20px 36px;}
-.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
-.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
-.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
-.footer li{margin:4px 0;}
-.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
-.footer__brand span{color:var(--accent);}
-.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
-:root[data-theme="dark"] .footer__bottom{border-top-color:rgba(11,11,11,.2);}
+/* подвал — единый, см. footer.FOOTER_CSS */
+.footer h3{color:var(--paper);}
 
 /* печать */
 .pm-mast{text-align:center;border-bottom:3px double var(--ink);padding-bottom:4mm;}
@@ -491,7 +478,6 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
   .feature__text{padding:48px 0;}
   .feature__media{min-height:360px;}
   .opinion__grid{grid-template-columns:1fr 1fr;}
-  .footer__inner{grid-template-columns:1fr 1fr;gap:26px;}
   .now-grid{grid-template-columns:1fr;}
   .now-col{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:12px;}
   .kpi-grid{grid-template-columns:repeat(3,1fr);}
@@ -509,8 +495,6 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
   .mostread__list li{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:14px;}
   .mostread__list li:first-child{border-top:0;padding-top:0;}
   .sec-head{flex-direction:column;align-items:flex-start;gap:6px;}
-  .footer__inner{grid-template-columns:1fr;gap:22px;}
-  .footer__bottom{flex-direction:column;}
   .kpi-grid{grid-template-columns:repeat(2,1fr);}
 }
 .mast-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;max-width:var(--maxw);margin:0 auto;padding:26px var(--gutter) 20px;}
@@ -525,6 +509,22 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
   .nav,.ticker-wrap,.filters,.print-btn,.theme-btn,.nav-toggle,.util-bar-wrap{display:none!important;}
   body{background:#fff;}
 }
+/* подвал — единый */
+.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
+.footer h3{color:var(--paper);}
+.footer h3{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
+.footer a{color:var(--on-ink);}
+.footer a:hover{color:var(--accent);}
+.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
+.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
+.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
+.footer li{margin:4px 0;}
+.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
+.footer__brand span{color:var(--accent);}
+.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+:root[data-theme="dark"] .footer__bottom{border-top-color:rgba(11,11,11,.2);}
+@media (max-width:1100px){.footer__inner{grid-template-columns:1fr 1fr;gap:26px;}}
+@media (max-width:720px){.footer__inner{grid-template-columns:1fr;gap:22px;}.footer__bottom{flex-direction:column;}}
 
 .pill{font-size:10.5px;font-weight:800;color:#fff;border-radius:999px;padding:3px 10px;white-space:nowrap;display:inline-block;}
 .p-kprf{background:#d52b1e;} .p-er{background:#2d6fd6;} .p-sr{background:#e2622a;}
@@ -553,18 +553,18 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>среда, 16 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 23:00</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>четверг, 17 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 08:28</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Спецвыпуск «Выборы-2026»<br>голосование 18–20 сентября
 <div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button><button class="print-btn" onclick="window.print()">🖈 PDF</button></div></div>
 </div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="" href="../weekly.html">Неделя</a><a class="" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-15.html">Руководителю</a></div></nav><main id="main">
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="" href="../weekly.html">Неделя</a><a class="" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-16.html">Руководителю</a></div></nav><main id="main">
 <div class="page">
 
 <div class="countdown" style="margin-bottom:18px;">
-<div class="big">2</div>
-<div class="txt"><b>До единого дня голосования осталось <b>2</b> дня</b>
+<div class="big">1</div>
+<div class="txt"><b>До единого дня голосования осталось <b>1</b> день</b>
 <span>18, 19 и 20 сентября 2026 · трёхдневное голосование · участки 8:00–20:00 · ДЭГ в области не проводится</span></div>
 </div>
 
@@ -668,11 +668,84 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 
 </div>
 </main>
-<footer class="footer"><div class="footer-inner">
-<div><b>листок Гудок</b><p>Спецвыпуск «Выборы-2026». Предвыборная редакция от 16.09.2026. Обновляется ежедневно конвейером run.sh до дня голосования.</p></div>
-<div><b>Источники профилей</b><p>Википедия («Выборы губернатора Ульяновской области (2026)»), gogov.ru (сводка кандидатов от 23.08.2026), Избирательная комиссия Ульяновской области, «Ведомости», региональные СМИ.</p></div>
-<div><b>Дисклеймер</b><p>Выпуск информационно-аналитический, не является агитацией. Оценки помечены как редакционные. Фактические данные сверены с первоисточниками на дату обновления.</p></div>
-</div></footer>
+<footer class="footer"><div class="footer__inner">
+<div><div class="footer__brand">ГУДОК<span>.</span></div>
+<p>Информационно-аналитическое издание марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Материалы принадлежат их изданиям; издание носит информационно-аналитический характер и не является агитацией.</p></div>
+<div><h3>Периодичности</h3><ul style="list-style:none;padding:0;">
+<li><a href="../digests/today.html">День · выпуск сегодня</a></li>
+<li><a href="../weekly.html">Неделя · дуги сюжетов</a></li>
+<li><a href="../monthly.html">Месяц · метрики</a></li>
+<li><a href="../archive.html">Архив-матрица</a></li></ul></div>
+<div><h3>Проекты</h3><ul style="list-style:none;padding:0;">
+<li><a href="../projects/elections_2026.html">Выборы-2026</a></li>
+<li><a href="../projects/goszakupki.html">Госзакупки</a></li>
+<li><a href="../infospace.html">Инфопространство</a></li>
+<li><a href="../afisha.html">Афиша</a></li></ul></div>
+<div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
+<li><a href="../status.html">Статус системы</a></li>
+<li><a href="../roadmap.html">План развития</a></li>
+<li><a href="../digests/exec_2026-09-17.html">Версия руководителю</a></li>
+<li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+</div>
+<div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
+</footer>
+<script>
+(function(){
+  var grid=document.getElementById('feed-grid');
+  if(!grid)return;
+  var cards=Array.prototype.slice.call(grid.querySelectorAll('.feed-card'));
+  var total=cards.length,limit=12,step=12;
+  var btn=document.getElementById('feed-more');
+  var cnt=document.getElementById('feed-count');
+  var empty=document.getElementById('feed-empty');
+  function state(){
+    var s=location.hash.match(/^#feed=([^:]*)(?::([^:]*))?/);
+    return {cat:s?decodeURIComponent(s[1])||'*':'*',type:s?decodeURIComponent(s[2])||'*':'*'};
+  }
+  function match(c,st){
+    return (st.cat==='*'||c.getAttribute('data-cat')===st.cat)
+        && (st.type==='*'||c.getAttribute('data-type')===st.type);
+  }
+  function paint(){
+    var st=state(),shown=0,hasMore=false;
+    cards.forEach(function(c){
+      if(match(c,st)){
+        if(shown<limit){c.classList.remove('hidden');shown++;}
+        else{c.classList.add('hidden');hasMore=true;}
+      }else{c.classList.add('hidden');}
+    });
+    if(cnt)cnt.textContent='Показано '+shown+' из '+total+' материалов суток';
+    if(btn)btn.style.display=hasMore?'grid':'none';
+    if(empty)empty.hidden=!((st.cat!=='*'||st.type!=='*')&&shown===0);
+    document.querySelectorAll('#feed-chips .chip-f').forEach(function(ch){
+      var g=ch.getAttribute('data-group'),v=ch.getAttribute('data-val');
+      var want=g==='cat'?st.cat:st.type;
+      var on=v===want;
+      ch.classList.toggle('on',on);
+      ch.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+  if(btn)btn.addEventListener('click',function(){limit+=step;paint();});
+  window.addEventListener('hashchange',function(){limit=12;paint();});
+  document.querySelectorAll('#feed-chips .chip-f').forEach(function(ch){
+    ch.addEventListener('click',function(){
+      var g=ch.getAttribute('data-group'),v=ch.getAttribute('data-val');
+      var st=state();
+      if(g==='cat'){st.cat=v;}else{st.type=v;}
+      location.hash='feed='+encodeURIComponent(st.cat)+':'+encodeURIComponent(st.type);
+    });
+  });
+  paint();
+  // #24: A/B — переключатель «версии B главной» (запоминается локально)
+  var ab=document.querySelector('.ab-link');
+  if(ab){
+    var abv=localStorage.getItem('gudok-ab-v2')==='1';
+    function abApply(){document.body.setAttribute('data-ab',abv?'v2':'v1');ab.setAttribute('aria-pressed',abv?'true':'false');}
+    ab.addEventListener('click',function(){abv=!abv;localStorage.setItem('gudok-ab-v2',abv?'1':'0');abApply();});
+    abApply();
+  }
+})();
+</script>
 <script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
 document.documentElement.setAttribute("data-theme",c);
