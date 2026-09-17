@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-17T06:15:56.669311+00:00",
- "generated_local": "17.09.2026 10:15",
+ "generated_utc": "2026-09-17T09:00:08.668951+00:00",
+ "generated_local": "17.09.2026 13:00",
  "days": [
   "2026-09-04",
   "2026-09-05",
@@ -18,9 +18,9 @@
   "2026-09-17"
  ],
  "counts": {
-  "total": 2366,
-  "last24h": 335,
-  "last7d": 2130
+  "total": 2441,
+  "last24h": 336,
+  "last7d": 2181
  },
  "topics": {
   "elections": {
@@ -39,11 +39,11 @@
     14,
     15,
     20,
-    4
+    8
    ],
-   "today": 4,
-   "week": 80,
-   "total": 103,
+   "today": 8,
+   "week": 84,
+   "total": 107,
    "status": "stable"
   },
   "governor": {
@@ -62,11 +62,11 @@
     35,
     78,
     33,
-    7
+    18
    ],
-   "today": 7,
-   "week": 256,
-   "total": 326,
+   "today": 18,
+   "week": 267,
+   "total": 337,
    "status": "stable"
   },
   "uav": {
@@ -85,11 +85,11 @@
     8,
     43,
     5,
-    5
+    6
    ],
-   "today": 5,
-   "week": 127,
-   "total": 155,
+   "today": 6,
+   "week": 128,
+   "total": 156,
    "status": "stable"
   },
   "cityday": {
@@ -131,11 +131,11 @@
     17,
     24,
     31,
-    5
+    11
    ],
-   "today": 5,
-   "week": 101,
-   "total": 130,
+   "today": 11,
+   "week": 107,
+   "total": 136,
    "status": "rising"
   },
   "uaz": {
@@ -223,11 +223,11 @@
     6,
     15,
     16,
-    3
+    4
    ],
-   "today": 3,
-   "week": 69,
-   "total": 80,
+   "today": 4,
+   "week": 70,
+   "total": 81,
    "status": "stable"
   },
   "cityspace": {
@@ -246,11 +246,11 @@
     37,
     27,
     41,
-    8
+    17
    ],
-   "today": 8,
-   "week": 190,
-   "total": 217,
+   "today": 17,
+   "week": 199,
+   "total": 226,
    "status": "stable"
   },
   "transport": {
@@ -269,11 +269,11 @@
     78,
     78,
     56,
-    12
+    29
    ],
-   "today": 12,
-   "week": 336,
-   "total": 385,
+   "today": 29,
+   "week": 353,
+   "total": 402,
    "status": "stable"
   },
   "schools": {
@@ -292,11 +292,11 @@
     29,
     53,
     28,
-    10
+    14
    ],
-   "today": 10,
-   "week": 222,
-   "total": 289,
+   "today": 14,
+   "week": 226,
+   "total": 293,
    "status": "stable"
   },
   "medicine": {
@@ -315,11 +315,11 @@
     23,
     45,
     24,
-    4
+    9
    ],
-   "today": 4,
-   "week": 143,
-   "total": 179,
+   "today": 9,
+   "week": 148,
+   "total": 184,
    "status": "stable"
   },
   "crime": {
@@ -338,11 +338,11 @@
     49,
     61,
     73,
-    9
+    18
    ],
-   "today": 9,
-   "week": 320,
-   "total": 388,
+   "today": 18,
+   "week": 329,
+   "total": 397,
    "status": "stable"
   },
   "culture": {
@@ -361,11 +361,11 @@
     24,
     23,
     15,
-    3
+    7
    ],
-   "today": 3,
-   "week": 125,
-   "total": 192,
+   "today": 7,
+   "week": 129,
+   "total": 196,
    "status": "stable"
   },
   "sport": {
@@ -384,11 +384,11 @@
     39,
     40,
     26,
-    5
+    10
    ],
-   "today": 5,
-   "week": 170,
-   "total": 223,
+   "today": 10,
+   "week": 175,
+   "total": 228,
    "status": "stable"
   },
   "export": {
@@ -407,11 +407,11 @@
     8,
     15,
     12,
-    6
+    9
    ],
-   "today": 6,
-   "week": 69,
-   "total": 95,
+   "today": 9,
+   "week": 72,
+   "total": 98,
    "status": "stable"
   },
   "weather": {
@@ -430,11 +430,11 @@
     10,
     15,
     15,
-    8
+    10
    ],
-   "today": 8,
-   "week": 94,
-   "total": 114,
+   "today": 10,
+   "week": 96,
+   "total": 116,
    "status": "stable"
   },
   "macro": {
@@ -478,10 +478,10 @@
     21,
     40,
     34,
-    5
+    13
    ],
-   "week": 155,
-   "today": 5
+   "week": 163,
+   "today": 13
   },
   "security": {
    "name": "Безопасность и происшествия",
@@ -499,10 +499,10 @@
     72,
     88,
     69,
-    13
+    27
    ],
-   "week": 420,
-   "today": 13
+   "week": 434,
+   "today": 27
   },
   "economy": {
    "name": "Экономика и промышленность",
@@ -520,10 +520,10 @@
     44,
     34,
     35,
-    11
+    18
    ],
-   "week": 181,
-   "today": 11
+   "week": 188,
+   "today": 18
   },
   "agro": {
    "name": "Агропром",
@@ -562,10 +562,10 @@
     130,
     143,
     146,
-    40
+    72
    ],
-   "week": 764,
-   "today": 40
+   "week": 796,
+   "today": 72
   },
   "health": {
    "name": "Здравоохранение",
@@ -583,10 +583,10 @@
     18,
     40,
     18,
-    2
+    5
    ],
-   "week": 93,
-   "today": 2
+   "week": 96,
+   "today": 5
   },
   "education": {
    "name": "Образование и наука",
@@ -604,10 +604,10 @@
     13,
     26,
     10,
-    2
+    5
    ],
-   "week": 110,
-   "today": 2
+   "week": 113,
+   "today": 5
   },
   "sport": {
    "name": "Спорт",
@@ -625,10 +625,10 @@
     12,
     15,
     12,
-    2
+    6
    ],
-   "week": 68,
-   "today": 2
+   "week": 72,
+   "today": 6
   },
   "culture": {
    "name": "Культура и афиша",
@@ -646,10 +646,10 @@
     18,
     9,
     16,
-    6
+    10
    ],
-   "week": 123,
-   "today": 6
+   "week": 127,
+   "today": 10
   }
  },
  "tg_top": [
