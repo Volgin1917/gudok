@@ -37,7 +37,7 @@
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 8,
+  "items": 5,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
@@ -97,13 +97,13 @@
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 8,
+  "items": 9,
   "error": null,
   "title": "ЧП Ульяновск"
  },
@@ -121,7 +121,7 @@
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 8,
+  "items": 10,
   "error": null,
   "title": "Короче, Ульяновск"
  },
@@ -139,7 +139,7 @@
  },
  "tg:chpul": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
@@ -181,7 +181,7 @@
  },
  "tg:volkodav73": {
   "ok": true,
-  "items": 8,
+  "items": 9,
   "error": null,
   "title": "Волкодав73"
  },
@@ -238,11 +238,11 @@
   "error": "<urlopen error timed out>"
  },
  "_meta": {
-  "last_run_utc": "2026-09-18T08:27:10.180717+00:00",
-  "last_run_local": "18.09.2026 12:27",
-  "fetched": 485,
-  "new": 54,
-  "total_store": 2813
+  "last_run_utc": "2026-09-18T09:11:56.667970+00:00",
+  "last_run_local": "18.09.2026 13:11",
+  "fetched": 488,
+  "new": 26,
+  "total_store": 2839
  },
  "rss:Улград": {
   "ok": true,
