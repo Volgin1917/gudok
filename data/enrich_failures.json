@@ -28,5 +28,10 @@
   "code": "blocked",
   "date": "2026-09-18",
   "error": "'latin-1' codec can't encode characters in position 0-17: ordinal not in range(256)"
+ },
+ "ulmeria.gosuslugi.ru": {
+  "code": "timeout",
+  "date": "2026-09-18",
+  "error": "<urlopen error timed out>"
  }
 }

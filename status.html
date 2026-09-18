@@ -115,9 +115,9 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\u2600\
 <h1 class="page-title">🩺 Status — конвейер издания Гудок</h1>
 
 <div class="grid">
-<div class="stat"><b>🟢 в норме</b><span>последний сбор: 9 мин назад</span></div>
-<div class="stat"><b>40/41</b><span>источников доступно</span></div>
-<div class="stat"><b>2759</b><span>записей в базе · 354 за 24 ч</span></div>
+<div class="stat"><b>🟢 в норме</b><span>последний сбор: 12 мин назад</span></div>
+<div class="stat"><b>38/41</b><span>источников доступно</span></div>
+<div class="stat"><b>2813</b><span>записей в базе · 371 за 24 ч</span></div>
 <div class="stat"><b>2026-09-18</b><span>последний бэкап</span></div>
 </div>
 
@@ -127,16 +127,16 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\u2600\
 <div class="note">Последняя проверка монитора: 11.09.2026 10:57:49 · белый список: Russkih_Aleksey, ulgovru, ulpressa, reporter73, chpulsk, A_Boldakin</div>
 
 <h2>🎯 Качество выборки афиши</h2>
-<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));"><div class="stat"><b>10</b><span>прошло порог</span></div><div class="stat"><b>76</b><span>дат найдено в текстах</span></div><div class="stat"><b>54</b><span>отсеяно</span></div><div class="stat"><b>0</b><span>без времени</span></div><div class="stat"><b>0</b><span>без площадки</span></div><div class="stat"><b>0.0%</b><span>«Прочее»</span></div><div class="stat"><b>2</b><span>с др. анонсами</span></div><div class="stat"><b>9</b><span>новых площадок к словарю</span></div><div class="stat"><b>0.964</b><span>средний балл уверенности</span></div></div>
-<div class="note">Порог входа: 0.55. Афиша собрана 18.09.2026 11:09. прошло порог 10; новых площадок 9; с др. анонсами 2
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));"><div class="stat"><b>10</b><span>прошло порог</span></div><div class="stat"><b>78</b><span>дат найдено в текстах</span></div><div class="stat"><b>55</b><span>отсеяно</span></div><div class="stat"><b>0</b><span>без времени</span></div><div class="stat"><b>0</b><span>без площадки</span></div><div class="stat"><b>0.0%</b><span>«Прочее»</span></div><div class="stat"><b>2</b><span>с др. анонсами</span></div><div class="stat"><b>9</b><span>новых площадок к словарю</span></div><div class="stat"><b>0.964</b><span>средний балл уверенности</span></div></div>
+<div class="note">Порог входа: 0.55. Афиша собрана 18.09.2026 12:39. прошло порог 10; новых площадок 9; с др. анонсами 2
 Прогоны сквозь <code>extract_calendar_full</code>; словарь площадок — <code>data/venues.json</code>; метки «отменено/перенесено» — по свежим постам (reschedule_flags, горизонт 48 ч).</div>
 
 
 <h2>📡 Источники</h2>
 <table><tr><th>Тип</th><th>Источник</th><th>Статус</th><th>Собрано</th></tr><tr><td><span class="badge-t">RSS</span></td>
 <td><a href="https://ulnovosti.ru/feed/" target="_blank" rel="noopener">Ulnovosti.ru</a></td>
-<td><span class="ok">в сети</span></td>
-<td>10</td></tr><tr><td><span class="badge-t">RSS</span></td>
+<td><span class="fail">ошибка: &lt;urlopen error [Errno 101] Network is unreachable&gt;</span></td>
+<td>0</td></tr><tr><td><span class="badge-t">RSS</span></td>
 <td><a href="https://ulpressa.ru/feed/" target="_blank" rel="noopener">Улпресса</a> <span style="color:var(--muted);font-size:11px;">→ издание «Улпресса»: 2 канала = один источник</span></td>
 <td><span class="ok">в сети</span></td>
 <td>20</td></tr><tr><td><span class="badge-t">RSS</span></td>
@@ -154,19 +154,19 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\u2600\
 <td>10</td></tr><tr><td><span class="badge-t">TG T1</span></td>
 <td><a href="https://t.me/ulpressa" target="_blank" rel="noopener">ulpressa</a> <span style="color:var(--muted);font-size:11px;">→ издание «Улпресса»: 2 канала = один источник</span></td>
 <td><span class="ok">в сети</span></td>
-<td>31</td></tr><tr><td><span class="badge-t">TG T1</span></td>
+<td>32</td></tr><tr><td><span class="badge-t">TG T1</span></td>
 <td><a href="https://t.me/Russkih_Aleksey" target="_blank" rel="noopener">Russkih_Aleksey</a> <span style="color:var(--muted);font-size:11px;">→ издание «Губернатор и Правительство Ульяновской области»: 2 канала = один источник</span></td>
 <td><span class="ok">в сети</span></td>
 <td>11</td></tr><tr><td><span class="badge-t">TG T1</span></td>
 <td><a href="https://t.me/sergeymorozov73" target="_blank" rel="noopener">sergeymorozov73</a></td>
 <td><span class="ok">в сети</span></td>
-<td>8</td></tr><tr><td><span class="badge-t">TG T1</span></td>
+<td>10</td></tr><tr><td><span class="badge-t">TG T1</span></td>
 <td><a href="https://t.me/UAZ_Today" target="_blank" rel="noopener">UAZ_Today</a></td>
 <td><span class="ok">в сети</span></td>
 <td>13</td></tr><tr><td><span class="badge-t">TG T1</span></td>
 <td><a href="https://t.me/fcvolga" target="_blank" rel="noopener">fcvolga</a></td>
 <td><span class="ok">в сети</span></td>
-<td>8</td></tr><tr><td><span class="badge-t">TG T1</span></td>
+<td>9</td></tr><tr><td><span class="badge-t">TG T1</span></td>
 <td><a href="https://t.me/ulpravda" target="_blank" rel="noopener">ulpravda</a></td>
 <td><span class="ok">в сети</span></td>
 <td>16</td></tr><tr><td><span class="badge-t">TG T1</span></td>
@@ -181,7 +181,7 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\u2600\
 <td>5</td></tr><tr><td><span class="badge-t">TG T1</span></td>
 <td><a href="https://t.me/reporter73" target="_blank" rel="noopener">reporter73</a></td>
 <td><span class="ok">в сети</span></td>
-<td>8</td></tr><tr><td><span class="badge-t">TG T1</span></td>
+<td>10</td></tr><tr><td><span class="badge-t">TG T1</span></td>
 <td><a href="https://t.me/uac_ru" target="_blank" rel="noopener">uac_ru</a></td>
 <td><span class="ok">в сети</span></td>
 <td>11</td></tr><tr><td><span class="badge-t">TG T1</span></td>
@@ -196,13 +196,13 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\u2600\
 <td>12</td></tr><tr><td><span class="badge-t">TG T2</span></td>
 <td><a href="https://t.me/chpulsk" target="_blank" rel="noopener">chpulsk</a></td>
 <td><span class="ok">в сети</span></td>
-<td>6</td></tr><tr><td><span class="badge-t">TG T2</span></td>
+<td>8</td></tr><tr><td><span class="badge-t">TG T2</span></td>
 <td><a href="https://t.me/dimitrovgradonline" target="_blank" rel="noopener">dimitrovgradonline</a></td>
 <td><span class="ok">в сети</span></td>
-<td>11</td></tr><tr><td><span class="badge-t">TG T2</span></td>
+<td>13</td></tr><tr><td><span class="badge-t">TG T2</span></td>
 <td><a href="https://t.me/topor_ul" target="_blank" rel="noopener">topor_ul</a></td>
 <td><span class="ok">в сети</span></td>
-<td>13</td></tr><tr><td><span class="badge-t">TG T2</span></td>
+<td>14</td></tr><tr><td><span class="badge-t">TG T2</span></td>
 <td><a href="https://t.me/ulkoroche" target="_blank" rel="noopener">ulkoroche</a></td>
 <td><span class="ok">в сети</span></td>
 <td>8</td></tr><tr><td><span class="badge-t">TG T2</span></td>
@@ -214,16 +214,16 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\u2600\
 <td>16</td></tr><tr><td><span class="badge-t">TG T2</span></td>
 <td><a href="https://t.me/chpul" target="_blank" rel="noopener">chpul</a></td>
 <td><span class="ok">в сети</span></td>
-<td>10</td></tr><tr><td><span class="badge-t">TG T2</span></td>
+<td>12</td></tr><tr><td><span class="badge-t">TG T2</span></td>
 <td><a href="https://t.me/ulsk_on" target="_blank" rel="noopener">ulsk_on</a></td>
 <td><span class="ok">в сети</span></td>
 <td>13</td></tr><tr><td><span class="badge-t">TG T2</span></td>
 <td><a href="https://t.me/ulsk_73online" target="_blank" rel="noopener">ulsk_73online</a></td>
 <td><span class="ok">в сети</span></td>
-<td>13</td></tr><tr><td><span class="badge-t">TG T2</span></td>
+<td>14</td></tr><tr><td><span class="badge-t">TG T2</span></td>
 <td><a href="https://t.me/ulsk_driver73" target="_blank" rel="noopener">ulsk_driver73</a></td>
 <td><span class="ok">в сети</span></td>
-<td>12</td></tr><tr><td><span class="badge-t">TG T2</span></td>
+<td>11</td></tr><tr><td><span class="badge-t">TG T2</span></td>
 <td><a href="https://t.me/ProNovosty73" target="_blank" rel="noopener">ProNovosty73</a></td>
 <td><span class="ok">в сети</span></td>
 <td>20</td></tr><tr><td><span class="badge-t">TG T2</span></td>
@@ -232,22 +232,22 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\u2600\
 <td>19</td></tr><tr><td><span class="badge-t">TG T3</span></td>
 <td><a href="https://t.me/ulpatriot" target="_blank" rel="noopener">ulpatriot</a></td>
 <td><span class="ok">в сети</span></td>
-<td>15</td></tr><tr><td><span class="badge-t">TG T3</span></td>
+<td>11</td></tr><tr><td><span class="badge-t">TG T3</span></td>
 <td><a href="https://t.me/shugozhor73" target="_blank" rel="noopener">shugozhor73</a></td>
 <td><span class="ok">в сети</span></td>
 <td>11</td></tr><tr><td><span class="badge-t">TG T3</span></td>
 <td><a href="https://t.me/ulpromo" target="_blank" rel="noopener">ulpromo</a></td>
 <td><span class="ok">в сети</span></td>
-<td>15</td></tr><tr><td><span class="badge-t">TG T3</span></td>
+<td>16</td></tr><tr><td><span class="badge-t">TG T3</span></td>
 <td><a href="https://t.me/ulkompr" target="_blank" rel="noopener">ulkompr</a></td>
 <td><span class="ok">в сети</span></td>
-<td>14</td></tr><tr><td><span class="badge-t">TG T3</span></td>
+<td>15</td></tr><tr><td><span class="badge-t">TG T3</span></td>
 <td><a href="https://t.me/terr73" target="_blank" rel="noopener">terr73</a></td>
 <td><span class="ok">в сети</span></td>
 <td>15</td></tr><tr><td><span class="badge-t">TG T3</span></td>
 <td><a href="https://t.me/volkodav73" target="_blank" rel="noopener">volkodav73</a></td>
 <td><span class="ok">в сети</span></td>
-<td>7</td></tr><tr><td><span class="badge-t">TG T3</span></td>
+<td>8</td></tr><tr><td><span class="badge-t">TG T3</span></td>
 <td><a href="https://t.me/culturnik" target="_blank" rel="noopener">culturnik</a></td>
 <td><span class="ok">в сети</span></td>
 <td>16</td></tr><tr><td><span class="badge-t">VK T1</span></td>
@@ -255,15 +255,15 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\u2600\
 <td><span class="fail">ошибка: нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk</span></td>
 <td>0</td></tr><tr><td><span class="badge-t">САЙТ T1</span></td>
 <td><a href="https://ulmeria.gosuslugi.ru/dlya-zhiteley/novosti-i-reportazhi/" target="_blank" rel="noopener">Администрация Ульяновска</a> <span style="color:var(--muted);font-size:11px;">→ издание «Администрация г. Ульяновска»: 2 канала = один источник</span></td>
-<td><span class="ok">в сети</span></td>
-<td>10</td></tr></table>
+<td><span class="fail">ошибка: &lt;urlopen error timed out&gt;</span></td>
+<td>0</td></tr></table>
 <div class="note">«Собрано» — записей с источника за последний успешный запрос. Кэш отказов доменов (403/429/401) хранится в data/enrich_failures.json и сбрасывается ежедневно.</div>
 
 <h2>🧮 Конвейер</h2>
 <table><tr><th>Шаг</th><th>Результат</th></tr>
-<tr><td>collector → store.jsonl</td><td>493 получено, 229 новых (18.09.2026 11:00)</td></tr>
-<tr><td>trends → trends.json</td><td>18.09.2026 11:09 · тем: 19</td></tr>
-<tr><td>analytics → analytics.json</td><td>18.09.2026 11:09</td></tr>
+<tr><td>collector → store.jsonl</td><td>485 получено, 54 новых (18.09.2026 12:27)</td></tr>
+<tr><td>trends → trends.json</td><td>18.09.2026 12:39 · тем: 19</td></tr>
+<tr><td>analytics → analytics.json</td><td>18.09.2026 12:39</td></tr>
 <tr><td>backup → data/backups/</td><td>1 копий, хранение 14 дн.</td></tr>
 <tr><td>тесты</td><td>python3 -m unittest discover -s tests (38 тестов)</td></tr>
 </table>

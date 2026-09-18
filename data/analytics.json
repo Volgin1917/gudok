@@ -1,5 +1,5 @@
 {
- "generated_local": "18.09.2026 11:09",
+ "generated_local": "18.09.2026 12:39",
  "calendar": [
   {
    "etype": "sport",
@@ -213,7 +213,8 @@
    "score": 1.0,
    "also": [],
    "also_n": 0,
-   "moved_unknown": true
+   "moved_to": "2026-11-05",
+   "moved_from": "2026-09-20"
   },
   {
    "etype": "kids",
@@ -310,11 +311,11 @@
  ],
  "clusters": [
   {
-   "name": "задержан · филатов · группировки",
+   "name": "задержан · филатов · ульяновске",
    "terms": [
     "задержан",
     "филатов",
-    "группировки"
+    "ульяновске"
    ],
    "size": 5,
    "coverage": 0.4,
@@ -341,11 +342,11 @@
    ]
   },
   {
-   "name": "лавров · россия · переговоров",
+   "name": "лавров · переговоров · россия",
    "terms": [
     "лавров",
-    "россия",
-    "переговоров"
+    "переговоров",
+    "россия"
    ],
    "size": 4,
    "coverage": 0.0,
@@ -399,6 +400,37 @@
      "url": "https://t.me/ulpatriot/6941",
      "source": "t.me/ulpatriot",
      "views": 563
+    }
+   ]
+  },
+  {
+   "name": "kumiakk · буенча · сетевое",
+   "terms": [
+    "kumiakk",
+    "буенча",
+    "сетевое"
+   ],
+   "size": 4,
+   "coverage": 0.25,
+   "gap": true,
+   "samples": [
+    {
+     "title": "Халык Президентка ышана",
+     "url": "https://kumiakk.ru/?p=20051",
+     "source": "Кумәк көч",
+     "views": null
+    },
+    {
+     "title": "Тавыш бирергә чакырды",
+     "url": "https://kumiakk.ru/?p=20229",
+     "source": "Кумәк көч",
+     "views": null
+    },
+    {
+     "title": "Икътисади мәсьәләләр буенча киңәшмәдә",
+     "url": "https://kumiakk.ru/?p=20377",
+     "source": "Кумәк көч",
+     "views": null
     }
    ]
   },
@@ -463,46 +495,15 @@
      "views": 33
     }
    ]
-  },
-  {
-   "name": "тюленева · хендай · генерала",
-   "terms": [
-    "тюленева",
-    "хендай",
-    "генерала"
-   ],
-   "size": 3,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "😨 Жесткое ДТП на Тюленева, 23. БМВ протаранила забор у магазина, столкнувшись с Хендай Солярис. 😱",
-     "url": "https://t.me/tresh_ulyan/56224",
-     "source": "t.me/tresh_ulyan",
-     "views": 2140
-    },
-    {
-     "title": "🚘 BMW 3 серии и Hyundai Solaris столкнулись у ТЦ на проспекте Генерала Тюленева, 25",
-     "url": "https://t.me/chpulsk/50801",
-     "source": "t.me/chpulsk",
-     "views": 1640
-    },
-    {
-     "title": "На проспекте Генерала Тюленева столкнулись Хендай и БМВ Мы в Telegram | Мы в MAX",
-     "url": "https://t.me/ulpressa/74665",
-     "source": "t.me/ulpressa",
-     "views": 252
-    }
-   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.246,
-  "today_items": 103,
-  "today_pos": 802,
-  "today_neg": 509,
-  "today_neu": 1006,
+  "today_score": 0.212,
+  "today_items": 144,
+  "today_pos": 816,
+  "today_neg": 521,
+  "today_neu": 1019,
   "series": [
    {
     "date": "2026-09-05",
@@ -554,21 +555,21 @@
    },
    {
     "date": "2026-09-17",
-    "score": 0.22
+    "score": 0.217
    },
    {
     "date": "2026-09-18",
-    "score": 0.246
+    "score": 0.212
    }
   ],
   "by_category": {
    "culture": 0.667,
-   "economy": 0.0,
-   "education": 0.5,
+   "economy": 0.417,
+   "education": 0.286,
    "health": 0.2,
-   "politics": 0.311,
-   "security": -0.273,
-   "society": 0.325,
+   "politics": 0.265,
+   "security": -0.356,
+   "society": 0.34,
    "sport": 0.5
   }
  },
@@ -577,11 +578,11 @@
    "source": "Улпресса",
    "tier": 1,
    "type": "tg",
-   "total": 500,
-   "primary": 445,
-   "dup": 55,
+   "total": 511,
+   "primary": 454,
+   "dup": 57,
    "repost_rate": 0.11,
-   "views_median": 1190,
+   "views_median": 1150,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -589,10 +590,10 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 170,
-   "primary": 131,
-   "dup": 39,
-   "repost_rate": 0.23,
+   "total": 173,
+   "primary": 132,
+   "dup": 41,
+   "repost_rate": 0.24,
    "views_median": 8380,
    "label": "первоисточник",
    "clickbait_rate": 0.01
@@ -601,9 +602,9 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 131,
+   "total": 132,
    "primary": 113,
-   "dup": 18,
+   "dup": 19,
    "repost_rate": 0.14,
    "views_median": 449,
    "label": "первоисточник",
@@ -613,11 +614,11 @@
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 121,
-   "primary": 89,
-   "dup": 32,
-   "repost_rate": 0.26,
-   "views_median": 5900,
+   "total": 124,
+   "primary": 91,
+   "dup": 33,
+   "repost_rate": 0.27,
+   "views_median": 5870,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -625,11 +626,11 @@
    "source": "ulsk_73online",
    "tier": 2,
    "type": "tg",
-   "total": 114,
-   "primary": 107,
+   "total": 117,
+   "primary": 110,
    "dup": 7,
    "repost_rate": 0.06,
-   "views_median": 592,
+   "views_median": 582,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -637,11 +638,11 @@
    "source": "chpul",
    "tier": 2,
    "type": "tg",
-   "total": 112,
+   "total": 114,
    "primary": 83,
-   "dup": 29,
-   "repost_rate": 0.26,
-   "views_median": 503,
+   "dup": 31,
+   "repost_rate": 0.27,
+   "views_median": 499,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -649,9 +650,9 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 111,
-   "primary": 71,
-   "dup": 40,
+   "total": 113,
+   "primary": 72,
+   "dup": 41,
    "repost_rate": 0.36,
    "views_median": 2650,
    "label": "смешанный",
@@ -661,10 +662,10 @@
    "source": "ulpravda",
    "tier": 1,
    "type": "tg",
-   "total": 104,
-   "primary": 90,
-   "dup": 14,
-   "repost_rate": 0.13,
+   "total": 105,
+   "primary": 89,
+   "dup": 16,
+   "repost_rate": 0.15,
    "views_median": 114,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -673,23 +674,11 @@
    "source": "ulkompr",
    "tier": 3,
    "type": "tg",
-   "total": 98,
+   "total": 99,
    "primary": 79,
-   "dup": 19,
-   "repost_rate": 0.19,
+   "dup": 20,
+   "repost_rate": 0.2,
    "views_median": 540,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "dimitrovgradd",
-   "tier": 2,
-   "type": "tg",
-   "total": 88,
-   "primary": 77,
-   "dup": 11,
-   "repost_rate": 0.12,
-   "views_median": 1140,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -697,11 +686,23 @@
    "source": "Репортёр73",
    "tier": 1,
    "type": "tg",
-   "total": 86,
-   "primary": 75,
-   "dup": 11,
+   "total": 89,
+   "primary": 77,
+   "dup": 12,
    "repost_rate": 0.13,
-   "views_median": 35,
+   "views_median": 33,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "dimitrovgradd",
+   "tier": 2,
+   "type": "tg",
+   "total": 89,
+   "primary": 79,
+   "dup": 10,
+   "repost_rate": 0.11,
+   "views_median": 1130,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -709,11 +710,11 @@
    "source": "ulsk_on",
    "tier": 2,
    "type": "tg",
-   "total": 85,
-   "primary": 64,
+   "total": 88,
+   "primary": 67,
    "dup": 21,
-   "repost_rate": 0.25,
-   "views_median": 283,
+   "repost_rate": 0.24,
+   "views_median": 278,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -721,22 +722,22 @@
    "source": "Губернатор и Правительство Ульяновской области",
    "tier": 1,
    "type": "tg",
-   "total": 82,
-   "primary": 61,
-   "dup": 21,
-   "repost_rate": 0.26,
-   "views_median": 91,
-   "label": "смешанный",
+   "total": 83,
+   "primary": 63,
+   "dup": 20,
+   "repost_rate": 0.24,
+   "views_median": 89,
+   "label": "первоисточник",
    "clickbait_rate": 0.0
   },
   {
    "source": "topor_ul",
    "tier": 2,
    "type": "tg",
-   "total": 82,
+   "total": 83,
    "primary": 61,
-   "dup": 21,
-   "repost_rate": 0.26,
+   "dup": 22,
+   "repost_rate": 0.27,
    "views_median": 1340,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -745,9 +746,9 @@
    "source": "ulsk_driver73",
    "tier": 2,
    "type": "tg",
-   "total": 79,
-   "primary": 63,
-   "dup": 16,
+   "total": 83,
+   "primary": 66,
+   "dup": 17,
    "repost_rate": 0.2,
    "views_median": 447,
    "label": "первоисточник",
@@ -757,11 +758,11 @@
    "source": "dimitrovgradonline",
    "tier": 2,
    "type": "tg",
-   "total": 75,
-   "primary": 60,
-   "dup": 15,
-   "repost_rate": 0.2,
-   "views_median": 380,
+   "total": 77,
+   "primary": 61,
+   "dup": 16,
+   "repost_rate": 0.21,
+   "views_median": 366,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -770,9 +771,9 @@
    "tier": 3,
    "type": "tg",
    "total": 65,
-   "primary": 45,
-   "dup": 20,
-   "repost_rate": 0.31,
+   "primary": 46,
+   "dup": 19,
+   "repost_rate": 0.29,
    "views_median": 2340,
    "label": "смешанный",
    "clickbait_rate": 0.0
@@ -793,10 +794,10 @@
    "source": "volkodav73",
    "tier": 3,
    "type": "tg",
-   "total": 57,
-   "primary": 45,
-   "dup": 12,
-   "repost_rate": 0.21,
+   "total": 59,
+   "primary": 46,
+   "dup": 13,
+   "repost_rate": 0.22,
    "views_median": 2550,
    "label": "первоисточник",
    "clickbait_rate": 0.02
@@ -805,8 +806,8 @@
    "source": "fcvolga",
    "tier": 1,
    "type": "tg",
-   "total": 52,
-   "primary": 51,
+   "total": 53,
+   "primary": 52,
    "dup": 1,
    "repost_rate": 0.02,
    "views_median": 1260,
@@ -817,10 +818,10 @@
    "source": "Звезда (Новомалыклинский р-н)",
    "tier": 1,
    "type": "rss",
-   "total": 51,
-   "primary": 46,
-   "dup": 5,
-   "repost_rate": 0.1,
+   "total": 52,
+   "primary": 48,
+   "dup": 4,
+   "repost_rate": 0.08,
    "views_median": 53,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -841,11 +842,11 @@
    "source": "ulpatriot",
    "tier": 3,
    "type": "tg",
-   "total": 39,
-   "primary": 36,
+   "total": 40,
+   "primary": 37,
    "dup": 3,
-   "repost_rate": 0.08,
-   "views_median": 6890,
+   "repost_rate": 0.07,
+   "views_median": 6120,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -853,11 +854,11 @@
    "source": "sergeymorozov73",
    "tier": 1,
    "type": "tg",
-   "total": 38,
-   "primary": 38,
+   "total": 40,
+   "primary": 40,
    "dup": 0,
    "repost_rate": 0.0,
-   "views_median": 89,
+   "views_median": 84,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -877,11 +878,11 @@
    "source": "ulpromo",
    "tier": 3,
    "type": "tg",
-   "total": 34,
-   "primary": 32,
+   "total": 35,
+   "primary": 33,
    "dup": 2,
    "repost_rate": 0.06,
-   "views_median": 772,
+   "views_median": 711,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -898,6 +899,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "Кумәк көч",
+   "tier": null,
+   "type": "rss",
+   "total": 28,
+   "primary": 28,
+   "dup": 0,
+   "repost_rate": 0.0,
+   "views_median": null,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "culturnik",
    "tier": 3,
    "type": "tg",
@@ -906,18 +919,6 @@
    "dup": 2,
    "repost_rate": 0.08,
    "views_median": 369,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "Кумәк көч",
-   "tier": null,
-   "type": "rss",
-   "total": 26,
-   "primary": 25,
-   "dup": 1,
-   "repost_rate": 0.04,
-   "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -973,8 +974,8 @@
    "source": "УАЗ (Соллерс)",
    "tier": 1,
    "type": "tg",
-   "total": 16,
-   "primary": 16,
+   "total": 17,
+   "primary": 17,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 2040,
@@ -994,6 +995,18 @@
    "clickbait_rate": 0.0
   },
   {
+   "source": "Карсунский вестник",
+   "tier": null,
+   "type": "rss",
+   "total": 15,
+   "primary": 11,
+   "dup": 4,
+   "repost_rate": 0.27,
+   "views_median": null,
+   "label": "смешанный",
+   "clickbait_rate": 0.0
+  },
+  {
    "source": "A_Boldakin",
    "tier": 1,
    "type": "tg",
@@ -1010,56 +1023,52 @@
    "tier": 1,
    "type": "tg",
    "total": 14,
-   "primary": 14,
-   "dup": 0,
-   "repost_rate": 0.0,
+   "primary": 13,
+   "dup": 1,
+   "repost_rate": 0.07,
    "views_median": 36,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "Карсунский вестник",
-   "tier": null,
-   "type": "rss",
-   "total": 14,
-   "primary": 12,
-   "dup": 2,
-   "repost_rate": 0.14,
-   "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   }
  ],
  "forecast": [
   {
-   "topic": "cityday",
-   "name": "День города (378 лет)",
-   "expected": 0.0,
-   "slope": -5.36,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
    "topic": "elections",
    "name": "Выборы-2026",
-   "expected": 35.1,
-   "slope": 4.82,
+   "expected": 45.3,
+   "slope": 6.32,
    "direction": "рост",
    "confidence": "высокая"
   },
   {
+   "topic": "cityday",
+   "name": "День города (378 лет)",
+   "expected": 0.0,
+   "slope": -5.25,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 43.4,
-   "slope": 4.11,
+   "expected": 50.7,
+   "slope": 5.18,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 35.5,
-   "slope": 1.75,
+   "expected": 45.8,
+   "slope": 3.25,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "governor",
+   "name": "Губернатор / власть",
+   "expected": 37.2,
+   "slope": 2.29,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1068,14 +1077,6 @@
    "name": "БПЛА и воздушные угрозы",
    "expected": 0.7,
    "slope": -1.68,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "schools",
-   "name": "Школы и вузы",
-   "expected": 11.6,
-   "slope": -1.54,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1096,35 +1097,27 @@
    "confidence": "средняя"
   },
   {
-   "topic": "governor",
-   "name": "Губернатор / власть",
-   "expected": 31.3,
-   "slope": 1.43,
-   "direction": "рост",
+   "topic": "schools",
+   "name": "Школы и вузы",
+   "expected": 14.5,
+   "slope": -1.11,
+   "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "budget",
    "name": "Бюджет-2027",
-   "expected": 10.8,
-   "slope": 0.82,
+   "expected": 12.3,
+   "slope": 1.04,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "sport",
    "name": "Спорт",
-   "expected": 17.9,
-   "slope": 0.57,
+   "expected": 18.7,
+   "slope": 0.68,
    "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "medicine",
-   "name": "Медицина",
-   "expected": 11.4,
-   "slope": -0.46,
-   "direction": "спад",
    "confidence": "средняя"
   },
   {
@@ -1136,22 +1129,6 @@
    "confidence": "средняя"
   },
   {
-   "topic": "uaz",
-   "name": "УАЗ / Соллерс",
-   "expected": 0.1,
-   "slope": -0.43,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "cityspace",
-   "name": "Городская среда",
-   "expected": 17.4,
-   "slope": -0.39,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
    "topic": "harvest",
    "name": "Урожай и АПК",
    "expected": 1.0,
@@ -1160,10 +1137,18 @@
    "confidence": "низкая"
   },
   {
-   "topic": "zhkh",
-   "name": "ЖКХ, газ, тепло",
-   "expected": 6.9,
-   "slope": -0.07,
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 12.9,
+   "slope": -0.25,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "cityspace",
+   "name": "Городская среда",
+   "expected": 18.8,
+   "slope": -0.18,
    "direction": "плато",
    "confidence": "низкая"
   },
@@ -1176,10 +1161,26 @@
    "confidence": "низкая"
   },
   {
+   "topic": "zhkh",
+   "name": "ЖКХ, газ, тепло",
+   "expected": 7.7,
+   "slope": 0.04,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
    "topic": "macro",
    "name": "Макроэкономика / ЦБ",
    "expected": 1.4,
    "slope": 0.04,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "uaz",
+   "name": "УАЗ / Соллерс",
+   "expected": 3.0,
+   "slope": 0.0,
    "direction": "плато",
    "confidence": "низкая"
   }
@@ -1312,7 +1313,7 @@
   {
    "etype": "other",
    "is_culture": false,
-   "district": false,
+   "district": true,
    "date": "2026-09-18",
    "date_end": "2026-09-20",
    "time": "08:00",
@@ -1330,7 +1331,7 @@
    "venue_city": "",
    "venue_found": false,
    "venue_how": "",
-   "geo": "",
+   "geo": "Димитровград",
    "price": "",
    "price_mode": "",
    "age": "",
@@ -1744,6 +1745,37 @@
    "district": false,
    "date": "2026-09-20",
    "date_end": null,
+   "time": "08:00",
+   "time_note": "",
+   "event_title": "Единая Россия",
+   "title_is_fallback": false,
+   "title_kind": "quoted",
+   "title": "В России стартовали трехдневные выборы депутатов Государственной думы IX созыва. Голосование продлится до 20 с…",
+   "url": "https://t.me/chpul/34518",
+   "source": "t.me/chpul",
+   "tier": 2,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "тип: новость, не перечневое культурное событие",
+    "нет площадки"
+   ],
+   "score": 0.6
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-20",
+   "date_end": null,
    "time": "",
    "time_note": "уточняется",
    "event_title": "Обращение в преддверии выборов Голосование будет проходить в течение трёх дней: 18, 19 и",
@@ -1873,8 +1905,8 @@
    "title_is_fallback": true,
    "title_kind": "fallback",
    "title": "🗳️ Посетил утром Центр общественного наблюдения за выборами. ✅ Сегодня стартовало трехдневное голосование: 18,…",
-   "url": "https://t.me/Russkih_Aleksey/12414",
-   "source": "t.me/Russkih_Aleksey",
+   "url": "https://t.me/ulgovru/23779",
+   "source": "t.me/ulgovru",
    "tier": 1,
    "venue": "",
    "venue_addr": "",
@@ -2846,9 +2878,9 @@
   }
  ],
  "calendar_passport": {
-  "found_dates": 76,
+  "found_dates": 78,
   "accepted": 10,
-  "rejected": 54,
+  "rejected": 55,
   "venues_new": {
    "Центр общественного наблюдения": 2,
    "ООО «Боулинг-центр» и ООО «Аэробоул»": 1,
@@ -2868,9 +2900,9 @@
    "title_composed": 7,
    "with_price": 3,
    "with_age": 0,
-   "rejected_no_venue": 42
+   "rejected_no_venue": 43
   },
-  "run_local": "18.09.2026 11:09",
+  "run_local": "18.09.2026 12:39",
   "total": 10,
   "no_time": 0,
   "no_venue": 0,
