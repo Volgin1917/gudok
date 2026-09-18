@@ -1,100 +1,6 @@
 {
- "generated_local": "17.09.2026 15:58",
+ "generated_local": "18.09.2026 10:13",
  "calendar": [
-  {
-   "etype": "concert",
-   "is_culture": true,
-   "district": true,
-   "date": "2026-09-17",
-   "date_end": null,
-   "time": "23:00",
-   "time_note": "",
-   "event_title": "Караоке-баттл Мама говорит, у тебя талант",
-   "title_is_fallback": false,
-   "title_kind": "kind",
-   "title": "Караоке-баттл 🎤 Мама говорит, у тебя талант? 17 сентября проверим, не врала ли мама. 10 участников, 3 раунда, …",
-   "url": "https://t.me/ProNovosty73/5896",
-   "source": "t.me/ProNovosty73",
-   "tier": 2,
-   "venue": "Бар «Matrёshki»",
-   "venue_addr": "ул. Федерации, 4",
-   "venue_district": "Засвияжский район",
-   "venue_city": "Ульяновск",
-   "venue_found": true,
-   "venue_how": "mention",
-   "geo": "Засвияжский район",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [],
-   "score": 1.0,
-   "also": [],
-   "also_n": 0
-  },
-  {
-   "etype": "concert",
-   "is_culture": true,
-   "district": true,
-   "date": "2026-09-17",
-   "date_end": null,
-   "time": "17:30",
-   "time_note": "",
-   "event_title": "Форум инноваторов в Ульяновске",
-   "title_is_fallback": false,
-   "title_kind": "kind",
-   "title": "Профессор Ярушкина расскажет об ИИ на форуме инноваторов в Ульяновске",
-   "url": "https://ulpressa.ru/2026/09/16/professor-yarushkina-rasskazhet-ob-ii-na-forume-innovatorov-v-ulyanovske/",
-   "source": "Улпресса",
-   "tier": null,
-   "venue": "Конгресс-холл «Кошелев»",
-   "venue_addr": "ул. Гончарова, 25",
-   "venue_district": "Ленинский район",
-   "venue_city": "Ульяновск",
-   "venue_found": true,
-   "venue_how": "text",
-   "geo": "Ленинский район",
-   "price": "бесплатно по регистрации",
-   "price_mode": "reg",
-   "age": "",
-   "reasons": [],
-   "score": 0.96,
-   "also": [
-    "t.me/ulsk_73online"
-   ],
-   "also_n": 1
-  },
-  {
-   "etype": "kids",
-   "is_culture": true,
-   "district": true,
-   "date": "2026-09-17",
-   "date_end": "2026-09-24",
-   "time": "10:00",
-   "time_note": "",
-   "event_title": "Ярмарка вакансий",
-   "title_is_fallback": false,
-   "title_kind": "kind",
-   "title": "С 17 по 24 сентября в четырёх районах Ульяновска пройдут ярмарки вакансий",
-   "url": "https://ulpressa.ru/2026/09/16/s-17-po-24-sentyabrya-v-chetyryoh-rajonah-ulyanovska-projdut-yarmarki-vakansij/",
-   "source": "Улпресса",
-   "tier": null,
-   "venue": "площадки города",
-   "venue_addr": "",
-   "venue_district": "Засвияжский район",
-   "venue_city": "",
-   "venue_found": true,
-   "venue_how": "city",
-   "geo": "Засвияжский район",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [],
-   "score": 0.86,
-   "also": [
-    "Администрация Ульяновска"
-   ],
-   "also_n": 1
-  },
   {
    "etype": "sport",
    "is_culture": false,
@@ -252,6 +158,38 @@
    "etype": "kids",
    "is_culture": true,
    "district": true,
+   "date": "2026-09-24",
+   "date_end": null,
+   "time": "10:00",
+   "time_note": "",
+   "event_title": "Ярмарка вакансий",
+   "title_is_fallback": false,
+   "title_kind": "kind",
+   "title": "С 17 по 24 сентября в четырёх районах Ульяновска пройдут ярмарки вакансий",
+   "url": "https://ulpressa.ru/2026/09/16/s-17-po-24-sentyabrya-v-chetyryoh-rajonah-ulyanovska-projdut-yarmarki-vakansij/",
+   "source": "Улпресса",
+   "tier": null,
+   "venue": "ДК «Современник»",
+   "venue_addr": "ул. Рябикова, 2",
+   "venue_district": "Засвияжский район",
+   "venue_city": "Ульяновск",
+   "venue_found": true,
+   "venue_how": "quoted",
+   "geo": "Засвияжский район",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [],
+   "score": 0.96,
+   "also": [
+    "Администрация Ульяновска"
+   ],
+   "also_n": 1
+  },
+  {
+   "etype": "kids",
+   "is_culture": true,
+   "district": true,
    "date": "2026-09-26",
    "date_end": null,
    "time": "09:00",
@@ -311,42 +249,11 @@
  ],
  "clusters": [
   {
-   "name": "спасатели · козлёнок · академика",
-   "terms": [
-    "спасатели",
-    "козлёнок",
-    "академика"
-   ],
-   "size": 6,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "😨 В Заволжье спасатели достали козленка из подвала заброшенного дома Вызов поступил с улицы Академика Павлова.",
-     "url": "https://t.me/topor_ul/11637",
-     "source": "t.me/topor_ul",
-     "views": 1220
-    },
-    {
-     "title": "⚡ В Заволжском районе козлёнок провалился в открытый подвал заброшенного здания на Академика Павлова. Спасател",
-     "url": "https://t.me/ulpressa/74649",
-     "source": "t.me/ulpressa",
-     "views": 523
-    },
-    {
-     "title": "🐐 В Заволжье спасатели достали козлёнка из открытого подвала. Животное провалилось в подземные помещения забро",
-     "url": "https://t.me/chpul/34446",
-     "source": "t.me/chpul",
-     "views": 142
-    }
-   ]
-  },
-  {
-   "name": "лавров · заявил · переговоров",
+   "name": "лавров · заявил · россия",
    "terms": [
     "лавров",
     "заявил",
-    "переговоров"
+    "россия"
    ],
    "size": 5,
    "coverage": 0.0,
@@ -369,6 +276,37 @@
      "url": "https://t.me/ulyanovsk_smi/29511",
      "source": "t.me/ulyanovsk_smi",
      "views": 633
+    }
+   ]
+  },
+  {
+   "name": "спасатели · достали · подвала",
+   "terms": [
+    "спасатели",
+    "достали",
+    "подвала"
+   ],
+   "size": 4,
+   "coverage": 0.25,
+   "gap": true,
+   "samples": [
+    {
+     "title": "😨 В Заволжье спасатели достали козленка из подвала заброшенного дома Вызов поступил с улицы Академика Павлова.",
+     "url": "https://t.me/topor_ul/11637",
+     "source": "t.me/topor_ul",
+     "views": 1220
+    },
+    {
+     "title": "🐐 В Заволжье спасатели достали козлёнка из открытого подвала. Животное провалилось в подземные помещения забро",
+     "url": "https://t.me/chpul/34446",
+     "source": "t.me/chpul",
+     "views": 142
+    },
+    {
+     "title": "Ульяновские спасатели достали козлёнка из подвала 14 сентября старший оперативный дежурный ЕДДС Ульяновска при",
+     "url": "https://t.me/ulpravda/41055",
+     "source": "t.me/ulpravda",
+     "views": 96
     }
    ]
   },
@@ -435,80 +373,76 @@
    ]
   },
   {
-   "name": "фотографии · если · спасибо",
+   "name": "тюленева · хендай · генерала",
    "terms": [
-    "фотографии",
-    "если",
-    "спасибо"
+    "тюленева",
+    "хендай",
+    "генерала"
    ],
    "size": 3,
    "coverage": 0.33,
    "gap": true,
    "samples": [
     {
-     "title": "Избранные фотографии из комментариев к субботнему коту",
-     "url": "https://t.me/shugozhor73/45337",
-     "source": "t.me/shugozhor73",
-     "views": 1110
+     "title": "😨 Жесткое ДТП на Тюленева, 23. БМВ протаранила забор у магазина, столкнувшись с Хендай Солярис. 😱",
+     "url": "https://t.me/tresh_ulyan/56224",
+     "source": "t.me/tresh_ulyan",
+     "views": 2140
     },
     {
-     "title": "Вспоминаем, как прошёл День города в Ульяновске! Спасибо за фотографии нашей подписчице 🥰 А вы были на праздни",
-     "url": "https://t.me/ulkoroche/33758",
-     "source": "t.me/ulkoroche",
-     "views": 1070
+     "title": "🚘 BMW 3 серии и Hyundai Solaris столкнулись у ТЦ на проспекте Генерала Тюленева, 25",
+     "url": "https://t.me/chpulsk/50801",
+     "source": "t.me/chpulsk",
+     "views": 1640
     },
     {
-     "title": "Доброй ночи, Ульяновск! ❤️ Любуемся осенними пейзажами! Благодарим подписчицу за фотографии 🍄‍🟫 Если и у вас е",
-     "url": "https://t.me/ulkoroche/33803",
-     "source": "t.me/ulkoroche",
-     "views": 226
+     "title": "На проспекте Генерала Тюленева столкнулись Хендай и БМВ Мы в Telegram | Мы в MAX",
+     "url": "https://t.me/ulpressa/74665",
+     "source": "t.me/ulpressa",
+     "views": 252
     }
    ]
   },
   {
-   "name": "новое · подразделение · героя",
+   "name": "имба · кринж · рофл",
    "terms": [
-    "новое",
-    "подразделение",
-    "героя"
+    "имба",
+    "кринж",
+    "рофл"
    ],
    "size": 3,
-   "coverage": 0.33,
+   "coverage": 0.0,
    "gap": true,
    "samples": [
     {
-     "title": "🏥 Новое подразделение городской поликлиники №4 откроют в Засвияжском районе уже завтра, 15 сентября. Современн",
-     "url": "https://t.me/ulsk_on/22800",
-     "source": "t.me/ulsk_on",
-     "views": 247
+     "title": "⚡️ «Кринж», «рофл», «инфа», «лол» и «имба» стали самой раздражающей группой слов в повседневной жизни — ТАСС с",
+     "url": "https://t.me/insaid173/46994",
+     "source": "t.me/insaid173",
+     "views": 2440
     },
     {
-     "title": "🏥 15 сентября в Ульяновске откроют новое подразделение поликлиники №4. Новое здание на улице Героя РФ Колпаков",
-     "url": "https://t.me/ulkoroche/33768",
-     "source": "t.me/ulkoroche",
-     "views": 146
+     "title": "🤔 Слова «кринж», «рофл» и «имба» возглавили рейтинг самого раздражающего сленга Согласно свежему опросу, именн",
+     "url": "https://t.me/tresh_ulyan/56226",
+     "source": "t.me/tresh_ulyan",
+     "views": 962
     },
     {
-     "title": "🏥 В Засвияжье на улице Героя Российской Федерации Колпакова начало работу новое подразделение городской поликл",
-     "url": "https://t.me/reporter73/52194",
-     "source": "t.me/reporter73",
-     "views": 11
+     "title": "Официально установлено: «кринж», «рофл», «инфа», «лол» и «имба» — самая раздражающая группа слов в повседневно",
+     "url": "https://t.me/ulsk_73online/35980",
+     "source": "t.me/ulsk_73online",
+     "views": 159
     }
    ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": 0.238,
-  "today_items": 202,
+  "today_score": null,
+  "today_items": 0,
   "today_pos": 733,
   "today_neg": 480,
   "today_neu": 916,
   "series": [
-   {
-    "date": "2026-09-04",
-    "score": 0.714
-   },
    {
     "date": "2026-09-05",
     "score": 0.75
@@ -560,18 +494,13 @@
    {
     "date": "2026-09-17",
     "score": 0.238
+   },
+   {
+    "date": "2026-09-18",
+    "score": null
    }
   ],
-  "by_category": {
-   "culture": 0.417,
-   "economy": 0.348,
-   "education": 0.2,
-   "health": 0.25,
-   "politics": 0.197,
-   "security": -0.395,
-   "society": 0.337,
-   "sport": 0.533
-  }
+  "by_category": {}
  },
  "credibility": [
   {
@@ -1180,289 +1109,12 @@
    "topic": "harvest",
    "name": "Урожай и АПК",
    "expected": 1.8,
-   "slope": 0.0,
+   "slope": -0.0,
    "direction": "плато",
    "confidence": "низкая"
   }
  ],
  "calendar_rejected": [
-  {
-   "etype": "concert",
-   "is_culture": true,
-   "district": false,
-   "date": "2026-09-17",
-   "date_end": null,
-   "time": "",
-   "time_note": "уточняется",
-   "event_title": "Международном форуме инноваторов, изобретателей и технолог…",
-   "title_is_fallback": false,
-   "title_kind": "kind",
-   "title": "📣 17 сентября Надежда Глебовна Ярушкина выступит на Международном форуме инноваторов, изобретателей и технолог…",
-   "url": "https://t.me/ulpravda/41078",
-   "source": "t.me/ulpravda",
-   "tier": 1,
-   "venue": "",
-   "venue_addr": "",
-   "venue_district": "",
-   "venue_city": "",
-   "venue_found": false,
-   "venue_how": "",
-   "geo": "",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [
-    "нет площадки"
-   ],
-   "score": 0.62
-  },
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": false,
-   "date": "2026-09-17",
-   "date_end": null,
-   "time": "",
-   "time_note": "уточняется",
-   "event_title": "Невозможное существует ровно до того момента, пока кто-то не докажет обратное",
-   "title_is_fallback": false,
-   "title_kind": "quoted",
-   "title": "Рустам Набиев: «Невозможное существует ровно до того момента, пока кто-то не докажет обратное»",
-   "url": "https://kumiakk.ru/?p=20043",
-   "source": "Кумәк көч",
-   "tier": null,
-   "venue": "",
-   "venue_addr": "",
-   "venue_district": "",
-   "venue_city": "",
-   "venue_found": false,
-   "venue_how": "",
-   "geo": "",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [
-    "тип: новость, не перечневое культурное событие",
-    "нет площадки"
-   ],
-   "score": 0.46
-  },
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": false,
-   "date": "2026-09-17",
-   "date_end": null,
-   "time": "00:14",
-   "time_note": "",
-   "event_title": "Опасность БПЛА объявлена в Ульяновской области с 00:14",
-   "title_is_fallback": false,
-   "title_kind": "quoted",
-   "title": "⚡️ Опасность БПЛА объявлена в Ульяновской области с 00:14 17 сентября ⚠️ Внимание! Оперативные каналы Ульяновс…",
-   "url": "https://t.me/tresh_ulyan/56270",
-   "source": "t.me/tresh_ulyan",
-   "tier": 2,
-   "venue": "",
-   "venue_addr": "",
-   "venue_district": "",
-   "venue_city": "",
-   "venue_found": false,
-   "venue_how": "",
-   "geo": "",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [
-    "дайджест/норма: дата — не события",
-    "нет площадки"
-   ],
-   "score": 0.6
-  },
-  {
-   "etype": "city",
-   "is_culture": false,
-   "district": true,
-   "date": "2026-09-17",
-   "date_end": null,
-   "time": "",
-   "time_note": "уточняется",
-   "event_title": "Профориентационные экскурсии",
-   "title_is_fallback": false,
-   "title_kind": "kind",
-   "title": "УлГУ приглашает на профориентационные экскурсии",
-   "url": "https://media73.ru/2026/ulgu-priglashaet-na-proforientatsionnye-ekskursii",
-   "source": "Media73",
-   "tier": null,
-   "venue": "",
-   "venue_addr": "",
-   "venue_district": "",
-   "venue_city": "",
-   "venue_found": false,
-   "venue_how": "",
-   "geo": "Ульяновск",
-   "price": "бесплатно по регистрации",
-   "price_mode": "reg",
-   "age": "",
-   "reasons": [
-    "нет площадки"
-   ],
-   "score": 0.62
-  },
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": true,
-   "date": "2026-09-17",
-   "date_end": null,
-   "time": "",
-   "time_note": "уточняется",
-   "event_title": "Улправда",
-   "title_is_fallback": false,
-   "title_kind": "quoted",
-   "title": "Мэр Ульяновска назвал даты открытия нового моста через Свиягу",
-   "url": "https://ulpressa.ru/2026/09/10/mer-ulyanovska-nazval-daty-otkrytiya-novogo-mosta-cherez-sviyagu/",
-   "source": "Улпресса",
-   "tier": null,
-   "venue": "",
-   "venue_addr": "",
-   "venue_district": "",
-   "venue_city": "",
-   "venue_found": false,
-   "venue_how": "",
-   "geo": "Ульяновск",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [
-    "тип: новость, не перечневое культурное событие",
-    "нет площадки"
-   ],
-   "score": 0.46
-  },
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": true,
-   "date": "2026-09-17",
-   "date_end": null,
-   "time": "",
-   "time_note": "уточняется",
-   "event_title": "событие",
-   "title_is_fallback": true,
-   "title_kind": "fallback",
-   "title": "Новый мост через Свиягу планируется открыть 15-17 сентября, сообщил глава Ульяновска Мы в Telegram | Мы в MAX",
-   "url": "https://t.me/ulpressa/74430",
-   "source": "t.me/ulpressa",
-   "tier": 1,
-   "venue": "",
-   "venue_addr": "",
-   "venue_district": "",
-   "venue_city": "",
-   "venue_found": false,
-   "venue_how": "",
-   "geo": "Ульяновск",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [
-    "тип: новость, не перечневое культурное событие",
-    "нет площадки"
-   ],
-   "score": 0.46
-  },
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": false,
-   "date": "2026-09-17",
-   "date_end": null,
-   "time": "",
-   "time_note": "уточняется",
-   "event_title": "событие",
-   "title_is_fallback": true,
-   "title_kind": "fallback",
-   "title": "🌉 Новый мост через Свиягу в створе улиц Шевченко и Смычки планируют открыть 15–17 сентября. Об этом сообщил гл…",
-   "url": "https://t.me/ulsk_driver73/18478",
-   "source": "t.me/ulsk_driver73",
-   "tier": 2,
-   "venue": "",
-   "venue_addr": "",
-   "venue_district": "",
-   "venue_city": "",
-   "venue_found": false,
-   "venue_how": "",
-   "geo": "",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [
-    "тип: новость, не перечневое культурное событие",
-    "нет площадки"
-   ],
-   "score": 0.46
-  },
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": true,
-   "date": "2026-09-17",
-   "date_end": null,
-   "time": "",
-   "time_note": "уточняется",
-   "event_title": "событие",
-   "title_is_fallback": true,
-   "title_kind": "fallback",
-   "title": "Мост в створе улиц Смычки — Шевченко планируют запустить 15–17 сентября . Об этом сообщил мэр Ульяновска Алекс…",
-   "url": "https://t.me/insaid173/46860",
-   "source": "t.me/insaid173",
-   "tier": 2,
-   "venue": "",
-   "venue_addr": "",
-   "venue_district": "",
-   "venue_city": "",
-   "venue_found": false,
-   "venue_how": "",
-   "geo": "Ульяновск",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [
-    "тип: новость, не перечневое культурное событие",
-    "нет площадки"
-   ],
-   "score": 0.46
-  },
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": false,
-   "date": "2026-09-17",
-   "date_end": null,
-   "time": "",
-   "time_note": "уточняется",
-   "event_title": "событие",
-   "title_is_fallback": true,
-   "title_kind": "fallback",
-   "title": "⚡️ Новый мост в створе улиц Шевченко и Смычки планируют открыть в техническом режиме на следующей неделе , ори…",
-   "url": "https://t.me/chpulsk/50671",
-   "source": "t.me/chpulsk",
-   "tier": 2,
-   "venue": "",
-   "venue_addr": "",
-   "venue_district": "",
-   "venue_city": "",
-   "venue_found": false,
-   "venue_how": "",
-   "geo": "",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [
-    "тип: новость, не перечневое культурное событие",
-    "нет площадки"
-   ],
-   "score": 0.46
-  },
   {
    "etype": "other",
    "is_culture": false,
@@ -2136,6 +1788,36 @@
    "score": 0.82
   },
   {
+   "etype": "city",
+   "is_culture": false,
+   "district": true,
+   "date": "2026-09-25",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "Профориентационные экскурсии",
+   "title_is_fallback": false,
+   "title_kind": "kind",
+   "title": "УлГУ приглашает на профориентационные экскурсии",
+   "url": "https://media73.ru/2026/ulgu-priglashaet-na-proforientatsionnye-ekskursii",
+   "source": "Media73",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "Ульяновск",
+   "price": "бесплатно по регистрации",
+   "price_mode": "reg",
+   "age": "",
+   "reasons": [
+    "нет площадки"
+   ],
+   "score": 0.62
+  },
+  {
    "etype": "other",
    "is_culture": false,
    "district": true,
@@ -2754,29 +2436,36 @@
   }
  ],
  "calendar_passport": {
-  "found_dates": 73,
-  "accepted": 10,
-  "rejected": 51,
+  "found_dates": 61,
+  "accepted": 8,
+  "rejected": 43,
   "venues_new": {
    "Центр общественного наблюдения": 2,
    "ООО «Боулинг-центр» и ООО «Аэробоул»": 1,
    "площадке «РТС-тендер»": 1,
    "Центра активного долголетия «Рябинка»": 1,
    "«серебряных» волонтёров Центра": 1,
-   "Площадка мероприятия": 1,
    "ФОКи и дома престарелых": 1,
    "Ульяновского государственного педагогического университета": 1
   },
   "threshold": 0.55,
   "stats": {
-   "venue_text": 2,
+   "venue_text": 1,
    "venue_addr": 0,
-   "venue_city": 2,
-   "title_composed": 9,
-   "with_price": 3,
+   "venue_city": 1,
+   "title_composed": 7,
+   "with_price": 2,
    "with_age": 0,
-   "rejected_no_venue": 40
+   "rejected_no_venue": 32
   },
-  "run_local": "17.09.2026 15:58"
+  "run_local": "18.09.2026 10:13",
+  "total": 8,
+  "no_time": 0,
+  "no_venue": 0,
+  "other_share": 0.0,
+  "also_n": 2,
+  "venues_new_n": 7,
+  "score_avg": 0.955,
+  "verdict": "прошло порог 8; новых площадок 7; с др. анонсами 2"
  }
 }

@@ -56,6 +56,34 @@ def esc_(v):
     return _h.escape(str(v)) if v is not None else "—"
 
 
+def quality_block(passport):
+    """Спринт 3, п.5: блок «Качество выборки афиши» для страницы статуса.
+    Пустой HTML, если паспорт афиши не собран."""
+    if not isinstance(passport, dict) or not passport.get("run_local"):
+        return ""
+    q = passport
+    kpis = [
+        ("прошло порог", q.get("accepted", q.get("total", 0))),
+        ("дат найдено в текстах", q.get("found_dates", "—")),
+        ("отсеяно", q.get("rejected", "—")),
+        ("без времени", q.get("no_time", "—")),
+        ("без площадки", q.get("no_venue", "—")),
+        ("«Прочее»", (str(q.get("other_share")) + "%") if q.get("other_share") is not None else "—"),
+        ("с др. анонсами", q.get("also_n", "—")),
+        ("новых площадок к словарю", q.get("venues_new_n", len(q.get("venues_new", {}) or {}))),
+        ("средний балл уверенности", q.get("score_avg", "—")),
+    ]
+    cells = "".join(
+        f'<div class="stat"><b>{esc_(v)}</b><span>{esc_(k)}</span></div>' for k, v in kpis)
+    thr = q.get("threshold", 0)
+    stats = (q.get("stats") or {})
+    return f"""<h2>🎯 Качество выборки афиши</h2>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));">{cells}</div>
+<div class="note">Порог входа: {thr}. Афиша собрана {esc_(q.get('run_local'))}. {esc_(q.get('verdict') or '')}
+Прогоны сквозь <code>extract_calendar_full</code>; словарь площадок — <code>data/venues.json</code>; метки «отменено/перенесено» — по свежим постам (reschedule_flags, горизонт 48 ч).</div>
+"""
+
+
 def main():
     cfg = jload(os.path.join(BASE, "config.json"), {})
     status = jload(os.path.join(DATA, "fetch_status.json"), {})
@@ -143,6 +171,7 @@ def main():
         for r in alerts.get("resolved", [])[-5:][::-1]) or '<div class="alert-line">Отбоев не зафиксировано</div>'
 
     counts = trends.get("counts", {})
+    afisha_report = quality_block(jload(os.path.join(DATA, "analytics.json"), {}).get("calendar_passport") or {})
     import glob as _glob
     _dig = sorted(_glob.glob(os.path.join(BASE, "digests", "digest_*.html")))
     latest_digest_href = f"digests/{os.path.basename(_dig[-1])}" if _dig else "index.html"
@@ -260,6 +289,8 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\\u2600
 {active_html}
 {resolved_html}
 <div class="note">Последняя проверка монитора: {esc_(astate.get('last_check_local'))} · белый список: {', '.join(cfg.get('alerting',{}).get('whitelist',[]))}</div>
+
+{afisha_report}
 
 <h2>📡 Источники</h2>
 <table><tr><th>Тип</th><th>Источник</th><th>Статус</th><th>Собрано</th></tr>{tr_html}</table>

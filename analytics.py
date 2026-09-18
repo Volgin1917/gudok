@@ -1141,6 +1141,214 @@ def extract_calendar(items, now=None, horizon_days=45, cfg=None):
     return extract_calendar_full(items, now=now, cfg=gate)["accepted"]
 
 
+# ---------------------------------------------------------------- 1b. Выбор редакции
+PICK_MAX = 3
+
+
+def pick_reason(e):
+    """Одна строка «почему советуем» для карточки «Выбора редакции»."""
+    parts = []
+    a = int(e.get("also_n") or 0)
+    if a:
+        n = a + 1
+        iz = "издание" if n % 10 == 1 and n % 100 != 11 else ("издания" if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14 else "изданий")
+        parts.append(f"анонсировали {n} {iz}")
+    if e.get("price_mode") == "free":
+        parts.append("вход свободный")
+    elif e.get("price"):
+        parts.append(f"билеты {e.get('price')}")
+    if e.get("date_end"):
+        parts.append("несколько дней события")
+    return " · ".join(parts) or "проверили площадку и время"
+
+
+def editor_pick(cal, now=None):
+    """«Выбор редакции»: до PICK_MAX событий ближайшей недели с полными
+    сведениями (время, площадка), не отменённые. Приоритет — больше анонсов,
+    бесплатный вход, многодневность. Возвращает список событий."""
+    now = now or datetime.now(UTC4)
+    today = now.date()
+
+    def edate(e):
+        try:
+            return datetime.strptime(e["date"], "%Y-%m-%d").date()
+        except (ValueError, TypeError, KeyError):
+            return None
+
+    def _n_iz(n):
+        if n % 10 == 1 and n % 100 != 11:
+            return "издание"
+        if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+            return "издания"
+        return "изданий"
+
+    pool = []
+    for e in cal:
+        d = edate(e)
+        if d is None or d < today or d > today + timedelta(days=7):
+            continue
+        if e.get("canceled"):
+            continue
+        if not (e.get("venue") or e.get("geo")):
+            continue
+        pool.append(e)
+    # приоритет: больше анонсов, бесплатный вход, многодневность;
+    # события без времени — фолбэк на случай нехватки полных, в хвосте
+    def has_time(e):
+        return bool(e.get("time") or e.get("time_note") == "весь день")
+
+    pool.sort(key=lambda e: (not has_time(e),
+                             -int(e.get("also_n") or 0),
+                             e.get("price_mode") != "free",
+                             not bool(e.get("date_end"))))
+    return pool[:PICK_MAX]
+
+
+# ---------------------------------------------------------------- 3b. Отмены и переносы
+RESCHEDULE_HORIZON_H = 48
+
+
+def reschedule_flags(accepted, items, now=None, cfg=None):
+    """Спринт 3, п.3: метки «отменено» / «перенесено» на событиях афиши.
+
+    Сканирует свежие посты (< RESCHEDULE_HORIZON_H) с глаголами отмены/переноса,
+    связывает их с принятыми событиями по дате и имени и проставляет:
+      canceled=True + check_date для отмен;
+      moved_from=<исходная дата> при переносе с указанием новой даты (старшая метка);
+      moved_unknown=True, если новая дата не названа.
+    Отменённые не попадают в .ics и в листок выходных."""
+    words = ("отмен", "отменя", "отменён", "перенос", "перенес", "не состоится",
+             "не состоятся", "переносится", "переносим")
+    now = now or datetime.now(UTC4)
+    if not items:
+        return accepted
+
+    def sig(e):
+        # «название события» + «площадка» — признак для сопоставления
+        raw = (e.get("event_title") or e.get("title") or "").lower()
+        t = re.sub(r"[^\wа-яё ]", " ", raw)
+        ws = [w for w in t.split() if w][:3]
+        return " ".join(ws)
+
+    fresh = []
+    for it in items:
+        text = " ".join([it.get("title") or "", it.get("text") or ""])
+        low = text.lower()
+        if not any(w in low for w in words):
+            continue
+        if not announced_dates(text, now=now) \
+        and not re.search(r"перенос|перенес|переносится|переносим", low) \
+        and not re.search(r"\d{1,2}\s+(сентябр|октябр|ноябр)", low):
+            continue
+        try:
+            pt = datetime.fromisoformat((it.get("published") or "").replace("Z", "+00:00"))
+            if pt.tzinfo is None:
+                pt = pt.replace(tzinfo=timezone.utc)
+            pt = pt.astimezone(now.tzinfo if now.tzinfo else timezone.utc)
+        except (ValueError, TypeError):
+            continue
+        if now - pt > timedelta(hours=RESCHEDULE_HORIZON_H):
+            continue
+        fresh.append({"text": text, "low": low, "date": pt.date()})
+
+    if not fresh:
+        return accepted
+
+    def _move_to(low):
+        """Если в посте названа новая дата — вернуть её YYYY-MM-DD, иначе None."""
+        m = re.search(r"(?:на|будет|состоится|пройдёт|пройдет|переносится)\s+(\d{1,2})\s+([а-яё]+)", low)
+        if not m:
+            return None
+        day = int(m.group(1))
+        months = {"января": 1, "февраля": 2, "марта": 3, "апреля": 4, "мая": 5,
+                  "июня": 6, "июля": 7, "августа": 8, "сентября": 9, "октября": 10,
+                  "ноября": 11, "декабря": 12}
+        mon = months.get(m.group(2).lower())
+        if not mon:
+            return None
+        y = now.year
+        if (mon, day) < (now.month, now.day):
+            y += 1
+        return "%d-%02d-%02d" % (y, mon, day)
+
+    for e in accepted:
+        if e.get("canceled"):
+            continue
+        s = sig(e)
+        d = e.get("date", "")
+        hit_cancel = hit_move = False
+        move_on = None
+        for p in fresh:
+            # связываем пост с событием: совпадает названная дата и хотя бы одно слово имени
+            if not any(re.search(r"\b%s" % re.escape(w), p["low"]) for w in s.split() if w):
+                continue
+            dates = announced_dates(p["text"], now=now)
+            date_done = dates and (d in dates or any(r.startswith(d[:10]) for r in dates))
+            if dates and not date_done:
+                continue
+            if any(w in p["low"] for w in ("отмен", "не состоится", "не состоятся")):
+                hit_cancel = True
+            if any(w in p["low"] for w in ("перенос", "перенес", "переносится", "переносим")):
+                hit_move = True
+                md = _move_to(p["low"])
+                if md and not move_on:
+                    move_on = md
+            if hit_cancel and hit_move:
+                break
+        if hit_cancel and not hit_move:
+            e["canceled"] = True
+            e["check_date"] = now.strftime("%d.%m")
+        elif hit_move:
+            src = move_on or ""
+            if src:
+                e["moved_to"] = src
+                e["moved_from"] = d
+            elif hit_cancel:
+                e["canceled"] = True
+                e["check_date"] = now.strftime("%d.%m")
+            else:
+                e["moved_unknown"] = True
+    return accepted
+
+
+# ---------------------------------------------------------------- 5. Качество выборки
+def _afisha_quality(accepted, rejection=None):
+    """Спринт 3, п.5: сводка качества выборки афиши (предложение 24):
+
+    дат найдено — прошло порог — без времени — без площадки — доля «Прочего» —
+    новые площадки — число дублей (также анонсировали N изд.)."""
+    n = len(accepted)
+    no_time = sum(1 for e in accepted if not (e.get("time") or e.get("time_note")) )
+    no_venue = sum(1 for e in accepted if not (e.get("venue") or e.get("geo")))
+    other = sum(1 for e in accepted if (e.get("etype") or "other") == "other")
+    dup_n = sum(1 for e in accepted if int(e.get("also_n") or 0) > 0)
+    new_venues = len(rejection.get("venues_new", {})) if isinstance(rejection, dict) else 0
+    score_avg = round(sum(e.get("score") or 0 for e in accepted) / n, 3) if n else 0
+    verdict_bits = []
+    if n:
+        verdict_bits.append(f"прошло порог {n}")
+        if no_time:
+            verdict_bits.append(f"без времени {no_time}")
+        if no_venue:
+            verdict_bits.append(f"без площадки {no_venue}")
+        if other:
+            verdict_bits.append(f"«Прочее» {round(other * 100 / n, 1)}%")
+        if new_venues:
+            verdict_bits.append(f"новых площадок {new_venues}")
+        if dup_n:
+            verdict_bits.append(f"с др. анонсами {dup_n}")
+    return {
+        "total": n,
+        "no_time": no_time,
+        "no_venue": no_venue,
+        "other_share": round(other * 100 / n, 1) if n else None,
+        "also_n": dup_n,
+        "venues_new_n": new_venues,
+        "score_avg": score_avg,
+        "verdict": "; ".join(verdict_bits) or "событий нет",
+    }
+
+
 # ---------------------------------------------------------------- 2. clusters
 WORD_RE = re.compile(r"[a-zа-яё]{4,}", re.I)
 GENERIC = set("""
@@ -3489,9 +3697,10 @@ def build_all(items, trends, cfg=None):
         json.dump(infospace, f, ensure_ascii=False, indent=1)
 
     cal_full = extract_calendar_full(items, now, cfg)
+    accepted = reschedule_flags(cal_full["accepted"], items, now, cfg)
     result = {
         "generated_local": now.strftime("%d.%m.%Y %H:%M"),
-        "calendar": cal_full["accepted"],
+        "calendar": accepted,
         "clusters": cluster_stories(items, now),
         "sentiment": sentiment_score(items, now=now),
         "credibility": source_credibility(items),
@@ -3507,6 +3716,7 @@ def build_all(items, trends, cfg=None):
         "stats": cal_full.get("stats", {}),
         "run_local": now.strftime("%d.%m.%Y %H:%M"),
     }
+    result["calendar_passport"].update(_afisha_quality(accepted, cal_full))
     os.makedirs(DATA, exist_ok=True)
     with open(os.path.join(DATA, "analytics.json"), "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=1)

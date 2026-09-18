@@ -2306,6 +2306,33 @@ def render_exec(cfg, trends, store, status, date_str):
         + (' · <span style="color:#b02a2f;">Пустые блоки:</span> ' + ", ".join(esc(b) for b in q.get("empty_blocks") or []) if q.get("empty_blocks") else "")
         + '</div>')
 
+    # Спринт 3, п.5: сводка качества выборки афиши для руководителя
+    apass = an.get("calendar_passport") or {}
+    if apass.get("run_local"):
+        aq_bits = [
+            f"прошло порог <b>{apass.get('accepted', apass.get('total', 0))}</b>",
+            f"дат в текстах: <b>{apass.get('found_dates', '—')}</b>",
+            f"отсеяно: <b>{apass.get('rejected', '—')}</b>",
+        ]
+        if apass.get("no_time"):
+            aq_bits.append(f"без времени: <b>{apass['no_time']}</b>")
+        if apass.get("no_venue"):
+            aq_bits.append(f"без площадки: <b>{apass['no_venue']}</b>")
+        if apass.get("other_share") is not None:
+            aq_bits.append(f"«Прочее»: <b>{apass['other_share']}%</b>")
+        if apass.get("venues_new_n"):
+            aq_bits.append(f"новых площадок: <b>{apass['venues_new_n']}</b>")
+        aq_extra = ""
+        if apass.get("also_n"):
+            aq_extra = f' · <b>с др. анонсами:</b> {apass["also_n"]}'
+        if apass.get("verdict"):
+            aq_extra += f' · <span style="color:var(--muted);">{esc(str(apass["verdict"]))}</span>'
+        afisha_qual = (f'<div class="panel"><h3>🎯 Качество афиши</h3>'
+                       f'<div style="font-size:12px;line-height:1.5;">'
+                       f'{" · ".join(aq_bits)}{aq_extra}</div></div>')
+    else:
+        afisha_qual = ""
+
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Дайджест руководителя · {day:%d.%m.%Y} — {cfg['brand']}</title>
@@ -2385,6 +2412,7 @@ def render_exec(cfg, trends, store, status, date_str):
 <div class="panel"><h3>🌡 Тон инфополя · {sent.get('today_items', '—')} материалов</h3>
 <div style="display:flex;align-items:center;gap:14px;"><div><div class="tone-big">{sc_txt}</div><div class="tone-mood">{mood} · ряд 14 дней →</div></div>{tone_spark}</div></div>
 <div class="panel"><h3>📋 Качество выпуска</h3>{qual_rows}</div>
+{afisha_qual}
 <div class="panel"><h3>🔮 Прогноз на завтра</h3>{fc_rows}</div>
 <div class="panel"><h3>📰 Первоисточники инфополя</h3>{cred_rows}</div>
 </div>
@@ -3996,6 +4024,28 @@ AFISHA_CSS = """
 .af-tag-icn{font-size:12.5px;margin-right:1px;}
 .af-foot{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:16px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);}
 .af-foot b{color:var(--navy);font-size:16px;margin-right:2px;}
+/* ---- спринт 3, п.1: выбор редакции ---- */
+.af-pick{background:linear-gradient(135deg,#fdf3dd,#fff8ec);border:1px solid var(--gold);border-radius:14px;padding:14px 18px;margin-bottom:16px;}
+:root[data-theme="dark"] .af-pick{background:linear-gradient(135deg,#241d0e,#2a2110);border-color:#5a4a16;}
+.af-pick h2{font-family:var(--serif);font-size:16px;margin:0 0 10px;color:var(--navy);display:flex;align-items:center;gap:8px;}
+:root[data-theme="dark"] .af-pick h2{color:#e8e2d2;}
+.af-pick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;}
+.af-pick-card{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--card);}
+.af-pick-card .af-kick{color:var(--gold);}
+.af-pick-card .af-pick-why{font-size:11.5px;color:var(--muted);margin-top:6px;font-style:italic;}
+/* ---- спринт 3, п.2: экспорт .ics ---- */
+.af-ics-link{display:inline-block;margin-top:8px;font-size:12px;font-weight:800;color:var(--blue);cursor:pointer;border:1px solid var(--line);border-radius:9px;padding:6px 12px;background:var(--card);}
+.af-ics-link:hover{background:var(--navy3);color:#fff;border-color:var(--navy3);}
+/* ---- спринт 3, п.3: метки отмены и переноса ---- */
+.af-badge.cancel{background:#ffe4e4;color:#c0392b;border:1px solid #e6a4a4;}
+:root[data-theme="dark"] .af-badge.cancel{background:#3a1414;color:#ff8f7d;}
+.af-badge.move{background:#e8f0ff;color:#1d4f9c;border:1px solid #b7cdf5;}
+:root[data-theme="dark"] .af-badge.move{background:#14223a;color:#8ab4e8;}
+.af-event.canceled{opacity:.5;}
+.af-event.canceled .cal-badge,.af-event.canceled .af-link b{text-decoration:line-through;}
+.af-event .af-ics-one{float:right;font-size:10.5px;font-weight:800;color:var(--blue);cursor:pointer;border:1px solid var(--line);border-radius:7px;padding:3px 9px;background:var(--card);}
+.af-event .af-ics-one:hover{background:var(--navy3);color:#fff;}
+.af-event.canceled .af-ics-one{display:none;}
 """
 
 # Прогрессивный JS афиши (Спринт 2): фильтры день/тип/район/цена/возраст,
@@ -4034,6 +4084,68 @@ AFISHA_JS = """<script>
   function toMin(c){var t=c.getAttribute('data-tm');return t?+t:1440;}
   function dayText(d){var p=d.split('-');var x=new Date(d+'T12:00:00');return (+p[2])+' '+AF_MON[+p[1]-1]+' · '+AF_WD_F[x.getDay()];}
 
+  // --- Спринт 3, п.2: экспорт .ics (выборка целиком / одно событие) ---
+  function dtIso(d,min){
+    var p=d.split('-');
+    var x=new Date(Date.UTC(+p[0],+p[1]-1,+p[2]));
+    var m=min!=null?min:720;
+    var hh=Math.floor(m/60),mm=m%60;
+    var s=function(n){return ('0'+n).slice(-2);};
+    return x.toISOString().slice(0,10).replace(/-/g,'')+'T'+s(hh)+s(mm)+'00';
+  }
+  function icsText(pairs){
+    var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Gudok//Afisha//RU',
+      'CALSCALE:GREGORIAN','METHOD:PUBLISH'];
+    pairs.forEach(function(p){
+      var t=p.title.replace(/[\\;,]/g,function(ch){return '\\'+ch;}).replace(/\r?\n/g,'\\n');
+      lines.push('BEGIN:VEVENT','DTSTART:'+p.start,'DTEND:'+p.end,
+        'SUMMARY:'+t,
+        p.place?('LOCATION:'+p.place.replace(/[\\;,]/g,function(ch){return '\\'+ch;}).replace(/\r?\n/g,'\\n')):null,
+        p.url?('URL;VALUE=URI:'+p.url):null,
+        'END:VEVENT');
+    }.bind(this)).forEach(function(l){if(l)lines.push(l);});
+    lines.push('END:VCALENDAR');
+    return lines.join('\r\n');
+  }
+  function cardMeta(c){
+    var d=c.getAttribute('data-d');
+    var min=toMin(c);
+    var end=min===1440?1439:min+60;
+    return {
+      title:(c.querySelector('.af-link b')||{}).textContent||'Событие',
+      place:((c.querySelector('.af-meta')||{}).textContent||'').trim().slice(0,80),
+      url:(c.querySelector('.af-link')||{}).getAttribute?c.querySelector('.af-link').getAttribute('href'):'',
+      start:dtIso(d,min===1440?720:min),
+      end:dtIso(d,end)
+    };
+  }
+  function icsFile(pairs,label){
+    var blob=new Blob([icsText(pairs)],{type:'text/calendar;charset=utf-8'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download=(label||'afisha')+'.ics';
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(a.href);},4000);
+  }
+  window._afIcs=function(btn){
+    var card=btn&&btn.closest?btn.closest('.af-event,.af-pick-card'):null;
+    if(!card)return;
+    if(card.classList.contains('canceled'))return;
+    var m=cardMeta(card);
+    icsFile([m],'afisha-'+(card.getAttribute('data-d')||'afisha-event'));
+  };
+  window._afIcsAll=function(){
+    var vis=cards.filter(function(c){return !c.classList.contains('canceled')&&!c.classList.contains('af-hide');});
+    if(!vis.length)return;
+    var pairs=vis.map(cardMeta);
+    icsFile(pairs,'Афиша Гудка, '+vis.length+' событий');
+  };
+  window._afIcsOne=function(btn){
+    var card=btn.closest?btn.closest('.af-event'):null;
+    if(!card||card.classList.contains('canceled'))return;
+    icsFile([cardMeta(card)],'afisha-'+card.getAttribute('data-d')||'afisha-event');
+  };
+
   function pass(c){
     var d=c.getAttribute('data-d');
     if(ST.day){if(d!==ST.day)return false;}
@@ -4052,7 +4164,10 @@ AFISHA_JS = """<script>
 
   function paint(){
     var vis=[];
-    cards.forEach(function(c){if(pass(c)){vis.push(c);}});
+    cards.forEach(function(c){
+      if(c.classList.contains('canceled'))return;
+      if(pass(c)){vis.push(c);}
+    });
     if(ST.sort==='type'){
       vis.sort(function(a,b){
         var ta=a.getAttribute('data-type'),tb=b.getAttribute('data-type');
@@ -4391,6 +4506,14 @@ def render_afisha(cfg, trends, store, status, an):
     # карточка события с data-атрибутами для клиентских фильтров
     def badges_html(e):
         out = []
+        if e.get("canceled"):
+            out.append('<span class="af-badge cancel">отменено · проверено {}</span>'.format(
+                esc(e.get("check_date") or "17.09")))
+        if e.get("moved_from"):
+            out.append('<span class="af-badge move">перенесено с {}</span>'.format(
+                esc(e["moved_from"][8:10] + "." + e["moved_from"][5:7])))
+        elif e.get("moved_unknown"):
+            out.append('<span class="af-badge move">перенесено, новая дата неизвестна</span>')
         if e.get("price"):
             out.append(f'<span class="af-badge">{esc(e["price"])}</span>')
         if e.get("age"):
@@ -4429,9 +4552,18 @@ def render_afisha(cfg, trends, store, status, an):
             e.get("geo") or "", name, e.get("source") or ""]).lower()
         title = esc(clip_words(e.get("event_title") or e.get("title") or "без названия", 140))
         url = esc(e.get("url") or "#")
-        return f"""<div class="af-event" data-d="{e['date']}" data-tm="{tm}" data-type="{etype}"
+        state_cls = ""
+        if e.get("canceled"):
+            state_cls = " canceled"
+        elif e.get("moved_from") or e.get("moved_unknown"):
+            state_cls = " moved"
+        ics_btn = '<button type="button" class="af-ics-one" onclick="_afIcsOne(this)">в календарь</button>'
+        if e.get("canceled"):
+            ics_btn = ""
+        return f"""<div class="af-event{state_cls}" data-d="{e['date']}" data-tm="{tm}" data-type="{etype}"
  data-geo="{geo_bucket(e)}" data-price="{esc(e.get('price_mode') or '')}" data-age="{esc(e.get('age') or '')}"
  data-sc="{e.get('score') or 0}" data-q="{esc(hay.replace('"', ' '))}">
+{ics_btn}
 <div class="cal-badge{gold}"><b>{d:%d}</b><span>{wd[d.weekday()]} {d:%m}</span></div>
 <div class="af-body"><div class="af-kick">{kick}</div>
 <a class="af-link" href="{url}" target="_blank" rel="noopener"><b>{title}</b></a>{span}
@@ -4553,6 +4685,35 @@ def render_afisha(cfg, trends, store, status, an):
     else:
         list_html = '<div id="af-list"><div class="af-empty">Событий не найдено — запустите сбор конвейером.</div></div>'
 
+    # «Выбор редакции»: до PICK_MAX событий ближайшей недели (Спринт 3, п.1)
+    from analytics import editor_pick, pick_reason
+    pick_evs = editor_pick(cal, now)
+    pick_html = ""
+    if pick_evs:
+        pick_cards = []
+        for e in pick_evs:
+            d = edate(e)
+            etype = e.get("etype") or "other"
+            icon, name = ETYPE_META.get(etype, ETYPE_META["other"])
+            title = esc(clip_words(e.get("event_title") or e.get("title") or "без названия", 90))
+            url = esc(e.get("url") or "#")
+            tm = ""
+            t = e.get("time") or ""
+            if t and ":" in t:
+                hh, mm = t.split(":", 1)
+                try:
+                    tm = str((int(hh) * 60 + int(mm[:2]) + 1440) % 1440)
+                except ValueError:
+                    tm = ""
+            pick_cards.append(f"""<div class="af-pick-card" data-d="{e['date']}" data-tm="{tm}" data-type="{etype}">
+<div class="af-kick">{icon} {name} · {d:%d.%m}</div>
+<a class="af-link" href="{url}" target="_blank" rel="noopener"><b>{title}</b></a>
+<div class="af-pick-why">{esc(pick_reason(e))}</div>
+<button type="button" class="af-ics-link" onclick="_afIcs(this)">в календарь</button>
+</div>""")
+        pick_html = f"""<div class="af-pick"><h2>⭐ Выбор редакции</h2>
+<div class="af-pick-grid">{''.join(pick_cards)}</div></div>"""
+
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Афиша культурных событий · Ульяновская область — {cfg['brand']}</title>
@@ -4572,11 +4733,15 @@ def render_afisha(cfg, trends, store, status, an):
 <div class="af-active" id="af-active"></div>
 <div class="af-daybar" id="af-daybar" data-ref="{today.isoformat()}">{''.join(daybar)}</div>
 
+{pick_html}
+
 {list_html}
 <div class="af-empty" id="af-empty" hidden><b>Под условия ничего не нашлось.</b> Снимите один из фильтров или поиск.
 <div style="margin-top:10px;"><button type="button" class="af-chip" onclick="_afReset()">Сбросить фильтры</button></div></div>
 
 <div class="af-foot"><span>Показано: <b id="af-shown">{total_n}</b> событий</span><span>дней с событиями: <b id="af-days">{days_n}</b></span>
+<button type="button" class="af-ics-link" onclick="_afIcsAll()" title="Только неотменённые, на видимую выборку">сохранить .ics</button>
+<button type="button" class="af-ics-link" onclick="window.print()" title="Печать листка выходных — A4">листок выходных</button>
 <span class="af-albl" style="margin-left:auto;">фильтры применяются в браузере; без JS видны все события по дням</span></div>
 
 {rej_html}
@@ -4601,6 +4766,118 @@ def render_afisha(cfg, trends, store, status, an):
 </div>
 {footer.render_footer('')}
 {AFISHA_JS}
+</body></html>"""
+
+
+AF_WEEK_CSS = """
+body.afw{background:#8b939c;margin:0;font-family:Georgia,'Times New Roman',serif;}
+.afw-sheet{width:186mm;min-height:266mm;margin:10mm auto;background:#fdfcf8;color:#141414;
+padding:11mm 13mm 9mm;box-shadow:0 4px 24px rgba(0,0,0,.45);position:relative;box-sizing:border-box;}
+.afw-mast{text-align:center;border-bottom:3px double #141414;padding-bottom:4mm;}
+.afw-title{font-size:38pt;font-weight:900;letter-spacing:8px;line-height:1;margin:0;}
+.afw-line{font-size:8.5pt;letter-spacing:1.2px;text-transform:uppercase;margin-top:2.5mm;color:#333;}
+.afw-kicker{font-size:8pt;letter-spacing:2px;text-transform:uppercase;color:#7a1f1f;font-weight:700;margin:3mm 0 1.5mm;}
+.afw-day{break-inside:avoid;margin-bottom:4mm;}
+.afw-day h2{font-size:15pt;font-weight:900;border-bottom:1.4pt solid #141414;padding-bottom:1.2mm;margin:0 0 2mm;}
+.afw-day .afw-date{font-size:8pt;letter-spacing:1px;text-transform:uppercase;color:#5a5a5a;margin-bottom:2mm;}
+.afw-item{display:flex;gap:3mm;margin-bottom:1.6mm;break-inside:avoid;}
+.afw-time{flex:0 0 26mm;font-weight:900;font-size:9.6pt;padding-top:.2mm;}
+.afw-body{flex:1;font-size:9.4pt;line-height:1.35;}
+.afw-body .afw-t{font-weight:900;font-size:10pt;}
+.afw-body .afw-m{color:#4a4a4a;font-size:8.6pt;}
+.afw-body .afw-moved{color:#1d4f9c;font-style:italic;font-size:8.6pt;}
+.afw-note{font-style:italic;color:#8a8378;font-size:8.2pt;margin-top:2mm;}
+.afw-toolbar{position:fixed;top:10px;right:14px;z-index:9;display:flex;gap:8px;}
+.afw-toolbar a,.afw-toolbar button{background:#141414;color:#fff;border:none;border-radius:8px;padding:8px 14px;
+font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;font-family:Segoe UI,Arial,sans-serif;}
+@media print{
+  body.afw{background:#fff;}
+  .afw-sheet{margin:0;box-shadow:none;width:auto;min-height:auto;page-break-after:always;}
+  .afw-toolbar{display:none;}
+}
+"""
+
+WD_RU_FULL = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
+
+
+def render_afisha_print(cfg, an, now=None):
+    """Листок выходных (п.4): ближайшие суббота и воскресенье — только сегодня при воскресенье.
+    Полные события по времени, отменённые исключены, перенесённые помечены. Самодостаточный A4."""
+    now = now or datetime.now(UTC4)
+    today = now.date()
+
+    def edate(e):
+        try:
+            return datetime.strptime(e["date"], "%Y-%m-%d").date()
+        except (ValueError, TypeError, KeyError):
+            return None
+
+    cal = (an or {}).get("calendar", [])
+    cal = [e for e in cal if edate(e) and not e.get("canceled")]
+    cal = sorted(cal, key=lambda e: (e["date"], e.get("time") or "99:99"))
+
+    we = {}
+    for shift in (0, 1):
+        d = today + timedelta(days=shift)
+        if shift == 1 and d.weekday() != 5:      # завтра не суббота — листок только на текущие выходные
+            break
+        if d.weekday() in (5, 6):                # сб=5, вс=6
+            we[d] = [e for e in cal if edate(e) == d]
+        if shift == 1:
+            break
+    # если сегодня не выходные — берём ближайшую субботу и воскресенье
+    if not we:
+        for gap in (0, 1, 2, 3, 4, 5, 6):
+            d = today + timedelta(days=gap)
+            if d.weekday() in (5, 6):
+                we[d] = [e for e in cal if edate(e) == d]
+            if len(we) == 2:
+                break
+
+    sections = []
+    for d in sorted(we):
+        title = WD_RU_FULL[d.weekday()] + ", " + d.strftime("%d.%m.%Y")
+        rows = []
+        for e in we[d]:
+            hours = (e.get("time") or "").strip()
+            if e.get("time_note") == "весь день":
+                hours = "весь день"
+            elif not hours and e.get("time_note"):
+                hours = e["time_note"]
+            elif not hours:
+                hours = "время уточняется"
+            src = e.get("source") or ""
+            moved = ""
+            if e.get("moved_from"):
+                moved = '<div class="afw-moved">перенесено с {}</div>'.format(
+                    esc(e["moved_from"][8:10] + "." + e["moved_from"][5:7]))
+            elif e.get("moved_unknown"):
+                moved = '<div class="afw-moved">перенесено, новая дата неизвестна</div>'
+            extra = " · ".join(x for x in [src, (e.get("price") or ""), (e.get("age") or "")] if x)
+            meta = esc(extra)
+            if e.get("venue"):
+                meta = ("📍 " + esc(e["venue"])) + (" · " + meta if meta else "")
+            rows.append(f"""<div class="afw-item"><div class="afw-time">{esc(hours)}</div>
+<div class="afw-body"><div class="afw-t">{esc(clip_words(e.get("event_title") or e.get("title") or "без названия", 90))}</div>
+<div class="afw-m">{meta}</div>{moved}</div></div>""")
+        if not rows:
+            rows.append('<div class="afw-note">Событий не найдено — все площадки пустуют или их не анонсировали.</div>')
+        sections.append(f"""<section class="afw-day"><h2>{esc(title)}</h2>
+<div class="afw-date">культурная афиша · всего {len(we[d])} событий</div>
+{''.join(rows)}</section>""")
+
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Листок выходных · {cfg['brand']}</title>
+<style>{AF_WEEK_CSS}</style></head><body class="afw">
+<div class="afw-toolbar"><a href="afisha/">← к афише</a><button onclick="window.print()">Печать</button></div>
+<div class="afw-sheet">
+<div class="afw-mast"><p class="afw-kicker">ГУДОК · выходные · {today:%d.%m.%Y}</p>
+<h1 class="afw-title">Листок выходных</h1>
+<div class="afw-line">Куда пойти в {now:%B} — {cfg['brand']}</div></div>
+{''.join(sections)}
+<div class="afw-note" style="margin-top:4mm;">Время и цены — организаторы . Правки, если событие отменено или перенесено, вносятся меткой при пересборке афиши.</div>
+</div>
 </body></html>"""
 
 
@@ -6906,6 +7183,10 @@ def main():
     with open(os.path.join(BASE, "afisha.html"), "w", encoding="utf-8") as f:
         f.write(afisha_html)
     print("[generate] афиша: afisha.html")
+    afw_html = render_afisha_print(cfg, load_json(os.path.join(DATA, "analytics.json")) or {})
+    with open(os.path.join(BASE, "afisha_weekend.html"), "w", encoding="utf-8") as f:
+        f.write(afw_html)
+    print("[generate] листок выходных: afisha_weekend.html")
 
     arch_html = themed(render_archive(cfg, trends, store, status))
     with open(os.path.join(BASE, "archive.html"), "w", encoding="utf-8") as f:

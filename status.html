@@ -109,22 +109,28 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\u2600\
 <a href="afisha.html">Афиша</a>
 <a href="projects.html">Проекты</a>
 <a href="archive.html">Архив</a>
-<a href="digests/exec_2026-09-16.html">Руководителю</a>
+<a href="digests/exec_2026-09-17.html">Руководителю</a>
 </div></nav>
 <main id="main"><div class="page">
 <h1 class="page-title">🩺 Status — конвейер издания Гудок</h1>
 
 <div class="grid">
-<div class="stat"><b>🟢 в норме</b><span>последний сбор: 6 мин назад</span></div>
+<div class="stat"><b>🟢 в норме</b><span>последний сбор: 18 ч назад</span></div>
 <div class="stat"><b>40/41</b><span>источников доступно</span></div>
 <div class="stat"><b>2530</b><span>записей в базе · 361 за 24 ч</span></div>
-<div class="stat"><b>2026-09-17</b><span>последний бэкап</span></div>
+<div class="stat"><b>—</b><span>последний бэкап</span></div>
 </div>
 
 <h2>⚡ Алерт-монитор</h2>
 <div class="alert-line green">✅ Активных угроз нет</div>
 <div class="alert-line">Отбоев не зафиксировано</div>
 <div class="note">Последняя проверка монитора: 11.09.2026 10:57:49 · белый список: Russkih_Aleksey, ulgovru, ulpressa, reporter73, chpulsk, A_Boldakin</div>
+
+<h2>🎯 Качество выборки афиши</h2>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));"><div class="stat"><b>8</b><span>прошло порог</span></div><div class="stat"><b>61</b><span>дат найдено в текстах</span></div><div class="stat"><b>43</b><span>отсеяно</span></div><div class="stat"><b>0</b><span>без времени</span></div><div class="stat"><b>0</b><span>без площадки</span></div><div class="stat"><b>0.0%</b><span>«Прочее»</span></div><div class="stat"><b>2</b><span>с др. анонсами</span></div><div class="stat"><b>7</b><span>новых площадок к словарю</span></div><div class="stat"><b>0.955</b><span>средний балл уверенности</span></div></div>
+<div class="note">Порог входа: 0.55. Афиша собрана 18.09.2026 10:13. прошло порог 8; новых площадок 7; с др. анонсами 2
+Прогоны сквозь <code>extract_calendar_full</code>; словарь площадок — <code>data/venues.json</code>; метки «отменено/перенесено» — по свежим постам (reschedule_flags, горизонт 48 ч).</div>
+
 
 <h2>📡 Источники</h2>
 <table><tr><th>Тип</th><th>Источник</th><th>Статус</th><th>Собрано</th></tr><tr><td><span class="badge-t">RSS</span></td>
@@ -257,8 +263,8 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\u2600\
 <table><tr><th>Шаг</th><th>Результат</th></tr>
 <tr><td>collector → store.jsonl</td><td>486 получено, 15 новых (17.09.2026 15:52)</td></tr>
 <tr><td>trends → trends.json</td><td>17.09.2026 15:58 · тем: 19</td></tr>
-<tr><td>analytics → analytics.json</td><td>17.09.2026 15:58</td></tr>
-<tr><td>backup → data/backups/</td><td>1 копий, хранение 14 дн.</td></tr>
+<tr><td>analytics → analytics.json</td><td>18.09.2026 10:13</td></tr>
+<tr><td>backup → data/backups/</td><td>0 копий, хранение [] дн.</td></tr>
 <tr><td>тесты</td><td>python3 -m unittest discover -s tests (38 тестов)</td></tr>
 </table>
 
@@ -287,7 +293,7 @@ var b=document.getElementById("themeBtn");if(b)b.textContent=c==="dark"?"\u2600\
 <div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
 <li><a href="status.html">Статус системы</a></li>
 <li><a href="projects/plans.html">Планы и методы</a></li>
-<li><a href="digests/exec_2026-09-17.html">Версия руководителю</a></li>
+<li><a href="digests/exec_2026-09-18.html">Версия руководителю</a></li>
 <li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
 </div>
 <div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>

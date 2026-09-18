@@ -22,6 +22,7 @@ import dedup  # noqa: E402
 import generate  # noqa: E402
 import analytics  # noqa: E402
 import outlets  # noqa: E402
+import status  # noqa: E402
 from datetime import datetime, timedelta, timezone
 
 FIX = os.path.join(BASE, "tests", "fixtures")
@@ -386,6 +387,259 @@ class TestAfishaGate(unittest.TestCase):
         self.assertIn('data-geo="dim"', html)
         self.assertIn('class="af-badge"', html)
         self.assertIn('class="af-badge warn">дата не распознана', html)
+
+
+class TestAfishaSprint3(unittest.TestCase):
+    """Спринт 3 реорганизации афиши: выбор редакции (п.1), экспорт .ics (п.2),
+    метки отмены/переноса (п.3), листок выходных (п.4), качество выборки (п.5).
+
+    Спринт был потерян (git reset --hard при параллельной работе) и восстановлен
+    заново на базе c8e053d — тесты ниже фиксируют контракт восстановления.
+    """
+
+    NOW = analytics.datetime(2026, 9, 17, tzinfo=analytics.UTC4)
+
+    def ev_pick(self, date, etype, time, **kw):
+        """Событие календаря афиши; kwarg price= пишется в реальное поле цены,
+        price_mode= — в режим оплаты; остальное кладётся как есть."""
+        e = {"date": date, "etype": etype, "time": time, "price_mode": "",
+             "age": "", "event_title": "Праздник двора", "url": "https://ex",
+             "venue": "ДК", "venue_city": "Ульяновск", "score": 0.8, "source": "тест"}
+        price = kw.pop("price", None)
+        if price is not None:
+            e["price"] = price
+        pm = kw.pop("price_mode", None)
+        if pm is not None:
+            e["price_mode"] = pm
+        e.update(kw)
+        return e
+
+    def an_for(self, events):
+        return {"calendar": events, "calendar_passport": {}, "calendar_rejected": []}
+
+    def test_afisha_sprint3_pick_markup(self):
+        pickup = self.ev_pick("2026-09-19", "festival", "12:00", also_n=2, price_mode="free")
+        other = self.ev_pick("2026-09-20", "theatre", "19:00")
+        an = self.an_for([pickup, other])
+        html = generate.render_afisha(CFG, {}, [{"source_type": "tg", "channel": "x", "title": "Ярмарка",
+                                                 "text": "Анонс: 24 сентября в 19:00 концерт в ДК.",
+                                                 "url": "#", "published": "2026-09-16T08:00:00+00:00"}],
+                                      None, an)
+        self.assertIn('class="af-pick"', html)
+        self.assertIn("Выбор редакции", html)
+        self.assertIn('class="af-pick-card"', html)
+        self.assertIn('class="af-pick-why"', html)
+        self.assertIn("анонсировали 3 издания", html)
+
+    def test_editor_pick_limits_to_week_and_count(self):
+        cal = [self.ev_pick("2026-09-19", "festival", "12:00"),
+               self.ev_pick("2026-09-20", "concert", "19:00", also_n=2),
+               self.ev_pick("2026-09-21", "expo", "", price_mode="paid"),
+               self.ev_pick("2026-09-26", "sport", "10:00", also_n=3),
+               self.ev_pick("2026-09-28", "theatre", "18:00"),
+               self.ev_pick("2026-10-01", "city", "12:00")]
+        pick = analytics.editor_pick(cal, now=self.NOW)
+        self.assertEqual(len(pick), 3)
+        for e in pick:
+            self.assertLessEqual(e["date"], "2026-09-24")
+        # приоритет — больше анонсов; событие без времени попадает фолбэком в хвост
+        self.assertEqual(pick[0]["date"], "2026-09-20")
+        self.assertIn("2026-09-21", [e["date"] for e in pick])
+
+    def test_editor_pick_needs_full_fields(self):
+        cal = [self.ev_pick("2026-09-18", "city", "", venue=""),
+               self.ev_pick("2026-09-18", "cinema", "15:00", venue="")]
+        self.assertEqual(analytics.editor_pick(cal, now=self.NOW), [])
+
+    def test_editor_pick_ranks_by_announcements_and_score(self):
+        cal = [self.ev_pick("2026-09-19", "expo", "11:00"),
+               self.ev_pick("2026-09-19", "concert", "19:00", also_n=4, price_mode="free"),
+               self.ev_pick("2026-09-20", "sport", "10:00", also_n=1, date_end="2026-09-21")]
+        pick = analytics.editor_pick(cal, now=self.NOW)
+        self.assertEqual(pick[0]["date"], "2026-09-19")
+        self.assertTrue(pick[0].get("also_n") or pick[0].get("price_mode") == "free")
+
+    def test_canceled_excluded_from_pick(self):
+        cal = [self.ev_pick("2026-09-19", "festival", "12:00", canceled=True),
+               self.ev_pick("2026-09-20", "sport", "10:00")]
+        pick = analytics.editor_pick(cal, now=self.NOW)
+        self.assertEqual(len(pick), 1)
+        self.assertFalse(pick[0].get("canceled"))
+
+    def test_afisha_sprint3_ics_markup(self):
+        ev = self.ev_pick("2026-09-20", "theatre", "19:00", venue="Парк")
+        an = self.an_for([ev])
+        html = generate.render_afisha(CFG, {}, [{"source_type": "tg", "channel": "x", "title": "Ярмарка",
+                                                 "text": "Анонс: 24 сентября концерт.",
+                                                 "url": "#", "published": "2026-09-16T08:00:00+00:00"}],
+                                      None, an)
+        self.assertIn("_afIcs", html)
+        self.assertIn("_afIcsAll", html)
+        self.assertIn("_afIcsOne", html)
+        self.assertIn("сохранить .ics", html)
+        self.assertIn("BEGIN:VCALENDAR", html)
+        self.assertIn("в календарь", html)
+
+    def test_cancel_badge_and_filter(self):
+        ev = self.ev_pick("2026-09-20", "theatre", "19:00", canceled=True, check_date="17.09")
+        an = self.an_for([ev])
+        html = generate.render_afisha(CFG, {}, [{"source_type": "tg", "channel": "x", "title": "Ярмарка",
+                                                 "text": "Анонс: 24 сентября концерт.",
+                                                 "url": "#", "published": "2026-09-16T08:00:00+00:00"}],
+                                      None, an)
+        self.assertIn('af-event canceled', html)
+        self.assertIn("af-badge cancel", html)
+        self.assertIn("отменено · проверено 17.09", html)
+        self.assertIn("classList.contains('canceled')", html)
+        # у отменённого события нет кнопки «в календарь» на карточке
+        idx = html.find('af-event canceled')
+        self.assertNotIn("af-ics-one", html[idx:idx + 500])
+
+    def test_move_badge(self):
+        ev = self.ev_pick("2026-09-20", "theatre", "19:00", moved_from="2026-09-19")
+        an = self.an_for([ev])
+        html = generate.render_afisha(CFG, {}, [{"source_type": "tg", "channel": "x", "title": "Ярмарка",
+                                                 "text": "Анонс: 24 сентября концерт.",
+                                                 "url": "#", "published": "2026-09-16T08:00:00+00:00"}],
+                                      None, an)
+        self.assertIn("af-badge move", html)
+        self.assertIn("перенесено с 19.09", html)
+
+    def test_cancel_flags_from_posts(self):
+        ob = self.ev_pick("2026-09-19", "festival", "12:00")
+        items = [
+            {"title": "Отмена праздника", "text": "Праздник 19 сентября отменяется, не состоится.",
+             "published": "2026-09-17T06:00:00+00:00", "url": "#"},
+        ]
+        out = analytics.reschedule_flags([dict(ob)], items, now=self.NOW)
+        self.assertTrue(out[0]["canceled"])
+        self.assertEqual(out[0]["check_date"], "17.09")
+
+    def test_cancel_flags_ignore_stale(self):
+        ob = self.ev_pick("2026-09-19", "festival", "12:00")
+        items = [
+            {"title": "Отмена", "text": "Праздник отменяется в последний момент.",
+             "published": "2026-09-10T06:00:00+00:00", "url": "#"},
+        ]
+        out = analytics.reschedule_flags([dict(ob)], items, now=self.NOW)
+        self.assertNotIn("canceled", out[0])
+
+    def test_move_flags_with_date(self):
+        ob = self.ev_pick("2026-09-19", "festival", "12:00")
+        items = [
+            {"title": "Перенос", "text": "Перенос праздника: вместо 19 сентября будет 27 сентября.",
+             "published": "2026-09-17T06:00:00+00:00", "url": "#"},
+        ]
+        out = analytics.reschedule_flags([dict(ob)], items, now=self.NOW)
+        self.assertEqual(out[0]["moved_from"], "2026-09-19")
+        self.assertEqual(out[0]["moved_to"], "2026-09-27")
+        self.assertNotIn("canceled", out[0])
+
+    def test_move_flags_unknown_date(self):
+        ob = self.ev_pick("2026-09-19", "festival", "12:00")
+        items = [
+            {"title": "Перенос", "text": "Праздник перенесён, новая дата уточняется.",
+             "published": "2026-09-17T06:00:00+00:00", "url": "#"},
+        ]
+        out = analytics.reschedule_flags([dict(ob)], items, now=self.NOW)
+        self.assertTrue(out[0]["moved_unknown"])
+        self.assertNotIn("canceled", out[0])
+
+    def test_move_flags_unrelated(self):
+        ob = self.ev_pick("2026-09-19", "festival", "12:00")
+        items = [
+            {"title": "Перенос", "text": "Перенос выставки на 10 октября.",
+             "published": "2026-09-17T06:00:00+00:00", "url": "#"},
+        ]
+        out = analytics.reschedule_flags([dict(ob)], items, now=self.NOW)
+        self.assertNotIn("canceled", out[0])
+        self.assertNotIn("moved_from", out[0])
+
+    def test_afisha_sprint4_print_weekend(self):
+        an = {"calendar": [
+            {"date": "2026-09-17", "time": "18:00", "event_title": "Лекция в пт",
+             "venue": "ДК", "score": 0.8, "source": "тест", "etype": "other"},
+            {"date": "2026-09-19", "time": "12:00", "event_title": "Праздник сб",
+             "venue": "Парк", "score": 0.8, "source": "тест", "etype": "festival"},
+            {"date": "2026-09-19", "time": "18:00", "event_title": "Отменённый сб",
+             "venue": "Парк", "score": 0.8, "source": "тест", "etype": "concert", "canceled": True},
+            {"date": "2026-09-19", "time": "15:00", "event_title": "Перенесённый сб",
+             "venue": "Парк", "score": 0.8, "source": "тест", "etype": "concert",
+             "moved_from": "2026-09-17"},
+            {"date": "2026-09-20", "time": "11:00", "event_title": "Ярмарка вс",
+             "venue": "Центр", "score": 0.8, "source": "тест", "etype": "city"},
+        ]}
+        html = generate.render_afisha_print(CFG, an, now=self.NOW)
+        self.assertIn("Листок выходных", html)
+        self.assertIn("Суббота, 19.09.2026", html)
+        self.assertIn("Воскресенье, 20.09.2026", html)
+        self.assertIn("Праздник сб", html)
+        # пятница не попадает, отменённое исключено
+        self.assertNotIn("Лекция в пт", html)
+        self.assertNotIn("Отменённый сб", html)
+        # перенос помечен
+        self.assertIn("перенесено с 17.09", html)
+
+    def test_afisha_quality_passport(self):
+        accepted = [
+            {"date": "2026-09-20", "time": "12:00", "venue": "ДК", "etype": "festival",
+             "score": 0.8, "also_n": 1},
+            {"date": "2026-09-21", "time": "", "venue": "", "etype": "other", "score": 0.5},
+            {"date": "2026-09-22", "time": "10:00", "venue": "Парк", "etype": "expo", "score": 0.6},
+        ]
+        q = analytics._afisha_quality(accepted, {"venues_new": {"Театр": 2}})
+        self.assertEqual(q["total"], 3)
+        self.assertEqual(q["no_time"], 1)
+        self.assertEqual(q["no_venue"], 1)
+        self.assertAlmostEqual(q["other_share"], 100 / 3, places=1)
+        self.assertEqual(q["also_n"], 1)
+        self.assertEqual(q["venues_new_n"], 1)
+        self.assertIn("прошло порог 3", q["verdict"])
+        # пустая выборка не падает
+        q0 = analytics._afisha_quality([], {})
+        self.assertEqual(q0["total"], 0)
+        self.assertIn("событий нет", q0["verdict"])
+
+    def test_status_quality_block(self):
+        html = status.quality_block({"run_local": "17.09.2026 07:30", "accepted": 12,
+                                     "found_dates": 40, "rejected": 3, "no_time": 2,
+                                     "no_venue": 1, "other_share": 15.5, "also_n": 4,
+                                     "venues_new_n": 2, "score_avg": 0.73, "threshold": 0.6,
+                                     "verdict": "прошло порог 12; без времени 2; без площадки 1"})
+        self.assertIn("Качество выборки афиши", html)
+        self.assertIn("прошло порог", html)
+        # пустой паспорт -> пустой блок
+        self.assertEqual(status.quality_block({}), "")
+        self.assertEqual(status.quality_block(None), "")
+        self.assertEqual(status.quality_block({"accepted": 1}), "")
+
+    def test_exec_afisha_quality_note(self):
+        an_path = os.path.join(analytics.DATA, "analytics.json")
+        if not os.path.exists(an_path):
+            self.skipTest("нет analytics.json — качество афиши не считается")
+        an = json.load(open(an_path, encoding="utf-8"))
+        if not (an.get("calendar_passport") or {}).get("run_local"):
+            self.skipTest("паспорт афиши не собран")
+        store = []
+        path = os.path.join(analytics.DATA, "store.jsonl")
+        if os.path.exists(path):
+            with open(path, encoding="utf-8") as f:
+                store = [json.loads(l) for l in f if l.strip()][:1500]
+        html = generate.render_exec(CFG, {}, store, {}, "2026-09-17")
+        self.assertIn("🎯 Качество афиши", html)
+
+    def test_ics_excludes_canceled(self):
+        """Отменённые не попадают в export-выборку (visibleCards-фильтр + кнопка-гвард)."""
+        ev = self.ev_pick("2026-09-20", "theatre", "19:00", canceled=True, check_date="17.09")
+        an = self.an_for([ev])
+        html = generate.render_afisha(CFG, {}, [{"source_type": "tg", "channel": "x", "title": "Ярмарка",
+                                                 "text": "Анонс: 24 сентября концерт.",
+                                                 "url": "#", "published": "2026-09-16T08:00:00+00:00"}],
+                                      None, an)
+        self.assertNotIn('class="af-ics-one"', html)
+        self.assertIn("classList.contains('canceled')", html)
+        self.assertIn("_afIcsOne", html)
+        self.assertIn("if(!card||card.classList.contains('canceled'))return;", html)
 
 
 class TestSentiment(unittest.TestCase):
