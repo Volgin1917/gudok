@@ -31,13 +31,13 @@
  },
  "tg:Russkih_Aleksey": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "Алексей Русских (губернатор)"
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 9,
+  "items": 8,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
@@ -49,19 +49,19 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 35,
+  "items": 31,
   "error": null,
   "title": "УЛПРЕССА"
  },
  "tg:ulpravda": {
   "ok": true,
-  "items": 20,
+  "items": 16,
   "error": null,
   "title": "Ulpravda.ru (Ульяновская правда)"
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 6,
+  "items": 8,
   "error": null,
   "title": "Репортёр73"
  },
@@ -73,7 +73,7 @@
  },
  "tg:vmkononov": {
   "ok": true,
-  "items": 3,
+  "items": 4,
   "error": null,
   "title": "Владимир Кононов (депутат Госдумы)"
  },
@@ -85,31 +85,31 @@
  },
  "tg:fcvolga": {
   "ok": true,
-  "items": 7,
+  "items": 8,
   "error": null,
   "title": "ФК «Волга»"
  },
  "tg:tresh_ulyan": {
   "ok": true,
-  "items": 15,
+  "items": 16,
   "error": null,
   "title": "Треш Ульяновск"
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 17,
+  "items": 12,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 10,
+  "items": 6,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 6,
+  "items": 11,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -121,31 +121,31 @@
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 7,
+  "items": 8,
   "error": null,
   "title": "Короче, Ульяновск"
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 8,
+  "items": 13,
   "error": null,
   "title": "Типичный Димитровград"
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 13,
+  "items": 16,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
  "tg:chpul": {
   "ok": true,
-  "items": 13,
+  "items": 10,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
  "tg:ulsk_on": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
@@ -157,13 +157,13 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 9,
+  "items": 12,
   "error": null,
   "title": "Ульяновский водитель"
  },
  "tg:ulpatriot": {
   "ok": true,
-  "items": 14,
+  "items": 15,
   "error": null,
   "title": "Ульяновский патриот"
  },
@@ -181,25 +181,25 @@
  },
  "tg:volkodav73": {
   "ok": true,
-  "items": 13,
+  "items": 7,
   "error": null,
   "title": "Волкодав73"
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 7,
+  "items": 14,
   "error": null,
   "title": "Компромат Ульяновск"
  },
  "tg:culturnik": {
   "ok": true,
-  "items": 14,
+  "items": 16,
   "error": null,
   "title": "Культура Ульяновск"
  },
  "tg:ulpromo": {
   "ok": true,
-  "items": 13,
+  "items": 15,
   "error": null,
   "title": "Движ в любимом У"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-09-17T11:52:11.357881+00:00",
-  "last_run_local": "17.09.2026 15:52",
-  "fetched": 486,
-  "new": 15,
-  "total_store": 2530
+  "last_run_utc": "2026-09-18T07:00:16.394314+00:00",
+  "last_run_local": "18.09.2026 11:00",
+  "fetched": 493,
+  "new": 229,
+  "total_store": 2759
  },
  "rss:Улград": {
   "ok": true,
