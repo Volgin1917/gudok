@@ -1,37 +1,37 @@
 {
  "uliyanovsk.bezformata.com": {
   "code": 403,
-  "date": "2026-09-18",
+  "date": "2026-09-19",
   "error": "HTTP Error 403: Forbidden"
  },
  "gogov.ru": {
   "code": 429,
-  "date": "2026-09-18",
+  "date": "2026-09-19",
   "error": "HTTP Error 429: Too Many Requests"
  },
  "rg.ru": {
   "code": 401,
-  "date": "2026-09-18",
+  "date": "2026-09-19",
   "error": "HTTP Error 401: Unauthorized"
  },
  "media73.ru": {
   "code": 404,
-  "date": "2026-09-18",
+  "date": "2026-09-19",
   "error": "HTTP Error 404: Not Found"
  },
  "karsvest.ru": {
   "code": "blocked",
-  "date": "2026-09-18",
-  "error": "'ascii' codec can't encode characters in position 10-12: ordinal not in range(128)"
+  "date": "2026-09-19",
+  "error": "'ascii' codec can't encode characters in position 10-15: ordinal not in range(128)"
  },
  "кузоватовскиевести.рф": {
   "code": "blocked",
-  "date": "2026-09-18",
+  "date": "2026-09-19",
   "error": "'latin-1' codec can't encode characters in position 0-17: ordinal not in range(256)"
  },
  "ulmeria.gosuslugi.ru": {
   "code": "timeout",
-  "date": "2026-09-18",
+  "date": "2026-09-19",
   "error": "<urlopen error timed out>"
  }
 }
