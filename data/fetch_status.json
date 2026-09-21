@@ -49,7 +49,7 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 26,
+  "items": 29,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -103,13 +103,13 @@
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 10,
+  "items": 9,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 11,
+  "items": 10,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -127,7 +127,7 @@
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 7,
+  "items": 8,
   "error": null,
   "title": "Типичный Димитровград"
  },
@@ -145,7 +145,7 @@
  },
  "tg:ulsk_on": {
   "ok": true,
-  "items": 18,
+  "items": 16,
   "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
@@ -157,7 +157,7 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 8,
+  "items": 9,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -187,7 +187,7 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 16,
+  "items": 11,
   "error": null,
   "title": "Компромат Ульяновск"
  },
@@ -238,11 +238,11 @@
   "error": "<urlopen error timed out>"
  },
  "_meta": {
-  "last_run_utc": "2026-09-21T09:14:34.216993+00:00",
-  "last_run_local": "21.09.2026 13:14",
-  "fetched": 512,
-  "new": 317,
-  "total_store": 3723
+  "last_run_utc": "2026-09-21T10:29:41.191223+00:00",
+  "last_run_local": "21.09.2026 14:29",
+  "fetched": 508,
+  "new": 33,
+  "total_store": 3756
  },
  "rss:Улград": {
   "ok": true,

@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Аналитика недели — листок Гудок</title>
-<link rel="icon" type="image/png" href="assets/logo_gudok.png">
+<title>Неделя № 2 · 14.09–20.09 — листок Гудок</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
 <style>
 :root{
   --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
@@ -554,7 +554,16 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
 .af-mini{display:flex;gap:11px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start;}
 .af-mini:last-child{border-bottom:none;}
 @media (max-width:900px){.lead-grid{grid-template-columns:1fr;}.tiles{grid-template-columns:repeat(2,1fr);}}
-</style><script>
+
+.wk-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:start;margin-top:14px;}
+.wk-rail{display:flex;flex-direction:column;gap:12px;}
+.wk-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
+.wk-box h4{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:800;}
+.wk-passport{background:var(--card);border-left:5px solid var(--gold);border-radius:12px;padding:12px 16px;margin-top:14px;display:flex;gap:16px;flex-wrap:wrap;align-items:baseline;}
+.wk-passport b{font-size:15px;color:var(--navy);}
+.wk-stamp{font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;background:#e0f4ea;color:#1d7a4d;}
+.wk-stamp.wip{background:#fdf3dd;color:#96690a;}
+@media (max-width:980px){.wk-grid{grid-template-columns:1fr;}}</style><script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
@@ -562,47 +571,123 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <header class="masthead"><div class="flagline"><span>понедельник, 21 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 14:42</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
-<div class="mast-side mast-side--right">Аналитика недели<br>выпусков: 2
+<div class="mast-side mast-side--right">Недельник 14.09–20.09.26<br>сюжетных дуг: 7
 <div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div></div>
 </div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="" href="afisha.html">Афиша</a><a class="" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-20.html">Руководителю</a></div></nav><main id="main">
-<div class="wrap1200" style="padding-top:20px;">
-<div class="wk-passport"><b>Регламент</b>
-<span style="font-size:12.5px;color:var(--muted);">Выпуск недели — законченная страница за период понедельник–воскресенье;
-публикуется в понедельник и после доводки получает штамп «завершён». Структура: паспорт периода, основная колонка 2/3
-(итоги, сюжеты, аналитика), правая колонка 1/3 — всегда: погода, курсы ЦБ, события региона, промышленность и бизнес.</span></div>
-<div class="sec-head"><h2>Выпуски</h2><div class="line"></div></div>
-<div class="card"><div class="card-pad"><div class="arch-item"><div class="arch-date"><b>№00</b><span>09.04–11</span></div>
-<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">Неделя 04.09–11.09.26</b><br>
-<span style="font-size:11.8px;color:var(--muted);">аналитика повестки периода <span class="wk-stamp">завершён</span></span></div>
-<a class="btn" href="weekly/week_00_2026-09-04_2026-09-11.html">Открыть</a></div><div class="arch-item"><div class="arch-date"><b>№01</b><span>09.07–13</span></div>
-<div style="flex:1;"><b style="color:var(--navy);font-size:13.5px;">Неделя 07.09–13.09.26</b><br>
-<span style="font-size:11.8px;color:var(--muted);">аналитика повестки периода <span class="wk-stamp">завершён</span></span></div>
-<a class="btn" href="weekly/week_01_2026-09-07_2026-09-13.html">Открыть</a></div></div></div>
-<div class="note" style="margin-top:14px;">Нулевой выпуск (04–11.09.2026) — предпусковой: период нерегулярный, дальше недели идут по календарю.
-Правая колонка каждого выпуска генерируется функцией render_weekly_rail (python3 generate.py --weekly-rail START END) —
-данные всегда свежие на момент доводки выпуска.</div>
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="active" href="../weekly.html">Неделя</a><a class="" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-20.html">Руководителю</a></div></nav><main id="main">
+<div class="page" style="max-width:1280px;">
+<div class="wk-passport"><b>Неделя № 2</b>
+<span style="font-size:12.5px;color:var(--muted);">период: 14.09–20.09.26 (пн–вс) · объём потока: 2314 сообщений · дуг: 7</span><span class="wk-stamp">завершён</span></div>
+<div style="display:flex;justify-content:space-between;gap:12px;font-size:12.5px;font-weight:700;margin:10px 0 0;"><span style="color:var(--muted);">← начало</span><b style="color:var(--navy);">неделя № 2 · 14.09–20.09</b><span style="color:var(--muted);">далее выйдет</span></div>
+<div class="wk-grid"><div class="wk-main">
+<div class="sec-head" style="margin-top:14px;"><h2>Сюжетные дуги недели</h2><div class="line"></div>
+<div class="badge">7 дуг</div></div>
+<div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">01</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">В Ульяновской области это село Новый Дол Барышского района</b>
+<span class="wk-stamp wip">пик пройден</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 18.09 (Губернатор и Правительство Ульяновской области), пик 18.09 — сюжет держали 8 источника одновременно,
+всего источников дуги: 6. Тон дуги: +0.33 → +0.00.
+К 19.09 — пик пройден.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-18.html" style="font-weight:700;">18.09</a> <a href="../digests/digest_2026-09-19.html" style="font-weight:700;">19.09</a> · охват 👁 13K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">02</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">📑 Контракт подписали «Аэрофлот» и три компании Госкорпорации Ростех – ОАК, лизинговая компания «Авиакапитал-Се</b>
+<span class="wk-stamp">затух</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 18.09 (uac_ru), пик 18.09 — сюжет держали 1 источника одновременно,
+всего источников дуги: 1. Тон дуги: +1.00 → +1.00.
+К 18.09 — затух.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-18.html" style="font-weight:700;">18.09</a> · охват 👁 24.7K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">03</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">На 18:00 явка на выборах в Ульяновской области составила 65,19%, в голосовании приняли участие 598 536…</b>
+<span class="wk-stamp wip">в развитии</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 19.09 (Улпресса), пик 20.09 — сюжет держали 10 источника одновременно,
+всего источников дуги: 4. Тон дуги: +0.00 → +0.00.
+К 20.09 — в развитии.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-19.html" style="font-weight:700;">19.09</a> <a href="../digests/digest_2026-09-20.html" style="font-weight:700;">20.09</a> · охват 👁 3K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">04</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">✅ Родители берут для новорожденных коляски, кроватки, автокресла, ходунки, стульчики для кормления</b>
+<span class="wk-stamp wip">пик пройден</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 19.09 (Губернатор и Правительство Ульяновской области), пик 19.09 — сюжет держали 3 источника одновременно,
+всего источников дуги: 3. Тон дуги: +0.00 → +0.00.
+К 19.09 — пик пройден.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-19.html" style="font-weight:700;">19.09</a> · охват 👁 16.3K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">05</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">КПРФ набирает на выборах в Думу 14,2%, ЛДПР — 10,7%, «Новые люди» — 9,7%, «Справедливая Россия»</b>
+<span class="wk-stamp wip">в развитии</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 20.09 (tresh_ulyan), пик 20.09 — сюжет держали 3 источника одновременно,
+всего источников дуги: 2. Тон дуги: +0.00 → +0.00.
+К 21.09 — в развитии.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-20.html" style="font-weight:700;">20.09</a> · охват 👁 15.2K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">06</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">😱 Труп обнаружили ульяновцы в Волге на Нижней Террасе 😱</b>
+<span class="wk-stamp wip">пик пройден</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 19.09 (tresh_ulyan), пик 19.09 — сюжет держали 2 источника одновременно,
+всего источников дуги: 2. Тон дуги: +0.00 → +0.00.
+К 19.09 — пик пройден.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-19.html" style="font-weight:700;">19.09</a> · охват 👁 16.1K</div>
+</div></div><div class="card" style="margin-bottom:12px;"><div class="card-pad">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-size:15px;font-weight:900;color:var(--gold);">07</span>
+<b style="font-size:14.5px;color:var(--navy);flex:1;">рублей Помимо штрафа владельцам будет запрещено заводить животных на несколько лет</b>
+<span class="wk-stamp wip">пик пройден</span></div>
+<p style="font-size:13px;color:var(--muted);line-height:1.55;margin:7px 0;">
+Возник 19.09 (tresh_ulyan), пик 19.09 — сюжет держали 2 источника одновременно,
+всего источников дуги: 2. Тон дуги: -1.00 → -1.00.
+К 19.09 — пик пройден.</p>
+<div style="font-size:11.8px;color:var(--muted);">Освещение по дням: <a href="../digests/digest_2026-09-19.html" style="font-weight:700;">19.09</a> · охват 👁 15.7K</div>
+</div></div>
+<div class="note">Дуга = сюжет, который держали ≥2 источника одновременно или который собрал большой охват.
+Формула дуги: возникновение → пик → развязка, со ссылками на дневные выпуски. Редакционная доводка (оценки, колонка)
+вносится ассистентом по понедельникам, после чего штамп меняется на «завершён».</div>
+</div><aside class="wk-rail">
+<div class="wk-box"><h4>Погода</h4>
+<div style="font-size:13px;font-weight:700;color:var(--navy);">сейчас 20° (ощущается 18°), днём до 21°</div>
+<div class="now-line">Прогноз на выходные — в афише и на первой полосе.</div></div>
+<div class="wk-box"><h4>Курсы валют</h4><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Доллар США</span><b style="color:var(--navy);">84.26 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Евро</span><b style="color:var(--navy);">97.87 ₽ / 1</b></div><div style="display:flex;justify-content:space-between;font-size:12.6px;padding:3px 0;border-bottom:1px dashed var(--line);"><span>Юань</span><b style="color:var(--navy);">12.55 ₽ / 1</b></div><div class="now-line">ЦБ РФ, 12.09.2026</div></div>
+<div class="wk-box"><h4>События региона за период</h4><div class="now-line">Нет событий.</div>
+<h4 style="margin-top:10px;">Впереди</h4><div class="now-line">Нет событий.</div></div>
+<div class="wk-box"><h4>Промышленность и бизнес: новости → события</h4><div class="tl-row"><div class="tl-time">22.09 14:00</div><div class="tl-txt"><a href="https://ulpressa.ru/2026/09/20/vo-dvorcze-knigi-provedut-nikitinskie-chteniya-posvyashhennye-50-letiyu-aviastara/" target="_blank" rel="noopener">Во Дворце книги проведут Никитинские чтения, посвященные 50-летию «Авиастара»</a></div></div><div class="tl-row"><div class="tl-time">24.09 10:00</div><div class="tl-txt"><a href="https://ulpressa.ru/2026/09/16/s-17-po-24-sentyabrya-v-chetyryoh-rajonah-ulyanovska-projdut-yarmarki-vakansij/" target="_blank" rel="noopener">С 17 по 24 сентября в четырёх районах Ульяновска пройдут ярмарки вакансий</a></div></div><div class="tl-row"><div class="tl-time">26.09</div><div class="tl-txt"><a href="https://t.me/reporter73/52459" target="_blank" rel="noopener">🍅 Первая осенняя сельхозярмарка пройдёт 26 сентября. На ярмарках в Ульяновске…</a></div></div><div class="tl-row"><div class="tl-time">26.09</div><div class="tl-txt"><a href="https://t.me/ulkoroche/33881" target="_blank" rel="noopener">🍅 Первая осенняя сельскохозяйственная ярмарка пройдёт 26 сентября. В этом году…</a></div></div><div class="tl-row"><div class="tl-time">24.10</div><div class="tl-txt"><a href="https://t.me/dimitrovgradonline/33850" target="_blank" rel="noopener">🍂 Осенняя сельхозярмарка пройдёт в Димитровграде 24 октября Жителей города…</a></div></div>
+<h4 style="margin-top:10px;">Корпоративные каналы</h4><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3829" target="_blank" rel="noopener">🏭 Чествовать передовиков производства накануне Дня машиностроителя — одна из…</a></div></div><div class="tl-row"><div class="tl-time">@UAZ_Toda</div><div class="tl-txt"><a href="https://t.me/UAZ_Today/3828" target="_blank" rel="noopener">Друзья, в честь Дня машиностроителя мы объявляем розыгрыш мерча УАЗ за репост 🎁…</a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5061" target="_blank" rel="noopener">✈️ ОАК 🤝 Аэрофлот 🇷🇺</a></div></div><div class="tl-row"><div class="tl-time">@uac_ru</div><div class="tl-txt"><a href="https://t.me/uac_ru/5060" target="_blank" rel="noopener">Авиастроители не подведут 💪 ➡️ Генеральный директор ОАК Вадим Бадеха рассказал…</a></div></div>
+<div class="now-line">Публичные TG-каналы предприятий региона (проверка 12.09.2026): УАЗ (@UAZ_Today), ОАК (@uac_ru, включает «Авиастар-СП»). УКБП, НИИАР, «Волга-Днепр», «Контактор», «Ульяновскцемент», Т-плюс публичных каналов не имеют — их…</div></div>
+</aside></div>
 </div>
 </main>
 <footer class="footer"><div class="footer__inner">
 <div><div class="footer__brand">ГУДОК<span>.</span></div>
 <p>Информационно-аналитическое издание марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Материалы принадлежат их изданиям; издание носит информационно-аналитический характер и не является агитацией.</p></div>
 <div><h3>Периодичности</h3><ul style="list-style:none;padding:0;">
-<li><a href="digests/today.html">День · выпуск сегодня</a></li>
-<li><a href="weekly.html">Неделя · дуги сюжетов</a></li>
-<li><a href="monthly.html">Месяц · метрики</a></li>
-<li><a href="archive.html">Архив-матрица</a></li></ul></div>
+<li><a href="../digests/today.html">День · выпуск сегодня</a></li>
+<li><a href="../weekly.html">Неделя · дуги сюжетов</a></li>
+<li><a href="../monthly.html">Месяц · метрики</a></li>
+<li><a href="../archive.html">Архив-матрица</a></li></ul></div>
 <div><h3>Проекты</h3><ul style="list-style:none;padding:0;">
-<li><a href="projects/elections_2026.html">Выборы-2026</a></li>
-<li><a href="projects/goszakupki.html">Госзакупки</a></li>
-<li><a href="infospace.html">Инфопространство</a></li>
-<li><a href="methods.html">Методы · реестр v1.1</a></li>
-<li><a href="projects/dossier.html">Досье · прототип</a></li>
-<li><a href="afisha.html">Афиша</a></li></ul></div>
+<li><a href="../projects/elections_2026.html">Выборы-2026</a></li>
+<li><a href="../projects/goszakupki.html">Госзакупки</a></li>
+<li><a href="../infospace.html">Инфопространство</a></li>
+<li><a href="../methods.html">Методы · реестр v1.1</a></li>
+<li><a href="../projects/dossier.html">Досье · прототип</a></li>
+<li><a href="../afisha.html">Афиша</a></li></ul></div>
 <div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
-<li><a href="status.html">Статус системы</a></li>
-<li><a href="projects/plans.html">Планы и методы</a></li>
-<li><a href="digests/exec_2026-09-21.html">Версия руководителю</a></li>
+<li><a href="../status.html">Статус системы</a></li>
+<li><a href="../projects/plans.html">Планы и методы</a></li>
+<li><a href="../digests/exec_2026-09-21.html">Версия руководителю</a></li>
 <li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
 </div>
 <div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
