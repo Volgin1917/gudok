@@ -31,7 +31,7 @@
  },
  "tg:Russkih_Aleksey": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "Алексей Русских (губернатор)"
  },
@@ -109,7 +109,7 @@
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -121,7 +121,7 @@
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Короче, Ульяновск"
  },
@@ -151,13 +151,13 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 11,
+  "items": 12,
   "error": null,
   "title": "73online"
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 6,
+  "items": 8,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -181,7 +181,7 @@
  },
  "tg:volkodav73": {
   "ok": true,
-  "items": 14,
+  "items": 15,
   "error": null,
   "title": "Волкодав73"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-09-21T15:04:03.823402+00:00",
-  "last_run_local": "21.09.2026 19:04",
-  "fetched": 544,
-  "new": 100,
-  "total_store": 3856
+  "last_run_utc": "2026-09-21T15:55:59.834756+00:00",
+  "last_run_local": "21.09.2026 19:55",
+  "fetched": 551,
+  "new": 20,
+  "total_store": 3876
  },
  "rss:Улград": {
   "ok": true,
