@@ -3455,14 +3455,241 @@ def render_dossier(cfg, trends, store, status):
 </body></html>"""
 
 
+PRESS_JS = """<script>
+(function(){
+  var grid=document.getElementById('pGrid');
+  if(!grid){return;}
+  var cards=Array.prototype.slice.call(grid.querySelectorAll('.pcard'));
+  if(!cards.length){return;}
+  var q=document.getElementById('pq');
+  var shown=document.getElementById('cntShown');
+  var empty=document.getElementById('pEmpty');
+  var ST={e:'all',s:'all',q:''};
+  function pass(c){
+    if(ST.e!=='all'&&c.getAttribute('data-epoch')!==ST.e){return false;}
+    if(ST.s!=='all'&&c.getAttribute('data-status')!==ST.s){return false;}
+    if(ST.q){
+      var hay=(c.getAttribute('data-hay')||'').toLowerCase();
+      if(hay.indexOf(ST.q)===-1){return false;}
+    }
+    return true;
+  }
+  function paint(){
+    var n=0;
+    cards.forEach(function(c){var ok=pass(c);c.classList.toggle('hidden',!ok);if(ok){n++;}});
+    if(shown){shown.textContent=n;}
+    if(empty){empty.classList.toggle('hidden',n>0);}
+    document.querySelectorAll('#fEpoch .fbtn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-e')===ST.e);});
+    document.querySelectorAll('#fStatus .fbtn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-s')===ST.s);});
+  }
+  document.querySelectorAll('#fEpoch .fbtn').forEach(function(b){
+    b.addEventListener('click',function(){ST.e=b.getAttribute('data-e');paint();});
+  });
+  document.querySelectorAll('#fStatus .fbtn').forEach(function(b){
+    b.addEventListener('click',function(){ST.s=b.getAttribute('data-s');paint();});
+  });
+  if(q){q.addEventListener('input',function(){ST.q=q.value.trim().toLowerCase();paint();});}
+  window._pReset=function(){ST.e='all';ST.s='all';ST.q='';if(q){q.value='';}paint();};
+  paint();
+})();
+</script>"""
+
+
+PRESS_CSS = """
+/* ---- «Архив прессы»: реестр-справочник изданий области (ядро v1) ---- */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px;}
+.kpi{background:var(--paper-2);border:1px solid var(--rule);padding:14px 16px;}
+.kpi .num{font-family:var(--serif-display);font-weight:700;font-size:23px;line-height:1;color:var(--ink);}
+.kpi .lbl{font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+color:var(--muted);margin-top:8px;}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin-top:6px;}
+.pcard{border-top:3px double var(--ink);padding:14px 0 16px;break-inside:avoid;}
+.pcard-head{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;cursor:pointer;list-style:none;}
+.pcard-head::-webkit-details-marker{display:none;}
+.pcard-head:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.pname{font-family:var(--serif-display);font-weight:600;font-size:17px;line-height:1.2;color:var(--ink);}
+.pyears{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--accent);
+white-space:nowrap;}
+.pbadge{display:inline-block;font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.1em;
+text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 8px;}
+.pbadge.live{color:var(--accent);border-color:var(--accent);}
+.pbadge.dead{color:var(--muted);}
+.pmeta{display:grid;grid-template-columns:1fr 1fr;gap:0 30px;margin-top:12px;}
+.pfact{border-top:1px solid var(--rule);padding:8px 0;font-family:var(--sans);font-size:12.5px;line-height:1.5;
+color:var(--ink-2);}
+.pfact b{display:block;font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.12em;
+text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.pnote{font-family:var(--serif-body);font-size:13.5px;color:var(--ink-2);line-height:1.5;margin-top:12px;
+max-width:62ch;}
+.pdig{font-family:var(--sans);font-size:11px;color:var(--spoiler);border:1px solid var(--spoiler);
+padding:9px 12px;}"""
+
+
+def render_pressa(cfg, trends, store, status):
+    """Раздел «Архив прессы»: реестр-справочник изданий Ульяновской области.
+
+    Данные — pressa.py (ядро реестра, 27 сверенных карточек): годы издания,
+    эпоха, периодичность, статус, издатель, территория, место хранения
+    оригинала и состояние оцифровки. Полных открытых оцифрованных подшивок
+    региона нет, поэтому раздел честно собран как <b>реестр-справочник</b>
+    с меткой сверки по краеведческим указателям (М-52…М-55), а не как цифровой
+    корпус газет. Карточки читаются без JS; поиск и фильтры — прогрессивные.
+    """
+    import pressa as P
+    now = datetime.now(UTC4)
+    prefix = "../"
+    nav_html = render_nav(cfg, "projects", prefix, subnav=subnav_projects(prefix, "pressa"))
+    pubs = P.PUBLICATIONS
+
+    # ------------------------------------------------------------ метрики KPI
+    by_epoch = {}
+    by_status = {}
+    n_digit = 0
+    n_dead = 0
+    for x in pubs:
+        by_epoch[x.get("epoch", "—")] = by_epoch.get(x.get("epoch", "—"), 0) + 1
+        st = x.get("status", "—")
+        by_status[st] = by_status.get(st, 0) + 1
+        if x.get("digitized") == "да":
+            n_digit += 1
+        if st == "закрыто" or st == "свёл":
+            n_dead += 1
+    total = len(pubs)
+    kpi = [("<b>{0}</b>".format(total), "изданий в ядре реестра"),
+           (str(n_dead), "закрыто и свёрнуто"),
+           (str(by_epoch.get("постсовет", 0)), "постсоветская эпоха"),
+           (str(n_digit), "есть оцифровка (хотя бы частично)")]
+    kpi_html = "".join(f'<div class="kpi"><div class="num">{n}</div><div class="lbl">{l}</div></div>'
+                       for n, l in kpi)
+
+    # ------------------------------------------------------------ карточки
+    cards = []
+    for x in pubs:
+        st = x.get("status", "—")
+        if st == "действ":
+            badge_cls, badge_txt = "live", "действует"
+        elif st == "свёл":
+            badge_cls, badge_txt = "dead", "свёл"
+        else:
+            badge_cls, badge_txt = "dead", "закрыто"
+        per = x.get("periodicity", "—")
+        dig = x.get("digitized", "нет")
+        note = x.get("note", "")
+        note_html = f'<div class="pnote">{esc(note)}</div>' if note else ""
+        facts = [
+            ("Издатель", x.get("publisher", "—")),
+            ("Территория", x.get("place", "—")),
+            ("Хранение оригинала", x.get("storage", "—")),
+            ("Оцифровка", dig),
+            ("Сверка", x.get("verify", "—")),
+        ]
+        fact_html = "".join(f'<div class="pfact"><b>{esc(t)}</b>{esc(v)}</div>' for t, v in facts)
+        links = x.get("links") or []
+        extra_html = (f'<h4>Связанные рубрики</h4>'
+                      + "".join(f'<div class="fact"><span>{esc(t)}</span></div>' for t in links)) if links else ""
+        hay = esc(" ".join((x.get("title", ""), x.get("years", ""), x.get("place", ""),
+                            x.get("publisher", ""))).lower())
+        cards.append(f"""<details class="pcard" data-epoch="{esc(x.get('epoch', ''))}"
+ data-status="{esc(x.get('status', ''))}" data-hay="{esc(hay)}">
+<summary class="pcard-head"><span class="pname">{esc(x.get('title', ''))}</span>
+<span class="pyears">{esc(x.get('years', ''))}</span>
+<span class="pbadge {badge_cls}">{badge_txt}</span>
+<span class="mtoggle">паспорт ↓</span></summary>
+<div class="pmeta">{fact_html}</div>
+{note_html}
+{extra_html}
+</details>""")
+
+    # ------------------------------------------------------------ фильтры
+    ep_btns = ['<button type="button" class="fbtn active" data-e="all">все</button>']
+    for key, txt in P.EPOCHS:
+        n = by_epoch.get(key, 0)
+        ep_btns.append(f'<button type="button" class="fbtn" data-e="{key}">{esc(txt)} ({n})</button>')
+    st_btns = ['<button type="button" class="fbtn active" data-s="all">все</button>']
+    for key, txt in P.STATUSES:
+        n = by_status.get(key, 0)
+        st_btns.append(f'<button type="button" class="fbtn" data-s="{key}">{esc(txt)} ({n})</button>')
+
+    queue_rows = "".join(f'<tr><td><b>{esc(a)}</b></td><td>{b}</td></tr>' for a, b in P.QUEUE)
+    pipe_rows = "".join(f'<tr><td><b>{esc(a)}</b></td><td>{b}</td><td>{c}</td></tr>'
+                        for a, b, c in P.PIPELINE)
+
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Архив прессы — реестр изданий · Гудок</title>
+<meta name="description" content="Справочник-досье изданий Ульяновской области: годы, периодичность, статус, издатель, территория, место хранения оригинала и оцифровка. Ядро сверено по краеведческим указателям (М-52…М-55).">
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png">
+<style>{CSS}{PRESS_CSS}</style></head><body>
+{nav_html}
+<main id="main">
+<div class="wrap1200" style="padding-top:20px;">
+<div class="sec-head" style="margin-top:0;"><h2>Архив прессы: реестр изданий</h2>
+<div class="line"></div><div class="badge">{esc(P.LABEL)}</div></div>
+<div class="note" style="margin-bottom:6px;">{P.NOTES[0]}</div>
+<div class="note" style="border-left-color:var(--rule);">{P.NOTES[1]}</div>
+
+<div class="kpi-grid" style="margin-top:22px;">{kpi_html}</div>
+
+<div class="panel">
+<div class="panel-row"><label class="dsearch"><span class="ic">⌕</span>
+<input type="search" id="pq" placeholder="Поиск: название, годы, место, издатель…" aria-label="Поиск по прессе"></label>
+</div>
+<div class="panel-row"><span class="plbl">Эпоха:</span>
+<div class="filters" id="fEpoch" role="group" aria-label="Фильтр по эпохе">{''.join(ep_btns)}</div></div>
+<div class="panel-row"><span class="plbl">Статус:</span>
+<div class="filters" id="fStatus" role="group" aria-label="Фильтр по статусу">{''.join(st_btns)}</div>
+<span class="dcount">показано <b id="cntShown">{total}</b> из {total} · сортировка: по эпохам, в эпохе — по алфавиту</span></div>
+</div>
+<p class="feed-empty hidden" id="pEmpty">По этому фильтру ничего не найдено —
+<button type="button" class="btn" onclick="_pReset()">сбросить</button></p>
+
+<div class="pgrid" id="pGrid">
+{''.join(cards)}
+</div>
+
+<div class="h3rule" style="margin-top:34px;">Как собирается и сверяется реестр<div class="sub"> ·
+{esc(P.LABEL)}</div></div>
+<div class="tbl-wrap"><table class="tbl"><thead><tr>
+<th style="width:26%">Поле карточки</th><th style="width:22%">Методика сверки</th><th>Как получается</th>
+</tr></thead><tbody>{pipe_rows}</tbody></table></div>
+
+<div class="h3rule">Полнота и очередь расширения<div class="sub"> · куда движется раздел</div></div>
+<p class="mess">Ядро в этой версии — {total} изданий (сверено по краеведческим указателям и
+реестрам РКН). Раздел построен как <b>честный реестр</b>: чего нет в сверенных источниках —
+того нет в ядре. Расширение до целевого корпуса ведётся отдельными очередями, каждая с меткой сверки.</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th style="width:30%">Блок</th><th>Содержание</th></tr></thead>
+<tbody>{queue_rows}</tbody></table></div>
+
+<details class="proto-note">
+<summary>Об устройстве и границах раздела</summary>
+<p class="mess" style="margin-top:10px;">Полных открытых оцифрованных подшивок газет региона нет
+(оригиналы — ГАУО, РНБ, РГБ, областная библиотека; оцифрованы отдельные издания и комплекты).
+Поэтому этот раздел — <b>справочник-досье изданий</b>, а не цифровой архив текстов. Полнота
+охвата и состояние оцифровки честно помечаются в каждой карточке; раздел продолжает развиваться
+по {esc(P.LABEL)}.</p>
+</details>
+
+<div class="sec-head" style="margin-top:34px;"><h2>Витрина раздела</h2><div class="line"></div></div>
+<div class="legend">Карточки реестра сгруппированы по эпохам — от «Симбирских губернских
+ведомостей» (1838) до сетевых изданий. Сверка каждой карточки указана в поле «Сверка».</div>
+
+{footer.render_footer("")}
+</div>
+</main>
+{PRESS_JS}
+</body></html>"""
+
+
 def subnav_projects(prefix="", current=""):
     """Поднавигация рубрики «Проекты»: сквозная для всех проектных страниц."""
     items = [("infospace.html", "Инфопространство", "infospace"),
              ("projects/elections_2026.html", "Выборы-2026", "elections"),
              ("projects/goszakupki.html", "Госзакупки", "goszakupki"),
+             ("projects/gorodskoy_sovet.html", "Городской совет", "gorsovet"),
              ("methods.html", "Методы", "methods"),
              ("projects/plans.html", "Планы", "plans"),
-             ("projects/dossier.html", "Досье", "dossier")]
+             ("projects/dossier.html", "Досье", "dossier"),
+             ("projects/pressa.html", "Архив прессы", "pressa")]
     links = "".join(
         f'<span class="cur">{txt}</span>' if key == current
         else f'<a href="{prefix}{href}">{txt}</a>'
@@ -7231,6 +7458,11 @@ def main():
     with open(os.path.join(proj_dir, "dossier.html"), "w", encoding="utf-8") as f:
         f.write(dossier_html)
     print("[generate] досье: projects/dossier.html (прототип, демо-данные)")
+
+    pressa_html = themed(render_pressa(cfg, trends, store, status))
+    with open(os.path.join(proj_dir, "pressa.html"), "w", encoding="utf-8") as f:
+        f.write(pressa_html)
+    print("[generate] архив прессы: projects/pressa.html (реестр-справочник, ядро)")
 
     special_files = sorted(glob.glob(os.path.join(SPECIAL, "*.html")))
     index_html = themed(render_index(cfg, trends, store, status, digest_files, special_files))
