@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": false,
-  "items": 0,
-  "error": "<urlopen error [Errno 101] Network is unreachable>"
+  "ok": true,
+  "items": 10,
+  "error": null
  },
  "rss:Улпресса": {
   "ok": true,
@@ -37,19 +37,19 @@
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 7,
+  "items": 9,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
  "tg:A_Boldakin": {
   "ok": true,
-  "items": 9,
+  "items": 7,
   "error": null,
   "title": "Александр Болдакин (глава Ульяновска)"
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 29,
+  "items": 30,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -61,7 +61,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 11,
+  "items": 14,
   "error": null,
   "title": "Репортёр73"
  },
@@ -91,43 +91,43 @@
  },
  "tg:tresh_ulyan": {
   "ok": true,
-  "items": 18,
+  "items": 20,
   "error": null,
   "title": "Треш Ульяновск"
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 18,
+  "items": 20,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 9,
+  "items": 10,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 10,
+  "items": 12,
   "error": null,
   "title": "Информационный Димитровград"
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 13,
+  "items": 14,
   "error": null,
   "title": "Топор Ульяновск"
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 15,
+  "items": 12,
   "error": null,
   "title": "Короче, Ульяновск"
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 8,
+  "items": 11,
   "error": null,
   "title": "Типичный Димитровград"
  },
@@ -145,31 +145,31 @@
  },
  "tg:ulsk_on": {
   "ok": true,
-  "items": 16,
+  "items": 17,
   "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 12,
+  "items": 11,
   "error": null,
   "title": "73online"
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 9,
+  "items": 6,
   "error": null,
   "title": "Ульяновский водитель"
  },
  "tg:ulpatriot": {
   "ok": true,
-  "items": 5,
+  "items": 6,
   "error": null,
   "title": "Ульяновский патриот"
  },
  "tg:shugozhor73": {
   "ok": true,
-  "items": 14,
+  "items": 17,
   "error": null,
   "title": "Симбирский шугожор"
  },
@@ -187,7 +187,7 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 11,
+  "items": 13,
   "error": null,
   "title": "Компромат Ульяновск"
  },
@@ -233,16 +233,17 @@
   "error": "нет сервисного ключа VK: env GUDOK_VK_TOKEN или файл data/vk_token (vk.com/editapp → Сервисный ключ доступа)"
  },
  "web:Администрация Ульяновска": {
-  "ok": false,
-  "items": 0,
-  "error": "<urlopen error timed out>"
+  "ok": true,
+  "items": 10,
+  "error": null,
+  "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-09-21T10:29:41.191223+00:00",
-  "last_run_local": "21.09.2026 14:29",
-  "fetched": 508,
-  "new": 33,
-  "total_store": 3756
+  "last_run_utc": "2026-09-21T15:04:03.823402+00:00",
+  "last_run_local": "21.09.2026 19:04",
+  "fetched": 544,
+  "new": 100,
+  "total_store": 3856
  },
  "rss:Улград": {
   "ok": true,
