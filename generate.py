@@ -2624,9 +2624,12 @@ def render_projects(cfg, trends, store, status):
     plans_tracks = len(_plans.TRACKS)
     import methods as _methods
     import dossier as _dossier
+    import pressa as _pressa
     methods_total = len(_methods.METHODS)
     methods_ver = _methods.VERSION
     dossier_persons = len(_dossier.PERSONS)
+    pressa_total = len(_pressa.PUBLICATIONS)
+    pressa_active = sum(1 for p in _pressa.PUBLICATIONS if p.get("status") == "действ")
     cards = f"""<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
 <div><b>Инфопространство</b></div>
 <div class="fig">live <small>дашборд</small></div>
@@ -2644,8 +2647,14 @@ def render_projects(cfg, trends, store, status):
 <div class="fig">{dossier_persons}<small>карточек · демо</small></div>
 <p>Действующие лица инфополя: упоминания и источники, индекс тона, дуги сюжетов, роль в цитатах,
 статус проверки фактов и конвейер сборки карточки по методикам реестра. Данные демонстрационные.</p>
-<a class="go" href="projects/dossier.html">открыть досье →</a></div>"""
-    cards += f"""<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
+<a class="go" href="projects/dossier.html">открыть досье →</a></div>\"\"\"
+    cards += f\"\"\"<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
+<div><b>Архив прессы</b> <span style="font-family:var(--sans);font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:2px 7px;">реестр</span></div>
+<div class="fig">{pressa_total}<small>изданий области · <b>{pressa_active}</b> действующих</small></div>
+<p>Реестр-справочник газет и журналов Ульяновской области со статусом на сегодня: эпоха запуска, тиражный
+класс, аудитория, веха закрытия, что значится фондом.</p>
+<a class="go" href="projects/pressa.html">открыть реестр →</a></div>\"\"\"
+    cards += f\"\"\"<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
 <div><b>Планы и методы</b></div>
 <div class="fig">{plans_tracks}<small>треков</small></div>
 <p>Единая страница планов издания: план развития, реестр метрик «Инфопространства» с паспортами,
