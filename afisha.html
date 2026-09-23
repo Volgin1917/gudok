@@ -619,7 +619,7 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>среда, 23 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 15:17</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>среда, 23 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 15:58</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Афиша культурных событий<br>всего 13 · сегодня 1 · выходные 4
@@ -628,7 +628,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="active" href="afisha.html">Афиша</a><a class="" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-22.html">Руководителю</a></div></nav><main id="main">
 <div class="page">
 
-<div class="note" style="margin-bottom:4px;">Порог входа: найдено дат <b>85</b> → прошло проверку <b>13</b> → показано сегодня <b>13</b>. Порог уверенности — <b>0.55</b>; названий собрано из типа события и имени — <b>8</b>; площадок найдено в тексте без маркера 📍 — <b>1</b>; городских событий без одной площадки — <b>2</b>; с известной ценой входа — <b>3</b>. Сверяйте время и билеты у организаторов — данные извлечены из публикаций автоматически.</div>
+<div class="note" style="margin-bottom:4px;">Порог входа: найдено дат <b>88</b> → прошло проверку <b>13</b> → показано сегодня <b>13</b>. Порог уверенности — <b>0.55</b>; названий собрано из типа события и имени — <b>8</b>; площадок найдено в тексте без маркера 📍 — <b>1</b>; городских событий без одной площадки — <b>2</b>; с известной ценой входа — <b>3</b>. Сверяйте время и билеты у организаторов — данные извлечены из публикаций автоматически.</div>
 
 <div id="af-filters"><div class="af-frow"><span class="fl">Когда</span><button type="button" class="af-chip on" data-f="date" data-v="all" aria-pressed="false">Все дни</button><button type="button" class="af-chip" data-f="date" data-v="today" aria-pressed="false">Сегодня</button><button type="button" class="af-chip" data-f="date" data-v="tomorrow" aria-pressed="false">Завтра</button><button type="button" class="af-chip" data-f="date" data-v="weekend" aria-pressed="false">Выходные 26.09–27.09</button><button type="button" class="af-chip" data-f="date" data-v="week" aria-pressed="false">7 дней</button><button type="button" class="af-chip" data-f="date" data-v="evening" aria-pressed="false">Вечером (после 17:00)</button></div><div class="af-frow"><span class="fl">Тип</span><button type="button" class="af-chip on" data-f="type" data-v="all" aria-pressed="false">Все типы</button><button type="button" class="af-chip" data-f="type" data-v="festival" aria-pressed="false">Фестивали и праздники</button><button type="button" class="af-chip" data-f="type" data-v="theatre" aria-pressed="false">Театр и спектакли</button><button type="button" class="af-chip" data-f="type" data-v="concert" aria-pressed="false">Концерты и музыка</button><button type="button" class="af-chip" data-f="type" data-v="expo" aria-pressed="false">Выставки, музеи, библиотеки</button><button type="button" class="af-chip" data-f="type" data-v="kids" aria-pressed="false">Детям и семьям</button><button type="button" class="af-chip" data-f="type" data-v="cinema" aria-pressed="false">Кино</button><button type="button" class="af-chip" data-f="type" data-v="sport" aria-pressed="false">Спорт и ЗОЖ</button><button type="button" class="af-chip" data-f="type" data-v="city" aria-pressed="false">Город и встречи</button><button type="button" class="af-chip" data-f="type" data-v="other" aria-pressed="false">Прочее</button></div><div class="af-frow"><span class="fl">Где и почём</span><button type="button" class="af-chip" data-f="geo" data-v="ulsk" aria-pressed="false">Ульяновск</button><button type="button" class="af-chip" data-f="geo" data-v="dim" aria-pressed="false">Димитровград</button><button type="button" class="af-chip" data-f="geo" data-v="region" aria-pressed="false">Районы области</button><button type="button" class="af-chip" data-f="price" data-v="free" aria-pressed="false">Только бесплатные</button><button type="button" class="af-chip" data-f="age" data-v="kids" aria-pressed="false">Можно с детьми</button><select class="af-sort" id="af-sort" aria-label="Сортировка"><option value="time">Сортировка: по времени</option><option value="type">По типу события</option><option value="score">По релевантности</option></select></div><div class="af-frow"><span class="fl">Поиск</span><input class="af-q" id="af-q" type="search" placeholder="Название, площадка, район — например «филармония»"></div></div>
 <div class="af-active" id="af-active"></div>
@@ -752,10 +752,12 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <button type="button" class="af-ics-link" onclick="window.print()" title="Печать листка выходных — A4">листок выходных</button>
 <span class="af-albl" style="margin-left:auto;">фильтры применяются в браузере; без JS видны все события по дням</span></div>
 
-<details class="af-rej"><summary>Не прошло порог (62) — почему отсеяно</summary>
+<details class="af-rej"><summary>Не прошло порог (64) — почему отсеяно</summary>
 <div class="af-rej-row"><span class="af-rej-date">23.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Нева</span>
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">23.09 <span class="af-badge warn">время уточняется</span></span>
+<span>РТС-тендер</span>
+<span class="af-rej-why">дайджест/норма: дата — не события</span></div><div class="af-rej-row"><span class="af-rej-date">23.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Семейная зарница</span>
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">23.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Сергей Сандрюков</span>
@@ -791,8 +793,6 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span>Теплоком</span>
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">27.09 <span class="af-badge alt">весь день</span></span>
 <span>Ульяновск готов к отопительному сезону на 98,4 процента</span>
-<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
-<span>В Ульяновской области назвали дату начала отопительного сезона</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-time">12:30</span></span>
 <span>Валерий Чкалов</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
@@ -821,7 +821,9 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span>Восход</span>
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">29.09 <span class="af-time">13:00</span></span>
 <span>Лекция о триумфе Пушкина после михайловской ссылки</span>
-<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">30.09 <span class="af-time">19:00</span></span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">30.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Ведомостей</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">30.09 <span class="af-time">19:00</span></span>
 <span>Концерт в мерцании 3000 свечей, от солистов оркестра « Атмосфера »</span>
 <span class="af-rej-why">промо канала · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">30.09 <span class="af-time">14:00</span></span>
 <span>Концерт, фотоконкурс</span>
@@ -846,7 +848,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">01.10 <span class="af-badge warn">время уточняется</span></span>
 <span>С 1 октября 2026 года маркетплейсы не смогут включать товар продавца в распродажу без его </span>
 <span class="af-rej-why">дайджест/норма: дата — не события · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">02.10 <span class="af-badge warn">время уточняется</span></span>
-<span>Русских оставляет Гибатдинова в Совете Федерации</span>
+<span>күмәк көч</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">03.10 <span class="af-badge warn">время уточняется</span></span>
 <span>FEEL приглашает Вас на рейв</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">03.10 <span class="af-time">10:00</span></span>
@@ -865,7 +867,9 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span>квадрат</span>
 <span class="af-rej-why">дайджест/норма: дата — не события · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">14.10 <span class="af-badge warn">время уточняется</span></span>
 <span>Международном фестивале …</span>
-<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">16.10 <span class="af-badge warn">время уточняется</span></span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">14.10 <span class="af-badge warn">время уточняется</span></span>
+<span>🏆 РАСПИСАНИЕ ПЯТОГО РАУНДА ПУТИ РЕГИОНОВ РФС утвердил даты и время матчей . Встречи пройду</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">16.10 <span class="af-badge warn">время уточняется</span></span>
 <span>Матч Первой лиги</span>
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">20.10 <span class="af-badge warn">время уточняется</span></span>
 <span>Бесплатная выставка «Капитан Куст…</span>
