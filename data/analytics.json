@@ -1,49 +1,19 @@
 {
- "generated_local": "22.09.2026 12:58",
+ "generated_local": "23.09.2026 12:58",
  "calendar": [
   {
-   "etype": "expo",
-   "is_culture": true,
+   "etype": "city",
+   "is_culture": false,
    "district": true,
-   "date": "2026-09-22",
+   "date": "2026-09-23",
    "date_end": null,
-   "time": "14:00",
+   "time": "18:00",
    "time_note": "",
-   "event_title": "Книжно-иллюстративная выставка «Авиастар: история и современность»",
+   "event_title": "Экскурсия «Усадьба купца Мельникова»",
    "title_is_fallback": false,
    "title_kind": "kind",
-   "title": "Во Дворце книги проведут Никитинские чтения, посвященные 50-летию «Авиастара»",
-   "url": "https://ulpressa.ru/2026/09/20/vo-dvorcze-knigi-provedut-nikitinskie-chteniya-posvyashhennye-50-letiyu-aviastara/",
-   "source": "Улпресса",
-   "tier": null,
-   "venue": "Дворец книги — областная научная библиотека им. В. И. Ленина",
-   "venue_addr": "Карамзина, 3",
-   "venue_district": "Ленинский район",
-   "venue_city": "Ульяновск",
-   "venue_found": true,
-   "venue_how": "text",
-   "geo": "Ленинский район",
-   "price": "вход свободный",
-   "price_mode": "free",
-   "age": "",
-   "reasons": [],
-   "score": 0.96,
-   "also": [],
-   "also_n": 0
-  },
-  {
-   "etype": "expo",
-   "is_culture": true,
-   "district": true,
-   "date": "2026-09-22",
-   "date_end": null,
-   "time": "18:30",
-   "time_note": "",
-   "event_title": "Перформативная ночная экскурсия по",
-   "title_is_fallback": false,
-   "title_kind": "kind",
-   "title": "22 сентября, 18:30 | Перформативная ночная экскурсия по выставке «Шесть истории о городе» | МЦСИ Выставка «Шес…",
-   "url": "https://t.me/ulpromo/18038",
+   "title": "23 сентября, 18:00 | Экскурсия «Усадьба купца Мельникова» | МЦСИ Здание Молодёжного центра современного искусс…",
+   "url": "https://t.me/ulpromo/18040",
    "source": "t.me/ulpromo",
    "tier": 3,
    "venue": "Молодёжный центр современного искусства",
@@ -120,8 +90,41 @@
    "age": "",
    "reasons": [],
    "score": 1.0,
+   "also": [
+    "t.me/ulpromo"
+   ],
+   "also_n": 1
+  },
+  {
+   "etype": "theatre",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-25",
+   "date_end": null,
+   "time": "15:00",
+   "time_note": "",
+   "event_title": "Экскурсия «Дом-памятник",
+   "title_is_fallback": false,
+   "title_kind": "kind",
+   "title": "Экскурсия «Дом-памятник. Венец архитектуры» 🗓️ 25 сентября, 15:00; 6 октября 10:00 📍 Ульяновский областной худ…",
+   "url": "https://t.me/culturnik/9316",
+   "source": "t.me/culturnik",
+   "tier": 3,
+   "venue": "Ульяновский областной худ… Венец архитектуры» 🗓️ 25 сентября",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": true,
+   "venue_how": "mention",
+   "geo": "",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [],
+   "score": 1.0,
    "also": [],
-   "also_n": 0
+   "also_n": 0,
+   "moved_unknown": true
   },
   {
    "etype": "festival",
@@ -274,8 +277,37 @@
    "reasons": [],
    "score": 1.0,
    "also": [],
-   "also_n": 0,
-   "moved_unknown": true
+   "also_n": 0
+  },
+  {
+   "etype": "concert",
+   "is_culture": true,
+   "district": true,
+   "date": "2026-10-03",
+   "date_end": null,
+   "time": "19:00",
+   "time_note": "",
+   "event_title": "Концерт Алексея Долматова Guf продолжает тур по России и уже совсем скоро приедет в Ульяно",
+   "title_is_fallback": false,
+   "title_kind": "kind",
+   "title": "Концерт Алексея Долматова 🎤 Guf продолжает тур по России и уже совсем скоро приедет в Ульяновск. В программе —…",
+   "url": "https://t.me/ProNovosty73/5940",
+   "source": "t.me/ProNovosty73",
+   "tier": 2,
+   "venue": "ДС «Волга-Спорт-Арена» (ул. Октябрьская",
+   "venue_addr": "ул. Октябрьская, 26",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": true,
+   "venue_how": "mention",
+   "geo": "Ульяновск",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [],
+   "score": 1.0,
+   "also": [],
+   "also_n": 0
   },
   {
    "etype": "concert",
@@ -402,14 +434,14 @@
    ]
   },
   {
-   "name": "вузы · минобрнауки · года",
+   "name": "вузы · минобрнауки · вступительных",
    "terms": [
     "вузы",
     "минобрнауки",
-    "года"
+    "вступительных"
    ],
-   "size": 6,
-   "coverage": 0.33,
+   "size": 5,
+   "coverage": 0.4,
    "gap": true,
    "samples": [
     {
@@ -429,37 +461,6 @@
      "url": "https://t.me/ulsk_73online/36241",
      "source": "t.me/ulsk_73online",
      "views": 860
-    }
-   ]
-  },
-  {
-   "name": "осень · мензелеев · град",
-   "terms": [
-    "осень",
-    "мензелеев",
-    "град"
-   ],
-   "size": 4,
-   "coverage": 0.0,
-   "gap": true,
-   "samples": [
-    {
-     "title": "Наша осень 😍 Фото: Валерий Мензелеев",
-     "url": "https://t.me/dimitrovgradd/31979",
-     "source": "t.me/dimitrovgradd",
-     "views": 755
-    },
-    {
-     "title": "Из предложки: Просто осень 😍 Фото: Валерий Мензелеев",
-     "url": "https://t.me/dimitrovgradd/31927",
-     "source": "t.me/dimitrovgradd",
-     "views": 664
-    },
-    {
-     "title": "Наша осень ... 🤗 Д - град природа 2026",
-     "url": "https://t.me/dimitrovgradonline/33980",
-     "source": "t.me/dimitrovgradonline",
-     "views": 639
     }
    ]
   },
@@ -495,83 +496,110 @@
    ]
   },
   {
-   "name": "задержаны · авиарейса · ограничений",
+   "name": "волгой · теремок · опровергли",
    "terms": [
-    "задержаны",
-    "авиарейса",
-    "ограничений"
+    "волгой",
+    "теремок",
+    "опровергли"
    ],
    "size": 3,
    "coverage": 0.0,
    "gap": true,
    "samples": [
     {
-     "title": "Из-за ограничений в столичных аэропортах в Баратаевке задержаны четыре авиарейса.",
-     "url": "https://t.me/ulpressa/74848",
+     "title": "🙂 Долю в «Теремке над Волгой» продадут за 6 млн, но реставрацию не бросят На «Авито» всплыло объявление о прод",
+     "url": "https://t.me/ulyanovsk_smi/29659",
+     "source": "t.me/ulyanovsk_smi",
+     "views": 793
+    },
+    {
+     "title": "⚡️ Авторы проекта «Теремок над Волгой» опровергли слухи о закрытии реставрации после появления на «Авито» объя",
+     "url": "https://t.me/ulpressa/74927",
      "source": "t.me/ulpressa",
-     "views": 1360
+     "views": 92
     },
     {
-     "title": "В аэропорту Ульяновска (Баратаевка) задержаны четыре авиарейса Причиной стали временные ограничения, введённые",
-     "url": "https://t.me/topor_ul/11689",
-     "source": "t.me/topor_ul",
-     "views": 1220
-    },
-    {
-     "title": "Из-за ограничений в ульяновском аэропорту задержаны четыре авиарейса",
-     "url": "https://ulpressa.ru/2026/09/20/iz-za-ogranichenij-v-ulyanovskom-aeroportu-zaderzhany-chetyre-aviarejsa-5/",
+     "title": "«Мы не продаем Теремок»: авторы проекта на Спуске Халтурина опровергли закрытие реставрации",
+     "url": "https://ulpressa.ru/2026/09/21/my-ne-prodaem-teremok-avtory-proekta-na-spuske-halturina-oprovergli-zakrytie-restavraczii/",
      "source": "Улпресса",
      "views": null
     }
    ]
   },
   {
-   "name": "всем · привет · спасибо",
+   "name": "брикс · молодёжный · географический",
    "terms": [
-    "всем",
-    "привет",
-    "спасибо"
+    "брикс",
+    "молодёжный",
+    "географический"
    ],
    "size": 3,
-   "coverage": 0.0,
+   "coverage": 0.33,
    "gap": true,
    "samples": [
     {
-     "title": "Аэропорт сегодня накрыли «Ковром» около 5 утра, а открыли вот только что. Всем, кто не смог вовремя улететь — ",
-     "url": "https://t.me/shugozhor73/45403",
-     "source": "t.me/shugozhor73",
-     "views": 2130
+     "title": "🛟 Выставка «Капитан Кусто в России» открыла Молодёжный географический форум БРИКС+ в Ульяновске 21 сентября в ",
+     "url": "https://t.me/ulgovru/23936",
+     "source": "t.me/ulgovru",
+     "views": 106
     },
     {
-     "title": "Всем привет. Подскажите пожайлуста кто занимается установкой ледлинз. Спасибо",
-     "url": "https://t.me/ulsk_driver73/18676",
-     "source": "t.me/ulsk_driver73",
-     "views": 780
+     "title": "В Ульяновской области стартовал Молодёжный географический форум БРИКС+",
+     "url": "https://кузоватовскиевести.рф/2026/09/21/%d0%b2-%d1%83%d0%bb%d1%8c%d1%8f%d0%bd%d0%be%d0%b2%d1%81%d0%ba%d0%be%d0%b9-%d0%be%d0%b1%d0%bb%d0%b0%d1%81%d1%82%d0%b8-%d1%81%d1%82%d0%b0%d1%80%d1%82%d0%be%d0%b2%d0%b0%d0%bb-%d0%bc%d0%be%d0%bb%d0%be-2/",
+     "source": "Кузоватовские вести",
+     "views": null
     },
     {
-     "title": "Доброго и счастливого дня нам всем сегодня!",
-     "url": "https://t.me/sergeymorozov73/23373",
-     "source": "t.me/sergeymorozov73",
-     "views": 85
+     "title": "В Ульяновской области стартовал Молодёжный географический форум БРИКС+",
+     "url": "http://gazeta-zvezda73.ru/index.php/novosti/guberniya/17338-v-ulyanovskoj-oblasti-startoval-molodjozhnyj-geograficheskij-forum-briks",
+     "source": "Звезда (Новомалыклинский р-н)",
+     "views": null
+    }
+   ]
+  },
+  {
+   "name": "бекас · села · самолёт",
+   "terms": [
+    "бекас",
+    "села",
+    "самолёт"
+   ],
+   "size": 10,
+   "coverage": 1.0,
+   "gap": false,
+   "samples": [
+    {
+     "title": "🚨 Легкомоторный самолёт Х-32 «Бекас» упал в Ульяновской: пострадал пилот В Ульяновской области в районе села А",
+     "url": "https://t.me/tresh_ulyan/56413",
+     "source": "t.me/tresh_ulyan",
+     "views": 6200
+    },
+    {
+     "title": "В Майнском районе рухнул самолёт с «плохой репутацией» В районе села Анненково-Лесное Майнского района упал ле",
+     "url": "https://t.me/ulpatriot/6999",
+     "source": "t.me/ulpatriot",
+     "views": 5780
+    },
+    {
+     "title": "🚨 В Майнском районе при сельхозработах упал легкомоторный самолёт Сегодня, 22 сентября, возле села Анненково-Л",
+     "url": "https://t.me/insaid173/47216",
+     "source": "t.me/insaid173",
+     "views": 4190
     }
    ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": -0.076,
-  "today_items": 144,
-  "today_pos": 1110,
-  "today_neg": 744,
-  "today_neu": 1502,
+  "today_score": 0.096,
+  "today_items": 148,
+  "today_pos": 1193,
+  "today_neg": 801,
+  "today_neu": 1612,
   "series": [
    {
-    "date": "2026-09-09",
-    "score": 0.159
-   },
-   {
     "date": "2026-09-10",
-    "score": 0.11
+    "score": 0.109
    },
    {
     "date": "2026-09-11",
@@ -583,11 +611,11 @@
    },
    {
     "date": "2026-09-13",
-    "score": 0.241
+    "score": 0.236
    },
    {
     "date": "2026-09-14",
-    "score": 0.092
+    "score": 0.093
    },
    {
     "date": "2026-09-15",
@@ -599,7 +627,7 @@
    },
    {
     "date": "2026-09-17",
-    "score": 0.219
+    "score": 0.225
    },
    {
     "date": "2026-09-18",
@@ -607,7 +635,7 @@
    },
    {
     "date": "2026-09-19",
-    "score": 0.079
+    "score": 0.084
    },
    {
     "date": "2026-09-20",
@@ -615,23 +643,26 @@
    },
    {
     "date": "2026-09-21",
-    "score": 0.143
+    "score": 0.148
    },
    {
     "date": "2026-09-22",
-    "score": -0.076
+    "score": -0.009
+   },
+   {
+    "date": "2026-09-23",
+    "score": 0.096
    }
   ],
   "by_category": {
-   "agro": -1.0,
-   "culture": 0.4,
-   "economy": 0.222,
-   "education": -0.222,
+   "culture": 0.0,
+   "economy": 0.154,
+   "education": 1.0,
    "health": 0.4,
-   "politics": 0.091,
-   "security": -0.617,
-   "society": 0.154,
-   "sport": 0.429
+   "politics": 0.235,
+   "security": -0.329,
+   "society": 0.188,
+   "sport": 0.667
   }
  },
  "credibility": [
@@ -639,11 +670,11 @@
    "source": "Улпресса",
    "tier": 1,
    "type": "tg",
-   "total": 738,
-   "primary": 649,
-   "dup": 89,
+   "total": 792,
+   "primary": 693,
+   "dup": 99,
    "repost_rate": 0.12,
-   "views_median": 1390,
+   "views_median": 1450,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -651,11 +682,11 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 256,
-   "primary": 184,
-   "dup": 72,
-   "repost_rate": 0.28,
-   "views_median": 9170,
+   "total": 272,
+   "primary": 193,
+   "dup": 79,
+   "repost_rate": 0.29,
+   "views_median": 9440,
    "label": "смешанный",
    "clickbait_rate": 0.01
   },
@@ -663,11 +694,11 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 196,
-   "primary": 168,
-   "dup": 28,
+   "total": 209,
+   "primary": 180,
+   "dup": 29,
    "repost_rate": 0.14,
-   "views_median": 571,
+   "views_median": 580,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -675,11 +706,11 @@
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 187,
-   "primary": 135,
-   "dup": 52,
+   "total": 203,
+   "primary": 147,
+   "dup": 56,
    "repost_rate": 0.28,
-   "views_median": 6770,
+   "views_median": 6820,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -687,11 +718,11 @@
    "source": "ulsk_73online",
    "tier": 2,
    "type": "tg",
-   "total": 186,
-   "primary": 164,
-   "dup": 22,
+   "total": 203,
+   "primary": 178,
+   "dup": 25,
    "repost_rate": 0.12,
-   "views_median": 644,
+   "views_median": 661,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -699,23 +730,11 @@
    "source": "chpul",
    "tier": 2,
    "type": "tg",
-   "total": 170,
-   "primary": 122,
-   "dup": 48,
-   "repost_rate": 0.28,
-   "views_median": 569,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "chpulsk",
-   "tier": 2,
-   "type": "tg",
-   "total": 158,
-   "primary": 93,
-   "dup": 65,
-   "repost_rate": 0.41,
-   "views_median": 2860,
+   "total": 183,
+   "primary": 133,
+   "dup": 50,
+   "repost_rate": 0.27,
+   "views_median": 595,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -723,23 +742,35 @@
    "source": "ulpravda",
    "tier": 1,
    "type": "tg",
-   "total": 156,
-   "primary": 129,
-   "dup": 27,
-   "repost_rate": 0.17,
+   "total": 171,
+   "primary": 140,
+   "dup": 31,
+   "repost_rate": 0.18,
    "views_median": 124,
    "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "chpulsk",
+   "tier": 2,
+   "type": "tg",
+   "total": 168,
+   "primary": 102,
+   "dup": 66,
+   "repost_rate": 0.39,
+   "views_median": 3220,
+   "label": "смешанный",
    "clickbait_rate": 0.0
   },
   {
    "source": "ulkompr",
    "tier": 3,
    "type": "tg",
-   "total": 150,
-   "primary": 115,
-   "dup": 35,
-   "repost_rate": 0.23,
-   "views_median": 579,
+   "total": 165,
+   "primary": 129,
+   "dup": 36,
+   "repost_rate": 0.22,
+   "views_median": 606,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -747,11 +778,11 @@
    "source": "Репортёр73",
    "tier": 1,
    "type": "tg",
-   "total": 136,
-   "primary": 114,
-   "dup": 22,
-   "repost_rate": 0.16,
-   "views_median": 40,
+   "total": 145,
+   "primary": 120,
+   "dup": 25,
+   "repost_rate": 0.17,
+   "views_median": 42,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -759,11 +790,11 @@
    "source": "ulsk_on",
    "tier": 2,
    "type": "tg",
-   "total": 130,
-   "primary": 94,
-   "dup": 36,
-   "repost_rate": 0.28,
-   "views_median": 278,
+   "total": 144,
+   "primary": 105,
+   "dup": 39,
+   "repost_rate": 0.27,
+   "views_median": 290,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -771,9 +802,9 @@
    "source": "dimitrovgradd",
    "tier": 2,
    "type": "tg",
-   "total": 127,
-   "primary": 112,
-   "dup": 15,
+   "total": 137,
+   "primary": 120,
+   "dup": 17,
    "repost_rate": 0.12,
    "views_median": 1210,
    "label": "первоисточник",
@@ -783,9 +814,9 @@
    "source": "Губернатор и Правительство Ульяновской области",
    "tier": 1,
    "type": "tg",
-   "total": 126,
-   "primary": 88,
-   "dup": 38,
+   "total": 135,
+   "primary": 95,
+   "dup": 40,
    "repost_rate": 0.3,
    "views_median": 105,
    "label": "смешанный",
@@ -795,11 +826,11 @@
    "source": "topor_ul",
    "tier": 2,
    "type": "tg",
-   "total": 124,
-   "primary": 88,
-   "dup": 36,
+   "total": 130,
+   "primary": 92,
+   "dup": 38,
    "repost_rate": 0.29,
-   "views_median": 1630,
+   "views_median": 1800,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -807,11 +838,11 @@
    "source": "ulsk_driver73",
    "tier": 2,
    "type": "tg",
-   "total": 115,
-   "primary": 90,
-   "dup": 25,
-   "repost_rate": 0.22,
-   "views_median": 470,
+   "total": 123,
+   "primary": 97,
+   "dup": 26,
+   "repost_rate": 0.21,
+   "views_median": 447,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -819,11 +850,11 @@
    "source": "dimitrovgradonline",
    "tier": 2,
    "type": "tg",
-   "total": 113,
-   "primary": 89,
-   "dup": 24,
-   "repost_rate": 0.21,
-   "views_median": 397,
+   "total": 121,
+   "primary": 94,
+   "dup": 27,
+   "repost_rate": 0.22,
+   "views_median": 406,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -831,11 +862,11 @@
    "source": "ulkoroche",
    "tier": 2,
    "type": "tg",
-   "total": 104,
-   "primary": 87,
-   "dup": 17,
+   "total": 113,
+   "primary": 95,
+   "dup": 18,
    "repost_rate": 0.16,
-   "views_median": 915,
+   "views_median": 944,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -843,11 +874,11 @@
    "source": "shugozhor73",
    "tier": 3,
    "type": "tg",
-   "total": 102,
-   "primary": 71,
-   "dup": 31,
-   "repost_rate": 0.3,
-   "views_median": 2630,
+   "total": 109,
+   "primary": 75,
+   "dup": 34,
+   "repost_rate": 0.31,
+   "views_median": 3000,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -855,10 +886,10 @@
    "source": "Звезда (Новомалыклинский р-н)",
    "tier": 1,
    "type": "rss",
-   "total": 93,
-   "primary": 89,
-   "dup": 4,
-   "repost_rate": 0.04,
+   "total": 102,
+   "primary": 97,
+   "dup": 5,
+   "repost_rate": 0.05,
    "views_median": 53,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -867,11 +898,11 @@
    "source": "volkodav73",
    "tier": 3,
    "type": "tg",
-   "total": 92,
-   "primary": 73,
-   "dup": 19,
-   "repost_rate": 0.21,
-   "views_median": 1720,
+   "total": 100,
+   "primary": 77,
+   "dup": 23,
+   "repost_rate": 0.23,
+   "views_median": 1850,
    "label": "первоисточник",
    "clickbait_rate": 0.01
   },
@@ -879,10 +910,10 @@
    "source": "fcvolga",
    "tier": 1,
    "type": "tg",
-   "total": 79,
-   "primary": 77,
+   "total": 82,
+   "primary": 80,
    "dup": 2,
-   "repost_rate": 0.03,
+   "repost_rate": 0.02,
    "views_median": 1370,
    "label": "первоисточник",
    "clickbait_rate": 0.04
@@ -891,8 +922,8 @@
    "source": "sergeymorozov73",
    "tier": 1,
    "type": "tg",
-   "total": 57,
-   "primary": 57,
+   "total": 60,
+   "primary": 60,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 118,
@@ -903,8 +934,8 @@
    "source": "ulpatriot",
    "tier": 3,
    "type": "tg",
-   "total": 53,
-   "primary": 48,
+   "total": 58,
+   "primary": 53,
    "dup": 5,
    "repost_rate": 0.09,
    "views_median": 5580,
@@ -915,11 +946,11 @@
    "source": "ProNovosty73",
    "tier": 2,
    "type": "tg",
-   "total": 53,
-   "primary": 48,
-   "dup": 5,
-   "repost_rate": 0.09,
-   "views_median": 169,
+   "total": 56,
+   "primary": 50,
+   "dup": 6,
+   "repost_rate": 0.11,
+   "views_median": 152,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -927,11 +958,11 @@
    "source": "ulpromo",
    "tier": 3,
    "type": "tg",
-   "total": 45,
-   "primary": 41,
-   "dup": 4,
-   "repost_rate": 0.09,
-   "views_median": 762,
+   "total": 49,
+   "primary": 44,
+   "dup": 5,
+   "repost_rate": 0.1,
+   "views_median": 772,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -939,10 +970,34 @@
    "source": "Кумәк көч",
    "tier": null,
    "type": "rss",
+   "total": 48,
+   "primary": 42,
+   "dup": 6,
+   "repost_rate": 0.12,
+   "views_median": null,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "Кузоватовские вести",
+   "tier": null,
+   "type": "rss",
    "total": 41,
-   "primary": 37,
-   "dup": 4,
-   "repost_rate": 0.1,
+   "primary": 31,
+   "dup": 10,
+   "repost_rate": 0.24,
+   "views_median": null,
+   "label": "первоисточник",
+   "clickbait_rate": 0.0
+  },
+  {
+   "source": "Администрация г. Ульяновска",
+   "tier": 1,
+   "type": "web",
+   "total": 37,
+   "primary": 34,
+   "dup": 3,
+   "repost_rate": 0.08,
    "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -972,37 +1027,13 @@
    "clickbait_rate": 0.0
   },
   {
-   "source": "Кузоватовские вести",
-   "tier": null,
-   "type": "rss",
-   "total": 32,
-   "primary": 24,
-   "dup": 8,
-   "repost_rate": 0.25,
-   "views_median": null,
-   "label": "смешанный",
-   "clickbait_rate": 0.0
-  },
-  {
-   "source": "Администрация г. Ульяновска",
-   "tier": 1,
-   "type": "web",
-   "total": 32,
-   "primary": 29,
-   "dup": 3,
-   "repost_rate": 0.09,
-   "views_median": null,
-   "label": "первоисточник",
-   "clickbait_rate": 0.0
-  },
-  {
    "source": "culturnik",
    "tier": 3,
    "type": "tg",
-   "total": 30,
-   "primary": 26,
+   "total": 33,
+   "primary": 29,
    "dup": 4,
-   "repost_rate": 0.13,
+   "repost_rate": 0.12,
    "views_median": 369,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -1011,10 +1042,10 @@
    "source": "Карсунский вестник",
    "tier": null,
    "type": "rss",
-   "total": 25,
-   "primary": 20,
+   "total": 29,
+   "primary": 24,
    "dup": 5,
-   "repost_rate": 0.2,
+   "repost_rate": 0.17,
    "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -1035,8 +1066,8 @@
    "source": "uac_ru",
    "tier": 1,
    "type": "tg",
-   "total": 21,
-   "primary": 21,
+   "total": 22,
+   "primary": 22,
    "dup": 0,
    "repost_rate": 0.0,
    "views_median": 4270,
@@ -1083,10 +1114,10 @@
    "source": "vmkononov",
    "tier": 1,
    "type": "tg",
-   "total": 18,
-   "primary": 17,
+   "total": 19,
+   "primary": 18,
    "dup": 1,
-   "repost_rate": 0.06,
+   "repost_rate": 0.05,
    "views_median": 39,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -1096,188 +1127,157 @@
   {
    "topic": "uav",
    "name": "БПЛА и воздушные угрозы",
-   "expected": 50.2,
-   "slope": 7.54,
+   "expected": 45.1,
+   "slope": 7.32,
    "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "elections",
+   "name": "Выборы-2026",
+   "expected": 18.3,
+   "slope": -6.57,
+   "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 27.2,
-   "slope": -5.82,
+   "expected": 43.9,
+   "slope": -3.71,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "avia",
+   "name": "Авиапром / УКБП / Ил-114",
+   "expected": 14.8,
+   "slope": 2.64,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "cityspace",
+   "name": "Городская среда",
+   "expected": 16.9,
+   "slope": -2.11,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "crime",
    "name": "Суды и криминал",
-   "expected": 31.2,
-   "slope": -5.39,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "budget",
-   "name": "Бюджет-2027",
-   "expected": 2.7,
-   "slope": -3.57,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "cityspace",
-   "name": "Городская среда",
-   "expected": 18.4,
-   "slope": -2.86,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "elections",
-   "name": "Выборы-2026",
-   "expected": 43.3,
-   "slope": 2.71,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "avia",
-   "name": "Авиапром / УКБП / Ил-114",
-   "expected": 20.4,
-   "slope": 2.68,
-   "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "schools",
-   "name": "Школы и вузы",
-   "expected": 14.3,
-   "slope": -1.71,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "culture",
-   "name": "Культура и туризм",
-   "expected": 3.6,
-   "slope": -1.5,
+   "expected": 35.8,
+   "slope": -2.04,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "governor",
    "name": "Губернатор / власть",
-   "expected": 46.4,
-   "slope": 1.32,
-   "direction": "рост",
+   "expected": 35.9,
+   "slope": -1.61,
+   "direction": "спад",
    "confidence": "средняя"
   },
   {
-   "topic": "medicine",
-   "name": "Медицина",
-   "expected": 12.8,
-   "slope": -1.18,
+   "topic": "schools",
+   "name": "Школы и вузы",
+   "expected": 13.3,
+   "slope": -1.57,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "budget",
+   "name": "Бюджет-2027",
+   "expected": 10.3,
+   "slope": -0.93,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "export",
    "name": "Экспорт и кооперация",
-   "expected": 7.1,
-   "slope": -0.75,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "zhkh",
-   "name": "ЖКХ, газ, тепло",
-   "expected": 8.6,
-   "slope": -0.68,
+   "expected": 4.6,
+   "slope": -0.93,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "sport",
    "name": "Спорт",
-   "expected": 23.8,
-   "slope": -0.57,
-   "direction": "спад",
+   "expected": 26.0,
+   "slope": 0.5,
+   "direction": "рост",
    "confidence": "средняя"
   },
   {
    "topic": "weather",
    "name": "Погода",
-   "expected": 9.6,
-   "slope": -0.57,
+   "expected": 7.3,
+   "slope": -0.46,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "harvest",
    "name": "Урожай и АПК",
-   "expected": 5.1,
-   "slope": 0.5,
+   "expected": 3.7,
+   "slope": 0.43,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
-   "topic": "cityday",
-   "name": "День города (378 лет)",
-   "expected": 1.7,
-   "slope": 0.29,
+   "topic": "medicine",
+   "name": "Медицина",
+   "expected": 15.6,
+   "slope": 0.32,
    "direction": "плато",
    "confidence": "низкая"
   },
   {
-   "topic": "uaz",
-   "name": "УАЗ / Соллерс",
-   "expected": 1.6,
-   "slope": -0.04,
+   "topic": "zhkh",
+   "name": "ЖКХ, газ, тепло",
+   "expected": 12.4,
+   "slope": 0.29,
    "direction": "плато",
    "confidence": "низкая"
   },
   {
    "topic": "macro",
    "name": "Макроэкономика / ЦБ",
-   "expected": 1.0,
-   "slope": 0.04,
+   "expected": 0.2,
+   "slope": -0.25,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "uaz",
+   "name": "УАЗ / Соллерс",
+   "expected": 1.1,
+   "slope": -0.14,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "cityday",
+   "name": "День города (378 лет)",
+   "expected": 1.7,
+   "slope": 0.11,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "culture",
+   "name": "Культура и туризм",
+   "expected": 8.3,
+   "slope": -0.07,
    "direction": "плато",
    "confidence": "низкая"
   }
  ],
  "calendar_rejected": [
-  {
-   "etype": "other",
-   "is_culture": false,
-   "district": true,
-   "date": "2026-09-22",
-   "date_end": null,
-   "time": "09:00",
-   "time_note": "",
-   "event_title": "событие",
-   "title_is_fallback": true,
-   "title_kind": "fallback",
-   "title": "Онлайн-трансляция штаба по комплексному развитию Ульяновска",
-   "url": "https://ulmeria.gosuslugi.ru/dlya-zhiteley/novosti-i-reportazhi/novosti-193_6967.html",
-   "source": "Администрация Ульяновска",
-   "tier": 1,
-   "venue": "",
-   "venue_addr": "",
-   "venue_district": "",
-   "venue_city": "",
-   "venue_found": false,
-   "venue_how": "",
-   "geo": "Ульяновск",
-   "price": "",
-   "price_mode": "",
-   "age": "",
-   "reasons": [
-    "тип: новость, не перечневое культурное событие",
-    "нет площадки"
-   ],
-   "score": 0.6
-  },
   {
    "etype": "concert",
    "is_culture": true,
@@ -1300,6 +1300,36 @@
    "venue_found": false,
    "venue_how": "",
    "geo": "Ульяновск",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "нет площадки"
+   ],
+   "score": 0.62
+  },
+  {
+   "etype": "kids",
+   "is_culture": true,
+   "district": true,
+   "date": "2026-09-23",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "Семейная зарница",
+   "title_is_fallback": false,
+   "title_kind": "quoted",
+   "title": "Семья Герасимовых из Димитровграда представит Ульяновскую область в финале Всероссийской игры «Семейная зарница»",
+   "url": "http://gazeta-zvezda73.ru/index.php/novosti/guberniya/17342-semya-gerasimovykh-iz-dimitrovgrada-predstavit-ulyanovskuyu-oblast-v-finale-vserossijskoj-igry-semejnaya-zarnitsa",
+   "source": "Звезда (Новомалыклинский р-н)",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "Димитровград",
    "price": "",
    "price_mode": "",
    "age": "",
@@ -1431,34 +1461,34 @@
    "score": 0.46
   },
   {
-   "etype": "festival",
+   "etype": "kids",
    "is_culture": true,
    "district": true,
    "date": "2026-09-25",
    "date_end": null,
    "time": "",
    "time_note": "уточняется",
-   "event_title": "Выставка об уникальных операциях «Поток» ▶",
+   "event_title": "Музейный семейный марафон",
    "title_is_fallback": false,
-   "title_kind": "kind",
-   "title": "✅ 11 сентября ▶️ Куда сходить ульяновцам: афиша событий на 12 и 13 сентября ▶️ Безопасность, современность, те…",
-   "url": "https://t.me/ulgovru/23642",
-   "source": "t.me/ulgovru",
-   "tier": 1,
-   "venue": "Дворец книги — областная научная библиотека им. В. И. Ленина",
-   "venue_addr": "Карамзина, 3",
-   "venue_district": "Ленинский район",
-   "venue_city": "Ульяновск",
-   "venue_found": true,
-   "venue_how": "text",
-   "geo": "Ленинский район",
-   "price": "вход свободный",
-   "price_mode": "free",
+   "title_kind": "quoted",
+   "title": "🦕 Плиозавр Лусхан и музейный марафон 25 сентября в Ульяновске стартует проект «Музейный семейный марафон»: обл…",
+   "url": "https://t.me/ulpatriot/7001",
+   "source": "t.me/ulpatriot",
+   "tier": 3,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "Ульяновск",
+   "price": "",
+   "price_mode": "",
    "age": "",
    "reasons": [
-    "дайджест/норма: дата — не события"
+    "нет площадки"
    ],
-   "score": 0.82
+   "score": 0.66
   },
   {
    "etype": "other",
@@ -1711,6 +1741,37 @@
    "district": true,
    "date": "2026-09-28",
    "date_end": null,
+   "time": "12:30",
+   "time_note": "",
+   "event_title": "Валерий Чкалов",
+   "title_is_fallback": false,
+   "title_kind": "quoted",
+   "title": "В Ульяновске 28 сентября на речном вокзале пройдет День открытых дверей на теплоходе «Валерий Чкалов» С 12:30 …",
+   "url": "https://t.me/ulsk_73online/36279",
+   "source": "t.me/ulsk_73online",
+   "tier": 2,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "Ульяновск",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "тип: новость, не перечневое культурное событие",
+    "нет площадки"
+   ],
+   "score": 0.6
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": true,
+   "date": "2026-09-28",
+   "date_end": null,
    "time": "",
    "time_note": "уточняется",
    "event_title": "Городская теплосеть",
@@ -1727,6 +1788,68 @@
    "venue_found": false,
    "venue_how": "",
    "geo": "Ульяновск",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "тип: новость, не перечневое культурное событие",
+    "нет площадки"
+   ],
+   "score": 0.46
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": true,
+   "date": "2026-09-28",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "Димитровград готовится к зиме",
+   "title_is_fallback": false,
+   "title_kind": "quoted",
+   "title": "Димитровград готовится к зиме: отопление соцобъектов начнут с 28 сентября На заседании комитета Гордумы обсуди…",
+   "url": "https://t.me/dimitrovgradd/32011",
+   "source": "t.me/dimitrovgradd",
+   "tier": 2,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "Димитровград",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "тип: новость, не перечневое культурное событие",
+    "нет площадки"
+   ],
+   "score": 0.46
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-28",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "Объекты социальной сферы начнут отапливать",
+   "title_is_fallback": false,
+   "title_kind": "quoted",
+   "title": "Объекты социальной сферы начнут отапливать 28 сентября Вопрос подготовки и обеспечения безаварийного прохожден…",
+   "url": "https://t.me/ulpravda/41165",
+   "source": "t.me/ulpravda",
+   "tier": 1,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "",
    "price": "",
    "price_mode": "",
    "age": "",
@@ -1930,6 +2053,37 @@
    "date_end": null,
    "time": "",
    "time_note": "уточняется",
+   "event_title": "Теплоснабжение объектов социальной сферы Ульяновской области планируется начать",
+   "title_is_fallback": false,
+   "title_kind": "quoted",
+   "title": "Теплоснабжение объектов социальной сферы Ульяновской области планируется начать 28 сентября",
+   "url": "http://gazeta-zvezda73.ru/index.php/novosti/guberniya/17333-teplosnabzhenie-obektov-sotsialnoj-sfery-ulyanovskoj-oblasti-planiruetsya-nachat-28-sentyabrya",
+   "source": "Звезда (Новомалыклинский р-н)",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "тип: новость, не перечневое культурное событие",
+    "нет площадки"
+   ],
+   "score": 0.46
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
+   "date": "2026-09-28",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
    "event_title": "Ульяновская область готовится к отопительному сезону. С",
    "title_is_fallback": false,
    "title_kind": "quoted",
@@ -2013,6 +2167,36 @@
     "нет площадки"
    ],
    "score": 0.66
+  },
+  {
+   "etype": "city",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-09-29",
+   "date_end": null,
+   "time": "13:00",
+   "time_note": "",
+   "event_title": "Лекция о триумфе Пушкина после михайловской ссылки",
+   "title_is_fallback": false,
+   "title_kind": "kind",
+   "title": "В музее Гончарова покажут лекцию о триумфе Пушкина после михайловской ссылки",
+   "url": "https://ulpressa.ru/2026/09/23/v-muzee-goncharova-pokazhut-lekcziyu-o-triumfe-pushkina-posle-mihajlovskoj-ssylki/",
+   "source": "Улпресса",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "",
+   "price": "вход свободный",
+   "price_mode": "free",
+   "age": "",
+   "reasons": [
+    "нет площадки"
+   ],
+   "score": 0.8
   },
   {
    "etype": "concert",
@@ -2389,6 +2573,37 @@
    "etype": "other",
    "is_culture": false,
    "district": false,
+   "date": "2026-10-02",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "событие",
+   "title_is_fallback": true,
+   "title_kind": "fallback",
+   "title": "Русских оставляет Гибатдинова в Совете Федерации",
+   "url": "https://kumiakk.ru/?p=21010",
+   "source": "Кумәк көч",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "тип: новость, не перечневое культурное событие",
+    "нет площадки"
+   ],
+   "score": 0.46
+  },
+  {
+   "etype": "other",
+   "is_culture": false,
+   "district": false,
    "date": "2026-10-03",
    "date_end": null,
    "time": "",
@@ -2438,6 +2653,36 @@
    "venue_found": false,
    "venue_how": "",
    "geo": "Димитровград",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "нет площадки"
+   ],
+   "score": 0.76
+  },
+  {
+   "etype": "sport",
+   "is_culture": false,
+   "district": true,
+   "date": "2026-10-04",
+   "date_end": null,
+   "time": "15:30",
+   "time_note": "",
+   "event_title": "Матч 21 тура, который изначально был запланиро…",
+   "title_is_fallback": false,
+   "title_kind": "kind",
+   "title": "⏪ С \"Велесом\" - на два месяца раньше Клубы согласовали перенос матча 21 тура, который изначально был запланиро…",
+   "url": "https://t.me/fcvolga/12598",
+   "source": "t.me/fcvolga",
+   "tier": 1,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "Ульяновск",
    "price": "",
    "price_mode": "",
    "age": "",
@@ -2505,6 +2750,36 @@
     "тип: новость, не перечневое культурное событие"
    ],
    "score": 0.7
+  },
+  {
+   "etype": "concert",
+   "is_culture": true,
+   "district": true,
+   "date": "2026-10-06",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "В Rostic’s появятся комбо с Ми-ми-мишками. Уже с",
+   "title_is_fallback": false,
+   "title_kind": "quoted",
+   "title": "🐻 В Rostic’s появятся комбо с Ми-ми-мишками. Уже с 6 октября в ресторанах стартует новая коллекция: в наборах …",
+   "url": "https://t.me/ulkoroche/33946",
+   "source": "t.me/ulkoroche",
+   "tier": 2,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "Ульяновск",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "нет площадки"
+   ],
+   "score": 0.62
   },
   {
    "etype": "other",
@@ -2719,12 +2994,42 @@
     "тип: новость, не перечневое культурное событие"
    ],
    "score": 0.66
+  },
+  {
+   "etype": "festival",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-11-07",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "Как будем отдыхать в 2027 году",
+   "title_is_fallback": false,
+   "title_kind": "quoted",
+   "title": "Как будем отдыхать в 2027 году: опубликован официальный производственный календарь",
+   "url": "https://ulpressa.ru/2026/09/18/kak-budem-otdyhat-v-2027-godu-opublikovan-oficzialnyj-proizvodstvennyj-kalendar/",
+   "source": "Улпресса",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "нет площадки"
+   ],
+   "score": 0.62
   }
  ],
  "calendar_passport": {
-  "found_dates": 66,
-  "accepted": 12,
-  "rejected": 48,
+  "found_dates": 78,
+  "accepted": 13,
+  "rejected": 57,
   "venues_new": {
    "ООО «Боулинг-центр» и ООО «Аэробоул»": 1,
    "площадке «РТС-тендер»": 1,
@@ -2732,26 +3037,32 @@
    "Центре культуры и досуга": 1,
    "клуба «5 океанов»": 1,
    "Соревнования организует яхт-клуб «Нейтрон»": 1,
-   "Сеченовского Университета и более": 1
+   "Сеченовского Университета и более": 1,
+   "00 в Историко-мемориальном центре-музее И": 1,
+   "музея-усадьбы «Михайловское» Анастасия Дадыко": 1,
+   "Клубы согласовали перенос матча": 1,
+   "Домодедово на стадионе": 1,
+   "Плиозавр Лусхан и музейный марафон": 1,
+   "«Музейный семейный марафон»": 1
   },
   "threshold": 0.55,
   "stats": {
-   "venue_text": 2,
+   "venue_text": 1,
    "venue_addr": 1,
    "venue_city": 3,
-   "title_composed": 8,
-   "with_price": 3,
+   "title_composed": 9,
+   "with_price": 2,
    "with_age": 0,
-   "rejected_no_venue": 41
+   "rejected_no_venue": 51
   },
-  "run_local": "22.09.2026 12:58",
-  "total": 12,
+  "run_local": "23.09.2026 12:58",
+  "total": 13,
   "no_time": 0,
   "no_venue": 0,
   "other_share": 0.0,
-  "also_n": 2,
-  "venues_new_n": 7,
-  "score_avg": 0.897,
-  "verdict": "прошло порог 12; новых площадок 7; с др. анонсами 2"
+  "also_n": 3,
+  "venues_new_n": 13,
+  "score_avg": 0.908,
+  "verdict": "прошло порог 13; новых площадок 13; с др. анонсами 3"
  }
 }
