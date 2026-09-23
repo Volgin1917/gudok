@@ -579,13 +579,24 @@ padding:14px 16px;white-space:pre-wrap;color:var(--ink-2);margin-top:14px;}
   .filters,.proto-form{display:none!important;}
   .mcard .mdet{display:grid!important;}
 }
+
+/* ---- конвейер внедрения (секция «Внедрение методов») */
+.pl-stage{display:grid;grid-template-columns:64px 1fr;gap:4px 18px;border-top:1px solid var(--rule);padding:16px 0;}
+.pl-stage__n{font-family:var(--serif-display);font-size:34px;font-weight:700;line-height:.9;color:var(--accent);}
+.pl-code{font-family:var(--sans);font-size:11.5px;line-height:1.6;color:var(--muted);}
+.pl-ex{font-family:var(--serif-body);font-size:13px;font-style:italic;color:var(--muted);
+border-left:2px solid var(--rule);padding-left:10px;margin-top:6px;}
+.pl-h4{font-family:var(--sans);font-size:10.5px;font-weight:800;letter-spacing:.12em;
+text-transform:uppercase;color:var(--muted);margin:14px 0 6px;}
+.pl-tbl td,.pl-tbl th{vertical-align:top;}
+.pl-n{font-weight:700;color:var(--ink);}
 </style><script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
 <a class="skip" href="#main">К содержанию</a>
-<header class="masthead"><div class="flagline"><span>среда, 23 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 16:25</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>среда, 23 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 17:24</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Проекты издания<br>реестр методик v1.1 и техконтур
@@ -608,6 +619,44 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="kpi"><div class="num">7</div><div class="lbl">методик идеологического блока</div></div>
 <div class="kpi"><div class="num">17</div><div class="lbl">открытых стандартов и форматов</div></div>
 </div>
+</div>
+
+<div class="sec-head" id="method"><h2>Внедрение методов</h2><div class="line"></div>
+<div class="badge">паспорт → данные → расчёт → блок → тест</div></div>
+<div class="wrap1200">
+<div class="note" style="margin:0 0 14px;">Правило редакции: метрика или методика добавляется в раздел только через паспорт —
+с гипотезой, формулой, источником данных, порогом тревоги и местом публикации. Пять шагов ниже одинаковы
+для метрик «Инфопространства», для порогов афиши и для правил дедупликации: отличается только файл.</div>
+<div class="pl-stage"><div class="pl-stage__n">1</div>
+<div><h3>Паспорт метрики</h3><p>Гипотеза, формула, источник данных, порог тревоги, где публикуется и первый иллюстративный расчёт. Шесть полей паспорта — без них метрика в реестр не попадает.</p>
+<div class="pl-code"><b>Где в коде:</b> plans.py → PILOTS (пилоты), REG (реестр из 32 кандидатов)</div>
+<div class="pl-code"><b>Проверка:</b> решение редакции на планёрке; паспорт виден на странице «Планы»</div>
+<div class="pl-ex">Пример — TLI: гипотеза «труд присутствует как объект, но не как субъект речи», порог тревоги TLI &lt; 0.10 неделю подряд</div></div></div><div class="pl-stage"><div class="pl-stage__n">2</div>
+<div><h3>Данные</h3><p>Что нужно для расчёта: уже собранная база, реестр источников, словари config.json или внешняя выгрузка. Пока источника нет, метрика живёт в статусе «ищем данные».</p>
+<div class="pl-code"><b>Где в коде:</b> data/store.jsonl · sources_registry.json · config.json · data/goszakupki_eis.csv</div>
+<div class="pl-code"><b>Проверка:</b> источник назван в паспорте и доступен конвейеру без сторонних зависимостей</div>
+<div class="pl-ex">Пример — TLI: store.jsonl (1405 сообщений за 7 дней) + маркер-словарь профессий</div></div></div><div class="pl-stage"><div class="pl-stage__n">3</div>
+<div><h3>Расчёт</h3><p>Функция в analytics.py пишет метрику в data/infospace.json в разрезе своей волны (w1–w4). Считаем только на stdlib: эвристики и словари вместо внешних API.</p>
+<div class="pl-code"><b>Где в коде:</b> analytics.py: build_infospace · build_infospace_ext (w1) · build_infospace_w2/w3/w4 · compute_eis_metrics</div>
+<div class="pl-code"><b>Проверка:</b> python3 analytics.py пересобирает data/infospace.json из текущей базы</div>
+<div class="pl-ex">Пример — TLI: build_infospace_ext → infospace.json[w1].tli (шесть групп, доля субъектности)</div></div></div><div class="pl-stage"><div class="pl-stage__n">4</div>
+<div><h3>Блок на витрине</h3><p>render_infospace() собирает блок: число, подпись, развертка и методика под блоком. Вёрстка самодостаточная (inline CSS/SVG), страница открывается офлайн и печатается.</p>
+<div class="pl-code"><b>Где в коде:</b> generate.py: render_infospace (w1–w4), infospace.html</div>
+<div class="pl-code"><b>Проверка:</b> блок виден без JavaScript, числа сходятся с data/infospace.json</div>
+<div class="pl-ex">Пример — TLI: шесть полос bar-row по группам + значение индекса (9% — «труд невидим»)</div></div></div><div class="pl-stage"><div class="pl-stage__n">5</div>
+<div><h3>Тест и статус</h3><p>Юнит-тест на расчёт и на присутствие блока на странице. После зелёного прогона метрика получает статус «подключена» с датой, запись уходит в ROADMAP.md.</p>
+<div class="pl-code"><b>Где в коде:</b> tests/test_pipeline.py: TestInfospaceW1–W4 · TestEisMetrics · TestSourcesRegistry · TestOutlets</div>
+<div class="pl-code"><b>Проверка:</b> python3 -m unittest discover -s tests — зелёный до публикации</div>
+<div class="pl-ex">Пример — TLI: подключена 15.09 (Волна 1), поле dn в реестре, запись в версии документа</div></div></div>
+
+<div class="pl-h4">Реестр методик · v1.1: 36 паспортов</div>
+<table class="tbl pl-tbl"><thead><tr><th>Группа методик</th><th>Всего</th><th>Работают</th>
+<th>В тесте</th><th>В очереди</th><th>Идеологический блок</th></tr></thead>
+<tbody><tr><td class="pl-n">Сбор и мониторинг</td><td>6</td><td>3</td><td>3</td><td>0</td><td>1</td></tr><tr><td class="pl-n">Текстовый анализ</td><td>9</td><td>4</td><td>5</td><td>0</td><td>3</td></tr><tr><td class="pl-n">Сети и динамика</td><td>6</td><td>2</td><td>1</td><td>3</td><td>0</td></tr><tr><td class="pl-n">Проверка и противодействие</td><td>5</td><td>0</td><td>2</td><td>3</td><td>2</td></tr><tr><td class="pl-n">Экономика и власть</td><td>3</td><td>0</td><td>1</td><td>2</td><td>0</td></tr><tr><td class="pl-n">Аудитория и активность</td><td>3</td><td>0</td><td>1</td><td>2</td><td>0</td></tr><tr><td class="pl-n">Исторический контекст</td><td>2</td><td>0</td><td>0</td><td>2</td><td>0</td></tr><tr><td class="pl-n">Представление</td><td>2</td><td>2</td><td>0</td><td>0</td><td>1</td></tr><tr><td class="pl-n">Итого</td><td>36</td><td>11</td>
+<td>13</td><td>12</td><td>7</td></tr></tbody></table>
+<div class="note">Полные паспорта методик (вход, выход, метрики качества, модуль платформы, оценка
+неопределённости и порядок проверки на контрольной выборке) — в реестре ниже, сквозной раздел
+«Идеология и гегемония» и техконтур из открытых стандартов — ниже по странице.</div>
 </div>
 
 <div class="sec-head" id="reestr"><h2>Реестр методик</h2><div class="line"></div>
@@ -950,13 +999,14 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 
 <div class="wrap1200"><div class="note" style="margin-top:26px;">Связано:
 <a href="infospace.html" style="color:var(--accent);">дашборд «Инфопространство»</a> ·
-<a href="projects/plans.html#method" style="color:var(--accent);">внедрение методов в планах</a> ·
+<a href="#method" style="color:var(--accent);">внедрение методов</a> ·
+<a href="projects/plans.html" style="color:var(--accent);">планы издания</a> ·
 <a href="projects/dossier.html" style="color:var(--accent);">досье действующих лиц (прототип)</a> ·
 <a href="projects/elections_2026.html" style="color:var(--accent);">досье «Выборы-2026»</a> ·
 <a href="projects/goszakupki.html" style="color:var(--accent);">досье «Госзакупки»</a> ·
 <a href="status.html" style="color:var(--accent);">статус системы</a>.
 Реестр методик — редакционный документ: правится в <code>methods.py</code>, страница пересобирается
-конвейером. Собрано 23.09.2026 16:25 (UTC+4).</div></div>
+конвейером. Собрано 23.09.2026 17:24 (UTC+4).</div></div>
 </main>
 </main>
 <footer class="footer"><div class="footer__inner">
@@ -978,7 +1028,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <li><a href="afisha.html">Афиша</a></li></ul></div>
 <div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
 <li><a href="status.html">Статус системы</a></li>
-<li><a href="projects/plans.html">Планы и методы</a></li>
+<li><a href="projects/plans.html">Планы</a></li>
 <li><a href="digests/exec_2026-09-23.html">Версия руководителю</a></li>
 <li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
 </div>

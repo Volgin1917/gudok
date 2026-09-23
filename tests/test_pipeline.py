@@ -3403,7 +3403,7 @@ class TestPlansPage(unittest.TestCase):
 
     def test_sections_present(self):
         html = self._read()
-        for sec in ("Внедрение методов", "Паспорта метрик-пилотов", "Реестр метрик-кандидатов",
+        for sec in ("Паспорта метрик-пилотов", "Реестр метрик-кандидатов",
                     "Волны внедрения", "Источники данных", "Методологические риски", "Треки планов"):
             self.assertIn(f"<h2>{sec}</h2>", html)
 
@@ -3413,12 +3413,12 @@ class TestPlansPage(unittest.TestCase):
         self.assertEqual(html.count("<tr data-ax="), len(plans.REG))
         self.assertIn('id="pl-reg"', html)
 
-    def test_method_pipeline_steps(self):
-        import plans
+    def test_conveyor_lives_on_methods_page(self):
+        # конвейер внедрения переехал на methods.html — на планах его быть не должно,
+        # но якорь #metrics остаётся, чтобы infospace.html ссылался корректно
         html = self._read()
-        for st in plans.METHOD_STAGES:
-            self.assertIn(f'<div class="pl-stage__n">{st["n"]}</div>', html)
-            self.assertIn(st["t"], html)
+        self.assertIn('id="metrics"', html)
+        self.assertNotIn("Внедрение методов", html)
 
     def test_all_tracks_rendered(self):
         import plans
@@ -3428,7 +3428,7 @@ class TestPlansPage(unittest.TestCase):
 
     def test_linked_from_projects_infospace_footer(self):
         self.assertIn("projects/plans.html", self._read("projects.html"))
-        self.assertIn("Планы и методы", self._read("projects.html"))
+        self.assertIn("Планы", self._read("projects.html"))
         self.assertIn("projects/plans.html#metrics", self._read("infospace.html"))
         import footer
         self.assertIn("plans.html", footer.render_footer(""))
@@ -3565,13 +3565,33 @@ class TestMethodsPage(unittest.TestCase):
 
     def test_sections_and_filters(self):
         html = self._read("methods.html")
-        for sec in ("Методы исследования инфополя", "Реестр методик", "Идеология и гегемония",
-                    "Техконтур: открытые стандарты и решения", "Стенд испытания методик"):
+        for sec in ("Методы исследования инфополя", "Внедрение методов", "Реестр методик",
+                    "Идеология и гегемония", "Техконтур: открытые стандарты и решения",
+                    "Стенд испытания методик"):
             self.assertIn(f"<h2>{sec}</h2>", html)
         self.assertIn('id="fGroup"', html)
         self.assertIn('id="fStatus"', html)
         self.assertIn('data-g="ideo"', html)
         self.assertIn('id="protoMethod"', html)
+
+    def test_conveyor_steps_rendered(self):
+        # конвейер внедрения живёт на methods.html (секция с якорем #method)
+        import plans
+        html = self._read("methods.html")
+        self.assertIn('id="method"', html)
+        for st in plans.METHOD_STAGES:
+            self.assertIn(f'<div class="pl-stage__n">{st["n"]}</div>', html)
+            self.assertIn(st["t"], html)
+
+    def test_methods_summary_table_matches_registry(self):
+        # сводная таблица реестра методик (группы × статусы) едет на methods.html
+        import methods as M
+        html = self._read("methods.html")
+        c = M.counts()
+        self.assertIn(f"Реестр методик · v{M.VERSION}", html)
+        for grp_key, _title, _short in M.GROUPS:
+            n = sum(1 for m in M.METHODS if m.get("group") == grp_key)
+            self.assertIn(f'<td class="pl-n">{_title}</td><td>{n}</td>', html)
 
     def test_kpi_matches_registry(self):
         import methods as M

@@ -2655,11 +2655,11 @@ def render_projects(cfg, trends, store, status):
 класс, аудитория, веха закрытия, что значится фондом.</p>
 <a class="go" href="projects/pressa.html">открыть реестр →</a></div>"""
     cards += f"""<div class="sec-card" style="border-top-color:var(--accent);text-decoration:none;display:block;">
-<div><b>Планы и методы</b></div>
+<div><b>Планы</b></div>
 <div class="fig">{plans_tracks}<small>треков</small></div>
 <p>Единая страница планов издания: план развития, реестр метрик «Инфопространства» с паспортами,
-переезд на сервер, спринты первой полосы и конвейер внедрения метода.</p>
-<a class="go" href="projects/plans.html">открыть планы →</a></div>"""
+переезд на сервер, спринты первой полосы. Методики и конвейер их внедрения — на странице «Методы».</p>
+<a class="go" href="projects/plans.html">открыть планы →</a> · <a class="go" href="methods.html">открыть методы →</a></div>"""
     for pr in cfg.get("projects", []):
         st = {"active": ("в работе", "#1d7a4d"), "plan": ("в плане", "#96690a")}.get(pr.get("status"), (pr.get("status", ""), "#5b6b7c"))
         cards += f"""<div class="sec-card" style="border-top-color:{st[1]};text-decoration:none;display:block;">
@@ -2815,7 +2815,6 @@ def render_plans(cfg, trends, store, status, an=None):
     Без JavaScript видны все таблицы — скрипт только фильтрует реестр метрик.
     """
     import plans as P
-    import methods as M
     now = datetime.now(UTC4)
     nav_html = render_nav(cfg, "projects", "../", subnav=subnav_projects("../", "plans"))
     an = an or {}
@@ -2831,15 +2830,6 @@ def render_plans(cfg, trends, store, status, an=None):
 
     def st_chip(st):
         return f'<span class="pl-st pl-st--{esc(st)}">{esc(P.STATUS.get(st, st))}</span>'
-
-    # ---------------------------------------------------------- конвейер внедрения
-    stage_rows = []
-    for st in P.METHOD_STAGES:
-        stage_rows.append(f"""<div class="pl-stage"><div class="pl-stage__n">{st['n']}</div>
-<div><h3>{esc(st['t'])}</h3><p>{esc(st['d'])}</p>
-<div class="pl-code"><b>Где в коде:</b> {esc(st['where'])}</div>
-<div class="pl-code"><b>Проверка:</b> {esc(st['check'])}</div>
-<div class="pl-ex">Пример — {esc(st['ex'])}</div></div></div>""")
 
     # ---------------------------------------------------------- паспорта метрик
     pass_html = []
@@ -2927,18 +2917,6 @@ def render_plans(cfg, trends, store, status, an=None):
                 f'<span class="pl-track__src">{esc(tr["src"])}</span>{extra}</div>'
                 f'<p class="pl-track__dek">{esc(tr["dek"])}</p>')
 
-    meth = M.counts()
-    meth_rows = []
-    for mkey, mtitle, _mshort in M.GROUPS:
-        items = [m for m in M.METHODS if m.get("group") == mkey]
-        meth_rows.append(
-            f'<tr><td class="pl-n">{esc(mtitle)}</td><td>{len(items)}</td>'
-            f'<td>{sum(1 for m in items if m.get("status") == "work")}</td>'
-            f'<td>{sum(1 for m in items if m.get("status") == "test")}</td>'
-            f'<td>{sum(1 for m in items if m.get("status") == "queue")}</td>'
-            f'<td>{sum(1 for m in items if m.get("ideo"))}</td></tr>')
-    meth_rows = "".join(meth_rows)
-
     passport = an.get("calendar_passport") or {}
     afisha_gate = (cfg.get("settings", {}) or {}).get("afisha", {}) or {}
     venues_n = 0
@@ -2974,7 +2952,7 @@ def render_plans(cfg, trends, store, status, an=None):
                                          for k in st_order if cnt.get(k))
                                + '</ul>'
                                + '<div class="note">Метрика добавляется в раздел только через паспорт '
-                                 '(см. «Внедрение методов»). Черновик предложения v0.9 — infospace-plan.html.</div></div>')
+                                 '(конвейер внедрения — на странице «Методы»). Черновик предложения v0.9 — infospace-plan.html.</div></div>')
         elif key == "server":
             st_rows = "".join(
                 f'<tr><td class="pl-n">{esc(s["stage"])}</td><td>{esc(s["term"])}</td>'
@@ -3031,13 +3009,13 @@ def render_plans(cfg, trends, store, status, an=None):
 
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Планы и внедрение методов — {cfg['brand']}</title>
+<title>Планы — {cfg['brand']}</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png">
 <style>{CSS}{PLANS_CSS}</style></head><body>
 <header class="masthead"><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
-<div class="mast-side mast-side--right">Планы издания и методы<br>треков {len(P.TRACKS)} · метрик {cnt['total']} · подключено {cnt['done']}
+<div class="mast-side mast-side--right">Планы издания<br>треков {len(P.TRACKS)} · метрик {cnt['total']} · подключено {cnt['done']}
 <div class="mast-actions">{THEME_BTN}</div></div>
 </div></header>
 {nav_html}
@@ -3056,25 +3034,7 @@ def render_plans(cfg, trends, store, status, an=None):
 (<code>generate.py → render_plans</code>) из редакционного реестра <code>plans.py</code> и из markdown-документов
 репозитория — правка документа попадает на витрину при следующем прогоне конвейера. Собрано {now:%d.%m.%Y %H:%M} (UTC+4).</div>
 
-<div class="sec-head" id="method" style="margin-top:34px;"><h2>Внедрение методов</h2><div class="line"></div>
-<div class="badge">паспорт → данные → расчёт → блок → тест</div></div>
-<div class="note" style="margin:0 0 14px;">Правило редакции: метрика или методика добавляется в раздел только через паспорт —
-с гипотезой, формулой, источником данных, порогом тревоги и местом публикации. Пять шагов ниже одинаковы
-для метрик «Инфопространства», для порогов афиши и для правил дедупликации: отличается только файл.</div>
-{"".join(stage_rows)}
-
-<div class="pl-h4">Реестр методик · v{M.VERSION}: {meth['total']} паспортов</div>
-<table class="tbl pl-tbl"><thead><tr><th>Группа методик</th><th>Всего</th><th>Работают</th>
-<th>В тесте</th><th>В очереди</th><th>Идеологический блок</th></tr></thead>
-<tbody>{meth_rows}<tr><td class="pl-n">Итого</td><td>{meth['total']}</td><td>{meth['work']}</td>
-<td>{meth['test']}</td><td>{meth['queue']}</td><td>{meth['ideo']}</td></tr></tbody></table>
-<div class="note">Полные паспорта методик (вход, выход, метрики качества, модуль платформы, оценка
-неопределённости и порядок проверки на контрольной выборке), сквозной раздел «Идеология и гегемония»,
-техконтур из открытых стандартов и стенд испытания с генератором протокола —
-<a href="../methods.html" style="color:var(--accent);font-weight:700;">на странице «Методы» →</a>
-Серверный аналог протокола стенда: <code>methods.py → protocol()</code>, покрыт тестами.</div>
-
-<div class="sec-head"><h2>Паспорта метрик-пилотов</h2><div class="line"></div>
+<div class="sec-head" style="margin-top:34px;"><h2>Паспорта метрик-пилотов</h2><div class="line"></div>
 <div class="badge">{len(P.PILOTS)} паспорта · образец для остальных</div></div>
 {"".join(pass_html)}
 
@@ -3108,7 +3068,7 @@ def render_plans(cfg, trends, store, status, an=None):
 <ul class="pl-list">{risk_html}</ul>
 
 <div class="sec-head"><h2>Треки планов</h2><div class="line"></div>
-<div class="badge">{len(P.TRACKS)} трека · документы перечитываются при сборке</div></div>
+<div class="badge">{len(P.TRACKS)} треков · документы перечитываются при сборке</div></div>
 {''.join(tracks_html)}
 
 <div class="note" style="margin-top:22px;">Историческая справка: до объединения планы жили отдельными страницами —
@@ -3756,6 +3716,17 @@ padding:14px 16px;white-space:pre-wrap;color:var(--ink-2);margin-top:14px;}
   .filters,.proto-form{display:none!important;}
   .mcard .mdet{display:grid!important;}
 }
+
+/* ---- конвейер внедрения (секция «Внедрение методов») */
+.pl-stage{display:grid;grid-template-columns:64px 1fr;gap:4px 18px;border-top:1px solid var(--rule);padding:16px 0;}
+.pl-stage__n{font-family:var(--serif-display);font-size:34px;font-weight:700;line-height:.9;color:var(--accent);}
+.pl-code{font-family:var(--sans);font-size:11.5px;line-height:1.6;color:var(--muted);}
+.pl-ex{font-family:var(--serif-body);font-size:13px;font-style:italic;color:var(--muted);
+border-left:2px solid var(--rule);padding-left:10px;margin-top:6px;}
+.pl-h4{font-family:var(--sans);font-size:10.5px;font-weight:800;letter-spacing:.12em;
+text-transform:uppercase;color:var(--muted);margin:14px 0 6px;}
+.pl-tbl td,.pl-tbl th{vertical-align:top;}
+.pl-n{font-weight:700;color:var(--ink);}
 """
 
 # Прогрессивный JS страницы «Методы»: фильтры реестра, подпись раскрытия паспорта
@@ -3885,9 +3856,32 @@ def render_methods(cfg, trends, store, status):
     Паспорта раскрываются нативным <details> — работают и без JavaScript.
     """
     import methods as M
+    import plans as P
     now = datetime.now(UTC4)
     cnt = M.counts()
     nav_html = render_nav(cfg, "projects", "", subnav=subnav_projects("", "methods"))
+
+    # ---------------------------------------------------------- конвейер внедрения
+    stage_rows = []
+    for st in P.METHOD_STAGES:
+        stage_rows.append(f"""<div class="pl-stage"><div class="pl-stage__n">{st['n']}</div>
+<div><h3>{esc(st['t'])}</h3><p>{esc(st['d'])}</p>
+<div class="pl-code"><b>Где в коде:</b> {esc(st['where'])}</div>
+<div class="pl-code"><b>Проверка:</b> {esc(st['check'])}</div>
+<div class="pl-ex">Пример — {esc(st['ex'])}</div></div></div>""")
+
+    # ---------------------------------------------------------- сводка реестра
+    meth = M.counts()
+    meth_rows = []
+    for mkey, mtitle, _mshort in M.GROUPS:
+        items = [m for m in M.METHODS if m.get("group") == mkey]
+        meth_rows.append(
+            f'<tr><td class="pl-n">{esc(mtitle)}</td><td>{len(items)}</td>'
+            f'<td>{sum(1 for m in items if m.get("status") == "work")}</td>'
+            f'<td>{sum(1 for m in items if m.get("status") == "test")}</td>'
+            f'<td>{sum(1 for m in items if m.get("status") == "queue")}</td>'
+            f'<td>{sum(1 for m in items if m.get("ideo"))}</td></tr>')
+    meth_rows = "".join(meth_rows)
 
     # ------------------------------------------------------------- карточки
     cards = []
@@ -3981,6 +3975,24 @@ def render_methods(cfg, trends, store, status):
 </div>
 </div>
 
+<div class="sec-head" id="method"><h2>Внедрение методов</h2><div class="line"></div>
+<div class="badge">паспорт → данные → расчёт → блок → тест</div></div>
+<div class="wrap1200">
+<div class="note" style="margin:0 0 14px;">Правило редакции: метрика или методика добавляется в раздел только через паспорт —
+с гипотезой, формулой, источником данных, порогом тревоги и местом публикации. Пять шагов ниже одинаковы
+для метрик «Инфопространства», для порогов афиши и для правил дедупликации: отличается только файл.</div>
+{"".join(stage_rows)}
+
+<div class="pl-h4">Реестр методик · v{M.VERSION}: {meth['total']} паспортов</div>
+<table class="tbl pl-tbl"><thead><tr><th>Группа методик</th><th>Всего</th><th>Работают</th>
+<th>В тесте</th><th>В очереди</th><th>Идеологический блок</th></tr></thead>
+<tbody>{meth_rows}<tr><td class="pl-n">Итого</td><td>{meth['total']}</td><td>{meth['work']}</td>
+<td>{meth['test']}</td><td>{meth['queue']}</td><td>{meth['ideo']}</td></tr></tbody></table>
+<div class="note">Полные паспорта методик (вход, выход, метрики качества, модуль платформы, оценка
+неопределённости и порядок проверки на контрольной выборке) — в реестре ниже, сквозной раздел
+«Идеология и гегемония» и техконтур из открытых стандартов — ниже по странице.</div>
+</div>
+
 <div class="sec-head" id="reestr"><h2>Реестр методик</h2><div class="line"></div>
 <div class="badge">показано <span id="cntShown">{cnt['total']}</span> из {cnt['total']}</div></div>
 <div class="wrap1200">
@@ -4033,7 +4045,8 @@ def render_methods(cfg, trends, store, status):
 
 <div class="wrap1200"><div class="note" style="margin-top:26px;">Связано:
 <a href="infospace.html" style="color:var(--accent);">дашборд «Инфопространство»</a> ·
-<a href="projects/plans.html#method" style="color:var(--accent);">внедрение методов в планах</a> ·
+<a href="#method" style="color:var(--accent);">внедрение методов</a> ·
+<a href="projects/plans.html" style="color:var(--accent);">планы издания</a> ·
 <a href="projects/dossier.html" style="color:var(--accent);">досье действующих лиц (прототип)</a> ·
 <a href="projects/elections_2026.html" style="color:var(--accent);">досье «Выборы-2026»</a> ·
 <a href="projects/goszakupki.html" style="color:var(--accent);">досье «Госзакупки»</a> ·
@@ -5985,7 +5998,7 @@ def render_infospace(cfg, trends, store, status, info):
 </div>
 <div class="note" style="margin-bottom:18px;">Раздел обновляется каждым прогоном конвейера — это не разовый отчёт, а непрерывное наблюдение за устройством регионального инфополя: кто производит новости, кто их тиражирует, какие сюжеты побеждают, кого не слышно. Данные — {esc(str(info.get('generated_local','')))}, база: {len(store)} записей.
 <b>Что измерим дальше и как:</b> реестр из 32 метрик-кандидатов, паспорта метрик, волны внедрения
-и открытые пункты плана развития — <a href="projects/plans.html#metrics" style="color:var(--accent);font-weight:700;">на странице «Планы и методы» →</a></div>
+и открытые пункты плана развития — <a href="projects/plans.html#metrics" style="color:var(--accent);font-weight:700;">на странице «Планы» →</a></div>
 
 <div class="sec-head"><h2>Кто задаёт повестку</h2><div class="line"></div>
 <div class="badge">первичность в каскадах перепечаток</div></div>
