@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Городской совет — проекты Гудок</title>
+<meta name="description" content="Проект издания «Гудок»: бюджет и экономика муниципалитета под публичным наблюдением. Контур источников: фин-73.рф, ob.ulminfin.ru, ЕИС. Метрики М-42…М-51, treemap расходов, эффект декабря, цена результата, агенты домена, песочница.">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="%230B0B0B"/><text x="30" y="46" font-family="Impact,sans-serif" font-size="38" fill="%23FAF7F2" text-anchor="middle">Г</text><circle cx="52" cy="50" r="6" fill="%23D63F1F"/></svg>'>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/fraunces@latest/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/fraunces@latest/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/fraunces@latest/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/fraunces@latest/400-italic.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/source-serif-4@latest/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/source-serif-4@latest/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/source-serif-4@latest/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/source-serif-4@latest/400-italic.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/inter@latest/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/inter@latest/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/inter@latest/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/css/inter@latest/700.css">
+<style>
+:root{
+  --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
+  --rule:#E3DED4; --rule-strong:#0B0B0B; --accent:#D63F1F; --on-ink:#C9C2B6;
+  --serif-display:"Fraunces","Source Serif 4",Georgia,"Times New Roman",serif;
+  --serif-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --rubleny:Impact,"Arial Black","Franklin Gothic Bold","Helvetica Neue",sans-serif;
+  --maxw:1340px; --gutter:28px;
+}
+:root[data-theme="dark"]{
+  --paper:#101214; --paper-2:#17191c; --ink:#ECE7DE; --ink-2:#D5CFC4; --muted:#9A948A;
+  --rule:#2A2D31; --rule-strong:#ECE7DE; --accent:#FF6A4D; --on-ink:#2A2620;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--accent);}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+[hidden]{display:none!important;}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:99;}
+.skip:focus{left:8px;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}}
+
+.mast-title,.footer__brand{font-family:var(--rubleny);font-weight:900;text-transform:uppercase;letter-spacing:.04em;line-height:.95;color:var(--ink);font-style:normal;}
+.mast-title{font-size:clamp(44px,8vw,76px);letter-spacing:.06em;}
+.mast-title span,.footer__brand span{color:var(--accent);}
+
+.flagline{background:var(--paper);font-family:var(--sans);font-size:12px;color:var(--muted);max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;gap:14px;padding:10px var(--gutter) 0;flex-wrap:wrap;}
+.mast-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;max-width:var(--maxw);margin:0 auto;padding:26px var(--gutter) 20px;}
+.mast-side{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.7;}
+.mast-side--right{text-align:right;}
+.mast-actions{display:flex;gap:14px;justify-content:flex-end;align-items:center;margin-top:10px;}
+.theme-btn,.print-btn{border:none;background:none;color:var(--muted);font:500 12px var(--sans);padding:0 10px;cursor:pointer;border-bottom:1px solid var(--ink);}
+.theme-btn:hover,.print-btn:hover{color:var(--accent);border-color:var(--accent);}
+.masthead::after{content:"";display:block;max-width:var(--maxw);margin:14px auto 0;border-bottom:1px solid var(--rule-strong);}
+@media (max-width:900px){.mast-inner{grid-template-columns:1fr;text-align:center;gap:10px;}.mast-side,.mast-side--right{text-align:center;}.mast-actions{justify-content:center;}}
+
+.nav{position:sticky;top:0;z-index:20;background:var(--paper);border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:flex;align-items:center;flex-wrap:wrap;}
+.nav a{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--ink-2);padding:15px 14px;position:relative;}
+.nav a:hover{color:var(--ink);}
+.nav a.active{color:var(--accent);font-weight:600;}
+.nav a.active::after{content:"";position:absolute;left:14px;right:14px;bottom:10px;height:2px;background:var(--accent);}
+.nav-toggle{display:none;border:1px solid var(--rule);background:none;color:var(--ink);font:600 13px var(--sans);padding:8px 12px;cursor:pointer;margin:8px var(--gutter);}
+@media (max-width:900px){.nav-toggle{display:block;}.nav-inner{display:none;flex-direction:column;align-items:stretch;}body.nav-open .nav-inner{display:flex;}.nav a{padding:12px 16px;border-top:1px solid var(--rule);}}
+.subnav{background:var(--paper);border-bottom:1px solid var(--rule);}
+.subnav-inner{max-width:var(--maxw);margin:0 auto;padding:8px var(--gutter);display:flex;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:12.5px;}
+.subnav-inner a{color:var(--muted);}
+.subnav-inner a:hover{color:var(--accent);}
+.subnav .lbl{color:var(--ink);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;}
+.subnav .cur{color:var(--accent);font-weight:600;}
+
+.wrap1200{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);}
+.sec-head{max-width:var(--maxw);margin:56px auto 26px;padding:16px var(--gutter) 0;border-top:1px solid var(--ink);display:flex;align-items:baseline;justify-content:space-between;gap:20px;}
+.sec-head h2{font-family:var(--serif-display);font-weight:600;font-size:26px;letter-spacing:-.02em;color:var(--ink);margin:0;}
+.sec-head .num{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-right:12px;}
+.sec-head .line{flex:1;}
+.sec-head .badge{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--muted);}
+.note{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6;border-left:2px solid var(--accent);padding-left:12px;}
+.note b{color:var(--ink-2);}
+.note a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;}
+.verdict{border-left:3px solid var(--accent);padding:10px 14px;font-family:var(--serif-body);font-size:15px;color:var(--ink-2);margin-top:12px;background:var(--paper-2);}
+.verdict b{color:var(--accent);text-transform:uppercase;font-family:var(--sans);font-size:11px;letter-spacing:.12em;display:block;margin-bottom:4px;}
+.h3rule{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--ink);padding:0 0 8px;margin:34px 0 14px;}
+.h3rule .sub{color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:none;}
+p.body{font-family:var(--serif-body);font-size:16.5px;color:var(--ink-2);line-height:1.6;margin:10px 0;max-width:82ch;}
+p.body b{color:var(--ink);}
+
+.lead{border-top:3px solid var(--ink);padding-top:18px;margin-top:22px;}
+.lead-kicker{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+.lead h1{font-family:var(--serif-display);font-weight:600;font-size:clamp(34px,4.6vw,58px);line-height:1.04;letter-spacing:-.025em;margin:0 0 14px;color:var(--ink);text-wrap:balance;}
+.lead h1 em{font-style:italic;font-weight:400;color:var(--accent);}
+.lead-deck{font-family:var(--serif-body);font-size:19px;line-height:1.5;color:var(--ink-2);margin:0 0 18px;max-width:74ch;}
+.passport{border-top:1px solid var(--ink);padding:14px 0;margin-top:6px;display:flex;gap:26px;flex-wrap:wrap;align-items:baseline;}
+.passport div{font-family:var(--sans);font-size:11.5px;color:var(--muted);}
+.passport b{display:block;font-family:var(--serif-display);font-weight:600;font-size:18px;color:var(--ink);line-height:1.2;}
+.wk-stamp{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 10px;background:var(--paper-2);color:#4F5F53;border:1px solid var(--rule);white-space:nowrap;}
+.wk-stamp.wip{background:none;color:var(--accent);border-color:var(--accent);}
+.wk-stamp.queued{background:none;color:var(--muted);border-color:var(--rule);}
+:root[data-theme="dark"] .wk-stamp{color:#8FBF9F;border-color:#39463C;background:none;}
+:root[data-theme="dark"] .wk-stamp.wip{color:var(--accent);border-color:var(--accent);}
+:root[data-theme="dark"] .wk-stamp.queued{color:var(--muted);border-color:var(--rule);}
+
+.epigraph{margin:40px 0 0;}
+.epigraph blockquote{margin:0;border-left:3px solid var(--accent);padding:4px 0 4px 24px;}
+.epigraph .q{font-family:var(--serif-display);font-style:italic;font-weight:400;font-size:clamp(21px,2.6vw,30px);line-height:1.32;letter-spacing:-.01em;color:var(--ink);margin:0;text-wrap:balance;}
+.epigraph .attr{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:14px;line-height:1.7;}
+.epigraph .attr b{color:var(--ink-2);}
+.epigraph--sm{margin:0 0 22px;}
+.epigraph--sm .q{font-size:19px;line-height:1.42;}
+.epigraph--sm .attr{margin-top:10px;}
+
+.formula{margin-top:64px;background:var(--ink);color:var(--paper);}
+.formula__inner{max-width:var(--maxw);margin:0 auto;padding:54px var(--gutter) 58px;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;}
+.formula__kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+.formula__title{font-family:var(--serif-display);font-weight:600;font-size:clamp(28px,3.4vw,44px);line-height:1.08;letter-spacing:-.02em;margin:0 0 16px;color:var(--paper);text-wrap:balance;}
+.formula__title em{font-style:italic;font-weight:400;}
+.formula__dek{font-family:var(--serif-body);font-size:16.5px;line-height:1.55;color:var(--on-ink);margin:0;max-width:56ch;}
+.formula__side{border-left:1px solid rgba(250,247,242,.25);padding-left:32px;font-family:var(--sans);font-size:13px;color:var(--on-ink);line-height:1.7;}
+.formula__side b{color:var(--paper);display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;}
+.formula__side span{color:var(--accent);font-weight:700;}
+.formula__side a{color:var(--on-ink);text-decoration:underline;text-underline-offset:2px;}
+.formula__side a:hover{color:var(--accent);}
+@media (max-width:900px){.formula__inner{grid-template-columns:1fr;}.formula__side{border-left:none;border-top:1px solid rgba(250,247,242,.25);padding-left:0;padding-top:20px;}}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0 28px;margin-top:22px;}
+.kpi{border-top:1px solid var(--ink);padding:12px 14px 12px 0;}
+.kpi .num{font-family:var(--serif-display);font-weight:600;font-size:26px;color:var(--ink);line-height:1.05;}
+.kpi .lbl{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:4px;}
+
+.layer{border:1px solid var(--rule);border-left:3px solid var(--ink);background:var(--paper-2);}
+.layer-head{display:flex;gap:14px;align-items:baseline;padding:14px 18px;cursor:pointer;flex-wrap:wrap;}
+.layer-head:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+.layer-name{font-family:var(--serif-display);font-weight:600;font-size:19px;color:var(--ink);}
+.layer-name small{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.06em;}
+.layer-sub{font-family:var(--sans);font-size:11.5px;color:var(--muted);}
+.layer-count{margin-left:auto;font-family:var(--sans);font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.06em;white-space:nowrap;}
+.layer-tog{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);border-bottom:1px solid var(--rule);white-space:nowrap;}
+.layer-head:hover .layer-tog{color:var(--accent);border-color:var(--accent);}
+.srcs{padding:4px 18px 14px;border-top:1px dashed var(--rule);}
+.src-row{display:grid;grid-template-columns:250px 1fr 170px;gap:14px;padding:9px 0;border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:12.5px;color:var(--ink-2);align-items:baseline;}
+.src-row:last-child{border-bottom:none;}
+.src-row b{font-family:var(--serif-body);font-size:14px;color:var(--ink);}
+.src-row a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;}
+@media (max-width:900px){.src-row{grid-template-columns:1fr;gap:4px;}}
+
+.nm-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 44px;margin-top:6px;}
+.nm-card{border-top:1px solid var(--ink);padding:13px 0 16px;}
+.nm-code{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--accent);}
+.nm-name{font-family:var(--serif-display);font-weight:600;font-size:18px;color:var(--ink);margin:2px 0 6px;}
+.nm-form{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;background:var(--paper-2);border:1px solid var(--rule);border-left:3px solid var(--accent);padding:8px 12px;color:var(--ink-2);margin:8px 0;white-space:pre-wrap;}
+.nm-card p{font-family:var(--serif-body);font-size:14px;color:var(--ink-2);line-height:1.5;margin:6px 0 0;}
+.nm-card .nn{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:8px;}
+
+.mchip{display:inline-block;font-family:var(--sans);font-size:11.5px;font-weight:600;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink-2);padding:4px 11px;margin:0 6px 6px 0;}
+a.mchip:hover{color:var(--accent);border-color:var(--accent);}
+
+.agent-row{display:grid;grid-template-columns:210px 1fr 96px 116px;gap:14px;padding:9px 0;border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:12.5px;color:var(--ink-2);align-items:baseline;}
+.agent-row:last-child{border-bottom:none;}
+.agent-row code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;color:var(--ink);font-weight:600;}
+.agent-m{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.04em;white-space:nowrap;}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 18px;}
+.tab-btn{border:1px solid var(--rule);background:none;color:var(--muted);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:8px 16px;cursor:pointer;}
+.tab-btn:hover{color:var(--ink);border-color:var(--ink);}
+.tab-btn.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+
+.tbl{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;}
+.tbl th{background:none;color:var(--muted);text-align:left;padding:7px 10px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ink);}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2);}
+.tbl td b{color:var(--ink);font-weight:600;}
+.tbl code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;background:var(--paper-2);border:1px solid var(--rule);padding:1px 6px;color:var(--ink);}
+.tbl a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;}
+.tbl-wrap{overflow-x:auto;}
+
+/* живой срез */
+.livebox{border-top:3px solid var(--ink);background:var(--paper-2);padding:16px 20px;margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.livebox div b{display:block;font-family:var(--serif-display);font-weight:600;font-size:24px;color:var(--ink);line-height:1.1;}
+.livebox div span{display:block;font-family:var(--sans);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;}
+.live-src{grid-column:1/-1;font-family:var(--sans);font-size:11.5px;color:var(--muted);border-top:1px solid var(--rule);padding-top:10px;}
+.live-src a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;}
+@media (max-width:900px){.livebox{grid-template-columns:1fr 1fr;}}
+
+/* treemap */
+.tm-wrap{border-top:1px solid var(--ink);padding-top:14px;margin-bottom:26px;}
+.tm-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:10px;}
+.tm-head h4{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0;}
+.tm-crumb{font-family:var(--sans);font-size:12.5px;color:var(--ink-2);}
+.tm-crumb b{color:var(--ink);}
+.tm-up{border:1px solid var(--rule);background:none;color:var(--accent);font:600 11.5px var(--sans);padding:4px 12px;cursor:pointer;}
+.tm-up:hover{border-color:var(--accent);}
+.tm-svg{width:100%;height:auto;display:block;background:var(--paper-2);border:1px solid var(--rule);}
+.tm-svg rect{stroke:var(--paper);stroke-width:1.5;cursor:pointer;}
+.tm-svg rect.leaf{cursor:default;}
+.tm-svg text{pointer-events:none;fill:#FAF7F2;font-family:Inter,system-ui,sans-serif;}
+.tm-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-family:var(--sans);font-size:11px;color:var(--muted);}
+.tm-legend i{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-2px;}
+.tm-note{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:6px;}
+
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:6px;}
+.calc{border-top:1px solid var(--ink);padding-top:14px;}
+.calc h4{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 4px;}
+.calc .cf{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;color:var(--ink-2);background:var(--paper-2);border:1px solid var(--rule);padding:6px 10px;margin:8px 0 12px;}
+.calc label{display:block;font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);margin:8px 0 4px;text-transform:uppercase;letter-spacing:.08em;}
+.calc input{width:100%;font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:0;padding:8px 10px;}
+.calc .btn{display:inline-block;border:1px solid var(--ink);color:var(--ink);background:none;font-family:var(--sans);font-size:12.5px;font-weight:600;padding:8px 16px;cursor:pointer;margin-top:14px;}
+.calc .btn:hover{background:var(--ink);color:var(--paper);}
+.calc-out{margin-top:12px;border-left:3px solid var(--accent);background:var(--paper-2);padding:10px 12px;font-family:var(--sans);font-size:13px;color:var(--ink-2);line-height:1.5;}
+.calc-out b{font-family:var(--serif-display);font-size:19px;color:var(--ink);display:block;margin-bottom:2px;}
+.calc-out .st{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule);padding:2px 8px;margin-top:6px;color:var(--muted);}
+.calc-out .st.good{color:#4F5F53;border-color:#4F5F53;}
+.calc-out .st.warn{color:var(--accent);border-color:var(--accent);}
+@media (max-width:1100px){.calc-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:720px){.calc-grid{grid-template-columns:1fr;}}
+
+.st-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:8px;}
+.st-card{border-top:1px solid var(--ink);padding-top:14px;display:flex;flex-direction:column;}
+.st-card .stn{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
+.st-card b{font-family:var(--serif-display);font-weight:600;font-size:18px;color:var(--ink);margin:6px 0 2px;}
+.st-card .stt{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-bottom:8px;}
+.st-card ul{list-style:none;margin:8px 0 0;padding:0;font-family:var(--serif-body);font-size:13.5px;color:var(--ink-2);line-height:1.5;}
+.st-card li{padding:5px 0;border-bottom:1px solid var(--rule);}
+.st-card li:last-child{border-bottom:none;}
+.st-res{margin-top:auto;padding-top:10px;font-family:var(--sans);font-size:12px;color:var(--muted);}
+.st-res b{display:inline;font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);}
+
+.roles-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 44px;margin-top:6px;}
+.role-box{border-top:1px solid var(--ink);padding-top:14px;}
+.role-box h4{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;}
+.role-row{padding:9px 0;border-bottom:1px solid var(--rule);}
+.role-row:last-child{border-bottom:none;}
+.role-row b{font-family:var(--serif-display);font-weight:600;font-size:16px;color:var(--ink);display:block;}
+.role-row span{font-family:var(--serif-body);font-size:14px;color:var(--muted);line-height:1.45;}
+
+.sec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:8px;}
+.sec-card{border-top:1px solid var(--ink);padding:16px 0 0;display:flex;flex-direction:column;}
+.sec-card b{font-family:var(--serif-display);font-weight:600;font-size:17px;color:var(--ink);}
+.sec-card p{font-family:var(--serif-body);font-size:13.5px;color:var(--muted);line-height:1.5;margin:6px 0 0;flex:1;}
+.sec-card .go{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--accent);margin-top:10px;}
+.sec-card:hover .go{text-decoration:underline;}
+
+.util-bar-wrap{max-width:var(--maxw);margin:0 auto;padding:20px var(--gutter) 0;}
+.util-bar{display:flex;gap:24px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:14px;}
+.util-bar a{font-family:var(--sans);font-size:12.5px;font-weight:500;color:var(--muted);}
+.util-bar a:hover{color:var(--accent);}
+.util-lbl{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+
+.footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
+.footer h3{color:var(--paper);font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
+.footer a{color:var(--on-ink);}
+.footer a:hover{color:var(--accent);}
+.footer__inner{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px 36px;}
+.footer p{font-family:var(--serif-body);font-size:12.5px;line-height:1.55;max-width:430px;margin:0 0 6px;}
+.footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif-body);font-size:12.5px;line-height:1.55;}
+.footer li{margin:4px 0;}
+.footer__brand{font-family:var(--rubleny);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--paper);line-height:1;margin-bottom:8px;}
+.footer__bottom{max-width:var(--maxw);margin:20px auto 0;padding:10px var(--gutter) 0;border-top:1px solid rgba(250,247,242,.14);font-family:var(--sans);font-size:11.5px;color:var(--on-ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+:root[data-theme="dark"] .footer__bottom{border-top-color:rgba(11,11,11,.2);}
+
+@media (max-width:1100px){.kpi-grid{grid-template-columns:repeat(3,1fr);}.st-grid,.sec-grid{grid-template-columns:1fr 1fr;}.nm-grid,.roles-grid{grid-template-columns:1fr;}.footer__inner{grid-template-columns:1fr 1fr;gap:26px;}.agent-row{grid-template-columns:1fr 100px;}.agent-role{grid-column:1/-1;}}
+@media (max-width:720px){:root{--gutter:20px;}body{font-size:16px;}.kpi-grid{grid-template-columns:repeat(2,1fr);}.st-grid,.sec-grid{grid-template-columns:1fr;}.sec-head{flex-direction:column;align-items:flex-start;gap:6px;}.footer__inner{grid-template-columns:1fr;gap:22px;}.footer__bottom{flex-direction:column;}.passport{gap:16px;}}
+@media print{.nav,.subnav,.print-btn,.theme-btn,.nav-toggle,.util-bar-wrap,.tabs{display:none!important;}body{background:#fff;}.srcs,.tab-panel{display:block!important;}}
+</style>
+<script>
+(function(){try{var t=localStorage.getItem("gudok-theme");
+if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
+document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
+</script>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="masthead">
+  <div class="flagline"><span id="flDate">—</span><span>Ульяновск · издание внутреннее</span><span id="flTime">страница собрана —</span></div>
+  <div class="mast-inner">
+    <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+    <div class="mast-title">ГУДОК<span>.</span></div>
+    <div class="mast-side mast-side--right">Проекты издания<br>досье проекта «Городской совет»
+      <div class="mast-actions">
+        <button class="print-btn" onclick="window.print()" title="Печать страницы">печать</button>
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button>
+      </div>
+    </div>
+  </div>
+</header>
+<nav class="nav">
+  <button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button>
+  <div class="nav-inner">
+    <a href="../index.html">Первая полоса</a>
+    <a href="../digests/today.html">Сегодня</a>
+    <a href="../weekly.html">Неделя</a>
+    <a href="../monthly.html">Месяц</a>
+    <a href="../afisha.html">Афиша</a>
+    <a class="active" href="../projects.html">Проекты</a>
+    <a href="../archive.html">Архив</a>
+    <a href="../digests/exec.html">Руководителю</a>
+  </div>
+</nav>
+<div class="subnav"><div class="subnav-inner">
+  <span class="lbl">Проекты:</span>
+  <a href="../infospace.html">Инфопространство</a>
+  <a href="elections_2026.html">Выборы-2026</a>
+  <a href="goszakupki.html">Госзакупки</a>
+  <a href="../methods.html">Методы</a>
+  <a href="../dossie.html">Досье</a>
+  <a href="autonomous_editorial.html">Автономная редакция</a>
+  <span class="cur">Городской совет</span>
+</div></div>
+
+<main id="main">
+<div class="wrap1200">
+
+  <!-- ЛИД -->
+  <div class="lead">
+    <div class="lead-kicker"><span class="wk-stamp wip">в работе · этап 1</span><span>проект издания · финансовый мониторинг муниципалитета</span><span>контур источников проверен</span><span class="wk-stamp queued">часть метрик — демо</span></div>
+    <h1>Городской <em>совет</em></h1>
+    <p class="lead-deck">Бюджет и вся экономическая информация, которую публикует муниципалитет, — под публичным наблюдением:
+      план и исполнение, закупки, решения думы, декларации, муниципальное имущество. Не «новости о мэрии»,
+      а системный разбор того, куда идут деньги города и кто за это отвечает.</p>
+    <div class="passport">
+      <div><b>5</b>слоёв данных</div>
+      <div><b>9</b>проверенных источников</div>
+      <div><b>9</b>агентов домена</div>
+      <div><b>М-42…М-51</b>новые метрики</div>
+      <div><b>4</b>этапа внедрения</div>
+      <div><b>Ульяновск</b>пилотный муниципалитет</div>
+    </div>
+    <div class="epigraph" id="epigraph">
+      <blockquote>
+        <p class="q">«Учёт и контроль — вот главное, что нужно для «налаживания», для правильного функционирования первой фазы коммунистического общества. Все граждане превращаются здесь в служащих по найму у государства, состоящего из вооружённых рабочих. Все граждане становятся служащими и рабочими одного всенародного, государственного «синдиката». Весь вопрос в том, чтобы они работали одинаково, правильно соблюдая меру работы, и получали одинаковую плату».</p>
+        <div class="attr">В. И. Ленин. <b>«Государство и революция»</b> (август — сентябрь 1917 г.).<br>Глава V, § 3 «Первая фаза коммунистического общества». ПСС, 5-е изд., т. 33.</div>
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- ЖИВОЙ СРЕЗ -->
+  <div class="livebox">
+    <div><b>7 046,3</b><span>млн ₽ · доходы за янв–авг 2026</span></div>
+    <div><b>98,7%</b><span>исполнение плана по доходам</span></div>
+    <div><b>6 620,5</b><span>млн ₽ · налоговые доходы (98,3% плана)</span></div>
+    <div><b>105,0%</b><span>исполнение плана по неналоговым</span></div>
+    <div class="live-src">Живой срез — первые числа, снятые вручную с источника для проверки контура:
+      «Информация об исполнении бюджета МО «город Ульяновск» за январь–август 2026 года»,
+      <a href="https://фин-73.рф" target="_blank" rel="noopener">фин-73.рф</a>, опубликовано 11.09.2026.
+      Неналоговые (105%) частично компенсируют налоговые (98,3%) — структурный сигнал, который раздел будет отслеживать
+      через долю обязательных расходов. На этапе 1 срез собирается автоматически агентом <code>BudgetCollector</code>.</div>
+  </div>
+</div>
+
+<!-- ФОРМУЛА -->
+<div class="formula">
+  <div class="formula__inner">
+    <div>
+      <div class="formula__kicker">Формула проекта</div>
+      <h2 class="formula__title">Следуй за деньгами — <em>и за нормой.</em></h2>
+      <p class="formula__dek">Финансовый след (бюджет, закупки, имущество) и нормативный след (решения, постановления,
+        протоколы) собираются в одну картину: какое решение принято, сколько оно стоит, кто его исполняет и что получилось
+        по факту. Каждая цифра — со ссылкой на первоисточник и режимом доказательства (М-18).</p>
+    </div>
+    <div class="formula__side">
+      <b>Почему отдельный проект</b>
+      <span>→</span> собственный домен данных: бюджет, закупки, нормативка, декларации<br>
+      <span>→</span> собственные метрики: исполнение, равномерность, результат, концентрация, прозрачность<br>
+      <span>→</span> переиспользует агентную модель «Автономной редакции»<br>
+      <span>→</span> тиражируется на любой муниципалитет: смена config — смена города
+    </div>
+  </div>
+</div>
+
+<div class="wrap1200">
+  <div class="kpi-grid">
+    <div class="kpi"><div class="num">5</div><div class="lbl">слоёв данных</div></div>
+    <div class="kpi"><div class="num">9</div><div class="lbl">источников в контуре</div></div>
+    <div class="kpi"><div class="num">9</div><div class="lbl">агентов домена</div></div>
+    <div class="kpi"><div class="num">10</div><div class="lbl">новых метрик М-42…М-51</div></div>
+    <div class="kpi"><div class="num">этап 1</div><div class="lbl">бюджетный контур</div></div>
+    <div class="kpi"><div class="num">98,7%</div><div class="lbl">доходы янв–авг · живой срез</div></div>
+  </div>
+</div>
+
+<!-- 01 · СУТЬ -->
+<div class="sec-head" id="s1"><h2><span class="num">01</span>Суть проекта</h2><div class="line"></div><div class="badge">городская экономика под наблюдением</div></div>
+<div class="wrap1200">
+  <p class="body">Местная власть публикует огромный массив экономических данных — но он разрознен: бюджет в одном месте,
+    закупки в другом, решения думы в третьем, декларации в четвёртом. <b>«Городской совет» собирает эти слои в единый контур</b>
+    и считает по ним метрики: совпадает ли план с фактом, равномерно ли идут расходы, кто получает городские деньги,
+    достигнут ли результат, на который выделялись средства, и насколько полно муниципалитет отчитывается перед жителями.</p>
+  <p class="body">Проект работает только на данных, которые власть <b>обязана публиковать сама</b>. Это наблюдение, а не
+    расследование: раздел фиксирует аномалии как лиды для редактора, а не как обвинения. Контур источников уже разведан
+    вручную: сайт финансового управления города, портал «Открытый бюджет Ульяновской области», портал открытых данных
+    региона, ЕИС закупок, сайт городской думы.</p>
+  <p class="body">Идея проекта прямо следует из ленинской формулы <a href="#epigraph" style="color:var(--accent);">массового учёта и контроля</a>:
+    учёт и контроль перестают быть привилегией ведомства, когда каждый житель может сам проследить любой городской расход —
+    от решения думы до контракта и от контракта до результата. «Городской совет» делает этот контроль технически возможным:
+    машина ведёт учёт, читатель получает контроль.</p>
+  <div class="verdict"><b>Принцип раздела</b>«Лид, не факт»: каждая аномалия — гипотеза, требующая ручной верификации
+    по первоисточнику (М-15). Каждая цифра разворачивается в доказательный список документов (М-18). Процент исполнения
+    сам по себе слеп: 98,7% не говорят, равномерно ли шли расходы, много это или мало на душу населения и получен ли
+    результат. Поэтому каждая метрика исполнения сопровождается удельным масштабом (М-47), равномерностью (эффект декабря),
+    сезонной нормой и связкой с целевыми показателями программ (М-48).</div>
+</div>
+
+<!-- 02 · КОНТУР ИСТОЧНИКОВ -->
+<div class="sec-head" id="s2"><h2><span class="num">02</span>Контур источников</h2><div class="line"></div><div class="badge">проверен вручную · 9 источников</div></div>
+<div class="wrap1200">
+  <div class="h3rule">Где живут данные <span class="sub">· реестр источников пилотного муниципалитета</span></div>
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th style="width:22%">Источник</th><th style="width:22%">Адрес</th><th style="width:36%">Что берём</th><th>Статус</th></tr></thead>
+    <tbody>
+      <tr><td><b>Финансовое управление администрации г. Ульяновска</b></td><td><a href="https://фин-73.рф" target="_blank" rel="noopener">фин-73.рф</a></td><td>Ежемесячная «Информация об исполнении бюджета», справки «Доходы бюджета», разделы «Открытый бюджет» и «Муниципальный долг»</td><td><span class="wk-stamp">проверен · HTML+PDF</span></td></tr>
+      <tr><td><b>Открытый бюджет Ульяновской области</b></td><td><a href="https://ob.ulminfin.ru/" target="_blank" rel="noopener">ob.ulminfin.ru</a></td><td>Аналитика (параметры, исполнение, программы, долг), документы (закон о бюджете, изменения, отчётность), «Бюджет для граждан», «Открытые данные», «Конструктор данных»; мониторинг качества финансового менеджмента — база для метрик ГРБС (М-49…М-51)</td><td><span class="wk-stamp">проверен · HTML/CSV</span></td></tr>
+      <tr><td><b>Портал открытых данных Ульяновской области</b></td><td><a href="https://opendata.ulgov.ru/" target="_blank" rel="noopener">opendata.ulgov.ru</a></td><td>Наборы Минфина: расходы и доходы бюджета, отчёт об исполнении — в CSV</td><td><span class="wk-stamp wip">требует проверки контура</span></td></tr>
+      <tr><td><b>ЕИС в сфере закупок</b></td><td><a href="https://zakupki.gov.ru/" target="_blank" rel="noopener">zakupki.gov.ru</a></td><td>Контракты муниципального заказчика (44-ФЗ), закупки МУПов (223-ФЗ), реестр недобросовестных поставщиков</td><td><span class="wk-stamp wip">требует проверки контура</span></td></tr>
+      <tr><td><b>Ульяновская Городская Дума</b></td><td><a href="https://www.ugd.ru/" target="_blank" rel="noopener">ugd.ru</a></td><td>Решения о бюджете и изменениях, нормативные акты; годовые отчёты о реализации муниципальных программ (целевые показатели — основа М-48)</td><td><span class="wk-stamp">проверен · HTML</span></td></tr>
+      <tr><td><b>Администрация города Ульяновска</b></td><td><a href="https://ulmeria.ru/" target="_blank" rel="noopener">ulmeria.ru</a></td><td>Постановления и распоряжения, муниципальные программы и паспорта программ, реестр муниципального имущества, мониторинг качества финансового менеджмента ГРБС</td><td><span class="wk-stamp queued">этап 3</span></td></tr>
+      <tr><td><b>«Финуправление» в соцсетях</b></td><td><a href="https://vk.ru/fymgy73" target="_blank" rel="noopener">vk.ru/fymgy73</a> · MAX</td><td>Еженедельные планы расходов («на неделю планируется направить…»), оперативные суммы по статьям</td><td><span class="wk-stamp wip">соцслушание М-02</span></td></tr>
+      <tr><td><b>Ульяновскстат / ЕМИСС</b></td><td><a href="https://73.rosstat.gov.ru/" target="_blank" rel="noopener">73.rosstat.gov.ru</a></td><td>Численность населения на 1 января — знаменатель метрики М-47; демография, доходы населения</td><td><span class="wk-stamp wip">проверка контура</span></td></tr>
+      <tr><td><b>ГИС ЖКХ</b></td><td>dom.gosuslugi.ru</td><td>Площадь жилфонда, протяжённость дорог — натуральные показатели для «цены результата»; капремонт</td><td><span class="wk-stamp queued">этап 4</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="note" style="margin-bottom:16px;">Периодичность публикаций финуправления проверена вручную: отчёт об исполнении — ежемесячно (до 11–15 числа
+    за предыдущий период), справка о доходах — ежемесячно, муниципальный долг — ежемесячно. Минимальный цикл обновления
+    раздела — месяц, а еженедельные соцпосты дают промежуточные срезы расходов.</div>
+
+  <div class="h3rule">Слои данных <span class="sub">· клик раскрывает слой</span></div>
+
+  <div class="layer" style="margin-bottom:14px;">
+    <div class="layer-head" role="button" tabindex="0" aria-expanded="true">
+      <span class="layer-name">Бюджет и финансы <small>ядро раздела</small></span>
+      <span class="layer-sub">план, исполнение, программы, обязательства, долг</span>
+      <span class="layer-count">6 источников</span><span class="layer-tog">свернуть ↑</span>
+    </div>
+    <div class="srcs">
+      <div class="src-row"><b>Решение о бюджете</b><span>План доходов и расходов на год и плановый период, структура по разделам и программам — ugd.ru + ob.ulminfin.ru; первоначальный и уточнённый план — основа М-49</span><span class="wk-stamp">открыто</span></div>
+      <div class="src-row"><b>Отчёт об исполнении</b><span>Фактические доходы и расходы: ежемесячно и за год — <a href="https://фин-73.рф" target="_blank" rel="noopener">фин-73.рф</a>; основа М-42, равномерности и сезонной нормы</span><span class="wk-stamp">открыто · PDF/HTML</span></div>
+      <div class="src-row"><b>«Бюджет для граждан»</b><span>Упрощённая версия бюджета: приоритеты в изложении администрации — ob.ulminfin.ru</span><span class="wk-stamp">открыто</span></div>
+      <div class="src-row"><b>Муниципальные программы</b><span>Паспорта программ с целевыми показателями и годовые отчёты о реализации — основа М-48</span><span class="wk-stamp wip">частично · сканы</span></div>
+      <div class="src-row"><b>Реестр расходных обязательств</b><span>Обязательные платежи и нормативы — «зарезервированная» часть бюджета; знаменатель для доли обязательных расходов</span><span class="wk-stamp wip">частично</span></div>
+      <div class="src-row"><b>Муниципальный долг</b><span>Кредиты, облигации, дефицит — ежемесячная публикация на фин-73.рф</span><span class="wk-stamp">открыто</span></div>
+    </div>
+  </div>
+
+  <div class="layer" style="margin-bottom:14px;">
+    <div class="layer-head" role="button" tabindex="0" aria-expanded="false">
+      <span class="layer-name">Закупки <small>самый автоматизированный слой</small></span>
+      <span class="layer-sub">44-ФЗ и 223-ФЗ · контракты · поставщики · исполнение</span>
+      <span class="layer-count">4 источника</span><span class="layer-tog">раскрыть ↓</span>
+    </div>
+    <div class="srcs" hidden>
+      <div class="src-row"><b>ЕИС · контракты заказчика</b><span>Контракты муниципального заказчика: предмет, цена, поставщик, сроки; связка с досье <a href="goszakupki.html" style="color:var(--accent);">«Госзакупки»</a></span><span class="wk-stamp wip">проверка контура</span></div>
+      <div class="src-row"><b>Реестр контрактов</b><span>Исполнение, штрафы, расторжения, изменение цены после подписания — основа М-44</span><span class="wk-stamp wip">проверка контура</span></div>
+      <div class="src-row"><b>РНП</b><span>Реестр недобросовестных поставщиков: история срывов</span><span class="wk-stamp wip">проверка контура</span></div>
+      <div class="src-row"><b>Малые закупки</b><span>До 600 тыс. — значительная часть расходов вне централизованных реестров</span><span class="wk-stamp queued">вне контура</span></div>
+    </div>
+  </div>
+
+  <div class="layer" style="margin-bottom:14px;">
+    <div class="layer-head" role="button" tabindex="0" aria-expanded="false">
+      <span class="layer-name">Нормативный след</span>
+      <span class="layer-sub">решения думы · постановления администрации · протоколы</span>
+      <span class="layer-count">3 источника</span><span class="layer-tog">раскрыть ↓</span>
+    </div>
+    <div class="srcs" hidden>
+      <div class="src-row"><b>Решения Городской Думы</b><span>Бюджет, изменения, нормы, назначения — ugd.ru; связь «норма → расход»; число правок бюджета за год — основа М-49</span><span class="wk-stamp">открыто</span></div>
+      <div class="src-row"><b>Постановления и распоряжения</b><span>Исполнительные решения администрации — ulmeria.ru</span><span class="wk-stamp queued">этап 3</span></div>
+      <div class="src-row"><b>Протоколы заседаний</b><span>Ход обсуждения, позиции депутатов — публикуются не всегда полностью</span><span class="wk-stamp wip">частично</span></div>
+    </div>
+  </div>
+
+  <div class="layer" style="margin-bottom:14px;">
+    <div class="layer-head" role="button" tabindex="0" aria-expanded="false">
+      <span class="layer-name">Кадры и имущество</span>
+      <span class="layer-sub">декларации · муниципальное имущество · МУПы</span>
+      <span class="layer-count">3 источника</span><span class="layer-tog">раскрыть ↓</span>
+    </div>
+    <div class="srcs" hidden>
+      <div class="src-row"><b>Декларации о доходах</b><span>Официально опубликованные сведения; динамика год к году — только агрегированно</span><span class="wk-stamp wip">этично ограниченно</span></div>
+      <div class="src-row"><b>Реестр муниципального имущества</b><span>Объекты, аренда, приватизация — имущественный след решений</span><span class="wk-stamp">открыто</span></div>
+      <div class="src-row"><b>МУПы и учреждения</b><span>Закупки по 223-ФЗ, финансовое состояние подведомственных организаций</span><span class="wk-stamp wip">частично</span></div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-head" role="button" tabindex="0" aria-expanded="false">
+      <span class="layer-name">Контекст и сравнение</span>
+      <span class="layer-sub">статистика · ЖКХ · соседние муниципалитеты · соцсети</span>
+      <span class="layer-count">4 источника</span><span class="layer-tog">раскрыть ↓</span>
+    </div>
+    <div class="srcs" hidden>
+      <div class="src-row"><b>Ульяновскстат / ЕМИСС</b><span>Численность населения на 1 января — знаменатель М-47; доходы населения, безработица</span><span class="wk-stamp wip">проверка контура</span></div>
+      <div class="src-row"><b>ГИС ЖКХ</b><span>Жилфонд и капремонт, натуральные показатели — сверка «расходы → результат»</span><span class="wk-stamp queued">этап 4</span></div>
+      <div class="src-row"><b>Соседние муниципалитеты</b><span>Димитровград, районные центры: те же удельные показатели — медиана для М-47</span><span class="wk-stamp queued">этап 4</span></div>
+      <div class="src-row"><b>«Финуправление» в VK и MAX</b><span>Еженедельные планы расходов — промежуточные срезы между месячными отчётами (соцслушание М-02)</span><span class="wk-stamp wip">тест</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 · МЕТОДЫ -->
+<div class="sec-head" id="s3"><h2><span class="num">03</span>Методы анализа</h2><div class="line"></div><div class="badge">новые метрики М-42…М-51 + ядро реестра</div></div>
+<div class="wrap1200">
+
+  <div class="h3rule">Бюджетный анализ <span class="sub">· план против факта, масштаб, равномерность</span></div>
+  <div class="nm-grid">
+    <div class="nm-card" id="m42">
+      <div class="nm-code">М-42 · новая метрика проекта</div>
+      <div class="nm-name">Исполнение бюджета — с сезонной нормой</div>
+      <div class="nm-form">исполнение(раздел) = факт / план × 100%
+норма: 95–105% · недоисполнение: &lt; 90% · перерасход: &gt; 110%
+сезонное отклонение = факт % на дату − средний % за ту же дату (3 года)
+доля обязательных = (ФОТ + коммунальные + обслуживание долга) / расходы
+доля развития = 1 − доля обязательных · флаг: &gt; 80% — «сжатие пространства развития»</div>
+      <p>Процент исполнения сам по себе обманчив: январские 30% — это сезонность, а не провал. Поэтому рядом с фактом
+        всегда публикуется «ожидаемый процент на эту дату» — среднее за тот же период трёх предыдущих лет (на старте —
+        данные области через ob.ulminfin.ru). Отдельной строкой дашборда — доля обязательных расходов против доли развития:
+        рост обязательных при том же объёме означает сжатие пространства для капитальных вложений.</p>
+      <div class="nn">Агент: <code>BudgetAnalyzer</code> · статус: тест · живой пример: доходы янв–авг 2026 — 98,7% плана (фин-73.рф)</div>
+    </div>
+    <div class="nm-card" id="m47">
+      <div class="nm-code">М-47 · новая метрика проекта · приоритет цикла</div>
+      <div class="nm-name">Расходы на душу населения</div>
+      <div class="nm-form">расходы(раздел) на душу = расходы(раздел) / численность на 1 января
+сравнение = показатель(город) / медиана(города того же ранга)
+флаг: отклонение от медианы &gt; 30% в любую сторону</div>
+      <p>Абсолютные суммы городов несопоставимы — сопоставимы удельные. Метрика даёт масштаб: «на содержание органов
+        местного самоуправления в Ульяновске приходится 1 057 ₽ на жителя — ниже, чем в Димитровграде (1 882 ₽)
+        и Майнском районе (2 330 ₽)» (пример расчёта, данные уточняются на этапе 1). Такие сравнения — готовые лиды
+        для редактора без дополнительной аналитики.</p>
+      <div class="nn">Знаменатель: Ульяновскстат (слой «Контекст») · агент: <code>BudgetAnalyzer</code> · статус: приоритет этапа 1</div>
+    </div>
+    <div class="nm-card" id="m42b">
+      <div class="nm-code">М-42.1 · субиндекс · приоритет цикла</div>
+      <div class="nm-name">Равномерность исполнения — «эффект декабря»</div>
+      <div class="nm-form">равномерность = кассовые расходы IV кв. / (среднее I–III кв. × 1,1)
+&gt; 1,1 — расходы «сгружаются» в конец года
+считается по городу в целом и по каждому разделу отдельно</div>
+      <p>Систематический перенос расходов на IV квартал — классический признак плохого планирования и слепая зона
+        большинства публичных отчётов. Недоисполнение в начале года и перерасход в конце — два разных управленческих
+        провала, которые сейчас сливаются в одну цифру «98,7%». Равномерность их разводит: дорожное хозяйство почти
+        всегда с декабрьским эффектом, зарплаты — нет; это различие само по себе информативно.</p>
+      <div class="nn">Данные: уже есть в ежемесячных отчётах финуправления · статус: приоритет этапа 1 · строка в дашборде «Бюджет»</div>
+    </div>
+    <div class="nm-card">
+      <div class="nm-code">структурный разрез + визуальный якорь</div>
+      <div class="nm-name">Куда уходит город — treemap</div>
+      <div class="nm-form">доля(раздел) = расходы(раздел) / расходы(всего)
+treemap: площадь = доля в расходах, цвет = отклонение от плана
+уровень 1 — разделы · уровень 2 (клик) — подразделы и программы</div>
+      <p>Таблицы дают точность, но первому касанию читателя нужен визуальный образ бюджета. Treemap структуры расходов —
+        якорь раздела: зелёный — исполнение 95–105%, красный — ниже 90%, оранжевый — выше 110%. Реализован на странице
+        в разделе «Метрики дашборда» (вкладка «Бюджет»), в конвейере — статическая генерация SVG через <code>generate.py</code>.</p>
+      <div class="nn">Статус: прототип на демо-данных · приоритет № 3 ближайшего цикла</div>
+    </div>
+  </div>
+
+  <div class="h3rule">Программы и результат <span class="sub">· деньги против целевых показателей</span></div>
+  <div class="nm-grid">
+    <div class="nm-card" id="m48">
+      <div class="nm-code">М-48 · новая метрика проекта</div>
+      <div class="nm-name">Эффективность муниципальных программ</div>
+      <div class="nm-form">эффективность = достижение целевых показателей / соответствие уровню затрат
+флаг редактору: эффективность &lt; 0,7
+таблица: программа → показатель план/факт → расходы план/факт → отношение</div>
+      <p>Главный вопрос, на который не отвечает процент исполнения: <b>достигнут ли результат, на который выделены деньги</b>.
+        Программа может быть исполнена на 98% по деньгам и на 60% по целевым показателям — сегодня эта аномалия не видна
+        ни в одной метрике. Источники: годовые отчёты о реализации муниципальных программ (ugd.ru, ulmeria.ru) — целевые
+        показатели в паспортах программ обязательны. Каждая строка — с доказательным списком документов (М-18).</p>
+      <div class="nn">Агент: <code>ProgramAnalyzer</code> · статус: очередь · этап 2–3</div>
+    </div>
+    <div class="nm-card" id="m48b">
+      <div class="nm-code">цена результата · мост к М-39</div>
+      <div class="nm-name">Стоимость единицы результата</div>
+      <div class="nm-form">стоимость результата = расходы(раздел) / натуральный показатель
+динамика = стоимость(N) / стоимость(N−1)
+примеры: ₽/км отремонтированных дорог · ₽/ученика · ₽/м² благоустройства</div>
+      <p>Следующий шаг после процента исполнения — стоимость единицы результата. Натуральные показатели берутся из
+        муниципальных программ и ГИС ЖКХ (площадь жилфонда, протяжённость дорог). Читатель может сам проверить,
+        подорожал ли ремонт дорог быстрее инфляции — калькулятор уже в песочнице раздела.</p>
+      <div class="nn">Связка: М-39 «цена слова» · М-48 эффективность программ · статус: песочница работает, конвейер — этап 4</div>
+    </div>
+  </div>
+
+  <div class="h3rule">Качество управления по ГРБС <span class="sub">· ответственность конкретных распорядителей</span></div>
+  <div class="nm-grid">
+    <div class="nm-card" id="m49">
+      <div class="nm-code">М-49 · новая метрика проекта</div>
+      <div class="nm-name">Рейтинг ГРБС по качеству планирования</div>
+      <div class="nm-form">качество планирования = 1 − |уточнённый план − первоначальный| / первоначальный
+чем больше правок бюджета в течение года, тем хуже планирование</div>
+      <p>Бюджетный процесс — это ответственность главных распорядителей. Отклонение первоначального плана от уточнённого
+        по каждому ГРБС показывает, кто реально умеет планировать. Ульяновск публикует мониторинг качества финансового
+        менеджмента ГРБС — если он машиночитаем, это готовый контур для слоя.</p>
+      <div class="nn">Агент: <code>GrbsMonitor</code> · статус: очередь · источник: ulmeria.ru / ob.ulminfin.ru</div>
+    </div>
+    <div class="nm-card" id="m50">
+      <div class="nm-code">М-50 · новая метрика проекта</div>
+      <div class="nm-name">Просроченная кредиторка по ГРБС</div>
+      <div class="nm-form">просроченная КЗ(ГРБС) = сумма на отчётную дату
+динамика и доля в расходах распорядителя</div>
+      <p>Прямой индикатор финансового неблагополучия конкретного распорядителя — если публикуется. Также это частичный
+        ответ на разрыв «кассовое vs фактическое» исполнение: кредиторка показывает обязательства, которые уже возникли,
+        но не оплачены.</p>
+      <div class="nn">Агент: <code>GrbsMonitor</code> · статус: очередь · ограничение: доступность данных уточняется на этапе 3</div>
+    </div>
+    <div class="nm-card" id="m51">
+      <div class="nm-code">М-51 · новая метрика проекта</div>
+      <div class="nm-name">Равномерность расходов по ГРБС</div>
+      <div class="nm-form">равномерность(ГРБС) = расходы IV кв. / (среднее I–III кв. × 1,1)
+по каждому управлению отдельно</div>
+      <p>Тот же «эффект декабря», но в разрезе управлений: позволяет увидеть, кто именно срывает сроки, а не «город
+        в целом». Карта december-эффекта по ГРБС — готовый материал для редакционного запроса.</p>
+      <div class="nn">Агент: <code>GrbsMonitor</code> · статус: очередь · связка: М-42.1 (равномерность по городу)</div>
+    </div>
+    <div class="nm-card">
+      <div class="nm-code">разделение состояний исполнения</div>
+      <div class="nm-name">Кассовое против фактического</div>
+      <div class="nm-form">кассовое = деньги ушли со счёта
+фактическое = услуга оказана, работа принята
+если в отчётах есть КЗ/неисполненные обязательства — отдельная строка дашборда</div>
+      <p>Для читателя расхождение выглядит как «деньги потрачены, а результата нет». В цифрах финуправления видно только
+        кассовое исполнение. Если в отчётах есть графа «неисполненные обязательства» или «кредиторская задолженность» —
+        выносим её в отдельную строку; если нет — фиксируем как слепую зону (раздел 08, М-41).</p>
+      <div class="nn">Статус: проверка отчётов на этапе 1 · связка: М-50</div>
+    </div>
+  </div>
+
+  <div class="h3rule">Анализ закупок <span class="sub">· концентрация, аномалии, исполнение</span></div>
+  <div class="nm-grid">
+    <div class="nm-card" id="m43">
+      <div class="nm-code">М-43 · новая метрика проекта</div>
+      <div class="nm-name">Концентрация поставщиков</div>
+      <div class="nm-form">HHI = Σ (доля_i)², доля_i = сумма(p_i) / сумма(всего), в %
+доля топ-5 = сумма(5 крупнейших) / сумма(всего)
+доля ед. поставщика = контракты без конкурса / все контракты</div>
+      <p>Кто реально получает городские деньги: индекс Херфиндаля–Хиршмана по поставщикам, доля топ-5,
+        доля контрактов с единственным поставщиком, повторяемость связок «заказчик–поставщик».</p>
+      <div class="nn">Агент: <code>ProcurementAnalyzer</code> · статус: очередь (ждёт контур ЕИС) · связка: проект «Госзакупки»</div>
+    </div>
+    <div class="nm-card" id="m44">
+      <div class="nm-code">М-44 · новая метрика проекта</div>
+      <div class="nm-name">Аномалии контрактов</div>
+      <div class="nm-form">аномалия цены = |цена − медиана(аналогичные)| / медиана &gt; порог
+доля изменённых = контракты с изменением цены/срока / все
+доля сорванных = (расторжения + штрафы + просрочки) / все</div>
+      <p>Отклонение цены от медианы по аналогичным предметам, рост цены и сроков после подписания, расторжения,
+        штрафы и просрочки. Каждый флаг — лид для редактора с доказательным списком карточек контрактов.</p>
+      <div class="nn">Агент: <code>ProcurementAnalyzer</code> · статус: очередь · правило «лид, не факт» обязательно</div>
+    </div>
+  </div>
+
+  <div class="h3rule">Сети, нормативный след, кадры <span class="sub">· связи и цепочки решений</span></div>
+  <div class="nm-grid">
+    <div class="nm-card" id="m45">
+      <div class="nm-code">М-45 · новая метрика проекта</div>
+      <div class="nm-name">Аффилированность «заказчик–поставщик»</div>
+      <div class="nm-form">граф: узлы — заказчики, поставщики, должностные лица
+рёбра — контракты, учредительство, совпадение лиц
+устойчивый кластер = связка с ≥ N повторами за период</div>
+      <p>Граф связей на данных закупок и открытых реестров: устойчивые кластеры, «мосты», центральные фигуры.
+        Развитие сетевого анализа (М-12) на финансовую область; каждая связка публикуется только при документальном
+        подтверждении (М-26).</p>
+      <div class="nn">Агент: <code>AffiliationBuilder</code> · статус: очередь · этика: только официально опубликованные сведения</div>
+    </div>
+    <div class="nm-card">
+      <div class="nm-code">нормативный след</div>
+      <div class="nm-name">Цепочка «норма → расход → результат»</div>
+      <div class="nm-form">решение/постановление → контракт или бюджетная строка → отчёт об исполнении → целевой показатель
+каждая цепочка — с датами и документами</div>
+      <p>Отслеживание, какие решения думы и администрации повлекли финансовые обязательства и что получилось по факту —
+        вплоть до целевого показателя программы (М-48). Частота и тематика решений — отдельный индикатор активности органов.</p>
+      <div class="nn">Агент: <code>NormCollector</code> · статус: очередь · связка: М-13 (дуга «денежного» сюжета)</div>
+    </div>
+    <div class="nm-card">
+      <div class="nm-code">кадры и имущество</div>
+      <div class="nm-name">Декларации и имущественный след</div>
+      <div class="nm-form">динамика(лицо) = показатели года N / года N−1
+пересечение = лица, встречающиеся и в имуществе, и в закупках</div>
+      <p>Динамика официально опубликованных сведений о доходах и имуществе; пересечения между реестром имущества,
+        МУПами и поставщиками по закупкам. Только официально раскрытые сведения, без персональных выводов.</p>
+      <div class="nn">Статус: очередь · этическое ограничение: агрегаты и факты, никаких оценок лиц</div>
+    </div>
+    <div class="nm-card">
+      <div class="nm-code">сравнение и исполнение</div>
+      <div class="nm-name">Соседи, нацпроекты, качество жизни</div>
+      <div class="nm-form">сравнение = метрика на душу(город) / медиана(города того же ранга)
+исполнение нацпроекта = факт / план по муниципалитету</div>
+      <p>Межмуниципальное сравнение (М-36 + М-47), исполнение госпрограмм и нацпроектов на территории,
+        корреляция расходов с показателями Росстата и ГИС ЖКХ — расходы против результатов.</p>
+      <div class="nn">Агент: <code>BudgetAnalyzer</code> · статус: этап 4 · связка: «цена слова» (М-39) по муниципальным контрактам</div>
+    </div>
+  </div>
+
+  <div class="h3rule">М-46 · прозрачность <span class="sub">· метрика того, как муниципалитет отчитывается</span></div>
+  <div class="nm-grid">
+    <div class="nm-card" id="m46">
+      <div class="nm-code">М-46 · новая метрика проекта</div>
+      <div class="nm-name">Индекс прозрачности публикаций</div>
+      <div class="nm-form">полнота = опубликованные документы / обязательные документы
+своевременность = доля документов в нормативный срок
+машиночитаемость = доля документов в открытом формате (не скан)</div>
+      <p>Три субиндекса: всё ли опубликовано, вовремя ли, и можно ли это прочитать машиной. Первый ручной замер
+        по фин-73.рф: ежемесячные отчёты публикуются регулярно (своевременность высокая), но значительная часть —
+        PDF и сканы (машиночитаемость — главная болевая точка).</p>
+      <div class="nn">Агент: <code>TransparencyReporter</code> · статус: очередь · список обязательных публикаций фиксируется в config и публичен</div>
+    </div>
+    <div class="nm-card">
+      <div class="nm-code">связь с реестром методик</div>
+      <div class="nm-name">Переиспользуемое ядро</div>
+      <p>
+        <a class="mchip" href="../methods.html#m01">М-01 Медиа-мониторинг</a>
+        <a class="mchip" href="../methods.html#m02">М-02 Соцслушание</a>
+        <a class="mchip" href="../methods.html#m03">М-03 Дедупликация версий бюджета</a>
+        <a class="mchip" href="../methods.html#m05">М-05 Тон обсуждения</a>
+        <a class="mchip" href="../methods.html#m12">М-12 Сетевой анализ</a>
+        <a class="mchip" href="../methods.html#m13">М-13 Дуга «денежного» сюжета</a>
+        <a class="mchip" href="../methods.html#m15">М-15 Кросс-проверка цифр</a>
+        <a class="mchip" href="../methods.html#m18">М-18 Режим доказательства</a>
+        <a class="mchip" href="../methods.html#m19">М-19 Версионирование документов</a>
+        <a class="mchip" href="../methods.html#m21">М-21 Фрейм подачи бюджета</a>
+        <a class="mchip" href="../methods.html#m36">М-36 Сравнение с соседями</a>
+        <a class="mchip" href="../methods.html#m39">М-39 «Цена слова»</a>
+      </p>
+      <p>Новые метрики М-42…М-51 рождаются в проекте, проходят стенд испытания и уходят в общий реестр —
+        как заведено в «Автономной редакции» (М-28).</p>
+      <div class="nn">Все метрики — с доверительным интервалом и минимальной выборкой; все цифры — с доказательным списком</div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 · АГЕНТЫ -->
+<div class="sec-head" id="s4"><h2><span class="num">04</span>Агенты домена</h2><div class="line"></div><div class="badge">9 агентов · показано <span id="agShown">9</span></div></div>
+<div class="wrap1200">
+  <div class="note" style="margin-bottom:16px;">Домен «Городской совет» работает внутри агентной модели «Автономной редакции»:
+    те же принципы — один агент, одна роль, журнал прогонов, воспроизводимость.</div>
+  <div class="tabs" id="fAg">
+    <button class="tab-btn active" data-st="all">Все агенты</button>
+    <button class="tab-btn" data-st="test">В тесте</button>
+    <button class="tab-btn" data-st="queue">В очереди</button>
+  </div>
+  <div class="layer" style="margin-bottom:14px;">
+    <div class="layer-head" role="button" tabindex="0" aria-expanded="true">
+      <span class="layer-name">Контур домена <small>сбор → анализ → представление</small></span>
+      <span class="layer-count">9 агентов</span><span class="layer-tog">свернуть ↑</span>
+    </div>
+    <div class="srcs">
+      <div class="agent-row" data-st="test"><code>BudgetCollector</code><span class="agent-role">Сбор с фин-73.рф, ugd.ru и ob.ulminfin.ru: ежемесячные отчёты, решения, справки; версионирование (М-19)</span><span class="agent-m">М-42</span><span class="wk-stamp wip">тест</span></div>
+      <div class="agent-row" data-st="test"><code>ProcurementCollector</code><span class="agent-role">Выгрузка контрактов муниципального заказчика из ЕИС; связка с досье «Госзакупки»</span><span class="agent-m">М-43</span><span class="wk-stamp wip">тест</span></div>
+      <div class="agent-row" data-st="queue"><code>NormCollector</code><span class="agent-role">Решения думы, постановления, протоколы; привязка нормы к расходной строке</span><span class="agent-m">М-13</span><span class="wk-stamp queued">очередь</span></div>
+      <div class="agent-row" data-st="test"><code>BudgetAnalyzer</code><span class="agent-role">План/факт, сезонная норма, равномерность, доля обязательных, расходы на душу (М-47)</span><span class="agent-m">М-42, М-47</span><span class="wk-stamp wip">тест</span></div>
+      <div class="agent-row" data-st="queue"><code>ProgramAnalyzer</code><span class="agent-role">Целевые показатели программ против расходов; таблица «программа → показатель → деньги»</span><span class="agent-m">М-48</span><span class="wk-stamp queued">очередь</span></div>
+      <div class="agent-row" data-st="queue"><code>GrbsMonitor</code><span class="agent-role">Качество планирования, кредиторка и равномерность в разрезе главных распорядителей</span><span class="agent-m">М-49…М-51</span><span class="wk-stamp queued">очередь</span></div>
+      <div class="agent-row" data-st="queue"><code>ProcurementAnalyzer</code><span class="agent-role">Концентрация поставщиков, аномалии цен и сроков, срывы контрактов</span><span class="agent-m">М-43, М-44</span><span class="wk-stamp queued">очередь</span></div>
+      <div class="agent-row" data-st="queue"><code>AffiliationBuilder</code><span class="agent-role">Граф «заказчик — поставщик — должностное лицо», устойчивые кластеры</span><span class="agent-m">М-45</span><span class="wk-stamp queued">очередь</span></div>
+      <div class="agent-row" data-st="queue"><code>TransparencyReporter</code><span class="agent-role">Полнота, своевременность и машиночитаемость обязательных публикаций</span><span class="agent-m">М-46</span><span class="wk-stamp queued">очередь</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 · МЕТРИКИ ДАШБОРДА -->
+<div class="sec-head" id="s5"><h2><span class="num">05</span>Метрики дашборда</h2><div class="line"></div><div class="badge">что увидит читатель</div></div>
+<div class="wrap1200">
+  <div class="epigraph epigraph--sm">
+    <blockquote>
+      <p class="q">«…Социалисты требуют строжайшего контроля со стороны общества и со стороны государства над мерой труда и мерой потребления, но этот контроль должен начинаться вместе с экспроприацией капиталистов, с установлением рабочего контроля над капиталистами».</p>
+      <div class="attr">В. И. Ленин. <b>«Государство и революция»</b>. Там же: глава V, § 3</div>
+    </blockquote>
+  </div>
+  <div class="tabs" id="mTabs" role="tablist">
+    <button class="tab-btn active" data-p="budget" role="tab">Бюджет</button>
+    <button class="tab-btn" data-p="proc" role="tab">Закупки</button>
+    <button class="tab-btn" data-p="transp" role="tab">Прозрачность</button>
+  </div>
+
+  <div class="tab-panel" id="p-budget">
+    <!-- TREEMAP -->
+    <div class="tm-wrap">
+      <div class="tm-head">
+        <h4>Структура расходов · treemap</h4>
+        <span class="tm-crumb" id="tmCrumb"><b>Расходы города</b> · площадь = доля, цвет = исполнение</span>
+        <button class="tm-up" id="tmUp" hidden onclick="tmUp()">← на уровень вверх</button>
+      </div>
+      <svg class="tm-svg" id="tmSvg" viewBox="0 0 1000 460" role="img" aria-label="Древовидная карта структуры расходов бюджета"></svg>
+      <div class="tm-legend">
+        <span><i style="background:#4F5F53;"></i>исполнение 95–105% (норма)</span>
+        <span><i style="background:#A03A3A;"></i>ниже 90% (недоисполнение)</span>
+        <span><i style="background:#B4795A;"></i>выше 110% (перерасход)</span>
+        <span><i style="background:#77775F;"></i>90–95 / 105–110%</span>
+      </div>
+      <div class="tm-note">Клик по блоку с разделом раскрывает второй уровень (подразделы и программы). Данные — демонстрационные,
+        заполнятся на этапе 1 из отчётов фин-73.рф; каждый блок будет раскрываться в доказательный список материалов (М-18).</div>
+    </div>
+
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th style="width:32%">Метрика</th><th style="width:24%">Значение · срез</th><th>Порог / как читаем</th></tr></thead>
+      <tbody>
+        <tr><td><b>Исполнение плана по доходам</b></td><td>98,7% · янв–авг 2026 <span class="wk-stamp" style="font-size:10px;">живой</span></td><td>норма 95–105% — исполнение в норме; источник: фин-73.рф, 11.09.2026</td></tr>
+        <tr><td><b>Налоговые доходы</b></td><td>6 620,5 млн ₽ · 98,3% плана <span class="wk-stamp" style="font-size:10px;">живой</span></td><td>НДФЛ 5 225,5 млн · УСН 588,6 млн · земельный 390,3 млн</td></tr>
+        <tr><td><b>Неналоговые доходы</b></td><td>425,9 млн ₽ · 105,0% плана <span class="wk-stamp" style="font-size:10px;">живой</span></td><td>имущество 264,0 млн · продажа активов 89,8 млн; компенсируют налоговые — следим за структурой</td></tr>
+        <tr><td><b>Равномерность расходов («эффект декабря»)</b></td><td>демо · этап 1</td><td>IV кв. / (среднее I–III кв. × 1,1); &gt; 1,1 — сгруживание в конец года; считается по каждому разделу</td></tr>
+        <tr><td><b>Доля обязательных расходов</b></td><td>демо · этап 1</td><td>(ФОТ + коммунальные + долг) / расходы; &gt; 80% — флаг «сжатие пространства развития»</td></tr>
+        <tr><td><b>Сезонное отклонение</b></td><td>демо · этап 1</td><td>факт % − средний % на эту дату за 3 года; устраняет ложные «январские провалы»</td></tr>
+        <tr><td><b>Расходы на душу населения</b></td><td>демо · этап 1</td><td>по разделам, сравнение с медианой городов того же ранга (М-47); флаг при отклонении &gt; 30%</td></tr>
+        <tr><td><b>Кредиторка / неисполненные обязательства</b></td><td>уточняется по отчётам</td><td>кассовое ≠ фактическое; если графы нет в публикациях — слепая зона (раздел 08)</td></tr>
+        <tr><td><b>Недоисполнение по программам</b></td><td>демо</td><td>список программ с исполнением &lt; 90% — с доказательным списком документов</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="tab-panel" id="p-proc" hidden>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th style="width:34%">Метрика</th><th style="width:20%">Значение</th><th>Порог / как читаем</th></tr></thead>
+      <tbody>
+        <tr><td><b>Доля единственного поставщика</b></td><td>демо · этап 2</td><td>рост доли — сужение конкуренции; публикуется по сферам</td></tr>
+        <tr><td><b>Доля топ-5 поставщиков в сумме</b></td><td>демо · этап 2</td><td>&gt; 50% — высокая концентрация (М-43)</td></tr>
+        <tr><td><b>HHI поставщиков</b></td><td>демо · этап 2</td><td>интерпретация по стандартной шкале концентрации</td></tr>
+        <tr><td><b>Изменение цены после подписания</b></td><td>демо · этап 2</td><td>доля контрактов с ростом цены — флаг М-44</td></tr>
+        <tr><td><b>Срывы и расторжения</b></td><td>демо · этап 2</td><td>доля с просрочками, штрафами, расторжениями; список — доказательно</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="tab-panel" id="p-transp" hidden>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th style="width:34%">Метрика</th><th style="width:20%">Значение</th><th>Порог / как читаем</th></tr></thead>
+      <tbody>
+        <tr><td><b>Своевременность (фин-73.рф)</b></td><td>ручной замер: высокая <span class="wk-stamp" style="font-size:10px;">живой</span></td><td>ежемесячные отчёты публикуются регулярно, до 11–15 числа</td></tr>
+        <tr><td><b>Машиночитаемость</b></td><td>ручной замер: низкая <span class="wk-stamp wip" style="font-size:10px;">болевая точка</span></td><td>основная часть документов — PDF и сканы; требуется извлечение с ручной сверкой</td></tr>
+        <tr><td><b>Полнота публикаций</b></td><td>демо</td><td>опубликованные / обязательные документы (М-46); цель ≥ 95%</td></tr>
+        <tr><td><b>Машиночитаемость мониторинга ГРБС</b></td><td>уточняется</td><td>если публикуется в таблицах — готовый контур для М-49…М-51</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="note">Живые значения помечены штампом и сняты вручную с источника на дату публикации — до подключения
+    автоматического сбора они обновляются редакцией раз в месяц. Каждая метрика публикуется с доверительным интервалом
+    и раскрывается в список документов-оснований (М-18).</div>
+</div>
+
+<!-- 06 · ПЕСОЧНИЦА -->
+<div class="sec-head" id="s6"><h2><span class="num">06</span>Песочница метрик</h2><div class="line"></div><div class="badge">проверь формулу руками · пример — живой срез города</div></div>
+<div class="wrap1200">
+  <div class="note" style="margin-bottom:16px;">Четыре калькулятора из контура раздела — те же формулы, что считает конвейер.
+    В первом уже подставлены реальные числа из отчёта финуправления за январь–август 2026: план ≈ 7 139,1 млн ₽,
+    факт 7 046,3 млн ₽ — нажмите «посчитать» и получите те же 98,7%, что публикует источник. Четвёртый калькулятор —
+    «цена результата»: подставьте расходы раздела и натуральный показатель из программы или ГИС ЖКХ.</div>
+  <div class="calc-grid">
+    <div class="calc">
+      <h4>М-42 · Исполнение бюджета</h4>
+      <div class="cf">исполнение = факт / план × 100%</div>
+      <label for="c1plan">План, млн ₽</label>
+      <input id="c1plan" type="number" min="0" step="0.1" value="7139.1" aria-label="План">
+      <label for="c1fact">Факт, млн ₽</label>
+      <input id="c1fact" type="number" min="0" step="0.1" value="7046.3" aria-label="Факт">
+      <button class="btn" onclick="calcIsp()">посчитать</button>
+      <div class="calc-out" id="out1" hidden></div>
+    </div>
+    <div class="calc">
+      <h4>М-43 · Концентрация поставщиков</h4>
+      <div class="cf">доля топ-5 = сумма топ-5 / сумма всех</div>
+      <label for="c2top">Сумма контрактов топ-5, млн ₽</label>
+      <input id="c2top" type="number" min="0" step="0.1" value="820" aria-label="Сумма топ-5">
+      <label for="c2all">Сумма всех контрактов, млн ₽</label>
+      <input id="c2all" type="number" min="0" step="0.1" value="1500" aria-label="Сумма всех">
+      <button class="btn" onclick="calcConc()">посчитать</button>
+      <div class="calc-out" id="out2" hidden></div>
+    </div>
+    <div class="calc">
+      <h4>М-44 · Единственный поставщик</h4>
+      <div class="cf">доля = контракты без конкурса / все</div>
+      <label for="c3sole">Контрактов с единственным поставщиком</label>
+      <input id="c3sole" type="number" min="0" step="1" value="42" aria-label="Контракты без конкурса">
+      <label for="c3all">Всего контрактов за период</label>
+      <input id="c3all" type="number" min="1" step="1" value="110" aria-label="Всего контрактов">
+      <button class="btn" onclick="calcSole()">посчитать</button>
+      <div class="calc-out" id="out3" hidden></div>
+    </div>
+    <div class="calc">
+      <h4>Цена результата · мост к М-39</h4>
+      <div class="cf">стоимость = расходы / натуральный показатель</div>
+      <label for="c4sum">Расходы раздела/программы, млн ₽</label>
+      <input id="c4sum" type="number" min="0" step="0.1" value="450" aria-label="Расходы">
+      <label for="c4units">Результат, ед. (км, ученики, м²)</label>
+      <input id="c4units" type="number" min="0" step="0.1" value="38" aria-label="Натуральный показатель">
+      <label for="c4prev">Прошлый год, млн ₽/ед. (необязательно)</label>
+      <input id="c4prev" type="number" min="0" step="0.01" value="9.9" aria-label="Стоимость прошлого года">
+      <button class="btn" onclick="calcUnit()">посчитать</button>
+      <div class="calc-out" id="out4" hidden></div>
+    </div>
+  </div>
+  <div class="verdict"><b>Правило песочницы</b>Результат калькулятора — тоже «лид, не факт»: порог срабатывает механически,
+    а интерпретацию (почему недоисполнение, почему концентрация, почему подорожал километр) даёт редактор после сверки
+    с первоисточником.</div>
+</div>
+
+<!-- 07 · ЭТАПЫ -->
+<div class="sec-head" id="s7"><h2><span class="num">07</span>Этапы внедрения</h2><div class="line"></div><div class="badge">этап 1 — в работе</div></div>
+<div class="wrap1200">
+  <div class="verdict" style="margin-top:0;margin-bottom:20px;"><b>Приоритеты ближайшего цикла — три шага</b>
+    1. <b>Расходы на душу населения (М-47)</b> — даёт масштаб и сравнение, данные уже есть (фин-73.рф + Ульяновскстат).
+    2. <b>Равномерность исполнения, «эффект декабря» (М-42.1)</b> — новая метрика из существующих ежемесячных отчётов:
+    сразу отделяет плохое планирование от реального недоисполнения.
+    3. <b>Treemap структуры расходов</b> — визуальный якорь, который делает раздел читаемым с первого экрана.
+    Первые два шага — аналитические, третий — интерфейсный. Вместе они превращают М-42 из «процента» в полноценный
+    инструмент наблюдения за бюджетом.</div>
+  <div class="st-grid">
+    <div class="st-card">
+      <div class="stn">Этап 1 <span class="wk-stamp wip" style="margin-left:6px;">в работе</span></div>
+      <b>Бюджет</b>
+      <div class="stt">1–2 месяца</div>
+      <ul>
+        <li><code>BudgetCollector</code>: ежемесячные отчёты с <a href="https://фин-73.рф" target="_blank" rel="noopener" style="color:var(--accent);">фин-73.рф</a> и ugd.ru</li>
+        <li>Извлечение таблиц из PDF в CSV, ручная сверка каждой цифры</li>
+        <li>М-42: план/факт, сезонная норма, доля обязательных против развития</li>
+        <li>М-47: расходы на душу + сравнение с Димитровградом и районами</li>
+        <li>М-42.1: равномерность по разделам («эффект декабря»)</li>
+        <li>Treemap на живых данных вместо демо</li>
+      </ul>
+      <div class="st-res"><b>Результат:</b> бюджет города — в машиночитаемой базе; исполнение, масштаб и равномерность считаются автоматически.</div>
+    </div>
+    <div class="st-card">
+      <div class="stn">Этап 2 <span class="wk-stamp queued" style="margin-left:6px;">план</span></div>
+      <b>Закупки и программы</b>
+      <div class="stt">2–3 месяца</div>
+      <ul>
+        <li>Проверка доступности контура ЕИС, ручной экспорт как резерв</li>
+        <li>М-43: концентрация, топ-5, единственный поставщик</li>
+        <li>М-44: аномалии цен, изменения, срывы</li>
+        <li>М-48: <code>ProgramAnalyzer</code> — целевые показатели против расходов</li>
+        <li>Связка с досье «Госзакупки»</li>
+      </ul>
+      <div class="st-res"><b>Результат:</b> карта контрактов с флагами аномалий и таблица эффективности программ — лиды редактору.</div>
+    </div>
+    <div class="st-card">
+      <div class="stn">Этап 3 <span class="wk-stamp queued" style="margin-left:6px;">план</span></div>
+      <b>ГРБС, связи, прозрачность</b>
+      <div class="stt">2–3 месяца</div>
+      <ul>
+        <li><code>GrbsMonitor</code>: М-49 рейтинг планирования, М-50 кредиторка, М-51 равномерность по управлениям</li>
+        <li><code>NormCollector</code>: цепочки «норма → расход → результат»</li>
+        <li><code>AffiliationBuilder</code>: граф М-45 (только документально подтверждённые связки)</li>
+        <li>М-46: индекс прозрачности публикаций</li>
+        <li>Режим доказательства для каждой цифры раздела</li>
+      </ul>
+      <div class="st-res"><b>Результат:</b> раздел показывает не только цифры, но и кто за ними стоит — до конкретного управления.</div>
+    </div>
+    <div class="st-card">
+      <div class="stn">Этап 4 <span class="wk-stamp queued" style="margin-left:6px;">план</span></div>
+      <b>Сравнение и интеграция</b>
+      <div class="stt">2 месяца</div>
+      <ul>
+        <li>Сравнение с соседними муниципалитетами (М-36 + медианы М-47)</li>
+        <li>«Цена результата» в конвейере: ГИС ЖКХ, натуральные показатели программ</li>
+        <li>Метрики М-42…М-51 — в общий реестр через стенд (М-28)</li>
+        <li>Документация для тиражирования на другой город</li>
+      </ul>
+      <div class="st-res"><b>Результат:</b> «Городской совет» — тиражируемый проект: смена config — смена муниципалитета.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 08 · ОГРАНИЧЕНИЯ -->
+<div class="sec-head" id="s8"><h2><span class="num">08</span>Ограничения и риски</h2><div class="line"></div><div class="badge">публично, как часть паспорта</div></div>
+<div class="wrap1200">
+  <div class="roles-grid">
+    <div class="role-box">
+      <h4>Ограничения данных</h4>
+      <div class="role-row"><b>Форматы</b><span>Значительная часть документов финуправления — PDF и сканы: извлечение таблиц требует ручной сверки каждой цифры (М-15). Первый ручной замер М-46: машиночитаемость низкая.</span></div>
+      <div class="role-row"><b>Кассовое ≠ фактическое</b><span>В цифрах финуправления видно только кассовое исполнение (деньги ушли), но не фактическое (работа принята). Если в отчётах нет графы «неисполненные обязательства / кредиторская задолженность» — раздел не различает эти состояния. Слепая зона фиксируется публично (М-41); частичный ответ даст М-50.</span></div>
+      <div class="role-row"><b>Сезонность</b><span>Процент исполнения без контекста misleading: январские 30% — норма. Митигация: сезонное отклонение против среднего за 3 года; пока своей истории нет — берём областные данные ob.ulminfin.ru.</span></div>
+      <div class="role-row"><b>Своевременность</b><span>Отчёты публикуются с лагом в 1–2 недели; еженедельные соцпосты дают лишь суммы по крупным статьям. Метрики всегда помечены датой среза.</span></div>
+      <div class="role-row"><b>Малые закупки</b><span>Расходы до 600 тыс. часто вне централизованных реестров: реальная картина шире, чем видно конвейеру. Слепая зона фиксируется в М-41.</span></div>
+      <div class="role-row"><b>Данные по ГРБС</b><span>Мониторинг качества финансового менеджмента публикуется, но его машиночитаемость и полнота (кредиторка по управлениям) уточняются на этапе 3.</span></div>
+    </div>
+    <div class="role-box">
+      <h4>Риски и митигация</h4>
+      <div class="role-row"><b>Ложные аномалии</b><span>Статистический выброс не означает нарушение. Митигация: «лид, не факт», сезонная норма, ручная верификация по первоисточнику перед публикацией.</span></div>
+      <div class="role-row"><b>Юридические формулировки</b><span>Раздел не выносит обвинений. Митигация: публикация фактов и динамики со ссылками на документы; интерпретация — за редактором, без утверждений о виновности.</span></div>
+      <div class="role-row"><b>Персональные данные</b><span>Декларации официально опубликованы, но их анализ этично ограничен. Митигация: только агрегаты и факты, сверка с реестром М-26, никаких персональных выводов.</span></div>
+      <div class="role-row"><b>Ошибки извлечения из PDF</b><span>Распознанная цифра может быть неверной. Митигация: каждая извлечённая таблица сверяется с оригиналом, расхождение = 0 как критерий приёмки.</span></div>
+      <div class="role-row"><b>Устаревание</b><span>Бюджет и реестры меняются. Митигация: версионирование документов (М-19), число правок бюджета — само метрика (М-49), дата среза у каждой цифры.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 09 · ЭТИКА -->
+<div class="sec-head" id="s9"><h2><span class="num">09</span>Этика раздела</h2><div class="line"></div><div class="badge">наблюдение, не обвинение</div></div>
+<div class="wrap1200">
+  <div class="verdict"><b>Кодекс «Городского совета»</b>
+    Раздел анализирует только официально опубликованные данные и не претендует на обвинительные выводы.
+    Каждая цифра ссылается на первоисточник. Аномалии маркируются как «требует проверки», а не «нарушение».
+    Персональные сведения — только в рамках опубликованных деклараций, только агрегированно.
+    Цель раздела — не «поймать», а сделать городскую экономику видимой для жителей: бюджет, который можно прочитать,
+    перестаёт быть частным делом администрации. Учёт и контроль — массовые: машина ведёт учёт, читатель получает контроль.</div>
+</div>
+
+<!-- 10 · СВЯЗИ -->
+<div class="sec-head" id="s10"><h2><span class="num">10</span>Связь с проектами издания</h2><div class="line"></div><div class="badge">единый контур</div></div>
+<div class="wrap1200">
+  <div class="sec-grid">
+    <a class="sec-card" href="goszakupki.html"><b>Госзакупки</b><p>Досье закупочной аналитики региона: контур ЕИС и метрики 44-ФЗ/223-ФЗ питают М-43 и М-44 раздела.</p><span class="go">открыть досье →</span></a>
+    <a class="sec-card" href="autonomous_editorial.html"><b>Автономная редакция</b><p>Агентная модель, оркестрация и этический кодекс, внутри которых работают агенты домена.</p><span class="go">открыть проект →</span></a>
+    <a class="sec-card" href="../methods.html"><b>Методы · реестр</b><p>Паспорта М-01…М-36 и стенд испытания; М-42…М-51 уйдут в реестр после калибровки (М-28).</p><span class="go">открыть реестр →</span></a>
+    <a class="sec-card" href="../infospace.html"><b>Инфопространство</b><p>Дашборд издания: метрики раздела появятся на карте муниципалитетов и в месячном отчёте.</p><span class="go">открыть дашборд →</span></a>
+    <a class="sec-card" href="../dossie.html"><b>Досье</b><p>Карточки должностных лиц: связи из графа М-45 и рейтинг ГРБС отображаются в паспортах досье.</p><span class="go">открыть досье →</span></a>
+    <a class="sec-card" href="elections_2026.html"><b>Выборы-2026</b><p>Бюджетная повестка в предвыборный период: фреймы (М-21) и тон (М-05) обсуждения бюджета.</p><span class="go">открыть досье →</span></a>
+    <a class="sec-card" href="../monthly.html"><b>Месяц</b><p>Месячный отчёт: исполнение, равномерность и индекс прозрачности входят в общий срез метрик.</p><span class="go">открыть отчёт →</span></a>
+    <a class="sec-card" href="../status.html"><b>Статус системы</b><p>Состояние агентов домена, последние прогоны и журнал logs/.</p><span class="go">открыть статус →</span></a>
+  </div>
+</div>
+
+<!-- ИТОГ -->
+<div class="formula" style="margin-top:64px;">
+  <div class="formula__inner">
+    <div>
+      <div class="formula__kicker">Итог</div>
+      <h2 class="formula__title">Бюджет, который можно прочитать, — <em>уже не частное дело администрации.</em></h2>
+      <p class="formula__dek">«Городской совет» превращает разрозненные публикации муниципалитета в читаемую картину:
+        план против факта, деньги против результата, расходы против медианы соседей, декабрь против равномерности.
+        Контур источников разведан, первые живые цифры сняты — раздел собирается на том же конвейере, что и всё издание,
+        и тиражируется на любой город заменой конфигурации.</p>
+    </div>
+    <div class="formula__side">
+      <b>Паспорт проекта</b>
+      <span>→</span> объект: муниципалитет «город Ульяновск» (пилот)<br>
+      <span>→</span> ядро контура: <a href="https://фин-73.рф" target="_blank" rel="noopener">фин-73.рф</a> · <a href="https://ob.ulminfin.ru/" target="_blank" rel="noopener">ob.ulminfin.ru</a><br>
+      <span>→</span> метрики: М-42…М-51 + ядро реестра<br>
+      <span>→</span> принцип: лид, не факт · режим доказательства
+    </div>
+  </div>
+</div>
+
+<div class="util-bar-wrap"><div class="util-bar">
+  <span class="util-lbl">Служебное:</span>
+  <a href="../status.html">статус агентов</a>
+  <a href="../roadmap.html">план развития</a>
+  <a href="../methods.html#stand">стенд испытания методик</a>
+  <a href="goszakupki.html">досье «Госзакупки»</a>
+  <a href="https://фин-73.рф" target="_blank" rel="noopener">фин-73.рф</a>
+  <a href="https://ob.ulminfin.ru/" target="_blank" rel="noopener">Открытый бюджет</a>
+  <a href="https://www.ugd.ru/" target="_blank" rel="noopener">Городская Дума</a>
+  <a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub · репозиторий</a>
+</div></div>
+</main>
+
+<footer class="footer"><div class="footer__inner">
+  <div><div class="footer__brand">ГУДОК<span>.</span></div>
+  <p>Информационно-аналитическое издание марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Материалы принадлежат их изданиям; издание носит информационно-аналитический характер и не является агитацией.</p></div>
+  <div><h3>Периодичности</h3><ul>
+    <li><a href="../digests/today.html">День · выпуск сегодня</a></li>
+    <li><a href="../weekly.html">Неделя · дуги сюжетов</a></li>
+    <li><a href="../monthly.html">Месяц · метрики</a></li>
+    <li><a href="../archive.html">Архив-матрица</a></li></ul></div>
+  <div><h3>Проекты</h3><ul>
+    <li><a href="elections_2026.html">Выборы-2026</a></li>
+    <li><a href="goszakupki.html">Госзакупки</a></li>
+    <li><a href="gorodskoy_sovet.html">Городской совет</a></li>
+    <li><a href="autonomous_editorial.html">Автономная редакция</a></li>
+    <li><a href="../infospace.html">Инфопространство</a></li>
+    <li><a href="../methods.html">Методы · реестр</a></li>
+    <li><a href="../dossie.html">Досье · прототип</a></li></ul></div>
+  <div><h3>Служебное</h3><ul>
+    <li><a href="../status.html">Статус системы</a></li>
+    <li><a href="../roadmap.html">План развития</a></li>
+    <li><a href="../digests/exec.html">Версия руководителю</a></li>
+    <li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+</div>
+<div class="footer__bottom"><span>© 2026 Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
+</footer>
+
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+document.documentElement.setAttribute("data-theme",c);
+try{localStorage.setItem("gudok-theme",c);}catch(e){}
+syncThemeBtn();}
+function syncThemeBtn(){var b=document.getElementById("themeBtn");
+if(b){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"☀️":"🌙";}}
+syncThemeBtn();
+
+/* флаглиния */
+(function(){
+  var d=new Date();
+  document.getElementById("flDate").textContent=d.toLocaleDateString("ru-RU",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  document.getElementById("flTime").textContent="страница собрана "+d.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"});
+})();
+
+/* слои: раскрытие */
+function setLayer(layer,open){
+  var panel=layer.querySelector(".srcs");
+  var tg=layer.querySelector(".layer-tog");
+  var hd=layer.querySelector(".layer-head");
+  if(open){panel.removeAttribute("hidden");tg.textContent="свернуть ↑";hd.setAttribute("aria-expanded","true");}
+  else{panel.setAttribute("hidden","");tg.textContent="раскрыть ↓";hd.setAttribute("aria-expanded","false");}
+}
+document.querySelectorAll(".layer-head").forEach(function(h){
+  h.addEventListener("click",function(){
+    var layer=h.parentElement;
+    setLayer(layer,layer.querySelector(".srcs").hasAttribute("hidden"));
+  });
+  h.addEventListener("keydown",function(e){
+    if(e.key==="Enter"||e.key===" "){
+      e.preventDefault();
+      var layer=h.parentElement;
+      setLayer(layer,layer.querySelector(".srcs").hasAttribute("hidden"));
+    }
+  });
+});
+
+/* фильтр агентов */
+document.querySelectorAll("#fAg .tab-btn").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("#fAg .tab-btn").forEach(function(x){x.classList.toggle("active",x===b);});
+    var st=b.dataset.st,shown=0;
+    document.querySelectorAll(".agent-row").forEach(function(r){
+      var ok=(st==="all"||r.dataset.st===st);
+      r.style.display=ok?"":"none";
+      if(ok)shown++;
+    });
+    document.getElementById("agShown").textContent=shown;
+    var agLayer=document.querySelector(".agent-row").closest(".layer");
+    if(st!=="all")setLayer(agLayer,true);
+  });
+});
+(function(){document.getElementById("agShown").textContent=document.querySelectorAll(".agent-row").length;})();
+
+/* вкладки метрик */
+document.querySelectorAll("#mTabs .tab-btn").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("#mTabs .tab-btn").forEach(function(x){x.classList.toggle("active",x===b);});
+    ["budget","proc","transp"].forEach(function(p){
+      var panel=document.getElementById("p-"+p);
+      if(p===b.dataset.p)panel.removeAttribute("hidden");
+      else panel.setAttribute("hidden","");
+    });
+  });
+});
+
+/* ============ treemap структуры расходов (демо-данные, этап 1) ============ */
+var TM_ROOT=[
+  {n:"Образование",v:38,e:97,ch:[{n:"Общее образование",v:58,e:97},{n:"Дошкольное",v:26,e:98},{n:"Дополнительное",v:9,e:95},{n:"Прочее",v:7,e:96}]},
+  {n:"ЖКХ",v:16,e:88,ch:[{n:"Благоустройство",v:40,e:85},{n:"Коммунальное хозяйство",v:35,e:90},{n:"Жилищное хозяйство",v:25,e:88}]},
+  {n:"Дорожное хозяйство",v:14,e:82,ch:[{n:"Ремонт дорог",v:55,e:78},{n:"Содержание",v:30,e:88},{n:"Безопасность движения",v:15,e:92}]},
+  {n:"Социальная политика",v:9,e:99,ch:[{n:"Поддержка семей",v:55,e:100},{n:"Прочие выплаты",v:45,e:98}]},
+  {n:"Содержание органов управления",v:6,e:96,ch:null},
+  {n:"Физкультура и спорт",v:5,e:103,ch:null},
+  {n:"Культура",v:4,e:95,ch:null},
+  {n:"Национальная экономика",v:4,e:91,ch:null},
+  {n:"Прочие разделы",v:4,e:94,ch:null}
+];
+var tmLevel=[TM_ROOT,null];
+var tmDepth=0;
+
+function tmColor(e){
+  if(e<90)return "#A03A3A";
+  if(e>110)return "#B4795A";
+  if(e>=95&&e<=105)return "#4F5F53";
+  return "#77775F";
+}
+function tmSquarify(items,x,y,w,h){
+  var list=items.slice().sort(function(a,b){return b.v-a.v;});
+  var tv=list.reduce(function(s,d){return s+d.v;},0);
+  var rects=[];
+  (function sq(lst,bx,by,bw,bh,btv){
+    if(!lst.length||bw<=0.5||bh<=0.5)return;
+    if(lst.length===1){rects.push({d:lst[0],x:bx,y:by,w:bw,h:bh});return;}
+    var stackY=(bw<=bh);
+    var side=stackY?bw:bh;
+    var totalArea=bw*bh;
+    var row=[lst[0]],rowSum=lst[0].v;
+    function worst(rw,rs){
+      var rowArea=rs/btv*totalArea;
+      var maxA=0,minA=Infinity;
+      rw.forEach(function(d){var a=d.v/btv*totalArea;if(a>maxA)maxA=a;if(a<minA)minA=a;});
+      if(rowArea<=0||minA<=0)return Infinity;
+      return Math.max((side*side*maxA)/(rowArea*rowArea),(rowArea*rowArea)/(side*side*minA));
+    }
+    var cw=worst(row,rowSum);
+    for(var i=1;i<lst.length;i++){
+      var nr=row.concat([lst[i]]),ns=rowSum+lst[i].v;
+      var nw=worst(nr,ns);
+      if(nw<=cw){row=nr;rowSum=ns;cw=nw;}else break;
+    }
+    var rowArea=rowSum/btv*totalArea;
+    if(stackY){
+      var t=rowArea/bw,cy=by;
+      row.forEach(function(d){
+        var iw=d.v/rowSum*bw;
+        rects.push({d:d,x:bx,y:cy,w:iw,h:t});
+        cy+=t;
+      });
+      sq(lst.slice(row.length),bx,by+t,bw,bh-t,btv-rowSum);
+    }else{
+      var tw=rowArea/bh,iy=by;
+      row.forEach(function(d){
+        var ih=d.v/rowSum*bh;
+        rects.push({d:d,x:bx,y:iy,w:tw,h:ih});
+        iy+=ih;
+      });
+      sq(lst.slice(row.length),bx+tw,by,bw-tw,bh,btv-rowSum);
+    }
+  })(list,x,y,w,h,tv);
+  return rects;
+}
+function tmEsc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function tmDraw(){
+  var list=tmLevel[tmDepth];
+  var rects=tmSquarify(list,0,0,1000,460);
+  var html="";
+  rects.forEach(function(r,idx){
+    var d=r.d;
+    var drill=d.ch&&d.ch.length;
+    html+="<g class=\""+(drill?"branch":"leafg")+"\" "+(drill?"style=\"cursor:pointer\" tabindex=\"0\" role=\"button\" aria-label=\""+tmEsc(d.n)+", раскрыть\" onclick=\"tmDrill("+idx+")\" onkeydown=\"if(event.key==='Enter'||event.key===' '){event.preventDefault();tmDrill("+idx+");}\"":"") +">";
+    html+="<rect x=\""+r.x.toFixed(1)+"\" y=\""+r.y.toFixed(1)+"\" width=\""+Math.max(r.w,0).toFixed(1)+"\" height=\""+Math.max(r.h,0).toFixed(1)+"\" fill=\""+tmColor(d.e)+"\" class=\""+(drill?"":"leaf")+"\"><title>"+tmEsc(d.n)+" · доля "+d.v+"% · исполнение "+d.e+"%</title></rect>";
+    if(r.w>86&&r.h>40){
+      html+="<text x=\""+(r.x+10).toFixed(1)+"\" y=\""+(r.y+22).toFixed(1)+"\" font-size=\"13\" font-weight=\"600\">"+tmEsc(d.n.length>22?d.n.slice(0,21)+"…":d.n)+(drill?" ›":"")+"</text>";
+      if(r.h>62){
+        html+="<text x=\""+(r.x+10).toFixed(1)+"\" y=\""+(r.y+42).toFixed(1)+"\" font-size=\"11.5\" opacity=\".85\">доля "+d.v+"% · исполн. "+d.e+"%</text>";
+      }
+    }else if(r.w>44&&r.h>24){
+      html+="<text x=\""+(r.x+6).toFixed(1)+"\" y=\""+(r.y+16).toFixed(1)+"\" font-size=\"10.5\" font-weight=\"600\">"+d.v+"%</text>";
+    }
+    html+="</g>";
+  });
+  document.getElementById("tmSvg").innerHTML=html;
+  var crumb=document.getElementById("tmCrumb");
+  if(tmDepth===0){crumb.innerHTML="<b>Расходы города</b> · площадь = доля, цвет = исполнение · демо";document.getElementById("tmUp").setAttribute("hidden","");}
+  else{crumb.innerHTML="Расходы города → <b>"+tmEsc(tmLevel[1][0].n||"")+"</b>";crumb.innerHTML="Расходы города → <b>"+tmEsc(window.tmParentName||"")+"</b>";document.getElementById("tmUp").removeAttribute("hidden");}
+}
+function tmDrill(idx){
+  var d=tmLevel[tmDepth][idx];
+  if(!d||!d.ch||!d.ch.length)return;
+  window.tmParentName=d.n;
+  tmLevel[1]=d.ch;
+  tmDepth=1;
+  tmDraw();
+}
+function tmUp(){
+  tmDepth=0;
+  tmDraw();
+}
+tmDraw();
+
+/* ============ песочница метрик ============ */
+function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function out(id,html){var el=document.getElementById(id);el.innerHTML=html;el.removeAttribute("hidden");}
+function calcIsp(){
+  var plan=num("c1plan"),fact=num("c1fact");
+  if(plan<=0){out("out1","<b>—</b>введите план больше нуля");return;}
+  var pct=fact/plan*100,st,cls;
+  if(pct<90){st="недоисполнение · лид редактору";cls="warn";}
+  else if(pct<=105){st="норма";cls="good";}
+  else if(pct<=110){st="выше нормы";cls="";}
+  else{st="перерасход · лид редактору";cls="warn";}
+  out("out1","<b>"+pct.toFixed(1)+"%</b>факт "+fact.toLocaleString("ru-RU")+" из плана "+plan.toLocaleString("ru-RU")+" млн ₽<br><span class=\"st "+cls+"\">"+st+"</span><br><span style=\"font-size:11px;color:var(--muted);\">сезонная норма: сравните со средним % на эту дату за 3 года (М-42)</span>");
+}
+function calcConc(){
+  var top=num("c2top"),all=num("c2all");
+  if(all<=0){out("out2","<b>—</b>введите общую сумму больше нуля");return;}
+  if(top>all){out("out2","<b>—</b>сумма топ-5 не может превышать общую");return;}
+  var share=top/all*100,st,cls;
+  if(share>50){st="высокая концентрация";cls="warn";}
+  else if(share>30){st="умеренная концентрация";cls="";}
+  else{st="низкая концентрация";cls="good";}
+  out("out2","<b>"+share.toFixed(1)+"%</b>доля топ-5 поставщиков в сумме контрактов<br><span class=\"st "+cls+"\">"+st+"</span>");
+}
+function calcSole(){
+  var sole=num("c3sole"),all=num("c3all");
+  if(all<=0){out("out3","<b>—</b>введите число контрактов больше нуля");return;}
+  if(sole>all){out("out3","<b>—</b>контрактов без конкурса больше, чем всех?");return;}
+  var share=sole/all*100,st,cls;
+  if(share>50){st="более половины без конкурса · лид";cls="warn";}
+  else if(share>30){st="повышенная доля";cls="";}
+  else{st="в пределах наблюдаемого";cls="good";}
+  out("out3","<b>"+share.toFixed(1)+"%</b>"+sole+" из "+all+" контрактов — с единственным поставщиком<br><span class=\"st "+cls+"\">"+st+"</span>");
+}
+function calcUnit(){
+  var sum=num("c4sum"),units=num("c4units"),prev=num("c4prev");
+  if(sum<=0||units<=0){out("out4","<b>—</b>введите расходы и натуральный показатель больше нуля");return;}
+  var cost=sum/units;
+  var html="<b>"+cost.toFixed(2)+" млн ₽ / ед.</b>расходы "+sum.toLocaleString("ru-RU")+" млн ₽ на "+units.toLocaleString("ru-RU")+" ед. результата";
+  if(prev>0){
+    var dyn=(cost/prev-1)*100;
+    var st,cls;
+    if(dyn>10){st="рост выше инфляции · лид";cls="warn";}
+    else if(dyn>=-5){st="в пределах инфляции";cls="good";}
+    else{st="удешевление результата";cls="good";}
+    html+="<br>динамика к прошлому году: "+(dyn>0?"+":"")+dyn.toFixed(1)+"% ("+prev.toFixed(2)+" → "+cost.toFixed(2)+")<br><span class=\"st "+cls+"\">"+st+"</span>";
+  }
+  out("out4",html);
+}
+</script>
+</body>
+</html>
