@@ -619,7 +619,7 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>среда, 23 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 12:58</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>среда, 23 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 15:17</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Афиша культурных событий<br>всего 13 · сегодня 1 · выходные 4
@@ -628,7 +628,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="active" href="afisha.html">Афиша</a><a class="" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-22.html">Руководителю</a></div></nav><main id="main">
 <div class="page">
 
-<div class="note" style="margin-bottom:4px;">Порог входа: найдено дат <b>78</b> → прошло проверку <b>13</b> → показано сегодня <b>13</b>. Порог уверенности — <b>0.55</b>; названий собрано из типа события и имени — <b>9</b>; площадок найдено в тексте без маркера 📍 — <b>1</b>; городских событий без одной площадки — <b>3</b>; с известной ценой входа — <b>2</b>. Сверяйте время и билеты у организаторов — данные извлечены из публикаций автоматически.</div>
+<div class="note" style="margin-bottom:4px;">Порог входа: найдено дат <b>85</b> → прошло проверку <b>13</b> → показано сегодня <b>13</b>. Порог уверенности — <b>0.55</b>; названий собрано из типа события и имени — <b>8</b>; площадок найдено в тексте без маркера 📍 — <b>1</b>; городских событий без одной площадки — <b>2</b>; с известной ценой входа — <b>3</b>. Сверяйте время и билеты у организаторов — данные извлечены из публикаций автоматически.</div>
 
 <div id="af-filters"><div class="af-frow"><span class="fl">Когда</span><button type="button" class="af-chip on" data-f="date" data-v="all" aria-pressed="false">Все дни</button><button type="button" class="af-chip" data-f="date" data-v="today" aria-pressed="false">Сегодня</button><button type="button" class="af-chip" data-f="date" data-v="tomorrow" aria-pressed="false">Завтра</button><button type="button" class="af-chip" data-f="date" data-v="weekend" aria-pressed="false">Выходные 26.09–27.09</button><button type="button" class="af-chip" data-f="date" data-v="week" aria-pressed="false">7 дней</button><button type="button" class="af-chip" data-f="date" data-v="evening" aria-pressed="false">Вечером (после 17:00)</button></div><div class="af-frow"><span class="fl">Тип</span><button type="button" class="af-chip on" data-f="type" data-v="all" aria-pressed="false">Все типы</button><button type="button" class="af-chip" data-f="type" data-v="festival" aria-pressed="false">Фестивали и праздники</button><button type="button" class="af-chip" data-f="type" data-v="theatre" aria-pressed="false">Театр и спектакли</button><button type="button" class="af-chip" data-f="type" data-v="concert" aria-pressed="false">Концерты и музыка</button><button type="button" class="af-chip" data-f="type" data-v="expo" aria-pressed="false">Выставки, музеи, библиотеки</button><button type="button" class="af-chip" data-f="type" data-v="kids" aria-pressed="false">Детям и семьям</button><button type="button" class="af-chip" data-f="type" data-v="cinema" aria-pressed="false">Кино</button><button type="button" class="af-chip" data-f="type" data-v="sport" aria-pressed="false">Спорт и ЗОЖ</button><button type="button" class="af-chip" data-f="type" data-v="city" aria-pressed="false">Город и встречи</button><button type="button" class="af-chip" data-f="type" data-v="other" aria-pressed="false">Прочее</button></div><div class="af-frow"><span class="fl">Где и почём</span><button type="button" class="af-chip" data-f="geo" data-v="ulsk" aria-pressed="false">Ульяновск</button><button type="button" class="af-chip" data-f="geo" data-v="dim" aria-pressed="false">Димитровград</button><button type="button" class="af-chip" data-f="geo" data-v="region" aria-pressed="false">Районы области</button><button type="button" class="af-chip" data-f="price" data-v="free" aria-pressed="false">Только бесплатные</button><button type="button" class="af-chip" data-f="age" data-v="kids" aria-pressed="false">Можно с детьми</button><select class="af-sort" id="af-sort" aria-label="Сортировка"><option value="time">Сортировка: по времени</option><option value="type">По типу события</option><option value="score">По релевантности</option></select></div><div class="af-frow"><span class="fl">Поиск</span><input class="af-q" id="af-q" type="search" placeholder="Название, площадка, район — например «филармония»"></div></div>
 <div class="af-active" id="af-active"></div>
@@ -687,7 +687,14 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="cal-badge gold"><b>26</b><span>сб 09</span></div>
 <div class="af-body"><div class="af-kick">👶 Детям и семьям<span class="af-also">· также анонсировали: 1 изд.</span></div>
 <a class="af-link" href="https://ulpressa.ru/2026/09/17/26-sentyabrya-v-ulyanovske-projdyot-kross-naczii/" target="_blank" rel="noopener"><b>Кросс нации</b></a>
-<div class="af-meta"><span class="af-time">09:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 Биатлонный комплекс УлГУ «Заря»</span><span class="af-meta" style="display:inline;"> · улица Оренбургская, 5Б</span> <span class="af-badge">бесплатно по регистрации</span></div></div></div><div class="af-event moved" data-d="2026-09-26" data-tm="" data-type="festival"
+<div class="af-meta"><span class="af-time">09:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 Биатлонный комплекс УлГУ «Заря»</span><span class="af-meta" style="display:inline;"> · улица Оренбургская, 5Б</span> <span class="af-badge">бесплатно по регистрации</span></div></div></div><div class="af-event moved" data-d="2026-09-26" data-tm="540" data-type="sport"
+ data-geo="region" data-price="free" data-age=""
+ data-sc="0.86" data-q="продолжительная и активная жизнь 26 сентября у дома быта на гончарова бесплатно сделают флюорографию улице гончарова, 23б     спорт и зож улпресса">
+<button type="button" class="af-ics-one" onclick="_afIcsOne(this)">в календарь</button>
+<div class="cal-badge gold"><b>26</b><span>сб 09</span></div>
+<div class="af-body"><div class="af-kick">🏃 Спорт и ЗОЖ</div>
+<a class="af-link" href="https://ulpressa.ru/2026/09/23/26-sentyabrya-u-doma-byta-na-goncharova-besplatno-sdelayut-flyuorografiyu/" target="_blank" rel="noopener"><b>Продолжительная и активная жизнь</b></a>
+<div class="af-meta"><span class="af-time">09:00</span><span>Улпресса</span><span class="af-meta" style="display:inline;"> · 📍 улице Гончарова, 23б</span><span class="af-meta" style="display:inline;"> · <span class="af-badge warn">площадка уточняется</span></span> <span class="af-badge move">перенесено, новая дата неизвестна</span><span class="af-badge">вход свободный</span></div></div></div><div class="af-event moved" data-d="2026-09-26" data-tm="" data-type="festival"
  data-geo="dim" data-price="" data-age=""
  data-sc="0.72" data-q="ярмарка в ульяновске, ишеевке, новоульяновске и димит… 🍅 первая осенняя сельхозярмарка пройдёт 26 сентября. на ярмарках в ульяновске, ишеевке, новоульяновске и димит… площадки города  димитровград  димитровград фестивали и праздники t.me/reporter73">
 <button type="button" class="af-ics-one" onclick="_afIcsOne(this)">в календарь</button>
@@ -701,14 +708,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="cal-badge gold"><b>26</b><span>сб 09</span></div>
 <div class="af-body"><div class="af-kick">🎪 Фестивали и праздники</div>
 <a class="af-link" href="https://t.me/ulgovru/23910" target="_blank" rel="noopener"><b>Звезда</b></a>
-<div class="af-meta"><span class="af-badge warn">время уточняется</span><span>t.me/ulgovru</span><span class="af-meta" style="display:inline;"> · 📍 улица Минаева 10</span><span class="af-meta" style="display:inline;"> · <span class="af-badge warn">площадка уточняется</span></span> </div></div></div><div class="af-event" data-d="2026-09-26" data-tm="" data-type="festival"
- data-geo="dim" data-price="" data-age=""
- data-sc="0.72" data-q="первая осенняя сельскохозяйственная ярмарка 🍅 первая осенняя сельскохозяйственная ярмарка пройдёт 26 сентября. в этом году в ульяновской области организую… площадки города  димитровград  димитровград фестивали и праздники t.me/ulkoroche">
-<button type="button" class="af-ics-one" onclick="_afIcsOne(this)">в календарь</button>
-<div class="cal-badge gold"><b>26</b><span>сб 09</span></div>
-<div class="af-body"><div class="af-kick">🎪 Фестивали и праздники</div>
-<a class="af-link" href="https://t.me/ulkoroche/33881" target="_blank" rel="noopener"><b>Первая осенняя сельскохозяйственная ярмарка</b></a>
-<div class="af-meta"><span class="af-badge warn">время уточняется</span><span>t.me/ulkoroche</span><span class="af-meta" style="display:inline;"> · 📍 площадки города</span><span class="af-meta" style="display:inline;"> · <span class="af-badge warn">площадка уточняется</span></span> </div></div></div></div></div><div class="af-daylist"><div class="af-day-head"><h3>03 октября · суббота</h3><span class="af-cnt">2 соб. · будни</span></div><div class="af-list"><div class="af-event" data-d="2026-10-03" data-tm="840" data-type="concert"
+<div class="af-meta"><span class="af-badge warn">время уточняется</span><span>t.me/ulgovru</span><span class="af-meta" style="display:inline;"> · 📍 улица Минаева 10</span><span class="af-meta" style="display:inline;"> · <span class="af-badge warn">площадка уточняется</span></span> </div></div></div></div></div><div class="af-daylist"><div class="af-day-head"><h3>03 октября · суббота</h3><span class="af-cnt">2 соб. · будни</span></div><div class="af-list"><div class="af-event" data-d="2026-10-03" data-tm="840" data-type="concert"
  data-geo="ulsk" data-price="free" data-age=""
  data-sc="1.0" data-q="волга-спорт-арены закрытие мотосезона в ульяновске 🏍 сбор праздничной мотоколонны у «волга-спорт-арены», старт по городу — до со… памятник в. и. ленину на соборной площади соборная площадь ленинский район ульяновск ленинский район концерты и музыка t.me/pronovosty73">
 <button type="button" class="af-ics-one" onclick="_afIcsOne(this)">в календарь</button>
@@ -752,14 +752,18 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <button type="button" class="af-ics-link" onclick="window.print()" title="Печать листка выходных — A4">листок выходных</button>
 <span class="af-albl" style="margin-left:auto;">фильтры применяются в браузере; без JS видны все события по дням</span></div>
 
-<details class="af-rej"><summary>Не прошло порог (57) — почему отсеяно</summary>
+<details class="af-rej"><summary>Не прошло порог (62) — почему отсеяно</summary>
 <div class="af-rej-row"><span class="af-rej-date">23.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Нева</span>
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">23.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Семейная зарница</span>
-<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">23.09 <span class="af-time">10:09</span></span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">23.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Сергей Сандрюков</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">23.09 <span class="af-time">10:09</span></span>
 <span>⚠ Принято постановление Администрации города о начале отопительного периода 2026 - 2027 го</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">24.09 <span class="af-badge warn">время уточняется</span></span>
+<span>Всероссийском конкурсе «Лучший по профессии»</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">24.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Молодёжный географический форум БРИКС+</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">24.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Чемпионат мира среди ветеранов в Сараево</span>
@@ -771,13 +775,19 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span>Всероссийский единый день оказания бесплатной юридической помощи состоится в Ульяновской о</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">26.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Бесплатная выставка «Капитан Кусто в России»</span>
-<span class="af-rej-why">дайджест/норма: дата — не события · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">26.09 <span class="af-badge warn">время уточняется</span></span>
+<span class="af-rej-why">дайджест/норма: дата — не события · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">26.09 <span class="af-time">09:00</span></span>
+<span>В поликлиниках и ФАПах нашего региона организуют массовую проверку здоровья. В субботу</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">26.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Ульяновск, это будет громко</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">26.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Цены обещают на 15–20 процентов ниже магазинных. С</span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">26.09 <span class="af-time">09:00</span></span>
+<span>⚡️ 26 сентября с 9:00 во всех поликлиниках и ФАПах Ульяновской области пройдет Единый день</span>
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">27.09 <span class="af-time">16:30</span></span>
 <span>Вечер поэзии</span>
-<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">27.09 <span class="af-badge warn">время уточняется</span></span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">27.09 <span class="af-time">19:00</span></span>
+<span>Вечер с юмором в компании Антона Невского — мастера импровиза…</span>
+<span class="af-rej-why">промо канала · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">27.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Теплоком</span>
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">27.09 <span class="af-badge alt">весь день</span></span>
 <span>Ульяновск готов к отопительному сезону на 98,4 процента</span>
@@ -797,8 +807,6 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span>Отопление в Ульяновской области дадут уже</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
 <span>Отопление включат</span>
-<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
-<span>С 28 сентября в социальные учреждения Ульяновской области начнут подавать тепло С</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
 <span>С 28 сентября тепло начнут подавать в социальные учреждения Ульяновской области С</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">28.09 <span class="af-badge warn">время уточняется</span></span>
@@ -845,7 +853,9 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span>Соревнования организует яхт-клуб «Нейтрон»</span>
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">04.10 <span class="af-time">15:30</span></span>
 <span>Матч 21 тура, который изначально был запланиро…</span>
-<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">05.10 <span class="af-badge warn">время уточняется</span></span>
+<span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">05.10 <span class="af-time">12:00</span></span>
+<span>V Всероссийском форуме «ГосСтарт»</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">05.10 <span class="af-badge warn">время уточняется</span></span>
 <span>Конкурс отбор проекта поддержки местных инициатив на 2027 год</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">05.10 <span class="af-time">13:00</span></span>
 <span>Уютные ступени</span>
@@ -862,15 +872,15 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <span class="af-rej-why">нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">31.10 <span class="af-badge warn">время уточняется</span></span>
 <span>Ремонт метровой тепломагистрали у Пушкарёвского кольца продлён до</span>
 <span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">31.10 <span class="af-badge warn">время уточняется</span></span>
+<span>Т Плюс</span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">31.10 <span class="af-badge warn">время уточняется</span></span>
 <span>рекрутерские</span>
-<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">02.11 <span class="af-badge warn">время уточняется</span></span>
-<span>V Всероссийском форуме «ГосСтарт»</span>
-<span class="af-rej-why">тип: новость, не перечневое культурное событие</span></div><div class="af-rej-row"><span class="af-rej-date">07.11 <span class="af-badge warn">время уточняется</span></span>
+<span class="af-rej-why">тип: новость, не перечневое культурное событие · нет площадки</span></div><div class="af-rej-row"><span class="af-rej-date">07.11 <span class="af-badge warn">время уточняется</span></span>
 <span>Как будем отдыхать в 2027 году</span>
 <span class="af-rej-why">нет площадки</span></div>
 </details>
-<details class="af-rej"><summary>Площадки-кандидаты (13) — названы в текстах, но не опознаны</summary>
-<div class="af-rej-row"><span>ООО «Боулинг-центр» и ООО «Аэробоул»</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>площадке «РТС-тендер»</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>ФОКи и дома престарелых</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Центре культуры и досуга</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>клуба «5 океанов»</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Соревнования организует яхт-клуб «Нейтрон»</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Сеченовского Университета и более</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>00 в Историко-мемориальном центре-музее И</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>музея-усадьбы «Михайловское» Анастасия Дадыко</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Клубы согласовали перенос матча</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Домодедово на стадионе</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Плиозавр Лусхан и музейный марафон</span><span class="af-rej-why">встречается 1 раз(а)</span></div>
+<details class="af-rej"><summary>Площадки-кандидаты (15) — названы в текстах, но не опознаны</summary>
+<div class="af-rej-row"><span>ООО «Боулинг-центр» и ООО «Аэробоул»</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>площадке «РТС-тендер»</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>ФОКи и дома престарелых</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Центре культуры и досуга</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>клуба «5 океанов»</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Симбирцитовой залы</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Соревнования организует яхт-клуб «Нейтрон»</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Сеченовского Университета и более</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>00 в Историко-мемориальном центре-музее И</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>музея-усадьбы «Михайловское» Анастасия Дадыко</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Клубы согласовали перенос матча</span><span class="af-rej-why">встречается 1 раз(а)</span></div><div class="af-rej-row"><span>Домодедово на стадионе</span><span class="af-rej-why">встречается 1 раз(а)</span></div>
 <div class="note">Это названия и адреса, которые встретились в анонсах, но не совпали со справочником
 <code>data/venues.json</code>. Список — редактору на пополнение: запись с адресом и районом даёт событию
 площадку, а событию без площадки порог входа не пройти.</div>
@@ -885,15 +895,15 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="m">22.09 18:05 · 👁 414</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge">25.09</span> <a href="https://t.me/culturnik/9316" target="_blank" rel="noopener">Экскурсия «Дом-памятник. Венец архитектуры» 🗓️ 25 сентября, 15:00; 6 октября 10:00 📍 Ульяновский областной худ…</a></div>
 <div class="m">22.09 15:41 · 👁 428</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
 <a href="https://t.me/ulpromo" target="_blank" rel="noopener" style="color:#fff;">@ulpromo</a>
-<span class="sub">Движ в любимом У</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><span class="af-badge">24.09</span> <a href="https://t.me/ulpromo/18043" target="_blank" rel="noopener">« Покатушки» — музыкальный клуб и площадка, где слушают и обсуждают самые знаковые музыкальные альбомы всех вр…</a></div>
-<div class="m">23.09 07:55 · 👁 483</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge">26.09</span> <a href="https://t.me/ulpromo/18042" target="_blank" rel="noopener">🌵 26 СЕНТЯБРЯ — ЖАРКАЯ СОТКА В CABALLITOS! 🇲🇽 ¡VAMOS, AMIGOS! 🔥 В эту ночь мы поднимаем градус так, чтобы Мекс…</a></div>
-<div class="m">22.09 20:37 · 👁 830</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge warn">дата не распознана</span> <a href="https://t.me/ulpromo/18041" target="_blank" rel="noopener">🍂 Осенние вечера созданы для уюта, тёплых бесед и хорошего пива! В ресторане «Дубинин» отличные новости: кажды…</a></div>
-<div class="m">22.09 16:02 · 👁 803</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
+<span class="sub">Движ в любимом У</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><span class="af-badge">27.09</span> <a href="https://t.me/ulpromo/18045" target="_blank" rel="noopener">STAND-UP ШОУ 27 СЕНТЯБРЯ Приглашаем вас провести вечер с юмором в компании Антона Невского — мастера импровиза…</a></div>
+<div class="m">23.09 13:40 · 👁 305</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge">26.09</span> <a href="https://t.me/ulpromo/18044" target="_blank" rel="noopener">26 сентября, 15.30 | ÉLÉPHANT TERRIBLE. Разговорный английский клуб | МЦСИ Если вам не хватает практики языка,…</a></div>
+<div class="m">23.09 12:55 · 👁 402</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge">24.09</span> <a href="https://t.me/ulpromo/18043" target="_blank" rel="noopener">« Покатушки» — музыкальный клуб и площадка, где слушают и обсуждают самые знаковые музыкальные альбомы всех вр…</a></div>
+<div class="m">23.09 07:55 · 👁 483</div></div></div></div></div><div class="card" style="margin-bottom:12px;"><div class="side-head">🎟
 <a href="https://t.me/ProNovosty73" target="_blank" rel="noopener" style="color:#fff;">@ProNovosty73</a>
-<span class="sub">Что-то на ульяновском</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><span class="af-badge">27.09</span> <a href="https://t.me/ProNovosty73/5942" target="_blank" rel="noopener">Выставка «Русские народные картинки» 🎨 В главном здании музея — более 40 подлинных лубочных листов XIX века из…</a></div>
+<span class="sub">Что-то на ульяновском</span></div><div class="side-body"><div class="tgpost"><div><div class="t"><span class="af-badge">27.09</span> <a href="https://t.me/ProNovosty73/5943" target="_blank" rel="noopener">Выставка «Шесть историй о городе» В МЦСИ — итог III резиденции «Мельница х Сфера». Художники изучали культурны…</a></div>
+<div class="m">23.09 14:04 · 👁 42</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge">27.09</span> <a href="https://t.me/ProNovosty73/5942" target="_blank" rel="noopener">Выставка «Русские народные картинки» 🎨 В главном здании музея — более 40 подлинных лубочных листов XIX века из…</a></div>
 <div class="m">23.09 10:04 · 👁 65</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge warn">дата не распознана</span> <a href="https://t.me/ProNovosty73/5941" target="_blank" rel="noopener">Спектакль «Друг мой» театра «Вне стен» Творческая площадка из Саратова, работающая в несценических пространств…</a></div>
-<div class="m">22.09 17:00 · 👁 151</div></div></div><div class="tgpost"><div><div class="t"><span class="af-badge">03.10</span> <a href="https://t.me/ProNovosty73/5940" target="_blank" rel="noopener">Концерт Алексея Долматова 🎤 Guf продолжает тур по России и уже совсем скоро приедет в Ульяновск. В программе —…</a></div>
-<div class="m">22.09 14:03 · 👁 171</div></div></div></div></div></div>
+<div class="m">22.09 17:00 · 👁 151</div></div></div></div></div></div>
 <div class="note" style="margin-top:10px;">Посты каналов выводятся как есть; если дата не распознана — время и место сверяйте у организатора.</div>
 
 <div class="note" style="margin-top:16px;"><b>Методика порога входа</b> (analytics.py → extract_calendar_full, настройки — config.json → settings.afisha).
@@ -905,7 +915,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 с пометкой «площадка уточняется» и половиной кредита уверенности. Порог применяется к <b>кластеру</b> анонсов, а не к отдельной записи:
 у перепечатки может не быть времени или площадки, хотя у первоисточника они есть, — свидетельства сливаются, а в карточке появляется
 «также анонсировали: N изд.». Название события собирается описательным (тип + имя: «Концерт группы «Мураками»», «Матч «Волга» — «Спартак»»),
-а не голым именем из кавычек. Что не прошло — видно в блоке «Не прошло порог» с причиной. Культурных событий в выборке: 12.</div>
+а не голым именем из кавычек. Что не прошло — видно в блоке «Не прошло порог» с причиной. Культурных событий в выборке: 11.</div>
 
 </div>
 </main>

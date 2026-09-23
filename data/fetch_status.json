@@ -61,7 +61,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 9,
+  "items": 11,
   "error": null,
   "title": "Репортёр73"
  },
@@ -103,25 +103,25 @@
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 11,
+  "items": 12,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 9,
+  "items": 10,
   "error": null,
   "title": "Информационный Димитровград"
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 20,
+  "items": 17,
   "error": null,
   "title": "Топор Ульяновск"
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Короче, Ульяновск"
  },
@@ -133,13 +133,13 @@
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 14,
+  "items": 10,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
  "tg:chpul": {
   "ok": true,
-  "items": 13,
+  "items": 14,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
@@ -151,13 +151,13 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 17,
+  "items": 13,
   "error": null,
   "title": "73online"
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 8,
+  "items": 9,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-09-23T08:47:21.794079+00:00",
-  "last_run_local": "23.09.2026 12:47",
-  "fetched": 515,
-  "new": 314,
-  "total_store": 4422
+  "last_run_utc": "2026-09-23T11:06:59.907076+00:00",
+  "last_run_local": "23.09.2026 15:06",
+  "fetched": 511,
+  "new": 69,
+  "total_store": 4491
  },
  "rss:Улград": {
   "ok": true,
