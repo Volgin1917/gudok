@@ -501,6 +501,20 @@ def by_kind(kind):
     return [c for c in CAMPAIGNS if c["kind"] == kind]
 
 
+def by_id(cid):
+    """Кампания по id (или None). Для detail-страницы-образца."""
+    for c in CAMPAIGNS:
+        if c["id"] == cid:
+            return c
+    return None
+
+
+# Detail-страница-образец «глубокой карточки» кампании (проект «Выборы»).
+# В v0.1 — вёрстка шаблона на сверенных реестровых данных; цифры коллекции
+# (кандидаты, явка, итоги, протоколы) — демонстрационные до серверной фазы.
+DETAIL_ID = "e20260918"
+
+
 def by_level(level):
     """Кампании одного уровня ('federal' | 'region' | 'muni')."""
     return [c for c in CAMPAIGNS if c["level"] == level]

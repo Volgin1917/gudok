@@ -3911,6 +3911,45 @@ class TestElectionsRegistry(unittest.TestCase):
             if fname != "ROADMAP.md":
                 self.assertNotIn("Выборы-2026", src, fname)
 
+    def test_detail_page_selfcontained_and_full(self):
+        import generate
+        import elections as EL
+        html = generate.render_elections_detail(CFG, {}, [], {})
+        self.assertIn("<!DOCTYPE html>", html)
+        self.assertIn("masthead", html)
+        self.assertIn("footer__inner", html)
+        self.assertIn("elections.html", html, "нужна обратная ссылка в реестр")
+        self.assertNotIn("cdn.", html)
+        self.assertNotIn('<link rel="stylesheet"', html)
+        self.assertEqual(re.findall(r'src="(https?://[^"]+)"', html), [],
+                         "внешних ресурсов быть не должно")
+        # прототип обязан нести метку демо-данных и ссылки на архив
+        self.assertIn("edproto", html)
+        self.assertIn("демонстрационные", html)
+        self.assertIn(EL.by_id(EL.DETAIL_ID)["arch"], html)
+        # блоки методик М-37…М-41 со ссылкой на реестр методик
+        for m in ("#m37", "#m38", "#m39", "#m40", "#m41"):
+            self.assertIn(m, html, f"нет ссылки на {m}")
+        self.assertIn("избирателей в регионе", html)
+
+    def test_detail_linked_from_registry(self):
+        import generate
+        import elections as EL
+        html = generate.render_elections(CFG, {}, [], {})
+        self.assertIn(f'<div class="el-more"><a class="ego" href="elections_detail.html">',
+                      html, "из реестра должна вести ссылка на карточку-образец")
+
+    def test_detail_data_matches_campaign(self):
+        import generate
+        import elections as EL
+        c = EL.by_id(EL.DETAIL_ID)
+        self.assertIsNotNone(c, "DETAIL_ID обязан указывать на существующую кампанию")
+        self.assertEqual(EL.by_id("no_such"), None, "by_id неизвестного id → None")
+        html = generate.render_elections_detail(CFG, {}, [], {})
+        for field in ("title", "label", "desc", "id"):
+            self.assertIn(str(c[field]), html, f"карточка должна содержать поле {field}")
+        self.assertIn("gubernator", html, "карточка-образец — это губернаторский цикл")
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

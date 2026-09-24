@@ -2447,7 +2447,58 @@ ELECTIONS_CSS = """
 .efilter{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-size:12.3px;font-weight:700;color:var(--navy3);cursor:pointer;}
 .efilter.active,.efilter:hover{border-color:var(--accent);color:#fff;background:var(--accent);}
 .ever{color:var(--navy3);font-size:11.4px;background:#f2f6fb;border:1px solid var(--line);border-radius:999px;padding:2px 9px;}
+.el-more{margin-top:9px;}
+.ego{display:inline-block;font-size:11.4px;font-weight:800;color:var(--accent);text-decoration:none;border:1.5px solid var(--accent);border-radius:999px;padding:5px 13px;}
+.ego:hover{background:var(--accent);color:#fff;}
 .elect-note{background:#fff8e8;border:1px solid #eed9a0;border-radius:var(--radius);padding:16px 20px;font-size:13.2px;color:#4d3d12;line-height:1.6;margin:16px 0;}
+@media print{.nav,.print-btn{display:none!important;}body{background:#fff;}}
+"""
+
+
+ELDETAIL_CSS = """
+.edproto{background:#fff0e6;border:1.5px solid #e5b48f;border-left:5px solid var(--accent);border-radius:var(--radius);
+padding:14px 18px;margin:14px 0 4px;font-size:12.8px;line-height:1.6;color:#5a3a1a;}
+.edproto b{color:#a03d12;}
+.edcrumbs{font-size:12.4px;margin:12px 0 2px;}
+.edcrumbs a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent);}
+.edcrumbs a:hover{border-bottom-style:solid;}
+.ed-title{font-family:var(--serif-display);font-size:27px;font-weight:600;color:var(--navy);line-height:1.15;margin:6px 0 2px;}
+.ed-sub{font-size:12.6px;color:var(--muted);line-height:1.5;margin:4px 0 0;max-width:880px;}
+.ed-tp{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0 2px;}
+.ed-arch{margin:8px 0 0;font-size:12.8px;}
+.ed-arch a{color:var(--accent);font-weight:700;}
+.edkpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:16px 0 6px;}
+.edkp{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:10px 12px;}
+.edkp .num{font-family:var(--serif-display);font-size:19px;font-weight:600;color:var(--navy);}
+.edkp .num em{font-family:var(--sans);font-style:normal;font-size:9.5px;color:var(--accent);font-weight:800;vertical-align:6px;letter-spacing:.05em;}
+.edkp .lbl{font-size:10.4px;color:var(--muted);font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-top:3px;line-height:1.4;}
+.edsec{margin:22px 0 0;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow);padding:16px 18px;}
+.edsec-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:12px;}
+.ednum{font-family:var(--sans);font-size:11px;font-weight:800;color:#fff;background:var(--accent);border-radius:6px;padding:2px 8px;white-space:nowrap;}
+.edsec h3{font-size:16px;color:var(--navy);margin:0;}
+.edsec .edm{font-size:11.4px;color:var(--muted);}
+.edm a,.edsec .edm a{color:var(--accent);}
+.eddemo{display:inline-block;font-family:var(--sans);font-size:9.4px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#a03d12;border:1px solid #e5b48f;border-radius:4px;padding:1px 6px;vertical-align:2px;}
+.edbars{display:flex;gap:26px;align-items:flex-end;flex-wrap:wrap;margin:12px 0 6px;}
+.edbar{text-align:center;min-width:86px;}
+.edbar .bv{font-size:12.6px;font-weight:800;color:var(--navy);}
+.edbar .bv em{font-style:normal;font-size:9px;color:var(--accent);}
+.edbar .bl{width:54px;height:0;background:linear-gradient(180deg,#a93a3f,#cf7a7e);border-radius:5px 5px 0 0;margin:6px auto 0;color:#fff;font-size:11.6px;font-weight:800;display:flex;align-items:flex-end;justify-content:center;padding:4px 0 3px;min-height:20px;}
+.edbar .bd{font-size:10.8px;color:var(--muted);font-weight:700;margin-top:6px;}
+.edtable{width:100%;border-collapse:collapse;font-size:12.3px;margin-top:8px;}
+.edtable th{font-family:var(--sans);font-size:10.2px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);text-align:left;border-bottom:2px solid var(--ink);padding:6px 8px;}
+.edtable td{border-bottom:1px solid var(--line);padding:6px 8px;vertical-align:middle;}
+.edtable tr:last-child td{border-bottom:none;}
+.edtable .n{color:var(--navy3);font-family:var(--sans);font-size:11.4px;}
+.edtrack{height:7px;border-radius:5px;background:var(--line);overflow:hidden;display:inline-block;vertical-align:middle;}
+.edtrack i{display:block;height:100%;border-radius:5px;background:var(--accent);}
+.edok,.edwait{display:inline-block;font-size:10.8px;font-weight:800;border-radius:999px;padding:2px 9px;white-space:nowrap;}
+.edok{color:#155c33;background:#dff2e4;border:1px solid #b7ddc2;}
+.edwait{color:#7a5620;background:#fbefd4;border:1px solid #e8d5a4;}
+.ednote{font-size:11.8px;color:var(--muted);line-height:1.55;margin-top:10px;}
+.edcard-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+.edcard{border:1px dashed #cdd8e6;border-radius:var(--radius);background:#f7fafd;padding:10px 13px;font-size:12.2px;line-height:1.5;color:var(--navy3);}
+.edcard b{color:var(--navy);}
 @media print{.nav,.print-btn{display:none!important;}body{background:#fff;}}
 """
 
@@ -2469,13 +2520,16 @@ def render_elections(cfg, trends, store, status):
                 f'<span class="echip" style="background:#677;opacity:.75;">{esc(kinds[c["kind"]])}</span>{extra}')
 
     def card(c):
+        detail = (f'<div class="el-more"><a class="ego" href="elections_detail.html">'
+                  f'карточка-образец кампании →</a></div>'
+                  if c["id"] == _elections.DETAIL_ID else "")
         return f"""<div class="elec-card" data-level="{c['level']}" data-kind="{c['kind']}">
 <div class="el-date"><span class="echip e-{c['level']}">{esc(c['label'])}</span></div>
 <h3>{esc(c['title'])}</h3>
 <div class="el-desc">{esc(c['desc'])}</div>
 <div class="el-meta"><span>{chip(c)}</span>
 <a href="{_elections.ARCHIVE_ROOT + c['arch']}" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
-<span class="ever">{esc(c['verify'])}</span></div></div>"""
+<span class="ever">{esc(c['verify'])}</span></div>{detail}</div>"""
 
     def block(level, desc):
         items = _elections.by_level(level)
@@ -2583,6 +2637,186 @@ function elecSet(btn,g,v){{var r=btn.closest('.elist-wrap');r.setAttribute('data
 elecFilter(document.querySelector('.elist-wrap'));
 </script>
 </body></html>"""
+
+
+def render_elections_detail(cfg, trends, store, status):
+    """Проект «Выборы»: карточка-образец глубокой детализации одной кампании.
+
+    Шаблон серверной фазы на сверенных реестровых данных (elections.py).
+    Все цифры коллекции (явка, итоги, кандидаты) — демонстрационные заглушки
+    с меткой, пока коллектор протоколов не собран: они НЕ выдают себя за
+    настоящие результаты (как прототип «Досье»: флаг DEMO, метка на странице).
+    """
+    camp = _elections.by_id(_elections.DETAIL_ID)
+    if not camp:
+        return ""
+    now = datetime.now(UTC4)
+    prefix = "../"
+    nav_html = render_nav(cfg, "projects", prefix, subnav=subnav_projects(prefix, "elections"))
+    kinds = dict(_elections.KINDS)
+
+    topic = (trends or {}).get("topics", {}).get("elections", {})
+    spark = sparkline(topic.get("series", []), w=260, h=44, color="#b02a2f")
+    feed = [it for it in store if not it.get("dup_of") and "elections" in (it.get("topics") or [])]
+    feed.sort(key=lambda x: (x.get("views") or 0, x.get("published") or ""), reverse=True)
+    feed_html = "".join(
+        f"""<div class="news-item">
+<h4><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it['title'],140))}</a></h4>
+{dek_p(it, 300)}
+<div class="meta">{(local_dt(it.get('published')) or now).strftime('%d.%m %H:%M')} · {esc(it.get('source',''))}{(' · 👁 ' + fmt_views(it['views'])) if it.get('views') else ''}</div></div>"""
+        for it in feed[:8]) or '<div class="news-item"><p>Материалов пока нет — запустите сбор.</p></div>'
+
+    cmp_lbl = esc(camp["label"])
+    cmp_arch = _elections.ARCHIVE_ROOT + camp["arch"]
+    dem = '<span class="eddemo">демо</span>'
+    dash = '— <em class="eddemo">демо</em>'
+
+    kpi = """<div class="edkpis">
+<div class="edkp"><div class="num">%s</div><div class="lbl">кандидатов в кампании</div></div>
+<div class="edkp"><div class="num">%s</div><div class="lbl">избирателей в регионе</div></div>
+<div class="edkp"><div class="num">%s</div><div class="lbl">УИК / ТИК в работе</div></div>
+<div class="edkp"><div class="num">%s</div><div class="lbl">явка к закрытию участков</div></div>
+<div class="edkp"><div class="num">%s</div><div class="lbl">мандатов в розыгрыше</div></div>
+</div>""" % ((dash,) * 5)
+
+    georows = "".join(
+        f"""<tr><td>{esc(name)}</td><td class="n">—</td>
+<td><span class="edtrack" style="width:150px;"><i style="width:{w}%"></i></span>&nbsp;<b>{per}%</b>&nbsp;{dem}</td>
+<td class="n">{diff}</td></tr>"""
+        for name, per, w, diff in (
+            ("г. Ульяновск (Ленинский р-н)", "58,4", 66, "выше среднего"),
+            ("г. Ульяновск (Заволжский р-н)", "55,2", 62, "выше среднего"),
+            ("г. Димитровград", "51,0", 56, "около среднего"),
+            ("Вешкаймский р-н", "49,7", 54, "около среднего"),
+            ("Барышский р-н", "47,3", 50, "ниже среднего"),
+            ("Инзенский р-н", "46,8", 49, "ниже среднего"),
+            ("Карсунский р-н", "45,1", 46, "ниже среднего"),
+            ("Новоульяновск", "43,9", 44, "ниже среднего")))
+
+    mandrows = "".join(
+        f"""<tr><td>{t}</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>"""
+        for t in ("Список №1", "Список №2", "Список №3", "Список №4", "Кандидат по округу (самовыдвижение)"))
+
+    checks = [
+        ("Протоколы всех УИК получены и расшифрованы", "wait"),
+        ("Суммы протоколов сходятся с данными ГАС «Выборы»", "wait"),
+        ("Явка по участкам проверена на аномальные выбросы", "wait"),
+        ("Документы кампании выверены по архивным спискам ИКУО", "ok"),
+        ("Даты, уровень и состав кампании сверены с архивом ИКУО", "ok"),
+    ]
+    checkrows = "".join(
+        f"""<tr><td>{esc(t)}</td><td>{'<span class="edok">сверено</span>' if st == 'ok' else '<span class="edwait">ожидает серверной фазы</span>'}</td></tr>"""
+        for t, st in checks)
+
+    cycprow = ""
+    for c in sorted(_elections.by_kind("gubernator"), key=lambda x: x["date"]):
+        cur = " · <b>эта кампания</b>" if c["id"] == camp["id"] else ""
+        cycprow += (f"""<tr><td><b>{esc(c['date'][:4])}</b></td><td>{esc(c['title'])} · {esc(c['label'])}{cur}</td>
+<td class="n"><a href="{_elections.ARCHIVE_ROOT + c['arch']}" target="_blank" rel="noopener">архив ↗</a> · {esc(c['id'])}</td></tr>""")
+
+    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Выборы · карточка-образец: {esc(camp['title'])} — {cfg['brand']}</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png"><style>{CSS}{ELECTIONS_CSS}{ELDETAIL_CSS}
+</style></head><body>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Проекты издания<br>«Выборы» · карточка-образец
+<div class="mast-actions">{THEME_BTN}<button class="print-btn" onclick="window.print()">🖈 PDF</button></div></div>
+</div></header>
+{nav_html}
+<div class="page">
+
+<div class="edcrumbs"><a href="elections.html">← реестр кампаний</a></div>
+
+<div class="edproto"><b>Прототип «глубокой карточки» кампании.</b> Это пример вёрстки, которую
+заполнит будущая серверная фаза проекта «Выборы». Даты, уровень, тип и состав кампании сверены
+с архивом ИКУО ({esc(camp['verify'])}); все цифры коллекции — демонстрационные, это <b>НЕ итоги
+выборов</b>. Настоящие данные соберёт коллектор протоколов после переезда на сервер и сверит по
+документам (методики <a href="../methods.html#m40">М-40</a>, <a href="../methods.html#m15">М-15</a>).</div>
+
+<div class="ed-tp"><span class="echip e-{camp['level']}">{cmp_lbl}</span>
+<span class="echip" style="background:#677;opacity:.75;">{esc(kinds[camp['kind']])}</span>
+<span class="estatus">{esc(camp['status'])}</span>
+<span class="ever">{esc(camp['verify'])}</span></div>
+<h1 class="ed-title">{esc(camp['title'])}</h1>
+<p class="ed-sub">{esc(camp['desc'])}</p>
+<div class="ed-arch">Документы кампании — <a href="{cmp_arch}" target="_blank" rel="noopener">раздел архива
+ИКУО ↗</a> ({esc(camp['id'])})</div>
+
+{kpi}
+
+<div class="edsec">
+<div class="edsec-head"><span class="ednum">М-37</span><h3>Явка и мобилизация</h3>
+<span class="edm">паспорт: <a href="../methods.html#m37">реестр методик</a></span></div>
+<div class="edbars">
+<div class="edbar"><div class="bv">27,4% {dem}</div><div class="bl" style="height:58px;">день 1</div><div class="bd">18.09</div></div>
+<div class="edbar"><div class="bv">54,1% {dem}</div><div class="bl" style="height:104px;">день 2</div><div class="bd">19.09</div></div>
+<div class="edbar"><div class="bv">61,8% {dem}</div><div class="bl" style="height:118px;">день 3</div><div class="bd">20.09</div></div>
+</div>
+<p class="ednote">{dem} Цифры демонстрационные и не являются результатами голосования. Серверная фаза
+соберёт часовые точки явки из протоколов УИК и разметит мобилизационные всплески по дням и
+территориям.</p>
+</div>
+
+<div class="edsec">
+<div class="edsec-head"><span class="ednum">М-38</span><h3>Электоральная география</h3>
+<span class="edm">паспорт: <a href="../methods.html#m38">реестр методик</a></span></div>
+<table class="edtable"><thead><tr><th>Территория</th><th>Избирателей</th><th>Явка</th><th>К среднему по региону</th></tr></thead>
+<tbody>{georows}</tbody></table>
+<p class="ednote">{dem} Территории — реальные муниципалитеты области; явка демонстрационная. После
+серверной фазы карта МО по явке считается по протоколам и показывается с разницей к среднему.</p>
+</div>
+
+<div class="edsec">
+<div class="edsec-head"><span class="ednum">М-39</span><h3>Распределение мандатов</h3>
+<span class="edm">паспорт: <a href="../methods.html#m39">реестр методик</a></span></div>
+<table class="edtable"><thead><tr><th>Список / кандидат</th><th>Голоса</th><th>Доля</th><th>Мандаты</th></tr></thead>
+<tbody>{mandrows}</tbody></table>
+<p class="ednote">{dem} Расчёт по методу D'Hondt по конкурентным спискам. Намеренно без названий и имён:
+каркас покажет реальные составы только после верификации (М-15).</p>
+</div>
+
+<div class="edsec">
+<div class="edsec-head"><span class="ednum">М-40</span><h3>Аномалии и сверка протоколов</h3>
+<span class="edm">паспорт: <a href="../methods.html#m40">реестр методик</a></span></div>
+<table class="edtable"><thead><tr><th>Проверка</th><th>Статус</th></tr></thead><tbody>{checkrows}</tbody></table>
+</div>
+
+<div class="edsec">
+<div class="edsec-head"><span class="ednum">М-41</span><h3>Сравнение избирательных циклов</h3>
+<span class="edm">паспорт: <a href="../methods.html#m41">реестр методик</a></span></div>
+<table class="edtable"><thead><tr><th>Год</th><th>Кампания</th><th>Реестр</th></tr></thead><tbody>{cycprow}</tbody></table>
+<p class="ednote">Губернаторские циклы из реестра ({esc(_elections.CHECK_DATE)}). Сравнение явки, состава
+и географии между циклами — М-41.</p>
+</div>
+
+<div class="edsec">
+<div class="edsec-head"><h3>Повестка в базе центра</h3><span class="edm">реальные данные мониторинга</span></div>
+<div class="edcard-grid">
+<div class="edcard"><b>Тема «Выборы»:</b> {topic.get('week', 0)} упоминаний за 7 дней,
+{topic.get('today', 0)} за сегодня.{spark}</div>
+<div class="edcard"><b>Лента из базы (не демо):</b> последние материалы по теме «Выборы».</div>
+</div>
+<div style="max-height:360px;overflow:auto;margin-top:12px;">{feed_html}</div>
+</div>
+
+<div class="edsec">
+<div class="edsec-head"><span class="ednum">техконтур</span><h3>Об устройстве и границах карточки</h3></div>
+<p class="ednote" style="margin-top:0;">Карточка — <b>шаблон серверной фазы</b>. Сейчас заполнены только
+сверенные реестровые поля (даты, уровень, тип, состав, ссылка на архив). Коллектор после переезда с
+GitHub Pages будет обходить архив ИКУО (списки, протоколы ТИК/УИК) и ГАС «Выборы» с паузами
+({esc(str(cfg.get('settings', {}).get('http_delay_sec', 1.2)))} с), цифры каждой карточки проходят сверку по
+протоколам перед публикацией. Ключевые методики обработки — М-37…М-41.</p>
+</div>
+
+</div>
+{footer.render_footer('../')}
+{FEED_JS}
+</body></html>"""
+
+
 # ------------------------------------------------------------------ projects
 def render_projects(cfg, trends, store, status):
     """Хаб рубрики «Проекты»: спецстраницы-досье издания."""
@@ -7446,11 +7680,15 @@ def main():
     el_html2 = themed(render_elections(cfg, trends, store, status))
     with open(os.path.join(proj_dir, "elections.html"), "w", encoding="utf-8") as f:
         f.write(el_html2)
+    eld_html = themed(render_elections_detail(cfg, trends, store, status))
+    if eld_html:
+        with open(os.path.join(proj_dir, "elections_detail.html"), "w", encoding="utf-8") as f:
+            f.write(eld_html)
     gz_html = themed(render_goszakupki(cfg, trends, store, status,
                                        load_json(os.path.join(DATA, "analytics.json")) or {}))
     with open(os.path.join(proj_dir, "goszakupki.html"), "w", encoding="utf-8") as f:
         f.write(gz_html)
-    print("[generate] проекты: projects.html, projects/elections.html, projects/goszakupki.html")
+    print("[generate] проекты: projects.html, projects/elections.html, projects/elections_detail.html, projects/goszakupki.html")
 
     plans_html = themed(render_plans(cfg, trends, store, status,
                                      load_json(os.path.join(DATA, "analytics.json")) or {}))
