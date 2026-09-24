@@ -13,10 +13,6 @@ python3 dedup.py --quiet
 python3 trends.py
 python3 backup.py --quiet
 python3 status.py >/dev/null
-# спецвыпуск «Выборы-2026» обновляется ежедневно, пока существует
-if [ -f special/elections_2026.html ] || [ "$(date +%Y%m%d)" -le 20260921 ]; then
-  python3 generate.py --elections >/dev/null 2>&1 || true
-fi
 if [ -n "$DATE" ]; then
   python3 generate.py --exec --date "$DATE"
 else

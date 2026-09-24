@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Спецвыпуск «Выборы-2026» · Ульяновская область — листок Гудок</title>
+<title>Проект «Выборы» · реестр кампаний Ульяновской области — листок Гудок</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png"><style>
 :root{
   --paper:#FAF7F2; --paper-2:#F3EFE7; --ink:#0B0B0B; --ink-2:#2A2620; --muted:#6B655C;
@@ -528,97 +528,295 @@ body[data-theme="dark"] .alertstrip{background:#7d171d;}
 @media (max-width:1100px){.footer__inner{grid-template-columns:1fr 1fr;gap:26px;}}
 @media (max-width:720px){.footer__inner{grid-template-columns:1fr;gap:22px;}.footer__bottom{flex-direction:column;}}
 
-.pill{font-size:10.5px;font-weight:800;color:#fff;border-radius:999px;padding:3px 10px;white-space:nowrap;display:inline-block;}
-.p-kprf{background:#d52b1e;} .p-er{background:#2d6fd6;} .p-sr{background:#e2622a;}
-.p-ldpr{background:#1f3a93;} .p-nl{background:#00b3a4;} .p-kpk{background:#8e1b1b;}
-.p-zel{background:#3aa655;} .p-rod{background:#b03050;} .p-pens{background:#7b5aa6;}
-.cand-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);padding:15px 17px;border-top:4px solid var(--blue);}
-.cand-card h3{font-size:16px;color:var(--navy);margin-bottom:4px;}
-.cand-card .bio{font-size:12.6px;color:var(--muted);line-height:1.5;margin:7px 0;}
-.cand-card .fact{font-size:12.3px;background:#f7fafd;border-left:3px solid var(--gold);padding:7px 11px;border-radius:0 8px 8px 0;color:var(--navy3);}
-.countdown{background:linear-gradient(135deg,#b02a2f,#e5484d);border-radius:var(--radius);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;box-shadow:var(--shadow);}
-.countdown .big{font-size:40px;font-weight:800;line-height:1;}
-.countdown .txt b{font-size:16px;display:block;}
-.countdown .txt span{font-size:12.5px;opacity:.9;}
-.dist-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden;}
-.dist-head{background:var(--navy);color:#fff;padding:11px 16px;font-size:14px;font-weight:800;display:flex;gap:10px;align-items:center;}
-.dist-head .n{background:var(--gold);color:#3d2e04;border-radius:7px;padding:2px 10px;font-size:12.5px;}
-.dist-body{padding:12px 16px;display:flex;flex-wrap:wrap;gap:7px;}
-.person{border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-size:12.3px;display:flex;align-items:center;gap:7px;background:#fbfdff;}
-.reserved{background:repeating-linear-gradient(45deg,#f7fafd,#f7fafd 12px,#eef2f7 12px,#eef2f7 24px);border:2px dashed #b9c9da;border-radius:var(--radius);padding:20px 22px;text-align:center;color:var(--muted);}
-.reserved b{color:var(--navy);display:block;font-size:15px;margin-bottom:6px;}
-.watch li{font-size:13px;margin-bottom:8px;line-height:1.5;}
-
+.elec-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);padding:14px 17px;border-top:4px solid var(--accent);}
+.elec-card h3{font-size:15.5px;color:var(--navy);margin:0 0 3px;}
+.elec-card .el-date{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:6px;}
+.elec-card .el-desc{font-size:12.8px;color:var(--muted);line-height:1.55;margin:6px 0 9px;}
+.elec-card .el-meta{font-size:11.8px;color:var(--navy3);display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.echip{font-size:10.3px;font-weight:800;color:#fff;border-radius:999px;padding:2px 9px;white-space:nowrap;}
+.e-federal{background:#2d6fd6;} .e-region{background:#7b5aa6;} .e-muni{background:#3aa655;}
+.e-extra{background:#e2622a;}
+.estatus{font-weight:700;color:var(--muted);}
+.elist{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;margin:8px 0 4px;}
+.elist-wrap .sec-desc{font-size:12.6px;color:var(--muted);line-height:1.5;margin:2px 0 8px;}
+.elvl-head{font-size:17px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:10px;margin:20px 0 4px;}
+.elvl-head .n{background:var(--gold);color:#3d2e04;border-radius:7px;padding:1px 9px;font-size:12px;}
+.efilters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 2px;}
+.efilter{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-size:12.3px;font-weight:700;color:var(--navy3);cursor:pointer;}
+.efilter.active,.efilter:hover{border-color:var(--accent);color:#fff;background:var(--accent);}
+.ever{color:var(--navy3);font-size:11.4px;background:#f2f6fb;border:1px solid var(--line);border-radius:999px;padding:2px 9px;}
+.elect-note{background:#fff8e8;border:1px solid #eed9a0;border-radius:var(--radius);padding:16px 20px;font-size:13.2px;color:#4d3d12;line-height:1.6;margin:16px 0;}
 @media print{.nav,.print-btn{display:none!important;}body{background:#fff;}}
+
 </style><script>
 (function(){try{var t=localStorage.getItem("gudok-theme");
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>четверг, 24 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 12:57</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>четверг, 24 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 16:08</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
-<div class="mast-side mast-side--right">Спецвыпуск «Выборы-2026»<br>голосование 18–20 сентября
+<div class="mast-side mast-side--right">Проекты издания<br>«Выборы» · реестр кампаний
 <div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button><button class="print-btn" onclick="window.print()">🖈 PDF</button></div></div>
 </div></header>
-<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="" href="../weekly.html">Неделя</a><a class="" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="active" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-23.html">Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">Проекты:</span><a href="../infospace.html">Инфопространство</a><span class="cur">Выборы-2026</span><a href="../projects/goszakupki.html">Госзакупки</a><a href="../projects/gorodskoy_sovet.html">Городской совет</a><a href="../methods.html">Методы</a><a href="../projects/plans.html">Планы</a><a href="../projects/dossier.html">Досье</a><a href="../projects/pressa.html">Архив прессы</a></div></div><main id="main">
+<nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="../index.html">Первая полоса</a><a class="" href="../digests/today.html">Сегодня</a><a class="" href="../weekly.html">Неделя</a><a class="" href="../monthly.html">Месяц</a><a class="" href="../afisha.html">Афиша</a><a class="active" href="../projects.html">Проекты</a><a class="" href="../archive.html">Архив</a><a class="" href="../digests/exec_2026-09-23.html">Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">Проекты:</span><a href="../infospace.html">Инфопространство</a><span class="cur">Выборы</span><a href="../projects/goszakupki.html">Госзакупки</a><a href="../projects/gorodskoy_sovet.html">Городской совет</a><a href="../methods.html">Методы</a><a href="../projects/plans.html">Планы</a><a href="../projects/dossier.html">Досье</a><a href="../projects/pressa.html">Архив прессы</a></div></div><main id="main">
 <div class="page">
 
-<div class="countdown" style="margin-bottom:18px;">
-<div class="big">🗳</div>
-<div class="txt"><b>голосование идёт / завершилось</b>
-<span>18, 19 и 20 сентября 2026 · трёхдневное голосование · участки 8:00–20:00 · ДЭГ в области не проводится</span></div>
+<div class="sec-head" style="margin-top:6px;"><h2>Избирательный цикл региона</h2><div class="line"></div>
+<div class="badge">реестр кампаний · 34 записей</div></div>
+<p style="font-size:13.4px;line-height:1.65;color:var(--txt);margin:10px 0 14px;">
+<b style="color:var(--navy);">www.ulyanovsk.izbirkom.ru/arkhiv-vyborov-i-referendumov/</b> — архив выборов и референдумов Избирательной комиссии Ульяновской области.<br>
+Реестр ведётся с 2009 года: федеральные, региональные и муниципальные кампании, включая довыборы и общероссийское голосование по поправкам к Конституции (2020). Каждая карточка ведёт в раздел архива ИКУО с материалами кампании.</p>
+
+<div class="kpi-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:8px;">
+<div class="kpi"><div class="num">34</div><div class="lbl">кампаний в реестре</div></div>
+<div class="kpi gold"><div class="num">2009–2026</div><div class="lbl">годы охвата</div></div>
+<div class="kpi violet"><div class="num">8</div><div class="lbl">федеральных</div></div>
+<div class="kpi green"><div class="num">13</div><div class="lbl">региональных</div></div>
+<div class="kpi red"><div class="num">13</div><div class="lbl">муниципальных</div></div>
 </div>
 
-<div class="kpi-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:22px;">
-<div class="kpi"><div class="num">925 350</div><div class="lbl">избирателей в регионе</div></div>
-<div class="kpi gold"><div class="num">52,6%</div><div class="lbl">избирателей — в Ульяновске</div></div>
-<div class="kpi violet"><div class="num">4</div><div class="lbl">кандидата на пост губернатора</div></div>
-<div class="kpi green"><div class="num">17</div><div class="lbl">кандидатов в Госдуму по двум округам</div></div>
-<div class="kpi red"><div class="num">3</div><div class="lbl">кампании одновременно (губернатор, ГД, ЗСО)</div></div>
+<div class="elect-note"><b>Серверная фаза.</b> Сейчас проект — реестр-указатель: даты, составы кампаний и ссылки на архив, без цифр голосования. Глубокая коллекция (кандидаты, явка, результаты, протоколы УИК) заработает после переезда на полноценный сервер: коллектор будет опрашивать архив ИКУО и ГАС «Выборы» с паузами, чтобы не нагружать источник. Методы анализа этого раздела — «Выборы и избирательный цикл» (<a href="../methods.html">М-37…М-41 в реестре методик</a>).</div>
+
+<div class="elist-wrap" data-lv="all" data-kd="all">
+<div class="efilters">
+<span style="font-size:12.3px;font-weight:800;color:var(--navy);padding-top:7px;">Фильтр:</span>
+<button class="efilter active" data-group="lv" data-v="all" onclick="elecSet(this,'lv','all')">все уровни</button>
+<button class="efilter" data-group="lv" data-v="federal" onclick="elecSet(this,'lv','federal')">федеральные</button>
+<button class="efilter" data-group="lv" data-v="region" onclick="elecSet(this,'lv','region')">региональные</button>
+<button class="efilter" data-group="lv" data-v="muni" onclick="elecSet(this,'lv','muni')">муниципальные</button>
+<span style="width:1px;background:var(--line);margin:0 4px;"></span>
+<button class="efilter active" data-group="kd" data-v="all" onclick="elecSet(this,'kd','all')">все типы</button>
+<button class="efilter" data-group="kd" data-v="president" onclick="elecSet(this,'kd','president')">президент</button>
+<button class="efilter" data-group="kd" data-v="gd" onclick="elecSet(this,'kd','gd')">Госдума</button>
+<button class="efilter" data-group="kd" data-v="gubernator" onclick="elecSet(this,'kd','gubernator')">губернатор</button>
+<button class="efilter" data-group="kd" data-v="zso" onclick="elecSet(this,'kd','zso')">ЗакСобрание</button>
+<button class="efilter" data-group="kd" data-v="muni" onclick="elecSet(this,'kd','muni')">муниципальные</button>
+<button class="efilter" data-group="kd" data-v="ref" onclick="elecSet(this,'kd','ref')">референдум</button>
+</div>
+<div class="elvl-head"><span class="n">8</span> Федеральные</div>
+<div class="sec-desc">Президент РФ, Государственная Дума, общероссийское голосование — кампании федерального уровня, проходившие в регионе.</div>
+<div class="elist"><div class="elec-card" data-level="federal" data-kind="gd">
+<div class="el-date"><span class="echip e-federal">6–8 сентября 2024</span></div>
+<h3>Дополнительные выборы депутатов Государственной Думы</h3>
+<div class="el-desc">Довыборы по одномандатному избирательному округу на территории области.</div>
+<div class="el-meta"><span><span class="echip e-federal">Федеральные</span><span class="echip" style="background:#677;opacity:.75;">Государственная Дума</span><span class="echip e-extra">довыборы</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/08-09-2024-dopolnitelnye-vybory-gd/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="federal" data-kind="president">
+<div class="el-date"><span class="echip e-federal">15–17 марта 2024</span></div>
+<h3>Выборы Президента Российской Федерации</h3>
+<div class="el-desc">Трёхдневное голосование на участках региона.</div>
+<div class="el-meta"><span><span class="echip e-federal">Федеральные</span><span class="echip" style="background:#677;opacity:.75;">президент РФ</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/17-03-2024-vybory-prezidenta-rf/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="federal" data-kind="gd">
+<div class="el-date"><span class="echip e-federal">17–19 сентября 2021</span></div>
+<h3>Единый день голосования 19 сентября 2021 года</h3>
+<div class="el-desc">Выборы депутатов Государственной Думы VIII созыва, Губернатора Ульяновской области, ЗСО и муниципальные кампании.</div>
+<div class="el-meta"><span><span class="echip e-federal">Федеральные</span><span class="echip" style="background:#677;opacity:.75;">Государственная Дума</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/19-09-2021-edinyy-den-golosovaniya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="federal" data-kind="ref">
+<div class="el-date"><span class="echip e-federal">25 июня – 1 июля 2020</span></div>
+<h3>Общероссийское голосование по поправкам к Конституции Российской Федерации</h3>
+<div class="el-desc">Голосование в регионе 25.06–01.07.2020, раздел архива датирован 22.04.2020.</div>
+<div class="el-meta"><span><span class="echip e-federal">Федеральные</span><span class="echip" style="background:#677;opacity:.75;">референдум / общероссийское голосование</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/22-04-2020-konstitutsiya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="federal" data-kind="president">
+<div class="el-date"><span class="echip e-federal">18 марта 2018</span></div>
+<h3>Выборы Президента Российской Федерации</h3>
+<div class="el-desc">Федеральная кампания, голосование на участках региона.</div>
+<div class="el-meta"><span><span class="echip e-federal">Федеральные</span><span class="echip" style="background:#677;opacity:.75;">президент РФ</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/18-03-2018-vybory-prezidenta-rossiyskoy-federatsii/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="federal" data-kind="gd">
+<div class="el-date"><span class="echip e-federal">18 сентября 2016</span></div>
+<h3>Единый день голосования 18 сентября 2016 года</h3>
+<div class="el-desc">Выборы депутатов Государственной Думы VII созыва, ЗСО и муниципальные кампании.</div>
+<div class="el-meta"><span><span class="echip e-federal">Федеральные</span><span class="echip" style="background:#677;opacity:.75;">Государственная Дума</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/18-09-2016-edinyy-den-golosovaniya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="federal" data-kind="president">
+<div class="el-date"><span class="echip e-federal">4 марта 2012</span></div>
+<h3>Выборы Президента Российской Федерации</h3>
+<div class="el-desc">Федеральная кампания, голосование на участках региона.</div>
+<div class="el-meta"><span><span class="echip e-federal">Федеральные</span><span class="echip" style="background:#677;opacity:.75;">президент РФ</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/04-03-2012-v-bory-prezidenta-rossiyskoy-federatsi/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="federal" data-kind="gd">
+<div class="el-date"><span class="echip e-federal">4 декабря 2011</span></div>
+<h3>Выборы депутатов Государственной Думы VI созыва</h3>
+<div class="el-desc">Выборы по федеральному округу и одномандатным округам региона.</div>
+<div class="el-meta"><span><span class="echip e-federal">Федеральные</span><span class="echip" style="background:#677;opacity:.75;">Государственная Дума</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/04-12-2011-vybory-deputatov-gosudarstvennoy-dumy-federalnogo-sobraniya-rossiyskoy-federatsii-shestog/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div></div><div class="elvl-head"><span class="n">13</span> Региональные</div>
+<div class="sec-desc">Губернатор области, депутаты Законодательного Собрания, включая довыборы по округам.</div>
+<div class="elist"><div class="elec-card" data-level="region" data-kind="gubernator">
+<div class="el-date"><span class="echip e-region">18–20 сентября 2026</span></div>
+<h3>Единый день голосования 20 сентября 2026 года</h3>
+<div class="el-desc">Выборы Губернатора Ульяновской области, депутатов Государственной Думы по округам № 185 и 186, кандидата в депутаты ЗСО по двухмандатному Вешкаймскому округу № 2, муниципальные кампании.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">губернатор</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/arkhiv-vyborov-i-referendumov/20-09-2026-vybory-gubernatora-i-gd/" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="zso">
+<div class="el-date"><span class="echip e-region">8–10 сентября 2023</span></div>
+<h3>Единый день голосования 10 сентября 2023 года</h3>
+<div class="el-desc">Региональные и муниципальные кампании дня голосования.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">Законодательное Собрание</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/10-09-2023-edinyy-den-golosovaniya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="zso">
+<div class="el-date"><span class="echip e-region">9–11 сентября 2022</span></div>
+<h3>Единый день голосования 11 сентября 2022 года</h3>
+<div class="el-desc">Региональные и муниципальные кампании дня голосования.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">Законодательное Собрание</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/11-09-2022-edinyy-den-golosovaniya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="zso">
+<div class="el-date"><span class="echip e-region">13 сентября 2020</span></div>
+<h3>Единый день голосования 13 сентября 2020 года</h3>
+<div class="el-desc">Региональные и муниципальные кампании дня голосования.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">Законодательное Собрание</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/13-09-2020-edg/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="zso">
+<div class="el-date"><span class="echip e-region">8 сентября 2019</span></div>
+<h3>Единый день голосования 8 сентября 2019 года</h3>
+<div class="el-desc">Региональные и муниципальные кампании дня голосования.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">Законодательное Собрание</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/08-09-2019-edinyy-den-golosovaniya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="zso">
+<div class="el-date"><span class="echip e-region">9 сентября 2018</span></div>
+<h3>Единый день голосования 9 сентября 2018 года</h3>
+<div class="el-desc">Региональные и муниципальные кампании дня голосования.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">Законодательное Собрание</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/09-09-2018-edinyy-den-golosovaniya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="zso">
+<div class="el-date"><span class="echip e-region">10 сентября 2017</span></div>
+<h3>Единый день голосования 10 сентября 2017 года</h3>
+<div class="el-desc">Региональные и муниципальные кампании дня голосования.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">Законодательное Собрание</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/10-09-2017-edinyy-den-golosovaniya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="zso">
+<div class="el-date"><span class="echip e-region">25 декабря 2016</span></div>
+<h3>Дополнительные выборы депутата Законодательного Собрания пятого созыва</h3>
+<div class="el-desc">Довыборы по одномандатному округу ЗСО.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">Законодательное Собрание</span><span class="echip e-extra">довыборы</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/25-12-2016-dopolnitelnye-vybory-deputata-zakonodatelnogo-sobraniya-ulyanovskoy-oblasti-pyatogo-sozyv/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="gubernator">
+<div class="el-date"><span class="echip e-region">13 сентября 2015</span></div>
+<h3>Единый день голосования 13 сентября 2015 года</h3>
+<div class="el-desc">Выборы Губернатора Ульяновской области и муниципальные кампании.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">губернатор</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/13-09-2015-edinyy-den-golosovaniya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="zso">
+<div class="el-date"><span class="echip e-region">14 сентября 2014</span></div>
+<h3>Единый день голосования 14 сентября 2014 года</h3>
+<div class="el-desc">Региональные и муниципальные кампании дня голосования.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">Законодательное Собрание</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/14-09-2014-edinyy-den-golosovaniya-/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="zso">
+<div class="el-date"><span class="echip e-region">8 сентября 2013</span></div>
+<h3>Единый день голосования 8 сентября 2013 года</h3>
+<div class="el-desc">Региональные и муниципальные кампании дня голосования.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">Законодательное Собрание</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/08-09-2013-edinyy-den-golosovaniya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="zso">
+<div class="el-date"><span class="echip e-region">14 октября 2012</span></div>
+<h3>Единый день голосования 14 октября 2012 года</h3>
+<div class="el-desc">Региональные и муниципальные кампании дня голосования.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">Законодательное Собрание</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/14-10-2012-edinyy-den-golosovaniya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="region" data-kind="zso">
+<div class="el-date"><span class="echip e-region">4 декабря 2011</span></div>
+<h3>Единый день голосования 4 декабря 2011 года</h3>
+<div class="el-desc">Региональные и муниципальные кампании дня голосования.</div>
+<div class="el-meta"><span><span class="echip e-region">Региональные</span><span class="echip" style="background:#677;opacity:.75;">Законодательное Собрание</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/04-12-2011-edinyy-den-golosovaniya/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div></div><div class="elvl-head"><span class="n">13</span> Муниципальные</div>
+<div class="sec-desc">Городская дума Ульяновска, советы поселений и районов, довыборы по муниципальным округам.</div>
+<div class="elist"><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">13–14 сентября 2025</span></div>
+<h3>Выборы депутатов Ульяновской городской думы</h3>
+<div class="el-desc">Основная муниципальная кампания года в областном центре.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/14-09-2025-vybory-gorodskaya-duma/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">13 августа 2017</span></div>
+<h3>Дополнительные выборы в МО «Инзенский район»</h3>
+<div class="el-desc">Довыборы в представительные органы Инзенского района.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span><span class="echip e-extra">довыборы</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/13-08-2017-dopolnitelnye-vybory-v-mo-inzenskiy-rayon/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">30 июля 2017</span></div>
+<h3>Дополнительные выборы в МО «Цильнинский район»</h3>
+<div class="el-desc">Довыборы в представительные органы Цильнинского района.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span><span class="echip e-extra">довыборы</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/30-07-2017-dopolnitelnye-vybory-v-mo-tsilninskiy-rayon/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">9 апреля 2017</span></div>
+<h3>Дополнительные муниципальные выборы</h3>
+<div class="el-desc">Довыборы в представительные органы муниципалитетов области.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span><span class="echip e-extra">довыборы</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/09-04-2017-dopolnitelnye-munitsipalnye-vybory/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">17 апреля 2016</span></div>
+<h3>Дополнительные выборы в МО «Вешкаймский район»</h3>
+<div class="el-desc">Довыборы в представительные органы Вешкаймского района.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span><span class="echip e-extra">довыборы</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/17-04-2016-dopolnitelnye-vybory-v-mo-veshkaymskiy-rayon/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">21 июня 2015</span></div>
+<h3>Муниципальные выборы в МО «Чердаклинский район»</h3>
+<div class="el-desc">Выборы в представительные органы Чердаклинского района.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/21-06-2015-munitsipalnye-vybory-v-mo-cherdaklinskiy-rayon/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">19 апреля 2015</span></div>
+<h3>Дополнительные выборы в МО «Ульяновский район»</h3>
+<div class="el-desc">Довыборы в представительные органы Ульяновского района.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span><span class="echip e-extra">довыборы</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/19-04-2015-dopolnitelnye-vybory-v-mo-ulyanovskiy-rayon/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">27 апреля 2014</span></div>
+<h3>Дополнительные выборы в Ульяновскую городскую думу</h3>
+<div class="el-desc">Довыборы депутатов по одномандатным округам городской думы.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span><span class="echip e-extra">довыборы</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/27-04-2014-dopolnitelnye-vybory-v-ulyanovskuyu-gorodskuyu-dumu/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">17 марта 2013</span></div>
+<h3>Дополнительные выборы в Ульяновскую городскую думу</h3>
+<div class="el-desc">Довыборы депутатов по одномандатным округам городской думы.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span><span class="echip e-extra">довыборы</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/17-03-2013-dopolnitelnye-vybory-v-ulyanovskuyu-gorodskuyu-dumu/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">13 марта 2011</span></div>
+<h3>Муниципальные выборы в МО «Ульяновский район»</h3>
+<div class="el-desc">Выборы в представительные органы Ульяновского района.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/13-03-2011-munitsipalnye-vybory-v-mo-ulyanovskiy-rayon/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">14 марта 2010</span></div>
+<h3>Муниципальные выборы в МО «город Ульяновск»</h3>
+<div class="el-desc">Городская избирательная кампания 2010 года.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/14-03-2010-munitsipalnye-vybory-v-mo-gorod-ulyanovsk/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">14 марта 2010</span></div>
+<h3>Муниципальные выборы в МО «Вешкаймский район»</h3>
+<div class="el-desc">Выборы в представительные органы Вешкаймского района.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/14-03-2010-munitsipalnye-vybory-v-mo-veshkaymskiy-rayon/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div><div class="elec-card" data-level="muni" data-kind="muni">
+<div class="el-date"><span class="echip e-muni">11 октября 2009</span></div>
+<h3>Муниципальные выборы</h3>
+<div class="el-desc">Выборы депутатов представительных органов муниципальных образований области.</div>
+<div class="el-meta"><span><span class="echip e-muni">Муниципальные</span><span class="echip" style="background:#677;opacity:.75;">муниципальные депутаты</span></span>
+<a href="http://www.ulyanovsk.izbirkom.ru/11-10-2009-munitsipalnye-vybory/index.php" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">архив ИКУО · 24.09.2026</span></div></div></div>
 </div>
 
-<div class="sec-head" style="margin-top:8px;"><h2>Кандидаты на пост губернатора</h2><div class="line"></div>
-<div class="badge">избран на 5 лет · назначает сенатора</div></div>
-<div class="grid2" style="margin-bottom:8px;"><div class="cand-card" style="border-top-color:#d52b1e;">
-<h3>Алексей Русских <span class="pill p-kprf">КПРФ</span></h3>
-<div class="bio">Действующий губернатор (с 2021). Сенатор РФ в 2018–2021, до этого — депутат Госдумы и Мособлдумы, инженер-предприниматель (транспорт, ЖКХ).</div>
-<div class="fact">Идёт при поддержке «Единой России» — редкая конфигурация: один из трёх губернаторов-коммунистов в стране (по данным «Ведомостей»). Фаворит кампании.</div></div><div class="cand-card" style="border-top-color:#e2622a;">
-<h3>Марина Ким <span class="pill p-sr">Справедливая Россия</span></h3>
-<div class="bio">Актриса, телеведущая («Утро России»), депутат Госдумы VIII созыва.</div>
-<div class="fact">Самый медийный кандидат кампании — федеральная узнаваемость работает на явку и результат СР.</div></div><div class="cand-card" style="border-top-color:#1f3a93;">
-<h3>Сергей Маринин <span class="pill p-ldpr">ЛДПР</span></h3>
-<div class="bio">Депутат Госдумы VII созыва (2016–2021), координатор ЛДПР в регионе, инженер-экономист.</div>
-<div class="fact">Единственный кандидат, идущий «паровозом» сразу в двух кампаниях: губернатор + Госдума по округу № 186.</div></div><div class="cand-card" style="border-top-color:#00b3a4;">
-<h3>Юлия Ясайтис <span class="pill p-nl">Новые люди</span></h3>
-<div class="bio">Предприниматель, представительница «Новых людей».</div>
-<div class="fact">Партия впервые участвует в ульяновской губернаторской кампании — тест региональной инфраструктуры.</div></div></div>
-<div class="note" style="margin-bottom:22px;">Порога явки нет — выборы состоятся при любой активности. Профили составлены по данным Википедии, «Ведомостей» и региональных СМИ (проверено 11.09.2026).</div>
-
-<div class="sec-head"><h2>Государственная Дума: одномандатные округа</h2><div class="line"></div>
-<div class="badge">по данным gogov.ru, 23.08.2026</div></div>
-<div class="grid2" style="margin-bottom:6px;"><div class="dist-card"><div class="dist-head"><span class="n">Округ № 185</span> Госдума IX созыва · 8 кандидатов</div>
-<div class="dist-body"><span class="person">Владимир Камеко <span class="pill p-er" style="font-size:9.5px;padding:2px 8px;">ЕР</span></span><span class="person">Антон Шилов <span class="pill p-kprf" style="font-size:9.5px;padding:2px 8px;">КПРФ</span></span><span class="person">Дмитрий Грачёв <span class="pill p-ldpr" style="font-size:9.5px;padding:2px 8px;">ЛДПР</span></span><span class="person">Андрей Седов <span class="pill p-sr" style="font-size:9.5px;padding:2px 8px;">СР</span></span><span class="person">Юрий Белоусов <span class="pill p-nl" style="font-size:9.5px;padding:2px 8px;">Новые люди</span></span><span class="person">Леонид Костиков <span class="pill p-kpk" style="font-size:9.5px;padding:2px 8px;">Коммунисты России</span></span><span class="person">Игорь Южалин <span class="pill p-zel" style="font-size:9.5px;padding:2px 8px;">Зелёные</span></span><span class="person">Алексей Якушев <span class="pill p-rod" style="font-size:9.5px;padding:2px 8px;">Родина</span></span></div></div><div class="dist-card"><div class="dist-head"><span class="n">Округ № 186</span> Госдума IX созыва · 9 кандидатов</div>
-<div class="dist-body"><span class="person">Владимир Кононов <span class="pill p-er" style="font-size:9.5px;padding:2px 8px;">ЕР</span></span><span class="person">Роман Султашов <span class="pill p-kprf" style="font-size:9.5px;padding:2px 8px;">КПРФ</span></span><span class="person">Сергей Маринин <span class="pill p-ldpr" style="font-size:9.5px;padding:2px 8px;">ЛДПР</span></span><span class="person">Григорий Матвеев <span class="pill p-sr" style="font-size:9.5px;padding:2px 8px;">СР</span></span><span class="person">Марат Аряпов <span class="pill p-nl" style="font-size:9.5px;padding:2px 8px;">Новые люди</span></span><span class="person">Камиль Сафиуллин <span class="pill p-kpk" style="font-size:9.5px;padding:2px 8px;">Коммунисты России</span></span><span class="person">Владимир Малинин <span class="pill p-pens" style="font-size:9.5px;padding:2px 8px;">Партия пенсионеров</span></span><span class="person">Анжелика Берестовская <span class="pill p-zel" style="font-size:9.5px;padding:2px 8px;">Зелёные</span></span><span class="person">Игорь Сафонов <span class="pill p-rod" style="font-size:9.5px;padding:2px 8px;">Родина</span></span></div></div></div>
-<div class="note" style="margin-bottom:22px;">Всего по округам выдвигались 20 человек: 1 снялся, 2 выбыли после регистрации (Д. Гондаренко, «Яблоко», № 185; Е. Скрипкин, «Яблоко», № 186). Также 20 сентября — довыборы депутата Законодательного Собрания VII созыва по Вешкаймскому одномандатному округу № 2.</div>
-
-<div class="sec-head"><h2>Выборная повестка в мониторинге</h2><div class="line"></div>
+<div class="sec-head" style="margin-top:26px;"><h2>Выборная повестка в мониторинге</h2><div class="line"></div>
 <div class="badge">трекер трендов</div></div>
 <div class="grid2" style="margin-bottom:8px;">
 <div class="card"><div class="card-pad">
-<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:6px;">Тема «Выборы-2026»: 401 упоминаний за 7 дней, 6 за сегодня</div>
-<svg width="260" height="44" viewBox="0 0 260 44"><path d="M2.0,35.0 L21.7,39.3 L41.4,39.7 L61.1,36.3 L80.8,36.0 L100.5,34.0 L120.2,33.3 L139.8,5.0 L159.5,18.3 L179.2,11.3 L198.9,15.0 L218.6,33.3 L238.3,31.3 L258.0,39.0 L258,42 L2,42 Z" fill="#b02a2f" opacity="0.12"/><path d="M2.0,35.0 L21.7,39.3 L41.4,39.7 L61.1,36.3 L80.8,36.0 L100.5,34.0 L120.2,33.3 L139.8,5.0 L159.5,18.3 L179.2,11.3 L198.9,15.0 L218.6,33.3 L238.3,31.3 L258.0,39.0" fill="none" stroke="#b02a2f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="258.0" cy="39.0" r="2.6" fill="#b02a2f"/></svg>
-<div class="verdict"><b>Статус трекера</b>📉 интерес спадает. До голосования публикационная активность каналов будет расти — классическая предвыборная динамика.</div>
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:6px;">Тема «Выборы»: 390 упоминаний за 7 дней, 0 за сегодня</div>
+<svg width="260" height="44" viewBox="0 0 260 44"><path d="M2.0,35.0 L21.7,39.3 L41.4,39.7 L61.1,36.3 L80.8,36.0 L100.5,34.0 L120.2,33.3 L139.8,5.0 L159.5,18.3 L179.2,11.3 L198.9,15.0 L218.6,33.3 L238.3,33.0 L258.0,41.0 L258,42 L2,42 Z" fill="#b02a2f" opacity="0.12"/><path d="M2.0,35.0 L21.7,39.3 L41.4,39.7 L61.1,36.3 L80.8,36.0 L100.5,34.0 L120.2,33.3 L139.8,5.0 L159.5,18.3 L179.2,11.3 L198.9,15.0 L218.6,33.3 L238.3,33.0 L258.0,41.0" fill="none" stroke="#b02a2f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="258.0" cy="41.0" r="2.6" fill="#b02a2f"/></svg>
 </div></div>
 <div class="card"><div class="card-pad">
-<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Кто активнее пишет о выборах (7 дней)</div>
-<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">Звезда (Новомалыклинский р-н)</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:100%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">36</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">Улпресса</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:75%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">27</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">ulkompr</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:75%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">27</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">Репортёр73</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:72%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">26</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">volkodav73</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:58%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">21</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">Губернатор и Правительство Ульяновской области</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:52%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">19</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">ulsk_73online</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:47%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">17</div></div><div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;"><div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">insaid173</div><div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;"><div style="width:44%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div><div style="width:26px;font-weight:800;color:var(--navy);">16</div></div>
-<div class="note">Считаются только первичные материалы (перепечатки исключены дедупликацией).</div>
-</div></div></div>
-
-<div class="sec-head"><h2>Выборная лента из базы центра</h2><div class="line"></div>
-<div class="badge">топ-10 по просмотрам и свежести</div></div>
-<div class="card" style="margin-bottom:22px;"><div class="news-item">
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Выборная лента из базы центра</div>
+<div style="max-height:360px;overflow:auto;"><div class="news-item">
 <h4><a href="https://t.me/Russkih_Aleksey/12352" target="_blank" rel="noopener">🏡 Новые городские общественные пространства и социальные объекты. 🤝 Обсудили развитие инфраструктуры в Засвияж…</a></h4>
 <p>Один из победителей прошлогоднего народного онлайн-голосования — сквер на Рябикова,21. Здесь теперь есть игровое пространство для самых маленьких, скамейки, урны, качели, сцена, освещение. Планируем продолжить благоустройство сквера и прилегающих дворов.…</p>
 <div class="meta">12.09 11:35 · t.me/Russkih_Aleksey · 👁 22.9K</div></div><div class="news-item">
@@ -649,24 +847,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <h4><a href="https://t.me/tresh_ulyan/56318" target="_blank" rel="noopener">❗️ Скрытой мобилизации после выборов не будет — Песков. У властей нет планов призвать в армию 300 тысяч челове…</a></h4>
 <p>У властей нет планов призвать в армию 300 тысяч человек до конца года, заявил пресс-секретарь президента.…</p>
 <div class="meta">18.09 19:54 · t.me/tresh_ulyan · 👁 13.8K</div></div></div>
-
-<div class="sec-head"><h2>Что будем отслеживать 18–20 сентября</h2><div class="line"></div></div>
-<div class="card"><div class="card-pad"><ul class="watch" style="padding-left:20px;">
-<li><b>Явка по дням</b> — трёхдневное голосование без ДЭГ делает мобилизацию в Ульяновске (52,6% избирателей) ключевым фактором; сравним с 2021 годом (губернаторские: ~48% на трёх днях).</li>
-<li><b>Результаты губернаторской кампании</b> — интрига не в победе фаворита, а в распределении мест 2–4 (Ким vs Маринин vs Ясайтис) и проценте ЕР/КПРФ по партспискам.</li>
-<li><b>Округа № 185 и № 186</b> — Камеко (ЕР) и Кононов (ЕР) против сильных коммунистов (Шилов, Султашов); Маринин тянет ЛДПР сразу в двух кампаниях.</li>
-<li><b>Сообщения о нарушениях</b> — мониторинг Ulnovosti.ru, «Компромат Ульяновск», tier-3 каналов с обязательной верификацией по tier-1.</li>
-<li><b>Первые шаги избранного губернатора</b> — назначение сенатора из трёх заявленных протеже, кадровые решения в правительстве области.</li>
-</ul></div></div>
-
-<div class="sec-head"><h2>Итоги голосования</h2><div class="line"></div>
-<div class="badge">после 20.09.2026</div></div>
-<div class="reserved" style="margin-bottom:22px;">
-<b>Раздел будет наполнен после закрытия участков</b>
-Данные облизбиркома, явка, результаты по всем трём кампаниям, карта округов и первая реакция победителей.
-Финализация: запустить <code>python3 generate.py --elections</code> после 20 сентября (лента и тренды подтянутся автоматически),
-либо написать в чат: <b>«собери итоги выборов»</b> — выпуск будет дополнен верифицированными результатами.
-</div>
+</div></div></div>
 
 </div>
 </main>
@@ -679,7 +860,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <li><a href="../monthly.html">Месяц · метрики</a></li>
 <li><a href="../archive.html">Архив-матрица</a></li></ul></div>
 <div><h3>Проекты</h3><ul style="list-style:none;padding:0;">
-<li><a href="../projects/elections_2026.html">Выборы-2026</a></li>
+<li><a href="../projects/elections.html">Выборы</a></li>
 <li><a href="../projects/goszakupki.html">Госзакупки</a></li>
 <li><a href="../projects/gorodskoy_sovet.html">Городской совет</a></li>
 <li><a href="../infospace.html">Инфопространство</a></li>
@@ -751,6 +932,20 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
     abApply();
   }
 })();
+</script>
+<script>
+function elecFilter(root){
+  var lv=root.getAttribute('data-lv')||'all',kd=root.getAttribute('data-kd')||'all';
+  root.querySelectorAll('.elec-card').forEach(function(c){
+    c.style.display=(lv==='all'||c.getAttribute('data-level')===lv)&&(kd==='all'||c.getAttribute('data-kind')===kd)?'':'none';
+  });
+  root.querySelectorAll('.efilter').forEach(function(b){
+    var on=b.getAttribute('data-group')==='lv'?(b.getAttribute('data-v')===lv):(b.getAttribute('data-v')===kd);
+    b.classList.toggle('active',on);
+  });
+}
+function elecSet(btn,g,v){var r=btn.closest('.elist-wrap');r.setAttribute('data-'+g,v);elecFilter(r);}
+elecFilter(document.querySelector('.elist-wrap'));
 </script>
 <script>
 function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";

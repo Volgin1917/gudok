@@ -3849,5 +3849,68 @@ class TestDossierPage(unittest.TestCase):
         self.assertEqual(html.count("<table"), html.count("</table>"))
         self.assertEqual(html.count("<details"), html.count("</details>"))
 
+class TestElectionsRegistry(unittest.TestCase):
+    """Проект «Выборы» (elections.py): целостность реестра кампаний и страницы."""
+
+    def test_campaigns_nonempty_and_fields(self):
+        import elections as EL
+        self.assertGreaterEqual(len(EL.CAMPAIGNS), 30, "реестр должен покрывать архив с 2009 года")
+        ids = [c["id"] for c in EL.CAMPAIGNS]
+        self.assertEqual(len(ids), len(set(ids)), "id кампаний должны быть уникальны")
+        levels = {lv for lv, _ in EL.LEVELS}
+        kinds = {k for k, _ in EL.KINDS}
+        statuses = set(EL.STATUS.values() if hasattr(EL.STATUS, "values") else (v for _k, v in EL.STATUS))
+        for c in EL.CAMPAIGNS:
+            self.assertIn(c["level"], levels, c["id"])
+            self.assertIn(c["kind"], kinds, c["id"])
+            self.assertIn(c["status"], statuses, c["id"])
+            for key in ("date", "label", "title", "desc", "arch", "verify"):
+                self.assertTrue(str(c[key]).strip(), f"{c['id']}: пусто {key}")
+            self.assertRegex(c["date"], r"^\d{4}-\d{2}-\d{2}$", c["id"])
+            self.assertTrue(c["arch"].startswith("/"), f"{c['id']}: arch должен быть путём к архиву")
+
+    def test_levels_and_counts_match_total(self):
+        import elections as EL
+        cl = EL.counts_levels()
+        self.assertEqual(sum(cl.values()), EL.total())
+        self.assertEqual(set(cl), {lv for lv, _ in EL.LEVELS})
+
+    def test_helpers_by_kind_level_span(self):
+        import elections as EL
+        self.assertGreaterEqual(len(EL.by_kind("gubernator")), 2)
+        federal = len(EL.by_level("federal"))
+        region = len(EL.by_level("region"))
+        muni = len(EL.by_level("muni"))
+        self.assertEqual(federal + region + muni, EL.total())
+        self.assertRegex(EL.years_span(), r"^\d{4}–\d{4}$")
+
+    def test_render_page_selfcontained_and_full(self):
+        import generate
+        import elections as EL
+        html = generate.render_elections(CFG, {}, [], {})
+        self.assertIn("<!DOCTYPE html>", html)
+        self.assertIn("masthead", html)
+        self.assertIn("footer__inner", html)
+        self.assertNotIn("cdn.", html)
+        self.assertNotIn('<link rel="stylesheet"', html)
+        # внешних АССЕТОВ (src=…) быть не должно; ссылки на архив ИКУО — данные страницы
+        ext_src = [u for u in re.findall(r'src="(https?://[^"]+)"', html)]
+        self.assertEqual(ext_src, [], "внешних ресурсов быть не должно")
+        self.assertGreaterEqual(html.count("izbirkom.ru"), EL.total(),
+                                "каждая кампания должна ссылаться на архив ИКУО")
+        self.assertEqual(html.count('class="elec-card"'), EL.total())
+        self.assertIn('class="elist-wrap"', html)
+
+    def test_no_old_spec_links_left(self):
+        for fname in ("generate.py", "footer.py", "dossier.py", "config.json", "run.sh",
+                      "AGENTS.md", "ROADMAP.md", "elections.py"):
+            with open(os.path.join(BASE, fname), encoding="utf-8") as f:
+                src = f.read()
+            self.assertNotIn("elections_2026", src, fname)
+            # ROADMAP.md хранит историческую запись «переосмыслен в проект „Выборы“» — она легальна
+            if fname != "ROADMAP.md":
+                self.assertNotIn("Выборы-2026", src, fname)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

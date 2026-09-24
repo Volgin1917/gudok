@@ -2426,91 +2426,97 @@ def render_exec(cfg, trends, store, status, date_str):
 </div></body></html>"""
 
 
-# ------------------------------------------------------------------ elections special
-CANDIDATES = [
-    # (имя, партия, css-класс партии, био, факт)
-    ("Алексей Русских", "КПРФ", "p-kprf",
-     "Действующий губернатор (с 2021). Сенатор РФ в 2018–2021, до этого — депутат Госдумы и Мособлдумы, инженер-предприниматель (транспорт, ЖКХ).",
-     "Идёт при поддержке «Единой России» — редкая конфигурация: один из трёх губернаторов-коммунистов в стране (по данным «Ведомостей»). Фаворит кампании."),
-    ("Марина Ким", "Справедливая Россия", "p-sr",
-     "Актриса, телеведущая («Утро России»), депутат Госдумы VIII созыва.",
-     "Самый медийный кандидат кампании — федеральная узнаваемость работает на явку и результат СР."),
-    ("Сергей Маринин", "ЛДПР", "p-ldpr",
-     "Депутат Госдумы VII созыва (2016–2021), координатор ЛДПР в регионе, инженер-экономист.",
-     "Единственный кандидат, идущий «паровозом» сразу в двух кампаниях: губернатор + Госдума по округу № 186."),
-    ("Юлия Ясайтис", "Новые люди", "p-nl",
-     "Предприниматель, представительница «Новых людей».",
-     "Партия впервые участвует в ульяновской губернаторской кампании — тест региональной инфраструктуры."),
-]
+# ------------------------------------------------------------------ elections (проект «Выборы»)
+import elections as _elections
 
-DUMA = {
-    "185": [
-        ("Владимир Камеко", "ЕР", "p-er"), ("Антон Шилов", "КПРФ", "p-kprf"),
-        ("Дмитрий Грачёв", "ЛДПР", "p-ldpr"), ("Андрей Седов", "СР", "p-sr"),
-        ("Юрий Белоусов", "Новые люди", "p-nl"), ("Леонид Костиков", "Коммунисты России", "p-kpk"),
-        ("Игорь Южалин", "Зелёные", "p-zel"), ("Алексей Якушев", "Родина", "p-rod"),
-    ],
-    "186": [
-        ("Владимир Кононов", "ЕР", "p-er"), ("Роман Султашов", "КПРФ", "p-kprf"),
-        ("Сергей Маринин", "ЛДПР", "p-ldpr"), ("Григорий Матвеев", "СР", "p-sr"),
-        ("Марат Аряпов", "Новые люди", "p-nl"), ("Камиль Сафиуллин", "Коммунисты России", "p-kpk"),
-        ("Владимир Малинин", "Партия пенсионеров", "p-pens"), ("Анжелика Берестовская", "Зелёные", "p-zel"),
-        ("Игорь Сафонов", "Родина", "p-rod"),
-    ],
-}
-
-EXTRA_CSS = """
-.pill{font-size:10.5px;font-weight:800;color:#fff;border-radius:999px;padding:3px 10px;white-space:nowrap;display:inline-block;}
-.p-kprf{background:#d52b1e;} .p-er{background:#2d6fd6;} .p-sr{background:#e2622a;}
-.p-ldpr{background:#1f3a93;} .p-nl{background:#00b3a4;} .p-kpk{background:#8e1b1b;}
-.p-zel{background:#3aa655;} .p-rod{background:#b03050;} .p-pens{background:#7b5aa6;}
-.cand-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);padding:15px 17px;border-top:4px solid var(--blue);}
-.cand-card h3{font-size:16px;color:var(--navy);margin-bottom:4px;}
-.cand-card .bio{font-size:12.6px;color:var(--muted);line-height:1.5;margin:7px 0;}
-.cand-card .fact{font-size:12.3px;background:#f7fafd;border-left:3px solid var(--gold);padding:7px 11px;border-radius:0 8px 8px 0;color:var(--navy3);}
-.countdown{background:linear-gradient(135deg,#b02a2f,#e5484d);border-radius:var(--radius);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;box-shadow:var(--shadow);}
-.countdown .big{font-size:40px;font-weight:800;line-height:1;}
-.countdown .txt b{font-size:16px;display:block;}
-.countdown .txt span{font-size:12.5px;opacity:.9;}
-.dist-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden;}
-.dist-head{background:var(--navy);color:#fff;padding:11px 16px;font-size:14px;font-weight:800;display:flex;gap:10px;align-items:center;}
-.dist-head .n{background:var(--gold);color:#3d2e04;border-radius:7px;padding:2px 10px;font-size:12.5px;}
-.dist-body{padding:12px 16px;display:flex;flex-wrap:wrap;gap:7px;}
-.person{border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-size:12.3px;display:flex;align-items:center;gap:7px;background:#fbfdff;}
-.reserved{background:repeating-linear-gradient(45deg,#f7fafd,#f7fafd 12px,#eef2f7 12px,#eef2f7 24px);border:2px dashed #b9c9da;border-radius:var(--radius);padding:20px 22px;text-align:center;color:var(--muted);}
-.reserved b{color:var(--navy);display:block;font-size:15px;margin-bottom:6px;}
-.watch li{font-size:13px;margin-bottom:8px;line-height:1.5;}
+ELECTIONS_CSS = """
+.elec-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);padding:14px 17px;border-top:4px solid var(--accent);}
+.elec-card h3{font-size:15.5px;color:var(--navy);margin:0 0 3px;}
+.elec-card .el-date{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:6px;}
+.elec-card .el-desc{font-size:12.8px;color:var(--muted);line-height:1.55;margin:6px 0 9px;}
+.elec-card .el-meta{font-size:11.8px;color:var(--navy3);display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.echip{font-size:10.3px;font-weight:800;color:#fff;border-radius:999px;padding:2px 9px;white-space:nowrap;}
+.e-federal{background:#2d6fd6;} .e-region{background:#7b5aa6;} .e-muni{background:#3aa655;}
+.e-extra{background:#e2622a;}
+.estatus{font-weight:700;color:var(--muted);}
+.elist{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;margin:8px 0 4px;}
+.elist-wrap .sec-desc{font-size:12.6px;color:var(--muted);line-height:1.5;margin:2px 0 8px;}
+.elvl-head{font-size:17px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:10px;margin:20px 0 4px;}
+.elvl-head .n{background:var(--gold);color:#3d2e04;border-radius:7px;padding:1px 9px;font-size:12px;}
+.efilters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 2px;}
+.efilter{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-size:12.3px;font-weight:700;color:var(--navy3);cursor:pointer;}
+.efilter.active,.efilter:hover{border-color:var(--accent);color:#fff;background:var(--accent);}
+.ever{color:var(--navy3);font-size:11.4px;background:#f2f6fb;border:1px solid var(--line);border-radius:999px;padding:2px 9px;}
+.elect-note{background:#fff8e8;border:1px solid #eed9a0;border-radius:var(--radius);padding:16px 20px;font-size:13.2px;color:#4d3d12;line-height:1.6;margin:16px 0;}
+@media print{.nav,.print-btn{display:none!important;}body{background:#fff;}}
 """
 
 
 def render_elections(cfg, trends, store, status):
+    """Проект «Выборы»: реестр избирательных кампаний области (данные elections.py)."""
     now = datetime.now(UTC4)
     nav_html = render_nav(cfg, "projects", "../", subnav=subnav_projects("../", "elections"))
-    vote_day = datetime(2026, 9, 18, tzinfo=UTC4).date()
-    days_left = (vote_day - now.date()).days
 
-    # выборные материалы из базы
-    elec = [it for it in store if not it.get("dup_of") and "elections" in (it.get("topics") or [])]
-    elec.sort(key=lambda x: (x.get("views") or 0, x.get("published") or ""), reverse=True)
-    # кто активнее пишет о выборах (7 дней)
-    from collections import Counter
-    week_ago = now - timedelta(days=7)
-    src_counter = Counter()
-    for it in elec:
-        dt = local_dt(it.get("published"))
-        if dt and dt >= week_ago:
-            src_counter[outlets.outlet(it)] += 1   # одна редакция = одна строка
-    src_rows = "".join(
-        f'<div class="bar-row" style="display:flex;gap:9px;align-items:center;margin-bottom:6px;font-size:12.3px;">'
-        f'<div style="width:150px;text-align:right;font-weight:600;color:var(--txt);">{esc(str(k))}</div>'
-        f'<div style="flex:1;background:#edf2f8;border-radius:6px;height:15px;overflow:hidden;">'
-        f'<div style="width:{max(4, int(v / max(src_counter.values()) * 100))}%;height:100%;background:linear-gradient(90deg,#2d6fd6,#5aa0f5);border-radius:6px;"></div></div>'
-        f'<div style="width:26px;font-weight:800;color:var(--navy);">{v}</div></div>'
-        for k, v in src_counter.most_common(8))
+    levels = dict(_elections.LEVELS)
+    kinds = dict(_elections.KINDS)
+    total_n = _elections.total()
+    counts = _elections.counts_levels()
+    span = _elections.years_span()
+
+    def chip(c):
+        extra = '<span class="echip e-extra">довыборы</span>' if c["extra"] else ""
+        return (f'<span class="echip e-{c["level"]}">{esc(levels[c["level"]])}</span>'
+                f'<span class="echip" style="background:#677;opacity:.75;">{esc(kinds[c["kind"]])}</span>{extra}')
+
+    def card(c):
+        return f"""<div class="elec-card" data-level="{c['level']}" data-kind="{c['kind']}">
+<div class="el-date"><span class="echip e-{c['level']}">{esc(c['label'])}</span></div>
+<h3>{esc(c['title'])}</h3>
+<div class="el-desc">{esc(c['desc'])}</div>
+<div class="el-meta"><span>{chip(c)}</span>
+<a href="{_elections.ARCHIVE_ROOT + c['arch']}" target="_blank" rel="noopener">раздел архива ИКУО ↗</a>
+<span class="ever">{esc(c['verify'])}</span></div></div>"""
+
+    def block(level, desc):
+        items = _elections.by_level(level)
+        if not items:
+            return ""
+        body = "".join(card(c) for c in sorted(items, key=lambda x: x["date"], reverse=True))
+        return f"""<div class="elvl-head"><span class="n">{len(items)}</span> {esc(levels[level])}</div>
+<div class="sec-desc">{esc(desc)}</div>
+<div class="elist">{body}</div>"""
+
+    sections = "".join(block(lv, d) for lv, d in _elections.LEVEL_DESC.items())
+
+    filter_bar = """<div class="efilters">
+<span style="font-size:12.3px;font-weight:800;color:var(--navy);padding-top:7px;">Фильтр:</span>
+<button class="efilter active" data-group="lv" data-v="all" onclick="elecSet(this,'lv','all')">все уровни</button>
+<button class="efilter" data-group="lv" data-v="federal" onclick="elecSet(this,'lv','federal')">федеральные</button>
+<button class="efilter" data-group="lv" data-v="region" onclick="elecSet(this,'lv','region')">региональные</button>
+<button class="efilter" data-group="lv" data-v="muni" onclick="elecSet(this,'lv','muni')">муниципальные</button>
+<span style="width:1px;background:var(--line);margin:0 4px;"></span>
+<button class="efilter active" data-group="kd" data-v="all" onclick="elecSet(this,'kd','all')">все типы</button>
+<button class="efilter" data-group="kd" data-v="president" onclick="elecSet(this,'kd','president')">президент</button>
+<button class="efilter" data-group="kd" data-v="gd" onclick="elecSet(this,'kd','gd')">Госдума</button>
+<button class="efilter" data-group="kd" data-v="gubernator" onclick="elecSet(this,'kd','gubernator')">губернатор</button>
+<button class="efilter" data-group="kd" data-v="zso" onclick="elecSet(this,'kd','zso')">ЗакСобрание</button>
+<button class="efilter" data-group="kd" data-v="muni" onclick="elecSet(this,'kd','muni')">муниципальные</button>
+<button class="efilter" data-group="kd" data-v="ref" onclick="elecSet(this,'kd','ref')">референдум</button>
+</div>"""
+
+    kpi = f"""<div class="kpi-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:8px;">
+<div class="kpi"><div class="num">{total_n}</div><div class="lbl">кампаний в реестре</div></div>
+<div class="kpi gold"><div class="num">{span}</div><div class="lbl">годы охвата</div></div>
+<div class="kpi violet"><div class="num">{counts['federal']}</div><div class="lbl">федеральных</div></div>
+<div class="kpi green"><div class="num">{counts['region']}</div><div class="lbl">региональных</div></div>
+<div class="kpi red"><div class="num">{counts['muni']}</div><div class="lbl">муниципальных</div></div>
+</div>"""
 
     topic = (trends or {}).get("topics", {}).get("elections", {})
     spark = sparkline(topic.get("series", []), w=260, h=44, color="#b02a2f") if topic else ""
 
+    elec = [it for it in store if not it.get("dup_of") and "elections" in (it.get("topics") or [])]
+    elec.sort(key=lambda x: (x.get("views") or 0, x.get("published") or ""), reverse=True)
     feed = "".join(
         f"""<div class="news-item">
 <h4><a href="{esc(it.get('url') or '#')}" target="_blank" rel="noopener">{esc(clip_words(it['title'],140))}</a></h4>
@@ -2518,103 +2524,65 @@ def render_elections(cfg, trends, store, status):
 <div class="meta">{(local_dt(it.get('published')) or now).strftime('%d.%m %H:%M')} · {esc(it.get('source',''))}{(' · 👁 ' + fmt_views(it['views'])) if it.get('views') else ''}</div></div>"""
         for it in elec[:10]) or '<div class="news-item"><p>Материалов пока нет — запустите сбор.</p></div>'
 
-    party_colors = {'p-kprf': '#d52b1e', 'p-sr': '#e2622a', 'p-ldpr': '#1f3a93', 'p-nl': '#00b3a4'}
-    cand_cards = "".join(
-        f"""<div class="cand-card" style="border-top-color:{party_colors.get(css, 'var(--blue)')};">
-<h3>{esc(name)} <span class="pill {css}">{esc(party)}</span></h3>
-<div class="bio">{esc(bio)}</div>
-<div class="fact">{esc(fact)}</div></div>"""
-        for name, party, css, bio, fact in CANDIDATES)
-
-    dist_blocks = "".join(
-        f"""<div class="dist-card"><div class="dist-head"><span class="n">Округ № {no}</span> Госдума IX созыва · {len(lst)} кандидатов</div>
-<div class="dist-body">{''.join(f'<span class="person">{esc(nm)} <span class="pill {pc}" style="font-size:9.5px;padding:2px 8px;">{esc(pt)}</span></span>' for nm, pt, pc in lst)}</div></div>"""
-        for no, lst in DUMA.items())
-
-    cd_word = "день" if days_left % 10 == 1 and days_left != 11 else ("дня" if 2 <= days_left % 10 <= 4 and not 12 <= days_left <= 14 else "дней")
-    cd_text = f"до единого дня голосования осталось <b>{days_left}</b> {cd_word}" if days_left > 0 else "голосование идёт / завершилось"
-
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Спецвыпуск «Выборы-2026» · Ульяновская область — {cfg['brand']}</title>
-<link rel="icon" type="image/png" href="../assets/logo_gudok.png"><style>{CSS}{EXTRA_CSS}
-@media print{{.nav,.print-btn{{display:none!important;}}body{{background:#fff;}}}}
+<title>Проект «Выборы» · реестр кампаний Ульяновской области — {cfg['brand']}</title>
+<link rel="icon" type="image/png" href="../assets/logo_gudok.png"><style>{CSS}{ELECTIONS_CSS}
 </style></head><body>
 <header class="masthead"><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
-<div class="mast-side mast-side--right">Спецвыпуск «Выборы-2026»<br>голосование 18–20 сентября
+<div class="mast-side mast-side--right">Проекты издания<br>«Выборы» · реестр кампаний
 <div class="mast-actions">{THEME_BTN}<button class="print-btn" onclick="window.print()">🖈 PDF</button></div></div>
 </div></header>
 {nav_html}
 <div class="page">
 
-<div class="countdown" style="margin-bottom:18px;">
-<div class="big">{days_left if days_left > 0 else '🗳'}</div>
-<div class="txt"><b>{cd_text.capitalize() if days_left>0 else cd_text}</b>
-<span>18, 19 и 20 сентября 2026 · трёхдневное голосование · участки 8:00–20:00 · ДЭГ в области не проводится</span></div>
+<div class="sec-head" style="margin-top:6px;"><h2>Избирательный цикл региона</h2><div class="line"></div>
+<div class="badge">реестр кампаний · {total_n} записей</div></div>
+<p style="font-size:13.4px;line-height:1.65;color:var(--txt);margin:10px 0 14px;">
+<b style="color:var(--navy);">{_elections.SOURCE_URL[7:]}</b> — архив выборов и референдумов Избирательной комиссии Ульяновской области.<br>
+Реестр ведётся с 2009 года: федеральные, региональные и муниципальные кампании, включая довыборы и общероссийское голосование по поправкам к Конституции (2020). Каждая карточка ведёт в раздел архива ИКУО с материалами кампании.</p>
+
+{kpi}
+
+<div class="elect-note"><b>Серверная фаза.</b> Сейчас проект — реестр-указатель: даты, составы кампаний и ссылки на архив, без цифр голосования. Глубокая коллекция (кандидаты, явка, результаты, протоколы УИК) заработает после переезда на полноценный сервер: коллектор будет опрашивать архив ИКУО и ГАС «Выборы» с паузами, чтобы не нагружать источник. Методы анализа этого раздела — «Выборы и избирательный цикл» (<a href="../methods.html">М-37…М-41 в реестре методик</a>).</div>
+
+<div class="elist-wrap" data-lv="all" data-kd="all">
+{filter_bar}
+{sections}
 </div>
 
-<div class="kpi-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:22px;">
-<div class="kpi"><div class="num">925 350</div><div class="lbl">избирателей в регионе</div></div>
-<div class="kpi gold"><div class="num">52,6%</div><div class="lbl">избирателей — в Ульяновске</div></div>
-<div class="kpi violet"><div class="num">4</div><div class="lbl">кандидата на пост губернатора</div></div>
-<div class="kpi green"><div class="num">17</div><div class="lbl">кандидатов в Госдуму по двум округам</div></div>
-<div class="kpi red"><div class="num">3</div><div class="lbl">кампании одновременно (губернатор, ГД, ЗСО)</div></div>
-</div>
-
-<div class="sec-head" style="margin-top:8px;"><h2>Кандидаты на пост губернатора</h2><div class="line"></div>
-<div class="badge">избран на 5 лет · назначает сенатора</div></div>
-<div class="grid2" style="margin-bottom:8px;">{cand_cards}</div>
-<div class="note" style="margin-bottom:22px;">Порога явки нет — выборы состоятся при любой активности. Профили составлены по данным Википедии, «Ведомостей» и региональных СМИ (проверено 11.09.2026).</div>
-
-<div class="sec-head"><h2>Государственная Дума: одномандатные округа</h2><div class="line"></div>
-<div class="badge">по данным gogov.ru, 23.08.2026</div></div>
-<div class="grid2" style="margin-bottom:6px;">{dist_blocks}</div>
-<div class="note" style="margin-bottom:22px;">Всего по округам выдвигались 20 человек: 1 снялся, 2 выбыли после регистрации (Д. Гондаренко, «Яблоко», № 185; Е. Скрипкин, «Яблоко», № 186). Также 20 сентября — довыборы депутата Законодательного Собрания VII созыва по Вешкаймскому одномандатному округу № 2.</div>
-
-<div class="sec-head"><h2>Выборная повестка в мониторинге</h2><div class="line"></div>
+<div class="sec-head" style="margin-top:26px;"><h2>Выборная повестка в мониторинге</h2><div class="line"></div>
 <div class="badge">трекер трендов</div></div>
 <div class="grid2" style="margin-bottom:8px;">
 <div class="card"><div class="card-pad">
-<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:6px;">Тема «Выборы-2026»: {topic.get('week',0)} упоминаний за 7 дней, {topic.get('today',0)} за сегодня</div>
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:6px;">Тема «Выборы»: {topic.get('week',0)} упоминаний за 7 дней, {topic.get('today',0)} за сегодня</div>
 {spark}
-<div class="verdict"><b>Статус трекера</b>{ {'rising':'🔥 тема на подъёме — ожидаем пик 18–20 сентября','new':'🆕 тема вошла в повестку окна наблюдения','stable':'⚖️ ровный фон','fading':'📉 интерес спадает','silent':'💤 тишина'}.get(topic.get('status',''), '—') }. До голосования публикационная активность каналов будет расти — классическая предвыборная динамика.</div>
 </div></div>
 <div class="card"><div class="card-pad">
-<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Кто активнее пишет о выборах (7 дней)</div>
-{src_rows or '<span style="color:var(--muted);font-size:12.5px;">Нет данных</span>'}
-<div class="note">Считаются только первичные материалы (перепечатки исключены дедупликацией).</div>
+<div style="font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px;">Выборная лента из базы центра</div>
+<div style="max-height:360px;overflow:auto;">{feed}</div>
 </div></div></div>
-
-<div class="sec-head"><h2>Выборная лента из базы центра</h2><div class="line"></div>
-<div class="badge">топ-10 по просмотрам и свежести</div></div>
-<div class="card" style="margin-bottom:22px;">{feed}</div>
-
-<div class="sec-head"><h2>Что будем отслеживать 18–20 сентября</h2><div class="line"></div></div>
-<div class="card"><div class="card-pad"><ul class="watch" style="padding-left:20px;">
-<li><b>Явка по дням</b> — трёхдневное голосование без ДЭГ делает мобилизацию в Ульяновске (52,6% избирателей) ключевым фактором; сравним с 2021 годом (губернаторские: ~48% на трёх днях).</li>
-<li><b>Результаты губернаторской кампании</b> — интрига не в победе фаворита, а в распределении мест 2–4 (Ким vs Маринин vs Ясайтис) и проценте ЕР/КПРФ по партспискам.</li>
-<li><b>Округа № 185 и № 186</b> — Камеко (ЕР) и Кононов (ЕР) против сильных коммунистов (Шилов, Султашов); Маринин тянет ЛДПР сразу в двух кампаниях.</li>
-<li><b>Сообщения о нарушениях</b> — мониторинг Ulnovosti.ru, «Компромат Ульяновск», tier-3 каналов с обязательной верификацией по tier-1.</li>
-<li><b>Первые шаги избранного губернатора</b> — назначение сенатора из трёх заявленных протеже, кадровые решения в правительстве области.</li>
-</ul></div></div>
-
-<div class="sec-head"><h2>Итоги голосования</h2><div class="line"></div>
-<div class="badge">после 20.09.2026</div></div>
-<div class="reserved" style="margin-bottom:22px;">
-<b>Раздел будет наполнен после закрытия участков</b>
-Данные облизбиркома, явка, результаты по всем трём кампаниям, карта округов и первая реакция победителей.
-Финализация: запустить <code>python3 generate.py --elections</code> после 20 сентября (лента и тренды подтянутся автоматически),
-либо написать в чат: <b>«собери итоги выборов»</b> — выпуск будет дополнен верифицированными результатами.
-</div>
 
 </div>
 {footer.render_footer('../')}
 {FEED_JS}
+<script>
+function elecFilter(root){{
+  var lv=root.getAttribute('data-lv')||'all',kd=root.getAttribute('data-kd')||'all';
+  root.querySelectorAll('.elec-card').forEach(function(c){{
+    c.style.display=(lv==='all'||c.getAttribute('data-level')===lv)&&(kd==='all'||c.getAttribute('data-kind')===kd)?'':'none';
+  }});
+  root.querySelectorAll('.efilter').forEach(function(b){{
+    var on=b.getAttribute('data-group')==='lv'?(b.getAttribute('data-v')===lv):(b.getAttribute('data-v')===kd);
+    b.classList.toggle('active',on);
+  }});
+}}
+function elecSet(btn,g,v){{var r=btn.closest('.elist-wrap');r.setAttribute('data-'+g,v);elecFilter(r);}}
+elecFilter(document.querySelector('.elist-wrap'));
+</script>
 </body></html>"""
-
-
 # ------------------------------------------------------------------ projects
 def render_projects(cfg, trends, store, status):
     """Хаб рубрики «Проекты»: спецстраницы-досье издания."""
@@ -3347,7 +3315,7 @@ def render_dossier(cfg, trends, store, status):
         ("дашборд «Инфопространство»", "infospace.html"),
         ("реестр методик", "methods.html"),
         ("планы и внедрение методов", "projects/plans.html"),
-        ("досье «Выборы-2026»", "projects/elections_2026.html"),
+        ("проект «Выборы»", "projects/elections.html"),
         ("досье «Госзакупки»", "projects/goszakupki.html"),
         ("архив-матрица", "archive.html")])
 
@@ -3642,7 +3610,7 @@ def render_pressa(cfg, trends, store, status):
 <div class="legend">Карточки реестра сгруппированы по эпохам — от «Симбирских губернских
 ведомостей» (1838) до сетевых изданий. Сверка каждой карточки указана в поле «Сверка».</div>
 
-{footer.render_footer("")}
+{footer.render_footer("../")}
 </div>
 </main>
 {PRESS_JS}
@@ -3652,7 +3620,7 @@ def render_pressa(cfg, trends, store, status):
 def subnav_projects(prefix="", current=""):
     """Поднавигация рубрики «Проекты»: сквозная для всех проектных страниц."""
     items = [("infospace.html", "Инфопространство", "infospace"),
-             ("projects/elections_2026.html", "Выборы-2026", "elections"),
+             ("projects/elections.html", "Выборы", "elections"),
              ("projects/goszakupki.html", "Госзакупки", "goszakupki"),
              ("projects/gorodskoy_sovet.html", "Городской совет", "gorsovet"),
              ("methods.html", "Методы", "methods"),
@@ -3943,6 +3911,12 @@ def render_methods(cfg, trends, store, status):
     opts = "".join(f'<option value="{esc(m["id"])}">{esc(m["code"])} · {esc(m["name"])}</option>'
                    for m in M.sorted_by_code())
 
+    elect_group = [m for m in M.METHODS if m.get("group") == "elections"]
+    elect_chips = "".join(
+        f'<a class="fbtn" style="text-decoration:none;" href="#{esc(m["id"])}"><b>{esc(m["code"])}</b> · '
+        f'{esc(m["name"])}<span style="opacity:.65;"> · {esc(M.STATUS.get(m["status"], ""))}</span></a>'
+        for m in sorted(elect_group, key=lambda x: x["code"]))
+
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Методы исследования инфополя · {cfg['brand']}</title>
@@ -4005,6 +3979,17 @@ def render_methods(cfg, trends, store, status):
 </div>
 </div>
 
+<div class="sec-head" id="elect"><h2>Анализ выборов</h2><div class="line"></div>
+<div class="badge">группа «Выборы и избирательный цикл» · {len(elect_group)} методик</div></div>
+<div class="wrap1200">
+<div class="note" style="margin-bottom:14px;">Группа реестра — анализ избирательных кампаний и результатов голосования:
+явка и мобилизация, электоральная география, распределение мандатов, аномалии и сверка протоколов УИК,
+сравнение циклов. Статус честный — «очередь»: данные протоколов появятся в разделе «Выборы» после переезда
+на сервер (сейчас страница — реестр кампаний). Паспорта ниже, в общем реестре.
+<a href="projects/elections.html" style="color:var(--accent);">проект «Выборы» →</a></div>
+<div class="filters" id="fElect" role="group" aria-label="Методики анализа выборов">{elect_chips}</div>
+</div>
+
 <div class="sec-head" id="ideo"><h2>{esc(M.IDEO_TITLE)}</h2><div class="line"></div>
 <div class="badge">сквозной раздел · {cnt['ideo']} методик</div></div>
 <div class="wrap1200">
@@ -4048,7 +4033,7 @@ def render_methods(cfg, trends, store, status):
 <a href="#method" style="color:var(--accent);">внедрение методов</a> ·
 <a href="projects/plans.html" style="color:var(--accent);">планы издания</a> ·
 <a href="projects/dossier.html" style="color:var(--accent);">досье действующих лиц (прототип)</a> ·
-<a href="projects/elections_2026.html" style="color:var(--accent);">досье «Выборы-2026»</a> ·
+<a href="projects/elections.html" style="color:var(--accent);">проект «Выборы» (реестр кампаний)</a> ·
 <a href="projects/goszakupki.html" style="color:var(--accent);">досье «Госзакупки»</a> ·
 <a href="status.html" style="color:var(--accent);">статус системы</a>.
 Реестр методик — редакционный документ: правится в <code>methods.py</code>, страница пересобирается
@@ -5119,7 +5104,7 @@ def render_afisha_print(cfg, an, now=None):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Листок выходных · {cfg['brand']}</title>
 <style>{AF_WEEK_CSS}</style></head><body class="afw">
-<div class="afw-toolbar"><a href="afisha/">← к афише</a><button onclick="window.print()">Печать</button></div>
+<div class="afw-toolbar"><a href="afisha.html">← к афише</a><button onclick="window.print()">Печать</button></div>
 <div class="afw-sheet">
 <div class="afw-mast"><p class="afw-kicker">ГУДОК · выходные · {today:%d.%m.%Y}</p>
 <h1 class="afw-title">Листок выходных</h1>
@@ -6802,10 +6787,10 @@ def render_archive(cfg, trends, store, status):
     mo_items = mo_items or '<li class="na">первый отчёт — после завершения сентября</li>'
 
     # ── проекты и спецвыпуски ──
-    proj = [("projects/elections_2026.html", "Выборы-2026", "спецвыпуск: губернатор, Госдума, довыборы в ЗСО"),
+    proj = [("projects/elections.html", "Выборы", "реестр избирательных кампаний региона (2009–2026), архив ИКУО"),
             ("projects/goszakupki.html", "Госзакупки", "аналитика закупок региона"),
             ("infospace.html", "Инфопространство", "сеттеры повестки, каскады, тон, территории"),
-            ("methods.html", "Методы", "реестр из 36 методик с паспортами · идеология и гегемония · техконтур · стенд"),
+            ("methods.html", "Методы", "реестр из 41 методики с паспортами · идеология и гегемония · техконтур · стенд"),
             ("projects/dossier.html", "Досье (прототип)", "действующие лица инфополя: упоминания, тон, дуги сюжетов · демо-данные"),
             ("projects/plans.html", "Планы", "треки планов · реестр из 32 метрик · паспорта · конвейер внедрения"),
             ("afisha.html", "Афиша", "культурные события области, автоизвлечение")]
@@ -7295,7 +7280,7 @@ def main():
     ap.add_argument("--exec", dest="exec_mode", action="store_true",
                     help="сформировать «Дайджест руководителя» (1 страница)")
     ap.add_argument("--elections", action="store_true",
-                    help="сформировать спецвыпуск «Выборы-2026»")
+                    help="сформировать проект «Выборы» (реестр кампаний; собирается всегда)")
     args = ap.parse_args()
 
     cfg = load_json(os.path.join(BASE, "config.json"))
@@ -7367,7 +7352,7 @@ def main():
         with open(os.path.join(DIGESTS, f"digest_{args.date}.html"), "w", encoding="utf-8") as f:
             f.write(dhtml)
 
-    # (выборы-2026 теперь живут в projects/elections_2026.html — см. выше)
+    # страница проекта «Выборы» (projects/elections.html) собирается в конце цикла, см. ниже
 
     if args.weekly_new:
         now = datetime.now(UTC4)
@@ -7459,13 +7444,13 @@ def main():
     with open(os.path.join(BASE, "projects.html"), "w", encoding="utf-8") as f:
         f.write(proj_html)
     el_html2 = themed(render_elections(cfg, trends, store, status))
-    with open(os.path.join(proj_dir, "elections_2026.html"), "w", encoding="utf-8") as f:
+    with open(os.path.join(proj_dir, "elections.html"), "w", encoding="utf-8") as f:
         f.write(el_html2)
     gz_html = themed(render_goszakupki(cfg, trends, store, status,
                                        load_json(os.path.join(DATA, "analytics.json")) or {}))
     with open(os.path.join(proj_dir, "goszakupki.html"), "w", encoding="utf-8") as f:
         f.write(gz_html)
-    print("[generate] проекты: projects.html, projects/elections_2026.html, projects/goszakupki.html")
+    print("[generate] проекты: projects.html, projects/elections.html, projects/goszakupki.html")
 
     plans_html = themed(render_plans(cfg, trends, store, status,
                                      load_json(os.path.join(DATA, "analytics.json")) or {}))
