@@ -3950,6 +3950,22 @@ class TestElectionsRegistry(unittest.TestCase):
             self.assertIn(str(c[field]), html, f"карточка должна содержать поле {field}")
         self.assertIn("gubernator", html, "карточка-образец — это губернаторский цикл")
 
+    def test_stat_screening_mentioned_in_detail_and_passports(self):
+        import generate
+        import methods as M
+        html = generate.render_elections_detail(CFG, {}, [], {}).lower()
+        for key in ("Бенфорд", "Шпилькин", "недействительные бюллетени"):
+            self.assertIn(key.lower(), html, f"карточка должна упоминать проверку: {key}")
+        m40 = next(m for m in M.METHODS if m["code"] == "М-40")
+        steps40 = [s for r in m40["rows"] for s in r.get("steps", [])] + [r["text"] for r in m40["rows"]]
+        blob40 = (" ".join(steps40) + " " + m40["ess"]).lower()
+        for key in ("Бенфорд", "Шпилькин", "недействительных бюллетеней", "целых процентов"):
+            self.assertIn(key.lower(), blob40, f"паспорт М-40 должен раскрывать проверку: {key}")
+        m37 = next(m for m in M.METHODS if m["code"] == "М-37")
+        self.assertIn("шпилькина",
+                      (m37["ess"] + " ".join(r["text"] for r in m37["rows"])).lower(),
+                      "М-37 должен заявлять диагностику мобилизации по Шпилькину")
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

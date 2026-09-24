@@ -601,7 +601,7 @@ padding:14px 18px;margin:14px 0 4px;font-size:12.8px;line-height:1.6;color:#5a3a
 if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
-<header class="masthead"><div class="flagline"><span>четверг, 24 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 16:58</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>четверг, 24 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 17:32</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
 <div class="mast-side mast-side--right">Проекты издания<br>«Выборы» · карточка-образец
@@ -645,7 +645,8 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 </div>
 <p class="ednote"><span class="eddemo">демо</span> Цифры демонстрационные и не являются результатами голосования. Серверная фаза
 соберёт часовые точки явки из протоколов УИК и разметит мобилизационные всплески по дням и
-территориям.</p>
+территориям; мобилизация отделяется от базового профиля территории и по методу Шпилькина —
+диаграмма «явка × результат» по участкам.</p>
 </div>
 
 <div class="edsec">
@@ -670,7 +671,8 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <td><span class="edtrack" style="width:150px;"><i style="width:44%"></i></span>&nbsp;<b>43,9%</b>&nbsp;<span class="eddemo">демо</span></td>
 <td class="n">ниже среднего</td></tr></tbody></table>
 <p class="ednote"><span class="eddemo">демо</span> Территории — реальные муниципалитеты области; явка демонстрационная. После
-серверной фазы карта МО по явке считается по протоколам и показывается с разницей к среднему.</p>
+серверной фазы карта МО по явке считается по протоколам и показывается с разницей к среднему.
+Регрессионный разрез «город/село, доходы, занятость» — целевой контур (вне stdlib-ядра).</p>
 </div>
 
 <div class="edsec">
@@ -685,7 +687,10 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="edsec">
 <div class="edsec-head"><span class="ednum">М-40</span><h3>Аномалии и сверка протоколов</h3>
 <span class="edm">паспорт: <a href="../methods.html#m40">реестр методик</a></span></div>
-<table class="edtable"><thead><tr><th>Проверка</th><th>Статус</th></tr></thead><tbody><tr><td>Протоколы всех УИК получены и расшифрованы</td><td><span class="edwait">ожидает серверной фазы</span></td></tr><tr><td>Суммы протоколов сходятся с данными ГАС «Выборы»</td><td><span class="edwait">ожидает серверной фазы</span></td></tr><tr><td>Явка по участкам проверена на аномальные выбросы</td><td><span class="edwait">ожидает серверной фазы</span></td></tr><tr><td>Документы кампании выверены по архивным спискам ИКУО</td><td><span class="edok">сверено</span></td></tr><tr><td>Даты, уровень и состав кампании сверены с архивом ИКУО</td><td><span class="edok">сверено</span></td></tr></tbody></table>
+<table class="edtable"><thead><tr><th>Проверка</th><th>Статус</th></tr></thead><tbody><tr><td>Закон Бенфорда: распределение первой цифры</td><td><span class="edwait">ожидает серверной фазы</span></td></tr><tr><td>Последние цифры процентов и голосов</td><td><span class="edwait">ожидает серверной фазы</span></td></tr><tr><td>Доля «круглых» процентов в сводке</td><td><span class="edwait">ожидает серверной фазы</span></td></tr><tr><td>Недействительные бюллетени × явка (корреляция)</td><td><span class="edwait">ожидает серверной фазы</span></td></tr><tr><td>Диаграмма Шпилькина: явка × результат</td><td><span class="edwait">ожидает серверной фазы</span></td></tr><tr><td>Протоколы всех УИК получены и расшифрованы</td><td><span class="edwait">ожидает серверной фазы</span></td></tr><tr><td>Суммы протоколов сходятся с данными ГАС «Выборы»</td><td><span class="edwait">ожидает серверной фазы</span></td></tr><tr><td>Явка по участкам проверена на аномальные выбросы</td><td><span class="edwait">ожидает серверной фазы</span></td></tr><tr><td>Документы кампании выверены по архивным спискам ИКУО</td><td><span class="edok">сверено</span></td></tr><tr><td>Даты, уровень и состав кампании сверены с архивом ИКУО</td><td><span class="edok">сверено</span></td></tr></tbody></table>
+<p class="ednote"><span class="eddemo">демо</span> Цифровые тесты (Бенфорд, последние цифры, целые проценты) и диаграмма Шпилькина —
+шкала «на проверку», а не обвинение. На stdlib считаются описательные метрики и списки участков,
+формальное p-значение — целевой контур (см. <a href="../methods.html#m40">М-40</a>).</p>
 </div>
 
 <div class="edsec">
@@ -701,8 +706,8 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="edsec">
 <div class="edsec-head"><h3>Повестка в базе центра</h3><span class="edm">реальные данные мониторинга</span></div>
 <div class="edcard-grid">
-<div class="edcard"><b>Тема «Выборы»:</b> 407 упоминаний за 7 дней,
-12 за сегодня.<svg width="260" height="44" viewBox="0 0 260 44"><path d="M2.0,35.0 L21.7,39.3 L41.4,39.7 L61.1,36.3 L80.8,36.0 L100.5,34.0 L120.2,33.3 L139.8,5.0 L159.5,18.3 L179.2,11.3 L198.9,15.0 L218.6,33.3 L238.3,31.3 L258.0,37.0 L258,42 L2,42 Z" fill="#b02a2f" opacity="0.12"/><path d="M2.0,35.0 L21.7,39.3 L41.4,39.7 L61.1,36.3 L80.8,36.0 L100.5,34.0 L120.2,33.3 L139.8,5.0 L159.5,18.3 L179.2,11.3 L198.9,15.0 L218.6,33.3 L238.3,31.3 L258.0,37.0" fill="none" stroke="#b02a2f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="258.0" cy="37.0" r="2.6" fill="#b02a2f"/></svg></div>
+<div class="edcard"><b>Тема «Выборы»:</b> 406 упоминаний за 7 дней,
+11 за сегодня.<svg width="260" height="44" viewBox="0 0 260 44"><path d="M2.0,35.0 L21.7,39.3 L41.4,39.7 L61.1,36.3 L80.8,36.0 L100.5,34.0 L120.2,33.3 L139.8,5.0 L159.5,18.3 L179.2,11.3 L198.9,15.0 L218.6,33.3 L238.3,31.3 L258.0,37.3 L258,42 L2,42 Z" fill="#b02a2f" opacity="0.12"/><path d="M2.0,35.0 L21.7,39.3 L41.4,39.7 L61.1,36.3 L80.8,36.0 L100.5,34.0 L120.2,33.3 L139.8,5.0 L159.5,18.3 L179.2,11.3 L198.9,15.0 L218.6,33.3 L238.3,31.3 L258.0,37.3" fill="none" stroke="#b02a2f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="258.0" cy="37.3" r="2.6" fill="#b02a2f"/></svg></div>
 <div class="edcard"><b>Лента из базы (не демо):</b> последние материалы по теме «Выборы».</div>
 </div>
 <div style="max-height:360px;overflow:auto;margin-top:12px;"><div class="news-item">
