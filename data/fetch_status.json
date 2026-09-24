@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Улпресса": {
   "ok": true,
@@ -97,7 +97,7 @@
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 17,
+  "items": 18,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
@@ -151,7 +151,7 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 15,
+  "items": 16,
   "error": null,
   "title": "73online"
  },
@@ -187,13 +187,13 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 11,
+  "items": 6,
   "error": null,
   "title": "Компромат Ульяновск"
  },
  "tg:culturnik": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "Культура Ульяновск"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-09-24T12:50:13.722353+00:00",
-  "last_run_local": "24.09.2026 16:50",
-  "fetched": 506,
-  "new": 29,
-  "total_store": 4924
+  "last_run_utc": "2026-09-24T13:36:25.817245+00:00",
+  "last_run_local": "24.09.2026 17:36",
+  "fetched": 494,
+  "new": 11,
+  "total_store": 4935
  },
  "rss:Улград": {
   "ok": true,
