@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-24T13:46:06.191306+00:00",
- "generated_local": "24.09.2026 17:46",
+ "generated_utc": "2026-09-24T14:11:31.835781+00:00",
+ "generated_local": "24.09.2026 18:11",
  "days": [
   "2026-09-11",
   "2026-09-12",
@@ -18,9 +18,9 @@
   "2026-09-24"
  ],
  "counts": {
-  "total": 4935,
-  "last24h": 363,
-  "last7d": 2377
+  "total": 4945,
+  "last24h": 369,
+  "last7d": 2382
  },
  "topics": {
   "elections": {
@@ -39,11 +39,11 @@
     78,
     23,
     29,
-    12
+    13
    ],
-   "today": 12,
-   "week": 407,
-   "total": 507,
+   "today": 13,
+   "week": 408,
+   "total": 508,
    "status": "fading"
   },
   "governor": {
@@ -131,11 +131,11 @@
     12,
     9,
     19,
-    16
+    18
    ],
-   "today": 16,
-   "week": 91,
-   "total": 204,
+   "today": 18,
+   "week": 93,
+   "total": 206,
    "status": "stable"
   },
   "uaz": {
@@ -269,11 +269,11 @@
     68,
     44,
     70,
-    51
+    55
    ],
-   "today": 51,
-   "week": 352,
-   "total": 755,
+   "today": 55,
+   "week": 356,
+   "total": 759,
    "status": "stable"
   },
   "schools": {
@@ -292,11 +292,11 @@
     32,
     26,
     24,
-    18
+    20
    ],
-   "today": 18,
-   "week": 167,
-   "total": 400,
+   "today": 20,
+   "week": 169,
+   "total": 402,
    "status": "stable"
   },
   "medicine": {
@@ -338,11 +338,11 @@
     53,
     60,
     69,
-    48
+    49
    ],
-   "today": 48,
-   "week": 350,
-   "total": 712,
+   "today": 49,
+   "week": 351,
+   "total": 713,
    "status": "stable"
   },
   "culture": {
@@ -430,11 +430,11 @@
     15,
     11,
     7,
-    12
+    13
    ],
-   "today": 12,
-   "week": 71,
-   "total": 168,
+   "today": 13,
+   "week": 72,
+   "total": 169,
    "status": "stable"
   },
   "macro": {
@@ -453,11 +453,11 @@
     4,
     0,
     8,
-    6
+    7
    ],
-   "today": 6,
-   "week": 19,
-   "total": 38,
+   "today": 7,
+   "week": 20,
+   "total": 39,
    "status": "rising"
   }
  },
@@ -478,10 +478,10 @@
     93,
     33,
     51,
-    15
+    16
    ],
-   "week": 483,
-   "today": 15
+   "week": 484,
+   "today": 16
   },
   "security": {
    "name": "Безопасность и происшествия",
@@ -499,10 +499,10 @@
     94,
     87,
     100,
-    72
+    74
    ],
-   "week": 466,
-   "today": 72
+   "week": 468,
+   "today": 74
   },
   "economy": {
    "name": "Экономика и промышленность",
@@ -562,10 +562,10 @@
     125,
     118,
     142,
-    121
+    128
    ],
-   "week": 838,
-   "today": 121
+   "week": 845,
+   "today": 128
   },
   "health": {
    "name": "Здравоохранение",

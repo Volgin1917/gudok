@@ -1,5 +1,5 @@
 {
- "generated_local": "24.09.2026 17:46",
+ "generated_local": "24.09.2026 18:11",
  "calendar": [
   {
    "etype": "kids",
@@ -623,44 +623,44 @@
    ]
   },
   {
-   "name": "рейтинге · зарплат · ульяновская",
+   "name": "отпуска · деньги · хотят",
    "terms": [
-    "рейтинге",
-    "зарплат",
-    "ульяновская"
+    "отпуска",
+    "деньги",
+    "хотят"
    ],
    "size": 3,
    "coverage": 0.0,
    "gap": true,
    "samples": [
     {
-     "title": "📊 Ульяновская область заняла 67-е место в рейтинге регионов России по уровню зарплат. Исследование РИА Новости",
-     "url": "https://t.me/chpulsk/50984",
-     "source": "t.me/chpulsk",
-     "views": 664
+     "title": "Ульяновцы хотят денег Как выяснил сервис SuperJob, ульяновцы любят деньги больше, чем отдых: 73% жителей нашег",
+     "url": "https://t.me/ulpatriot/6992",
+     "source": "t.me/ulpatriot",
+     "views": 895
     },
     {
-     "title": "Ульяновская область вошла в топ-20 регионов России с самой низкой медианной зарплатой в рейтинге РИА Новости Л",
-     "url": "https://t.me/ulsk_73online/36222",
-     "source": "t.me/ulsk_73online",
-     "views": 460
+     "title": "Все больше россиян хотят получать деньги вместо неиспользованного отпуска. Сейчас такую компенсацию предпочли ",
+     "url": "https://t.me/ulsk_on/22930",
+     "source": "t.me/ulsk_on",
+     "views": 192
     },
     {
-     "title": "🔥 Средний уровень зарплат: Ульяновская область заняла 67-е место в рейтинге доходов по России Половина населен",
-     "url": "https://t.me/dimitrovgradonline/33994",
-     "source": "t.me/dimitrovgradonline",
-     "views": 433
+     "title": "SuperJob: Три четверти ульяновцев хотят получать деньги вместо неотгулянного отпуска",
+     "url": "https://ulpressa.ru/2026/09/22/superjob-tri-chetverti-ulyanovczev-hotyat-poluchat-dengi-vmesto-neotgulennogo-otpuska/",
+     "source": "Улпресса",
+     "views": null
     }
    ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": -0.018,
-  "today_items": 251,
-  "today_pos": 1319,
-  "today_neg": 912,
-  "today_neu": 1806,
+  "today_score": -0.017,
+  "today_items": 258,
+  "today_pos": 1321,
+  "today_neg": 914,
+  "today_neu": 1809,
   "series": [
    {
     "date": "2026-09-11",
@@ -716,7 +716,7 @@
    },
    {
     "date": "2026-09-24",
-    "score": -0.018
+    "score": -0.017
    }
   ],
   "by_category": {
@@ -725,8 +725,8 @@
    "education": 1.0,
    "health": 0.0,
    "politics": 0.113,
-   "security": -0.494,
-   "society": 0.041,
+   "security": -0.503,
+   "society": 0.048,
    "sport": 0.0
   }
  },
@@ -734,9 +734,9 @@
   {
    "source": "Улпресса",
    "tier": 1,
-   "type": "rss",
-   "total": 886,
-   "primary": 773,
+   "type": "tg",
+   "total": 887,
+   "primary": 774,
    "dup": 113,
    "repost_rate": 0.13,
    "views_median": 1350,
@@ -783,9 +783,9 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 232,
-   "primary": 203,
-   "dup": 29,
+   "total": 233,
+   "primary": 205,
+   "dup": 28,
    "repost_rate": 0.12,
    "views_median": 577,
    "label": "первоисточник",
@@ -807,11 +807,11 @@
    "source": "chpulsk",
    "tier": 2,
    "type": "tg",
-   "total": 191,
-   "primary": 122,
+   "total": 194,
+   "primary": 125,
    "dup": 69,
    "repost_rate": 0.36,
-   "views_median": 3030,
+   "views_median": 2970,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -831,9 +831,9 @@
    "source": "ulkompr",
    "tier": 3,
    "type": "tg",
-   "total": 186,
+   "total": 187,
    "primary": 144,
-   "dup": 42,
+   "dup": 43,
    "repost_rate": 0.23,
    "views_median": 593,
    "label": "первоисточник",
@@ -844,9 +844,9 @@
    "tier": 1,
    "type": "tg",
    "total": 164,
-   "primary": 136,
-   "dup": 28,
-   "repost_rate": 0.17,
+   "primary": 137,
+   "dup": 27,
+   "repost_rate": 0.16,
    "views_median": 37,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -868,10 +868,10 @@
    "tier": 2,
    "type": "tg",
    "total": 158,
-   "primary": 141,
-   "dup": 17,
-   "repost_rate": 0.11,
-   "views_median": 1150,
+   "primary": 139,
+   "dup": 19,
+   "repost_rate": 0.12,
+   "views_median": 1190,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -879,11 +879,11 @@
    "source": "Губернатор и Правительство Ульяновской области",
    "tier": 1,
    "type": "tg",
-   "total": 145,
+   "total": 147,
    "primary": 98,
-   "dup": 47,
-   "repost_rate": 0.32,
-   "views_median": 101,
+   "dup": 49,
+   "repost_rate": 0.33,
+   "views_median": 105,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -891,11 +891,11 @@
    "source": "dimitrovgradonline",
    "tier": 2,
    "type": "tg",
-   "total": 140,
-   "primary": 109,
-   "dup": 31,
-   "repost_rate": 0.22,
-   "views_median": 405,
+   "total": 141,
+   "primary": 111,
+   "dup": 30,
+   "repost_rate": 0.21,
+   "views_median": 397,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -928,10 +928,10 @@
    "tier": 2,
    "type": "tg",
    "total": 125,
-   "primary": 104,
-   "dup": 21,
-   "repost_rate": 0.17,
-   "views_median": 915,
+   "primary": 103,
+   "dup": 22,
+   "repost_rate": 0.18,
+   "views_median": 860,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -939,8 +939,8 @@
    "source": "shugozhor73",
    "tier": 3,
    "type": "tg",
-   "total": 122,
-   "primary": 85,
+   "total": 123,
+   "primary": 86,
    "dup": 37,
    "repost_rate": 0.3,
    "views_median": 2460,
@@ -967,7 +967,7 @@
    "primary": 80,
    "dup": 24,
    "repost_rate": 0.23,
-   "views_median": 1680,
+   "views_median": 1720,
    "label": "первоисточник",
    "clickbait_rate": 0.01
   },
@@ -1192,8 +1192,8 @@
   {
    "topic": "elections",
    "name": "Выборы",
-   "expected": 2.2,
-   "slope": -15.43,
+   "expected": 2.9,
+   "slope": -15.32,
    "direction": "спад",
    "confidence": "высокая"
   },
@@ -1214,18 +1214,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "crime",
-   "name": "Суды и криминал",
-   "expected": 57.1,
-   "slope": 2.39,
+   "topic": "transport",
+   "name": "Транспорт и дороги",
+   "expected": 59.9,
+   "slope": 2.57,
    "direction": "рост",
    "confidence": "средняя"
   },
   {
-   "topic": "transport",
-   "name": "Транспорт и дороги",
-   "expected": 57.0,
-   "slope": 2.14,
+   "topic": "crime",
+   "name": "Суды и криминал",
+   "expected": 57.9,
+   "slope": 2.5,
    "direction": "рост",
    "confidence": "средняя"
   },
@@ -1262,6 +1262,14 @@
    "confidence": "средняя"
   },
   {
+   "topic": "macro",
+   "name": "Макроэкономика / ЦБ",
+   "expected": 7.6,
+   "slope": 1.21,
+   "direction": "рост",
+   "confidence": "средняя"
+  },
+  {
    "topic": "avia",
    "name": "Авиапром / УКБП / Ил-114",
    "expected": 8.7,
@@ -1270,19 +1278,11 @@
    "confidence": "средняя"
   },
   {
-   "topic": "macro",
-   "name": "Макроэкономика / ЦБ",
-   "expected": 6.9,
-   "slope": 1.11,
+   "topic": "budget",
+   "name": "Бюджет-2027",
+   "expected": 18.0,
+   "slope": 0.89,
    "direction": "рост",
-   "confidence": "средняя"
-  },
-  {
-   "topic": "schools",
-   "name": "Школы и вузы",
-   "expected": 19.6,
-   "slope": -0.89,
-   "direction": "спад",
    "confidence": "средняя"
   },
   {
@@ -1294,11 +1294,11 @@
    "confidence": "средняя"
   },
   {
-   "topic": "budget",
-   "name": "Бюджет-2027",
-   "expected": 16.6,
-   "slope": 0.68,
-   "direction": "рост",
+   "topic": "schools",
+   "name": "Школы и вузы",
+   "expected": 21.1,
+   "slope": -0.68,
+   "direction": "спад",
    "confidence": "средняя"
   },
   {
@@ -1320,8 +1320,8 @@
   {
    "topic": "weather",
    "name": "Погода",
-   "expected": 10.7,
-   "slope": 0.11,
+   "expected": 11.5,
+   "slope": 0.21,
    "direction": "плато",
    "confidence": "низкая"
   },
@@ -1657,8 +1657,8 @@
    "title_is_fallback": false,
    "title_kind": "quoted",
    "title": "Сергей Сандрюков: С 23 по 25 сентября в Димитровграде пройдут очередные командно-штабного учения. Будет отраба…",
-   "url": "https://t.me/dimitrovgradd/32027",
-   "source": "t.me/dimitrovgradd",
+   "url": "https://t.me/dimitrovgradonline/34046",
+   "source": "t.me/dimitrovgradonline",
    "tier": 2,
    "venue": "",
    "venue_addr": "",
@@ -3057,6 +3057,36 @@
    "score": 0.46
   },
   {
+   "etype": "kids",
+   "is_culture": true,
+   "district": false,
+   "date": "2026-10-01",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "Семейной ипотеке",
+   "title_is_fallback": false,
+   "title_kind": "quoted",
+   "title": "🏠 Минфин анонсировал с 1 октября изменения в «Семейной ипотеке», предполагается дифференциация процентной став…",
+   "url": "https://t.me/chpulsk/51054",
+   "source": "t.me/chpulsk",
+   "tier": 2,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "нет площадки"
+   ],
+   "score": 0.62
+  },
+  {
    "etype": "other",
    "is_culture": false,
    "district": false,
@@ -3729,9 +3759,9 @@
   }
  ],
  "calendar_passport": {
-  "found_dates": 112,
+  "found_dates": 113,
   "accepted": 15,
-  "rejected": 78,
+  "rejected": 79,
   "venues_new": {
    "ООО «Боулинг-центр» и ООО «Аэробоул»": 1,
    "площадке «РТС-тендер»": 1,
@@ -3758,9 +3788,9 @@
    "title_composed": 10,
    "with_price": 3,
    "with_age": 0,
-   "rejected_no_venue": 69
+   "rejected_no_venue": 70
   },
-  "run_local": "24.09.2026 17:46",
+  "run_local": "24.09.2026 18:11",
   "total": 15,
   "no_time": 0,
   "no_venue": 0,
