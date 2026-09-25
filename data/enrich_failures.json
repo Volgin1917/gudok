@@ -28,5 +28,10 @@
   "code": "blocked",
   "date": "2026-09-25",
   "error": "'latin-1' codec can't encode characters in position 0-17: ordinal not in range(256)"
+ },
+ "ulnovosti.ru": {
+  "code": "blocked",
+  "date": "2026-09-25",
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  }
 }
