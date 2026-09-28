@@ -3941,55 +3941,160 @@ text-transform:uppercase;color:var(--muted);margin:14px 0 6px;}
 .pl-n{font-weight:700;color:var(--ink);}
 """
 
+METHODS_CSS += """
+/* ---- страница «Методы» v2: sticky-полоса, оглавление, иерархия, сводка, глоссарий ---- */
+.msticky{position:sticky;top:50px;z-index:19;background:var(--paper);border-bottom:1px solid var(--ink);}
+.msticky-in{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:flex;gap:2px;overflow-x:auto;white-space:nowrap;}
+.msticky a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--muted);padding:9px 10px;border-bottom:2px solid transparent;}
+.msticky a:hover{color:var(--ink);}
+.msticky a.on{color:var(--accent);border-bottom-color:var(--accent);}
+@media (max-width:900px){.msticky{top:53px;}}
+.reg-layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:40px;align-items:start;}
+.mtoc{position:sticky;top:96px;max-height:calc(100vh - 130px);overflow:auto;border-top:1px solid var(--ink);padding-top:10px;font-family:var(--sans);}
+.mtoc-g{margin-bottom:12px;}
+.mtoc-g>a{display:block;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);}
+.mtoc-g>a:hover{color:var(--accent);}
+.mtoc ul{list-style:none;margin:4px 0 0;padding:0;}
+.mtoc li a{display:block;font-size:12px;color:var(--muted);padding:2px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mtoc li a:hover{color:var(--accent);}
+.mtoc li b{color:var(--ink-2);font-weight:700;}
+.mtoc-s{margin-top:6px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+@media (max-width:1279px){.reg-layout{grid-template-columns:1fr;}.mtoc{display:none;}}
+.mgroup{border-top:2px solid var(--ink);margin-top:26px;}
+.mgroup:first-child{margin-top:6px;}
+.mgroup-head{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;cursor:pointer;list-style:none;padding:12px 0;}
+.mgroup-head::-webkit-details-marker{display:none;}
+.mgroup-head::before{content:"▾";font-family:var(--sans);color:var(--accent);font-size:13px;}
+.mgroup:not([open]) .mgroup-head::before{content:"▸";}
+.mgroup-head:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.mgtitle{font-family:var(--serif-display);font-size:21px;font-weight:600;color:var(--ink);}
+.mgstat{margin-left:auto;font-family:var(--sans);font-size:11.5px;color:var(--muted);letter-spacing:.04em;}
+.msub-badge{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.04em;border-bottom:1px solid var(--rule);padding:2px 0;white-space:nowrap;}
+.mmeta{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.55;}
+.mmeta b{color:var(--ink-2);}
+.mblocked{font-family:var(--sans);font-size:11.5px;color:var(--ink-2);background:var(--paper-2);border-left:3px solid var(--muted);padding:5px 10px;margin-top:7px;}
+.formula{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.55;background:var(--paper-2);border:1px solid var(--rule);padding:8px 10px;margin-top:4px;white-space:pre-wrap;color:var(--ink);}
+.mlim{margin:4px 0 0;padding-left:18px;}
+.mlim li{margin:3px 0;}
+.mex{font-family:var(--serif-body);font-size:13px;font-style:italic;color:var(--ink-2);border-left:2px solid var(--accent);padding:2px 0 2px 10px;margin-top:4px;line-height:1.5;}
+.mfooter{display:flex;flex-wrap:wrap;gap:6px 18px;border-top:1px solid var(--rule);margin-top:12px;padding-top:8px;font-family:var(--sans);font-size:11.5px;color:var(--muted);}
+.mfooter a{color:var(--ink-2);border-bottom:1px solid var(--rule);}
+.mfooter a:hover{color:var(--accent);border-color:var(--accent);}
+.mfooter code{font-size:10.5px;background:var(--paper-2);border:1px solid var(--rule);padding:1px 5px;}
+.dod{display:grid;grid-template-columns:170px 1fr;border-top:1px solid var(--ink);margin:6px 0 14px;}
+.dod>div{border-bottom:1px solid var(--rule);padding:9px 14px 9px 0;font-family:var(--sans);font-size:12.5px;color:var(--ink-2);line-height:1.5;}
+.dod .dod-s{font-weight:800;color:var(--ink);white-space:nowrap;}
+.pipe{width:100%;height:auto;margin:8px 0 16px;}
+.pipe a{text-decoration:none;}
+.svod-tools{margin:4px 0 10px;}
+#svodQ{font-family:var(--sans);font-size:13px;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:0;padding:8px 10px;min-width:280px;}
+#svodQ:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.svod th[data-t]{cursor:pointer;user-select:none;white-space:nowrap;}
+.svod th[data-t]:hover{color:var(--accent);}
+.svod th .arr{color:var(--accent);font-size:10px;}
+.svod td{font-family:var(--sans);font-size:12px;color:var(--ink-2);}
+.svod td a{color:var(--ink);}
+.svod td a:hover{color:var(--accent);}
+.svod .sv-name{font-family:var(--serif-body);font-size:13px;}
+@media (max-width:720px){.svod .sv-hide{display:none;}#svodQ{min-width:100%;}}
+.gloss{display:grid;grid-template-columns:1fr 1fr;gap:0 44px;border-top:1px solid var(--ink);}
+.gloss-item{border-bottom:1px solid var(--rule);padding:12px 0;break-inside:avoid;}
+.gloss-item b{font-family:var(--serif-display);font-size:15px;color:var(--ink);}
+.gloss-item p{font-family:var(--serif-body);font-size:13px;color:var(--ink-2);margin:4px 0 0;line-height:1.5;}
+@media (max-width:900px){.gloss{grid-template-columns:1fr;}}
+.chlog{border-top:1px solid var(--rule);}
+.chlog summary{cursor:pointer;list-style:none;font-family:var(--serif-display);font-size:16px;font-weight:600;color:var(--ink);padding:11px 0;}
+.chlog summary::-webkit-details-marker{display:none;}
+.chlog summary::before{content:"▸ ";color:var(--accent);}
+.chlog[open] summary::before{content:"▾ ";}
+.chlog ul{font-family:var(--serif-body);font-size:13.5px;color:var(--ink-2);margin:2px 0 12px;padding-left:20px;line-height:1.55;}
+.chlog li{margin:4px 0;}
+.b2t{position:fixed;right:18px;bottom:18px;z-index:30;width:42px;height:42px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);font-size:18px;line-height:1;cursor:pointer;}
+.b2t:hover{color:var(--accent);border-color:var(--accent);}
+.b2t:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.b2t[hidden]{display:none;}
+@media print{
+  .msticky,.mtoc,.b2t,.svod-tools,#fBlock{display:none!important;}
+  .mgroup>.msub{display:block!important;}
+  .mgroup+.mgroup{break-before:page;}
+  .chlog ul{display:block!important;}
+}
+"""
+
 # Прогрессивный JS страницы «Методы»: фильтры реестра, подпись раскрытия паспорта
 # и стенд испытания (протокол формируется из data-атрибутов карточки). Без JS
 # видны все карточки и все фильтры просто не работают — как на остальных страницах.
 METHODS_JS = """<script>
 (function(){
-  var grid=document.getElementById('mGrid');
-  if(!grid){return;}
-  var cards=Array.prototype.slice.call(grid.querySelectorAll('.mcard'));
+  var reg=document.getElementById('mReg');
+  var cards=reg?Array.prototype.slice.call(reg.querySelectorAll('.mcard')):[];
   var shown=document.getElementById('cntShown');
   var empty=document.getElementById('mEmpty');
-  var curG='all',curS='all';
+  var curG='all',curS='all',curB='all';
+  function vis(c){return c.style.display!=='none';}
   function apply(){
     var n=0;
     cards.forEach(function(c){
       var okG=(curG==='all')||(curG==='ideo'?c.getAttribute('data-ideo')==='1':c.getAttribute('data-group')===curG);
-      var ok=okG&&(curS==='all'||c.getAttribute('data-status')===curS);
+      var okS=(curS==='all'||c.getAttribute('data-status')===curS);
+      var okB=(curB==='all')||((c.getAttribute('data-blocked')||'').split(' ').indexOf(curB)>=0);
+      var ok=okG&&okS&&okB;
       c.style.display=ok?'':'none';
       if(ok){n++;}
+    });
+    /* пустые подгруппы и группы скрываем; при активном фильтре группы раскрываем */
+    var filtering=(curG!=='all'||curS!=='all'||curB!=='all');
+    Array.prototype.forEach.call(document.querySelectorAll('.msub'),function(s){
+      var v=Array.prototype.filter.call(s.querySelectorAll('.mcard'),vis).length;
+      s.style.display=v?'':'none';
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.mgroup'),function(g){
+      var v=Array.prototype.filter.call(g.querySelectorAll('.mcard'),vis).length;
+      g.style.display=v?'':'none';
+      if(v&&filtering&&!g.open){g.open=true;var sm=g.querySelector('.mgroup-head');if(sm){sm.setAttribute('aria-expanded','true');}}
     });
     if(shown){shown.textContent=n;}
     if(empty){empty.classList.toggle('hidden',n>0);}
   }
   function bind(sel,attr,set){
-    document.querySelectorAll(sel+' .fbtn').forEach(function(b){
+    Array.prototype.forEach.call(document.querySelectorAll(sel+' .fbtn'),function(b){
       b.addEventListener('click',function(){
         set(b.getAttribute(attr));
-        document.querySelectorAll(sel+' .fbtn').forEach(function(x){x.classList.toggle('active',x===b);});
+        Array.prototype.forEach.call(document.querySelectorAll(sel+' .fbtn'),function(x){x.classList.toggle('active',x===b);});
         apply();
       });
     });
   }
   bind('#fGroup','data-g',function(v){curG=v;});
   bind('#fStatus','data-s',function(v){curS=v;});
+  bind('#fBlock','data-b',function(v){curB=v;});
   window._mReset=function(){
-    curG='all';curS='all';
-    document.querySelectorAll('#fGroup .fbtn').forEach(function(x){x.classList.toggle('active',x.getAttribute('data-g')==='all');});
-    document.querySelectorAll('#fStatus .fbtn').forEach(function(x){x.classList.toggle('active',x.getAttribute('data-s')==='all');});
+    curG='all';curS='all';curB='all';
+    Array.prototype.forEach.call(document.querySelectorAll('#fGroup .fbtn'),function(x){x.classList.toggle('active',x.getAttribute('data-g')==='all');});
+    Array.prototype.forEach.call(document.querySelectorAll('#fStatus .fbtn'),function(x){x.classList.toggle('active',x.getAttribute('data-s')==='all');});
+    Array.prototype.forEach.call(document.querySelectorAll('#fBlock .fbtn'),function(x){x.classList.toggle('active',x.getAttribute('data-b')==='all');});
     apply();
   };
+  /* подпись раскрытия и aria-expanded — синхронно с состоянием раскрываемых блоков */
   cards.forEach(function(c){
     c.addEventListener('toggle',function(){
       var t=c.querySelector('.mtoggle');
       if(t){t.textContent=c.open?'паспорт ↑':'паспорт ↓';}
+      var sm=c.querySelector('.mcard-head');
+      if(sm){sm.setAttribute('aria-expanded',c.open?'true':'false');}
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.mgroup'),function(g){
+    g.addEventListener('toggle',function(){
+      var sm=g.querySelector('.mgroup-head');
+      if(sm){sm.setAttribute('aria-expanded',g.open?'true':'false');}
     });
   });
 
   /* ---------- стенд испытания ---------- */
   var sel=document.getElementById('protoMethod');
-  if(sel){
+  if(sel&&!sel.options.length){
+    /* запасной вариант: опции обычно уже отрисованы на стороне Python */
     cards.slice().sort(function(a,b){
       return (+a.getAttribute('data-code').replace(/\\D+/g,''))-(+b.getAttribute('data-code').replace(/\\D+/g,''));
     }).forEach(function(c){
@@ -4053,34 +4158,151 @@ METHODS_JS = """<script>
       document.body.removeChild(ta);
     }
   };
+
+  /* ---------- scroll-spy sticky-полосы (прогрессивно: без IO полоса работает как якоря) ---------- */
+  var secs=['method','reestr','elect','ideo','tech','stand','gloss','svod','journal'];
+  if('IntersectionObserver' in window){
+    var links={};
+    Array.prototype.forEach.call(document.querySelectorAll('.msticky a'),function(a){
+      var h=a.getAttribute('href')||'';
+      if(h.charAt(0)==='#'){links[h.slice(1)]=a;}
+    });
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting){return;}
+        Object.keys(links).forEach(function(k){links[k].classList.remove('on');links[k].removeAttribute('aria-current');});
+        var l=links[e.target.id];
+        if(l){l.classList.add('on');l.setAttribute('aria-current','true');}
+      });
+    },{rootMargin:'-96px 0px -62% 0px'});
+    secs.forEach(function(id){var el=document.getElementById(id);if(el){io.observe(el);}});
+  }
+
+  /* ---------- кнопка «наверх» ---------- */
+  var b2t=document.getElementById('b2t');
+  if(b2t){
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.addEventListener('scroll',function(){b2t.hidden=!(window.scrollY>600);},{passive:true});
+    b2t.addEventListener('click',function(){window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});});
+  }
+
+  /* ---------- сводная таблица: сортировка по колонкам и поиск ---------- */
+  var tbl=document.getElementById('svodTbl');
+  if(tbl&&tbl.tBodies.length){
+    var body=tbl.tBodies[0];
+    var head=tbl.tHead.rows[0];
+    var asc={};
+    Array.prototype.forEach.call(head.cells,function(th){
+      if(!th.hasAttribute('data-i')){return;}
+      th.addEventListener('click',function(){
+        var i=+th.getAttribute('data-i');
+        var type=th.getAttribute('data-t')||'str';
+        asc[i]=!asc[i];
+        var r=Array.prototype.slice.call(body.rows);
+        r.sort(function(a,b){
+          var ca=a.cells[i],cb=b.cells[i];
+          var x=ca.getAttribute('data-v')!==null?ca.getAttribute('data-v'):ca.textContent.trim();
+          var y=cb.getAttribute('data-v')!==null?cb.getAttribute('data-v'):cb.textContent.trim();
+          if(type==='num'){x=parseFloat(x)||0;y=parseFloat(y)||0;return asc[i]?x-y:y-x;}
+          return asc[i]?String(x).localeCompare(String(y),'ru'):String(y).localeCompare(String(x),'ru');
+        });
+        r.forEach(function(row){body.appendChild(row);});
+        Array.prototype.forEach.call(head.cells,function(o){var ar=o.querySelector('.arr');if(ar){ar.textContent='';}});
+        var arr=th.querySelector('.arr');
+        if(arr){arr.textContent=asc[i]?'▲':'▼';}
+      });
+    });
+    var q=document.getElementById('svodQ');
+    if(q){
+      q.addEventListener('input',function(){
+        var v=(q.value||'').trim().toLowerCase();
+        Array.prototype.forEach.call(body.rows,function(row){
+          row.style.display=(!v||row.textContent.toLowerCase().indexOf(v)>=0)?'':'none';
+        });
+      });
+    }
+  }
+
   apply();
 })();
 </script>"""
 
 
 def render_methods(cfg, trends, store, status):
-    """Страница «Методы»: реестр методик исследования инфополя с паспортами.
+    """Страница «Методы»: реестр методик исследования инфополя v2.0.
 
-    Данные — methods.py (редакционный реестр v1.1): 36 методик, восемь групп,
-    сквозной идеологический блок, техконтур из открытых стандартов и стенд
-    испытания с генератором протокола. Страница в общем стиле издания: шапка,
-    навигация и подвал — из общих компонентов, свой только METHODS_CSS.
-    Паспорта раскрываются нативным <details> — работают и без JavaScript.
+    Данные — methods.py (редакционный реестр v2.0): 41 паспорт, иерархия
+    «группа → подгруппа», два типа паспортов (метрика: гипотеза/формула/порог;
+    процедура: правило/критерий), сквозной идеологический блок, глоссарий,
+    журнал изменений реестра, техконтур и стенд испытания. Вёрстка v2:
+    sticky-полоса якорей со scroll-spy, боковое оглавление (≥1280px), группы
+    сворачиваются нативным <details>, статусы с символами ●◐○ (цвет не
+    единственный индикатор), сводная таблица всех паспортов внизу (сортировка
+    и поиск — прогрессивный JS), SVG-схема конвейера внедрения, легенда
+    definition of done, кнопка «наверх». Паспорта раскрываются нативным
+    <details> — страница читается и без JavaScript.
     """
     import methods as M
     import plans as P
     now = datetime.now(UTC4)
     cnt = M.counts()
+    kinds = M.kind_counts()
     nav_html = render_nav(cfg, "projects", "", subnav=subnav_projects("", "methods"))
+    id_by_code = {m["code"]: m["id"] for m in M.METHODS}
+
+    def pl_ru(n, one, few, many):
+        """Склонение: 1 методика, 2 методики, 5 методик."""
+        n10, n100 = n % 10, n % 100
+        if n10 == 1 and n100 != 11:
+            return one
+        if 2 <= n10 <= 4 and not (12 <= n100 <= 14):
+            return few
+        return many
+
+    def code_links(codes):
+        out = []
+        for c in codes:
+            anchor = id_by_code.get(c)
+            out.append(f'<a href="#{esc(anchor)}">{esc(c)}</a>' if anchor else esc(c))
+        return " ".join(out)
 
     # ---------------------------------------------------------- конвейер внедрения
     stage_rows = []
-    for st in P.METHOD_STAGES:
-        stage_rows.append(f"""<div class="pl-stage"><div class="pl-stage__n">{st['n']}</div>
+    stage_meta = [("methods.py", "вручную"), ("data/store.jsonl", "авто"), ("модуль методики", "авто"),
+                  ("render_*, HTML", "авто"), ("tests/", "CI")]
+    for st, (where_file, _auto) in zip(P.METHOD_STAGES, stage_meta):
+        stage_rows.append(f"""<div class="pl-stage" id="stage-{st['n']}"><div class="pl-stage__n">{st['n']}</div>
 <div><h3>{esc(st['t'])}</h3><p>{esc(st['d'])}</p>
 <div class="pl-code"><b>Где в коде:</b> {esc(st['where'])}</div>
 <div class="pl-code"><b>Проверка:</b> {esc(st['check'])}</div>
 <div class="pl-ex">Пример — {esc(st['ex'])}</div></div></div>""")
+
+    # SVG-схема конвейера: шаг 1 (паспорт) — вручную, пунктир; остальные — авто
+    pipe_steps = [("Паспорт", "methods.py", True), ("Данные", "store.jsonl", False),
+                  ("Расчёт", "модуль", False), ("Блок витрины", "render_*", False),
+                  ("Тест", "tests/ · CI", False)]
+    boxes = []
+    for i, (title, sub, manual) in enumerate(pipe_steps):
+        x = 8 + i * 210
+        dash = ' stroke-dasharray="5 4"' if manual else ""
+        boxes.append(
+            f'<a href="#stage-{i + 1}"><g>'
+            f'<rect x="{x}" y="14" width="186" height="62" fill="var(--paper-2)" stroke="var(--ink)"{dash}/>'
+            f'<text x="{x + 93}" y="40" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">{esc(title)}</text>'
+            f'<text x="{x + 93}" y="60" text-anchor="middle" font-size="11" fill="var(--muted)">{esc(sub)}'
+            f'{" · вручную" if manual else ""}</text></g></a>')
+        if i < 4:
+            ax = x + 188
+            boxes.append(f'<path d="M{ax} 45 h16 m-5 -5 l6 5 l-6 5" fill="none" stroke="var(--muted)" stroke-width="1.6"/>')
+    pipe_svg = ('<svg class="pipe" viewBox="0 0 1056 90" role="img" aria-label="Конвейер внедрения метода: '
+                'паспорт, данные, расчёт, блок на витрине, тест">' + "".join(boxes) + "</svg>")
+
+    # легенда definition of done
+    dod_rows = "".join(
+        f'<div class="dod-s">{esc(M.STATUS_SYMBOL[k])} {esc(M.STATUS[k])}</div><div>{esc(v)}</div>'
+        for k, v in (("queue", M.STATUS_DOD["queue"]), ("test", M.STATUS_DOD["test"]),
+                     ("work", M.STATUS_DOD["work"])))
+    dod_html = f'<div class="pl-h4">Статусы: что должно быть готово (definition of done)</div><div class="dod">{dod_rows}</div>'
 
     # ---------------------------------------------------------- сводка реестра
     meth = M.counts()
@@ -4095,31 +4317,110 @@ def render_methods(cfg, trends, store, status):
             f'<td>{sum(1 for m in items if m.get("ideo"))}</td></tr>')
     meth_rows = "".join(meth_rows)
 
-    # ------------------------------------------------------------- карточки
-    cards = []
-    for m in M.METHODS:
+    # ------------------------------------------------------------- карточка v2
+    def card_html(m):
         st = m.get("status") if m.get("status") in M.STATUS else "queue"
         stamp_cls = ("wk-stamp " + M.STATUS_CSS[st]).strip()
         grp = f'<span class="mgrp">{esc(M.GROUP_SHORT.get(m.get("group"), m.get("group", "")))}</span>'
+        sub_t = M.SUB_TITLE.get((m.get("group"), m.get("sub")), "")
+        if sub_t:
+            grp += f'<span class="msub-badge">{esc(sub_t)}</span>'
         if m.get("ideo"):
             grp += '<span class="mgrp mgrp-ideo">идеология</span>'
         rows = []
+        # типоспецифичные поля: метрика — гипотеза/формула/порог; процедура — правило/критерий
+        for fkey in M.KIND_FIELDS.get(m.get("kind"), ()):
+            val = str(m.get(fkey, "")).strip()
+            if not val:
+                continue
+            if fkey == "formula":
+                rows.append(f'<div class="mrow mrow-wide"><b>{esc(M.KIND_FIELD_TITLE[fkey])}</b>'
+                            f'<span class="formula">{esc(val)}</span></div>')
+            else:
+                rows.append(f'<div class="mrow mrow-wide"><b>{esc(M.KIND_FIELD_TITLE[fkey])}</b>{esc(val)}</div>')
+        # шесть строк паспорта v1 (доверенный редакционный текст с <code>/<a>)
         for r in m.get("rows", []):
-            body = r.get("text", "")          # доверенный редакционный текст с <code>/<a>
+            body = r.get("text", "")
             if r.get("steps"):
                 body += "<ol>" + "".join(f"<li>{s}</li>" for s in r["steps"]) + "</ol>"
             wide = " mrow-wide" if r.get("steps") else ""
             rows.append(f'<div class="mrow{wide}"><b>{esc(r.get("label", ""))}</b>{body}</div>')
+        # общие поля v2
+        if m.get("source"):
+            rows.append(f'<div class="mrow mrow-wide"><b>Источник данных</b>{esc(m["source"])}</div>')
+        lim = m.get("limitations") or []
+        if lim:
+            rows.append('<div class="mrow mrow-wide"><b>Ограничения</b><ul class="mlim">'
+                        + "".join(f"<li>{esc(x)}</li>" for x in lim) + "</ul></div>")
+        if m.get("example"):
+            rows.append(f'<div class="mrow mrow-wide"><b>Пример расчёта</b>'
+                        f'<div class="mex">{esc(m["example"])}</div></div>')
+        # строка метаданных и подвал карточки
+        meta = [f'тип: <b>{esc(M.KINDS.get(m.get("kind"), ""))}</b>',
+                f'владелец: {esc(m.get("owner", ""))}']
+        if m.get("status_since"):
+            meta.append(f'в реестре с {esc(m["status_since"])}')
+        if m.get("last_run"):
+            meta.append(f'последний прогон: {esc(m["last_run"])}')
+        if m.get("config_version"):
+            meta.append(f'версия словарей: {esc(m["config_version"])}')
+        meta_html = '<div class="mmeta">' + " · ".join(meta) + "</div>"
+        blocked_html = ""
+        if st == "queue" and m.get("blocked_by"):
+            bb = ", ".join(M.BLOCKED_BY.get(b, b) for b in m["blocked_by"])
+            blocked_html = f'<div class="mblocked">очередь блокирует: {esc(bb)}</div>'
+        dep = m.get("dependencies") or {}
+        foot = []
+        if dep.get("methods"):
+            foot.append("<span>зависит от методик: " + code_links(dep["methods"]) + "</span>")
+        if dep.get("data"):
+            foot.append("<span>данные: " + " · ".join(f"<code>{esc(d)}</code>" for d in dep["data"]) + "</span>")
+        if m.get("related"):
+            foot.append("<span>связанные: " + code_links(m["related"]) + "</span>")
+        foot_html = ('<div class="mfooter">' + "".join(foot) + "</div>") if foot else ""
         ideo_attr = ' data-ideo="1"' if m.get("ideo") else ""
-        cards.append(f"""<details class="mcard" data-group="{esc(m.get('group', ''))}" data-status="{esc(st)}"
- data-mod="{esc(m.get('mod', ''))}" data-n="{esc(str(m.get('n', '')))}" data-code="{esc(m.get('code', ''))}"{ideo_attr}
+        blocked_attr = f' data-blocked="{esc(" ".join(m.get("blocked_by") or []))}"'
+        return f"""<details class="mcard" data-group="{esc(m.get('group', ''))}" data-sub="{esc(m.get('sub', ''))}" data-status="{esc(st)}"
+ data-mod="{esc(m.get('mod', ''))}" data-n="{esc(str(m.get('n', '')))}" data-code="{esc(m.get('code', ''))}" data-kind="{esc(m.get('kind', ''))}"{blocked_attr}{ideo_attr}
  id="{esc(m.get('id', ''))}">
 <summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">{esc(m.get('code', ''))}</span>
 <span class="mname">{esc(m.get('name', ''))}</span>{grp}
-<span class="{stamp_cls}">{esc(M.STATUS[st])}</span><span class="mtoggle">паспорт ↓</span></summary>
+<span class="{stamp_cls}">{esc(M.STATUS_SYMBOL.get(st, ''))} {esc(M.STATUS[st])}</span><span class="mtoggle">паспорт ↓</span></summary>
 <p class="mess">{esc(m.get('ess', ''))}</p>
+{meta_html}{blocked_html}
 <div class="mdet">{''.join(rows)}</div>
+{foot_html}
+</details>"""
+
+    # ------------------------------------------------------------- иерархия реестра
+    by_sub = M.by_sub()
+    groups_html = []
+    toc_html = []
+    for gkey, gtitle, gshort in M.GROUPS:
+        gitems = M.sorted_by_status([m for m in M.METHODS if m.get("group") == gkey])
+        w = sum(1 for m in gitems if m.get("status") == "work")
+        t = sum(1 for m in gitems if m.get("status") == "test")
+        q = sum(1 for m in gitems if m.get("status") == "queue")
+        subs_html = []
+        toc_subs = []
+        for skey, stitle in M.SUBGROUPS[gkey]:
+            sitems = by_sub.get(gkey, {}).get(skey, [])
+            if not sitems:
+                continue
+            subs_html.append(f'<div class="msub" data-sub="{esc(skey)}">'
+                             f'<div class="h3rule">{esc(stitle)} <span class="sub">· {len(sitems)} '
+                             f'{pl_ru(len(sitems), "методика", "методики", "методик")}</span></div>'
+                             + "".join(card_html(m) for m in sitems) + "</div>")
+            toc_subs.append(f'<li class="mtoc-s">{esc(stitle)}<ul>' + "".join(
+                f'<li><a href="#{esc(m["id"])}"><b>{esc(m["code"])}</b> {esc(m["name"])}</a></li>'
+                for m in sitems) + "</ul></li>")
+        groups_html.append(f"""<details class="mgroup" id="g-{esc(gkey)}" data-group="{esc(gkey)}" open>
+<summary class="mgroup-head" aria-expanded="true"><span class="mgtitle">{esc(gtitle)}</span>
+<span class="mgstat">{len(gitems)} {pl_ru(len(gitems), "методика", "методики", "методик")} · {w}● {t}◐ {q}○</span></summary>
+{''.join(subs_html)}
 </details>""")
+        toc_html.append(f'<div class="mtoc-g"><a href="#g-{esc(gkey)}">{esc(gtitle)}</a><ul>'
+                        + "".join(toc_subs) + "</ul></div>")
 
     # ------------------------------------------------------------- фильтры
     g_chips = ['<button type="button" class="fbtn active" data-g="all">Все группы</button>']
@@ -4129,7 +4430,11 @@ def render_methods(cfg, trends, store, status):
     g_chips.append(f'<button type="button" class="fbtn ideo" data-g="ideo">{esc(M.IDEO_TITLE)} ({cnt["ideo"]})</button>')
     s_chips = ['<button type="button" class="fbtn active" data-s="all">Все статусы</button>']
     for key, label in M.STATUS.items():
-        s_chips.append(f'<button type="button" class="fbtn" data-s="{key}">{esc(label)} ({cnt.get(key, 0)})</button>')
+        s_chips.append(f'<button type="button" class="fbtn" data-s="{key}">{esc(M.STATUS_SYMBOL[key])} {esc(label)} ({cnt.get(key, 0)})</button>')
+    b_counts = {b: sum(1 for m in M.METHODS if b in (m.get("blocked_by") or [])) for b in M.BLOCKED_BY}
+    b_chips = ['<button type="button" class="fbtn active" data-b="all">Все</button>']
+    for bkey, blabel in M.BLOCKED_BY.items():
+        b_chips.append(f'<button type="button" class="fbtn" data-b="{esc(bkey)}">{esc(blabel)} ({b_counts[bkey]})</button>')
 
     # ------------------------------------------------------------- таблицы
     def tbl(t, widths):
@@ -4161,10 +4466,58 @@ def render_methods(cfg, trends, store, status):
         f'{esc(m["name"])}<span style="opacity:.65;"> · {esc(M.STATUS.get(m["status"], ""))}</span></a>'
         for m in sorted(elect_group, key=lambda x: x["code"]))
 
+    # ------------------------------------------------------------- глоссарий
+    gloss_items = "".join(
+        f'<div class="gloss-item" id="gl-{esc(slug)}"><b>{esc(term)}</b><p>{esc(defn)}</p></div>'
+        for slug, term, defn in sorted(M.GLOSSARY, key=lambda g: g[1].lower()))
+
+    # ------------------------------------------------------------- сводная таблица
+    svod_rows = []
+    for m in M.sorted_by_status():
+        st = m.get("status", "queue")
+        sub_t = M.SUB_TITLE.get((m.get("group"), m.get("sub")), "—")
+        blocked = ", ".join(M.BLOCKED_BY.get(b, b) for b in (m.get("blocked_by") or [])) or "—"
+        n_val = m.get("n") if str(m.get("n", "")).isdigit() else "—"
+        svod_rows.append(
+            f'<tr><td><a href="#{esc(m["id"])}"><b>{esc(m["code"])}</b></a></td>'
+            f'<td class="sv-name"><a href="#{esc(m["id"])}">{esc(m["name"])}</a></td>'
+            f'<td>{esc(M.GROUP_SHORT.get(m.get("group"), ""))}</td>'
+            f'<td class="sv-hide">{esc(sub_t)}</td>'
+            f'<td class="sv-hide">{esc(M.KINDS.get(m.get("kind"), "—"))}</td>'
+            f'<td data-v="{M.STATUS_RANK[st]}">{esc(M.STATUS_SYMBOL[st])} {esc(M.STATUS[st])}</td>'
+            f'<td class="sv-hide">{esc(blocked)}</td>'
+            f'<td><code>{esc(m.get("mod", ""))}</code></td>'
+            f'<td class="sv-hide" data-v="{n_val if n_val != "—" else -1}">{esc(str(n_val))}</td></tr>')
+    svod_tbl = f"""<div class="svod-tools"><label for="svodQ" class="pl-h4" style="display:inline;">Поиск по сводке</label>
+<input type="search" id="svodQ" placeholder="код, название, модуль…" aria-label="Поиск по сводной таблице"></div>
+<div class="tbl-wrap"><table class="tbl svod" id="svodTbl"><thead><tr>
+<th data-i="0" data-t="str">Код <span class="arr"></span></th><th data-i="1" data-t="str">Название <span class="arr"></span></th>
+<th data-i="2" data-t="str">Группа <span class="arr"></span></th><th data-i="3" data-t="str" class="sv-hide">Подгруппа <span class="arr"></span></th>
+<th data-i="4" data-t="str" class="sv-hide">Тип <span class="arr"></span></th><th data-i="5" data-t="num">Статус <span class="arr"></span></th>
+<th data-i="6" data-t="str" class="sv-hide">Блокирует <span class="arr"></span></th><th data-i="7" data-t="str">Модуль <span class="arr"></span></th>
+<th data-i="8" data-t="num" class="sv-hide">n <span class="arr"></span></th></tr></thead>
+<tbody>{''.join(svod_rows)}</tbody></table></div>"""
+
+    # ------------------------------------------------------------- журнал изменений
+    chlog_html = "".join(
+        f'<details class="chlog"{" open" if i == 0 else ""}><summary>v{esc(ver)} · {esc(date)}</summary>'
+        f'<ul>{"".join(f"<li>{esc(x)}</li>" for x in items)}</ul></details>'
+        for i, (ver, date, items) in enumerate(M.CHANGELOG))
+
+    # ------------------------------------------------------------- sticky-полоса
+    sticky_items = [("method", "Внедрение"), ("reestr", "Реестр"), ("elect", "Выборы"), ("ideo", "Идеология"),
+                    ("tech", "Техконтур"), ("stand", "Стенд"), ("gloss", "Глоссарий"), ("svod", "Сводка"),
+                    ("journal", "Журнал")]
+    sticky_html = ('<div class="msticky" id="msticky"><div class="msticky-in">'
+                   + "".join(f'<a href="#{sid}">{esc(label)}</a>' for sid, label in sticky_items)
+                   + "</div></div>")
+
+    ideo_intro = "".join(f'<div class="note" style="margin-bottom:10px;">{esc(p)}</div>' for p in M.IDEO_INTRO)
+
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Методы исследования инфополя · {cfg['brand']}</title>
-<meta name="description" content="Реестр методик исследования инфополя издания «Гудок» v{M.VERSION}: {cnt['total']} паспортов методик, сквозной раздел «Идеология и гегемония», оценка неопределённости, стенд испытаний, техконтур из открытых стандартов.">
+<meta name="description" content="Реестр методик исследования инфополя издания «Гудок» v{M.VERSION}: {cnt['total']} паспортов в иерархии «группа → подгруппа», метрики и процедуры с гипотезами, формулами и порогами, сквозной раздел «Идеология и гегемония», глоссарий, журнал изменений реестра, стенд испытаний, техконтур из открытых стандартов.">
 <link rel="icon" type="image/png" href="assets/logo_gudok.png">
 <style>{CSS}{METHODS_CSS}</style></head><body>
 <a class="skip" href="#main">К содержанию</a>
@@ -4176,6 +4529,7 @@ def render_methods(cfg, trends, store, status):
 </div></header>
 {nav_html}
 <main id="main">
+{sticky_html}
 <div class="wrap1200" style="padding-top:20px;">
 
 <div class="sec-head" style="margin-top:0;"><h2>Методы исследования инфополя</h2><div class="line"></div>
@@ -4190,25 +4544,31 @@ def render_methods(cfg, trends, store, status):
 <div class="kpi"><div class="num">{cnt['queue']}</div><div class="lbl">в очереди</div></div>
 <div class="kpi"><div class="num">{cnt['ideo']}</div><div class="lbl">методик идеологического блока</div></div>
 <div class="kpi"><div class="num">{cnt['standards']}</div><div class="lbl">открытых стандартов и форматов</div></div>
+<div class="kpi"><div class="num">{kinds['metric']}</div><div class="lbl">паспортов-метрик: гипотеза · формула · порог</div></div>
+<div class="kpi"><div class="num">{kinds['procedure']}</div><div class="lbl">паспортов-процедур: правило · критерий</div></div>
 </div>
 </div>
 
 <div class="sec-head" id="method"><h2>Внедрение методов</h2><div class="line"></div>
 <div class="badge">паспорт → данные → расчёт → блок → тест</div></div>
 <div class="wrap1200">
+{pipe_svg}
 <div class="note" style="margin:0 0 14px;">Правило редакции: метрика или методика добавляется в раздел только через паспорт —
 с гипотезой, формулой, источником данных, порогом тревоги и местом публикации. Пять шагов ниже одинаковы
-для метрик «Инфопространства», для порогов афиши и для правил дедупликации: отличается только файл.</div>
+для метрик «Инфопространства», для порогов афиши и для правил дедупликации: отличается только файл.
+Пунктиром на схеме — шаг, который не автоматизирован: паспорт пишется редакцией вручную.</div>
 {"".join(stage_rows)}
+{dod_html}
 
 <div class="pl-h4">Реестр методик · v{M.VERSION}: {meth['total']} паспортов</div>
 <table class="tbl pl-tbl"><thead><tr><th>Группа методик</th><th>Всего</th><th>Работают</th>
 <th>В тесте</th><th>В очереди</th><th>Идеологический блок</th></tr></thead>
 <tbody>{meth_rows}<tr><td class="pl-n">Итого</td><td>{meth['total']}</td><td>{meth['work']}</td>
 <td>{meth['test']}</td><td>{meth['queue']}</td><td>{meth['ideo']}</td></tr></tbody></table>
-<div class="note">Полные паспорта методик (вход, выход, метрики качества, модуль платформы, оценка
-неопределённости и порядок проверки на контрольной выборке) — в реестре ниже, сквозной раздел
-«Идеология и гегемония» и техконтур из открытых стандартов — ниже по странице.</div>
+<div class="note">Полные паспорта методик (тип, гипотеза или правило, вход, выход, метрики качества, модуль платформы,
+источник данных, ограничения, пример расчёта, оценка неопределённости и порядок проверки на контрольной выборке) —
+в реестре ниже; сквозной раздел «Идеология и гегемония», глоссарий, сводная таблица всех паспортов, журнал изменений
+реестра и техконтур из открытых стандартов — ниже по странице.</div>
 </div>
 
 <div class="sec-head" id="reestr"><h2>Реестр методик</h2><div class="line"></div>
@@ -4216,10 +4576,14 @@ def render_methods(cfg, trends, store, status):
 <div class="wrap1200">
 <div class="filters" id="fGroup" role="group" aria-label="Фильтр по группе">{''.join(g_chips)}</div>
 <div class="filters" id="fStatus" role="group" aria-label="Фильтр по статусу">{''.join(s_chips)}</div>
+<div class="filters" id="fBlock" role="group" aria-label="Что блокирует методику в очереди">{''.join(b_chips)}</div>
 <p class="feed-empty hidden" id="mEmpty">По этому фильтру методик нет —
 <button type="button" class="btn" onclick="_mReset()">показать все</button></p>
-<div class="mgrid" id="mGrid">
-{''.join(cards)}
+<div class="reg-layout">
+<nav class="mtoc" id="mtoc" aria-label="Оглавление реестра">{''.join(toc_html)}</nav>
+<div class="reg-body" id="mReg">
+{''.join(groups_html)}
+</div>
 </div>
 </div>
 
@@ -4237,7 +4601,7 @@ def render_methods(cfg, trends, store, status):
 <div class="sec-head" id="ideo"><h2>{esc(M.IDEO_TITLE)}</h2><div class="line"></div>
 <div class="badge">сквозной раздел · {cnt['ideo']} методик</div></div>
 <div class="wrap1200">
-<div class="note" style="margin-bottom:14px;">{M.NOTES[2]}</div>
+{ideo_intro}
 {ideo_tbl}
 <div class="verdict"><b>{esc(verdict_ideo['title'])}</b>{esc(verdict_ideo['text'])}</div>
 </div>
@@ -4272,9 +4636,36 @@ def render_methods(cfg, trends, store, status):
 собирается на Python и покрыт тестами, поэтому бумажный протокол и стенд на странице не разъедутся.</div>
 </div>
 
+<div class="sec-head" id="gloss"><h2>Глоссарий</h2><div class="line"></div>
+<div class="badge">{len(M.GLOSSARY)} терминов реестра</div></div>
+<div class="wrap1200">
+<div class="note" style="margin-bottom:14px;">Термины, которые встречаются в паспортах методик и на витринах издания.
+Якорь термина — <code>#gl-&lt;название&gt;</code>: из паспортов и обсуждений ссылаемся сюда.</div>
+<div class="gloss">{gloss_items}</div>
+</div>
+
+<div class="sec-head" id="svod"><h2>Сводка реестра</h2><div class="line"></div>
+<div class="badge">все {cnt['total']} паспорта · сортировка и поиск</div></div>
+<div class="wrap1200">
+{svod_tbl}
+<div class="note">Сортировка — клик по заголовку колонки; поиск — по коду, названию и модулю.
+Без JavaScript таблица читается как есть: порядок — группы, внутри группы сначала «работает»,
+потом «тест», потом «очередь».</div>
+</div>
+
+<div class="sec-head" id="journal"><h2>Журнал изменений реестра</h2><div class="line"></div>
+<div class="badge">что и когда менялось в методиках</div></div>
+<div class="wrap1200">
+{chlog_html}
+<div class="note">Полная история правок словарей и модулей — в Git-истории и методологическом журнале
+(<a href="#m28" style="color:var(--accent);">М-28</a>); журнал изменений реестра фиксирует состав и правила паспортов.</div>
+</div>
+
 <div class="wrap1200"><div class="note" style="margin-top:26px;">Связано:
 <a href="infospace.html" style="color:var(--accent);">дашборд «Инфопространство»</a> ·
 <a href="#method" style="color:var(--accent);">внедрение методов</a> ·
+<a href="#gloss" style="color:var(--accent);">глоссарий</a> ·
+<a href="#svod" style="color:var(--accent);">сводка реестра</a> ·
 <a href="projects/plans.html" style="color:var(--accent);">планы издания</a> ·
 <a href="projects/dossier.html" style="color:var(--accent);">досье действующих лиц (прототип)</a> ·
 <a href="projects/elections.html" style="color:var(--accent);">проект «Выборы» (реестр кампаний)</a> ·
@@ -4282,11 +4673,11 @@ def render_methods(cfg, trends, store, status):
 <a href="status.html" style="color:var(--accent);">статус системы</a>.
 Реестр методик — редакционный документ: правится в <code>methods.py</code>, страница пересобирается
 конвейером. Собрано {now:%d.%m.%Y %H:%M} (UTC+4).</div></div>
+<button type="button" class="b2t" id="b2t" aria-label="Наверх" title="Наверх" hidden>↑</button>
 </main>
 {footer.render_footer('')}
 {METHODS_JS}
 </body></html>"""
-
 
 GZ_RE = None
 

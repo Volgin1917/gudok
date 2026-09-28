@@ -3558,10 +3558,15 @@ class TestMethodsPage(unittest.TestCase):
             self.assertIn(m["name"], html)
 
     def test_passports_open_without_js(self):
-        # нативный <details>, а не hidden-блок: паспорт доступен и без скрипта
+        # нативный details, а не hidden-блок: паспорт доступен и без скрипта
         html = self._read("methods.html")
         self.assertNotIn('<div class="mdet" hidden>', html)
-        self.assertEqual(html.count("<summary"), len(re.findall(r'<details class="mcard"', html)))
+        self.assertEqual(html.count('<summary class="mcard-head"'),
+                         len(re.findall(r'<details class="mcard"', html)))
+        # группы реестра раскрыты по умолчанию — иерархия читается без JS
+        import methods as M
+        self.assertEqual(html.count('<details class="mgroup"'), len(M.GROUPS))
+        self.assertEqual(len(re.findall(r'<details class="mgroup"[^>]* open>', html)), len(M.GROUPS))
 
     def test_sections_and_filters(self):
         html = self._read("methods.html")
@@ -3632,6 +3637,133 @@ class TestMethodsPage(unittest.TestCase):
         self.assertEqual(html.count("<div"), html.count("</div>"))
         self.assertEqual(html.count("<table"), html.count("</table>"))
         self.assertEqual(html.count("<details"), html.count("</details>"))
+
+class TestMethodsV2(unittest.TestCase):
+    """Реестр v2.0 и вёрстка страницы «Методы» v2: иерархия, новые поля, навигация."""
+
+    @staticmethod
+    def _read(name="methods.html"):
+        with open(os.path.join(BASE, name), encoding="utf-8") as f:
+            return f.read()
+
+    @staticmethod
+    def _cards(html):
+        parts = html.split('<details class="mcard"')[1:]
+        return [('<details class="mcard"' + p).split("</details>")[0] for p in parts]
+
+    def test_registry_validates(self):
+        import methods as M
+        self.assertEqual(M.validate_registry(), [], "реестр v2.0 должен проходить валидацию")
+
+    def test_status_symbols_rendered(self):
+        import methods as M
+        html = self._read()
+        for st, sym in M.STATUS_SYMBOL.items():
+            n = sum(1 for m in M.METHODS if m["status"] == st)
+            self.assertEqual(html.count(f'{sym} {M.STATUS[st]}</span>'), n, f"символ статуса {st}")
+
+    def test_group_sections_and_sticky(self):
+        import methods as M
+        html = self._read()
+        for gkey, _t, _s in M.GROUPS:
+            self.assertIn(f'<details class="mgroup" id="g-{gkey}"', html, gkey)
+        self.assertIn('id="msticky"', html)
+        for sec in ("method", "reestr", "elect", "ideo", "tech", "stand", "gloss", "svod", "journal"):
+            self.assertIn(f'<a href="#{sec}">', html, sec)
+            self.assertIn(f'id="{sec}"', html, sec)
+
+    def test_toc_links_resolve(self):
+        html = self._read()
+        ids = set(re.findall(r'id="([a-z0-9-]+)"', html))
+        toc = html[html.index('id="mtoc"'):html.index('id="mReg"')]
+        hrefs = re.findall(r'href="#([a-z0-9-]+)"', toc)
+        self.assertTrue(hrefs, "оглавление пустое")
+        bad = [h for h in hrefs if h not in ids]
+        self.assertEqual(bad, [], "битые якоря оглавления")
+
+    def test_cards_have_v2_attrs(self):
+        import methods as M
+        html = self._read()
+        for card in self._cards(html):
+            code = re.search(r'data-code="(М-\d+)"', card).group(1)
+            m = next(x for x in M.METHODS if x["code"] == code)
+            self.assertIn(f'data-sub="{m["sub"]}"', card, code)
+            self.assertIn(f'data-kind="{m["kind"]}"', card, code)
+            self.assertIn(m["sub"], dict(M.SUBGROUPS[m["group"]]), code)
+            self.assertIn("владелец:", card, code)
+            self.assertIn(f'в реестре с {m["status_since"]}', card, code)
+
+    def test_kind_fields_rendered(self):
+        import methods as M
+        html = self._read()
+        n_metric = sum(1 for m in M.METHODS if m["kind"] == "metric")
+        n_proc = sum(1 for m in M.METHODS if m["kind"] == "procedure")
+        self.assertEqual(html.count('<b>Гипотеза</b>'), n_metric)
+        self.assertEqual(html.count('<span class="formula">'), n_metric)
+        self.assertEqual(html.count('<b>Порог тревоги</b>'), n_metric + 1)  # + термин глоссария
+        self.assertEqual(html.count('<b>Правило</b>'), n_proc)
+        self.assertEqual(html.count('<b>Критерий корректности</b>'), n_proc)
+
+    def test_examples_and_blocked(self):
+        import methods as M
+        html = self._read()
+        cards = self._cards(html)
+        for m in M.METHODS:
+            card = next(c for c in cards if f'data-code="{m["code"]}"' in c)
+            if m["status"] == "work":
+                self.assertIn("<b>Пример расчёта</b>", card, m["code"])
+            if m["status"] == "queue":
+                self.assertIn('class="mblocked"', card, m["code"])
+            else:
+                self.assertNotIn('class="mblocked"', card, m["code"])
+
+    def test_footer_links_resolve(self):
+        import methods as M
+        ids = {m["id"] for m in M.METHODS}
+        html = self._read()
+        for card in self._cards(html):
+            foot = card.split('class="mfooter"')[-1] if 'class="mfooter"' in card else ""
+            for href in re.findall(r'href="#([a-z0-9]+)"', foot):
+                self.assertIn(href, ids, f"ссылка подвала #{href}")
+
+    def test_svod_table_full(self):
+        import methods as M
+        html = self._read()
+        self.assertIn('id="svodTbl"', html)
+        self.assertIn('id="svodQ"', html)
+        svod = html[html.index('id="svodTbl"'):html.index("</table>", html.index('id="svodTbl"'))]
+        self.assertEqual(svod.count("<tr><td>"), len(M.METHODS))
+        for m in M.METHODS:
+            self.assertIn(f'<b>{m["code"]}</b>', svod, m["code"])
+
+    def test_glossary_and_changelog(self):
+        import methods as M
+        html = self._read()
+        self.assertEqual(html.count('class="gloss-item"'), len(M.GLOSSARY))
+        for slug, _term, _d in M.GLOSSARY:
+            self.assertIn(f'id="gl-{slug}"', html, slug)
+        for ver, _date, _items in M.CHANGELOG:
+            self.assertIn(f"<summary>v{ver} ·", html, ver)
+        self.assertIn('<details class="chlog" open>', html)
+
+    def test_dod_legend_and_pipe(self):
+        html = self._read()
+        self.assertIn('<div class="dod">', html)
+        self.assertEqual(html.count('class="dod-s"'), 3)
+        self.assertIn('<svg class="pipe"', html)
+        for i in range(1, 6):
+            self.assertIn(f'<a href="#stage-{i}">', html)
+            self.assertIn(f'id="stage-{i}"', html)
+
+    def test_b2t_and_print_and_select_guard(self):
+        html = self._read()
+        self.assertIn('class="b2t" id="b2t"', html)
+        self.assertIn("aria-label=\"Наверх\"", html)
+        self.assertIn(".mgroup+.mgroup{break-before:page;}", html)
+        # регрессия: JS не дублирует опции стенда, отрисованные на стороне Python
+        self.assertIn("sel&&!sel.options.length", html)
+        self.assertEqual(html.count("<details"), html.count("</details>"))
+
 
 class TestInternalLinks(unittest.TestCase):
     """Битые внутренние ссылки: страницы ссылаются только на существующие файлы.
