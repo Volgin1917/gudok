@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Методы исследования инфополя · листок Гудок</title>
-<meta name="description" content="Реестр методик исследования инфополя издания «Гудок» v1.1: 41 паспортов методик, сквозной раздел «Идеология и гегемония», оценка неопределённости, стенд испытаний, техконтур из открытых стандартов.">
+<meta name="description" content="Реестр методик исследования инфополя издания «Гудок» v2.0: 41 паспортов методик, сквозной раздел «Идеология и гегемония», оценка неопределённости, стенд испытаний, техконтур из открытых стандартов.">
 <link rel="icon" type="image/png" href="assets/logo_gudok.png">
 <style>
 :root{
@@ -596,10 +596,10 @@ if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"
 document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();
 </script></head><body>
 <a class="skip" href="#main">К содержанию</a>
-<header class="masthead"><div class="flagline"><span>понедельник, 28 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 15:43</span></div><div class="mast-inner">
+<header class="masthead"><div class="flagline"><span>вторник, 29 сентября 2026 г.</span><span>Ульяновск · издание внутреннее</span><span>выпуск собран 02:09</span></div><div class="mast-inner">
 <div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
 <div class="mast-title">ГУДОК<span>.</span></div>
-<div class="mast-side mast-side--right">Проекты издания<br>реестр методик v1.1 и техконтур
+<div class="mast-side mast-side--right">Проекты издания<br>реестр методик v2.0 и техконтур
 <div class="mast-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Светлая/тёмная тема">🌙</button></div></div>
 </div></header>
 <nav class="nav"><button class="nav-toggle" aria-label="Открыть разделы" onclick="document.body.classList.toggle('nav-open')">Меню</button><div class="nav-inner"><a class="" href="index.html">Первая полоса</a><a class="" href="digests/today.html">Сегодня</a><a class="" href="weekly.html">Неделя</a><a class="" href="monthly.html">Месяц</a><a class="" href="afisha.html">Афиша</a><a class="active" href="projects.html">Проекты</a><a class="" href="archive.html">Архив</a><a class="" href="digests/exec_2026-09-27.html">Руководителю</a></div></nav><div class="subnav"><div class="subnav-inner"><span class="lbl">Проекты:</span><a href="infospace.html">Инфопространство</a><a href="projects/elections.html">Выборы</a><a href="projects/goszakupki.html">Госзакупки</a><a href="projects/gorodskoy_sovet.html">Городской совет</a><span class="cur">Методы</span><a href="projects/plans.html">Планы</a><a href="projects/dossier.html">Досье</a><a href="projects/pressa.html">Архив прессы</a></div></div><main id="main">
@@ -607,9 +607,9 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="wrap1200" style="padding-top:20px;">
 
 <div class="sec-head" style="margin-top:0;"><h2>Методы исследования инфополя</h2><div class="line"></div>
-<div class="badge">реестр v1.1 · 41 методик</div></div>
+<div class="badge">реестр v2.0 · 41 методик</div></div>
 <div class="note" style="margin-bottom:6px;">Методика — формализованная процедура наблюдения: что считаем, на каких данных, какими метриками удостоверяем, с какой погрешностью. Страница — <b>основа для испытания и представления каждой методики на нашей платформе</b>: у каждой свой паспорт (суть, вход/выход, метрики, модуль кода, оценка неопределённости) и порядок проверки на контрольной выборке из архива. Статусы честные.</div>
-<div class="note" style="border-left-color:var(--rule);"><b>Что нового в v1.1:</b> добавлены группы «Экономика и власть», «Аудитория и активность», «Исторический и сравнительный контекст» (М-19…М-36); во все паспорта встроена оценка неопределённости (интервал Уилсона, минимальная выборка); в М-05 — аспектный тон по классовым акторам; в М-08 — словари классовой лексики; в М-15 — статус «формально верно, контекст опущен»; в М-18 — режим «доказательство» (любая цифра разворачивается в список материалов). Введён сквозной раздел <a href="#ideo" style="color:var(--accent);">«Идеология и гегемония»</a> — методики М-15, М-20…М-23, М-26, М-28 помечены двойной линейкой.</div>
+<div class="note" style="border-left-color:var(--rule);"><b>Что нового в v2.0:</b> иерархия «группа → подгруппа → паспорт» (29 подгрупп); два типа паспортов — <b>метрика</b> (гипотеза, формула с расшифровкой переменных, порог тревоги с обоснованием) и <b>процедура</b> (формальное правило, критерий корректности); новые поля — владелец-роль, зависимости, ограничения, пример расчёта «вход → выход» (обязателен для статуса «работает»), «что блокирует» для очереди; машинная валидация паспорта (<code>validate()</code>): не прошёл — не «работает»; глоссарий из 25 терминов и журнал изменений реестра. Нумерация М-XX сохранена — коды связаны с журналом (М-28) и ссылками разделов.</div>
 
 <div class="kpi-grid" style="margin-top:22px;">
 <div class="kpi"><div class="num">41</div><div class="lbl">методик в реестре</div></div>
@@ -649,7 +649,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <div class="pl-code"><b>Проверка:</b> python3 -m unittest discover -s tests — зелёный до публикации</div>
 <div class="pl-ex">Пример — TLI: подключена 15.09 (Волна 1), поле dn в реестре, запись в версии документа</div></div></div>
 
-<div class="pl-h4">Реестр методик · v1.1: 41 паспортов</div>
+<div class="pl-h4">Реестр методик · v2.0: 41 паспортов</div>
 <table class="tbl pl-tbl"><thead><tr><th>Группа методик</th><th>Всего</th><th>Работают</th>
 <th>В тесте</th><th>В очереди</th><th>Идеологический блок</th></tr></thead>
 <tbody><tr><td class="pl-n">Сбор и мониторинг</td><td>6</td><td>3</td><td>3</td><td>0</td><td>1</td></tr><tr><td class="pl-n">Текстовый анализ</td><td>9</td><td>4</td><td>5</td><td>0</td><td>3</td></tr><tr><td class="pl-n">Сети и динамика</td><td>6</td><td>2</td><td>1</td><td>3</td><td>0</td></tr><tr><td class="pl-n">Проверка и противодействие</td><td>5</td><td>0</td><td>2</td><td>3</td><td>2</td></tr><tr><td class="pl-n">Экономика и власть</td><td>3</td><td>0</td><td>1</td><td>2</td><td>0</td></tr><tr><td class="pl-n">Аудитория и активность</td><td>3</td><td>0</td><td>1</td><td>2</td><td>0</td></tr><tr><td class="pl-n">Исторический контекст</td><td>2</td><td>0</td><td>0</td><td>2</td><td>0</td></tr><tr><td class="pl-n">Представление</td><td>2</td><td>2</td><td>0</td><td>0</td><td>1</td></tr><tr><td class="pl-n">Выборы и избирательный цикл</td><td>5</td><td>0</td><td>0</td><td>5</td><td>0</td></tr><tr><td class="pl-n">Итого</td><td>41</td><td>11</td>
@@ -969,8 +969,8 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <summary class="mcard-head" role="button" aria-expanded="false"><span class="mcode">М-38</span>
 <span class="mname">Электоральная география муниципалитетов</span><span class="mgrp">выборы</span>
 <span class="wk-stamp queued">очередь</span><span class="mtoggle">паспорт ↓</span></summary>
-<p class="mess">Где и кто голосует: карта результатов по муниципалитетам и районам, разрез город/село, Ульяновск и Димитровград против периферии. Совмещается с метрикой муниципальной повестки (М-16) и численностью населения МО.</p>
-<div class="mdet"><div class="mrow"><b>Вход</b>Протоколы УИК: явка и голоса по кандидатам/партиям; справочник муниципалитетов config.json; данные М-16 по повестке МО.</div><div class="mrow"><b>Выход</b>Таблицы и карта «МО × кандидат/партия»; индексы город/село; территории-выбросы.</div><div class="mrow"><b>Метрики качества</b>Полнота 100% МО; сверка сумма УИК = ТИК = итог по области.</div><div class="mrow"><b>Модуль платформы</b>elections.py: своды по МО; analytics.py: геопривязка и агрегаты (серверная фаза)</div><div class="mrow"><b>Неопределённость</b>Число избирателей меняется по датам — используем справочник на фиксированную дату; классификация город/село — по составу МО.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Пересчёт итогов области «снизу вверх»: сумма по УИК сходится с официальной сводкой.</li><li>Контроль пяти МО ручной сверкой с постановлениями ТИК.</li><li>Выбросы фиксируются как точки проверки, не как обвинения.</li><li>Регрессионный разрез «город/село, доходы, занятость» по МО — целевой контур (вне текущего stdlib-ядра, требует scipy/statsmodels).</li></ol></div></div>
+<p class="mess">Где и кто голосует: карта результатов по муниципалитетам и районам, разрез город/село, Ульяновск и Димитровград против периферии. Совмещается с метрикой муниципальной повестки (М-14) и численностью населения МО.</p>
+<div class="mdet"><div class="mrow"><b>Вход</b>Протоколы УИК: явка и голоса по кандидатам/партиям; справочник муниципалитетов config.json; данные М-14 по повестке МО.</div><div class="mrow"><b>Выход</b>Таблицы и карта «МО × кандидат/партия»; индексы город/село; территории-выбросы.</div><div class="mrow"><b>Метрики качества</b>Полнота 100% МО; сверка сумма УИК = ТИК = итог по области.</div><div class="mrow"><b>Модуль платформы</b>elections.py: своды по МО; analytics.py: геопривязка и агрегаты (серверная фаза)</div><div class="mrow"><b>Неопределённость</b>Число избирателей меняется по датам — используем справочник на фиксированную дату; классификация город/село — по составу МО.</div><div class="mrow mrow-wide"><b>Порядок проверки на платформе</b><ol><li>Пересчёт итогов области «снизу вверх»: сумма по УИК сходится с официальной сводкой.</li><li>Контроль пяти МО ручной сверкой с постановлениями ТИК.</li><li>Выбросы фиксируются как точки проверки, не как обвинения.</li><li>Регрессионный разрез «город/село, доходы, занятость» по МО — целевой контур (вне текущего stdlib-ядра, требует scipy/statsmodels).</li></ol></div></div>
 </details><details class="mcard" data-group="elections" data-status="queue"
  data-mod="elections.py (stdlib, серверная фаза)" data-n="—" data-code="М-39"
  id="m39">
@@ -1057,7 +1057,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <a href="projects/goszakupki.html" style="color:var(--accent);">досье «Госзакупки»</a> ·
 <a href="status.html" style="color:var(--accent);">статус системы</a>.
 Реестр методик — редакционный документ: правится в <code>methods.py</code>, страница пересобирается
-конвейером. Собрано 28.09.2026 15:43 (UTC+4).</div></div>
+конвейером. Собрано 29.09.2026 02:09 (UTC+4).</div></div>
 </main>
 </main>
 <footer class="footer"><div class="footer__inner">
@@ -1073,7 +1073,7 @@ document.documentElement.setAttribute("data-theme",t);}catch(e){document.documen
 <li><a href="projects/goszakupki.html">Госзакупки</a></li>
 <li><a href="projects/gorodskoy_sovet.html">Городской совет</a></li>
 <li><a href="infospace.html">Инфопространство</a></li>
-<li><a href="methods.html">Методы · реестр v1.1</a></li>
+<li><a href="methods.html">Методы · реестр v2.0</a></li>
 <li><a href="projects/dossier.html">Досье · прототип</a></li>
 <li><a href="projects/pressa.html">Архив прессы</a></li>
 <li><a href="afisha.html">Афиша</a></li></ul></div>

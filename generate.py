@@ -7708,7 +7708,8 @@ def main():
     methods_html = themed(render_methods(cfg, trends, store, status))
     with open(os.path.join(BASE, "methods.html"), "w", encoding="utf-8") as f:
         f.write(methods_html)
-    print("[generate] методы: methods.html (реестр методик v1.1)")
+    import methods as _methods_reg
+    print(f"[generate] методы: methods.html (реестр методик v{_methods_reg.VERSION})")
     dossier_html = themed(render_dossier(cfg, trends, store, status))
     with open(os.path.join(proj_dir, "dossier.html"), "w", encoding="utf-8") as f:
         f.write(dossier_html)

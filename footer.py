@@ -11,9 +11,27 @@ footer__inner (бренд + Периодичности + Проекты + Слу
 (roadmap.html, infospace-plan.html) разметка вставляется правкой файла,
 стили — из FOOTER_CSS.
 """
+import glob
+import os
 from datetime import datetime, timedelta, timezone
 
 UTC4 = timezone(timedelta(hours=4))
+BASE = os.path.dirname(os.path.abspath(__file__))
+
+
+def exec_href(prefix, today):
+    """Ссылка на «Версию руководителю» с проверкой существования файла.
+
+    Регрессия 29.09: подвал весь день ссылался на exec_<сегодня>.html, которого нет
+    до ежедневного прогона, — тот же дефект, что починен 17.09 для датированного
+    выпуска (digest_link). Свежего файла нет — ссылаемся на последний существующий;
+    нет ни одного — возвращаем пустую строку (пункт подвала опускается).
+    """
+    name = f"exec_{today}.html"
+    if not os.path.exists(os.path.join(BASE, "digests", name)):
+        ex = sorted(glob.glob(os.path.join(BASE, "digests", "exec_*.html")))
+        name = os.path.basename(ex[-1]) if ex else ""
+    return f"{prefix}digests/{name}" if name else ""
 
 FOOTER_CSS = """/* подвал — единый */
 .footer{background:var(--ink);color:var(--on-ink);margin-top:52px;padding:30px 0 18px;}
@@ -39,6 +57,13 @@ def render_footer(prefix=""):
     now = datetime.now(UTC4)
     today = now.strftime("%Y-%m-%d")
     year = now.year
+    ex_href = exec_href(prefix, today)
+    exec_li = f'<li><a href="{ex_href}">Версия руководителю</a></li>' if ex_href else ""
+    try:
+        import methods as _mreg
+        m_label = f"Методы · реестр v{_mreg.VERSION}"
+    except Exception:
+        m_label = "Методы"
     return f"""<footer class="footer"><div class="footer__inner">
 <div><div class="footer__brand">ГУДОК<span>.</span></div>
 <p>Информационно-аналитическое издание марксистской группы «Победа» по Ульяновской области. Выходит с 11 сентября 2026 года. Материалы принадлежат их изданиям; издание носит информационно-аналитический характер и не является агитацией.</p></div>
@@ -52,14 +77,14 @@ def render_footer(prefix=""):
 <li><a href="{prefix}projects/goszakupki.html">Госзакупки</a></li>
 <li><a href="{prefix}projects/gorodskoy_sovet.html">Городской совет</a></li>
 <li><a href="{prefix}infospace.html">Инфопространство</a></li>
-<li><a href="{prefix}methods.html">Методы · реестр v1.1</a></li>
+<li><a href="{prefix}methods.html">{m_label}</a></li>
 <li><a href="{prefix}projects/dossier.html">Досье · прототип</a></li>
 <li><a href="{prefix}projects/pressa.html">Архив прессы</a></li>
 <li><a href="{prefix}afisha.html">Афиша</a></li></ul></div>
 <div><h3>Служебное</h3><ul style="list-style:none;padding:0;">
 <li><a href="{prefix}status.html">Статус системы</a></li>
 <li><a href="{prefix}projects/plans.html">Планы</a></li>
-<li><a href="{prefix}digests/exec_{today}.html">Версия руководителю</a></li>
+{exec_li}
 <li><a href="https://github.com/Volgin1917/gudok" target="_blank" rel="noopener">GitHub</a></li></ul></div>
 </div>
 <div class="footer__bottom"><span>© {year} Гудок · Ульяновск</span><span>Сделано с уважением к читателю</span></div>
