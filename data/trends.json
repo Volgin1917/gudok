@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-28T23:06:25.467818+00:00",
- "generated_local": "29.09.2026 03:06",
+ "generated_utc": "2026-09-29T10:18:55.591590+00:00",
+ "generated_local": "29.09.2026 14:18",
  "days": [
   "2026-09-16",
   "2026-09-17",
@@ -18,9 +18,9 @@
   "2026-09-29"
  ],
  "counts": {
-  "total": 6383,
-  "last24h": 402,
-  "last7d": 2462
+  "total": 6569,
+  "last24h": 375,
+  "last7d": 2432
  },
  "topics": {
   "elections": {
@@ -39,11 +39,11 @@
     9,
     6,
     11,
-    0
+    6
    ],
-   "today": 0,
-   "week": 91,
-   "total": 501,
+   "today": 6,
+   "week": 97,
+   "total": 507,
    "status": "fading"
   },
   "governor": {
@@ -61,12 +61,12 @@
     125,
     32,
     23,
-    75,
-    1
+    76,
+    41
    ],
-   "today": 1,
-   "week": 375,
-   "total": 714,
+   "today": 41,
+   "week": 416,
+   "total": 755,
    "status": "stable"
   },
   "uav": {
@@ -85,11 +85,11 @@
     25,
     6,
     93,
-    1
+    25
    ],
-   "today": 1,
-   "week": 437,
-   "total": 568,
+   "today": 25,
+   "week": 461,
+   "total": 592,
    "status": "stable"
   },
   "cityday": {
@@ -108,12 +108,12 @@
     1,
     0,
     2,
-    0
+    2
    ],
-   "today": 0,
-   "week": 11,
-   "total": 22,
-   "status": "fading"
+   "today": 2,
+   "week": 13,
+   "total": 24,
+   "status": "stable"
   },
   "budget": {
    "name": "Бюджет-2027",
@@ -131,11 +131,11 @@
     6,
     6,
     19,
-    1
+    17
    ],
-   "today": 1,
-   "week": 83,
-   "total": 187,
+   "today": 17,
+   "week": 99,
+   "total": 203,
    "status": "stable"
   },
   "uaz": {
@@ -177,11 +177,11 @@
     5,
     5,
     0,
-    0
+    7
    ],
-   "today": 0,
-   "week": 25,
-   "total": 83,
+   "today": 7,
+   "week": 32,
+   "total": 90,
    "status": "fading"
   },
   "harvest": {
@@ -200,11 +200,11 @@
     3,
     4,
     6,
-    0
+    1
    ],
-   "today": 0,
-   "week": 22,
-   "total": 48,
+   "today": 1,
+   "week": 23,
+   "total": 49,
    "status": "stable"
   },
   "zhkh": {
@@ -223,11 +223,11 @@
     8,
     10,
     36,
-    0
+    13
    ],
-   "today": 0,
-   "week": 98,
-   "total": 194,
+   "today": 13,
+   "week": 111,
+   "total": 207,
    "status": "stable"
   },
   "cityspace": {
@@ -246,12 +246,12 @@
     24,
     16,
     19,
-    0
+    18
    ],
-   "today": 0,
-   "week": 140,
-   "total": 343,
-   "status": "fading"
+   "today": 18,
+   "week": 158,
+   "total": 361,
+   "status": "stable"
   },
   "transport": {
    "name": "Транспорт и дороги",
@@ -269,11 +269,11 @@
     37,
     25,
     59,
-    0
+    25
    ],
-   "today": 0,
-   "week": 338,
-   "total": 704,
+   "today": 25,
+   "week": 363,
+   "total": 729,
    "status": "stable"
   },
   "schools": {
@@ -292,11 +292,11 @@
     23,
     31,
     37,
-    0
+    17
    ],
-   "today": 0,
-   "week": 197,
-   "total": 371,
+   "today": 17,
+   "week": 214,
+   "total": 388,
    "status": "stable"
   },
   "medicine": {
@@ -314,12 +314,12 @@
     61,
     18,
     7,
-    57,
-    0
+    58,
+    9
    ],
-   "today": 0,
-   "week": 186,
-   "total": 306,
+   "today": 9,
+   "week": 196,
+   "total": 316,
    "status": "stable"
   },
   "crime": {
@@ -338,12 +338,12 @@
     23,
     18,
     58,
-    0
+    21
    ],
-   "today": 0,
-   "week": 324,
-   "total": 681,
-   "status": "fading"
+   "today": 21,
+   "week": 345,
+   "total": 702,
+   "status": "stable"
   },
   "culture": {
    "name": "Культура и туризм",
@@ -360,12 +360,12 @@
     9,
     11,
     10,
-    11,
-    0
+    12,
+    6
    ],
-   "today": 0,
-   "week": 73,
-   "total": 138,
+   "today": 6,
+   "week": 80,
+   "total": 145,
    "status": "stable"
   },
   "sport": {
@@ -384,12 +384,12 @@
     21,
     14,
     22,
-    0
+    22
    ],
-   "today": 0,
-   "week": 160,
-   "total": 348,
-   "status": "fading"
+   "today": 22,
+   "week": 182,
+   "total": 370,
+   "status": "stable"
   },
   "export": {
    "name": "Экспорт и кооперация",
@@ -406,12 +406,12 @@
     3,
     13,
     12,
-    23,
-    0
+    24,
+    12
    ],
-   "today": 0,
-   "week": 74,
-   "total": 157,
+   "today": 12,
+   "week": 87,
+   "total": 170,
    "status": "stable"
   },
   "weather": {
@@ -430,11 +430,11 @@
     6,
     4,
     19,
-    0
+    7
    ],
-   "today": 0,
-   "week": 57,
-   "total": 135,
+   "today": 7,
+   "week": 64,
+   "total": 142,
    "status": "stable"
   },
   "macro": {
@@ -453,11 +453,11 @@
     0,
     2,
     4,
-    0
+    1
    ],
-   "today": 0,
-   "week": 22,
-   "total": 30,
+   "today": 1,
+   "week": 23,
+   "total": 31,
    "status": "stable"
   }
  },
@@ -477,11 +477,11 @@
     45,
     16,
     8,
-    24,
-    2
+    25,
+    28
    ],
-   "week": 171,
-   "today": 2
+   "week": 198,
+   "today": 28
   },
   "security": {
    "name": "Безопасность и происшествия",
@@ -499,10 +499,10 @@
     41,
     26,
     142,
-    1
+    39
    ],
-   "week": 660,
-   "today": 1
+   "week": 698,
+   "today": 39
   },
   "economy": {
    "name": "Экономика и промышленность",
@@ -519,11 +519,11 @@
     24,
     24,
     27,
-    50,
-    0
+    51,
+    18
    ],
-   "week": 218,
-   "today": 0
+   "week": 237,
+   "today": 18
   },
   "agro": {
    "name": "Агропром",
@@ -541,10 +541,10 @@
     3,
     0,
     2,
-    0
+    1
    ],
-   "week": 7,
-   "today": 0
+   "week": 8,
+   "today": 1
   },
   "society": {
    "name": "Общество и городская среда",
@@ -562,10 +562,10 @@
     129,
     79,
     139,
-    1
+    70
    ],
-   "week": 788,
-   "today": 1
+   "week": 857,
+   "today": 70
   },
   "health": {
    "name": "Здравоохранение",
@@ -582,11 +582,11 @@
     15,
     13,
     8,
-    24,
-    0
+    25,
+    9
    ],
-   "week": 89,
-   "today": 0
+   "week": 99,
+   "today": 9
   },
   "education": {
    "name": "Образование и наука",
@@ -604,10 +604,10 @@
     14,
     19,
     8,
-    0
+    5
    ],
-   "week": 100,
-   "today": 0
+   "week": 105,
+   "today": 5
   },
   "sport": {
    "name": "Спорт",
@@ -625,10 +625,10 @@
     15,
     7,
     5,
-    0
+    12
    ],
-   "week": 56,
-   "today": 0
+   "week": 68,
+   "today": 12
   },
   "culture": {
    "name": "Культура и афиша",
@@ -646,10 +646,10 @@
     7,
     6,
     6,
-    0
+    5
    ],
-   "week": 52,
-   "today": 0
+   "week": 57,
+   "today": 5
   }
  },
  "tg_top": [
