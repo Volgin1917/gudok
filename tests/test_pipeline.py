@@ -2325,6 +2325,33 @@ class TestPhotoMirrors(unittest.TestCase):
         self.assertEqual(photos.safe_url("https://cdn4.telesco.pe/file/abc"),
                          "https://cdn4.telesco.pe/file/abc")
 
+    def test_download_queue_newest_first(self):
+        """Очередь скачивания — от свежих к старым (29.09: 644 записи с фото без
+        зеркал при бюджете 80 — до фото текущего дня очередь не доходила, и
+        страницы собирались с внешними картинками; тест на локальные зеркала падал)."""
+        import photos
+        from datetime import datetime, timedelta, timezone
+        utc4 = timezone(timedelta(hours=4))
+        base = datetime(2026, 9, 1, tzinfo=utc4)
+        items = []
+        for day, cnt in ((20, 61), (25, 118), (29, 140)):
+            for i in range(cnt):
+                items.append({"id": f"{day}-{i}", "photo": "https://cdn.example/p.jpg",
+                              "published": (base + timedelta(days=day - 1, hours=12,
+                                                             minutes=i)).isoformat()})
+        # зеркало уже есть, фото нет, и запись вне окна — в очередь не попадают
+        items[0]["photo_local"] = "assets/photos/уже.jpg"
+        items[1]["photo"] = ""
+        old = dict(items[2], id="старый", published="2026-08-01T12:00:00+04:00")
+        q = photos.download_queue(items + [old], base + timedelta(days=10))
+        self.assertEqual(len(q), 61 + 118 + 140 - 2, "в очередь попали лишние или потеряны нужные")
+        self.assertEqual(q[0]["id"], "29-139", "первым должен идти самый свежий материал")
+        self.assertEqual([it["id"] for it in q],
+                         sorted((it["id"] for it in q),
+                                key=lambda s: (int(s.split("-")[0]), int(s.split("-")[1])), reverse=True),
+                         "очередь должна идти по убыванию даты")
+        self.assertNotIn("старый", [it["id"] for it in q])
+
     def test_workflows_commit_assets(self):
         wf = os.path.join(BASE, ".github", "workflows")
         for name in os.listdir(wf):

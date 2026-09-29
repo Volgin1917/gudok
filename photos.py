@@ -8,7 +8,11 @@ Telegram-CDN (cdn4.telesco.pe) у части читателей недоступ
 у которых фото ещё не привязано, страница канала читается повторно и
 строится карта message_id -> photo.
 
-Запуск: python3 photos.py [--days 5] [--max 80] [--quiet]
+Запуск: python3 photos.py [--days 5] [--max 150] [--quiet]
+
+Порядок скачивания — от свежих к старым: бюджет --max на прогон конечен, и при
+обходе в порядке базы его целиком съедали старые дыры, из-за чего фото текущего
+дня оставались без локальных зеркал (29.09: 140 фото дня, 0 зеркал).
 """
 import argparse
 import json
@@ -53,10 +57,34 @@ def magic_ext(b):
     return None
 
 
+def pub_dt(it):
+    """Дата публикации записи в поясе издания (UTC+4); None — если не разобрать."""
+    p = it.get("published")
+    try:
+        return datetime.fromisoformat(p).astimezone(UTC4)
+    except (TypeError, ValueError):
+        return None
+
+
+def download_queue(items, cutoff):
+    """Записи без зеркала, к скачиванию, — от свежих к старым.
+
+    Бюджет прогона конечен (--max) и считает только удачные скачивания, поэтому
+    порядок решает всё: при обходе в порядке базы (от старых к новым) его целиком
+    съедали старые дыры, и фото текущего дня оставались без локальных зеркал —
+    29.09 в окне 10 дней было 644 записи с фото без копии, бюджет 80 уходил на
+    20–21.09, и в собранных страницах не оставалось ни одной ссылки на assets/photos.
+    """
+    todo = [it for it in items
+            if it.get("photo") and not it.get("photo_local")
+            and pub_dt(it) and pub_dt(it) >= cutoff]
+    return sorted(todo, key=pub_dt, reverse=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--days", type=int, default=10)
-    ap.add_argument("--max", type=int, default=80)
+    ap.add_argument("--max", type=int, default=150)
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
 
@@ -67,11 +95,7 @@ def main():
     cutoff = now - timedelta(days=args.days)
 
     def pdate(it):
-        p = it.get("published")
-        try:
-            return datetime.fromisoformat(p).astimezone(UTC4)
-        except (TypeError, ValueError):
-            return None
+        return pub_dt(it)
 
     # 1) добор photo для свежих записей без photo: перечитываем страницы каналов
     need = [it for it in items if it.get("source_type") == "tg" and not it.get("photo")
@@ -143,16 +167,12 @@ def main():
     if stale and not args.quiet:
         print(f"  [photos] сброшено битых ссылок на зеркала: {stale}")
 
-    # 2) скачивание fehlende фото
+    # 2) скачивание недостающих фото, сначала самые свежие (обоснование — download_queue)
     downloaded = 0
-    for it in items:
+    for it in download_queue(items, cutoff):
         if downloaded >= args.max:
             break
         ph = it.get("photo")
-        if not ph or it.get("photo_local"):
-            continue
-        if not (pdate(it) and pdate(it) >= cutoff):
-            continue
         url = safe_url(ph if ph.startswith("http") else "https:" + ph)
         if not url.startswith("http"):
             continue
