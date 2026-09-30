@@ -2870,7 +2870,8 @@ def render_projects(cfg, trends, store, status):
 <div><b>Планы</b></div>
 <div class="fig">{plans_tracks}<small>треков</small></div>
 <p>Единая страница планов издания: план развития, реестр метрик «Инфопространства» с паспортами,
-переезд на сервер, спринты первой полосы. Методики и конвейер их внедрения — на странице «Методы».</p>
+переезд на сервер, спринты первой полосы. Реестр методик — на странице «Методы», мост «метрика ↔ методика» и
+конвейер внедрения — здесь, на «Планах».</p>
 <a class="go" href="projects/plans.html">открыть планы →</a> · <a class="go" href="methods.html">открыть методы →</a></div>"""
     for pr in cfg.get("projects", []):
         st = {"active": ("в работе", "#1d7a4d"), "plan": ("в плане", "#96690a")}.get(pr.get("status"), (pr.get("status", ""), "#5b6b7c"))
@@ -2972,14 +2973,99 @@ text-transform:uppercase;color:var(--muted);margin:14px 0 6px;}
   #pl-filters{display:none;}
   .pl-pass[open] summary{font-weight:700;}
 }
+/* ---- v2.0: навигация по странице, конвейер внедрения, мост «метрика ↔ методика» ---- */
+/* Правила sticky-полосы, бокового оглавления и сводной таблицы продублированы из
+   METHODS_CSS: страницы самодостаточны (inline CSS, без общего файла и без CDN). */
+.plsticky{position:sticky;top:50px;z-index:19;background:var(--paper);border-bottom:1px solid var(--ink);}
+.plsticky-in{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);display:flex;gap:2px;overflow-x:auto;
+white-space:nowrap;-webkit-overflow-scrolling:touch;}
+.plsticky a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--muted);padding:9px 10px;
+border-bottom:2px solid transparent;text-decoration:none;flex:0 0 auto;}
+.plsticky a:hover{color:var(--ink);}
+.plsticky a.on{color:var(--accent);border-bottom-color:var(--accent);}
+.plsticky a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+.pl-layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:0 34px;align-items:start;}
+.pltoc{position:sticky;top:104px;font-family:var(--sans);font-size:12px;border-top:1px solid var(--ink);padding-top:10px;}
+.pltoc-h{font-family:var(--sans);font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+color:var(--ink);margin:0 0 6px;}
+.pltoc a{display:block;color:var(--muted);padding:3px 0;white-space:nowrap;overflow:hidden;
+text-overflow:ellipsis;text-decoration:none;}
+.pltoc a:hover{color:var(--accent);}
+.pltoc a b{color:var(--ink-2);font-weight:700;float:right;padding-left:8px;}
+/* якорь не должен прятаться под липкой полосой */
+.anchor{display:block;height:0;scroll-margin-top:112px;}
+.sec-head,.pl-pass,.pl-track,.pl-stage{scroll-margin-top:112px;}
+.pipe{width:100%;height:auto;margin:8px 0 16px;}
+.pipe a{text-decoration:none;}
+/* мост «метрика ↔ методика»: чипы кодов и обратные ссылки */
+.pl-mcodes{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.pl-m{font-family:var(--sans);font-size:11.5px;font-weight:700;color:var(--ink);text-decoration:none;
+border:1px solid var(--rule);padding:1px 6px;white-space:nowrap;}
+.pl-m:hover{color:var(--accent);border-color:var(--accent);}
+.pl-mv2{border:1px solid var(--ink);background:var(--paper);padding:16px 18px;margin-bottom:14px;break-inside:avoid;}
+.pl-mv2[open]{border-color:var(--ink);}
+.pl-mv2 summary{cursor:pointer;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;}
+.pl-mv2__n{font-family:var(--serif-display);font-size:19px;font-weight:600;color:var(--ink);}
+.pl-mv2__meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:9px 0 0;
+font-family:var(--sans);font-size:11.5px;color:var(--muted);}
+.pl-mv2__meta b{color:var(--ink-2);font-weight:700;}
+.pl-mv2 .pl-dek{font-family:var(--serif-body);font-size:14px;line-height:1.6;color:var(--ink-2);margin:8px 0 0;}
+.pl-live{font-family:var(--sans);font-size:12.5px;line-height:1.6;background:var(--paper-2);
+border-left:2px solid var(--accent);padding:9px 12px;margin-top:8px;}
+.pl-live b{color:var(--ink);}
+.pl-runstamp{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:8px;}
+.svod-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0 10px;}
+.svod-tools input{flex:1;min-width:210px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);
+font-family:var(--sans);font-size:13px;padding:8px 12px;}
+.svod-tools input:focus{outline:2px solid var(--accent);outline-offset:1px;}
+.svod th[data-t]{cursor:pointer;user-select:none;white-space:nowrap;}
+.svod th[data-t]:hover{color:var(--accent);}
+.svod th .arr{color:var(--accent);font-size:10px;}
+.svod td{font-family:var(--sans);font-size:12px;color:var(--ink-2);vertical-align:top;}
+.svod td a{color:var(--ink);text-decoration:none;}
+.svod td a:hover{color:var(--accent);text-decoration:underline;}
+.svod .sv-name{font-family:var(--serif-body);font-size:13px;}
+.b2t{position:fixed;right:18px;bottom:18px;z-index:30;width:42px;height:42px;border:1px solid var(--ink);
+background:var(--paper);color:var(--ink);font-size:17px;cursor:pointer;line-height:1;}
+.b2t:hover{color:var(--accent);border-color:var(--accent);}
+.b2t:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.b2t[hidden]{display:none;}
+/* глоссарий и журнал витрины — те же блоки, что на странице «Методы» (METHODS_CSS) */
+.gloss{display:grid;grid-template-columns:1fr 1fr;gap:0 44px;border-top:1px solid var(--ink);}
+.gloss-item{border-bottom:1px solid var(--rule);padding:12px 0;break-inside:avoid;}
+.gloss-item b{font-family:var(--serif-display);font-size:15px;color:var(--ink);}
+.gloss-item p{font-family:var(--serif-body);font-size:13px;color:var(--ink-2);margin:4px 0 0;line-height:1.5;}
+.chlog{border-top:1px solid var(--rule);}
+.chlog summary{cursor:pointer;list-style:none;font-family:var(--serif-display);font-size:16px;font-weight:600;
+color:var(--ink);padding:12px 0;}
+.chlog summary::-webkit-details-marker{display:none;}
+.chlog summary::before{content:"▸ ";color:var(--accent);}
+.chlog[open] summary::before{content:"▾ ";}
+.chlog ul{font-family:var(--serif-body);font-size:13.5px;color:var(--ink-2);margin:2px 0 12px;padding-left:20px;}
+.chlog li{margin:4px 0;}
+@media (max-width:1279px){
+  .pl-layout{grid-template-columns:minmax(0,1fr);}
+  .pltoc{display:none;}
+}
+@media (max-width:900px){
+  .pl-mv2{padding:14px;}
+  .svod .sv-hide{display:none;}
+  .gloss{grid-template-columns:1fr;}
+}
+@media print{
+  .plsticky,.pltoc,.b2t,.svod-tools{display:none!important;}
+  .pl-layout{display:block;}
+  .pl-mv2,.pl-stage,.pl-track,.pl-tbl tbody tr{break-inside:avoid;}
+  .pl-mv2[open] .pl-mcodes{margin-top:6px;}
+}
 """
 
 # Фильтры реестра метрик: прогрессивный JS по образцу AFISHA_JS — таблица целиком
 # отрисована на сервере, без JS видны все строки, скрипт только скрывает лишние.
 PLANS_JS = """<script>
 (function(){
+  /* ---------- реестр метрик: фильтры по осям, статусам и поиску ---------- */
   var rows=Array.prototype.slice.call(document.querySelectorAll('#pl-reg tbody tr[data-ax]'));
-  if(!rows.length){return;}
   var q=document.getElementById('pl-q');
   var shown=document.getElementById('pl-shown');
   var empty=document.getElementById('pl-empty');
@@ -2995,13 +3081,13 @@ PLANS_JS = """<script>
     rows.forEach(function(r){var ok=pass(r);r.classList.toggle('pl-hide',!ok);if(ok){n++;}});
     if(shown){shown.textContent=n;}
     if(empty){empty.hidden=n>0;}
-    document.querySelectorAll('#pl-filters .fbtn').forEach(function(b){
+    Array.prototype.forEach.call(document.querySelectorAll('#pl-filters .fbtn'),function(b){
       var f=b.getAttribute('data-f'),v=b.getAttribute('data-v');
       var on=(f==='ax'&&ST.ax===v)||(f==='st'&&ST.st===v);
       b.classList.toggle('active',!!on);
     });
   }
-  document.querySelectorAll('#pl-filters .fbtn').forEach(function(b){
+  Array.prototype.forEach.call(document.querySelectorAll('#pl-filters .fbtn'),function(b){
     b.addEventListener('click',function(){
       var f=b.getAttribute('data-f'),v=b.getAttribute('data-v');
       if(f==='ax'){ST.ax=(ST.ax===v?'all':v);}
@@ -3009,27 +3095,94 @@ PLANS_JS = """<script>
       paint();
     });
   });
-  if(q){
-    q.addEventListener('input',function(){ST.q=q.value.trim().toLowerCase();paint();});
-  }
+  if(q){q.addEventListener('input',function(){ST.q=q.value.trim().toLowerCase();paint();});}
   paint();
+
+  /* ---------- сводная таблица: сортировка по колонкам и поиск ---------- */
+  var tbl=document.getElementById('plSvod');
+  if(tbl&&tbl.tBodies.length){
+    var body=tbl.tBodies[0];
+    var head=tbl.tHead.rows[0];
+    var asc={};
+    Array.prototype.forEach.call(head.cells,function(th){
+      if(!th.hasAttribute('data-i')){return;}
+      th.addEventListener('click',function(){
+        var i=+th.getAttribute('data-i');
+        var type=th.getAttribute('data-t')||'str';
+        asc[i]=!asc[i];
+        Array.prototype.slice.call(body.rows).sort(function(a,b){
+          var ca=a.cells[i],cb=b.cells[i];
+          var x=ca.getAttribute('data-v')!==null?ca.getAttribute('data-v'):ca.textContent.trim();
+          var y=cb.getAttribute('data-v')!==null?cb.getAttribute('data-v'):cb.textContent.trim();
+          if(type==='num'){x=parseFloat(x)||0;y=parseFloat(y)||0;return asc[i]?x-y:y-x;}
+          return asc[i]?String(x).localeCompare(String(y),'ru'):String(y).localeCompare(String(x),'ru');
+        }).forEach(function(row){body.appendChild(row);});
+        Array.prototype.forEach.call(head.cells,function(o){var ar=o.querySelector('.arr');if(ar){ar.textContent='';}});
+        var arr=th.querySelector('.arr');
+        if(arr){arr.textContent=asc[i]?'\\u25b2':'\\u25bc';}
+      });
+    });
+    var sq=document.getElementById('plSvodQ');
+    if(sq){
+      sq.addEventListener('input',function(){
+        var v=(sq.value||'').trim().toLowerCase();
+        Array.prototype.forEach.call(body.rows,function(row){
+          row.classList.toggle('pl-hide',!!v&&row.textContent.toLowerCase().indexOf(v)<0);
+        });
+      });
+    }
+  }
+
+  /* ---------- scroll-spy липкой полосы (прогрессивно: без IO полоса работает как якоря) ---------- */
+  var bar=document.getElementById('plsticky');
+  if(bar&&'IntersectionObserver' in window){
+    var links={};
+    Array.prototype.forEach.call(bar.querySelectorAll('a'),function(a){
+      var h=a.getAttribute('href')||'';
+      if(h.charAt(0)==='#'){links[h.slice(1)]=a;}
+    });
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting){return;}
+        Object.keys(links).forEach(function(k){links[k].classList.remove('on');links[k].removeAttribute('aria-current');});
+        var l=links[e.target.id];
+        if(l){l.classList.add('on');l.setAttribute('aria-current','true');}
+      });
+    },{rootMargin:'-104px 0px -66% 0px'});
+    Object.keys(links).forEach(function(k){var el=document.getElementById(k);if(el){io.observe(el);}});
+  }
+
+  /* ---------- кнопка «наверх» ---------- */
+  var b2t=document.getElementById('b2t');
+  if(b2t){
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.addEventListener('scroll',function(){b2t.hidden=!(window.scrollY>600);},{passive:true});
+    b2t.addEventListener('click',function(){window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});});
+  }
 })();
 </script>"""
 
 
-def render_plans(cfg, trends, store, status, an=None):
-    """Страница «Планы»: треки планов издания и внедрение методов.
+def render_plans(cfg, trends, store, status, an=None, info=None):
+    """Страница «Планы»: треки планов издания, реестр метрик и внедрение методов.
 
-    Собирается из plans.py (редакционный реестр метрик, паспорта, волны, риски)
-    и из markdown-документов репозитория (ROADMAP.md, server_plan.md,
-    plan_frontpage_v4.md, district_sources_draft.md, owner_verification.md),
-    которые читаются при генерации: правка документа сразу видна на витрине.
-    Без JavaScript видны все таблицы — скрипт только фильтрует реестр метрик.
+    Собирается из plans.py (редакционный реестр метрик, паспорта-пилоты, волны, риски,
+    треки, глоссарий, журнал) и из markdown-документов репозитория (ROADMAP.md,
+    server_plan.md, plan_frontpage_v4.md, plan_methods_v2.md), которые читаются при
+    генерации: правка документа сразу видна на витрине. Примеры расчёта пилотов
+    берутся из data/infospace.json (info) — числа на странице всегда фактические,
+    без ручного дублирования. Без JavaScript видны все таблицы — скрипт только
+    фильтрует реестр и сортирует сводную.
     """
+    import methods as M
     import plans as P
     now = datetime.now(UTC4)
     nav_html = render_nav(cfg, "projects", "../", subnav=subnav_projects("../", "plans"))
     an = an or {}
+    info = info or {}
+    w1 = info.get("w1") or {}
+    run_stamp = P.info_run(info)
+    live = P.pilot_examples(info)
     cnt = P.counts()
     axes = P.by_axis()
     open_groups = P.roadmap_open()
@@ -3039,27 +3192,89 @@ def render_plans(cfg, trends, store, status, an=None):
     sprints = P.frontpage_sprints()
     ver, ver_date = P.roadmap_version()
     gh = "https://github.com/Volgin1917/gudok/blob/main/"
+    m_cnt = M.counts()
+    id_by_code = {m["code"]: m["id"] for m in M.METHODS}
 
     def st_chip(st):
-        return f'<span class="pl-st pl-st--{esc(st)}">{esc(P.STATUS.get(st, st))}</span>'
+        sym = P.STATUS_SYMBOL.get(st, "")
+        return (f'<span class="pl-st pl-st--{esc(st)}">'
+                f'{esc((sym + " " + P.STATUS.get(st, st)).strip())}</span>')
 
-    # ---------------------------------------------------------- паспорта метрик
+    def m_links(codes, cls="pl-m"):
+        """Чипы кодов методик с ссылками на паспорта реестра."""
+        out = []
+        for c in codes or []:
+            anchor = id_by_code.get(c)
+            out.append(f'<a class="{cls}" href="../methods.html#{esc(anchor)}">{esc(c)}</a>'
+                       if anchor else f'<span class="{cls}">{esc(c)}</span>')
+        return "".join(out)
+
+    # ---------------------------------------------------------- паспорта-пилоты (v2)
     pass_html = []
     for i, pl in enumerate(P.PILOTS):
-        pass_html.append(f"""<details class="pl-pass"{' open' if i == 0 else ''}>
-<summary>{esc(pl['n'])}</summary>
-<div class="pl-pass__meta">{st_chip(pl.get('st', 'queue'))}
-<span class="pl-st">ось: {esc(P.AXIS_NAME.get(pl.get('ax'), pl.get('ax', '')))}</span>
-<span class="pl-st">трудозатраты: {esc(pl.get('ef', ''))}</span></div>
-<p class="pl-ex">{esc(pl.get('dek', ''))}</p>
-<dl>
+        name = pl.get("n", "")
+        meta = [f'тип: <b>{esc(pl.get("kind", ""))}</b>',
+                f'ось: <b>{esc(P.AXIS_NAME.get(pl.get("ax"), pl.get("ax", "")))}</b>',
+                f'трудоёмкость: <b>{esc(pl.get("ef", ""))}</b>',
+                f'владелец: <b>{esc(pl.get("own", ""))}</b>']
+        if pl.get("since"):
+            meta.append(f'в реестре с <b>{esc(pl["since"])}</b>')
+        meta_html = f'<div class="pl-mv2__meta">{" · ".join(meta)}</div>'
+        codes = pl.get("m") or []
+        rel = pl.get("rel") or []
+        ex_txt = live.get(name) or "пример появится после первого прогона analytics.py"
+        ex_html = (f'<div class="pl-live"><b>Пример расчёта (факт):</b> {esc(ex_txt)}'
+                   + (f' <span class="pl-runstamp">Данные прогона: {esc(run_stamp)}.</span>'
+                      if run_stamp else " Данных прогона пока нет.") + '</div>')
+        pass_html.append(f"""<details class="pl-mv2" id="pilot-{i + 1}"{' open' if i == 0 else ''}>
+<summary><span class="pl-mv2__n">{esc(name)}</span>{st_chip(pl.get('st', 'queue'))}
+<span class="pl-mcodes">{m_links(codes)}</span></summary>
+<p class="pl-dek">{esc(pl.get('dek', ''))}</p>
+{meta_html}
+<dl class="pl-pass dl">
 <dt>Гипотеза</dt><dd>{esc(pl.get('hyp', ''))}</dd>
 <dt>Формула</dt><dd><div class="pl-formula">{pl.get('formula', '')}</div></dd>
 <dt>Источник данных</dt><dd>{esc(pl.get('src', ''))}</dd>
 <dt>Порог тревоги</dt><dd>{esc(pl.get('thr', ''))}</dd>
 <dt>Где публикуется</dt><dd>{esc(pl.get('out', ''))}</dd>
 <dt>Первый расчёт</dt><dd>{esc(pl.get('first', ''))}</dd>
-</dl></details>""")
+</dl>
+{ex_html}
+<div class="pl-code"><b>Методики:</b> {m_links(codes) or "—"}</div>
+{f'<div class="pl-code"><b>Связанные метрики:</b> {esc(" · ".join(rel))}</div>' if rel else ''}
+{f'<div class="pl-code"><b>Ограничения:</b> {esc(" · ".join(pl["lim"]))}</div>' if pl.get("lim") else ''}
+{f'<div class="pl-code"><b>Зависит от данных:</b> {esc(" · ".join(pl["dep"]))}</div>' if pl.get("dep") else ''}
+</details>""")
+
+    # ---------------------------------------------------------- конвейер внедрения
+    stage_meta = [("methods.py", "вручную"), ("data/store.jsonl", "авто"), ("модуль методики", "авто"),
+                  ("render_*, HTML", "авто"), ("tests/", "CI")]
+    stage_rows = []
+    for st, (where_file, _auto) in zip(P.METHOD_STAGES, stage_meta):
+        stage_rows.append(f"""<div class="pl-stage" id="stage-{st['n']}"><div class="pl-stage__n">{st['n']}</div>
+<div><h3>{esc(st['t'])}</h3><p>{esc(st['d'])}</p>
+<div class="pl-code"><b>Где в коде:</b> {esc(st['where'])}</div>
+<div class="pl-code"><b>Проверка:</b> {esc(st['check'])}</div>
+<div class="pl-ex">Пример — {esc(st['ex'])}</div></div></div>""")
+
+    pipe_steps = [("Паспорт", "methods.py", True), ("Данные", "store.jsonl", False),
+                  ("Расчёт", "модуль", False), ("Блок витрины", "render_*", False),
+                  ("Тест", "tests/ · CI", False)]
+    boxes = []
+    for i, (title, sub, manual) in enumerate(pipe_steps):
+        x = 8 + i * 210
+        dash = ' stroke-dasharray="5 4"' if manual else ""
+        boxes.append(
+            f'<a href="#stage-{i + 1}"><g>'
+            f'<rect x="{x}" y="14" width="186" height="62" fill="var(--paper-2)" stroke="var(--ink)"{dash}/>'
+            f'<text x="{x + 93}" y="40" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">{esc(title)}</text>'
+            f'<text x="{x + 93}" y="60" text-anchor="middle" font-size="11" fill="var(--muted)">{esc(sub)}'
+            f'{" · вручную" if manual else ""}</text></g></a>')
+        if i < 4:
+            ax = x + 188
+            boxes.append(f'<path d="M{ax} 45 h16 m-5 -5 l6 5 l-6 5" fill="none" stroke="var(--muted)" stroke-width="1.6"/>')
+    pipe_svg = ('<svg class="pipe" viewBox="0 0 1056 90" role="img" aria-label="Конвейер внедрения метода: '
+                'паспорт, данные, расчёт, блок на витрине, тест">' + "".join(boxes) + "</svg>")
 
     # ---------------------------------------------------------- реестр метрик
     ax_order = [a["k"] for a in P.AXES]
@@ -3089,9 +3304,32 @@ def render_plans(cfg, trends, store, status, an=None):
 <td>{st_chip(stt)}</td>
 <td>{esc(r.get('ef', ''))}</td>
 <td>{esc(str(r.get('p', '')))}</td>
+<td>{m_links(r.get("m"), cls="pl-m")}</td>
 <td>{esc(r.get('dn', '') or '—')}</td>
 <td>{esc(r.get('h', ''))}</td>
 <td>{esc(r.get('s', ''))}</td></tr>""")
+
+    # --------------------------------------------- сводная таблица моста (v2)
+    svod_rows = []
+    for r in reg:
+        stt = r.get("st") if r.get("st") in P.STATUS else "queue"
+        p = int(r.get("p") or 0)
+        svod_rows.append(
+            f'<tr><td class="sv-name">{esc(r.get("n", ""))}</td>'
+            f'<td>{esc(P.AXIS_NAME.get(r.get("ax"), ""))}</td>'
+            f'<td data-v="{st_order.index(stt) if stt in st_order else 9}">{st_chip(stt)}</td>'
+            f'<td data-v="{p}" class="sv-hide">{esc(str(r.get("p", "")))}</td>'
+            f'<td class="sv-hide">{esc(r.get("ef", ""))}</td>'
+            f'<td>{m_links(r.get("m"))}</td>'
+            f'<td class="sv-hide">{esc(r.get("dn", "") or "—")}</td></tr>')
+    pl_svod = f"""<div class="svod-tools"><label for="plSvodQ" class="pl-h4" style="display:inline;margin:0;">Поиск по сводке</label>
+<input type="search" id="plSvodQ" placeholder="метрика, ось, методика — например «тон», «деньги», М-30" aria-label="Поиск по сводной таблице реестра"></div>
+<div class="tbl-wrap"><table class="tbl svod" id="plSvod"><thead><tr>
+<th data-i="0" data-t="str">Метрика <span class="arr"></span></th><th data-i="1" data-t="str">Ось <span class="arr"></span></th>
+<th data-i="2" data-t="num">Статус <span class="arr"></span></th><th data-i="3" data-t="num" class="sv-hide">Приоритет <span class="arr"></span></th>
+<th data-i="4" data-t="str" class="sv-hide">Трудоёмкость <span class="arr"></span></th>
+<th data-i="5" data-t="str">Методики <span class="arr"></span></th><th data-i="6" data-t="str" class="sv-hide">Подключена <span class="arr"></span></th>
+</tr></thead><tbody>{''.join(svod_rows)}</tbody></table></div>"""
 
     ax_chips = ['<button type="button" class="fbtn active" data-f="ax" data-v="all">Все оси</button>']
     for a in P.AXES:
@@ -3155,16 +3393,18 @@ def render_plans(cfg, trends, store, status, an=None):
                                + '<div class="note">Полный журнал решений и история версий — в ROADMAP.md; '
                                  'страница перечисляет только незакрытые пункты, они перечитываются при каждой сборке.</div></div>')
         elif key == "infospace":
-            extra = ('<a class="pl-link" href="#metrics">реестр на этой странице ↑</a>'
-                     f'<a class="pl-link" href="../infospace.html">витрина раздела →</a>')
+            extra = ('<a class="pl-link" href="#registry">реестр на этой странице ↑</a>'
+                     '<a class="pl-link" href="../infospace.html">витрина раздела →</a>')
             tracks_html.append(track_head(tr, extra)
                                + f'<div class="pl-h4">Статусы реестра</div>'
                                + '<ul class="pl-list">'
                                + "".join(f'<li>{esc(P.STATUS[k])} — <b>{cnt.get(k, 0)}</b></li>'
                                          for k in st_order if cnt.get(k))
                                + '</ul>'
-                               + '<div class="note">Метрика добавляется в раздел только через паспорт '
-                                 '(конвейер внедрения — на странице «Методы»). Черновик предложения v0.9 — infospace-plan.html.</div></div>')
+                               + '<div class="note">Метрика добавляется в раздел только через паспорт — '
+                                 'конвейер внедрения на этой странице, <a href="#method">шаг 1</a>. '
+                                 'Числа примеров берутся из data/infospace.json прогона analytics.py. '
+                                 'Черновик предложения v0.9 — infospace-plan.html.</div></div>')
         elif key == "server":
             st_rows = "".join(
                 f'<tr><td class="pl-n">{esc(s["stage"])}</td><td>{esc(s["term"])}</td>'
@@ -3219,6 +3459,39 @@ def render_plans(cfg, trends, store, status, an=None):
                                + '<div class="pl-h4">Состав документа</div>'
                                + f'<ul class="pl-list">{lis}</ul></div>')
 
+    # ---------------------------------------------------------- глоссарий и журнал
+    gloss_items = "".join(
+        f'<div class="gloss-item" id="pl-gl-{esc(slug)}"><b>{esc(term)}</b><p>{esc(defn)}</p></div>'
+        for slug, term, defn in sorted(P.GLOSSARY_PLAN, key=lambda g: g[1].lower()))
+    chlog_html = "".join(
+        f'<details class="chlog"{" open" if i == 0 else ""}><summary>v{esc(cver)} · {esc(cdate)}</summary>'
+        f'<ul>{"".join(f"<li>{esc(x)}</li>" for x in items)}</ul></details>'
+        for i, (cver, cdate, items) in enumerate(P.CHANGELOG_PLAN))
+
+    # ---------------------------------------------------------- навигация по странице
+    sections = [("pilots", "Пилоты", len(P.PILOTS)),
+                ("method", "Внедрение", len(P.METHOD_STAGES)),
+                ("registry", "Реестр", cnt["total"]),
+                ("waves", "Волны", len(P.WAVES)),
+                ("sources", "Источники", len(P.SOURCES)),
+                ("risks", "Риски", len(P.RISKS)),
+                ("tracks", "Треки", len(P.TRACKS)),
+                ("svod", "Сводка", cnt["total"]),
+                ("gloss", "Глоссарий", len(P.GLOSSARY_PLAN)),
+                ("journal", "Журнал", len(P.CHANGELOG_PLAN))]
+    sticky_html = ('<div class="plsticky" id="plsticky"><div class="plsticky-in">'
+                   + "".join(f'<a href="#{sid}">{esc(label)}</a>' for sid, label, _n in sections)
+                   + "</div></div>")
+    toc_html = ('<p class="pltoc-h">Содержание</p>'
+                + "".join(f'<a href="#{sid}">{esc(label)}<b>{n}</b></a>' for sid, label, n in sections))
+
+    bridge_err = P.validate_bridge()
+    bridge_line = (f'Мост «метрика ↔ методика»: {len(reg) + len(P.PILOTS)} записей витрины, '
+                   f'{len(P.bridge()["by_code"])} методик связано с реестром '
+                   f'<a href="../methods.html">v{m_cnt["total"]} паспортов</a> · v{M.VERSION} · '
+                   f'проверка: <code>python3 methods.py --validate</code> · '
+                   f'{"ошибок нет" if not bridge_err else esc("; ".join(bridge_err))}')
+
     return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Планы — {cfg['brand']}</title>
@@ -3231,6 +3504,8 @@ def render_plans(cfg, trends, store, status, an=None):
 <div class="mast-actions">{THEME_BTN}</div></div>
 </div></header>
 {nav_html}
+{sticky_html}
+<main id="main">
 <div class="page">
 
 <div class="kpi-grid" style="margin:18px 0 6px;">
@@ -3243,14 +3518,33 @@ def render_plans(cfg, trends, store, status, an=None):
 </div>
 <div class="note" style="margin-bottom:8px;">Одна страница вместо четырёх документов: план развития издания, план расширения
 «Инфопространства», переезд на выделенный сервер и спринты первой полосы. Страница генерируется
-(<code>generate.py → render_plans</code>) из редакционного реестра <code>plans.py</code> и из markdown-документов
-репозитория — правка документа попадает на витрину при следующем прогоне конвейера. Собрано {now:%d.%m.%Y %H:%M} (UTC+4).</div>
+(<code>generate.py → render_plans</code>) из редакционного реестра <code>plans.py</code>, реестра методик
+<code>methods.py</code> и из markdown-документов репозитория — правка документа попадает на витрину при
+следующем прогоне конвейера. Примеры расчёта пилотов подставляются из <code>data/infospace.json</code>,
+сборка — {now:%d.%m.%Y %H:%M} (UTC+4).</div>
 
-<div class="sec-head" style="margin-top:34px;"><h2>Паспорта метрик-пилотов</h2><div class="line"></div>
+<div class="pl-layout">
+<nav class="pltoc" id="pltoc" aria-label="Содержание страницы">{toc_html}</nav>
+<div class="pl-body">
+
+<div class="sec-head" style="margin-top:26px;" id="pilots"><h2>Паспорта метрик-пилотов</h2><div class="line"></div>
 <div class="badge">{len(P.PILOTS)} паспорта · образец для остальных</div></div>
+<div class="pl-h4">Образец паспорта витрины: формула, источник, порог тревоги, методики и живой пример расчёта</div>
 {"".join(pass_html)}
+<div class="note">{bridge_line}</div>
 
-<div class="sec-head" id="metrics"><h2>Реестр метрик-кандидатов</h2><div class="line"></div>
+<div class="sec-head" id="method"><span class="anchor" id="metrics"></span><h2>Внедрение метода</h2><div class="line"></div>
+<div class="badge">паспорт → данные → расчёт → блок → тест</div></div>
+{pipe_svg}
+<div class="note" style="margin:0 0 14px;">Правило редакции: метрика или методика добавляется в раздел только через паспорт —
+с гипотезой, формулой, источником данных, порогом тревоги и местом публикации. Пять шагов ниже одинаковы
+для метрик «Инфопространства», для порогов афиши и для правил дедупликации: отличается только файл.
+Пунктиром на схеме — шаг, который не автоматизирован: паспорт пишется редакцией вручную.
+Что должно быть готово для статусов паспортов (работает / тест / очередь) — легенда на странице
+<a href="../methods.html#method">«Методы»</a>.</div>
+{"".join(stage_rows)}
+
+<div class="sec-head" id="registry"><h2>Реестр метрик-кандидатов</h2><div class="line"></div>
 <div class="badge">{cnt['total']} метрики · {len(P.AXES)} осей</div></div>
 <div class="pl-h4">Готовность по осям</div>
 {"".join(ax_bars)}
@@ -3259,36 +3553,57 @@ def render_plans(cfg, trends, store, status, an=None):
 <input id="pl-q" type="search" placeholder="Поиск по реестру — например «тон», «ЕИС», «Gini», «село»"></div>
 <table class="tbl pl-tbl" id="pl-reg"><thead><tr>
 <th>Метрика</th><th>Ось</th><th>Статус</th><th>Трудо&shy;ёмкость</th><th>Приоритет</th>
-<th>Подклю&shy;чена</th><th>Что даёт</th><th>Данные</th></tr></thead>
+<th>Методи&shy;ки</th><th>Подклю&shy;чена</th><th>Что даёт</th><th>Данные</th></tr></thead>
 <tbody>{''.join(reg_rows)}</tbody></table>
 <div class="pl-foot"><span>Показано: <b id="pl-shown">{cnt['total']}</b> из {cnt['total']}</span>
 <span id="pl-empty" hidden>Под условия ничего не нашлось — снимите фильтр.</span>
 <span style="margin-left:auto;">фильтры работают в браузере; без JavaScript виден весь реестр</span></div>
 
-<div class="sec-head"><h2>Волны внедрения</h2><div class="line"></div>
+<div class="sec-head" id="waves"><h2>Волны внедрения</h2><div class="line"></div>
 <div class="badge">порядок работ и что нужно для каждого шага</div></div>
 <table class="tbl pl-tbl"><thead><tr><th>Волна</th><th>Срок</th><th>Что нужно</th><th>Состав и статусы</th></tr></thead>
 <tbody>{''.join(wave_rows)}</tbody></table>
 
-<div class="sec-head"><h2>Источники данных</h2><div class="line"></div>
+<div class="sec-head" id="sources"><h2>Источники данных</h2><div class="line"></div>
 <div class="badge">что подключаем ради новых метрик</div></div>
 <table class="tbl pl-tbl"><thead><tr><th>Источник</th><th>Статус</th><th>Метка</th><th>Что даёт</th><th>Примечание</th></tr></thead>
 <tbody>{''.join(src_rows)}</tbody></table>
 
-<div class="sec-head"><h2>Методологические риски</h2><div class="line"></div>
+<div class="sec-head" id="risks"><h2>Методологические риски</h2><div class="line"></div>
 <div class="badge">что может исказить картину и как это лечим</div></div>
 <ul class="pl-list">{risk_html}</ul>
 
-<div class="sec-head"><h2>Треки планов</h2><div class="line"></div>
+<div class="sec-head" id="tracks"><h2>Треки планов</h2><div class="line"></div>
 <div class="badge">{len(P.TRACKS)} треков · документы перечитываются при сборке</div></div>
 {''.join(tracks_html)}
+
+<div class="sec-head" id="svod"><h2>Сводка реестра</h2><div class="line"></div>
+<div class="badge">{cnt['total']} метрик · сортировка и поиск</div></div>
+{pl_svod}
+<div class="note">Колонка «Методики» — обратная сторона моста: те же коды, что и в реестре паспортов
+(<a href="../methods.html">methods.html</a>). На странице «Методы» в карточке паспорта перечислены метрики
+витрины, которые на него опираются, — мост двусторонний и проверяется командой
+<code>python3 methods.py --validate</code>.</div>
+
+<div class="sec-head" id="gloss"><h2>Глоссарий планов</h2><div class="line"></div>
+<div class="badge">{len(P.GLOSSARY_PLAN)} терминов</div></div>
+<div class="gloss">{gloss_items}</div>
+
+<div class="sec-head" id="journal"><h2>Журнал витрины</h2><div class="line"></div>
+<div class="badge">что менялось в плане</div></div>
+{chlog_html}
 
 <div class="note" style="margin-top:22px;">Историческая справка: до объединения планы жили отдельными страницами —
 <code>roadmap.html</code> (визуальная версия ROADMAP.md) и <code>infospace-plan.html</code> (черновик предложения v0.9
 по расширению «Инфопространства»). Оба документа сохранены в репозитории как источники; эта страница собирается
-из них и из реестра <code>plans.py</code>.</div>
+из них и из реестров <code>plans.py</code> и <code>methods.py</code>.</div>
 
 </div>
+</div>
+
+</div>
+</main>
+<button class="b2t" id="b2t" type="button" hidden aria-label="Наверх страницы">↑</button>
 {footer.render_footer('../')}
 {PLANS_JS}
 </body></html>"""
@@ -4238,9 +4553,12 @@ def render_methods(cfg, trends, store, status):
     sticky-полоса якорей со scroll-spy, боковое оглавление (≥1280px), группы
     сворачиваются нативным <details>, статусы с символами ●◐○ (цвет не
     единственный индикатор), сводная таблица всех паспортов внизу (сортировка
-    и поиск — прогрессивный JS), SVG-схема конвейера внедрения, легенда
-    definition of done, кнопка «наверх». Паспорта раскрываются нативным
-    <details> — страница читается и без JavaScript.
+    и поиск — прогрессивный JS), легенда definition of done, кнопка «наверх».
+    Паспорта раскрываются нативным <details> — страница читается и без JavaScript.
+    Конвейер внедрения (SVG-схема и пять шагов) вынесен на витрину планов
+    (projects/plans.html#method): там паспорта метрик-пилотов, живые примеры
+    расчёта и мост «метрика ↔ методика». Обратная сторона моста — в подвале
+    каждой карточки: какие метрики планов опираются на этот паспорт.
     """
     import methods as M
     import plans as P
@@ -4266,36 +4584,9 @@ def render_methods(cfg, trends, store, status):
             out.append(f'<a href="#{esc(anchor)}">{esc(c)}</a>' if anchor else esc(c))
         return " ".join(out)
 
-    # ---------------------------------------------------------- конвейер внедрения
-    stage_rows = []
-    stage_meta = [("methods.py", "вручную"), ("data/store.jsonl", "авто"), ("модуль методики", "авто"),
-                  ("render_*, HTML", "авто"), ("tests/", "CI")]
-    for st, (where_file, _auto) in zip(P.METHOD_STAGES, stage_meta):
-        stage_rows.append(f"""<div class="pl-stage" id="stage-{st['n']}"><div class="pl-stage__n">{st['n']}</div>
-<div><h3>{esc(st['t'])}</h3><p>{esc(st['d'])}</p>
-<div class="pl-code"><b>Где в коде:</b> {esc(st['where'])}</div>
-<div class="pl-code"><b>Проверка:</b> {esc(st['check'])}</div>
-<div class="pl-ex">Пример — {esc(st['ex'])}</div></div></div>""")
-
-    # SVG-схема конвейера: шаг 1 (паспорт) — вручную, пунктир; остальные — авто
-    pipe_steps = [("Паспорт", "methods.py", True), ("Данные", "store.jsonl", False),
-                  ("Расчёт", "модуль", False), ("Блок витрины", "render_*", False),
-                  ("Тест", "tests/ · CI", False)]
-    boxes = []
-    for i, (title, sub, manual) in enumerate(pipe_steps):
-        x = 8 + i * 210
-        dash = ' stroke-dasharray="5 4"' if manual else ""
-        boxes.append(
-            f'<a href="#stage-{i + 1}"><g>'
-            f'<rect x="{x}" y="14" width="186" height="62" fill="var(--paper-2)" stroke="var(--ink)"{dash}/>'
-            f'<text x="{x + 93}" y="40" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">{esc(title)}</text>'
-            f'<text x="{x + 93}" y="60" text-anchor="middle" font-size="11" fill="var(--muted)">{esc(sub)}'
-            f'{" · вручную" if manual else ""}</text></g></a>')
-        if i < 4:
-            ax = x + 188
-            boxes.append(f'<path d="M{ax} 45 h16 m-5 -5 l6 5 l-6 5" fill="none" stroke="var(--muted)" stroke-width="1.6"/>')
-    pipe_svg = ('<svg class="pipe" viewBox="0 0 1056 90" role="img" aria-label="Конвейер внедрения метода: '
-                'паспорт, данные, расчёт, блок на витрине, тест">' + "".join(boxes) + "</svg>")
+    # ---------------------------------------------------------- легенда статусов
+    # Легенда definition of done остаётся здесь: статусы work/test/queue — статусы паспортов.
+    # Сам конвейер внедрения (схема и пять шагов) живёт на странице «Планы» — projects/plans.html#method.
 
     # легенда definition of done
     dod_rows = "".join(
@@ -4377,6 +4668,11 @@ def render_methods(cfg, trends, store, status):
             foot.append("<span>данные: " + " · ".join(f"<code>{esc(d)}</code>" for d in dep["data"]) + "</span>")
         if m.get("related"):
             foot.append("<span>связанные: " + code_links(m["related"]) + "</span>")
+        # обратная сторона моста: какие метрики витрины планов опираются на этот паспорт
+        plan_metrics = P.metrics_for(m.get("code", ""))
+        if plan_metrics:
+            foot.append('<span>витрина планов: ' + "; ".join(esc(x) for x in plan_metrics)
+                        + ' <a href="projects/plans.html#svod">(сводная →)</a></span>')
         foot_html = ('<div class="mfooter">' + "".join(foot) + "</div>") if foot else ""
         ideo_attr = ' data-ideo="1"' if m.get("ideo") else ""
         blocked_attr = f' data-blocked="{esc(" ".join(m.get("blocked_by") or []))}"'
@@ -4505,7 +4801,7 @@ def render_methods(cfg, trends, store, status):
         for i, (ver, date, items) in enumerate(M.CHANGELOG))
 
     # ------------------------------------------------------------- sticky-полоса
-    sticky_items = [("method", "Внедрение"), ("reestr", "Реестр"), ("elect", "Выборы"), ("ideo", "Идеология"),
+    sticky_items = [("method", "Состав"), ("reestr", "Реестр"), ("elect", "Выборы"), ("ideo", "Идеология"),
                     ("tech", "Техконтур"), ("stand", "Стенд"), ("gloss", "Глоссарий"), ("svod", "Сводка"),
                     ("journal", "Журнал")]
     sticky_html = ('<div class="msticky" id="msticky"><div class="msticky-in">'
@@ -4549,15 +4845,12 @@ def render_methods(cfg, trends, store, status):
 </div>
 </div>
 
-<div class="sec-head" id="method"><h2>Внедрение методов</h2><div class="line"></div>
-<div class="badge">паспорт → данные → расчёт → блок → тест</div></div>
+<div class="sec-head" id="method"><h2>Состав реестра</h2><div class="line"></div>
+<div class="badge">паспортов: {meth['total']} · конвейер внедрения — на странице «Планы»</div></div>
 <div class="wrap1200">
-{pipe_svg}
-<div class="note" style="margin:0 0 14px;">Правило редакции: метрика или методика добавляется в раздел только через паспорт —
-с гипотезой, формулой, источником данных, порогом тревоги и местом публикации. Пять шагов ниже одинаковы
-для метрик «Инфопространства», для порогов афиши и для правил дедупликации: отличается только файл.
-Пунктиром на схеме — шаг, который не автоматизирован: паспорт пишется редакцией вручную.</div>
-{"".join(stage_rows)}
+<div class="note">Конвейер внедрения метода (схема и пять шагов) живёт на витрине планов —
+<a href="projects/plans.html#method">projects/plans.html#method</a>: там же паспорта метрик-пилотов,
+живые примеры расчёта и мост «метрика ↔ методика». Здесь — легенда статусов и состав реестра.</div>
 {dod_html}
 
 <div class="pl-h4">Реестр методик · v{M.VERSION}: {meth['total']} паспортов</div>
@@ -4568,7 +4861,8 @@ def render_methods(cfg, trends, store, status):
 <div class="note">Полные паспорта методик (тип, гипотеза или правило, вход, выход, метрики качества, модуль платформы,
 источник данных, ограничения, пример расчёта, оценка неопределённости и порядок проверки на контрольной выборке) —
 в реестре ниже; сквозной раздел «Идеология и гегемония», глоссарий, сводная таблица всех паспортов, журнал изменений
-реестра и техконтур из открытых стандартов — ниже по странице.</div>
+реестра и техконтур из открытых стандартов — ниже по странице. В подвале карточки паспорта перечислены метрики
+витрины планов, которые на него опираются: мост двусторонний, проверяется <code>python3 methods.py --validate</code>.</div>
 </div>
 
 <div class="sec-head" id="reestr"><h2>Реестр методик</h2><div class="line"></div>
@@ -7811,7 +8105,8 @@ def render_index(cfg, trends, store, status, digest_files, special_files):
 </div></header>
 {nav_html}
 {alert_html}
-<main>
+<a class="skip" href="#main">К содержанию</a>
+<main id="main">
 <section class="hero"><div class="hero__inner">
 <div>
 <div class="hero__eyebrow"><span class="live" aria-hidden="true"></span>
@@ -7947,9 +8242,11 @@ def main():
         html = html.replace('<header class="masthead"><div class="mast-inner">',
                             '<header class="masthead">' + flag + '<div class="mast-inner">', 1)
 
-        html = re.sub(r'(</nav>(?:<div class="subnav">.*?</div></div>)?)', r'\1<main id="main">',
-                      html, count=1, flags=re.S)
-        html = html.replace('<footer class="footer">', '</main>\n<footer class="footer">', 1)
+        # <main> добавляется только если страница не принесла свой: иначе — два ландмарта
+        if "<main" not in html:
+            html = re.sub(r'(</nav>(?:<div class="subnav">.*?</div></div>)?)', r'\1<main id="main">',
+                          html, count=1, flags=re.S)
+            html = html.replace('<footer class="footer">', '</main>\n<footer class="footer">', 1)
         if "</main>" not in html:
             html = html.replace("</body>", "</main></body>", 1)
         return html.replace("</body>", THEME_FOOT + "</body>", 1)
@@ -8092,7 +8389,8 @@ def main():
     print("[generate] проекты: projects.html, projects/elections.html, projects/elections_detail.html, projects/goszakupki.html")
 
     plans_html = themed(render_plans(cfg, trends, store, status,
-                                     load_json(os.path.join(DATA, "analytics.json")) or {}))
+                                     load_json(os.path.join(DATA, "analytics.json")) or {},
+                                     load_json(os.path.join(DATA, "infospace.json")) or {}))
     with open(os.path.join(proj_dir, "plans.html"), "w", encoding="utf-8") as f:
         f.write(plans_html)
     print("[generate] планы: projects/plans.html")

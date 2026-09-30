@@ -13,9 +13,15 @@ methods.py — реестр методик исследования инфопо
 Поля с инлайн-разметкой (<code>, <a href="#mNN">, <b>) вставляются в страницу как
 есть: это доверенный редакционный текст, а не данные из внешних источников.
 """
+import argparse
+import datetime
+import json
 import math
+import os
 import re
+import sys
 
+BASE = os.path.dirname(os.path.abspath(__file__))
 VERSION = "2.0"
 
 # ------------------------------------------------------------------ группы и статусы
@@ -3150,3 +3156,184 @@ def validate_registry():
         if not re.fullmatch(r"[a-z0-9-]+", slug):
             errs.append(f"глоссарий: недопустимый slug {slug!r}")
     return errs
+
+
+# ------------------------------------------------------------------ CLI: проверка и числа
+def _load_json(path):
+    """JSON из data/ (пустой словарь, если файла нет) — чтение только, без записи."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f) or {}
+    except (OSError, ValueError):
+        return {}
+
+
+def _tz():
+    """Пояс издания из config.json (timezone → settings.tz_offset_hours), по умолчанию UTC+4."""
+    off = 4
+    try:
+        cfg = _load_json(os.path.join(BASE, "config.json"))
+        off = int((cfg.get("settings") or {}).get("tz_offset_hours", 4))
+    except (TypeError, ValueError):
+        pass
+    return datetime.timezone(datetime.timedelta(hours=off))
+
+
+def _dt(s):
+    """Разбор времени публикации записи базы; None, если разобрать нельзя."""
+    if not s:
+        return None
+    try:
+        return datetime.datetime.fromisoformat(str(s).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def numbers_report(store_path=None, info_path=None):
+    """Числа, на которые ссылаются паспорта и витрина планов, — из текущей базы.
+
+    Возвращает список строк. Читает data/store.jsonl и data/infospace.json, ничего
+    не меняет: это сверка паспорта, а не пересчёт (пересчитывает analytics.py).
+    """
+    store_path = store_path or os.path.join(BASE, "data", "store.jsonl")
+    info_path = info_path or os.path.join(BASE, "data", "infospace.json")
+    now = datetime.datetime.now(_tz())
+    out = [f"Числа паспортов · {now:%d.%m.%Y %H:%M} ({now:%z})"]
+
+    total = dups = full = 0
+    sources, tiers = set(), {}
+    try:
+        store = open(store_path, encoding="utf-8")
+    except OSError:
+        out.append(f"База недоступна: {store_path}")
+        return out
+    with store:
+        for line in store:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                it = json.loads(line)
+            except ValueError:
+                continue
+            total += 1
+            dups += 1 if it.get("dup_of") else 0
+            text = it.get("text") or ""
+            if text.strip() and len(text) > len(it.get("title") or ""):
+                full += 1
+            sources.add(it.get("source"))
+            t = it.get("tier")
+            tiers[t] = tiers.get(t, 0) + 1
+    if not total:
+        out.append(f"База пуста или недоступна: {store_path}")
+        return out
+    out.append(f"База: {total} записей · источников {len(sources)} · "
+               f"дублей {dups} ({dups * 100 // total}%) · с текстом сверх заголовка {full} "
+               f"({full * 100 // total}%)")
+    out.append("По тиру: " + " · ".join(
+        (f"T{k} — {v}" if k is not None else f"без тира — {v}")
+        for k, v in sorted(tiers.items(), key=lambda kv: (kv[0] is None, kv[0]))))
+
+    info = _load_json(info_path)
+    w1 = info.get("w1") or {}
+    if not w1:
+        out.append(f"Данных инфопространства нет или устарели: {info_path} "
+                   "(пересчёт — python3 analytics.py)")
+        return out
+    out.append(f"Прогон инфопространства: {w1.get('generated_local') or info.get('generated_local', '—')} · "
+               f"окно 7 дней: {w1.get('week_items', '—')} сообщений")
+
+    tli = w1.get("tli") or {}
+    if tli.get("index") is not None:
+        out.append(f"М-30 / TLI: индекс {tli.get('index'):.3f} ({tli.get('verdict', '—')}) · "
+                   f"маркеров {tli.get('mentioned', '—')} · говорящих {tli.get('speaks', '—')}")
+    lat = w1.get("latency") or {}
+    if lat:
+        out.append(f"М-04 / латентность: медиана {lat.get('median_h', '—')} ч · n = {lat.get('n', '—')} · "
+                   f"в тот же день {round((lat.get('sameday_share') or 0) * 100)}% · "
+                   f"покрытие {round((lat.get('coverage') or 0) * 100)}%")
+    casc = w1.get("cascade_time") or {}
+    if casc:
+        out.append(f"М-11 / каскад: медиана развёртки {casc.get('median_span_h', '—')} ч · "
+                   f"n = {casc.get('n', '—')}")
+    bv = w1.get("budget_voice") or {}
+    if bv:
+        out.append(f"М-31 / денежный слой: T1 в потоке {round((bv.get('t1_share_flow') or 0) * 100)}% · "
+                   f"эхо первых сообщений {round((bv.get('echo_of_t1') or 0) * 100)}% "
+                   f"на {bv.get('echo_n', '—')} совпадений")
+    rural = w1.get("rural_index") or {}
+    if rural:
+        out.append(f"М-14 / село: доля в повестке {round((rural.get('agenda_share') or 0) * 100)}% · "
+                   f"доля в населении {round((rural.get('rural_pop_share') or 0) * 100)}% · "
+                   f"индекс {rural.get('index', '—')} ({rural.get('verdict', '—')})")
+    dedup = (info.get("w4") or {}).get("dedup") or {}
+    if dedup:
+        current = next((s for s in dedup.get("sweep") or []
+                        if abs(float(s.get("threshold", -1)) - float(dedup.get("threshold", -2))) < 1e-9),
+                       None) or next(iter(dedup.get("sweep") or [None]), None)
+        share = (current or {}).get("original_share", dedup.get("original_share"))
+        dups_w = (current or {}).get("dups", dedup.get("dups"))
+        if share is not None:
+            out.append(f"М-03 / дедупликация: оригинальность {share:.3f} при пороге "
+                       f"{dedup.get('threshold', '—')} · склеек {dups_w} из "
+                       f"{dedup.get('n_items', '—')} записи окна")
+    return out
+
+
+def validate_report():
+    """Сводка проверки: реестр методик + мост «метрика ↔ методика» из plans.py."""
+    c = counts()
+    k = kind_counts()
+    lines = [f"Реестр методик v{VERSION}: {c['total']} паспортов · "
+             f"{c['work']} работает · {c['test']} тест · {c['queue']} очередь"]
+    lines.append("Типы паспортов: " + " · ".join(
+        f"{KINDS[key]} — {val}" for key, val in k.items()))
+    errs = validate_registry()
+    lines.append(f"Паспорта и перекрёстные ссылки: {'ошибок нет' if not errs else str(len(errs)) + ' ошибок'}")
+    try:
+        import plans
+        perr = plans.validate_bridge()
+        warn = plans.bridge_warnings()
+        linked = len(plans.bridge()["by_code"])
+        lines.append(f"Мост «метрика ↔ методика»: {len(plans.REG) + len(plans.PILOTS)} записей, "
+                     f"{linked} методик связаны · {'ошибок нет' if not perr else str(len(perr)) + ' ошибок'}"
+                     + (f" · без метрик: {', '.join(warn)}" if warn else ""))
+        errs += perr
+    except ImportError as e:  # реестр методик должен проверяться и без plans.py
+        lines.append(f"Мост «метрика ↔ методика»: недоступен ({e})")
+    for line in errs:
+        lines.append("  ошибка: " + line)
+    return errs, lines
+
+
+def main(argv=None):
+    """CLI редакционного контура реестра: `python3 methods.py [--validate] [--numbers]`."""
+    ap = argparse.ArgumentParser(
+        prog="methods.py", description="Реестр методик «Гудок»: проверка целостности и числа паспортов")
+    ap.add_argument("--validate", action="store_true",
+                    help="проверить паспорта, перекрёстные ссылки и мост «метрика ↔ методика»")
+    ap.add_argument("--numbers", action="store_true",
+                    help="показать числа, на которые ссылаются паспорта и витрина планов")
+    args = ap.parse_args(argv)
+
+    rc = 0
+    if args.validate:
+        errs, lines = validate_report()
+        print("\n".join(lines))
+        rc = 1 if errs else 0
+    if args.numbers:
+        print("\n".join(numbers_report()))
+    if not args.validate and not args.numbers:
+        c, k = counts(), kind_counts()
+        print(f"Реестр методик v{VERSION}: {c['total']} паспортов · "
+              f"{c['work']} работает · {c['test']} тест · {c['queue']} очередь · "
+              f"идеологического блока {c['ideo']}")
+        for gkey, gtitle, gshort in GROUPS:
+            n = sum(1 for m in METHODS if m.get("group") == gkey)
+            print(f"  {gtitle:<34} {n:>2} паспортов")
+        print("Подробнее: python3 methods.py --validate · --numbers")
+    return rc
+
+
+if __name__ == "__main__":
+    sys.exit(main())

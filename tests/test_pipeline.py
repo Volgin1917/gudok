@@ -3430,9 +3430,13 @@ class TestPlansPage(unittest.TestCase):
 
     def test_sections_present(self):
         html = self._read()
-        for sec in ("Паспорта метрик-пилотов", "Реестр метрик-кандидатов",
-                    "Волны внедрения", "Источники данных", "Методологические риски", "Треки планов"):
+        for sec in ("Паспорта метрик-пилотов", "Внедрение метода", "Реестр метрик-кандидатов",
+                    "Волны внедрения", "Источники данных", "Методологические риски", "Треки планов",
+                    "Сводка реестра", "Глоссарий планов", "Журнал витрины"):
             self.assertIn(f"<h2>{sec}</h2>", html)
+        for sec in ("pilots", "method", "registry", "waves", "sources", "risks", "tracks",
+                    "svod", "gloss", "journal"):
+            self.assertIn(f'id="{sec}"', html, sec)
 
     def test_registry_rows_match_data(self):
         import plans
@@ -3440,12 +3444,92 @@ class TestPlansPage(unittest.TestCase):
         self.assertEqual(html.count("<tr data-ax="), len(plans.REG))
         self.assertIn('id="pl-reg"', html)
 
-    def test_conveyor_lives_on_methods_page(self):
-        # конвейер внедрения переехал на methods.html — на планах его быть не должно,
-        # но якорь #metrics остаётся, чтобы infospace.html ссылался корректно
+    def test_conveyor_is_here(self):
+        # конвейер внедрения — процесс работы редакции, он на витрине планов;
+        # якорь #metrics сохранён как legacy: на него ссылается дашборд инфопространства
+        import plans
         html = self._read()
-        self.assertIn('id="metrics"', html)
-        self.assertNotIn("Внедрение методов", html)
+        self.assertIn("Внедрение метода", html)
+        self.assertIn('<svg class="pipe"', html)
+        for i, st in enumerate(plans.METHOD_STAGES, 1):
+            self.assertIn(f'<div class="pl-stage__n">{st["n"]}</div>', html)
+            self.assertIn(f'<a href="#stage-{i}">', html)
+            self.assertIn(f'id="stage-{i}"', html)
+        self.assertIn('<span class="anchor" id="metrics"></span>', html)
+
+    def test_navigation_sticky_and_toc(self):
+        import re as _re
+        html = self._read()
+        self.assertIn('id="plsticky"', html)
+        self.assertIn('id="pltoc"', html)
+        self.assertIn('class="b2t" id="b2t"', html)
+        ids = set(_re.findall(r'id="([a-z0-9-]+)"', html))
+        for href in _re.findall(r'<a href="#([a-z0-9-]+)"', html):
+            self.assertIn(href, ids, f"якорь #{href} не разрешается на странице")
+
+    def test_status_symbols_rendered(self):
+        import plans
+        html = self._read()
+        for st, sym in plans.STATUS_SYMBOL.items():
+            self.assertIn(f'pl-st--{st}">{sym} {plans.STATUS[st]}<', html, st)
+
+    def test_bridge_both_sides(self):
+        # мост «метрика ↔ методика» двусторонний: на планах коды ведут в паспорта,
+        # в паспортах — обратные ссылки на сводную планов
+        import methods as M
+        import plans
+        html = self._read()
+        self.assertEqual(plans.validate_bridge(), [], "мост метрика ↔ методика должен быть согласован")
+        self.assertEqual(plans.bridge_warnings(), [], "методики без метрик вне группы «Выборы»")
+        by_code = plans.bridge()["by_code"]
+        for code, names in by_code.items():
+            anchor = next(m["id"] for m in M.METHODS if m["code"] == code)
+            self.assertIn(f'../methods.html#{anchor}', html, code)
+        for code, names in list(by_code.items())[:3]:
+            for n in names:
+                self.assertIn(n, html, n)
+        # обратная сторона: в паспортах перечислены метрики витрины
+        with open(os.path.join(BASE, "methods.html"), encoding="utf-8") as f:
+            mhtml = f.read()
+        self.assertIn("витрина планов:", mhtml)
+        self.assertIn("plans.html#svod", mhtml)
+        self.assertEqual(mhtml.count("витрина планов:"), len(by_code))
+
+    def test_pilot_examples_are_live(self):
+        # числа примеров берутся из data/infospace.json, а не вписаны в pages руками
+        import methods as M
+        import plans
+        with open(os.path.join(BASE, "data", "infospace.json"), encoding="utf-8") as f:
+            info = json.load(f)
+        examples = plans.pilot_examples(info)
+        self.assertEqual(len(examples), len(plans.PILOTS))
+        html = self._read()
+        for name, txt in examples.items():
+            self.assertIn(name, html)
+            self.assertIn(generate.esc(txt), html, name)
+        self.assertIn(plans.info_run(info), html)
+        self.assertEqual(plans.pilot_examples({}), {}, "без данных пример не выдумывается")
+        # числа паспортов сверяются той же базой
+        self.assertTrue(any("М-30 / TLI" in ln for ln in M.numbers_report()))
+
+    def test_glossary_and_journal(self):
+        import plans
+        html = self._read()
+        for slug, _term, _d in plans.GLOSSARY_PLAN:
+            self.assertIn(f'id="pl-gl-{slug}"', html, slug)
+        for ver, _date, _items in plans.CHANGELOG_PLAN:
+            self.assertIn(f"<summary>v{ver} ·", html, ver)
+        self.assertIn('<details class="chlog" open>', html)
+
+    def test_svod_table_rows(self):
+        import plans
+        html = self._read()
+        self.assertIn('id="plSvod"', html)
+        self.assertIn('id="plSvodQ"', html)
+        body = html[html.index('<tbody>', html.index('id="plSvod"')):html.index("</table>", html.index('id="plSvod"'))]
+        self.assertEqual(body.count("<tr>"), len(plans.REG))
+        for r in plans.REG:
+            self.assertIn(generate.esc(r["n"]), body, r["n"])
 
     def test_all_tracks_rendered(self):
         import plans
@@ -3597,7 +3681,7 @@ class TestMethodsPage(unittest.TestCase):
 
     def test_sections_and_filters(self):
         html = self._read("methods.html")
-        for sec in ("Методы исследования инфополя", "Внедрение методов", "Реестр методик",
+        for sec in ("Методы исследования инфополя", "Состав реестра", "Реестр методик",
                     "Идеология и гегемония", "Техконтур: открытые стандарты и решения",
                     "Стенд испытания методик"):
             self.assertIn(f"<h2>{sec}</h2>", html)
@@ -3606,14 +3690,14 @@ class TestMethodsPage(unittest.TestCase):
         self.assertIn('data-g="ideo"', html)
         self.assertIn('id="protoMethod"', html)
 
-    def test_conveyor_steps_rendered(self):
-        # конвейер внедрения живёт на methods.html (секция с якорем #method)
-        import plans
+    def test_conveyor_moved_to_plans_page(self):
+        # конвейер внедрения — процесс работы редакции, он живёт на витрине планов;
+        # на методах остаётся легенда статусов и ссылка на конвейер
         html = self._read("methods.html")
-        self.assertIn('id="method"', html)
-        for st in plans.METHOD_STAGES:
-            self.assertIn(f'<div class="pl-stage__n">{st["n"]}</div>', html)
-            self.assertIn(st["t"], html)
+        self.assertNotIn('<svg class="pipe"', html)
+        self.assertNotIn('class="pl-stage__n"', html)
+        self.assertIn("plans.html#method", html)
+        self.assertIn('id="method"', html)  # якорь секции состава реестра сохранён
 
     def test_methods_summary_table_matches_registry(self):
         # сводная таблица реестра методик (группы × статусы) едет на methods.html
@@ -3773,14 +3857,33 @@ class TestMethodsV2(unittest.TestCase):
             self.assertIn(f"<summary>v{ver} ·", html, ver)
         self.assertIn('<details class="chlog" open>', html)
 
-    def test_dod_legend_and_pipe(self):
+    def test_card_footer_shows_bridge_to_plans(self):
+        # обратная сторона моста: в подвале карточки паспорта — метрики витрины планов
+        import methods as M
+        import plans
+        cards = self._cards(self._read())
+        by_code = {m["code"]: m for m in M.METHODS}
+        linked = 0
+        for card in cards:
+            code = re.search(r'data-code="([^"]+)"', card).group(1)
+            names = plans.metrics_for(code)
+            if not names:
+                self.assertNotIn("витрина планов:", card, code)
+                continue
+            linked += 1
+            self.assertIn("витрина планов:", card, code)
+            for n in names:
+                self.assertIn(generate.esc(n), card, f"{code}: {n}")
+            self.assertIn("plans.html#svod", card, code)
+        self.assertEqual(linked, len(plans.bridge()["by_code"]))
+        self.assertIn(by_code["М-30"]["id"], self._read())
+
+    def test_dod_legend_stays_here(self):
+        # легенда статусов паспортов (definition of done) остаётся на странице «Методы»;
+        # схема конвейера переехала на «Планы» — см. TestPlansPage
         html = self._read()
         self.assertIn('<div class="dod">', html)
         self.assertEqual(html.count('class="dod-s"'), 3)
-        self.assertIn('<svg class="pipe"', html)
-        for i in range(1, 6):
-            self.assertIn(f'<a href="#stage-{i}">', html)
-            self.assertIn(f'id="stage-{i}"', html)
 
     def test_b2t_and_print_and_select_guard(self):
         html = self._read()
@@ -3790,6 +3893,90 @@ class TestMethodsV2(unittest.TestCase):
         # регрессия: JS не дублирует опции стенда, отрисованные на стороне Python
         self.assertIn("sel&&!sel.options.length", html)
         self.assertEqual(html.count("<details"), html.count("</details>"))
+
+
+
+class TestMethodsCli(unittest.TestCase):
+    """CLI редакционного контура реестра: python3 methods.py [--validate] [--numbers]."""
+
+    def test_validate_ok(self):
+        import methods as M
+        errs, lines = M.validate_report()
+        self.assertEqual(errs, [], "реестр и мост должны проходить проверку")
+        joined = "\n".join(lines)
+        self.assertIn(f"Реестр методик v{M.VERSION}", joined)
+        self.assertIn("Мост «метрика ↔ методика»", joined)
+        self.assertEqual(M.main(["--validate"]), 0)
+
+    def test_validate_reports_broken_bridge(self):
+        import methods as M
+        import plans
+        reg = [dict(r) for r in plans.REG]
+        reg[0]["m"] = ["М-99"]
+        errs = plans.validate_bridge(reg=reg)
+        self.assertTrue(errs, "несуществующий код методики должен давать ошибку")
+        self.assertTrue(any("М-99" in e for e in errs))
+
+    def test_numbers_are_read_only(self):
+        import methods as M
+        before = os.path.getmtime(os.path.join(BASE, "data", "store.jsonl"))
+        lines = M.numbers_report()
+        self.assertTrue(lines)
+        text = "\n".join(lines)
+        for probe in ("База:", "По тиру:", "М-30 / TLI"):
+            self.assertIn(probe, text)
+        self.assertEqual(os.path.getmtime(os.path.join(BASE, "data", "store.jsonl")), before,
+                         "--numbers не должен менять базу")
+        self.assertEqual(M.main(["--numbers"]), 0)
+
+    def test_numbers_without_data(self):
+        import methods as M
+        lines = M.numbers_report(store_path=os.path.join(BASE, "data", "нет-такого.jsonl"),
+                                 info_path=os.path.join(BASE, "data", "нет-и-infospace.json"))
+        self.assertTrue(any("недоступна" in ln or "устарели" in ln for ln in lines), lines)
+
+    def test_bare_call_prints_summary(self):
+        import methods as M
+        self.assertEqual(M.main([]), 0)
+
+    def test_unknown_flag_exits(self):
+        import methods as M
+        with self.assertRaises(SystemExit):
+            M.main(["--несуществующий-флаг"])
+
+
+class TestPageLandmarks(unittest.TestCase):
+    """На каждой собранной странице ровно один <main id="main">.
+
+    Регрессия 30.09: themed() добавлял <main> безусловно, и на витрине, «Методах»,
+    «Досье» и «Архиве прессы» ландмартов было два.
+    """
+
+    PAGES = ("index.html", "methods.html", "infospace.html", "afisha.html", "archive.html",
+             "status.html", "projects.html", "weekly.html", "monthly.html",
+             os.path.join("projects", "plans.html"), os.path.join("projects", "dossier.html"),
+             os.path.join("projects", "pressa.html"), os.path.join("projects", "elections.html"),
+             os.path.join("digests", "today.html"))
+
+    def test_single_main_on_every_page(self):
+        bad = []
+        for page in self.PAGES:
+            path = os.path.join(BASE, page)
+            if not os.path.exists(path):
+                continue
+            with open(path, encoding="utf-8") as f:
+                html = f.read()
+            n = html.count("<main")
+            if n != 1 or html.count("</main>") != 1 or html.count('<main id="main">') != 1:
+                bad.append(f"{page}: main={n}")
+        self.assertEqual(bad, [], "страницы с лишним <main>: " + "; ".join(bad))
+
+    def test_themed_respects_own_main(self):
+        # страница со своим <main> не должна получать второй от themed()
+        src = os.path.join(BASE, "generate.py")
+        with open(src, encoding="utf-8") as f:
+            code = f.read()
+        self.assertIn('if "<main" not in html:', code)
 
 
 class TestInternalLinks(unittest.TestCase):
