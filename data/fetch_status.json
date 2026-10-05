@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Улпресса": {
   "ok": true,
@@ -49,7 +49,7 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 25,
+  "items": 28,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -61,7 +61,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 9,
+  "items": 10,
   "error": null,
   "title": "Репортёр73"
  },
@@ -97,7 +97,7 @@
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 16,
+  "items": 19,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
@@ -109,13 +109,13 @@
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 11,
+  "items": 12,
   "error": null,
   "title": "Информационный Димитровград"
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 11,
+  "items": 12,
   "error": null,
   "title": "Топор Ульяновск"
  },
@@ -133,13 +133,13 @@
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 12,
+  "items": 11,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
  "tg:chpul": {
   "ok": true,
-  "items": 8,
+  "items": 11,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
@@ -151,7 +151,7 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 15,
+  "items": 16,
   "error": null,
   "title": "73online"
  },
@@ -187,7 +187,7 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 14,
+  "items": 9,
   "error": null,
   "title": "Компромат Ульяновск"
  },
@@ -199,7 +199,7 @@
  },
  "tg:ulpromo": {
   "ok": true,
-  "items": 16,
+  "items": 18,
   "error": null,
   "title": "Движ в любимом У"
  },
@@ -217,7 +217,7 @@
  },
  "tg:uac_ru": {
   "ok": true,
-  "items": 6,
+  "items": 4,
   "error": null,
   "title": "ПАО «ОАК»"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-10-05T10:47:20.673256+00:00",
-  "last_run_local": "05.10.2026 14:47",
-  "fetched": 535,
-  "new": 288,
-  "total_store": 8409
+  "last_run_utc": "2026-10-05T12:07:48.632133+00:00",
+  "last_run_local": "05.10.2026 16:07",
+  "fetched": 532,
+  "new": 53,
+  "total_store": 8462
  },
  "rss:Улград": {
   "ok": true,
