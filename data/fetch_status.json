@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Улпресса": {
   "ok": true,
@@ -10,9 +10,9 @@
   "error": null
  },
  "rss:Карсунский вестник": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Кумәк көч": {
   "ok": true,
@@ -31,13 +31,13 @@
  },
  "tg:Russkih_Aleksey": {
   "ok": true,
-  "items": 20,
+  "items": 14,
   "error": null,
   "title": "Алексей Русских (губернатор)"
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 11,
+  "items": 8,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
@@ -49,25 +49,25 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 33,
+  "items": 31,
   "error": null,
   "title": "УЛПРЕССА"
  },
  "tg:ulpravda": {
   "ok": true,
-  "items": 18,
+  "items": 10,
   "error": null,
   "title": "Ulpravda.ru (Ульяновская правда)"
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 5,
+  "items": 6,
   "error": null,
   "title": "Репортёр73"
  },
  "tg:sergeymorozov73": {
   "ok": true,
-  "items": 9,
+  "items": 15,
   "error": null,
   "title": "Сергей Морозов (депутат Госдумы)"
  },
@@ -91,19 +91,19 @@
  },
  "tg:tresh_ulyan": {
   "ok": true,
-  "items": 18,
+  "items": 20,
   "error": null,
   "title": "Треш Ульяновск"
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 16,
+  "items": 18,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 12,
+  "items": 11,
   "error": null,
   "title": "ЧП Ульяновск"
  },
@@ -115,7 +115,7 @@
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 15,
+  "items": 14,
   "error": null,
   "title": "Топор Ульяновск"
  },
@@ -127,37 +127,37 @@
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Типичный Димитровград"
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 17,
+  "items": 18,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
  "tg:chpul": {
   "ok": true,
-  "items": 14,
+  "items": 16,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
  "tg:ulsk_on": {
   "ok": true,
-  "items": 15,
+  "items": 17,
   "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 15,
+  "items": 12,
   "error": null,
   "title": "73online"
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 15,
+  "items": 14,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -169,37 +169,37 @@
  },
  "tg:shugozhor73": {
   "ok": true,
-  "items": 8,
+  "items": 11,
   "error": null,
   "title": "Симбирский шугожор"
  },
  "tg:terr73": {
   "ok": true,
-  "items": 17,
+  "items": 18,
   "error": null,
   "title": "Территория Русских"
  },
  "tg:volkodav73": {
   "ok": true,
-  "items": 15,
+  "items": 9,
   "error": null,
   "title": "Волкодав73"
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 10,
+  "items": 14,
   "error": null,
   "title": "Компромат Ульяновск"
  },
  "tg:culturnik": {
   "ok": true,
-  "items": 20,
+  "items": 13,
   "error": null,
   "title": "Культура Ульяновск"
  },
  "tg:ulpromo": {
   "ok": true,
-  "items": 17,
+  "items": 18,
   "error": null,
   "title": "Движ в любимом У"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-10-07T10:31:18.441996+00:00",
-  "last_run_local": "07.10.2026 14:31",
-  "fetched": 543,
-  "new": 298,
-  "total_store": 9046
+  "last_run_utc": "2026-10-08T10:52:27.924251+00:00",
+  "last_run_local": "08.10.2026 14:52",
+  "fetched": 507,
+  "new": 304,
+  "total_store": 9350
  },
  "rss:Улград": {
   "ok": true,
