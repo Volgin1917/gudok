@@ -37,7 +37,7 @@
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 9,
+  "items": 10,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
@@ -61,7 +61,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 12,
+  "items": 10,
   "error": null,
   "title": "Репортёр73"
  },
@@ -91,7 +91,7 @@
  },
  "tg:tresh_ulyan": {
   "ok": true,
-  "items": 18,
+  "items": 19,
   "error": null,
   "title": "Треш Ульяновск"
  },
@@ -103,7 +103,7 @@
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 7,
+  "items": 8,
   "error": null,
   "title": "ЧП Ульяновск"
  },
@@ -121,7 +121,7 @@
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 9,
+  "items": 10,
   "error": null,
   "title": "Короче, Ульяновск"
  },
@@ -139,7 +139,7 @@
  },
  "tg:chpul": {
   "ok": true,
-  "items": 13,
+  "items": 14,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
@@ -151,13 +151,13 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 13,
+  "items": 14,
   "error": null,
   "title": "73online"
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 11,
+  "items": 10,
   "error": null,
   "title": "Ульяновский водитель"
  },
@@ -169,7 +169,7 @@
  },
  "tg:shugozhor73": {
   "ok": true,
-  "items": 8,
+  "items": 9,
   "error": null,
   "title": "Симбирский шугожор"
  },
@@ -187,13 +187,13 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 14,
+  "items": 15,
   "error": null,
   "title": "Компромат Ульяновск"
  },
  "tg:culturnik": {
   "ok": true,
-  "items": 7,
+  "items": 9,
   "error": null,
   "title": "Культура Ульяновск"
  },
@@ -217,7 +217,7 @@
  },
  "tg:uac_ru": {
   "ok": true,
-  "items": 7,
+  "items": 8,
   "error": null,
   "title": "ПАО «ОАК»"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-10-12T11:15:14.238760+00:00",
-  "last_run_local": "12.10.2026 15:15",
-  "fetched": 491,
-  "new": 250,
-  "total_store": 10407
+  "last_run_utc": "2026-10-12T12:53:18.959705+00:00",
+  "last_run_local": "12.10.2026 16:53",
+  "fetched": 501,
+  "new": 60,
+  "total_store": 10467
  },
  "rss:Улград": {
   "ok": true,

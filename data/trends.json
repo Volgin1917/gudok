@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-12T11:25:25.995636+00:00",
- "generated_local": "12.10.2026 15:25",
+ "generated_utc": "2026-10-12T13:12:04.178507+00:00",
+ "generated_local": "12.10.2026 17:12",
  "days": [
   "2026-09-29",
   "2026-09-30",
@@ -18,9 +18,9 @@
   "2026-10-12"
  ],
  "counts": {
-  "total": 10407,
-  "last24h": 241,
-  "last7d": 1965
+  "total": 10467,
+  "last24h": 284,
+  "last7d": 1989
  },
  "topics": {
   "elections": {
@@ -39,11 +39,11 @@
     10,
     1,
     2,
-    1
+    5
    ],
-   "today": 1,
-   "week": 41,
-   "total": 113,
+   "today": 5,
+   "week": 45,
+   "total": 117,
    "status": "fading"
   },
   "governor": {
@@ -62,11 +62,11 @@
     53,
     21,
     22,
-    17
+    31
    ],
-   "today": 17,
-   "week": 239,
-   "total": 609,
+   "today": 31,
+   "week": 253,
+   "total": 623,
    "status": "stable"
   },
   "uav": {
@@ -85,11 +85,11 @@
     28,
     14,
     21,
-    8
+    9
    ],
-   "today": 8,
-   "week": 166,
-   "total": 443,
+   "today": 9,
+   "week": 167,
+   "total": 444,
    "status": "stable"
   },
   "cityday": {
@@ -131,11 +131,11 @@
     22,
     7,
     9,
-    5
+    7
    ],
-   "today": 5,
-   "week": 97,
-   "total": 232,
+   "today": 7,
+   "week": 99,
+   "total": 234,
    "status": "fading"
   },
   "uaz": {
@@ -177,12 +177,12 @@
     12,
     4,
     2,
-    2
+    3
    ],
-   "today": 2,
-   "week": 42,
-   "total": 97,
-   "status": "fading"
+   "today": 3,
+   "week": 43,
+   "total": 98,
+   "status": "stable"
   },
   "harvest": {
    "name": "Урожай и АПК",
@@ -197,14 +197,14 @@
     9,
     7,
     2,
-    2,
+    3,
     9,
     7,
     4
    ],
    "today": 4,
-   "week": 40,
-   "total": 61,
+   "week": 41,
+   "total": 62,
    "status": "stable"
   },
   "zhkh": {
@@ -223,11 +223,11 @@
     17,
     18,
     2,
-    16
+    18
    ],
-   "today": 16,
-   "week": 108,
-   "total": 248,
+   "today": 18,
+   "week": 110,
+   "total": 250,
    "status": "stable"
   },
   "cityspace": {
@@ -269,12 +269,12 @@
     40,
     23,
     18,
-    14
+    21
    ],
-   "today": 14,
-   "week": 195,
-   "total": 522,
-   "status": "fading"
+   "today": 21,
+   "week": 202,
+   "total": 529,
+   "status": "stable"
   },
   "schools": {
    "name": "Школы и вузы",
@@ -292,11 +292,11 @@
     36,
     34,
     17,
-    14
+    20
    ],
-   "today": 14,
-   "week": 194,
-   "total": 422,
+   "today": 20,
+   "week": 200,
+   "total": 428,
    "status": "stable"
   },
   "medicine": {
@@ -315,11 +315,11 @@
     12,
     10,
     9,
-    6
+    9
    ],
-   "today": 6,
-   "week": 109,
-   "total": 267,
+   "today": 9,
+   "week": 112,
+   "total": 270,
    "status": "fading"
   },
   "crime": {
@@ -338,11 +338,11 @@
     44,
     24,
     22,
-    30
+    45
    ],
-   "today": 30,
-   "week": 262,
-   "total": 582,
+   "today": 45,
+   "week": 277,
+   "total": 597,
    "status": "stable"
   },
   "culture": {
@@ -361,11 +361,11 @@
     17,
     11,
     8,
-    4
+    6
    ],
-   "today": 4,
-   "week": 80,
-   "total": 163,
+   "today": 6,
+   "week": 82,
+   "total": 165,
    "status": "stable"
   },
   "sport": {
@@ -384,11 +384,11 @@
     28,
     23,
     11,
-    13
+    18
    ],
-   "today": 13,
-   "week": 156,
-   "total": 319,
+   "today": 18,
+   "week": 161,
+   "total": 324,
    "status": "stable"
   },
   "export": {
@@ -407,11 +407,11 @@
     7,
     7,
     7,
-    0
+    8
    ],
-   "today": 0,
-   "week": 42,
-   "total": 129,
+   "today": 8,
+   "week": 50,
+   "total": 137,
    "status": "stable"
   },
   "weather": {
@@ -478,10 +478,10 @@
     30,
     15,
     8,
-    6
+    15
    ],
-   "week": 143,
-   "today": 6
+   "week": 152,
+   "today": 15
   },
   "security": {
    "name": "Безопасность и происшествия",
@@ -499,10 +499,10 @@
     95,
     52,
     42,
-    38
+    44
    ],
-   "week": 451,
-   "today": 38
+   "week": 457,
+   "today": 44
   },
   "economy": {
    "name": "Экономика и промышленность",
@@ -520,10 +520,10 @@
     25,
     18,
     15,
-    31
+    39
    ],
-   "week": 161,
-   "today": 31
+   "week": 169,
+   "today": 39
   },
   "agro": {
    "name": "Агропром",
@@ -538,12 +538,12 @@
     8,
     4,
     2,
-    1,
+    2,
     4,
     6,
     1
    ],
-   "week": 26,
+   "week": 27,
    "today": 1
   },
   "society": {
@@ -559,13 +559,13 @@
     125,
     104,
     133,
-    134,
+    135,
     122,
     92,
-    87
+    105
    ],
-   "week": 797,
-   "today": 87
+   "week": 816,
+   "today": 105
   },
   "health": {
    "name": "Здравоохранение",
@@ -583,10 +583,10 @@
     9,
     3,
     2,
-    4
+    8
    ],
-   "week": 61,
-   "today": 4
+   "week": 65,
+   "today": 8
   },
   "education": {
    "name": "Образование и наука",
@@ -604,10 +604,10 @@
     17,
     27,
     11,
-    10
+    17
    ],
-   "week": 119,
-   "today": 10
+   "week": 126,
+   "today": 17
   },
   "sport": {
    "name": "Спорт",
@@ -625,10 +625,10 @@
     6,
     13,
     9,
-    5
+    9
    ],
-   "week": 64,
-   "today": 5
+   "week": 68,
+   "today": 9
   },
   "culture": {
    "name": "Культура и афиша",
@@ -646,21 +646,13 @@
     13,
     9,
     6,
-    3
+    5
    ],
-   "week": 54,
-   "today": 3
+   "week": 56,
+   "today": 5
   }
  },
  "tg_top": [
-  {
-   "title": "«Алфей» поможет медикам Концерн «Радиоэлектронные технологии» Ростеха представил разработку Ульяновского конст…",
-   "channel": "ulpatriot",
-   "url": "https://t.me/ulpatriot/7051",
-   "views": 24900,
-   "published": "2026-10-05T13:01:28+00:00",
-   "category": "health"
-  },
   {
    "title": "😱 «Вот в таком состоянии живут люди в доме на Рябикова, 66. Можно снимать фильм ужасов. Крыша течёт так, что з…",
    "channel": "tresh_ulyan",
@@ -716,6 +708,14 @@
    "views": 22300,
    "published": "2026-10-07T17:13:26+00:00",
    "category": "security"
+  },
+  {
+   "title": "🏫 Исполняющим обязанности ректора Ульяновского государственного технического университета (УлГТУ) назначен Але…",
+   "channel": "tresh_ulyan",
+   "url": "https://t.me/tresh_ulyan/56925",
+   "views": 21700,
+   "published": "2026-10-06T19:44:17+00:00",
+   "category": "education"
   }
  ]
 }

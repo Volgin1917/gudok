@@ -31,7 +31,7 @@
  },
  "ulnovosti.ru": {
   "code": "blocked",
-  "date": "2026-10-05",
+  "date": "2026-10-12",
   "error": "<urlopen error [Errno 101] Network is unreachable>"
  }
 }
