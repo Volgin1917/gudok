@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": false,
-  "items": 0,
-  "error": "<urlopen error [Errno 101] Network is unreachable>"
+  "ok": true,
+  "items": 10,
+  "error": null
  },
  "rss:Улпресса": {
   "ok": true,
@@ -10,9 +10,9 @@
   "error": null
  },
  "rss:Карсунский вестник": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno -3] Temporary failure in name resolution>"
  },
  "rss:Кумәк көч": {
   "ok": true,
@@ -31,25 +31,25 @@
  },
  "tg:Russkih_Aleksey": {
   "ok": true,
-  "items": 11,
+  "items": 12,
   "error": null,
   "title": "Алексей Русских (губернатор)"
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 10,
+  "items": 8,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
  "tg:A_Boldakin": {
   "ok": true,
-  "items": 7,
+  "items": 6,
   "error": null,
   "title": "Александр Болдакин (глава Ульяновска)"
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 35,
+  "items": 33,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -61,31 +61,31 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 10,
+  "items": 7,
   "error": null,
   "title": "Репортёр73"
  },
  "tg:sergeymorozov73": {
   "ok": true,
-  "items": 8,
+  "items": 12,
   "error": null,
   "title": "Сергей Морозов (депутат Госдумы)"
  },
  "tg:vmkononov": {
   "ok": true,
-  "items": 6,
+  "items": 7,
   "error": null,
   "title": "Владимир Кононов (депутат Госдумы)"
  },
  "tg:UAZ_Today": {
   "ok": true,
-  "items": 11,
+  "items": 12,
   "error": null,
   "title": "УАЗ Сегодня"
  },
  "tg:fcvolga": {
   "ok": true,
-  "items": 20,
+  "items": 17,
   "error": null,
   "title": "ФК «Волга»"
  },
@@ -97,43 +97,43 @@
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 17,
+  "items": 18,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 8,
+  "items": 10,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 10,
+  "items": 6,
   "error": null,
   "title": "Информационный Димитровград"
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 12,
+  "items": 15,
   "error": null,
   "title": "Топор Ульяновск"
  },
  "tg:ulkoroche": {
   "ok": true,
-  "items": 10,
+  "items": 13,
   "error": null,
   "title": "Короче, Ульяновск"
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 6,
+  "items": 10,
   "error": null,
   "title": "Типичный Димитровград"
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 16,
+  "items": 17,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
@@ -145,31 +145,31 @@
  },
  "tg:ulsk_on": {
   "ok": true,
-  "items": 15,
+  "items": 14,
   "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 14,
+  "items": 17,
   "error": null,
   "title": "73online"
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 10,
+  "items": 13,
   "error": null,
   "title": "Ульяновский водитель"
  },
  "tg:ulpatriot": {
   "ok": true,
-  "items": 11,
+  "items": 6,
   "error": null,
   "title": "Ульяновский патриот"
  },
  "tg:shugozhor73": {
   "ok": true,
-  "items": 9,
+  "items": 8,
   "error": null,
   "title": "Симбирский шугожор"
  },
@@ -181,19 +181,19 @@
  },
  "tg:volkodav73": {
   "ok": true,
-  "items": 6,
+  "items": 8,
   "error": null,
   "title": "Волкодав73"
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 15,
+  "items": 17,
   "error": null,
   "title": "Компромат Ульяновск"
  },
  "tg:culturnik": {
   "ok": true,
-  "items": 9,
+  "items": 10,
   "error": null,
   "title": "Культура Ульяновск"
  },
@@ -205,7 +205,7 @@
  },
  "tg:ProNovosty73": {
   "ok": true,
-  "items": 18,
+  "items": 14,
   "error": null,
   "title": "Что-то на ульяновском"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-10-12T12:53:18.959705+00:00",
-  "last_run_local": "12.10.2026 16:53",
-  "fetched": 501,
-  "new": 60,
-  "total_store": 10467
+  "last_run_utc": "2026-10-13T10:57:37.058112+00:00",
+  "last_run_local": "13.10.2026 14:57",
+  "fetched": 507,
+  "new": 300,
+  "total_store": 10767
  },
  "rss:Улград": {
   "ok": true,
