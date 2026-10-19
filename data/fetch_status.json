@@ -31,7 +31,7 @@
  },
  "tg:Russkih_Aleksey": {
   "ok": true,
-  "items": 11,
+  "items": 9,
   "error": null,
   "title": "Алексей Русских (губернатор)"
  },
@@ -79,7 +79,7 @@
  },
  "tg:UAZ_Today": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "УАЗ Сегодня"
  },
@@ -91,7 +91,7 @@
  },
  "tg:tresh_ulyan": {
   "ok": true,
-  "items": 19,
+  "items": 15,
   "error": null,
   "title": "Треш Ульяновск"
  },
@@ -103,13 +103,13 @@
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 6,
+  "items": 7,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -139,7 +139,7 @@
  },
  "tg:chpul": {
   "ok": true,
-  "items": 17,
+  "items": 18,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
@@ -151,7 +151,7 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 15,
+  "items": 17,
   "error": null,
   "title": "73online"
  },
@@ -187,7 +187,7 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 15,
+  "items": 17,
   "error": null,
   "title": "Компромат Ульяновск"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-10-19T09:14:40.131830+00:00",
-  "last_run_local": "19.10.2026 13:14",
-  "fetched": 522,
-  "new": 254,
-  "total_store": 12398
+  "last_run_utc": "2026-10-19T10:35:51.242200+00:00",
+  "last_run_local": "19.10.2026 14:35",
+  "fetched": 526,
+  "new": 40,
+  "total_store": 12438
  },
  "rss:Улград": {
   "ok": true,
