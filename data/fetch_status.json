@@ -2,7 +2,7 @@
  "rss:Ulnovosti.ru": {
   "ok": false,
   "items": 0,
-  "error": "<urlopen error [Errno 101] Network is unreachable>"
+  "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'ulnovosti.ru'. (_ssl.c:1016)>"
  },
  "rss:Улпресса": {
   "ok": true,
@@ -37,7 +37,7 @@
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 8,
+  "items": 6,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
@@ -49,13 +49,13 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 30,
+  "items": 33,
   "error": null,
   "title": "УЛПРЕССА"
  },
  "tg:ulpravda": {
   "ok": true,
-  "items": 11,
+  "items": 12,
   "error": null,
   "title": "Ulpravda.ru (Ульяновская правда)"
  },
@@ -73,7 +73,7 @@
  },
  "tg:vmkononov": {
   "ok": true,
-  "items": 6,
+  "items": 7,
   "error": null,
   "title": "Владимир Кононов (депутат Госдумы)"
  },
@@ -97,7 +97,7 @@
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 17,
+  "items": 16,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
@@ -109,7 +109,7 @@
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 13,
+  "items": 11,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -127,7 +127,7 @@
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "Типичный Димитровград"
  },
@@ -151,7 +151,7 @@
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 11,
+  "items": 13,
   "error": null,
   "title": "73online"
  },
@@ -163,13 +163,13 @@
  },
  "tg:ulpatriot": {
   "ok": true,
-  "items": 14,
+  "items": 15,
   "error": null,
   "title": "Ульяновский патриот"
  },
  "tg:shugozhor73": {
   "ok": true,
-  "items": 15,
+  "items": 16,
   "error": null,
   "title": "Симбирский шугожор"
  },
@@ -187,7 +187,7 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 18,
+  "items": 13,
   "error": null,
   "title": "Компромат Ульяновск"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-10-26T09:18:25.932310+00:00",
-  "last_run_local": "26.10.2026 13:18",
+  "last_run_utc": "2026-10-26T10:50:46.367916+00:00",
+  "last_run_local": "26.10.2026 14:50",
   "fetched": 523,
-  "new": 276,
-  "total_store": 14388
+  "new": 39,
+  "total_store": 14427
  },
  "rss:Улград": {
   "ok": true,
