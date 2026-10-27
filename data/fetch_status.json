@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": false,
-  "items": 0,
-  "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'ulnovosti.ru'. (_ssl.c:1016)>"
+  "ok": true,
+  "items": 10,
+  "error": null
  },
  "rss:Улпресса": {
   "ok": true,
@@ -31,13 +31,13 @@
  },
  "tg:Russkih_Aleksey": {
   "ok": true,
-  "items": 10,
+  "items": 11,
   "error": null,
   "title": "Алексей Русских (губернатор)"
  },
  "tg:ulgovru": {
   "ok": true,
-  "items": 6,
+  "items": 8,
   "error": null,
   "title": "Правительство Ульяновской области"
  },
@@ -55,25 +55,25 @@
  },
  "tg:ulpravda": {
   "ok": true,
-  "items": 12,
+  "items": 18,
   "error": null,
   "title": "Ulpravda.ru (Ульяновская правда)"
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 9,
+  "items": 7,
   "error": null,
   "title": "Репортёр73"
  },
  "tg:sergeymorozov73": {
   "ok": true,
-  "items": 8,
+  "items": 12,
   "error": null,
   "title": "Сергей Морозов (депутат Госдумы)"
  },
  "tg:vmkononov": {
   "ok": true,
-  "items": 7,
+  "items": 5,
   "error": null,
   "title": "Владимир Кононов (депутат Госдумы)"
  },
@@ -85,37 +85,37 @@
  },
  "tg:fcvolga": {
   "ok": true,
-  "items": 17,
+  "items": 19,
   "error": null,
   "title": "ФК «Волга»"
  },
  "tg:tresh_ulyan": {
   "ok": true,
-  "items": 14,
+  "items": 19,
   "error": null,
   "title": "Треш Ульяновск"
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 16,
+  "items": 13,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 12,
+  "items": 9,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 11,
+  "items": 16,
   "error": null,
   "title": "Информационный Димитровград"
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 17,
+  "items": 16,
   "error": null,
   "title": "Топор Ульяновск"
  },
@@ -127,25 +127,25 @@
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 13,
+  "items": 12,
   "error": null,
   "title": "Типичный Димитровград"
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 17,
+  "items": 13,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
  "tg:chpul": {
   "ok": true,
-  "items": 15,
+  "items": 13,
   "error": null,
   "title": "Инцидент Ульяновск"
  },
  "tg:ulsk_on": {
   "ok": true,
-  "items": 19,
+  "items": 20,
   "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
@@ -157,19 +157,19 @@
  },
  "tg:ulsk_driver73": {
   "ok": true,
-  "items": 10,
+  "items": 9,
   "error": null,
   "title": "Ульяновский водитель"
  },
  "tg:ulpatriot": {
   "ok": true,
-  "items": 15,
+  "items": 17,
   "error": null,
   "title": "Ульяновский патриот"
  },
  "tg:shugozhor73": {
   "ok": true,
-  "items": 16,
+  "items": 15,
   "error": null,
   "title": "Симбирский шугожор"
  },
@@ -181,7 +181,7 @@
  },
  "tg:volkodav73": {
   "ok": true,
-  "items": 4,
+  "items": 6,
   "error": null,
   "title": "Волкодав73"
  },
@@ -193,19 +193,19 @@
  },
  "tg:culturnik": {
   "ok": true,
-  "items": 15,
+  "items": 18,
   "error": null,
   "title": "Культура Ульяновск"
  },
  "tg:ulpromo": {
   "ok": true,
-  "items": 17,
+  "items": 18,
   "error": null,
   "title": "Движ в любимом У"
  },
  "tg:ProNovosty73": {
   "ok": true,
-  "items": 19,
+  "items": 20,
   "error": null,
   "title": "Что-то на ульяновском"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-10-26T10:50:46.367916+00:00",
-  "last_run_local": "26.10.2026 14:50",
-  "fetched": 523,
-  "new": 39,
-  "total_store": 14427
+  "last_run_utc": "2026-10-27T09:17:27.878180+00:00",
+  "last_run_local": "27.10.2026 13:17",
+  "fetched": 547,
+  "new": 276,
+  "total_store": 14703
  },
  "rss:Улград": {
   "ok": true,
