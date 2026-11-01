@@ -31,7 +31,7 @@
  },
  "ulnovosti.ru": {
   "code": "blocked",
-  "date": "2026-10-26",
-  "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certif"
+  "date": "2026-11-01",
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  }
 }

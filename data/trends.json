@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-11-01T10:57:22.472253+00:00",
- "generated_local": "01.11.2026 14:57",
+ "generated_utc": "2026-11-01T12:26:48.795927+00:00",
+ "generated_local": "01.11.2026 16:26",
  "days": [
   "2026-10-19",
   "2026-10-20",
@@ -18,9 +18,9 @@
   "2026-11-01"
  ],
  "counts": {
-  "total": 16132,
-  "last24h": 251,
-  "last7d": 1995
+  "total": 16154,
+  "last24h": 264,
+  "last7d": 2001
  },
  "topics": {
   "elections": {
@@ -62,11 +62,11 @@
     32,
     71,
     27,
-    20
+    21
    ],
-   "today": 20,
-   "week": 272,
-   "total": 545,
+   "today": 21,
+   "week": 273,
+   "total": 546,
    "status": "stable"
   },
   "uav": {
@@ -131,11 +131,11 @@
     28,
     33,
     8,
-    8
+    9
    ],
-   "today": 8,
-   "week": 151,
-   "total": 276,
+   "today": 9,
+   "week": 152,
+   "total": 277,
    "status": "stable"
   },
   "uaz": {
@@ -223,11 +223,11 @@
     6,
     4,
     6,
-    11
+    12
    ],
-   "today": 11,
-   "week": 50,
-   "total": 107,
+   "today": 12,
+   "week": 51,
+   "total": 108,
    "status": "stable"
   },
   "cityspace": {
@@ -246,11 +246,11 @@
     33,
     34,
     34,
-    9
+    10
    ],
-   "today": 9,
-   "week": 171,
-   "total": 341,
+   "today": 10,
+   "week": 172,
+   "total": 342,
    "status": "stable"
   },
   "transport": {
@@ -269,11 +269,11 @@
     40,
     48,
     24,
-    23
+    25
    ],
-   "today": 23,
-   "week": 326,
-   "total": 620,
+   "today": 25,
+   "week": 328,
+   "total": 622,
    "status": "stable"
   },
   "schools": {
@@ -292,11 +292,11 @@
     36,
     29,
     12,
-    7
+    9
    ],
-   "today": 7,
-   "week": 151,
-   "total": 339,
+   "today": 9,
+   "week": 153,
+   "total": 341,
    "status": "stable"
   },
   "medicine": {
@@ -315,11 +315,11 @@
     17,
     24,
     5,
-    2
+    3
    ],
-   "today": 2,
-   "week": 87,
-   "total": 198,
+   "today": 3,
+   "week": 88,
+   "total": 199,
    "status": "stable"
   },
   "crime": {
@@ -384,11 +384,11 @@
     22,
     22,
     32,
-    10
+    14
    ],
-   "today": 10,
-   "week": 168,
-   "total": 373,
+   "today": 14,
+   "week": 172,
+   "total": 377,
    "status": "stable"
   },
   "export": {
@@ -407,11 +407,11 @@
     6,
     12,
     4,
-    3
+    4
    ],
-   "today": 3,
-   "week": 58,
-   "total": 133,
+   "today": 4,
+   "week": 59,
+   "total": 134,
    "status": "stable"
   },
   "weather": {
@@ -430,11 +430,11 @@
     5,
     18,
     19,
-    9
+    12
    ],
-   "today": 9,
-   "week": 103,
-   "total": 236,
+   "today": 12,
+   "week": 106,
+   "total": 239,
    "status": "stable"
   },
   "macro": {
@@ -453,11 +453,11 @@
     0,
     2,
     0,
-    1
+    2
    ],
-   "today": 1,
-   "week": 9,
-   "total": 24,
+   "today": 2,
+   "week": 10,
+   "total": 25,
    "status": "stable"
   }
  },
@@ -478,10 +478,10 @@
     18,
     38,
     12,
-    11
+    12
    ],
-   "week": 161,
-   "today": 11
+   "week": 162,
+   "today": 12
   },
   "security": {
    "name": "Безопасность и происшествия",
@@ -499,10 +499,10 @@
     90,
     108,
     44,
-    52
+    54
    ],
-   "week": 494,
-   "today": 52
+   "week": 496,
+   "today": 54
   },
   "economy": {
    "name": "Экономика и промышленность",
@@ -520,10 +520,10 @@
     26,
     31,
     12,
-    16
+    18
    ],
-   "week": 176,
-   "today": 16
+   "week": 178,
+   "today": 18
   },
   "agro": {
    "name": "Агропром",
@@ -562,10 +562,10 @@
     106,
     120,
     127,
-    63
+    76
    ],
-   "week": 787,
-   "today": 63
+   "week": 800,
+   "today": 76
   },
   "health": {
    "name": "Здравоохранение",
@@ -604,10 +604,10 @@
     29,
     12,
     6,
-    8
+    10
    ],
-   "week": 89,
-   "today": 8
+   "week": 91,
+   "today": 10
   },
   "sport": {
    "name": "Спорт",
@@ -625,10 +625,10 @@
     11,
     10,
     22,
-    1
+    2
    ],
-   "week": 86,
-   "today": 1
+   "week": 87,
+   "today": 2
   },
   "culture": {
    "name": "Культура и афиша",
@@ -646,10 +646,10 @@
     9,
     8,
     10,
-    2
+    3
    ],
-   "week": 59,
-   "today": 2
+   "week": 60,
+   "today": 3
   }
  },
  "tg_top": [

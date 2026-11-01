@@ -1,5 +1,5 @@
 {
- "generated_local": "01.11.2026 14:57",
+ "generated_local": "01.11.2026 16:26",
  "calendar": [
   {
    "etype": "festival",
@@ -299,9 +299,9 @@
     },
     {
      "title": "Закрыт второй раз за ночь. Из-за ограничений в ульяновском аэропорту задержали четыре авиарейса.",
-     "url": "https://t.me/ulpressa/76890",
+     "url": "https://t.me/ulpressa/76888",
      "source": "t.me/ulpressa",
-     "views": 1690
+     "views": 1820
     },
     {
      "title": "Из-за ограничений в аэропорту отменили и задержали семь авиарейсов.",
@@ -339,6 +339,37 @@
      "url": "https://t.me/chpul/35483",
      "source": "t.me/chpul",
      "views": 788
+    }
+   ]
+  },
+  {
+   "name": "замена · дмитрий · дмитрия",
+   "terms": [
+    "замена",
+    "дмитрий",
+    "дмитрия"
+   ],
+   "size": 4,
+   "coverage": 0.25,
+   "gap": true,
+   "samples": [
+    {
+     "title": "73’ Замена: Дмитрий Рахманов 🔄 Шагиахметов Денис Рахманов 🔄 Фольмер",
+     "url": "https://t.me/fcvolga/12947",
+     "source": "t.me/fcvolga",
+     "views": 1540
+    },
+    {
+     "title": "83’ Замена: Хашкулов 🔄 Красильниченко",
+     "url": "https://t.me/fcvolga/12949",
+     "source": "t.me/fcvolga",
+     "views": 1510
+    },
+    {
+     "title": "64’ Замена Гершун 🔄 Ковалев",
+     "url": "https://t.me/fcvolga/12946",
+     "source": "t.me/fcvolga",
+     "views": 1490
     }
    ]
   },
@@ -434,46 +465,15 @@
      "views": 2870
     }
    ]
-  },
-  {
-   "name": "законы · силу · ноябре",
-   "terms": [
-    "законы",
-    "силу",
-    "ноябре"
-   ],
-   "size": 3,
-   "coverage": 0.33,
-   "gap": true,
-   "samples": [
-    {
-     "title": "Авиабилеты со льготами, упрощение оплаты счетов. Какие законы вступят в силу в ноябре",
-     "url": "https://t.me/ulpravda/41892",
-     "source": "t.me/ulpravda",
-     "views": 146
-    },
-    {
-     "title": "⚡️ Законы и другие изменения, вступающие в силу в ноябре 📌 Совершенствование миграционной политики . Более чем",
-     "url": "https://t.me/vmkononov/5427",
-     "source": "t.me/vmkononov",
-     "views": 16
-    },
-    {
-     "title": "Кофейный стандарт и ужесточение ответственности для иностранцев: какие законы вступят в силу в ноябре",
-     "url": "https://ulpressa.ru/2026/11/01/kofejnyj-standart-i-uzhestochenie-otvetstvennosti-dlya-inostranczev-kakie-zakony-vstupyat-v-silu-v-noyabre/",
-     "source": "Улпресса",
-     "views": null
-    }
-   ]
   }
  ],
  "sentiment": {
   "method": "лексиконная оценка (±): ориентировочно, не замена экспертной",
-  "today_score": -0.112,
-  "today_items": 130,
-  "today_pos": 3821,
-  "today_neg": 3336,
-  "today_neu": 5791,
+  "today_score": -0.062,
+  "today_items": 148,
+  "today_pos": 3827,
+  "today_neg": 3341,
+  "today_neu": 5797,
   "series": [
    {
     "date": "2026-10-19",
@@ -529,16 +529,17 @@
    },
    {
     "date": "2026-11-01",
-    "score": -0.112
+    "score": -0.062
    }
   ],
   "by_category": {
-   "culture": 0.0,
-   "economy": 0.154,
-   "education": 0.583,
-   "politics": 0.303,
-   "security": -0.613,
-   "society": -0.004
+   "culture": -0.333,
+   "economy": 0.2,
+   "education": 0.6,
+   "politics": 0.278,
+   "security": -0.632,
+   "society": 0.073,
+   "sport": 0.0
   }
  },
  "credibility": [
@@ -546,9 +547,9 @@
    "source": "Улпресса",
    "tier": 1,
    "type": "tg",
-   "total": 2877,
-   "primary": 2514,
-   "dup": 363,
+   "total": 2883,
+   "primary": 2518,
+   "dup": 365,
    "repost_rate": 0.13,
    "views_median": 1740,
    "label": "первоисточник",
@@ -558,8 +559,8 @@
    "source": "tresh_ulyan",
    "tier": 2,
    "type": "tg",
-   "total": 1020,
-   "primary": 700,
+   "total": 1022,
+   "primary": 702,
    "dup": 320,
    "repost_rate": 0.31,
    "views_median": 13700,
@@ -570,8 +571,8 @@
    "source": "insaid173",
    "tier": 2,
    "type": "tg",
-   "total": 910,
-   "primary": 663,
+   "total": 911,
+   "primary": 664,
    "dup": 247,
    "repost_rate": 0.27,
    "views_median": 10500,
@@ -582,9 +583,9 @@
    "source": "ulyanovsk_smi",
    "tier": 2,
    "type": "tg",
-   "total": 785,
-   "primary": 680,
-   "dup": 105,
+   "total": 788,
+   "primary": 682,
+   "dup": 106,
    "repost_rate": 0.13,
    "views_median": 749,
    "label": "первоисточник",
@@ -594,8 +595,8 @@
    "source": "ulsk_73online",
    "tier": 2,
    "type": "tg",
-   "total": 759,
-   "primary": 655,
+   "total": 760,
+   "primary": 656,
    "dup": 104,
    "repost_rate": 0.14,
    "views_median": 796,
@@ -606,9 +607,9 @@
    "source": "chpul",
    "tier": 2,
    "type": "tg",
-   "total": 699,
+   "total": 700,
    "primary": 509,
-   "dup": 190,
+   "dup": 191,
    "repost_rate": 0.27,
    "views_median": 707,
    "label": "смешанный",
@@ -630,11 +631,11 @@
    "source": "ulkompr",
    "tier": 3,
    "type": "tg",
-   "total": 614,
-   "primary": 462,
-   "dup": 152,
+   "total": 616,
+   "primary": 463,
+   "dup": 153,
    "repost_rate": 0.25,
-   "views_median": 743,
+   "views_median": 737,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -643,8 +644,8 @@
    "tier": 1,
    "type": "tg",
    "total": 581,
-   "primary": 453,
-   "dup": 128,
+   "primary": 452,
+   "dup": 129,
    "repost_rate": 0.22,
    "views_median": 160,
    "label": "первоисточник",
@@ -654,8 +655,8 @@
    "source": "dimitrovgradd",
    "tier": 2,
    "type": "tg",
-   "total": 548,
-   "primary": 479,
+   "total": 549,
+   "primary": 480,
    "dup": 69,
    "repost_rate": 0.13,
    "views_median": 1380,
@@ -678,8 +679,8 @@
    "source": "dimitrovgradonline",
    "tier": 2,
    "type": "tg",
-   "total": 534,
-   "primary": 436,
+   "total": 536,
+   "primary": 438,
    "dup": 98,
    "repost_rate": 0.18,
    "views_median": 581,
@@ -690,11 +691,11 @@
    "source": "ulsk_driver73",
    "tier": 2,
    "type": "tg",
-   "total": 485,
-   "primary": 406,
+   "total": 486,
+   "primary": 407,
    "dup": 79,
    "repost_rate": 0.16,
-   "views_median": 595,
+   "views_median": 594,
    "label": "первоисточник",
    "clickbait_rate": 0.0
   },
@@ -702,8 +703,8 @@
    "source": "topor_ul",
    "tier": 2,
    "type": "tg",
-   "total": 462,
-   "primary": 323,
+   "total": 463,
+   "primary": 324,
    "dup": 139,
    "repost_rate": 0.3,
    "views_median": 2320,
@@ -718,7 +719,7 @@
    "primary": 298,
    "dup": 153,
    "repost_rate": 0.34,
-   "views_median": 133,
+   "views_median": 135,
    "label": "смешанный",
    "clickbait_rate": 0.0
   },
@@ -738,10 +739,10 @@
    "source": "ulkoroche",
    "tier": 2,
    "type": "tg",
-   "total": 422,
-   "primary": 327,
+   "total": 423,
+   "primary": 328,
    "dup": 95,
-   "repost_rate": 0.23,
+   "repost_rate": 0.22,
    "views_median": 1290,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -799,9 +800,9 @@
    "tier": 1,
    "type": "web",
    "total": 271,
-   "primary": 253,
-   "dup": 18,
-   "repost_rate": 0.07,
+   "primary": 254,
+   "dup": 17,
+   "repost_rate": 0.06,
    "views_median": null,
    "label": "первоисточник",
    "clickbait_rate": 0.0
@@ -1003,8 +1004,8 @@
   {
    "topic": "transport",
    "name": "Транспорт и дороги",
-   "expected": 17.6,
-   "slope": -8.75,
+   "expected": 19.1,
+   "slope": -8.54,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1027,48 +1028,48 @@
   {
    "topic": "budget",
    "name": "Бюджет-2027",
-   "expected": 8.0,
-   "slope": -3.14,
+   "expected": 8.7,
+   "slope": -3.04,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "governor",
    "name": "Губернатор / власть",
-   "expected": 25.6,
-   "slope": -2.5,
+   "expected": 26.4,
+   "slope": -2.39,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "schools",
    "name": "Школы и вузы",
-   "expected": 8.5,
-   "slope": -2.5,
+   "expected": 10.0,
+   "slope": -2.29,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "sport",
    "name": "Спорт",
-   "expected": 14.8,
-   "slope": -2.21,
+   "expected": 17.7,
+   "slope": -1.79,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "medicine",
    "name": "Медицина",
-   "expected": 4.1,
-   "slope": -1.36,
+   "expected": 4.9,
+   "slope": -1.25,
    "direction": "спад",
    "confidence": "средняя"
   },
   {
    "topic": "export",
    "name": "Экспорт и кооперация",
-   "expected": 3.0,
-   "slope": -1.36,
+   "expected": 3.8,
+   "slope": -1.25,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1081,18 +1082,18 @@
    "confidence": "средняя"
   },
   {
-   "topic": "weather",
-   "name": "Погода",
-   "expected": 11.7,
-   "slope": -0.93,
-   "direction": "спад",
-   "confidence": "средняя"
-  },
-  {
    "topic": "avia",
    "name": "Авиапром / УКБП / Ил-114",
    "expected": 4.4,
    "slope": -0.68,
+   "direction": "спад",
+   "confidence": "средняя"
+  },
+  {
+   "topic": "weather",
+   "name": "Погода",
+   "expected": 13.9,
+   "slope": -0.61,
    "direction": "спад",
    "confidence": "средняя"
   },
@@ -1107,10 +1108,10 @@
   {
    "topic": "cityspace",
    "name": "Городская среда",
-   "expected": 17.9,
-   "slope": -0.5,
-   "direction": "спад",
-   "confidence": "средняя"
+   "expected": 18.6,
+   "slope": -0.39,
+   "direction": "плато",
+   "confidence": "низкая"
   },
   {
    "topic": "harvest",
@@ -1121,18 +1122,18 @@
    "confidence": "низкая"
   },
   {
-   "topic": "macro",
-   "name": "Макроэкономика / ЦБ",
-   "expected": 0.6,
-   "slope": -0.29,
-   "direction": "плато",
-   "confidence": "низкая"
-  },
-  {
    "topic": "uaz",
    "name": "УАЗ / Соллерс",
    "expected": 1.3,
    "slope": -0.21,
+   "direction": "плато",
+   "confidence": "низкая"
+  },
+  {
+   "topic": "macro",
+   "name": "Макроэкономика / ЦБ",
+   "expected": 1.3,
+   "slope": -0.18,
    "direction": "плато",
    "confidence": "низкая"
   },
@@ -1147,8 +1148,8 @@
   {
    "topic": "zhkh",
    "name": "ЖКХ, газ, тепло",
-   "expected": 8.8,
-   "slope": -0.11,
+   "expected": 9.5,
+   "slope": 0.0,
    "direction": "плато",
    "confidence": "низкая"
   }
@@ -1675,6 +1676,37 @@
     "нет площадки"
    ],
    "score": 0.46
+  },
+  {
+   "etype": "sport",
+   "is_culture": false,
+   "district": true,
+   "date": "2026-11-03",
+   "date_end": null,
+   "time": "",
+   "time_note": "уточняется",
+   "event_title": "Чемпионат «Абилимпикс» впервые",
+   "title_is_fallback": false,
+   "title_kind": "kind",
+   "title": "Студент Ульяновского техникума питания и торговли представит регион в «Поединке вкусов»",
+   "url": "https://ulpressa.ru/2026/11/01/student-ulyanovskogo-tehnikuma-pitaniya-i-torgovli-predstavit-region-v-poedinke-vkusov/",
+   "source": "Улпресса",
+   "tier": null,
+   "venue": "",
+   "venue_addr": "",
+   "venue_district": "",
+   "venue_city": "",
+   "venue_found": false,
+   "venue_how": "",
+   "geo": "Ульяновск",
+   "price": "",
+   "price_mode": "",
+   "age": "",
+   "reasons": [
+    "дайджест/норма: дата — не события",
+    "нет площадки"
+   ],
+   "score": 0.62
   },
   {
    "etype": "concert",
@@ -2476,16 +2508,17 @@
   }
  ],
  "calendar_passport": {
-  "found_dates": 56,
+  "found_dates": 57,
   "accepted": 9,
-  "rejected": 43,
+  "rejected": 44,
   "venues_new": {
    "3 ноября в Волга-Спорт-Арене": 1,
    "Языковского парка": 1,
    "комплексах «Железно»": 1,
    "«Академия Русской Моды. Россия — миру» и": 1,
    "Также возобновил работу центр мониторинга дорожной ситуации": 1,
-   "Глава областного центра Александр Болдакин поручил": 1
+   "Глава областного центра Александр Болдакин поручил": 1,
+   "«Тимирязев Центр»": 1
   },
   "threshold": 0.55,
   "stats": {
@@ -2495,16 +2528,16 @@
    "title_composed": 7,
    "with_price": 0,
    "with_age": 1,
-   "rejected_no_venue": 40
+   "rejected_no_venue": 41
   },
-  "run_local": "01.11.2026 14:57",
+  "run_local": "01.11.2026 16:26",
   "total": 9,
   "no_time": 0,
   "no_venue": 0,
   "other_share": 0.0,
   "also_n": 2,
-  "venues_new_n": 6,
+  "venues_new_n": 7,
   "score_avg": 0.924,
-  "verdict": "прошло порог 9; новых площадок 6; с др. анонсами 2"
+  "verdict": "прошло порог 9; новых площадок 7; с др. анонсами 2"
  }
 }
