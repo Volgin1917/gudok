@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Улпресса": {
   "ok": true,
@@ -49,19 +49,19 @@
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 33,
+  "items": 32,
   "error": null,
   "title": "УЛПРЕССА"
  },
  "tg:ulpravda": {
   "ok": true,
-  "items": 14,
+  "items": 15,
   "error": null,
   "title": "Ulpravda.ru (Ульяновская правда)"
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 11,
+  "items": 7,
   "error": null,
   "title": "Репортёр73"
  },
@@ -85,7 +85,7 @@
  },
  "tg:fcvolga": {
   "ok": true,
-  "items": 20,
+  "items": 15,
   "error": null,
   "title": "ФК «Волга»"
  },
@@ -97,19 +97,19 @@
  },
  "tg:insaid173": {
   "ok": true,
-  "items": 18,
+  "items": 19,
   "error": null,
   "title": "Инсайд Ульяновск"
  },
  "tg:chpulsk": {
   "ok": true,
-  "items": 12,
+  "items": 13,
   "error": null,
   "title": "ЧП Ульяновск"
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 13,
+  "items": 15,
   "error": null,
   "title": "Информационный Димитровград"
  },
@@ -133,7 +133,7 @@
  },
  "tg:ulyanovsk_smi": {
   "ok": true,
-  "items": 17,
+  "items": 16,
   "error": null,
   "title": "Новости Ульяновска и Области"
  },
@@ -145,13 +145,13 @@
  },
  "tg:ulsk_on": {
   "ok": true,
-  "items": 18,
+  "items": 19,
   "error": null,
   "title": "Ульяновск Новости (онлайн)"
  },
  "tg:ulsk_73online": {
   "ok": true,
-  "items": 10,
+  "items": 8,
   "error": null,
   "title": "73online"
  },
@@ -169,7 +169,7 @@
  },
  "tg:shugozhor73": {
   "ok": true,
-  "items": 6,
+  "items": 7,
   "error": null,
   "title": "Симбирский шугожор"
  },
@@ -187,13 +187,13 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 13,
+  "items": 15,
   "error": null,
   "title": "Компромат Ульяновск"
  },
  "tg:culturnik": {
   "ok": true,
-  "items": 4,
+  "items": 5,
   "error": null,
   "title": "Культура Ульяновск"
  },
@@ -205,7 +205,7 @@
  },
  "tg:ProNovosty73": {
   "ok": true,
-  "items": 20,
+  "items": 14,
   "error": null,
   "title": "Что-то на ульяновском"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-11-02T11:36:31.110083+00:00",
-  "last_run_local": "02.11.2026 15:36",
-  "fetched": 513,
-  "new": 282,
-  "total_store": 16436
+  "last_run_utc": "2026-11-02T13:15:22.335253+00:00",
+  "last_run_local": "02.11.2026 17:15",
+  "fetched": 496,
+  "new": 53,
+  "total_store": 16489
  },
  "rss:Улград": {
   "ok": true,
