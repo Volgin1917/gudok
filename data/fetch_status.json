@@ -1,8 +1,8 @@
 {
  "rss:Ulnovosti.ru": {
-  "ok": true,
-  "items": 10,
-  "error": null
+  "ok": false,
+  "items": 0,
+  "error": "<urlopen error [Errno 101] Network is unreachable>"
  },
  "rss:Улпресса": {
   "ok": true,
@@ -43,13 +43,13 @@
  },
  "tg:A_Boldakin": {
   "ok": true,
-  "items": 6,
+  "items": 7,
   "error": null,
   "title": "Александр Болдакин (глава Ульяновска)"
  },
  "tg:ulpressa": {
   "ok": true,
-  "items": 29,
+  "items": 32,
   "error": null,
   "title": "УЛПРЕССА"
  },
@@ -61,7 +61,7 @@
  },
  "tg:reporter73": {
   "ok": true,
-  "items": 8,
+  "items": 9,
   "error": null,
   "title": "Репортёр73"
  },
@@ -109,13 +109,13 @@
  },
  "tg:dimitrovgradonline": {
   "ok": true,
-  "items": 10,
+  "items": 13,
   "error": null,
   "title": "Информационный Димитровград"
  },
  "tg:topor_ul": {
   "ok": true,
-  "items": 8,
+  "items": 9,
   "error": null,
   "title": "Топор Ульяновск"
  },
@@ -127,7 +127,7 @@
  },
  "tg:dimitrovgradd": {
   "ok": true,
-  "items": 6,
+  "items": 8,
   "error": null,
   "title": "Типичный Димитровград"
  },
@@ -187,7 +187,7 @@
  },
  "tg:ulkompr": {
   "ok": true,
-  "items": 16,
+  "items": 17,
   "error": null,
   "title": "Компромат Ульяновск"
  },
@@ -205,7 +205,7 @@
  },
  "tg:ProNovosty73": {
   "ok": true,
-  "items": 19,
+  "items": 20,
   "error": null,
   "title": "Что-то на ульяновском"
  },
@@ -217,7 +217,7 @@
  },
  "tg:uac_ru": {
   "ok": true,
-  "items": 7,
+  "items": 8,
   "error": null,
   "title": "ПАО «ОАК»"
  },
@@ -239,11 +239,11 @@
   "title": "Администрация города Ульяновска — новости и репортажи"
  },
  "_meta": {
-  "last_run_utc": "2026-11-09T11:59:36.724216+00:00",
-  "last_run_local": "09.11.2026 15:59",
-  "fetched": 525,
-  "new": 279,
-  "total_store": 18368
+  "last_run_utc": "2026-11-09T13:42:13.289152+00:00",
+  "last_run_local": "09.11.2026 17:42",
+  "fetched": 529,
+  "new": 42,
+  "total_store": 18410
  },
  "rss:Улград": {
   "ok": true,
