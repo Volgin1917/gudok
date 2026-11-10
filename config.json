@@ -78,7 +78,13 @@
    "sport": 0.4,
    "culture": 0.35,
    "default": 0.15
-  }
+  },
+   "flowmap": {
+    "window_days": 7,
+    "node_cap": 1500,
+    "default_axes": {"x": "official", "y": "significance"},
+    "enabled_layers": ["reprints", "tone", "setters", "cascades"]
+   }
  },
  "rss_sources": [
   {
@@ -1306,6 +1312,20 @@
    "отменена.*опасность",
    "режим.*снят"
   ]
+ },
+ "site_base_url": "https://volgin1917.github.io/gudok",
+ "telegram": {
+  "enabled": true,
+  "channel": "",
+  "group": "",
+  "alert_chat": "",
+  "allowed_chats": [],
+  "auto_digest": true,
+  "auto_alerts": true,
+  "auto_reminders": true,
+  "reminder_hour": 9,
+  "digest_photo": true,
+  "_note": "канал: @username после создания; group/alert_chat/allowed_chats — числовые id (узнать: перешлите боту /start в нужном чате и посмотрите tg_bot.py --status). Токен: env GUDOK_TELEGRAM_TOKEN или data/telegram_token (не в git)."
  },
  "launch_date": "2026-09-11",
  "tagline_short": "Информационно-аналитическое издание",

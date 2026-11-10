@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Карта потока — админ-панель · Гудок</title>
+<style>
+  :root{
+    --bg:#f4efe6; --card:#fffdf8; --ink:#1d1a17; --muted:#6b6258;
+    --rule:#d9cfc0; --accent:#D63F1F; --navy:#1d4066; --gold:#c79a3a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.5 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  .masthead{border-bottom:3px solid var(--accent);background:#fffdf8;padding:14px 22px;
+    display:flex;justify-content:space-between;align-items:center}
+  .mast-title{font-weight:900;letter-spacing:.5px;font-size:22px}
+  .mast-title span{color:var(--accent)}
+  .mast-side{font-size:12px;color:var(--muted);max-width:280px}
+  .wrap{max-width:1040px;margin:22px auto;padding:0 18px}
+  h1{font-size:20px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:18px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+  .card h2{margin:0 0 12px;font-size:15px;text-transform:uppercase;letter-spacing:.6px;color:var(--navy)}
+  .row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dotted var(--rule);font-size:13.5px}
+  .row:last-child{border-bottom:0}
+  .row b{font-variant-numeric:tabular-nums}
+  .muted{color:var(--muted)}
+  label{display:block;margin:10px 0 4px;font-weight:700;font-size:13px}
+  input[type=number],select{width:100%;padding:7px 9px;border:1px solid var(--rule);
+    border-radius:7px;background:#fff;font:inherit}
+  .checks{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:6px}
+  .checks label{display:flex;align-items:center;gap:6px;margin:0;font-weight:500}
+  .btns{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  button{font:inherit;font-weight:700;border:0;border-radius:8px;padding:9px 16px;cursor:pointer}
+  .primary{background:var(--accent);color:#fff}
+  .ghost{background:#efe7da;color:var(--ink)}
+  .alt{background:var(--navy);color:#fff}
+  button:disabled{opacity:.55;cursor:default}
+  #msg{margin-top:14px;padding:10px 12px;border-radius:8px;font-size:13.5px;display:none}
+  #msg.ok{display:block;background:#e7f3ec;color:#1d5b39;border:1px solid #b7dcc6}
+  #msg.err{display:block;background:#fbe9e7;color:#8a1f15;border:1px solid #e9bdb6}
+  a{color:var(--navy);font-weight:700}
+  .note{font-size:12px;color:var(--muted);margin-top:10px}
+  .pill{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700}
+  .pill.on{background:#e7f3ec;color:#1d5b39}
+  .pill.off{background:#fbe9e7;color:#8a1f15}
+  .tabs{display:flex;gap:6px;margin-bottom:14px}
+  .tabs a{padding:6px 12px;border:1px solid var(--rule);border-radius:8px;font-size:13px;text-decoration:none;color:var(--muted)}
+  .tabs a.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+</style></head><body>
+<header class="masthead"><div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side" style="text-align:right">Админ-панель модуля<br><b>Карта потока</b></div></header>
+
+<div class="wrap">
+  <div class="tabs">
+    <a class="active" href="flowmap_admin.html">Админ</a>
+    <a href="../projects/flowmap.html" target="_blank" rel="noopener">Открыть публичную карту ↗</a>
+  </div>
+  <h1>Карта потока — представление и администрирование</h1>
+  <div class="sub">Локальный стенд (127.0.0.1). Публикация — в составе общего конвейера; здесь — настройка и пересборка модуля.</div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Статус модуля</h2>
+      <div id="status">Загрузка…</div>
+      <div class="note">Окно и срез данных берутся из опубликованной страницы (projects/flowmap.html).</div>
+    </div>
+
+    <div class="card">
+      <h2>Настройки модуля</h2>
+      <label>Окно данных, дней (window_days)</label>
+      <input type="number" id="window_days" min="1" max="365">
+      <label>Потолок узлов (node_cap)</label>
+      <input type="number" id="node_cap" min="50" max="20000">
+      <label>Ось X по умолчанию</label>
+      <select id="axis_x"></select>
+      <label>Ось Y по умолчанию</label>
+      <select id="axis_y"></select>
+      <label>Слои включены по умолчанию</label>
+      <div class="checks" id="layers"></div>
+      <div class="btns">
+        <button class="primary" id="save">Сохранить настройки</button>
+        <button class="alt" id="rebuild">Пересобрать страницу</button>
+        <button class="ghost" id="refresh">Обновить статус</button>
+      </div>
+      <div id="msg"></div>
+    </div>
+  </div>
+  <div class="note">Сохранение пишет config.json (с бэкапом config.json.bak). Пересборка заново рендерит projects/flowmap.html из текущих данных тем же способом, что и общий конвейер.</div>
+</div>
+
+<script>
+function fmtTs(ts){
+  if(!ts) return '—';
+  var d=new Date(ts*1000);
+  return d.toLocaleString('ru-RU');
+}
+function esc(s){return (s==null?'':''+s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+
+async function api(path, opts){
+  var q = (window.__token) ? ('?token='+encodeURIComponent(window.__token)) : '';
+  return fetch(path+q, opts||{})
+    .then(function(r){return r.json().then(function(j){return {ok:r.ok, body:j};});});
+}
+
+function renderStatus(s){
+  var layersHtml = Object.keys(s.default_layers||{}).map(function(k){
+    var on=s.default_layers[k];
+    return '<span class="pill '+(on?'on':'off')+'">'+esc(k)+'</span>';
+  }).join(' ');
+  var html =
+    row('Окно данных', s.window_days+' дн') +
+    row('Потолок узлов', s.node_cap) +
+    row('Оси по умолч.', (s.default_axes.x||'')+' / '+(s.default_axes.y||'')) +
+    row('Слои по умолч.', '<div style="text-align:right">'+layersHtml+'</div>') +
+    row('Страница существует', s.flowmap_html_exists?'да':'нет') +
+    row('Узлов (опубл.)', s.published_nodes==null?'—':s.published_nodes) +
+    row('Связей (опубл.)', s.published_edges==null?'—':s.published_edges) +
+    row('Муниципалитетов', s.published_munis==null?'—':s.published_munis) +
+    row('Сюжетных кластеров', s.published_story_clusters==null?'—':s.published_story_clusters) +
+    row('Каскадов', s.published_cascades==null?'—':s.published_cascades) +
+    row('Сеттеров', s.published_setters==null?'—':s.published_setters) +
+    row('Последний сбор данных', fmtTs(s.last_collection)) +
+    row('config.json изменён', fmtTs(s.mtime&&s.mtime.config)) +
+    row('flowmap.html изменён', fmtTs(s.mtime&&s.mtime.flowmap_html));
+  document.getElementById('status').innerHTML = html;
+}
+function row(k,v){return '<div class="row"><span>'+esc(k)+'</span><b>'+v+'</b></div>';}
+
+function fillConfig(c){
+  document.getElementById('window_days').value = c.window_days;
+  document.getElementById('node_cap').value = c.node_cap;
+  var ax=c.axis_options||{x:[],y:[]};
+  var sx=document.getElementById('axis_x'), sy=document.getElementById('axis_y');
+  sx.innerHTML = ax.x.map(function(o){return '<option value="'+o+'"'+(o===c.default_axes.x?' selected':'')+'>'+o+'</option>';}).join('');
+  sy.innerHTML = ax.y.map(function(o){return '<option value="'+o+'"'+(o===c.default_axes.y?' selected':'')+'>'+o+'</option>';}).join('');
+  var box=document.getElementById('layers');
+  box.innerHTML = c.layer_keys.map(function(k){
+    var on=!!c.default_layers[k];
+    return '<label><input type="checkbox" data-k="'+k+'"'+(on?' checked':'')+'> '+esc(k)+'</label>';
+  }).join('');
+}
+
+function showMsg(text, ok){
+  var m=document.getElementById('msg');
+  m.textContent=text; m.className = ok?'ok':'err';
+}
+
+async function loadAll(){
+  var s = await api('/api/status');
+  if(s.ok) renderStatus(s.body);
+  var c = await api('/api/config');
+  if(c.ok) fillConfig(c.body);
+}
+
+document.getElementById('save').addEventListener('click', async function(){
+  this.disabled=true;
+  var data={
+    window_days: parseInt(document.getElementById('window_days').value,10),
+    node_cap: parseInt(document.getElementById('node_cap').value,10),
+    default_axes:{x:document.getElementById('axis_x').value, y:document.getElementById('axis_y').value},
+    default_layers:{}
+  };
+  document.querySelectorAll('#layers input').forEach(function(inp){
+    data.default_layers[inp.getAttribute('data-k')]=inp.checked;
+  });
+  var r = await api('/api/config', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)});
+  if(r.ok && r.body.ok){ showMsg('Настройки сохранены в config.json.', true); }
+  else { showMsg('Ошибка: '+(r.body&&r.body.error||'неизвестно'), false); }
+  this.disabled=false;
+  loadAll();
+});
+
+document.getElementById('rebuild').addEventListener('click', async function(){
+  this.disabled=true;
+  showMsg('Пересборка…', true);
+  var r = await api('/api/rebuild', {method:'POST'});
+  if(r.ok && r.body.ok){ showMsg('Страница пересобрана: '+(r.body.bytes||0)+' байт, узлов '+(r.body.published_nodes==null?'?':r.body.published_nodes)+'.', true); }
+  else { showMsg('Ошибка пересборки: '+(r.body&&r.body.error||'неизвестно'), false); }
+  this.disabled=false;
+  loadAll();
+});
+
+document.getElementById('refresh').addEventListener('click', function(){ loadAll(); });
+
+loadAll();
+</script>
+</body></html>

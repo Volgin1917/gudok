@@ -8,3 +8,7 @@ data/quality_report.json
 .DS_Store
 Thumbs.db
 data/vk_token
+data/telegram_token
+data/tg_state.json
+data/art_token
+data/pictures/

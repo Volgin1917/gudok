@@ -1,14 +1,18 @@
 # AGENTS.md — Гудок
 
-Информационно-аналитический дайджест по Ульяновской области. Ядро — **только stdlib Python 3.8+ (без зависимостей и без `requirements.txt`)**; весь пайплайн это правило соблюдает.
+Информационно-аналитический дайджест по Ульяновской области. Базовый пайплайн сборки — **stdlib Python 3.8+ (без зависимостей)**; публичные HTML-выпуски остаются самодостаточными и открываются офлайн (без CDN). **Исключение:** модули генерации (LLM/API) — в частности «Картина дня» через Yandex ART — могут использовать внешние зависимости и сетевые вызовы; секреты только через env/`.gitignore`-файлы.
 
 ## Команды
 
 - `bash run.sh` — полный цикл: `collector → enrich → photos → dedup → trends → backup → status → generate` (+ `--exec`). Запускать из корня репозитория.
 - `bash run.sh YYYY-MM-DD` — дополнительно собрать выпуск за конкретную дату.
-- `python3 -m unittest discover -s tests` — 403 теста (~2 с). **Не** вызывается из run.sh: тесты гоняют вручную или CI.
+- `bash run.sh --publish` — то же + отправить дайджест в Telegram (канал из `config.json → telegram.channel`). Без флага в Telegram ничего не уходит — CI-прогоны (`bash run.sh`) публикации не делают.
+- `python3 -m unittest discover -s tests` — 449 тестов (~20 с). **Не** вызывается из run.sh: тесты гоняют вручную или CI.
 - `python3 reclassify.py --audit 100` — переразметка сохранённой базы после правки словарей в `config.json` (категории, темы). Это правильный способ применить словарь — не править `data/store.jsonl` руками.
-- `python3 alert_monitor.py --once|--loop|--status` — монитор ракетной/БПЛА-опасности (опрос tier-1 каналов).
+- `python3 alert_monitor.py --once|--loop|--status` — монитор ракетной/БПЛА-опасности (опрос tier-1 каналов); при срабатывании дёргает Telegram через `tg_publish.notify_alert`.
+- `python3 tg_publish.py --digest [--date D] [--chat @канал] [--dry-run|--force]` — сборка и отправка дайджеста в Telegram (`--dry-run` печатает пост в консоль, ничего не шлёт; также `--text`, `--test`).
+- `python3 picture_of_day.py --publish [--date D] [--style S] [--chat @канал] [--dry-run|--force]` — модуль «Картина дня»: собрать бриф дня (кластеры/противоречия/силы/тон/сеттеры из `analytics.json`+`infospace.json`), сгенерировать ИЗОБРАЗИТЬ через **Yandex ART** и отправить фото в Telegram-канал (`config.telegram.channel`). Стили-пресеты: `constructivism / social_poster / infographic / caricature / abstract_metaphor`; выбор — по эволюционирующим весам (`data/picture_weights.json`) либо `--style`. `--dry-run` печатает бриф+prompt без API и отправки; `--show-brief` — только бриф; `--evolve` — пересчёт весов стилей по отклику (история в `data/pictures_of_day.jsonl`). Без `GUDOK_ART_API_KEY` генерация мягко пропускается. Секрет — только env/`.gitignore` (`data/art_token`); в `config.json` не класть.
+- `python3 tg_bot.py --once|--loop|--status` — бот-секретарь в группе журналистов: команды (`/digest /brief /top /search /status /alert /plans /help`), авто-пост свежего выпуска, авто-алерты, утреннее напоминание о планах. Долгий поллинг `getUpdates`; без токена выходит сразу.
 - `python3 generate.py --exec --date YYYY-MM-DD` — «дайджест руководителя» (1 стр. A4).
 - `python3 analytics.py` — пересчитать `data/analytics.json` (афиша, кластеры, тон, прогноз) без сбора.
 - `python3 methods.py` — сводка реестра методик; `--validate` — паспорта, перекрёстные ссылки и мост
@@ -24,6 +28,7 @@
 
 - **Запрещено добавлять сторонние зависимости** в основной поток. Опциональные надстройки (Pillow, waitress) — только через guarded `try/except ImportError`, чтобы ядро работало на голом Python.
 - HTML-выпуски **самодостаточны**: inline CSS/JS/SVG, без CDN; обязаны открываться офлайн и печататься в PDF. Не вставлять ссылки на внешние ресурсы.
+- **Исключение (Карта потока)**: модуль `projects/flowmap.html` (`render_flowmap` в `generate.py`) — официальное исключение из правила «без внешних библиотек». Разрешён **инлайн минифицированного d3 v7** (`assets/vendor/d3.v7.min.js`, закоммичен в репозиторий), который `generate.py` читает с диска и встраивает в `<script>` сгенерированной страницы. Python-ядро остаётся stdlib (только `open()` + `json.dumps`); итоговый `flowmap.html` не ссылается на внешние `http(s)`-ресурсы и открывается офлайн. Настройки — `config.json → settings.flowmap` (`window_days`, `node_cap`, `default_axes`, `enabled_layers`). Это единственное место с инлайн-библиотекой; не переносить паттерн на другие страницы.
 - Время: база — в UTC; пояс издания — UTC+4 (`config.json → settings.tz_offset_hours`).
 - `config.json` — главная настройка (источники, `categories`, `topics`; порядок категорий = приоритет разметки).
 - Классификация записывается при сборе; после правки словарей применяй `reclassify.py --audit`.
@@ -62,13 +67,23 @@
   оставались без зеркал — страницы собирались с внешними картинками (29.09), падал
   `TestPhotoMirrors::test_referenced_photos_exist`. Зеркала нужны офлайн: страницы самодостаточны.
 - Политес к источникам: `settings.http_delay_sec` (1.2) и честный User-Agent — не снижать.
+- **Telegram — двойное назначение, но разделено по времени**: `collector.py` читает чужие каналы
+  через `t.me/s` (парсинг, без токена), а `tg_publish.py`/`tg_bot.py` отправляют свои посты через
+  Bot API. Посты собираются из кирпичей `generate.py` (`hero_pick`, `short_brief`, `present_title`,
+  `digest_number`) — Telegram и HTML-полоса не расходятся; **каждая строка поста обязана быть
+  самодостаточной по тегам** (закрытые `<b>…</b>`, `<a …>…</a>` внутри одной строки), иначе
+  разбивка на сообщения ≤4096 сломает разметку — это проверяет `TestTelegramPublish`.
+- Публикация в Telegram **идемпотентна** через `data/tg_state.json` (ключи `digest:ДАТА:ЧАТ`,
+  `alert:ID`, `reminder:ДАТА`): `alert_monitor.py` и `tg_bot.py` работают с одним состоянием,
+  дублей алерта или дайджеста не будет. Файл локальный (в `.gitignore`), публикации в CI нет —
+  отправка только с этой машины.
 
 ## Git и публикация
 
 - **main одновременно хранит код И генерат** (`data/`, `digests/`, `index.html`, `assets/photos`, `afisha/infospace/status.html`, `weekly/monthly/projects`). CI коммитит генерат в main через `ci_push.sh`.
 - Сайт = GitHub Pages из main. Workflow `daily/weekly/monthly` стоят в общей очереди `concurrency: gudok-pipeline` — параллельный ручной push во время CI-прогона создаёт гонку.
 - `ci_push.sh` защищает от гонок и потери правок (fetch → rebase → пересборка через `REBUILD_CMD`). Не добавляй к нему `set -e` (тест `test_no_set_e`).
-- Секреты — только env `GUDOK_VK_TOKEN` (в CI пустой → VK мягко пропускается). Никогда не в git: `.gitignore` покрывает `data/backups/`, `data/alerts.log`, `data/vk_token`. `data/store.jsonl` и `sources_registry.json` — **коммитятся**.
+- Секреты — только env `GUDOK_VK_TOKEN` и `GUDOK_TELEGRAM_TOKEN` (в CI пустой → VK мягко пропускается). Никогда не в git: `.gitignore` покрывает `data/backups/`, `data/alerts.log`, `data/vk_token`, `data/telegram_token`, `data/tg_state.json`. `data/store.jsonl` и `sources_registry.json` — **коммитятся**. Файл-фолбэк токена — `data/telegram_token` (та же схема, что у `data/vk_token`); токен Bot API в `config.json` класть нельзя — там только адреса чатов.
 - Код, комментарии и сообщения коммитов — на русском; стиль — как в соседних файлах.
 
 ## Тесты

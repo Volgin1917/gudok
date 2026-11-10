@@ -4313,5 +4313,323 @@ class TestElectionsRegistry(unittest.TestCase):
                       "М-37 должен заявлять диагностику мобилизации по Шпилькину")
 
 
+class TestTelegramPublish(unittest.TestCase):
+    """Telegram: секрет по схеме VK, сборка поста из кирпичей полосы, идемпотентность."""
+
+    def setUp(self):
+        import tg_publish
+        self.tg = tg_publish
+        self._env = os.environ.pop("GUDOK_TELEGRAM_TOKEN", None)
+        self._state = tg_publish.STATE
+        # подмены сетевых функций восстанавливаем в tearDown
+        self._patched = {name: getattr(tg_publish, name)
+                         for name in ("send_message", "_deliver")}
+        import tempfile
+        self._tmp = tempfile.NamedTemporaryFile(
+            "w", suffix=".json", delete=False, encoding="utf-8")
+        self._tmp.close()
+        tg_publish.STATE = self._tmp.name
+
+    def tearDown(self):
+        self.tg.STATE = self._state
+        for name, fn in self._patched.items():
+            setattr(self.tg, name, fn)
+        os.environ.pop("GUDOK_TELEGRAM_TOKEN", None)   # тест мог выставить свой
+        if self._env is not None:
+            os.environ["GUDOK_TELEGRAM_TOKEN"] = self._env
+        try:
+            os.unlink(self._tmp.name)
+        except OSError:
+            pass
+
+    def test_token_soft_skip(self):
+        # файл токена должен быть в .gitignore (как data/vk_token) — в git не уедет
+        with open(os.path.join(BASE, ".gitignore"), encoding="utf-8") as f:
+            self.assertIn("data/telegram_token", f.read())
+        os.environ.pop("GUDOK_TELEGRAM_TOKEN", None)
+        # сохранённый локально файл токена тест не трогает, поэтому мокаем чтение
+        orig = self.tg.tg_token
+        self.tg.tg_token = lambda: ""
+        try:
+            self.assertEqual(self.tg.tg_token(), "")
+            # без токена API-вызов не ходит в сеть и возвращает мягкую ошибку
+            r = self.tg.tg_api("sendMessage", {"chat_id": 1})
+            self.assertFalse(r["ok"])
+            self.assertIn("нет токена", r["error"])
+            # отправка тоже мягко пропускается
+            self.assertFalse(self.tg.send_message(1, "тест", quiet=True))
+        finally:
+            self.tg.tg_token = orig
+
+    def test_token_from_env(self):
+        os.environ["GUDOK_TELEGRAM_TOKEN"] = "  123:ABC  "
+        self.assertEqual(self.tg.tg_token(), "123:ABC")
+
+    def test_esc_and_esc_url(self):
+        self.assertEqual(self.tg.esc('a & b <c>'), "a &amp; b &lt;c&gt;")
+        self.assertIn("%22", self.tg.esc_url('https://x/y?q="1"&a=2'))
+        self.assertIn("&amp;", self.tg.esc_url("https://x/?a=1&b=2"))
+
+    def test_split_chunks_respects_limit(self):
+        # строки в пределах лимита: разбивка по строкам, склейка точная
+        text = ("строка поста с <b>разметкой</b> и достаточно длинным текстом\n" * 300)
+        chunks = self.tg.split_chunks(text)
+        self.assertGreater(len(chunks), 1)
+        for c in chunks:
+            self.assertLessEqual(len(c), self.tg.TG_LIMIT)
+        self.assertEqual("\n".join(chunks), text)
+        # строки длиннее лимита режутся впрок — ни одна часть не превышает лимит
+        long = "ё" * (self.tg.TG_LIMIT * 2 + 100)
+        parts = self.tg.split_chunks(long)
+        self.assertEqual("".join(parts), long)
+        for p in parts:
+            self.assertLessEqual(len(p), self.tg.TG_LIMIT)
+        self.assertEqual(self.tg.split_chunks("коротко"), ["коротко"])
+
+    def test_digest_sections_build(self):
+        import generate
+        cfg = json.load(open(os.path.join(BASE, "config.json"), encoding="utf-8"))
+        sec = self.tg.digest_sections(cfg, "2026-09-29")
+        blocks = self.tg.flatten(sec)
+        self.assertTrue(blocks)
+        joined = "\n".join(blocks)
+        self.assertIn("ГУДОК", joined)
+        self.assertIn("<b>Главное</b>", joined)
+        self.assertIn("Полный выпуск", joined)
+        # каждая строка — самодостаточный фрагмент (теги закрыты): иначе
+        # разбивка на сообщения ≤4096 сломала бы разметку
+        for line in joined.split("\n"):
+            self.assertEqual(line.count("<a "), line.count("</a>"), line)
+            self.assertEqual(line.count("<b>"), line.count("</b>"), line)
+
+    def test_digest_sections_empty_day(self):
+        cfg = json.load(open(os.path.join(BASE, "config.json"), encoding="utf-8"))
+        sec = self.tg.digest_sections(cfg, "2020-01-01")
+        self.assertEqual(self.tg.flatten(sec), [])
+
+    def test_post_dry_run_and_state_idempotency(self):
+        cfg = json.load(open(os.path.join(BASE, "config.json"), encoding="utf-8"))
+        cfg = dict(cfg, telegram=dict(cfg.get("telegram") or {}, channel="@test"))
+        # dry-run печатает в консоль — в тесте глушим, и не трогает состояние
+        import contextlib, io
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertTrue(self.tg.post_digest(cfg, "2026-09-29", dry_run=True))
+        self.assertFalse(self.tg.load_state().get("keys"))
+        # без токена публикация не уходит и не помечает состояние
+        self.assertFalse(self.tg.post_digest(cfg, "2026-09-29", quiet=True))
+        self.assertFalse(self.tg.load_state().get("keys"))
+        # помеченное ключом не публикуется повторно даже с токеном
+        key = "digest:2026-09-29:@test"
+        self.tg.state_mark(key)
+        self.assertTrue(self.tg.state_has(key))
+        os.environ["GUDOK_TELEGRAM_TOKEN"] = "1:2"
+        sent = []
+        self.tg.send_message = lambda *a, **k: sent.append(a) or True
+        self.tg._deliver = lambda *a, **k: True
+        self.assertFalse(self.tg.post_digest(cfg, "2026-09-29", quiet=True))
+        self.assertEqual(sent, [])
+
+    def test_notify_alert_idempotent(self):
+        cfg = {"telegram": {"enabled": True, "group": "-100500"}}
+        os.environ["GUDOK_TELEGRAM_TOKEN"] = "1:2"
+        sent = []
+        self.tg.send_message = lambda *a, **k: sent.append(a[1]) or True
+        self.assertTrue(self.tg.notify_alert(cfg, "alert", "ch/1", "Ракетная опасность",
+                                             "https://t.me/ch/1", "ch"))
+        # повтор того же алерта подавляется состоянием и в сеть не уходит
+        self.assertFalse(self.tg.notify_alert(cfg, "alert", "ch/1", "Ракетная опасность",
+                                              "https://t.me/ch/1", "ch"))
+        self.assertEqual(len(sent), 1, "алерт отправлен дважды")
+        self.assertIn("ВОЗДУШНАЯ УГРОЗА", sent[0])
+
+    def test_notify_alert_no_chat(self):
+        cfg = {"telegram": {"enabled": True}}
+        os.environ["GUDOK_TELEGRAM_TOKEN"] = "1:2"
+        self.assertFalse(self.tg.notify_alert(cfg, "alert", "x", "т", "у", "c", quiet=True))
+
+
+class TestTelegramBot(unittest.TestCase):
+    """Бот-секретарь: белый список чатов, команды, планы-напоминание."""
+
+    def setUp(self):
+        import tg_bot
+        self.bot = tg_bot
+
+    def test_allowed_chats(self):
+        cfg = {"telegram": {"allowed_chats": [42], "group": -100500, "channel": "@ch"}}
+        self.assertTrue(self.bot.allowed(cfg, 42))
+        self.assertTrue(self.bot.allowed(cfg, -100500))
+        self.assertTrue(self.bot.allowed(cfg, "@ch"))
+        self.assertFalse(self.bot.allowed(cfg, 777))
+        # без списка — доступа нет ни у кого (чужие чаты молча игнорируются)
+        self.assertFalse(self.bot.allowed({"telegram": {}}, 777))
+
+    def test_plans_text(self):
+        txt = self.bot.plans_text()
+        self.assertIn("Планы редакции", txt)
+        self.assertIn("подключена", txt)
+        self.assertIn("plans.html", txt)
+
+    def test_latest_digest_date(self):
+        d = self.bot.latest_digest_date()
+        if d:  # архив может быть пуст — тогда триггера просто нет
+            self.assertRegex(d, r"^\d{4}-\d{2}-\d{2}$")
+
+    def test_unknown_command_answered(self):
+        import tg_publish as TP
+        got = []
+        orig = TP.send_message
+        TP.send_message = lambda *a, **k: got.append(a) or True
+        try:
+            cfg = {"telegram": {"enabled": True}}
+            self.assertTrue(self.bot.handle_command(cfg, 1, "/xyz"))
+        finally:
+            TP.send_message = orig
+        self.assertEqual(len(got), 1)
+        self.assertIn("Неизвестная команда", got[0][1])
+
+
+class TestTelegramWiring(unittest.TestCase):
+    """Связка: run.sh умеет --publish, alert_monitor зовёт TG, конфиг полон."""
+
+    def test_run_sh_publish_flag(self):
+        with open(os.path.join(BASE, "run.sh"), encoding="utf-8") as f:
+            src = f.read()
+        self.assertIn("--publish", src)
+        self.assertIn("tg_publish.py", src)
+        # публикация — последний шаг, после generate
+        self.assertGreater(src.index("tg_publish.py"), src.index("generate.py"))
+        # падение отправки не должно ронять сборку
+        self.assertIn('tg_publish.py --digest || true', src.replace("\n  ", " ").replace("\n", " "))
+
+    def test_run_sh_no_publish_by_default(self):
+        # без --publish CI-прогоны (bash run.sh) ничего не отправляют
+        with open(os.path.join(BASE, "run.sh"), encoding="utf-8") as f:
+            src = f.read()
+        self.assertIn('if [ "$PUBLISH" = "1" ]', src)
+
+    def test_alert_monitor_calls_tg(self):
+        with open(os.path.join(BASE, "alert_monitor.py"), encoding="utf-8") as f:
+            src = f.read()
+        self.assertIn("def tg_notify", src)
+        self.assertIn('tg_notify(cfg, "alert"', src)
+        self.assertIn('tg_notify(cfg, "cancel"', src)
+
+    def test_config_telegram_section(self):
+        cfg = json.load(open(os.path.join(BASE, "config.json"), encoding="utf-8"))
+        tg = cfg["telegram"]
+        for key in ("enabled", "channel", "group", "allowed_chats",
+                    "auto_digest", "auto_alerts", "auto_reminders", "reminder_hour"):
+            self.assertIn(key, tg)
+        self.assertTrue(cfg["site_base_url"].startswith("https://"))
+        # секретов в config.json быть не должно
+        blob = json.dumps(cfg, ensure_ascii=False)
+        self.assertNotIn("AAGr", blob)   # префикс токена Bot API не должен осесть в git
+
+    def test_gitignore_covers_token_and_state(self):
+        with open(os.path.join(BASE, ".gitignore"), encoding="utf-8") as f:
+            src = f.read()
+        self.assertIn("data/telegram_token", src)
+        self.assertIn("data/tg_state.json", src)
+
+
+class TestFlowmap(unittest.TestCase):
+    """«Карта потока» (projects/flowmap.html): самодостаточная страница с инлайн-d3,
+    без внешних ресурсных ссылок (исключение stdlib-правила — только инлайн d3 v7)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.cfg = CFG
+        cls.trends = generate.load_json(os.path.join(BASE, "data", "trends.json")) or {}
+        cls.an = generate.load_json(os.path.join(BASE, "data", "analytics.json")) or {}
+        cls.info = generate.load_json(os.path.join(BASE, "data", "infospace.json")) or {}
+        cls.store = generate.load_store()
+
+    def _render(self):
+        return generate.render_flowmap(self.cfg, self.trends, self.store, {}, self.an, self.info)
+
+    def test_contains_flow_dataset(self):
+        html = self._render()
+        self.assertIn("var FLOW =", html, "страница должна содержать var FLOW = …")
+        # извлекаем объект после 'var FLOW = ' и валидируем как JSON
+        i = html.index("var FLOW =") + len("var FLOW =")
+        depth = 0
+        started = False
+        end = None
+        for j in range(i, len(html)):
+            c = html[j]
+            if c == "{":
+                depth += 1
+                started = True
+            elif c == "}":
+                depth -= 1
+                if started and depth == 0:
+                    end = j + 1
+                    break
+        self.assertIsNotNone(end, "не удалось выделить JSON FLOW")
+        flow = json.loads(html[i:end])
+        self.assertIsInstance(flow.get("raw"), list, "FLOW.raw (записи) должен быть списком")
+        self.assertIsInstance(flow.get("edges"), list, "FLOW.edges должен быть списком")
+        # при пустом окне render_flowmap сдвигает окно к свежим данным — узлы есть
+        self.assertGreater(len(flow["raw"]), 0, "карта не содержит ни одного узла")
+
+    def test_self_contained_no_external_resources(self):
+        html = self._render()
+        # только ресурсные ссылки: <script src=http>, <link href=http>, url(http), @import url(http)
+        external = (re.findall(r'<script[^>]+src=["\']https?://', html)
+                    + re.findall(r'<link[^>]+href=["\']https?://', html)
+                    + re.findall(r'@import\s+url\(\s*["\']?https?://', html)
+                    + re.findall(r'url\(\s*["\']?https?://', html))
+        self.assertEqual(external, [],
+                         f"flowmap.html ссылается на внешние ресурсы: {external[:5]}")
+
+    def test_d3_inlined(self):
+        html = self._render()
+        # d3 v7 инлайнится прямо в страницу (без внешнего <script src>)
+        self.assertIn("d3.forceSimulation", html,
+                      "ожидается инлайн d3 v7 (forceSimulation) в теле страницы")
+        self.assertNotIn('<script src="https://', html)
+        self.assertNotIn("<script src='https://", html)
+
+    def test_nav_link_present(self):
+        # на самой странице flowmap она — активный пункт поднавигации (span, без href),
+        # но в поднавигации других проектных страниц ссылка на неё есть
+        sub = generate.subnav_projects("", "infospace")
+        self.assertIn("flowmap.html", sub,
+                      "в поднавигации «Проекты» должна быть ссылка на Карту потока")
+        html = self._render()
+        self.assertIn("Карта потока", html,
+                      "текущая страница должна быть отмечена в поднавигации")
+
+    def test_phase2_grouping_fields(self):
+        """Фаза 2: узлы несут поля группировки, а FLOW — справочники режимов зернистости
+        и муниципалитетов (для переключения осей/слоёв без пересборки страницы)."""
+        html = self._render()
+        i = html.index("var FLOW =") + len("var FLOW =")
+        depth = 0; started = False; end = None
+        for j in range(i, len(html)):
+            c = html[j]
+            if c == "{":
+                depth += 1; started = True
+            elif c == "}":
+                depth -= 1
+                if started and depth == 0:
+                    end = j + 1; break
+        flow = json.loads(html[i:end])
+        for f in ("story_clusters", "cascades_meta", "munis"):
+            self.assertIn(f, flow, f"FLOW.{f} должен быть в датасете")
+        self.assertIsInstance(flow["story_clusters"], list)
+        self.assertIsInstance(flow["cascades_meta"], list)
+        self.assertIsInstance(flow["munis"], list)
+        node = flow["raw"][0]
+        for f in ("g_reprint", "g_story", "cascade", "muni"):
+            self.assertIn(f, node, f"узел должен нести поле группировки {f}")
+        # оси Фазы 2 присутствуют в выпадающих списках
+        self.assertIn('value="origin"', html, "ось X «первоисточник↔перепечатка» должна быть")
+        self.assertIn('value="growth"', html, "ось Y «рост» должна быть")
+        self.assertIn('value="story"', html, "режим зернистости «сюжеты» должен быть")
+        self.assertIn('id="fm-muni"', html, "фильтр муниципалитетов должен быть")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

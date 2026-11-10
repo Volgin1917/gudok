@@ -4185,7 +4185,8 @@ def subnav_projects(prefix="", current=""):
              ("methods.html", "Методы", "methods"),
              ("projects/plans.html", "Планы", "plans"),
              ("projects/dossier.html", "Досье", "dossier"),
-             ("projects/pressa.html", "Архив прессы", "pressa")]
+             ("projects/pressa.html", "Архив прессы", "pressa"),
+             ("projects/flowmap.html", "Карта потока", "flowmap")]
     links = "".join(
         f'<span class="cur">{txt}</span>' if key == current
         else f'<a href="{prefix}{href}">{txt}</a>'
@@ -7023,125 +7024,547 @@ def render_infospace(cfg, trends, store, status, info):
 </body></html>"""
 
 
-# ------------------------------------------------------------------ print edition
-def render_print(cfg, trends, store, status, an, isp, date_str, digest_no, dtest):
-    """Печатная полоса A4: газета для PDF/бумаги."""
+# ================================================================== карта потока
+# Модуль «Карта потока» (v0.2, Фаза 1 MVP) — визуализация уже посчитанного
+# инфополя: store.jsonl / analytics.json / infospace.json / trends.json.
+# Исключение из правила «без внешних библиотек»: в вывод инлайнится минифицированный
+# d3 v7 (assets/vendor/d3.v7.min.js), Python-ядро остаётся stdlib. См. AGENTS.md/README.md.
+
+FLOWMAP_CSS = """
+.flowmap-page{position:relative;height:calc(100vh - 210px);margin:10px;border:1px solid var(--rule);
+  border-radius:var(--radius);overflow:hidden;background:var(--bg);box-shadow:var(--shadow);}
+#fm-stage{position:absolute;inset:0;}
+#fm-canvas{display:block;width:100%;height:100%;}
+.fm-toolbar{position:absolute;top:12px;left:12px;z-index:6;background:var(--card);
+  border:1px solid var(--rule);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);
+  font-family:var(--sans);font-size:12.4px;color:var(--ink);max-width:280px;}
+.fm-toolbar .fm-h{font-weight:800;font-size:13px;letter-spacing:.02em;margin-bottom:8px;color:var(--navy);}
+.fm-toolbar label{display:block;margin:6px 0 2px;font-weight:700;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em;}
+.fm-toolbar select{width:100%;padding:4px 6px;border-radius:7px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);font-size:12.4px;}
+.fm-wins{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;}
+.fm-win{font:inherit;font-size:11px;padding:3px 8px;border:1px solid var(--rule);background:var(--bg);color:var(--muted);border-radius:7px;cursor:pointer;}
+.fm-win.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700;}
+.fm-lays{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px;margin-top:10px;}
+.fm-lays label{display:flex;align-items:center;gap:5px;font-weight:600;color:var(--ink);font-size:11.6px;text-transform:none;letter-spacing:0;}
+.fm-note{margin-top:8px;font-size:10.6px;color:var(--muted);line-height:1.4;}
+#fm-card{position:absolute;top:12px;right:12px;width:330px;max-height:calc(100% - 80px);overflow:auto;z-index:7;
+  background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);
+  font-family:var(--sans);color:var(--ink);display:none;}
+#fm-card .fm-close{position:absolute;top:6px;right:9px;border:none;background:none;font-size:20px;cursor:pointer;color:var(--muted);}
+#fm-card .fm-kicker{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
+#fm-card h3{font-family:var(--serif);font-size:16px;line-height:1.25;margin:0 14px 8px 0;color:var(--ink);}
+#fm-card .fm-meta{font-size:11.6px;color:var(--muted);margin-bottom:8px;line-height:1.5;}
+#fm-card .fm-row{font-size:12.4px;margin:5px 0;line-height:1.45;}
+#fm-card .fm-setter{color:#96690a;font-weight:700;}
+#fm-card .fm-links{margin-top:10px;font-size:12px;display:flex;flex-wrap:wrap;gap:4px 10px;}
+#fm-card .fm-links a{color:var(--accent);font-weight:700;}
+#fm-tip{position:fixed;z-index:9;pointer-events:none;display:none;max-width:320px;background:var(--ink);color:#fff;
+  font-family:var(--sans);font-size:11.6px;line-height:1.35;padding:6px 9px;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.3);}
+#fm-tip .m{color:#cfc7ba;}
+#fm-hist{position:absolute;left:0;right:0;bottom:0;height:56px;display:flex;align-items:flex-end;gap:2px;
+  padding:4px 12px;background:linear-gradient(0deg,rgba(0,0,0,.06),transparent);}
+.fm-bar{flex:1;min-width:3px;background:var(--muted);opacity:.5;border-radius:2px 2px 0 0;}
+.fm-bar.on{background:var(--accent);opacity:.85;}
+#fm-legend{position:absolute;left:12px;bottom:64px;z-index:5;max-width:300px;max-height:40%;overflow:auto;
+  background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:8px 11px;box-shadow:var(--shadow);
+  font-family:var(--sans);font-size:11px;color:var(--muted);line-height:1.5;}
+#fm-legend .lg{margin:4px 0;}
+#fm-legend b{color:var(--navy);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;}
+@media (max-width:720px){#fm-card{width:auto;left:12px;right:12px;}#fm-legend{display:none;}}
+@media print{#fm-toolbar,#fm-legend,#fm-hist,#fm-tip{display:none!important;}
+  #fm-card{position:static;display:block;width:auto;box-shadow:none;}
+  #fm-canvas{height:60vh;}}
+"""
+
+FLOWMAP_JS = """(function(){
+  var FLOW = {FLOW_JSON};
+  var raw = FLOW.raw || [];
+  var REC_EDGES = FLOW.edges || [];
+  var STORY = FLOW.story_clusters || [];
+  var MUNIS = FLOW.munis || [];
+  var nowTs = FLOW.now_ts || Math.floor(Date.now()/1000);
+  function cssVar(n,fb){var v=getComputedStyle(document.documentElement).getPropertyValue(n).trim();return v||fb;}
+  var PAL={};
+  function readPal(){PAL={bg:cssVar('--bg','#f4efe6'),card:cssVar('--card','#fffdf8'),ink:cssVar('--ink','#1d1a17'),
+    muted:cssVar('--muted','#6b6258'),rule:cssVar('--rule','#d9cfc0'),accent:cssVar('--accent','#D63F1F'),gold:'#c79a3a'};}
+  readPal();
+  var NEUTRAL='#8a8f99';
+  function esc(s){return (s||'').replace(/[&<>\"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c];});}
+  function norm(s){return (''+(s||'')).toLowerCase().replace(/[^a-zа-я0-9]/g,'');}
+  function tierScore(t){return t===1?1:(t===2?0.6:(t===3?0.3:0.5));}
+  function typeScore(s){s=(s||'').toLowerCase();if(s==='web'||s==='rss')return 0.9;if(s==='tg')return 0.4;if(s==='seed')return 0.3;return 0.5;}
+  function lv(n){return Math.log10((n.views||0)+1);}
+  var MAXV=Math.max(1,d3.max(raw,function(d){return d.views||0;}));
+  function xRec(n,a){
+    if(a==='official'){return 1-(0.6*tierScore(n.tier)+0.4*typeScore(n.type));}
+    if(a==='origin'){ if(n.dup_of)return 0.85; if(n.same_source||(n.cluster_src&&n.cluster_src>1))return 0.7; return 0.15;}
+    if(a==='local'){ if(n.geo)return 0.15; if(n.cascade!=null)return 0.85; return 0.6;}
+    return 0.5;
+  }
+  function yRec(n,a){
+    if(a==='significance'){return 1-(n.sig==null?0.5:n.sig);}
+    if(a==='reach'){return 1-(lv(n)/Math.log10(MAXV+1));}
+    if(a==='cascade'){var m=1; if(n.cascade!=null&&FLOW.cascades_meta[n.cascade])m=Math.max(m,FLOW.cascades_meta[n.cascade].size||1); if(n.g_reprint&&GRP_SIZE[n.g_reprint])m=Math.max(m,GRP_SIZE[n.g_reprint]); return 1-Math.min(1,Math.log10(m+1)/Math.log10(45));}
+    if(a==='growth'){ if(n.status==='rising')return 0.12; if(n.status==='fading')return 0.9; var fresh=n.t!=null?(nowTs-n.t):9e9; return Math.min(1,0.45+fresh/(7*86400)*0.5);}
+    return 0.5;
+  }
+  var GRP_SIZE={}; raw.forEach(function(n){var k=n.g_reprint; if(k!=null&&k!==''){GRP_SIZE[k]=(GRP_SIZE[k]||0)+1;}});
+
+  var AX={x:FLOW.axis.x||'official',y:FLOW.axis.y||'significance'};
+  var GRAN='record';
+  var timeWin=FLOW.window_days||7;
+  var LAYERS=FLOW.layers||{reprints:true,tone:true,setters:true,cascades:true,blind:false};
+  var toneOn=!!LAYERS.tone,setterOn=!!LAYERS.setters,cascadeOn=!!LAYERS.cascades,reprintOn=!!LAYERS.reprints,blindOn=!!LAYERS.blind;
+  var muniFilter=null;
+  // синхронизируем визуальное состояние чекбоксов со слоями из конфигурации
+  document.getElementById('fm-reprint').checked = reprintOn;
+  document.getElementById('fm-tone').checked = toneOn;
+  document.getElementById('fm-setter').checked = setterOn;
+  document.getElementById('fm-cascade').checked = cascadeOn;
+  document.getElementById('fm-blind').checked = blindOn;
+  var byId={}; raw.forEach(function(n){byId[n.id]=n;});
+
+  function visiblePred(n){
+    if(timeWin<9999){ if(n.t==null)return false; if(n.t<nowTs-timeWin*86400)return false; }
+    if(muniFilter){ if(norm(n.geo)!==norm(muniFilter))return false; }
+    return true;
+  }
+  function recTarget(n){return [xRec(n,AX.x),yRec(n,AX.y)];}
+
+  function cloneRec(n){
+    var t=recTarget(n);
+    return {id:n.id,_r:n,x:t[0],y:t[1],tx:t[0],ty:t[1],rec:true,cat:n.cat,geo:n.geo,tier:n.tier,type:n.type,
+      views:n.views,sig:n.sig,tone:n.tone,status:n.status,setter:!!n.setter,dup_of:n.dup_of,t:n.t,url:n.url,
+      title:n.title,topics:n.topics,src:n.src,channel:n.channel,g_story:n.g_story};
+  }
+  function groupKey(n){
+    if(GRAN==='reprint')return (n.g_reprint==null||n.g_reprint==='')?null:n.g_reprint;
+    if(GRAN==='story')return (n.g_story==null)?null:n.g_story;
+    if(GRAN==='cascade')return (n.g_cascade==null)?null:n.g_cascade;
+    return null;
+  }
+  function makeSuper(members,key,kind){
+    var rep=members[0]; members.forEach(function(m){if((m.views||0)>(rep.views||0))rep=m;});
+    var sumV=members.reduce(function(a,m){return a+(m.views||0);},0);
+    var topics=[],seen={}; members.forEach(function(m){(m.topics||[]).forEach(function(tp){if(!seen[tp]){seen[tp]=1;topics.push(tp);}});});
+    var tx=0,ty=0; members.forEach(function(m){var t=recTarget(m);tx+=t[0];ty+=t[1];}); tx/=members.length;ty/=members.length;
+    var gap=(kind==='story'&&STORY[key])?!!STORY[key].gap:false;
+    var name=(kind==='story')?(STORY[key]?STORY[key].name:key):(kind==='cascade')?((FLOW.cascades_meta[key]&&FLOW.cascades_meta[key].name)||key):('Кластер №'+key);
+    return {id:'G'+kind+':'+key,_members:members,x:tx,y:ty,tx:tx,ty:ty,rec:false,cat:rep.cat,geo:rep.geo,muni:rep.muni,tier:rep.tier,
+      type:rep.type,views:sumV,sig:rep.sig,tone:rep.tone,status:rep.status,setter:members.some(function(m){return m.setter;}),
+      dup_of:null,t:rep.t,url:rep.url,title:rep.title,topics:topics.slice(0,8),src:rep.src,channel:rep.channel,
+      repId:rep.id,superName:name,superCount:members.length,gap:gap,kind:kind};
+  }
+  function buildGraph(){
+    if(GRAN==='record'){
+      var nodes=raw.filter(visiblePred).map(cloneRec);
+      var edges=REC_EDGES.filter(function(e){return byId[e.s]&&byId[e.t]&&visiblePred(byId[e.s])&&visiblePred(byId[e.t]);}).map(function(e){return {s:e.s,t:e.t,k:e.k};});
+      return {nodes:nodes,edges:edges};
+    }
+    var groups={},singles=[];
+    raw.forEach(function(n){if(!visiblePred(n))return;var k=groupKey(n);if(k==null)singles.push(n);else{(groups[k]=groups[k]||[]).push(n);}});
+    var nodes=[],owner={};
+    Object.keys(groups).forEach(function(k){var sn=makeSuper(groups[k],k,GRAN);nodes.push(sn);groups[k].forEach(function(m){owner[m.id]=sn.id;});});
+    singles.forEach(function(n){var nd=cloneRec(n);nodes.push(nd);owner[n.id]=nd.id;});
+    var seen={},edges=[];
+    REC_EDGES.forEach(function(e){var a=owner[e.s],b=owner[e.t];if(!a||!b||a===b)return;var key=a+'>'+b;if(seen[key])return;seen[key]=1;edges.push({s:a,t:b,k:e.k});});
+    return {nodes:nodes,edges:edges};
+  }
+
+  var wrap=document.getElementById('fm-stage'),canvas=document.getElementById('fm-canvas'),ctx=canvas.getContext('2d');
+  var W=0,H=0,DPR=Math.min(2,window.devicePixelRatio||1);
+  function resize(){var r=wrap.getBoundingClientRect();W=r.width;H=r.height;canvas.width=W*DPR;canvas.height=H*DPR;canvas.style.width=W+'px';canvas.style.height=H+'px';ctx.setTransform(DPR,0,0,DPR,0,0);}
+  function pad(){return 46;}
+  var graph=buildGraph();
+  function radius(n){var v=n.views||0; return n.rec?Math.max(3,Math.min(26,3+Math.sqrt(v)/Math.sqrt(MAXV)*22)):Math.max(8,Math.min(46,8+Math.sqrt(v)/Math.sqrt(MAXV)*38));}
+  function targetXY(d){return [pad()+d.tx*(W-2*pad()),pad()+d.ty*(H-2*pad())];}
+  var sim=d3.forceSimulation(graph.nodes)
+    .force('x',d3.forceX(function(d){return targetXY(d)[0];}).strength(0.18))
+    .force('y',d3.forceY(function(d){return targetXY(d)[1];}).strength(0.18))
+    .force('charge',d3.forceManyBody().strength(-18))
+    .force('collide',d3.forceCollide(function(d){return radius(d)+3;}))
+    .stop();
+  function reheat(a){sim.alpha(a==null?0.7:a).restart();}
+  function recomputeTargets(){graph.nodes.forEach(function(d){var t; if(d.rec){t=recTarget(d._r);}else{var tx=0,ty=0;d._members.forEach(function(m){var tt=recTarget(m);tx+=tt[0];ty+=tt[1];});tx/=d._members.length;ty/=d._members.length;t=[tx,ty];} d.tx=t[0];d.ty=t[1];});}
+
+  var visibleNodes=graph.nodes;
+  function applyTime(){var g=buildGraph();graph=g;visibleNodes=g.nodes;sim.nodes(g.nodes);recomputeTargets();reheat(0.5);updateHist();}
+  window.closeCard=function(){var c=document.getElementById('fm-card');if(c)c.style.display='none';};
+  function toneColor(t,base){if(!toneOn)return base;if(t==null)return NEUTRAL;return t>0?d3.interpolateRgb(NEUTRAL,'#2f6fb0')(Math.min(1,t)):d3.interpolateRgb(NEUTRAL,'#c0392b')(-Math.min(1,t));}
+  var CATCOL=['#D63F1F','#1d4066','#1d7a4d','#96690a','#6D6079','#2f80ed','#b02a2f','#0e7c6b'];
+  function catColor(cat){var h=0;for(var i=0;i<(cat||'').length;i++)h=(h*31+cat.charCodeAt(i))>>>0;return CATCOL[h%CATCOL.length];}
+  function nodeColor(n){return toneColor(n.tone,catColor(n.cat));}
+  function isDim(n){return !!muniFilter&&n.muni!==muniFilter;}
+  function nodeById(id){for(var i=0;i<visibleNodes.length;i++){if(visibleNodes[i].id===id)return visibleNodes[i];}return null;}
+
+  var hover=null,t0=performance.now();
+  function draw(){
+    ctx.clearRect(0,0,W,H);ctx.fillStyle=PAL.bg;ctx.fillRect(0,0,W,H);
+    var pulse=0.5+0.5*Math.sin((performance.now()-t0)/380);
+    if(reprintOn){ctx.lineWidth=1;graph.edges.forEach(function(e){var a=nodeById(e.s),b=nodeById(e.t);if(!a||!b)return;if(isDim(a)&&isDim(b))return;ctx.strokeStyle=e.k==='reprint'?'rgba(190,120,90,0.28)':'rgba(120,140,170,0.18)';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();});}
+    if(cascadeOn){FLOW.cascades.forEach(function(c,ci){var mem=visibleNodes.filter(function(n){return n.rec?n.g_cascade===ci:(n.kind==='cascade'&&n._members.some(function(m){return m.g_cascade===ci;}));});for(var i=1;i<mem.length;i++){if(isDim(mem[0])&&isDim(mem[i]))continue;ctx.strokeStyle='rgba(198,154,58,0.45)';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(mem[0].x,mem[0].y);ctx.lineTo(mem[i].x,mem[i].y);ctx.stroke();}});}
+    visibleNodes.forEach(function(n){var r=radius(n),col=nodeColor(n),dim=isDim(n);ctx.globalAlpha=dim?0.16:1;
+      if(blindOn&&n.rec&&n.g_story!=null&&STORY[n.g_story]&&STORY[n.g_story].gap){ctx.beginPath();ctx.arc(n.x,n.y,r+5,0,7);ctx.strokeStyle='rgba(176,42,47,0.75)';ctx.setLineDash([3,3]);ctx.lineWidth=1.4;ctx.stroke();ctx.setLineDash([]);}
+      if(setterOn&&n.setter){ctx.beginPath();ctx.arc(n.x,n.y,r+3,0,7);ctx.strokeStyle=PAL.gold;ctx.lineWidth=1.6;ctx.stroke();}
+      var g=ctx.createRadialGradient(n.x-r*0.3,n.y-r*0.3,r*0.2,n.x,n.y,r);g.addColorStop(0,d3.color(col).brighter(0.6));g.addColorStop(1,col);
+      ctx.beginPath();ctx.arc(n.x,n.y,r,0,7);ctx.fillStyle=g;ctx.fill();
+      var fresh=n.t!=null&&(nowTs-n.t)<3*3600,rising=n.status==='rising'||fresh;
+      if(rising){ctx.beginPath();ctx.arc(n.x,n.y,r+4+pulse*4,0,7);ctx.strokeStyle='rgba(214,63,31,'+(0.5*(1-pulse))+')';ctx.lineWidth=2;ctx.stroke();}
+      if(hover===n){ctx.beginPath();ctx.arc(n.x,n.y,r+2,0,7);ctx.strokeStyle=PAL.ink;ctx.lineWidth=2;ctx.stroke();}
+      ctx.globalAlpha=1;});
+    requestAnimationFrame(draw);
+  }
+  function pick(mx,my){var best=null,bd=1e9;visibleNodes.forEach(function(n){if(isDim(n))return;var dx=n.x-mx,dy=n.y-my,d=dx*dx+dy*dy,rr=radius(n)+3;if(d<rr*rr&&d<bd){bd=d;best=n;}});return best;}
+
+  canvas.addEventListener('mousemove',function(ev){var rect=canvas.getBoundingClientRect();var mx=ev.clientX-rect.left,my=ev.clientY-rect.top,best=pick(mx,my);hover=best;var tip=document.getElementById('fm-tip');if(best){tip.style.display='block';tip.style.left=(ev.clientX+12)+'px';tip.style.top=(ev.clientY+12)+'px';tip.innerHTML='<b>'+esc(best.rec?best.title:(best.superName||''))+'</b><br><span class="m">'+(best.rec?(best.src||''):(best.superCount+' узл.'))+'</span>';}else tip.style.display='none';canvas.style.cursor=best?'pointer':'default';});
+  canvas.addEventListener('click',function(ev){var rect=canvas.getBoundingClientRect();var b=pick(ev.clientX-rect.left,ev.clientY-rect.top);if(b)showCard(b);});
+
+  var card=document.getElementById('fm-card');
+  function showCard(n){
+    var d=n.t!=null?new Date(n.t*1000):null;var dt=d?d.toLocaleString('ru-RU'):'—';var dateStr=d?d.toISOString().slice(0,10):'';
+    var head=n.rec?esc(n.title||'без заголовка'):esc(n.superName||'Супер-узел');
+    var sub=n.rec?(n.src||''):(n.superCount+' сообщ. в группе');
+    var extra=n.rec?'':'<div class="fm-row">Узлов в группе: <b>'+n.superCount+'</b> · суммарный охват: '+(n.views||0)+'</div>';
+    card.innerHTML='<button class="fm-close" onclick="closeCard()">×</button>'
+      +'<div class="fm-kicker">'+(n.cat||'')+(n.geo?' · '+esc(n.geo):'')+(n.rec&&n.g_story!=null&&STORY[n.g_story]?' · сюжет: '+esc(STORY[n.g_story].name):'')+'</div>'
+      +'<h3>'+head+'</h3>'
+      +'<div class="fm-meta">'+sub+' · tier '+(n.tier==null?'–':n.tier)+' · 👁 '+(n.views||0)+'<br>'+dt+'</div>'
+      +'<div class="fm-row">Тон: <b style="color:'+toneColor(n.tone,NEUTRAL)+'">'+(n.tone==null?'—':(n.tone>0?'+':'')+n.tone.toFixed(2))+'</b> · Значимость: '+(n.sig==null?'—':(n.sig*100).toFixed(0)+'%')+'</div>'
+      +(n.topics&&n.topics.length?'<div class="fm-row">Темы: '+n.topics.map(esc).join(', ')+'</div>':'')
+      +extra
+      +(n.rec&&n.setter?'<div class="fm-row fm-setter">◈ сеттер повестки</div>':'');
+    var lw=document.createElement('div'); lw.className='fm-links';
+    function addLink(href,text){ if(!href)return; var a=document.createElement('a'); a.href=href; a.textContent=text; if(href.indexOf('http')===0){a.target='_blank';a.rel='noopener';} lw.appendChild(a); lw.appendChild(document.createTextNode(' · ')); }
+    addLink(n.url,'исходник ↗');
+    if(dateStr) addLink('../digests/digest_'+dateStr+'.html','выпуск за день');
+    addLink('../infospace.html','инфопространство');
+    if(n.rec&&n.dup_of){ var sp=document.createElement('span'); sp.style.color='var(--muted)'; sp.textContent='↺ перепечатка'; lw.appendChild(sp); lw.appendChild(document.createTextNode(' · ')); }
+    card.appendChild(lw);
+    card.style.display='block';
+  }
+
+  document.getElementById('fm-x').addEventListener('change',function(e){AX.x=e.target.value;recomputeTargets();reheat(0.5);});
+  document.getElementById('fm-y').addEventListener('change',function(e){AX.y=e.target.value;recomputeTargets();reheat(0.5);});
+  document.getElementById('fm-gran').addEventListener('change',function(e){GRAN=e.target.value;applyTime();});
+  document.getElementById('fm-muni').addEventListener('change',function(e){muniFilter=e.target.value===''?null:e.target.value;applyTime();});
+  document.getElementById('fm-reprint').addEventListener('change',function(e){reprintOn=e.target.checked;});
+  document.getElementById('fm-tone').addEventListener('change',function(e){toneOn=e.target.checked;});
+  document.getElementById('fm-setter').addEventListener('change',function(e){setterOn=e.target.checked;});
+  document.getElementById('fm-cascade').addEventListener('change',function(e){cascadeOn=e.target.checked;});
+  document.getElementById('fm-blind').addEventListener('change',function(e){blindOn=e.target.checked;});
+  Array.prototype.forEach.call(document.querySelectorAll('.fm-win'),function(b){b.addEventListener('click',function(){timeWin=b.dataset.w==='all'?9999:parseInt(b.dataset.w,10);document.querySelectorAll('.fm-win').forEach(function(x){x.classList.remove('on');});b.classList.add('on');applyTime();});});
+  new MutationObserver(readPal).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+  function updateHist(){var days=14,buckets=new Array(days).fill(0);visibleNodes.forEach(function(n){if(n.t==null)return;var d=Math.floor((nowTs-n.t)/86400);if(d>=0&&d<days)buckets[d]++;});var max=Math.max(1,Math.max.apply(null,buckets)),cont=document.getElementById('fm-hist');cont.innerHTML='';for(var i=days-1;i>=0;i--){var h=6+buckets[i]/max*40,active=(days-1-i)<timeWin;var bar=document.createElement('div');bar.className='fm-bar'+(active?' on':'');bar.style.height=h+'px';bar.title=buckets[i]+' сообщ.';cont.appendChild(bar);}}
+
+  resize();
+  window.addEventListener('resize',function(){resize();reheat(0.3);});
+  recomputeTargets();
+  reheat(0.9);
+  updateHist();
+  requestAnimationFrame(draw);
+})();
+"""
+
+
+def render_flowmap(cfg, trends, store, status, an, info):
+    """«Карта потока» (v0.2, Фаза 2): пространственная визуализация инфополя поверх
+    существующего конвейера — с переключением осей («переезд»), всеми слоями, режимами
+    зернистости (запись / перепечатки / сюжеты / каскады) и фильтром муниципалитетов.
+    Модуль НЕ считает аналитику — только раскладывает уже посчитанное по осям через d3-force."""
     now = datetime.now(UTC4)
-    day = datetime.strptime(date_str, "%Y-%m-%d").date()
-    cats = {c["id"]: c for c in cfg["categories"]}
+    if not info:
+        info = {}
+    if not an:
+        an = {}
+    if not trends:
+        trends = {}
+    settings = cfg.get("settings") or {}
+    fcfg = settings.get("flowmap") or {}
+    window_days = int(fcfg.get("window_days", 7))
+    node_cap = int(fcfg.get("node_cap", 1500))
+    sig = settings.get("significance") or {}
+    munis = cfg.get("municipalities") or {}
 
-    win_start = datetime.combine(day, datetime.min.time(), tzinfo=UTC4) - timedelta(hours=30)
-    window = [it for it in store if not it.get("dup_of")
-              and local_dt(it.get("published")) and local_dt(it["published"]) >= win_start]
-    if len(window) < 6:
-        win_start -= timedelta(days=2)
-        window = [it for it in store if not it.get("dup_of")
-                  and local_dt(it.get("published")) and local_dt(it["published"]) >= win_start]
-    pool = [it for it in window if is_regional(it) and it.get("category") != "security"] or window
-    leads = hero_pick(pool, trends, now, 3)
+    def norm(s):
+        return "".join(ch for ch in (s or "").lower() if ch.isalnum())
 
-    ed_path = os.path.join(DATA, f"editorial_{date_str}.md")
-    editorial = ""
-    if os.path.exists(ed_path):
-        editorial = open(ed_path, encoding="utf-8").read().strip()
-        editorial = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", esc(editorial))
-        editorial = "".join(f"<p>{b.strip().replace(chr(10), ' ')}</p>"
-                            for b in editorial.split("\n\n") if b.strip() and not b.strip().startswith("- "))
+    # —— разрешение гео → муниципалитет (по имени и вариантам из config.municipalities) ——
+    muni_patterns = []
+    for _name, _variants in munis.items():
+        _pats = [norm(_name)]
+        if isinstance(_variants, str):
+            _pats += [norm(v) for v in _variants.split("|")]
+        elif isinstance(_variants, (list, tuple)):
+            for _v in _variants:
+                _pats += [norm(str(_v)) for _v in str(_v).split("|")]
+        muni_patterns.append((_name, [p for p in _pats if p]))
 
-    lead = leads[0] if leads else None
-    lead_body = esc((lead.get("text") or "")[:1500]) if lead else ""
-    side_html = ""
-    for m in leads[1:4]:
-        dt = local_dt(m.get("published"))
-        side_html += f"""<div class="pm-item"><b>{esc(clip_words(m['title'],120))}</b>
-<span>{esc(clip_sentences((m.get('text') or ''),220))}</span>
-<i>{cats.get(m.get('category'), {}).get('name', '')} · {dt.strftime('%d.%m %H:%M') if dt else ''} · {esc(m.get('source', ''))}</i></div>"""
+    def resolve_muni(geo):
+        if not geo:
+            return None
+        ng = norm(geo)
+        for _name, _pats in muni_patterns:
+            for _p in _pats:
+                if _p and (_p == ng or _p in ng or ng in _p):
+                    return _name
+        return None
 
-    by_cat = {}
-    lead_ids = {m["id"] for m in leads}
-    for it in window:
-        if it["id"] in lead_ids:
+    # —— опорное «сейчас»: если в окне нет записей (данные старше), сдвигаем окно к свежим ——
+    def _p(it):
+        return local_dt(it.get("published")) if it.get("published") else None
+
+    pubs = [p for p in (_p(r) for r in store) if p]
+    max_pub = max(pubs) if pubs else now
+    win_end = now
+    win_start = now - timedelta(days=window_days)
+    in_window = [r for r in store if (lambda p: p and win_start <= p <= win_end)(_p(r))]
+    if not in_window:
+        win_end = max_pub + timedelta(hours=1)
+        win_start = win_end - timedelta(days=window_days)
+        in_window = [r for r in store if (lambda p: p and win_start <= p <= win_end)(_p(r))]
+    if not in_window:
+        in_window = list(store)[:node_cap]
+
+    # —— производное: статус роста по наклону ряда trends (rising/fading/stable) ——
+    cat_status = {}
+    for cat, d in (trends.get("categories") or {}).items():
+        s = d.get("series") or []
+        if len(s) >= 4:
+            recent = sum(s[-7:]) / max(1, len(s[-7:]))
+            earlier = sum(s[:7]) / max(1, len(s[:7]))
+            if recent > earlier * 1.15:
+                cat_status[cat] = "rising"
+            elif recent < earlier * 0.85:
+                cat_status[cat] = "fading"
+            else:
+                cat_status[cat] = "stable"
+        else:
+            cat_status[cat] = "stable"
+
+    # —— сеттеры / каскады / сюжетные кластеры: нормализованное совпадение ——
+    setters_raw = info.get("setters") or []
+    setter_names = {norm(n) for n, _ in setters_raw}
+    cascades = info.get("cascades") or []
+    cascade_index = {}
+    for i, c in enumerate(cascades):
+        for nm in ([c.get("source")] + list(c.get("also") or [])):
+            cascade_index[norm(nm)] = i
+
+    story_clusters = (an.get("clusters") or [])
+    story_index = {}
+    for i, c in enumerate(story_clusters):
+        for term in (c.get("terms") or []):
+            story_index[norm(term)] = i
+
+    def match(ns, table):
+        for k in table:
+            if k and (k in ns or ns in k):
+                return table[k]
+        return None
+
+    def is_setter(ns):
+        return any(s and (s in ns or ns in s) for s in setter_names)
+
+    def story_of(r):
+        hay = norm((r.get("title") or "") + " " + (r.get("text") or "")[:300])
+        for term, idx in story_index.items():
+            if term and term in hay:
+                return idx
+        return None
+
+    sentiment = (an.get("sentiment") or {}).get("by_category") or {}
+    tone_tier = info.get("tone_by_tier") or {}
+
+    nodes = []
+    for r in in_window:
+        p = _p(r)
+        cat = r.get("category")
+        tier = r.get("tier")
+        s = sig.get(cat)
+        if s is None:
+            s = sig.get(r.get("sub_category"))
+        if s is None:
+            s = 0.5
+        tone = sentiment.get(cat)
+        if tone is None and tier is not None:
+            tone = tone_tier.get("T" + str(tier))
+        ns = norm(r.get("source") or r.get("channel") or "")
+        nodes.append({
+            "id": r.get("id"),
+            "t": int(p.timestamp()) if p else None,
+            "src": r.get("source"),
+            "channel": r.get("channel"),
+            "tier": tier,
+            "type": r.get("source_type"),
+            "views": r.get("views") or 0,
+            "cat": cat,
+            "topics": r.get("topics") or [],
+            "geo": r.get("geo_tag"),
+            "sig": s,
+            "dup_of": r.get("dup_of"),
+            "cluster": r.get("cluster"),
+            "same_source": r.get("same_source"),
+            "cluster_src": r.get("cluster_src"),
+            "url": r.get("url"),
+            "title": r.get("title"),
+            "status": cat_status.get(cat, "stable"),
+            "tone": tone,
+            "setter": is_setter(ns),
+            "cascade": match(ns, cascade_index),
+            "g_reprint": r.get("cluster"),
+            "g_story": story_of(r),
+            "muni": resolve_muni(r.get("geo_tag")),
+        })
+
+    # —— кап узлов: первоисточники → гео-привязанные → по охвату (сохраняем гео-разнообразие) ——
+    if len(nodes) > node_cap:
+        nodes.sort(key=lambda n: (0 if not n.get("dup_of") else 1,
+                                  0 if n.get("muni") else 1,
+                                  -(n.get("views") or 0)))
+        nodes = nodes[:node_cap]
+
+    by_id = {n["id"]: n for n in nodes}
+    edges = []
+    for n in nodes:
+        d = n.get("dup_of")
+        if d and d in by_id:
+            edges.append({"s": d, "t": n["id"], "k": "reprint"})
+    clusters = {}
+    for n in nodes:
+        c = n.get("cluster")
+        if c:
+            clusters.setdefault(c, []).append(n)
+    for members in clusters.values():
+        if len(members) < 2:
             continue
-        by_cat.setdefault(it.get("category", "society"), []).append(it)
-    rubrics = ""
-    for c in cfg["categories"]:
-        items = [it for it in by_cat.get(c["id"], []) if not is_alert(it)]
-        if not items:
-            continue
-        rows = "".join(
-            f"""<div class="pm-item"><b>{esc(clip_words(it['title'],110))}</b>
-<span>{esc(clip_sentences((it.get('text') or ''),160))}</span>
-<i>{(local_dt(it.get('published')) or now):%H:%M} · {esc(it.get('source', ''))}</i></div>"""
-            for it in items[:4])
-        rubrics += f'<div class="pm-h3">{c["icon"]} {esc(c["name"])}</div>{rows}'
+        hub = max(members, key=lambda n: n.get("views") or 0)
+        for m in members:
+            if m is hub:
+                continue
+            edges.append({"s": hub["id"], "t": m["id"], "k": "cluster"})
 
-    tomorrow = day + timedelta(days=1)
-    af = [e for e in (an.get("calendar") or []) if e.get("date") in (day.isoformat(), tomorrow.isoformat())][:8]
-    af_html = "".join(
-        f'<li><b>{e["date"][8:10]}.{e["date"][5:7]} {esc(e.get("time") or "—")}</b> — {esc(clip_words(e["title"],95))}</li>'
-        for e in af) or "<li>Событий на эти дни в афише нет.</li>"
+    # —— слои-справочники (агрегаты) ——
+    gaps = [c.get("name") for c in story_clusters if c.get("gap")]
+    w4 = info.get("w4") or {}
+    fm = ((w4.get("frames") or {}).get("frame_mix") or {})
+    frame_mix = sorted(fm.items(), key=lambda kv: -kv[1])[:6] if isinstance(fm, dict) else []
+    ag = ((w4.get("agency") or {}).get("roles") or {})
+    agency = sorted(ag.items(), key=lambda kv: -kv[1])[:6] if isinstance(ag, dict) else []
 
-    topics = (trends or {}).get("topics", {})
-    top_topic = max(topics.items(), key=lambda kv: (kv[1]["today"], kv[1]["week"]), default=None)
-    sent = (an.get("sentiment") or {})
-    tone = sent.get("today_score") or 0
-    vote_day = datetime(2026, 9, 18, tzinfo=UTC4).date()
-    d_vote = max(0, (vote_day - day).days)
-    n24 = (trends or {}).get("counts", {}).get("last24h", 0)
-    casc = (isp.get("cascades") or [{}])[0]
-    silent = isp.get("silent") or []
+    flow = {
+        "raw": nodes,
+        "edges": edges,
+        "axis": fcfg.get("default_axes", {"x": "official", "y": "significance"}),
+        "layers": fcfg.get("default_layers", {"reprints": True, "tone": True,
+                                             "setters": True, "cascades": True, "blind": False}),
+        "window_days": window_days,
+        "now_ts": int(win_end.timestamp()),
+        "setters": [{"name": n, "count": c} for n, c in setters_raw[:8]],
+        "cascades": [{"size": c.get("size"), "title": c.get("title"),
+                      "source": c.get("source"), "also": c.get("also"), "url": c.get("url")}
+                     for c in cascades[:10]],
+        "cascades_meta": [{"name": c.get("title"), "size": c.get("size")}
+                          for c in cascades[:10]],
+        "story_clusters": [{"name": c.get("name"), "gap": bool(c.get("gap")),
+                            "terms": c.get("terms") or []} for c in story_clusters],
+        "gaps": gaps[:8],
+        "frames": [{"k": k, "v": v} for k, v in frame_mix],
+        "agency": [{"k": k, "v": v} for k, v in agency],
+        "munis": sorted({n["muni"] for n in nodes if n.get("muni")}),
+    }
+    flow_json = json.dumps(flow, ensure_ascii=False, separators=(",", ":"))
+    flow_json = flow_json.replace("</", "<\\/")
 
-    test_mark = " · ТЕСТОВЫЙ НОМЕР" if dtest else ""
-    return f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+    # —— d3 v7 (инлайн, vendored) ——
+    d3_path = os.path.join(BASE, "assets", "vendor", "d3.v7.min.js")
+    d3_src = ""
+    if os.path.exists(d3_path):
+        with open(d3_path, encoding="utf-8") as f:
+            d3_src = f.read()
+    d3_src = re.sub(r"</script", "<\\/script", d3_src, flags=re.I)
+
+    xopts = "".join(
+        f'<option value="{k}"{" selected" if k == flow["axis"]["x"] else ""}>{v}</option>'
+        for k, v in (("official", "офиц. ↔ незав."),
+                     ("origin", "первоист. ↔ перепеч."),
+                     ("local", "локальн. ↔ фед.эхо")))
+    yopts = "".join(
+        f'<option value="{k}"{" selected" if k == flow["axis"]["y"] else ""}>{v}</option>'
+        for k, v in (("significance", "значимость"),
+                     ("reach", "охват (просмотры)"),
+                     ("cascade", "размер каскада"),
+                     ("growth", "рост / свежесть")))
+    gopts = "".join(
+        f'<option value="{k}">{v}</option>'
+        for k, v in (("record", "записи"), ("reprint", "перепечатки"),
+                     ("story", "сюжеты"), ("cascade", "каскады")))
+    mopts = '<option value="">Все муниципалитеты</option>' + "".join(
+        f'<option value="{esc(m)}">{esc(m)}</option>' for m in flow["munis"])
+    wins = "".join(
+        f'<button class="fm-win{" on" if str(d) == str(flow["window_days"]) else ""}" data-w="{d}">{lbl}</button>'
+        for d, lbl in (("1", "24ч"), ("3", "3д"), ("7", "7д"), ("14", "14д"), ("all", "всё")))
+
+    legend_parts = []
+    if flow["setters"]:
+        legend_parts.append("<b>Сеттеры повестки</b><br>" +
+                            " · ".join(esc(s["name"]) + " " + str(s["count"]) for s in flow["setters"]))
+    if flow["gaps"]:
+        legend_parts.append("<b>Слепые зоны</b><br>" + esc("; ".join(flow["gaps"])))
+    if flow["frames"]:
+        legend_parts.append("<b>Фреймы недели</b><br>" +
+                            " · ".join(esc(f["k"]) + " " + str(f["v"]) for f in flow["frames"]))
+    if flow["agency"]:
+        legend_parts.append("<b>Агентность</b><br>" +
+                            " · ".join(esc(a["k"]) + " " + str(a["v"]) for a in flow["agency"]))
+    legend_html = "<hr>".join(f'<div class="lg">{p}</div>' for p in legend_parts) or \
+        '<div class="lg">Нет данных слоёв.</div>'
+
+    html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Гудок № {digest_no} от {day:%d.%m.%Y} — печатная полоса</title>
+<title>Карта потока — информационное поле региона · {cfg.get('brand', 'Гудок')}</title>
 <link rel="icon" type="image/png" href="../assets/logo_gudok.png">
-<style>{CSS}{PRINT_CSS}</style></head>
-<body class="print-mode">
-<div class="pm-toolbar">
-<a href="{digest_link(date_str)}">← Электронный выпуск</a>
-<button onclick="window.print()">🖨 Печать / PDF</button>
+<style>{FLOWMAP_CSS}</style></head><body>
+<header class="masthead"><div class="mast-inner">
+<div class="mast-side">Информационно-аналитическое издание<br>марксистской группы «Победа»</div>
+<div class="mast-title">ГУДОК<span>.</span></div>
+<div class="mast-side mast-side--right">Карта потока инфополя<br><div class="mast-actions">{THEME_BTN}</div></div>
+</div></header>
+{render_nav(cfg, "projects", "../", subnav=subnav_projects("../", "flowmap"))}
+
+<div class="page flowmap-page">
+  <div id="fm-stage">
+    <canvas id="fm-canvas"></canvas>
+    <div class="fm-toolbar">
+      <div class="fm-h">Карта потока</div>
+      <label>Ось X <select id="fm-x">{xopts}</select></label>
+      <label>Ось Y <select id="fm-y">{yopts}</select></label>
+      <label>Зернистость <select id="fm-gran">{gopts}</select></label>
+      <label>Муниципалитет <select id="fm-muni">{mopts}</select></label>
+      <div class="fm-wins">{wins}</div>
+      <div class="fm-lays">
+        <label><input type="checkbox" id="fm-reprint" checked> перепечатки</label>
+        <label><input type="checkbox" id="fm-tone" checked> тональность</label>
+        <label><input type="checkbox" id="fm-setter" checked> сеттеры</label>
+        <label><input type="checkbox" id="fm-cascade" checked> каскады</label>
+        <label><input type="checkbox" id="fm-blind"> слепые зоны</label>
+      </div>
+      <div class="fm-note">узлы — сообщения (или сгруппированные сюжеты/каскады), нити — связи. Клик по узлу — карточка. Пульс — растущие/свежие.</div>
+    </div>
+    <div id="fm-card"></div>
+    <div id="fm-tip"></div>
+    <div id="fm-legend">{legend_html}</div>
+    <div id="fm-hist"></div>
+  </div>
 </div>
-
-<div class="sheet">
-<div class="pm-mast">
-<div class="pm-title">ГУДОК</div>
-<div class="pm-line">информационно-аналитическое издание · выпуск № <b>{digest_no}</b>{test_mark} · {ru_date(day)} · Ульяновск</div>
-<div class="pm-line">марксистская группа «Победа» · для внутреннего распространения · выходит с 11.09.2026</div>
-</div>
-
-<div class="pm-kicker">⟡ Сюжет дня</div>
-<div class="pm-lead-h">{esc(lead['title']) if lead else '—'}</div>
-<div class="pm-deck">{esc(clip_sentences(lead.get('text') or '', 260)) if lead else ''}</div>
-
-<div class="pm-stats">
-<div class="pm-stat"><b>{n24}</b><span>публикаций за сутки</span></div>
-<div class="pm-stat"><b>{top_topic[1]['today'] if top_topic else 0}</b><span>тема дня: {esc(top_topic[1]['name']) if top_topic else '—'}</span></div>
-<div class="pm-stat"><b>{tone:+.2f}</b><span>тон повестки</span></div>
-<div class="pm-stat"><b>{d_vote}</b><span>дн. до голосования</span></div>
-<div class="pm-stat"><b>{casc.get('size', 0)}</b><span>каскад недели, источников</span></div>
-</div>
-
-<div class="cols">
-<p>{lead_body}</p>
-{side_html}
-{rubrics}
-</div>
-
-<div class="pm-box"><h4>Афиша: сегодня и завтра</h4><ul>{af_html}</ul></div>
-
-{'<div class="pm-box"><h4>Колонка редактора</h4><div class="pm-ed">' + editorial + '</div></div>' if editorial else ''}
-
-<div class="pm-colophon">
-<div>Набрано и выпущено автоматически: мониторинг {sum(1 for c in cfg.get('telegram_channels', []) if c.get('enabled'))} Telegram-каналов и {sum(1 for c in cfg.get('rss_sources', []) if c.get('enabled', True))} RSS-лент, {sum(1 for c in cfg.get('web_sources', []) or [] if c.get('enabled', True))} сайт(ов) органов власти; колонку редактора готовит ассистент.</div>
-<div>Материалы принадлежат их изданиям. Листок не является агитацией.{" Зоны инфотишины: " + ", ".join(silent[:4]) + "." if silent else ""}</div>
-</div>
-<div class="pm-page">стр. 1</div>
-</div>
+{footer.render_footer('../')}
+<script>{d3_src}</script>
+<script>{FLOWMAP_JS.replace("{FLOW_JSON}", flow_json)}</script>
 </body></html>"""
+    return html
 
 
-def week_num(cfg, monday):
+# ------------------------------------------------------------------ print editioncfg, monday):
     """Сквозной номер ISO-недели от недели запуска (launch_week_monday)."""
     try:
         base = datetime.strptime(cfg.get("launch_week_monday", "2026-09-07"), "%Y-%m-%d").date()
@@ -8409,6 +8832,13 @@ def main():
         f.write(pressa_html)
     print("[generate] архив прессы: projects/pressa.html (реестр-справочник, ядро)")
 
+    flow_html = render_flowmap_page(cfg, trends, store, status,
+                                    load_json(os.path.join(DATA, "analytics.json")) or {},
+                                    load_json(os.path.join(DATA, "infospace.json")) or {})
+    with open(os.path.join(proj_dir, "flowmap.html"), "w", encoding="utf-8") as f:
+        f.write(flow_html)
+    print("[generate] карта потока: projects/flowmap.html (Canvas + d3-force, v0.2 Фаза 1)")
+
     special_files = sorted(glob.glob(os.path.join(SPECIAL, "*.html")))
     index_html = themed(render_index(cfg, trends, store, status, digest_files, special_files))
     with open(os.path.join(BASE, "index.html"), "w", encoding="utf-8") as f:
@@ -8416,6 +8846,43 @@ def main():
 
     print(f"[generate] выпуск №{digest_no}: digests/digest_{date_str}.html")
     print(f"[generate] витрина: index.html (архив: {len(digest_files)} выпусков, спец: {len(special_files)})")
+
+
+# ------------------------------------------------------------------ flowmap page wrapper
+def _themed(html):
+    now = datetime.now(UTC4)
+    html = html.replace("</head>", THEME_HEAD + "</head>", 1)
+    WD = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"]
+    MR = ["января", "февраля", "марта", "апреля", "мая", "июня",
+          "июля", "августа", "сентября", "октября", "ноября", "декабря"]
+    flag = ('<div class="flagline"><span>' + WD[now.weekday()] + ', '
+            + str(now.day) + ' ' + MR[now.month - 1] + ' ' + str(now.year) + ' г.</span>'
+            '<span>Ульяновск · издание внутреннее</span>'
+            '<span>выпуск собран ' + now.strftime("%H:%M") + '</span></div>')
+    html = html.replace('<header class="topbar"><div class="topbar-inner">',
+                        '<header class="topbar">' + flag + '<div class="topbar-inner">', 1)
+    html = html.replace('<header class="masthead"><div class="mast-inner">',
+                        '<header class="masthead">' + flag + '<div class="mast-inner">', 1)
+    if "<main" not in html:
+        html = re.sub(r'(</nav>(?:<div class="subnav">.*?</div></div>)?)', r'\1<main id="main">',
+                      html, count=1, flags=re.S)
+        html = html.replace('<footer class="footer">', '</main>\n<footer class="footer">', 1)
+    if "</main>" not in html:
+        html = html.replace("</body>", "</main></body>", 1)
+    return html.replace("</body>", THEME_FOOT + "</body>", 1)
+
+
+def _wrap_utilbar(html, prefix=""):
+    return html.replace("</body>", render_utilbar(prefix) + "</body>", 1)
+
+
+def render_flowmap_page(cfg, trends, store, status, an, info):
+    """Итоговая страница «Карты потока» (как в main()): рендер + обёртки темы/утилбара.
+
+    Выделено на уровень модуля, чтобы админ-панель (flowmap_admin.py) пересобирала
+    страницу тем же способом, что и общий конвейер."""
+    html = render_flowmap(cfg, trends, store, status, an, info)
+    return _wrap_utilbar(_themed(html), "../")
 
 
 if __name__ == "__main__":
